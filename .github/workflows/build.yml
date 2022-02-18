@@ -1,0 +1,45 @@
+name: Build Aysko iRacing Data API
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_action:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Avoid pre-populating the NuGet package cache
+    
+    steps:
+      - name: 'Checkout Code'
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Required for MinVer to work properly
+      
+      - name: 'Setup .NET SDK'
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '6.x'
+
+      - name: 'Build Solution'
+        run: dotnet build -c Release
+        working-directory: src
+
+      - name: 'Run Tests'
+        run: dotnet test --no-build --collect:"XPlat Code Coverage"
+        working-directory: src
+
+      - name: 'Upload Artifacts'
+        uses: actions/upload-artifact@v2
+        with:
+          name: NuGet Packages
+          path: |
+            src/**/bin/Release/**/Aydsko.*.nupkg
+            src/**/bin/Release/**/Aydsko.*.snupkg
