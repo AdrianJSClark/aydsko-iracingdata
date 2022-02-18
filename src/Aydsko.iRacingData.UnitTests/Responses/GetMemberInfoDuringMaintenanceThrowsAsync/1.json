@@ -1,0 +1,8 @@
+﻿{
+  "statuscode": 503,
+  "headers": {},
+  "content": {
+    "error": "Site Maintenance",
+    "note": "The site is currently undergoing maintenance. Please try your request later."
+  }
+}

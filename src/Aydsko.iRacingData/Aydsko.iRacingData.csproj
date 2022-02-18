@@ -1,0 +1,89 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <!-- Publish the repository URL in the built .nupkg (in the NuSpec <Repository> element) -->
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+
+    <!-- Embed source files that are not tracked by the source control manager in the PDB -->
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+
+    <!-- Recommended: Embed symbols containing Source Link in the main file (exe/dll) -->
+    <DebugType>embedded</DebugType>
+
+    <PackageIcon>Aydsko iRacing Data API Icon.png</PackageIcon>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(TF_BUILD)' == 'true'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.SuppressMessageAttribute">
+      <_Parameter1>Style</_Parameter1>
+      <_Parameter2>IDE1006:Naming Styles</_Parameter2>
+      <_Parameter3>Justification = "&lt;The company name which supplies this data API uses the lowercase i prefix so this is a proper name.&gt;"</_Parameter3>
+      <_Parameter3_IsLiteral>true</_Parameter3_IsLiteral>
+      <_Parameter4>Scope = "type"</_Parameter4>
+      <_Parameter4_IsLiteral>true</_Parameter4_IsLiteral>
+      <_Parameter5>Target = "~T:Aydsko.iRacingData.iRacingDataClient"</_Parameter5>
+      <_Parameter5_IsLiteral>true</_Parameter5_IsLiteral>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.SuppressMessageAttribute">
+      <_Parameter1>Style</_Parameter1>
+      <_Parameter2>IDE1006:Naming Styles</_Parameter2>
+      <_Parameter3>Justification = "&lt;The company name which supplies this data API uses the lowercase i prefix so this is a proper name.&gt;"</_Parameter3>
+      <_Parameter3_IsLiteral>true</_Parameter3_IsLiteral>
+      <_Parameter4>Scope = "type"</_Parameter4>
+      <_Parameter4_IsLiteral>true</_Parameter4_IsLiteral>
+      <_Parameter5>Target = "~T:Aydsko.iRacingData.iRacingDataClientException"</_Parameter5>
+      <_Parameter5_IsLiteral>true</_Parameter5_IsLiteral>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.SuppressMessageAttribute">
+      <_Parameter1>Style</_Parameter1>
+      <_Parameter2>IDE1006:Naming Styles</_Parameter2>
+      <_Parameter3>Justification = "&lt;The company name which supplies this data API uses the lowercase i prefix so this is a proper name.&gt;"</_Parameter3>
+      <_Parameter3_IsLiteral>true</_Parameter3_IsLiteral>
+      <_Parameter4>Scope = "type"</_Parameter4>
+      <_Parameter4_IsLiteral>true</_Parameter4_IsLiteral>
+      <_Parameter5>Target = "~T:Aydsko.iRacingData.iRacingInMaintenancePeriodException"</_Parameter5>
+      <_Parameter5_IsLiteral>true</_Parameter5_IsLiteral>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.SuppressMessageAttribute">
+      <_Parameter1>Performance</_Parameter1>
+      <_Parameter2>CA1819:Properties should not return arrays</_Parameter2>
+      <_Parameter3>Justification = "&lt;Usage is almost entirely data transfer objects (DTOs) which are one of the exemptions for this rule.&gt;"</_Parameter3>
+      <_Parameter3_IsLiteral>true</_Parameter3_IsLiteral>
+      <_Parameter4>Scope = "module"</_Parameter4>
+      <_Parameter4_IsLiteral>true</_Parameter4_IsLiteral>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.SuppressMessageAttribute">
+      <_Parameter1>Performance</_Parameter1>
+      <_Parameter2>CA1812:Avoid uninstantiated internal classes</_Parameter2>
+      <_Parameter3>Justification = "&lt;Created by a late-bound process when web API results are deserialized.&gt;"</_Parameter3>
+      <_Parameter3_IsLiteral>true</_Parameter3_IsLiteral>
+      <_Parameter4>Scope = "type"</_Parameter4>
+      <_Parameter4_IsLiteral>true</_Parameter4_IsLiteral>
+      <_Parameter5>Target = "~T:Aydsko.iRacingData.IRacingDataClient.LinkResult"</_Parameter5>
+      <_Parameter5_IsLiteral>true</_Parameter5_IsLiteral>
+    </AssemblyAttribute>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
+    <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Assets\Aydsko iRacing Data API Icon.png" Pack="true" PackagePath="\" />
+  </ItemGroup>
+
+</Project>

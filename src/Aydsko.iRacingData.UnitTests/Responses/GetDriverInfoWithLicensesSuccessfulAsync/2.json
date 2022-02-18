@@ -1,0 +1,84 @@
+{
+    "headers": {},
+    "content": {
+        "success": true,
+        "cust_ids": [
+            123456
+        ],
+        "members": [
+            {
+                "cust_id": 123456,
+                "display_name": "Firstname Lastname",
+                "helmet": {
+                    "pattern": 50,
+                    "color1": "981F24",
+                    "color2": "000000",
+                    "color3": "ED2129",
+                    "face_type": 0,
+                    "helmet_type": 0
+                },
+                "last_login": "2022-01-01T00:00:00.000000Z",
+                "member_since": "2012-01-01",
+                "club_id": 34,
+                "club_name": "Australia/NZ",
+                "ai": false,
+                "licenses": [
+                    {
+                        "category_id": 1,
+                        "category": "oval",
+                        "license_level": 2,
+                        "safety_rating": 2.5,
+                        "cpi": 10.10941,
+                        "tt_rating": 1350,
+                        "mpr_num_races": 0,
+                        "color": "fc0706",
+                        "group_name": "Rookie",
+                        "group_id": 1,
+                        "mpr_num_tts": 0
+                    },
+                    {
+                        "category_id": 2,
+                        "category": "road",
+                        "license_level": 19,
+                        "safety_rating": 3.49,
+                        "cpi": 66.7852,
+                        "irating": 2135,
+                        "tt_rating": 1263,
+                        "mpr_num_races": 43,
+                        "color": "0153db",
+                        "group_name": "Class A",
+                        "group_id": 5,
+                        "mpr_num_tts": 1
+                    },
+                    {
+                        "category_id": 3,
+                        "category": "dirt_oval",
+                        "license_level": 2,
+                        "safety_rating": 2.5,
+                        "cpi": 10.10941,
+                        "tt_rating": 1350,
+                        "mpr_num_races": 0,
+                        "color": "fc0706",
+                        "group_name": "Rookie",
+                        "group_id": 1,
+                        "mpr_num_tts": 0
+                    },
+                    {
+                        "category_id": 4,
+                        "category": "dirt_road",
+                        "license_level": 6,
+                        "safety_rating": 2.66,
+                        "cpi": 16.349142,
+                        "irating": 1376,
+                        "tt_rating": 1350,
+                        "mpr_num_races": 2,
+                        "color": "fc8a27",
+                        "group_name": "Class D",
+                        "group_id": 2,
+                        "mpr_num_tts": 0
+                    }
+                ]
+            }
+        ]
+    }
+}
