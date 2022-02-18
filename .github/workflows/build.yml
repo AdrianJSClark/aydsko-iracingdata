@@ -33,7 +33,7 @@ jobs:
         working-directory: src
 
       - name: 'Run Tests'
-        run: dotnet test --no-build --collect:"XPlat Code Coverage"
+        run: dotnet test -c Release --no-build --collect:"XPlat Code Coverage"
         working-directory: src
 
       - name: 'Upload Artifacts'
