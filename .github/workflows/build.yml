@@ -36,8 +36,17 @@ jobs:
         run: dotnet test -c Release --no-build --collect:"XPlat Code Coverage"
         working-directory: src
 
+      - name: 'Copy Package to Root'
+        shell: pwsh
+        run: Get-ChildItem -Path src\*\bin\Release\* -Recurse -Include *.nupkg | Copy-Item -Container:$false
+
+      - name: 'Create Draft Release'
+        run: gh release create --draft --prerelease *.nupkg
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: 'Upload Artifacts'
         uses: actions/upload-artifact@v2
         with:
           name: NuGet Packages
-          path: src/**/bin/Release/**/Aydsko.*.nupkg
+          path: Aydsko.*.nupkg
