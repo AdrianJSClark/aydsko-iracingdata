@@ -1,0 +1,24 @@
+name: Publish Aydsko iRacing Data API to NuGet
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build:
+    name: 'Publish Package'
+    runs-on: windows-latest
+    steps:
+
+    - uses: robinraju/release-downloader@v1.3
+      name: 'Download Package from Release'
+      with:
+        repository: 'AdrianJSClark/aydsko-iracingdata'
+        tag: ${{ github.event.tag_name }}
+        fileName: '*'
+        tarBall: false
+        zipBall: false
+
+    - name: 'Upload to NuGet'
+      shell: pwsh
+      run: dotnet nuget push *.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }}
