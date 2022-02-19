@@ -10,11 +10,14 @@ jobs:
     runs-on: windows-latest
     steps:
 
+    - name: 'Check Tag Value'
+      run: echo ${{ github.event.tag_name }}
+
     - uses: robinraju/release-downloader@v1.3
       name: 'Download Package from Release'
       with:
         repository: 'AdrianJSClark/aydsko-iracingdata'
-        tag: ${{ github.event.tag_name }}
+        tag: '${{ github.event.tag_name }}'
         fileName: '*'
         tarBall: false
         zipBall: false
