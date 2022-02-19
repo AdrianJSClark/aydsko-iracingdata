@@ -90,4 +90,7 @@
     <None Include="Assets\Aydsko iRacing Data API Icon.png" Pack="true" PackagePath="\" />
   </ItemGroup>
 
+  <Target Name="OutputVersionForCI" AfterTargets="MinVer" Condition="'$(TF_BUILD)' == 'true' Or '$(CI)' == 'true'">
+    <Exec Command="echo ::set-output name=BUILDVERSION::$(MinVerVersion)" IgnoreExitCode="true" />
+  </Target>
 </Project>

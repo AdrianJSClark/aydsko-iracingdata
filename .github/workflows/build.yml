@@ -1,4 +1,4 @@
-name: Build Aysko iRacing Data API
+name: Build Aydsko iRacing Data API
 
 on:
   push:
@@ -29,19 +29,24 @@ jobs:
           dotnet-version: '6.x'
 
       - name: 'Build Solution'
-        run: dotnet build -c Release
+        id: build-solution
+        shell: pwsh
         working-directory: src
+        run: dotnet build -c Release
 
       - name: 'Run Tests'
-        run: dotnet test -c Release --no-build --collect:"XPlat Code Coverage"
+        shell: pwsh
         working-directory: src
+        run: dotnet test -c Release --no-build --collect:"XPlat Code Coverage"
 
       - name: 'Copy Package to Root'
         shell: pwsh
         run: Get-ChildItem -Path src\*\bin\Release\* -Recurse -Include *.nupkg | Copy-Item -Container:$false
 
       - name: 'Create Draft Release'
-        run: gh release create --draft --prerelease *.nupkg
+        shell: pwsh
+        # Can't just use wildcard in this command due to https://github.com/cli/cli/issues/5099
+        run: gh release create --draft --prerelease ${{ steps.build-solution.outputs.BUILDVERSION }} (Get-Item *.nupkg)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
