@@ -91,6 +91,11 @@
   </ItemGroup>
 
   <Target Name="OutputVersionForCI" AfterTargets="MinVer" Condition="'$(TF_BUILD)' == 'true' Or '$(CI)' == 'true'">
+    <PropertyGroup>
+      <IsPreReleaseBuild>true</IsPreReleaseBuild>
+      <IsPreReleaseBuild Condition="'$(MinVerPreRelease)' == ''">false</IsPreReleaseBuild>
+    </PropertyGroup>
     <Exec Command="echo ::set-output name=BUILDVERSION::$(MinVerVersion)" IgnoreExitCode="true" />
+    <Exec Command="echo ::set-output name=PRERELEASE::$(IsPreReleaseBuild)" IgnoreExitCode="true" />
   </Target>
 </Project>

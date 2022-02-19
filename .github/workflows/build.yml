@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
   pull_request:
     branches:
       - main
@@ -43,10 +45,19 @@ jobs:
         shell: pwsh
         run: Get-ChildItem -Path src\*\bin\Release\* -Recurse -Include *.nupkg | Copy-Item -Container:$false
 
-      - name: 'Create Draft Release'
+      - name: 'Create Draft Pre-Release'
+        if: ${{ steps.build-solution.outputs.PRERELEASE == 'true' }}
         shell: pwsh
-        # Can't just use wildcard in this command due to https://github.com/cli/cli/issues/5099
-        run: gh release create --draft --prerelease ${{ steps.build-solution.outputs.BUILDVERSION }} (Get-Item *.nupkg)
+        # Can't just use wildcard in this command due to https://github.com/cli/cli/issues/5099 so use Get-Item
+        run: gh release create --draft --generate-notes --prerelease ${{ steps.build-solution.outputs.BUILDVERSION }} (Get-Item *.nupkg)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: 'Create Draft Release'
+        if: ${{ steps.build-solution.outputs.PRERELEASE == 'false' }}
+        shell: pwsh
+        # Can't just use wildcard in this command due to https://github.com/cli/cli/issues/5099 so use Get-Item
+        run: gh release create --draft --generate-notes ${{ steps.build-solution.outputs.BUILDVERSION }} (Get-Item *.nupkg)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
