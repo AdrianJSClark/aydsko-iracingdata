@@ -16,6 +16,7 @@
     <DebugType>embedded</DebugType>
 
     <PackageIcon>Aydsko iRacing Data API Icon.png</PackageIcon>
+    <PackageReadmeFile>Package README.md</PackageReadmeFile>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(TF_BUILD)' == 'true' Or '$(CI)' == 'true'">
@@ -88,6 +89,7 @@
 
   <ItemGroup>
     <None Include="Assets\Aydsko iRacing Data API Icon.png" Pack="true" PackagePath="\" />
+    <None Include="Package README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
   <Target Name="OutputVersionForCI" AfterTargets="MinVer" Condition="'$(TF_BUILD)' == 'true' Or '$(CI)' == 'true'">
