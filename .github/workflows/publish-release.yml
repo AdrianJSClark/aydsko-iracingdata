@@ -11,13 +11,13 @@ jobs:
     steps:
 
     - name: 'Check Tag Value'
-      run: echo ${{ toJSON(github.event) }}
+      run: echo ${{ github.event.release.tag_name }}
 
     - uses: robinraju/release-downloader@v1.3
       name: 'Download Package from Release'
       with:
         repository: 'AdrianJSClark/aydsko-iracingdata'
-        tag: '${{ github.event.tag_name }}'
+        tag: '${{ github.event.release.tag_name }}'
         fileName: '*'
         tarBall: false
         zipBall: false
