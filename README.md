@@ -1,3 +1,5 @@
+<img src="Aydsko iRacing Data API ReadMe Logo.png" alt="Aydsko iRacing Data API Logo, which contains the characters &quot;{&quot;, &quot;0&quot;, &quot;1&quot;, and &quot;}&quot; on a red & blue field with &quot;Data API&quot; written below." width="100" />
+
 # Aydsko iRacing Data API
 
 [iRacing](https://www.iracing.com) is the leading online racing simulation for PC. During events hosted via the iRacing service there is a large amount of data created related to race results and member participation in events.
@@ -52,7 +54,7 @@ public class ExampleService
 
 Before you begin a contribution, please read and ensure you are comfortable with this project's [Code of Conduct](CODE_OF_CONDUCT.md).
 
-[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](code_of_conduct.md)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
 
 To build & develop on the codebase you'll need:
 
