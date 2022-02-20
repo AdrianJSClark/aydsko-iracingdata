@@ -1,0 +1,1 @@
+﻿This release includes basic functionality which allows you to authenticate & query particular data items from the iRacing Data API.

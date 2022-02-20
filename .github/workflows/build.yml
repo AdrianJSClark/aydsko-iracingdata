@@ -59,7 +59,7 @@ jobs:
         if: ${{ steps.build-solution.outputs.PRERELEASE == 'false' }}
         shell: pwsh
         # Can't just use wildcard in this command due to https://github.com/cli/cli/issues/5099 so use Get-Item
-        run: gh release create --draft --title "${{ steps.build-solution.outputs.BUILDVERSION }}" "release-${{ steps.build-solution.outputs.BUILDVERSION }}" (Get-Item *.nupkg)
+        run: gh release create --draft --title "${{ steps.build-solution.outputs.BUILDVERSION }}" --notes-file "src\Aydsko.iRacingData\Package Release Notes.txt" "release-${{ steps.build-solution.outputs.BUILDVERSION }}" (Get-Item *.nupkg)
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
