@@ -11,7 +11,7 @@ jobs:
     steps:
 
     - name: 'Check Tag Value'
-      run: echo ${{ github.event.tag_name }}
+      run: echo ${{ toJSON(github.event) }}
 
     - uses: robinraju/release-downloader@v1.3
       name: 'Download Package from Release'
