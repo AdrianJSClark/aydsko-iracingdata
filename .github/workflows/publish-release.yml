@@ -17,6 +17,7 @@ jobs:
       name: 'Download Package from Release'
       with:
         repository: 'AdrianJSClark/aydsko-iracingdata'
+        token: ${{ secrets.GITHUB_TOKEN }}
         tag: '${{ github.event.release.tag_name }}'
         fileName: '*'
         tarBall: false
