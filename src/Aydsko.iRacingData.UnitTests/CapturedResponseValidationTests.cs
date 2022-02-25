@@ -188,4 +188,21 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
             var myInfo = await sut.GetMyInfoAsync().ConfigureAwait(false);
         });
     }
+
+    [Test(TestOf = typeof(iRacingDataClient))]
+    public async Task GetTracksSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetTracksSuccessfulAsync)).ConfigureAwait(false);
+        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
+
+        var tracks = await sut.GetTracksAsync().ConfigureAwait(false);
+
+        Assert.That(tracks, Is.Not.Null);
+        Assert.That(tracks!.Data, Is.Not.Null);
+
+        Assert.That(tracks.Data, Has.Length.EqualTo(332));
+        Assert.That(tracks.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(tracks.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(tracks.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+    }
 }

@@ -8,6 +8,7 @@ using Aydsko.iRacingData.Member;
 using Aydsko.iRacingData.Results;
 using Aydsko.iRacingData.Series;
 using Aydsko.iRacingData.Stats;
+using Aydsko.iRacingData.Tracks;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Globalization;
 using System.Net.Http.Headers;
@@ -285,7 +286,21 @@ public class iRacingDataClient
 
     // TODO - "track/assets"
 
-    // TODO - "track/get"
+    /// <summary>Retrieve information about the tracks.</summary>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the season & optionally series detail in a <see cref="Tracks.Track"/> array.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    public async Task<DataResponse<Tracks.Track[]>> GetTracksAsync(CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            throw new InvalidOperationException("Must be logged in before requesting data.");
+        }
+
+        var getTrackUrl = "https://members-ng.iracing.com/data/track/get";
+        return await CreateResponseViaInfoLinkAsync(new Uri(getTrackUrl), TrackArrayContext.Default.TrackArray, cancellationToken).ConfigureAwait(false);
+    }
 
     private async Task<DataResponse<TData>> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
     {

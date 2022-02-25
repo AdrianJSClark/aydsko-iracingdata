@@ -21,4 +21,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Responses/**/*.json" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Responses\GetTracksSuccessfulAsync\" />
+  </ItemGroup>
 </Project>
