@@ -10,6 +10,8 @@ This library allows access via .NET to the iRacing "Data API". These APIs allow 
 
 ## Install the Package
 
+[![Nuget](https://img.shields.io/nuget/dt/Aydsko.iRacingData?color=004880&label=NuGet&logo=NuGet)](https://www.nuget.org/packages/Aydsko.iRacingData)
+
 The library is distributed as a NuGet package. Install using your package manager of choice.
 
 To install using the `dotnet` command:
