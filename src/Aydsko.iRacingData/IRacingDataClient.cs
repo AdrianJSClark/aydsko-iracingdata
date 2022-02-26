@@ -284,7 +284,22 @@ public class iRacingDataClient
 
     // TODO - "stats/member_yearly"
 
-    // TODO - "track/assets"
+    /// <summary>Retrieve information about the track assets.</summary>
+    /// <remarks>Image paths are relative to https://images-static.iracing.com/.</remarks>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the season & optionally series detail in a <see cref="Tracks.Track"/> array.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    public async Task<DataResponse<IReadOnlyDictionary<string, TrackAssets>>> GetTrackAssetsAsync(CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            throw new InvalidOperationException("Must be logged in before requesting data.");
+        }
+
+        var getTrackUrl = "https://members-ng.iracing.com/data/track/assets";
+        return await CreateResponseViaInfoLinkAsync(new Uri(getTrackUrl), TrackAssetsArrayContext.Default.IReadOnlyDictionaryStringTrackAssets, cancellationToken).ConfigureAwait(false);
+    }
 
     /// <summary>Retrieve information about the tracks.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
