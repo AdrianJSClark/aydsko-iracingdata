@@ -20,8 +20,15 @@ public class Schedule
     public string SeasonName { get; set; } = default!;
     [JsonPropertyName("schedule_name")]
     public string ScheduleName { get; set; } = default!;
+
+#if NET6_0_OR_GREATER
     [JsonPropertyName("start_date"), JsonConverter(typeof(DateOnlyConverter))]
     public DateOnly StartDate { get; set; } = default!;
+#else
+    [JsonPropertyName("start_date"), JsonConverter(typeof(DateTimeConverter))]
+    public DateTime StartDate { get; set; } = default!;
+#endif
+
     [JsonPropertyName("simulated_time_multiplier")]
     public int SimulatedTimeMultiplier { get; set; }
     [JsonPropertyName("race_lap_limit")]
