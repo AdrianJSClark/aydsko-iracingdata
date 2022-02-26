@@ -7,10 +7,9 @@ using System.Text.Json.Serialization;
 
 namespace Aydsko.iRacingData.Converters;
 
-#if NET6_0_OR_GREATER
-public class DateOnlyConverter : JsonConverter<DateOnly>
+public class DateTimeConverter : JsonConverter<DateTime>
 {
-    public override DateOnly Read(ref Utf8JsonReader reader,
+    public override DateTime Read(ref Utf8JsonReader reader,
                                   Type typeToConvert,
                                   JsonSerializerOptions options)
     {
@@ -21,20 +20,14 @@ public class DateOnlyConverter : JsonConverter<DateOnly>
             return default;
         }
 
-        var dateValue = DateOnly.ParseExact(dateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+        var dateValue = DateTime.ParseExact(dateString, "yyyy-MM-dd", CultureInfo.InvariantCulture);
         return dateValue;
     }
 
-    public override void Write(Utf8JsonWriter writer,
-                               DateOnly value,
+    public override void Write(Utf8JsonWriter writer!!,
+                               DateTime value,
                                JsonSerializerOptions options)
     {
-        if (writer is null)
-        {
-            throw new ArgumentNullException(nameof(writer));
-        }
-
         writer.WriteStringValue(value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
     }
 }
-#endif

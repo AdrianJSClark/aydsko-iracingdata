@@ -31,6 +31,6 @@ public class CsvStringConverter : JsonConverter<string[]>
             throw new ArgumentNullException(nameof(writer));
         }
 
-        writer.WriteStringValue(string.Join(',', value));
+        writer.WriteStringValue(string.Join(",", value));
     }
 }

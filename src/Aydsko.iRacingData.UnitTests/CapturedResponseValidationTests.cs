@@ -205,4 +205,50 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(tracks.TotalRateLimit, Is.EqualTo(100));
         Assert.That(tracks.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
+
+    [Test(TestOf = typeof(iRacingDataClient))]
+    public async Task GetSeasonsWithoutSeriesSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetSeasonsWithoutSeriesSuccessfulAsync)).ConfigureAwait(false);
+        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
+
+        var seasons = await sut.GetSeasonsAsync(false).ConfigureAwait(false);
+
+        Assert.That(seasons, Is.Not.Null);
+        Assert.That(seasons!.Data, Is.Not.Null);
+
+        Assert.That(seasons.Data, Has.Length.EqualTo(96));
+        Assert.That(seasons.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(seasons.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(seasons.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+
+#if NET6_0_OR_GREATER
+        Assert.That(seasons.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateOnly(2022, 02, 15)));
+#else
+        Assert.That(seasons.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateTime(2022, 02, 15)));
+#endif
+    }
+
+    [Test(TestOf = typeof(iRacingDataClient))]
+    public async Task GetSeasonsWithSeriesSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetSeasonsWithSeriesSuccessfulAsync)).ConfigureAwait(false);
+        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
+
+        var seasonsAndSeries = await sut.GetSeasonsAsync(true).ConfigureAwait(false);
+
+        Assert.That(seasonsAndSeries, Is.Not.Null);
+        Assert.That(seasonsAndSeries!.Data, Is.Not.Null);
+
+        Assert.That(seasonsAndSeries.Data, Has.Length.EqualTo(96));
+        Assert.That(seasonsAndSeries.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(seasonsAndSeries.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(seasonsAndSeries.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+
+#if NET6_0_OR_GREATER
+        Assert.That(seasonsAndSeries.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateOnly(2022, 02, 15)));
+#else
+        Assert.That(seasonsAndSeries.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateTime(2022, 02, 15)));
+#endif
+    }
 }
