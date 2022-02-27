@@ -234,7 +234,29 @@ public class iRacingDataClient
         return await CreateResponseViaInfoLinkAsync(new Uri(subSessionResultUrl), SubSessionResultContext.Default.SubSessionResult, cancellationToken).ConfigureAwait(false);
     }
 
-    // TODO - "results/seson_results" data
+    /// <summary>Retrieve information about the races run during a week in the season.</summary>
+    /// <param name="seasonId">Unique identifier for the racing season.</param>
+    /// <param name="eventType">The type of events to return.</param>
+    /// <param name="raceWeekNumber">Week number within the given season, starting with 0 for the first week.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the races in a <see cref="SeasonResults"/> object.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    public async Task<DataResponse<SeasonResults>> GetSeasonResultsAsync(int seasonId, EventType eventType, int raceWeekNumber, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            throw new InvalidOperationException("Must be logged in before requesting data.");
+        }
+
+        var seasonResultsUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/season_results", new Dictionary<string, string>
+        {
+            { "season_id", seasonId.ToString(CultureInfo.InvariantCulture) },
+            { "event_type", eventType.ToString("D") },
+            { "race_week_num", raceWeekNumber.ToString(CultureInfo.InvariantCulture) }
+        });
+        return await CreateResponseViaInfoLinkAsync(new Uri(seasonResultsUrl), SeasonResultsContext.Default.SeasonResults, cancellationToken).ConfigureAwait(false);
+    }
 
     /// <summary>Retrieve information about the season & series.</summary>
     /// <param name="includeSeries">Indicate if the series details should be included.</param>

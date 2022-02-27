@@ -268,4 +268,15 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(trackAssets.TotalRateLimit, Is.EqualTo(100));
         Assert.That(trackAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
+
+    [Test(TestOf = typeof(iRacingDataClient))]
+    public async Task GetSeasonResultsHandlesBadRequestAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetSeasonResultsHandlesBadRequestAsync)).ConfigureAwait(false);
+        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
+
+        Assert.That(async () => {
+            var badRequestResult = await sut.GetSeasonResultsAsync(0, Results.EventType.Race, 0, CancellationToken.None).ConfigureAwait(false);
+        }, Throws.Exception.InstanceOf(typeof(HttpRequestException)).And.Message.Contains("400 (Bad Request)"));
+    }
 }
