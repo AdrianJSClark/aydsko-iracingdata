@@ -251,4 +251,21 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(seasonsAndSeries.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateTime(2022, 02, 15)));
 #endif
     }
+
+    [Test(TestOf = typeof(iRacingDataClient))]
+    public async Task GetTrackAssetsSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetTrackAssetsSuccessfulAsync)).ConfigureAwait(false);
+        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
+
+        var trackAssets = await sut.GetTrackAssetsAsync().ConfigureAwait(false);
+
+        Assert.That(trackAssets, Is.Not.Null);
+        Assert.That(trackAssets!.Data, Is.Not.Null);
+
+        Assert.That(trackAssets.Data, Has.Count.EqualTo(332));
+        Assert.That(trackAssets.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(trackAssets.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(trackAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+    }
 }
