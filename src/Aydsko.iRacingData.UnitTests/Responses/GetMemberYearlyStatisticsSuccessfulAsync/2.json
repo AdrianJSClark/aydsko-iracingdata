@@ -1,0 +1,46 @@
+{
+    "headers": {},
+    "content": {
+        "stats": [
+            {
+                "category_id": 2,
+                "category": "Road",
+                "starts": 53,
+                "wins": 0,
+                "top5": 20,
+                "poles": 1,
+                "avg_start_position": 10,
+                "avg_finish_position": 9,
+                "laps": 712,
+                "laps_led": 5,
+                "avg_incidents": 3.5,
+                "avg_points": 78,
+                "win_percentage": 0,
+                "top5_percentage": 46.59,
+                "laps_led_percentage": 0.8,
+                "total_club_points": 0,
+                "year": 2022
+            },
+            {
+                "category_id": 2,
+                "category": "Road",
+                "starts": 161,
+                "wins": 5,
+                "top5": 39,
+                "poles": 4,
+                "avg_start_position": 9,
+                "avg_finish_position": 11,
+                "laps": 3312,
+                "laps_led": 96,
+                "avg_incidents": 5.6335,
+                "avg_points": 51,
+                "win_percentage": 3.11,
+                "top5_percentage": 24.22,
+                "laps_led_percentage": 2.9,
+                "total_club_points": 0,
+                "year": 2021
+            }
+        ],
+        "cust_id": 123456
+    }
+}
