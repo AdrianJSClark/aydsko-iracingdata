@@ -1,0 +1,2071 @@
+{
+    "headers": {},
+    "content": {
+        "results_list": [
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-01T00:00:00Z",
+                "session_id": 170133200,
+                "subsession_id": 44178217,
+                "official_session": true,
+                "event_strength_of_field": 2206,
+                "event_best_lap_time": 721378,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 2,
+                "num_drivers": 18,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-01T02:00:00Z",
+                "session_id": 170139995,
+                "subsession_id": 44180695,
+                "official_session": true,
+                "event_strength_of_field": 1974,
+                "event_best_lap_time": 722825,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 22,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-01T04:00:00Z",
+                "session_id": 170146744,
+                "subsession_id": 44182412,
+                "official_session": false,
+                "event_strength_of_field": 1671,
+                "event_best_lap_time": -1,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 1,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-01T06:00:00Z",
+                "session_id": 170153023,
+                "subsession_id": 44183747,
+                "official_session": true,
+                "event_strength_of_field": 1858,
+                "event_best_lap_time": 726692,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 1,
+                "num_drivers": 8,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-01T10:00:00Z",
+                "session_id": 170165293,
+                "subsession_id": 44186014,
+                "official_session": true,
+                "event_strength_of_field": 2823,
+                "event_best_lap_time": 729518,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 1,
+                "num_drivers": 7,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-01T12:00:00Z",
+                "session_id": 170171409,
+                "subsession_id": 44187145,
+                "official_session": true,
+                "event_strength_of_field": 2285,
+                "event_best_lap_time": 721019,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 1,
+                "num_drivers": 8,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-01T14:00:00Z",
+                "session_id": 170177528,
+                "subsession_id": 44188308,
+                "official_session": true,
+                "event_strength_of_field": 1960,
+                "event_best_lap_time": 713319,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 9,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-01T16:00:00Z",
+                "session_id": 170183645,
+                "subsession_id": 44189601,
+                "official_session": true,
+                "event_strength_of_field": 2023,
+                "event_best_lap_time": 722202,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 6,
+                "num_drivers": 22,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-01T18:00:00Z",
+                "session_id": 170189809,
+                "subsession_id": 44191072,
+                "official_session": true,
+                "event_strength_of_field": 2897,
+                "event_best_lap_time": 722629,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 8,
+                "num_drivers": 17,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-01T18:00:00Z",
+                "session_id": 170189809,
+                "subsession_id": 44191073,
+                "official_session": true,
+                "event_strength_of_field": 1579,
+                "event_best_lap_time": 728696,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 2,
+                "num_drivers": 16,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-01T20:00:00Z",
+                "session_id": 170196094,
+                "subsession_id": 44192761,
+                "official_session": true,
+                "event_strength_of_field": 1517,
+                "event_best_lap_time": 726993,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 2,
+                "num_drivers": 21,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-01T20:00:00Z",
+                "session_id": 170196094,
+                "subsession_id": 44192760,
+                "official_session": true,
+                "event_strength_of_field": 2803,
+                "event_best_lap_time": 719098,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 1,
+                "num_drivers": 21,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-01T22:00:00Z",
+                "session_id": 170202425,
+                "subsession_id": 44194455,
+                "official_session": true,
+                "event_strength_of_field": 2687,
+                "event_best_lap_time": 723119,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 2,
+                "num_drivers": 17,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-01T22:00:00Z",
+                "session_id": 170202425,
+                "subsession_id": 44194456,
+                "official_session": true,
+                "event_strength_of_field": 1514,
+                "event_best_lap_time": 726117,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 6,
+                "num_drivers": 17,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-02T00:00:00Z",
+                "session_id": 170208725,
+                "subsession_id": 44196176,
+                "official_session": true,
+                "event_strength_of_field": 2243,
+                "event_best_lap_time": 727027,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 6,
+                "num_drivers": 21,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-02T02:00:00Z",
+                "session_id": 170215157,
+                "subsession_id": 44198123,
+                "official_session": true,
+                "event_strength_of_field": 2015,
+                "event_best_lap_time": 714754,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 4,
+                "num_drivers": 26,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-02T04:00:00Z",
+                "session_id": 170221695,
+                "subsession_id": 44199817,
+                "official_session": true,
+                "event_strength_of_field": 1959,
+                "event_best_lap_time": 727916,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 6,
+                "num_drivers": 16,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-02T06:00:00Z",
+                "session_id": 170227968,
+                "subsession_id": 44201153,
+                "official_session": false,
+                "event_strength_of_field": 2192,
+                "event_best_lap_time": -1,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 2,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-02T08:00:00Z",
+                "session_id": 170234123,
+                "subsession_id": 44202306,
+                "official_session": false,
+                "event_strength_of_field": 2032,
+                "event_best_lap_time": 742008,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 2,
+                "num_drivers": 2,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-02T10:00:00Z",
+                "session_id": 170240259,
+                "subsession_id": 44203448,
+                "official_session": true,
+                "event_strength_of_field": 2164,
+                "event_best_lap_time": 732758,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 1,
+                "num_drivers": 9,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-02T14:00:00Z",
+                "session_id": 170252498,
+                "subsession_id": 44205771,
+                "official_session": true,
+                "event_strength_of_field": 2097,
+                "event_best_lap_time": 722604,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 13,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-02T16:00:00Z",
+                "session_id": 170258624,
+                "subsession_id": 44207076,
+                "official_session": true,
+                "event_strength_of_field": 2124,
+                "event_best_lap_time": 722634,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 3,
+                "num_drivers": 24,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-02T18:00:00Z",
+                "session_id": 170264800,
+                "subsession_id": 44208533,
+                "official_session": true,
+                "event_strength_of_field": 2856,
+                "event_best_lap_time": 717332,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 7,
+                "num_drivers": 20,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-02T18:00:00Z",
+                "session_id": 170264800,
+                "subsession_id": 44208534,
+                "official_session": true,
+                "event_strength_of_field": 1465,
+                "event_best_lap_time": 726450,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 3,
+                "num_drivers": 18,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-02T20:00:00Z",
+                "session_id": 170271083,
+                "subsession_id": 44210275,
+                "official_session": true,
+                "event_strength_of_field": 2074,
+                "event_best_lap_time": 732363,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 20,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-02T20:00:00Z",
+                "session_id": 170271083,
+                "subsession_id": 44210274,
+                "official_session": true,
+                "event_strength_of_field": 3401,
+                "event_best_lap_time": 721813,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 20,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-02T20:00:00Z",
+                "session_id": 170271083,
+                "subsession_id": 44210276,
+                "official_session": true,
+                "event_strength_of_field": 1477,
+                "event_best_lap_time": 730635,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 3,
+                "num_drivers": 19,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-02T22:00:00Z",
+                "session_id": 170277426,
+                "subsession_id": 44212024,
+                "official_session": true,
+                "event_strength_of_field": 1632,
+                "event_best_lap_time": 721014,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 15,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-02T22:00:00Z",
+                "session_id": 170277426,
+                "subsession_id": 44212023,
+                "official_session": true,
+                "event_strength_of_field": 3049,
+                "event_best_lap_time": 716802,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 5,
+                "num_drivers": 16,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-03T00:00:00Z",
+                "session_id": 170283705,
+                "subsession_id": 44213672,
+                "official_session": true,
+                "event_strength_of_field": 1868,
+                "event_best_lap_time": 717383,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 3,
+                "num_drivers": 22,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-03T02:00:00Z",
+                "session_id": 170290118,
+                "subsession_id": 44215584,
+                "official_session": true,
+                "event_strength_of_field": 1951,
+                "event_best_lap_time": 715053,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 1,
+                "num_drivers": 16,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-03T04:00:00Z",
+                "session_id": 170296649,
+                "subsession_id": 44217298,
+                "official_session": true,
+                "event_strength_of_field": 1653,
+                "event_best_lap_time": 709216,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 5,
+                "num_drivers": 12,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-03T06:00:00Z",
+                "session_id": 170302940,
+                "subsession_id": 44218642,
+                "official_session": false,
+                "event_strength_of_field": 1933,
+                "event_best_lap_time": 747722,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 2,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-03T08:00:00Z",
+                "session_id": 170309103,
+                "subsession_id": 44219789,
+                "official_session": true,
+                "event_strength_of_field": 1882,
+                "event_best_lap_time": 728191,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 6,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-03T10:00:00Z",
+                "session_id": 170315239,
+                "subsession_id": 44220926,
+                "official_session": true,
+                "event_strength_of_field": 2150,
+                "event_best_lap_time": 721400,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 9,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-03T12:00:00Z",
+                "session_id": 170321367,
+                "subsession_id": 44222095,
+                "official_session": false,
+                "event_strength_of_field": 1142,
+                "event_best_lap_time": -1,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 2,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-03T14:00:00Z",
+                "session_id": 170327478,
+                "subsession_id": 44223248,
+                "official_session": true,
+                "event_strength_of_field": 1824,
+                "event_best_lap_time": 729753,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 8,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-03T16:00:00Z",
+                "session_id": 170333601,
+                "subsession_id": 44224545,
+                "official_session": true,
+                "event_strength_of_field": 1913,
+                "event_best_lap_time": 721717,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 15,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-03T18:00:00Z",
+                "session_id": 170339786,
+                "subsession_id": 44226031,
+                "official_session": true,
+                "event_strength_of_field": 1443,
+                "event_best_lap_time": 722399,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 5,
+                "num_drivers": 16,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-03T18:00:00Z",
+                "session_id": 170339786,
+                "subsession_id": 44226030,
+                "official_session": true,
+                "event_strength_of_field": 3283,
+                "event_best_lap_time": 714427,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 17,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-03T20:00:00Z",
+                "session_id": 170346076,
+                "subsession_id": 44227777,
+                "official_session": true,
+                "event_strength_of_field": 3231,
+                "event_best_lap_time": 717898,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 2,
+                "num_drivers": 21,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-03T20:00:00Z",
+                "session_id": 170346076,
+                "subsession_id": 44227778,
+                "official_session": true,
+                "event_strength_of_field": 1640,
+                "event_best_lap_time": 714467,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 4,
+                "num_drivers": 21,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-03T22:00:00Z",
+                "session_id": 170352432,
+                "subsession_id": 44229510,
+                "official_session": true,
+                "event_strength_of_field": 2812,
+                "event_best_lap_time": 715082,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 1,
+                "num_drivers": 21,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-03T22:00:00Z",
+                "session_id": 170352432,
+                "subsession_id": 44229511,
+                "official_session": true,
+                "event_strength_of_field": 1408,
+                "event_best_lap_time": 718738,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 3,
+                "num_drivers": 20,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-04T00:00:00Z",
+                "session_id": 170358733,
+                "subsession_id": 44231208,
+                "official_session": true,
+                "event_strength_of_field": 1983,
+                "event_best_lap_time": 717458,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 3,
+                "num_drivers": 16,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-04T02:00:00Z",
+                "session_id": 170365169,
+                "subsession_id": 44233147,
+                "official_session": true,
+                "event_strength_of_field": 1788,
+                "event_best_lap_time": 719456,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 1,
+                "num_drivers": 17,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-04T04:00:00Z",
+                "session_id": 170371714,
+                "subsession_id": 44234908,
+                "official_session": true,
+                "event_strength_of_field": 1813,
+                "event_best_lap_time": 723242,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 1,
+                "num_drivers": 14,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-04T06:00:00Z",
+                "session_id": 170378055,
+                "subsession_id": 44236291,
+                "official_session": false,
+                "event_strength_of_field": 1574,
+                "event_best_lap_time": -1,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 2,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-04T10:00:00Z",
+                "session_id": 170390370,
+                "subsession_id": 44238597,
+                "official_session": false,
+                "event_strength_of_field": 1353,
+                "event_best_lap_time": 733871,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 1,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-04T12:00:00Z",
+                "session_id": 170396492,
+                "subsession_id": 44239770,
+                "official_session": true,
+                "event_strength_of_field": 2304,
+                "event_best_lap_time": 723392,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 17,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-04T14:00:00Z",
+                "session_id": 170402617,
+                "subsession_id": 44240953,
+                "official_session": true,
+                "event_strength_of_field": 1882,
+                "event_best_lap_time": 716055,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 15,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-04T16:00:00Z",
+                "session_id": 170408756,
+                "subsession_id": 44242306,
+                "official_session": true,
+                "event_strength_of_field": 1560,
+                "event_best_lap_time": 723335,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 14,
+                "num_drivers": 14,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-04T16:00:00Z",
+                "session_id": 170408756,
+                "subsession_id": 44242305,
+                "official_session": true,
+                "event_strength_of_field": 3309,
+                "event_best_lap_time": 721618,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 4,
+                "num_drivers": 15,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-04T18:00:00Z",
+                "session_id": 170414949,
+                "subsession_id": 44243862,
+                "official_session": true,
+                "event_strength_of_field": 3613,
+                "event_best_lap_time": 720057,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 2,
+                "num_drivers": 18,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-04T18:00:00Z",
+                "session_id": 170414949,
+                "subsession_id": 44243863,
+                "official_session": true,
+                "event_strength_of_field": 1553,
+                "event_best_lap_time": 729693,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 1,
+                "num_drivers": 18,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-04T20:00:00Z",
+                "session_id": 170421241,
+                "subsession_id": 44245599,
+                "official_session": true,
+                "event_strength_of_field": 3857,
+                "event_best_lap_time": 707142,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 3,
+                "num_drivers": 24,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-04T20:00:00Z",
+                "session_id": 170421241,
+                "subsession_id": 44245600,
+                "official_session": true,
+                "event_strength_of_field": 1603,
+                "event_best_lap_time": 719202,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 2,
+                "num_drivers": 24,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-04T22:00:00Z",
+                "session_id": 170427582,
+                "subsession_id": 44247373,
+                "official_session": true,
+                "event_strength_of_field": 1495,
+                "event_best_lap_time": 728441,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 22,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-04T22:00:00Z",
+                "session_id": 170427582,
+                "subsession_id": 44247372,
+                "official_session": true,
+                "event_strength_of_field": 3025,
+                "event_best_lap_time": 717820,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 23,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-05T00:00:00Z",
+                "session_id": 170433912,
+                "subsession_id": 44249139,
+                "official_session": true,
+                "event_strength_of_field": 1908,
+                "event_best_lap_time": 707619,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 3,
+                "num_drivers": 23,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-05T02:00:00Z",
+                "session_id": 170440303,
+                "subsession_id": 44250994,
+                "official_session": true,
+                "event_strength_of_field": 1976,
+                "event_best_lap_time": 725213,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 3,
+                "num_drivers": 17,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-05T04:00:00Z",
+                "session_id": 170446773,
+                "subsession_id": 44252787,
+                "official_session": true,
+                "event_strength_of_field": 2106,
+                "event_best_lap_time": 720901,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 1,
+                "num_drivers": 11,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-05T06:00:00Z",
+                "session_id": 170453183,
+                "subsession_id": 44254314,
+                "official_session": false,
+                "event_strength_of_field": 1862,
+                "event_best_lap_time": 723534,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 4,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-05T08:00:00Z",
+                "session_id": 170459404,
+                "subsession_id": 44255560,
+                "official_session": false,
+                "event_strength_of_field": 2850,
+                "event_best_lap_time": -1,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 1,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-05T10:00:00Z",
+                "session_id": 170465548,
+                "subsession_id": 44256759,
+                "official_session": true,
+                "event_strength_of_field": 1948,
+                "event_best_lap_time": 720462,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 1,
+                "num_drivers": 20,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-05T12:00:00Z",
+                "session_id": 170471708,
+                "subsession_id": 44258008,
+                "official_session": true,
+                "event_strength_of_field": 1981,
+                "event_best_lap_time": 721158,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 20,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-05T14:00:00Z",
+                "session_id": 170477848,
+                "subsession_id": 44259344,
+                "official_session": true,
+                "event_strength_of_field": 1932,
+                "event_best_lap_time": 725482,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 2,
+                "num_drivers": 26,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-05T16:00:00Z",
+                "session_id": 170484058,
+                "subsession_id": 44260918,
+                "official_session": true,
+                "event_strength_of_field": 3050,
+                "event_best_lap_time": 711180,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 3,
+                "num_drivers": 16,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-05T16:00:00Z",
+                "session_id": 170484058,
+                "subsession_id": 44260919,
+                "official_session": true,
+                "event_strength_of_field": 1292,
+                "event_best_lap_time": 722639,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 16,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-05T18:00:00Z",
+                "session_id": 170490335,
+                "subsession_id": 44264427,
+                "official_session": true,
+                "event_strength_of_field": 1973,
+                "event_best_lap_time": 718982,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 26,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-05T20:00:00Z",
+                "session_id": 170496642,
+                "subsession_id": 44266188,
+                "official_session": true,
+                "event_strength_of_field": 1536,
+                "event_best_lap_time": 726656,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 2,
+                "num_drivers": 25,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-05T20:00:00Z",
+                "session_id": 170496642,
+                "subsession_id": 44266186,
+                "official_session": true,
+                "event_strength_of_field": 4475,
+                "event_best_lap_time": 719491,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 1,
+                "num_drivers": 26,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-05T20:00:00Z",
+                "session_id": 170496642,
+                "subsession_id": 44266187,
+                "official_session": true,
+                "event_strength_of_field": 2543,
+                "event_best_lap_time": 724663,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 4,
+                "num_drivers": 26,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-05T22:00:00Z",
+                "session_id": 170503028,
+                "subsession_id": 44268057,
+                "official_session": true,
+                "event_strength_of_field": 2714,
+                "event_best_lap_time": 723633,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 5,
+                "num_drivers": 23,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-05T22:00:00Z",
+                "session_id": 170503028,
+                "subsession_id": 44268058,
+                "official_session": true,
+                "event_strength_of_field": 1307,
+                "event_best_lap_time": 730285,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 3,
+                "num_drivers": 23,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-06T00:00:00Z",
+                "session_id": 170509383,
+                "subsession_id": 44269803,
+                "official_session": true,
+                "event_strength_of_field": 2016,
+                "event_best_lap_time": 722803,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 1,
+                "num_drivers": 19,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-06T02:00:00Z",
+                "session_id": 170515765,
+                "subsession_id": 44271520,
+                "official_session": true,
+                "event_strength_of_field": 1849,
+                "event_best_lap_time": 727767,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 20,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-06T04:00:00Z",
+                "session_id": 170522180,
+                "subsession_id": 44273232,
+                "official_session": true,
+                "event_strength_of_field": 1955,
+                "event_best_lap_time": 716378,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 6,
+                "num_drivers": 19,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-06T06:00:00Z",
+                "session_id": 170528553,
+                "subsession_id": 44274752,
+                "official_session": false,
+                "event_strength_of_field": 3025,
+                "event_best_lap_time": 718698,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 1,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-06T08:00:00Z",
+                "session_id": 170534772,
+                "subsession_id": 44276060,
+                "official_session": true,
+                "event_strength_of_field": 1646,
+                "event_best_lap_time": 727612,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 7,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-06T10:00:00Z",
+                "session_id": 170540938,
+                "subsession_id": 44277306,
+                "official_session": true,
+                "event_strength_of_field": 2185,
+                "event_best_lap_time": 724015,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 15,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-06T12:00:00Z",
+                "session_id": 170547105,
+                "subsession_id": 44278624,
+                "official_session": true,
+                "event_strength_of_field": 2296,
+                "event_best_lap_time": 721488,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 2,
+                "num_drivers": 23,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-06T14:00:00Z",
+                "session_id": 170553281,
+                "subsession_id": 44280001,
+                "official_session": true,
+                "event_strength_of_field": 2065,
+                "event_best_lap_time": 717513,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 25,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-06T16:00:00Z",
+                "session_id": 170559504,
+                "subsession_id": 44281644,
+                "official_session": true,
+                "event_strength_of_field": 1506,
+                "event_best_lap_time": 728014,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 4,
+                "num_drivers": 21,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-06T16:00:00Z",
+                "session_id": 170559504,
+                "subsession_id": 44281643,
+                "official_session": true,
+                "event_strength_of_field": 2686,
+                "event_best_lap_time": 718658,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 1,
+                "num_drivers": 21,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-06T18:00:00Z",
+                "session_id": 170565806,
+                "subsession_id": 44283471,
+                "official_session": true,
+                "event_strength_of_field": 2690,
+                "event_best_lap_time": 718352,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 23,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-06T18:00:00Z",
+                "session_id": 170565806,
+                "subsession_id": 44283472,
+                "official_session": true,
+                "event_strength_of_field": 1450,
+                "event_best_lap_time": 722094,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 4,
+                "num_drivers": 22,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-06T20:00:00Z",
+                "session_id": 170572180,
+                "subsession_id": 44285453,
+                "official_session": true,
+                "event_strength_of_field": 3576,
+                "event_best_lap_time": 719043,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 7,
+                "num_drivers": 20,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-06T20:00:00Z",
+                "session_id": 170572180,
+                "subsession_id": 44285454,
+                "official_session": true,
+                "event_strength_of_field": 1524,
+                "event_best_lap_time": 725434,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 5,
+                "num_drivers": 18,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-06T22:00:00Z",
+                "session_id": 170578578,
+                "subsession_id": 44287281,
+                "official_session": true,
+                "event_strength_of_field": 2418,
+                "event_best_lap_time": 723297,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 15,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-06T22:00:00Z",
+                "session_id": 170578578,
+                "subsession_id": 44287282,
+                "official_session": true,
+                "event_strength_of_field": 1393,
+                "event_best_lap_time": 715696,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 14,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-07T00:00:00Z",
+                "session_id": 170584896,
+                "subsession_id": 44288919,
+                "official_session": true,
+                "event_strength_of_field": 2045,
+                "event_best_lap_time": 723451,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 3,
+                "num_drivers": 13,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-07T02:00:00Z",
+                "session_id": 170591220,
+                "subsession_id": 44290606,
+                "official_session": true,
+                "event_strength_of_field": 1610,
+                "event_best_lap_time": 721024,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 5,
+                "num_drivers": 21,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-07T04:00:00Z",
+                "session_id": 170597723,
+                "subsession_id": 44292224,
+                "official_session": true,
+                "event_strength_of_field": 1669,
+                "event_best_lap_time": 718064,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 4,
+                "num_drivers": 6,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-07T08:00:00Z",
+                "session_id": 170610070,
+                "subsession_id": 44294638,
+                "official_session": true,
+                "event_strength_of_field": 1600,
+                "event_best_lap_time": 720399,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 1,
+                "num_drivers": 8,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-07T10:00:00Z",
+                "session_id": 170616175,
+                "subsession_id": 44295722,
+                "official_session": true,
+                "event_strength_of_field": 1932,
+                "event_best_lap_time": 709736,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 10,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-07T12:00:00Z",
+                "session_id": 170622270,
+                "subsession_id": 44296817,
+                "official_session": false,
+                "event_strength_of_field": 1554,
+                "event_best_lap_time": 726818,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 4,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-07T14:00:00Z",
+                "session_id": 170628352,
+                "subsession_id": 44297944,
+                "official_session": false,
+                "event_strength_of_field": 3004,
+                "event_best_lap_time": -1,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 2,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-07T16:00:00Z",
+                "session_id": 170634455,
+                "subsession_id": 44299178,
+                "official_session": true,
+                "event_strength_of_field": 1756,
+                "event_best_lap_time": 723355,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 5,
+                "num_drivers": 9,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-07T18:00:00Z",
+                "session_id": 170640607,
+                "subsession_id": 44300637,
+                "official_session": true,
+                "event_strength_of_field": 2459,
+                "event_best_lap_time": 727259,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 0,
+                "num_drivers": 15,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-07T20:00:00Z",
+                "session_id": 170646868,
+                "subsession_id": 44302313,
+                "official_session": true,
+                "event_strength_of_field": 3129,
+                "event_best_lap_time": 716238,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 4,
+                "num_drivers": 18,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-07T20:00:00Z",
+                "session_id": 170646868,
+                "subsession_id": 44302314,
+                "official_session": true,
+                "event_strength_of_field": 1470,
+                "event_best_lap_time": 720558,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 5,
+                "num_drivers": 18,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            },
+            {
+                "race_week_num": 7,
+                "event_type": 5,
+                "event_type_name": "Race",
+                "start_time": "2022-02-07T22:00:00Z",
+                "session_id": 170653234,
+                "subsession_id": 44304000,
+                "official_session": true,
+                "event_strength_of_field": 1995,
+                "event_best_lap_time": 711009,
+                "num_cautions": 0,
+                "num_caution_laps": 0,
+                "num_lead_changes": 1,
+                "num_drivers": 19,
+                "track": {
+                    "track_id": 390,
+                    "track_name": "Hockenheimring Baden-Württemberg",
+                    "config_name": "Grand Prix"
+                }
+            }
+        ],
+        "event_type": 5,
+        "success": true,
+        "season_id": 3529,
+        "race_week_num": 7
+    }
+}

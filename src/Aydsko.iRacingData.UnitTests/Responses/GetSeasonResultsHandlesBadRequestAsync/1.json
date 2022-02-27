@@ -1,0 +1,7 @@
+{
+    "statuscode": 400,
+    "headers": {},
+    "content": {
+        "error": "Bad Request"
+    }
+}
