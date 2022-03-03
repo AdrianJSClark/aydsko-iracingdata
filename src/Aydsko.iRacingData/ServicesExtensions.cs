@@ -11,7 +11,7 @@ public static class ServicesExtensions
 {
     public static IServiceCollection AddIRacingDataApi(this IServiceCollection services)
     {
-        services.AddSingleton(new CookieContainer());
+        services.TryAddSingleton(new CookieContainer());
 
         services.AddHttpClient<iRacingDataClient>()
                 .ConfigurePrimaryHttpMessageHandler(services => new HttpClientHandler
