@@ -2,13 +2,14 @@
 // This file is licensed to you under the MIT license.
 
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Net;
 
 namespace Aydsko.iRacingData;
 
 public static class ServicesExtensions
 {
-    public static IServiceCollection UseIRacingDataApi(this IServiceCollection services)
+    public static IServiceCollection AddIRacingDataApi(this IServiceCollection services)
     {
         services.AddSingleton(new CookieContainer());
 
