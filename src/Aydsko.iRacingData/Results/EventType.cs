@@ -1,4 +1,7 @@
-﻿namespace Aydsko.iRacingData.Results;
+﻿// © 2022 Adrian Clark
+// This file is licensed to you under the MIT license.
+
+namespace Aydsko.iRacingData.Results;
 
 public enum EventType
 {

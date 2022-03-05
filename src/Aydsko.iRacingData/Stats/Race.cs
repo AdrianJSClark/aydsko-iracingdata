@@ -28,7 +28,7 @@ public class Race
     [JsonPropertyName("winner_name")]
     public string WinnerName { get; set; } = null!;
     [JsonPropertyName("winner_helmet")]
-    public WinnerHelmet WinnerHelmet { get; set; } = null!;
+    public Helmet WinnerHelmet { get; set; } = null!;
     [JsonPropertyName("winner_license_level")]
     public int WinnerLicenseLevel { get; set; }
     [JsonPropertyName("start_position")]

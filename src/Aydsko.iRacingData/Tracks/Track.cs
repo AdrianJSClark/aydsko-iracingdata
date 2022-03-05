@@ -1,4 +1,8 @@
-﻿using System.Text.Json.Serialization;
+﻿// © 2022 Adrian Clark
+// This file is licensed to you under the MIT license.
+
+using System.Diagnostics.CodeAnalysis;
+using System.Text.Json.Serialization;
 
 namespace Aydsko.iRacingData.Tracks;
 
@@ -72,7 +76,7 @@ public class Track
     public bool Retired { get; set; }
     [JsonPropertyName("search_filters")]
     public string SearchFilters { get; set; } = default!;
-    [JsonPropertyName("site_url")]
+    [JsonPropertyName("site_url"), SuppressMessage("Design", "CA1056:URI-like properties should not be strings", Justification = "Strings are easier to deal with.")]
     public string SiteUrl { get; set; } = default!;
     [JsonPropertyName("sku")]
     public int Sku { get; set; }
