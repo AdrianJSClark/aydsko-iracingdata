@@ -3,7 +3,7 @@
 
 using System.Text.Json.Serialization;
 
-namespace Aydsko.iRacingData.Member;
+namespace Aydsko.iRacingData.Common;
 
 public class Suit
 {
@@ -16,5 +16,5 @@ public class Suit
     [JsonPropertyName("color3")]
     public string Color3 { get; set; } = default!;
     [JsonPropertyName("body_type")]
-    public int BodyType { get; set; }
+    public int? BodyType { get; set; }
 }

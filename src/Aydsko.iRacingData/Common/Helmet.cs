@@ -3,9 +3,9 @@
 
 using System.Text.Json.Serialization;
 
-namespace Aydsko.iRacingData.Stats;
+namespace Aydsko.iRacingData.Common;
 
-public class WinnerHelmet
+public class Helmet
 {
     [JsonPropertyName("pattern")]
     public int Pattern { get; set; }

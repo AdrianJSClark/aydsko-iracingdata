@@ -1,0 +1,100 @@
+{
+  "headers": {},
+  "content": {
+    "league_id": 8234,
+    "owner_id": 341554,
+    "league_name": "Adrian's Test League",
+    "created": "2022-03-05T12:43:53Z",
+    "hidden": false,
+    "message": "https://iracing.adrianclark.dev",
+    "about": "Adrian's league for testing things.",
+    "url": "https://iracing.adrianclark.dev",
+    "recruiting": false,
+    "private_wall": false,
+    "private_roster": false,
+    "private_schedule": false,
+    "private_results": false,
+    "roster_count": 1,
+    "owner": {
+      "cust_id": 341554,
+      "display_name": "Adrian Clark",
+      "helmet": {
+        "pattern": 50,
+        "color1": "981F24",
+        "color2": "000000",
+        "color3": "ED2129",
+        "face_type": 0,
+        "helmet_type": 0
+      },
+      "car_number": null,
+      "nick_name": null
+    },
+    "image": {
+      "small_logo": null,
+      "large_logo": null
+    },
+    "tags": {
+      "categorized": [
+        {
+          "category_id": 1,
+          "name": "Culture",
+          "limit": 1,
+          "tags": [
+            {
+              "tag_id": 5,
+              "tag_name": "Professional"
+            }
+          ]
+        },
+        {
+          "category_id": 2,
+          "name": "Type of Racing",
+          "limit": null,
+          "tags": [
+            {
+              "tag_id": 8,
+              "tag_name": "Road"
+            },
+            {
+              "tag_id": 10,
+              "tag_name": "Grand-Prix"
+            }
+          ]
+        },
+        {
+          "category_id": 3,
+          "name": "Car Setup",
+          "limit": null,
+          "tags": [
+            {
+              "tag_id": 12,
+              "tag_name": "Open-Setup"
+            }
+          ]
+        }
+      ],
+      "not_categorized": []
+    },
+    "roster": [
+      {
+        "cust_id": 341554,
+        "display_name": "Adrian Clark",
+        "helmet": {
+          "pattern": 50,
+          "color1": "981F24",
+          "color2": "000000",
+          "color3": "ED2129",
+          "face_type": 0,
+          "helmet_type": 0
+        },
+        "owner": true,
+        "admin": true,
+        "league_mail_opt_out": false,
+        "league_pm_opt_out": false,
+        "league_member_since": "2022-03-05T12:43:53Z",
+        "car_number": null,
+        "nick_name": null
+      }
+    ]
+  }
+}

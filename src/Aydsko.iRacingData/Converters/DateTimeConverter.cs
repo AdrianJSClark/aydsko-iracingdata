@@ -24,6 +24,7 @@ public class DateTimeConverter : JsonConverter<DateTime>
         return dateValue;
     }
 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "Check is being done, diagnostic requires an update.")]
     public override void Write(Utf8JsonWriter writer!!,
                                DateTime value,
                                JsonSerializerOptions options)

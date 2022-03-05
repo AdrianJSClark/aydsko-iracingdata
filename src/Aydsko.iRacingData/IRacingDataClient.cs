@@ -3,6 +3,7 @@
 
 using Aydsko.iRacingData.CarClasses;
 using Aydsko.iRacingData.Cars;
+using Aydsko.iRacingData.Leagues;
 using Aydsko.iRacingData.Lookups;
 using Aydsko.iRacingData.Member;
 using Aydsko.iRacingData.Results;
@@ -104,7 +105,27 @@ public class iRacingDataClient
         return await CreateResponseViaInfoLinkAsync(carClassUrl, CarClassArrayContext.Default.CarClassArray, cancellationToken).ConfigureAwait(false);
     }
 
-    // TODO - public async Task<DataResponse<League>> GetLeagueAsync(int leagueId, bool includeLicenses = false, CancellationToken cancellationToken = default)
+    /// <summary>Get information about a league.</summary>
+    /// <param name="leagueId">The unique identifier for the league.</param>
+    /// <param name="includeLicenses">Indicates if license information should be included. Either <see langword="true"/> or <see langword="false"/> to exclude for performance purposes.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the season & optionally series detail in a <see cref="Tracks.Track"/> array.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    public async Task<DataResponse<League>> GetLeagueAsync(int leagueId, bool includeLicenses = false, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            throw new InvalidOperationException("Must be logged in before requesting data.");
+        }
+
+        var getTrackUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/get", new Dictionary<string, string>
+        {
+            { "league_id", leagueId.ToString(CultureInfo.InvariantCulture) },
+            { "include_licenses", includeLicenses.ToString() }
+        });
+        return await CreateResponseViaInfoLinkAsync(new Uri(getTrackUrl), LeagueContext.Default.League, cancellationToken).ConfigureAwait(false);
+    }
 
     /// <summary>Information about reference data defined by the system.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
