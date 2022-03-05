@@ -297,4 +297,22 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
         Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
+
+    [Test(TestOf = typeof(iRacingDataClient))]
+    public async Task GetMemberRecentRacesSucceedsAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetMemberRecentRacesSucceedsAsync)).ConfigureAwait(false);
+        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
+
+        var memberStats = await sut.GetMemberRecentRacesAsync().ConfigureAwait(false);
+
+        Assert.That(memberStats, Is.Not.Null);
+        Assert.That(memberStats!.Data, Is.Not.Null);
+
+        Assert.That(memberStats.Data.Races, Has.Length.EqualTo(10));
+        Assert.That(memberStats.Data.CustomerId, Is.EqualTo(123456));
+        Assert.That(memberStats.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+    }
 }
