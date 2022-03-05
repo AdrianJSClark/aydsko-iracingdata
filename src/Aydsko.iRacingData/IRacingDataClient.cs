@@ -317,9 +317,20 @@ public class iRacingDataClient
         return await CreateResponseViaInfoLinkAsync(new Uri(careerStatisticsUrl), MemberCareerContext.Default.MemberCareer, cancellationToken).ConfigureAwait(false);
     }
 
-    // TODO - "stats/member_recent_races"
+    /// <summary>Retrieve the recent race participation for the currently authenticated member.</summary>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the member's recent races in a <see cref="MemberRecentRaces"/> object.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    public async Task<DataResponse<MemberRecentRaces>> GetMemberRecentRacesAsync(CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            throw new InvalidOperationException("Must be logged in before requesting data.");
+        }
 
-    // TODO - "stats/member_yearly"
+        return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/stats/member_recent_races"), MemberRecentRacesContext.Default.MemberRecentRaces, cancellationToken).ConfigureAwait(false);
+    }
 
     /// <summary>Retrieve information about the track assets.</summary>
     /// <remarks>Image paths are relative to https://images-static.iracing.com/.</remarks>
@@ -362,8 +373,7 @@ public class iRacingDataClient
             var errorResponse = await infoLinkResponse.Content.ReadFromJsonAsync<ErrorResponse>(cancellationToken: cancellationToken)
                                                               .ConfigureAwait(false);
 
-            var exception = errorResponse switch {
-                { ErrorCode: "Site Maintenance" } => new iRacingInMaintenancePeriodException(errorResponse.ErrorDescription ?? "iRacing services are down for maintenance."),
+            var exception = errorResponse switch { { ErrorCode: "Site Maintenance" } => new iRacingInMaintenancePeriodException(errorResponse.ErrorDescription ?? "iRacing services are down for maintenance."),
                 _ => null
             };
 
