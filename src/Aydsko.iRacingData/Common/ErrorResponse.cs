@@ -3,7 +3,7 @@
 
 using System.Text.Json.Serialization;
 
-namespace Aydsko.iRacingData;
+namespace Aydsko.iRacingData.Common;
 
 public class ErrorResponse
 {
