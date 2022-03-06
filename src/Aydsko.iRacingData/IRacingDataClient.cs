@@ -13,6 +13,7 @@ using Aydsko.iRacingData.Stats;
 using Aydsko.iRacingData.Tracks;
 using Microsoft.AspNetCore.WebUtilities;
 using System.Globalization;
+using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Text.Json.Serialization.Metadata;
@@ -23,13 +24,20 @@ public class iRacingDataClient
 {
     private readonly HttpClient httpClient;
     private readonly ILogger<iRacingDataClient> logger;
+    private readonly iRacingDataClientOptions options;
+    private readonly CookieContainer cookieContainer;
 
     public bool IsLoggedIn { get; private set; }
 
-    public iRacingDataClient(HttpClient httpClient, ILogger<iRacingDataClient> logger)
+    public iRacingDataClient(HttpClient httpClient,
+                             ILogger<iRacingDataClient> logger,
+                             iRacingDataClientOptions options,
+                             CookieContainer cookieContainer)
     {
         this.httpClient = httpClient;
         this.logger = logger;
+        this.options = options;
+        this.cookieContainer = cookieContainer;
     }
 
     /// <summary>Authenticate with the iRacing "/data" API.</summary>
@@ -48,6 +56,12 @@ public class iRacingDataClient
             throw new ArgumentException($"'{nameof(userPassword)}' cannot be null or whitespace.", nameof(userPassword));
         }
 
+        if (options.RestoreCookies is not null
+            && options.RestoreCookies() is CookieCollection savedCookies)
+        {
+            cookieContainer.Add(savedCookies);
+        }
+
         var loginResponse = await httpClient.PostAsJsonAsync("https://members-ng.iracing.com/auth",
                                                              new { email = userEmail, password = userPassword },
                                                              cancellationToken)
@@ -55,6 +69,11 @@ public class iRacingDataClient
         loginResponse.EnsureSuccessStatusCode();
         IsLoggedIn = true;
         logger.LoginSuccessful(userEmail);
+
+        if (options.SaveCookies is Action<CookieCollection> saveCredentials)
+        {
+            saveCredentials(cookieContainer.GetAllCookies());
+        }
     }
 
     /// <summary>Retrieves details about the car assets, including image paths and descriptions.</summary>

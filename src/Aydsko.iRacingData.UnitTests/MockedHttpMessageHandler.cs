@@ -12,11 +12,18 @@ namespace Aydsko.iRacingData.UnitTests;
 public class MockedHttpMessageHandler : HttpMessageHandler
 {
     private readonly Assembly ResourceAssembly = typeof(MockedHttpMessageHandler).Assembly;
+    private readonly CookieContainer cookieContainer;
 
     public Queue<HttpRequestMessage> Requests { get; } = new();
     public Queue<HttpResponseMessage> Responses { get; } = new();
 
-    protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
+    public MockedHttpMessageHandler(CookieContainer cookieContainer)
+    {
+        this.cookieContainer = cookieContainer;
+    }
+
+    [SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>")]
+    protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request!!, CancellationToken cancellationToken)
     {
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -24,10 +31,14 @@ public class MockedHttpMessageHandler : HttpMessageHandler
 
         if (Responses.TryDequeue(out var response))
         {
+            if (response.Headers.TryGetValues("Set-Cookie", out var cookieValues))
+            {
+                cookieContainer.SetCookies(request.RequestUri!, string.Join(",", cookieValues));
+            }
             return Task.FromResult(response);
         }
 
-        return Task.FromResult(new HttpResponseMessage(System.Net.HttpStatusCode.NotFound));
+        return Task.FromResult(new HttpResponseMessage(HttpStatusCode.NotFound));
     }
 
     [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "Streams need to be available for use.")]
@@ -55,12 +66,24 @@ public class MockedHttpMessageHandler : HttpMessageHandler
                 statusCode = HttpStatusCode.OK;
             }
 
-            var responseMessage = new HttpResponseMessage(statusCode) {
+            var responseMessage = new HttpResponseMessage(statusCode)
+            {
                 Content = new StringContent(responseDictionary["content"].ToString(), Encoding.UTF8, "text/json")
             };
 
             foreach (var (headerName, values) in responseDictionary["headers"].EnumerateObject()
-                                                                       .ToDictionary(prop => prop.Name, prop => prop.Value.GetString()).ToArray())
+                                                                       .ToDictionary(prop => prop.Name,
+                                                                                     prop =>
+                                                                                     {
+                                                                                         if (prop.Value.ValueKind == JsonValueKind.Array)
+                                                                                         {
+                                                                                             return prop.Value.EnumerateArray().Select(e => e.ToString()).ToArray();
+                                                                                         }
+                                                                                         else
+                                                                                         {
+                                                                                             return new[] { prop.Value.GetString() };
+                                                                                         }
+                                                                                     }).ToArray())
             {
                 responseMessage.Headers.Add(headerName, values);
             }

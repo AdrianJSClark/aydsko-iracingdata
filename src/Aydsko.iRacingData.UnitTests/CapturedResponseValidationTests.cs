@@ -15,7 +15,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     public void SetUp()
     {
         BaseSetUp();
-        sut = new iRacingDataClient(HttpClient, new TestLogger<iRacingDataClient>());
+        sut = new iRacingDataClient(HttpClient,
+                                    new TestLogger<iRacingDataClient>(),
+                                    new iRacingDataClientOptions(),
+                                    new System.Net.CookieContainer());
     }
 
     [Test(TestOf = typeof(iRacingDataClient))]
