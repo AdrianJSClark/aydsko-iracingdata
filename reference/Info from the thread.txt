@@ -1,0 +1,58 @@
+================================================================================
+Nicholas Bailey
+
+https://forums.iracing.com/discussion/comment/114106/#Comment_114106
+--------------------------------------------------------------------------------
+
+A new version of the /data endpoint was rolled out containing the following changes.
+
+Changed
+ - Requesting a service or method on a service which does not exist will now result in a 404 - Not found instead of a 400 - Bad request. A 400 - Bad request will continue to indicate missing or invalid arguments.
+ - Requesting a subsession result to which the user does not have access will now yield a 403 - Forbidden instead of a 401 - Unauthorized when the user is known.
+ - Requesting a subsession result for which no subsession information is available will now yield a 404 - Not found instead of a 401 - Unauthorized.
+
+Fixed
+ - Return the default documentation when requesting a method on an invalid service.
+ - Add note for results/get image paths.
+
+================================================================================
+Nicholas Bailey
+
+https://forums.iracing.com/discussion/comment/117142/#Comment_117142
+--------------------------------------------------------------------------------
+
+I was wrong before, the maintenance page was working as planned, however I forgot I was on the allow list so I was not seeing what members saw. In any event, the maintenance experience for /data will be different starting tomorrow.
+
+During maintenance, the HTTP response code 503 will be returned for any calls to /data along with the following json body response.
+
+{
+    "httpCode": 503,
+    "errorCode": "Site Maintenance",
+    "errorDesc": "The site is currently undergoing maintenance. Please try your request later."
+}
+
+We are not presently setting the Retry-After header since our maintenance times vary quite a bit. If people would find that helpful, we can add it and set it to 60 minutes.
+
+================================================================================
+Nicholas Bailey
+
+https://forums.iracing.com/discussion/comment/117396/#Comment_117396
+--------------------------------------------------------------------------------
+
+The OP will be updated to reflect this info, but we just rolled out a new version that will return the HTTP error in a JSON body. The HTTP codes are obviously still returned as normal. For example, the 401 Unauthorized error will return a 401 HTTP code and a JSON body like so:
+
+{
+  "error": "Unauthorized"
+}
+
+During maintenance, the HTTP response code will be 503 as noted in my prior post, but the JSON body has been changed to:
+
+{
+  "error": "Site Maintenance",
+  "note": "The site is currently undergoing maintenance.  Please try your request later."
+}
+
+The note field is treated as optional in the API so it may or may not be present on the response. Since we know when we are in maintenance (at least we should!) it was easy to provide additional information.
+
+================================================================================
+

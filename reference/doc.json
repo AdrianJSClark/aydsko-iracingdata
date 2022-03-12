@@ -1,0 +1,143 @@
+{
+  "car": {
+    "assets": {
+      "link": "https://members-ng.iracing.com/data/car/assets",
+      "note": [
+        "image paths are relative to https://images-static.iracing.com/"
+      ]
+    },
+    "get": {
+      "link": "https://members-ng.iracing.com/data/car/get"
+    }
+  },
+  "carclass": {
+    "get": {
+      "link": "https://members-ng.iracing.com/data/carclass/get"
+    }
+  },
+  "league": {
+    "get": {
+      "link": "https://members-ng.iracing.com/data/league/get",
+      "parameters": {
+        "league_id": {
+          "type": "number",
+          "required": true
+        },
+        "include_licenses": {
+          "type": "boolean",
+          "note": "For faster responses, only request when necessary."
+        }
+      }
+    }
+  },
+  "lookup": {
+    "get": {
+      "link": "https://members-ng.iracing.com/data/lookup/get",
+      "note": "?weather=weather_wind_speed_units&weather=weather_wind_speed_max&weather=weather_wind_speed_min&licenselevels=licenselevels"
+    },
+    "licenses": {
+      "link": "https://members-ng.iracing.com/data/lookup/licenses"
+    }
+  },
+  "member": {
+    "get": {
+      "link": "https://members-ng.iracing.com/data/member/get",
+      "parameters": {
+        "cust_ids": {
+          "type": "numbers",
+          "required": true,
+          "note": "?cust_ids=2,3,4"
+        },
+        "include_licenses": {
+          "type": "boolean"
+        }
+      }
+    },
+    "info": {
+      "link": "https://members-ng.iracing.com/data/member/info",
+      "note": "Always the authenticated member."
+    }
+  },
+  "results": {
+    "get": {
+      "link": "https://members-ng.iracing.com/data/results/get",
+      "note": "Get the results of a subsession, if authorized to view them. series_logo image paths are relative to https://images-static.iracing.com/img/logos/series/",
+      "parameters": {
+        "subsession_id": {
+          "type": "number",
+          "required": true
+        },
+        "include_licenses": {
+          "type": "boolean"
+        }
+      }
+    },
+    "season_results": {
+      "link": "https://members-ng.iracing.com/data/results/season_results",
+      "parameters": {
+        "season_id": {
+          "type": "number",
+          "required": true
+        },
+        "event_type": {
+          "type": "number",
+          "note": "Retrict to one event type: 2 - Practice; 3 - Qualify; 4 - Time Trial; 5 - Race"
+        },
+        "race_week_num": {
+          "type": "number",
+          "note": "The first race week of a season is 0."
+        }
+      }
+    }
+  },
+  "series": {
+    "seasons": {
+      "link": "https://members-ng.iracing.com/data/series/seasons",
+      "parameters": {
+        "include_series": {
+          "type": "boolean"
+        }
+      }
+    }
+  },
+  "stats": {
+    "member_career": {
+      "link": "https://members-ng.iracing.com/data/stats/member_career",
+      "parameters": {
+        "cust_id": {
+          "type": "number",
+          "note": "Defaults to the authenticated member."
+        }
+      }
+    },
+    "member_recent_races": {
+      "link": "https://members-ng.iracing.com/data/stats/member_recent_races",
+      "parameters": {
+        "cust_id": {
+          "type": "number",
+          "note": "Defaults to the authenticated member."
+        }
+      }
+    },
+    "member_yearly": {
+      "link": "https://members-ng.iracing.com/data/stats/member_yearly",
+      "parameters": {
+        "cust_id": {
+          "type": "number",
+          "note": "Defaults to the authenticated member."
+        }
+      }
+    }
+  },
+  "track": {
+    "assets": {
+      "link": "https://members-ng.iracing.com/data/track/assets",
+      "note": [
+        "image paths are relative to https://images-static.iracing.com/"
+      ]
+    },
+    "get": {
+      "link": "https://members-ng.iracing.com/data/track/get"
+    }
+  }
+}
