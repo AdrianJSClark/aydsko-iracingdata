@@ -15,6 +15,12 @@
       "link": "https://members-ng.iracing.com/data/carclass/get"
     }
   },
+  "constants": {
+    "divisions": {
+      "link": "https://members-ng.iracing.com/data/constants/divisions",
+      "note": "Constant; returned directly as an array of objects"
+    }
+  },
   "league": {
     "get": {
       "link": "https://members-ng.iracing.com/data/league/get",
@@ -72,6 +78,42 @@
         }
       }
     },
+    "lap_chart_data": {
+      "link": "https://members-ng.iracing.com/data/results/lap_chart_data",
+      "parameters": {
+        "subsession_id": {
+          "type": "number",
+          "required": true
+        },
+        "simsession_number": {
+          "type": "number",
+          "required": true,
+          "note": "The main event is 0; the preceding event is -1, and so on."
+        }
+      }
+    },
+    "lap_data": {
+      "link": "https://members-ng.iracing.com/data/results/lap_data",
+      "parameters": {
+        "subsession_id": {
+          "type": "number",
+          "required": true
+        },
+        "simsession_number": {
+          "type": "number",
+          "required": true,
+          "note": "The main event is 0; the preceding event is -1, and so on."
+        },
+        "cust_id": {
+          "type": "number",
+          "note": "Required if the subsession was a single-driver event. Optional for team events. If omitted for a team event then the laps driven by all the team's drivers will be included."
+        },
+        "team_id": {
+          "type": "number",
+          "note": "Required if the subsession was a team event."
+        }
+      }
+    },
     "season_results": {
       "link": "https://members-ng.iracing.com/data/results/season_results",
       "parameters": {
@@ -112,6 +154,15 @@
     },
     "member_recent_races": {
       "link": "https://members-ng.iracing.com/data/stats/member_recent_races",
+      "parameters": {
+        "cust_id": {
+          "type": "number",
+          "note": "Defaults to the authenticated member."
+        }
+      }
+    },
+    "member_summary": {
+      "link": "https://members-ng.iracing.com/data/stats/member_summary",
       "parameters": {
         "cust_id": {
           "type": "number",
