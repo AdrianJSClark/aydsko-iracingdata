@@ -1,6 +1,8 @@
 ﻿// © 2022 Adrian Clark
 // This file is licensed to you under the MIT license.
 
+using Aydsko.iRacingData.Constants;
+
 namespace Aydsko.iRacingData.UnitTests;
 
 public class CapturedResponseValidationTests : MockedHttpTestBase
@@ -88,6 +90,26 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(carClasses.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(carClasses.TotalRateLimit, Is.EqualTo(100));
         Assert.That(carClasses.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+    }
+
+    [Test(TestOf = typeof(iRacingDataClient))]
+    public async Task GetDivisionsSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetDivisionsSuccessfulAsync)).ConfigureAwait(false);
+        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
+
+        var divisionsResponse = await sut.GetDivisionsAsync().ConfigureAwait(false);
+
+        Assert.That(divisionsResponse, Is.Not.Null);
+        Assert.That(divisionsResponse!.Data, Is.Not.Null);
+
+        Assert.That(divisionsResponse.Data, Has.Length.EqualTo(12));
+        Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("ALL")
+                                                   .And.Property(nameof(Division.Value)).EqualTo(-1));
+
+        Assert.That(divisionsResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(divisionsResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(divisionsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(iRacingDataClient))]

@@ -3,6 +3,7 @@
 
 using Aydsko.iRacingData.CarClasses;
 using Aydsko.iRacingData.Cars;
+using Aydsko.iRacingData.Constants;
 using Aydsko.iRacingData.Leagues;
 using Aydsko.iRacingData.Lookups;
 using Aydsko.iRacingData.Member;
@@ -103,6 +104,25 @@ public class iRacingDataClient
 
         var carClassUrl = new Uri("https://members-ng.iracing.com/data/carclass/get");
         return await CreateResponseViaInfoLinkAsync(carClassUrl, CarClassArrayContext.Default.CarClassArray, cancellationToken).ConfigureAwait(false);
+    }
+
+    public async Task<DataResponse<Division[]>> GetDivisionsAsync(CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            throw new InvalidOperationException("Must be logged in before requesting data.");
+        }
+
+        var constantsDivisionsUrl = new Uri("https://members-ng.iracing.com/data/constants/divisions");
+        var constantsDivisionsResponse = await httpClient.GetAsync(constantsDivisionsUrl, cancellationToken).ConfigureAwait(false);
+
+        var data = await constantsDivisionsResponse.Content.ReadFromJsonAsync(DivisionArrayContext.Default.DivisionArray, cancellationToken).ConfigureAwait(false);
+        if (data is null)
+        {
+            throw new iRacingDataClientException("Data not found.");
+        }
+
+        return CreateResponse(constantsDivisionsResponse.Headers, data, logger)!;
     }
 
     /// <summary>Get information about a league.</summary>
