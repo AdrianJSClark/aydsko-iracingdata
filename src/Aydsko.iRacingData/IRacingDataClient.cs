@@ -295,7 +295,7 @@ public class iRacingDataClient
     /// <returns>A <see cref="DataResponse{TData}"/> containing the result details in a <see cref="SubSessionResult"/> object.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
-    public async Task<DataResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>> GetSubSessionLapChartAsync(int subSessionId, int simSessionNumber, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<(SubsessionLapsHeader Header, SubsessionChartLap[] Laps)>> GetSubSessionLapChartAsync(int subSessionId, int simSessionNumber, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
         {
@@ -306,6 +306,55 @@ public class iRacingDataClient
         {
             { "subsession_id", subSessionId.ToString(CultureInfo.InvariantCulture) },
             { "simsession_number", simSessionNumber.ToString(CultureInfo.InvariantCulture) },
+        });
+
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SubsessionLapsHeaderContext.Default.SubsessionLapsHeader, cancellationToken).ConfigureAwait(false);
+
+        var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
+        var sessionLapsList = new List<SubsessionChartLap>();
+        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        {
+            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+
+            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+            if (!chunkResponse.IsSuccessStatusCode)
+            {
+                logger.LogError("Failed to retrieve chunk index {ChunkIndex} of {ChunkTotalCount}", index, data.ChunkInfo.NumChunks);
+                continue;
+            }
+
+            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SubsessionChartLapArrayContext.Default.SubsessionChartLapArray, cancellationToken).ConfigureAwait(false);
+            if (chunkData is null)
+            {
+                continue;
+            }
+
+            sessionLapsList.AddRange(chunkData);
+        }
+
+        return CreateResponse<(SubsessionLapsHeader Header, SubsessionChartLap[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
+    }
+
+    /// <summary>Get the lap details for a particular driver in the given single-driver subsession.</summary>
+    /// <param name="subSessionId">The identifier of the subsession for which results should be returned.</param>
+    /// <param name="simSessionNumber">The number of the session where <c>0</c> is the main event, <c>-1</c> event before the main, etc</param>
+    /// <param name="customerId">A customer identifier value for the driver in the race to return laps for.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the result details in a <see cref="SubSessionResult"/> object.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    public async Task<DataResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>> GetSingleDriverSubsessionLapsAsync(int subSessionId, int simSessionNumber, int customerId, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            throw new InvalidOperationException("Must be logged in before requesting data.");
+        }
+
+        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/lap_data", new Dictionary<string, string>
+        {
+            { "subsession_id", subSessionId.ToString(CultureInfo.InvariantCulture) },
+            { "simsession_number", simSessionNumber.ToString(CultureInfo.InvariantCulture) },
+            { "cust_id", customerId.ToString(CultureInfo.InvariantCulture) },
         });
 
         var (headers, data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SubsessionLapsHeaderContext.Default.SubsessionLapsHeader, cancellationToken).ConfigureAwait(false);

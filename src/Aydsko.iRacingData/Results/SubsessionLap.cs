@@ -39,14 +39,6 @@ public class SubsessionLap
     public string CarNumber { get; set; } = null!;
     [JsonPropertyName("lap_events")]
     public string[] LapEvents { get; set; } = null!;
-    [JsonPropertyName("lap_position")]
-    public int LapPosition { get; set; }
-    [JsonPropertyName("interval")]
-    public int? Interval { get; set; }
-    [JsonPropertyName("interval_units")]
-    public string IntervalUnits { get; set; } = null!;
-    [JsonPropertyName("fastest_lap")]
-    public bool FastestLap { get; set; }
     [JsonPropertyName("ai")]
     public bool Ai { get; set; }
 }
