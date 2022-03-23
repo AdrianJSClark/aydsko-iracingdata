@@ -1,0 +1,63 @@
+{
+  "headers": {},
+  "content": {
+    "success": true,
+    "session_info": {
+      "subsession_id": 43995498,
+      "session_id": 169422011,
+      "simsession_number": 0,
+      "simsession_type": 6,
+      "num_laps_for_qual_average": 2,
+      "num_laps_for_solo_average": 5,
+      "event_type": 5,
+      "event_type_name": "Race",
+      "private_session_id": -1,
+      "season_name": "2022 24 Hours of Daytona",
+      "season_short_name": "24 Hours of Daytona",
+      "series_name": "Daytona 24",
+      "series_short_name": "Daytona 24",
+      "start_time": "2022-01-22T12:00:00Z",
+      "track": {
+        "track_id": 192,
+        "track_name": "Daytona International Speedway",
+        "config_name": "Road Course"
+      }
+    },
+    "best_lap_num": 617,
+    "best_lap_time": 929864,
+    "best_nlaps_num": -1,
+    "best_nlaps_time": -1,
+    "best_qual_lap_num": -1,
+    "best_qual_lap_time": -1,
+    "best_qual_lap_at": null,
+    "chunk_info": {
+      "chunk_size": 500,
+      "num_chunks": 2,
+      "rows": 881,
+      "base_download_url": "https://dqfp1ltauszrc.cloudfront.net/public/lapdata/subsession/43995498/0/t93376/",
+      "chunk_file_names": [
+        "e635771f826da98f4619b173661136ad720d4b8672d7859be5ed51114ddd3ebb.json"
+      ]
+    },
+    "group_id": -93376,
+    "name": "Tempest Motorsports Neon",
+    "car_id": 128,
+    "livery": {
+      "car_id": 128,
+      "pattern": 1,
+      "color1": "f1f1f1",
+      "color2": "01b0f2",
+      "color3": "ee3984",
+      "number_font": 0,
+      "number_color1": "ffffff",
+      "number_color2": "777777",
+      "number_color3": "000000",
+      "number_slant": 0,
+      "sponsor1": 0,
+      "sponsor2": 0,
+      "car_number": "28",
+      "wheel_color": null,
+      "rim_type": -1
+    }
+  }
+}

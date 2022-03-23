@@ -23,6 +23,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Responses\GetSubSessionLapChartSuccessfulAsync\2.json" />
+    <None Remove="Responses\GetSubSessionLapChartSuccessfulAsync\3.json" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Folder Include="Responses\GetTracksSuccessfulAsync\" />
   </ItemGroup>
 </Project>

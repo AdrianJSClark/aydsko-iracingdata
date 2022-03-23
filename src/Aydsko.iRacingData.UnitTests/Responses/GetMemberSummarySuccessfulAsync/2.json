@@ -1,0 +1,12 @@
+{
+  "headers": {},
+  "content": {
+    "this_year": {
+      "num_official_sessions": 10,
+      "num_league_sessions": 9,
+      "num_official_wins": 8,
+      "num_league_wins": 7
+    },
+    "cust_id": 123456
+  }
+}

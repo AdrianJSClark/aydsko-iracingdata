@@ -1,0 +1,65 @@
+{
+  "headers": {},
+  "content": {
+    "success": true,
+    "session_info": {
+      "subsession_id": 43625377,
+      "session_id": 167925995,
+      "simsession_number": 0,
+      "simsession_type": 6,
+      "num_laps_for_qual_average": 2,
+      "num_laps_for_solo_average": 5,
+      "event_type": 5,
+      "event_type_name": "Race",
+      "private_session_id": -1,
+      "season_name": "F3 Vertagear Championship - 2022 Season 1 - Fixed",
+      "season_short_name": "2022 Season 1",
+      "series_name": "F3 Vertagear Championship - Fixed",
+      "series_short_name": "F3 Vertagear Championship - Fixed",
+      "start_time": "2022-01-02T10:15:00Z",
+      "track": {
+        "track_id": 239,
+        "track_name": "Autodromo Nazionale Monza",
+        "config_name": "Grand Prix"
+      }
+    },
+    "best_lap_num": 12,
+    "best_lap_time": 1055325,
+    "best_nlaps_num": -1,
+    "best_nlaps_time": -1,
+    "best_qual_lap_num": -1,
+    "best_qual_lap_time": -1,
+    "best_qual_lap_at": null,
+    "chunk_info": {
+      "chunk_size": 500,
+      "num_chunks": 1,
+      "rows": 16,
+      "base_download_url": "https://dqfp1ltauszrc.cloudfront.net/public/lapdata/subsession/43625377/0/341554/",
+      "chunk_file_names": [
+        "52ad05e8a8a1796cf7b80da6a11a25a94ee072bf2a10d45d9c7fc60359b2a816.json"
+      ]
+    },
+    "group_id": 341554,
+    "cust_id": 341554,
+    "name": "Adrian Clark",
+    "car_id": 106,
+    "license_level": 19,
+    "livery": {
+      "car_id": 106,
+      "pattern": 15,
+      "color1": "73182c",
+      "color2": "ffe000",
+      "color3": "73182c",
+      "number_font": 0,
+      "number_color1": "ffffff",
+      "number_color2": "777777",
+      "number_color3": "000000",
+      "number_slant": 0,
+      "sponsor1": 0,
+      "sponsor2": 0,
+      "car_number": "15",
+      "wheel_color": "ffe000",
+      "rim_type": 3
+    }
+  }
+}

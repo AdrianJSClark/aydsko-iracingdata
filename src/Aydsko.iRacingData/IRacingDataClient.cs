@@ -3,6 +3,7 @@
 
 using Aydsko.iRacingData.CarClasses;
 using Aydsko.iRacingData.Cars;
+using Aydsko.iRacingData.Constants;
 using Aydsko.iRacingData.Leagues;
 using Aydsko.iRacingData.Lookups;
 using Aydsko.iRacingData.Member;
@@ -70,7 +71,8 @@ public class iRacingDataClient
         }
 
         var carAssetDetailsUrl = new Uri("https://members-ng.iracing.com/data/car/assets");
-        return await CreateResponseViaInfoLinkAsync(carAssetDetailsUrl, CarAssetDetailDictionaryContext.Default.IReadOnlyDictionaryStringCarAssetDetail, cancellationToken).ConfigureAwait(false);
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(carAssetDetailsUrl, CarAssetDetailDictionaryContext.Default.IReadOnlyDictionaryStringCarAssetDetail, cancellationToken).ConfigureAwait(false);
+         return CreateResponse(headers, data, logger);
     }
 
     /// <summary>Retrieves details about the cars.</summary>
@@ -86,7 +88,8 @@ public class iRacingDataClient
         }
 
         var carInfoUrl = new Uri("https://members-ng.iracing.com/data/car/get");
-        return await CreateResponseViaInfoLinkAsync(carInfoUrl, CarInfoArrayContext.Default.CarInfoArray, cancellationToken).ConfigureAwait(false);
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(carInfoUrl, CarInfoArrayContext.Default.CarInfoArray, cancellationToken).ConfigureAwait(false);
+        return CreateResponse(headers, data, logger);
     }
 
     /// <summary>Retrieves details about the car classes.</summary>
@@ -102,7 +105,32 @@ public class iRacingDataClient
         }
 
         var carClassUrl = new Uri("https://members-ng.iracing.com/data/carclass/get");
-        return await CreateResponseViaInfoLinkAsync(carClassUrl, CarClassArrayContext.Default.CarClassArray, cancellationToken).ConfigureAwait(false);
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(carClassUrl, CarClassArrayContext.Default.CarClassArray, cancellationToken).ConfigureAwait(false);
+        return CreateResponse(headers, data, logger);
+    }
+
+    /// <summary>Retrieves a list of the iRacing Divisions.</summary>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing an array of <see cref="Division"/> objects.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="Exception">If there's a problem processing the result.</exception>
+    public async Task<DataResponse<Division[]>> GetDivisionsAsync(CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            throw new InvalidOperationException("Must be logged in before requesting data.");
+        }
+
+        var constantsDivisionsUrl = new Uri("https://members-ng.iracing.com/data/constants/divisions");
+        var constantsDivisionsResponse = await httpClient.GetAsync(constantsDivisionsUrl, cancellationToken).ConfigureAwait(false);
+
+        var data = await constantsDivisionsResponse.Content.ReadFromJsonAsync(DivisionArrayContext.Default.DivisionArray, cancellationToken).ConfigureAwait(false);
+        if (data is null)
+        {
+            throw new iRacingDataClientException("Data not found.");
+        }
+
+        return CreateResponse(constantsDivisionsResponse.Headers, data, logger)!;
     }
 
     /// <summary>Get information about a league.</summary>
@@ -124,7 +152,8 @@ public class iRacingDataClient
             { "league_id", leagueId.ToString(CultureInfo.InvariantCulture) },
             { "include_licenses", includeLicenses.ToString() }
         });
-        return await CreateResponseViaInfoLinkAsync(new Uri(getTrackUrl), LeagueContext.Default.League, cancellationToken).ConfigureAwait(false);
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(new Uri(getTrackUrl), LeagueContext.Default.League, cancellationToken).ConfigureAwait(false);
+        return CreateResponse(headers, data, logger);
     }
 
     /// <summary>Information about reference data defined by the system.</summary>
@@ -140,7 +169,8 @@ public class iRacingDataClient
         }
 
         var lookupsUrl = new Uri("https://members-ng.iracing.com/data/lookup/get?weather=weather_wind_speed_units&weather=weather_wind_speed_max&weather=weather_wind_speed_min&licenselevels=licenselevels");
-        return await CreateResponseViaInfoLinkAsync(lookupsUrl, LookupGroupArrayContext.Default.LookupGroupArray, cancellationToken).ConfigureAwait(false);
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(lookupsUrl, LookupGroupArrayContext.Default.LookupGroupArray, cancellationToken).ConfigureAwait(false);
+        return CreateResponse(headers, data, logger);
     }
 
     /// <summary>Information about license levels available in the iRacing system.</summary>
@@ -156,7 +186,8 @@ public class iRacingDataClient
         }
 
         var licenseUrl = new Uri("https://members-ng.iracing.com/data/lookup/licenses");
-        return await CreateResponseViaInfoLinkAsync(licenseUrl, LicenseArrayContext.Default.LicenseArray, cancellationToken).ConfigureAwait(false);
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(licenseUrl, LicenseArrayContext.Default.LicenseArray, cancellationToken).ConfigureAwait(false);
+        return CreateResponse(headers, data, logger);
     }
 
     /// <summary>Retrieve information about one or more other drivers by their customer identifier.</summary>
@@ -229,7 +260,8 @@ public class iRacingDataClient
             throw new InvalidOperationException("Must be logged in before requesting data.");
         }
         var memberInfoUrl = new Uri("https://members-ng.iracing.com/data/member/info");
-        return await CreateResponseViaInfoLinkAsync(memberInfoUrl, MemberInfoContext.Default.MemberInfo, cancellationToken).ConfigureAwait(false);
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(memberInfoUrl, MemberInfoContext.Default.MemberInfo, cancellationToken).ConfigureAwait(false);
+        return CreateResponse(headers, data, logger);
     }
 
     /// <summary>Get the results of a subsession, if the authenticated user is authorized to view them.</summary>
@@ -252,7 +284,153 @@ public class iRacingDataClient
             { "include_licenses", includeLicenses ? "true" : "false" }
         });
 
-        return await CreateResponseViaInfoLinkAsync(new Uri(subSessionResultUrl), SubSessionResultContext.Default.SubSessionResult, cancellationToken).ConfigureAwait(false);
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionResultUrl), SubSessionResultContext.Default.SubSessionResult, cancellationToken).ConfigureAwait(false);
+        return CreateResponse(headers, data, logger);
+    }
+
+    /// <summary>Get the results of a subsession, if the authenticated user is authorized to view them.</summary>
+    /// <param name="subSessionId">The identifier of the subsession for which results should be returned.</param>
+    /// <param name="simSessionNumber">The number of the session where <c>0</c> is the main event, <c>-1</c> event before the main, etc</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the result details in a <see cref="SubSessionResult"/> object.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    public async Task<DataResponse<(SubsessionLapsHeader Header, SubsessionChartLap[] Laps)>> GetSubSessionLapChartAsync(int subSessionId, int simSessionNumber, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            throw new InvalidOperationException("Must be logged in before requesting data.");
+        }
+
+        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/lap_chart_data", new Dictionary<string, string>
+        {
+            { "subsession_id", subSessionId.ToString(CultureInfo.InvariantCulture) },
+            { "simsession_number", simSessionNumber.ToString(CultureInfo.InvariantCulture) },
+        });
+
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SubsessionLapsHeaderContext.Default.SubsessionLapsHeader, cancellationToken).ConfigureAwait(false);
+
+        var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
+        var sessionLapsList = new List<SubsessionChartLap>();
+        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        {
+            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+
+            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+            if (!chunkResponse.IsSuccessStatusCode)
+            {
+                logger.LogError("Failed to retrieve chunk index {ChunkIndex} of {ChunkTotalCount}", index, data.ChunkInfo.NumChunks);
+                continue;
+            }
+
+            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SubsessionChartLapArrayContext.Default.SubsessionChartLapArray, cancellationToken).ConfigureAwait(false);
+            if (chunkData is null)
+            {
+                continue;
+            }
+
+            sessionLapsList.AddRange(chunkData);
+        }
+
+        return CreateResponse<(SubsessionLapsHeader Header, SubsessionChartLap[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
+    }
+
+    /// <summary>Get the lap details for a particular driver in the given single-driver subsession.</summary>
+    /// <param name="subSessionId">The identifier of the subsession for which results should be returned.</param>
+    /// <param name="simSessionNumber">The number of the session where <c>0</c> is the main event, <c>-1</c> event before the main, etc</param>
+    /// <param name="customerId">A customer identifier value for the driver in the race to return laps for.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the result details in a <see cref="SubSessionResult"/> object.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    public async Task<DataResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>> GetSingleDriverSubsessionLapsAsync(int subSessionId, int simSessionNumber, int customerId, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            throw new InvalidOperationException("Must be logged in before requesting data.");
+        }
+
+        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/lap_data", new Dictionary<string, string>
+        {
+            { "subsession_id", subSessionId.ToString(CultureInfo.InvariantCulture) },
+            { "simsession_number", simSessionNumber.ToString(CultureInfo.InvariantCulture) },
+            { "cust_id", customerId.ToString(CultureInfo.InvariantCulture) },
+        });
+
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SubsessionLapsHeaderContext.Default.SubsessionLapsHeader, cancellationToken).ConfigureAwait(false);
+
+        var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
+        var sessionLapsList = new List<SubsessionLap>();
+        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        {
+            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+
+            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+            if (!chunkResponse.IsSuccessStatusCode)
+            {
+                logger.LogError("Failed to retrieve chunk index {ChunkIndex} of {ChunkTotalCount}", index, data.ChunkInfo.NumChunks);
+                continue;
+            }
+
+            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SubsessionLapArrayContext.Default.SubsessionLapArray, cancellationToken).ConfigureAwait(false);
+            if (chunkData is null)
+            {
+                continue;
+            }
+
+            sessionLapsList.AddRange(chunkData);
+        }
+
+        return CreateResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
+    }
+
+    /// <summary>Get the lap details for a team in the given team subsession.</summary>
+    /// <param name="subSessionId">The identifier of the subsession for which results should be returned.</param>
+    /// <param name="simSessionNumber">The number of the session where <c>0</c> is the main event, <c>-1</c> event before the main, etc</param>
+    /// <param name="teamId">The unique team identifier value for the team from the race to return laps for.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the result details in a <see cref="SubSessionResult"/> object.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    public async Task<DataResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>> GetTeamSubsessionLapsAsync(int subSessionId, int simSessionNumber, int teamId, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            throw new InvalidOperationException("Must be logged in before requesting data.");
+        }
+
+        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/lap_data", new Dictionary<string, string>
+        {
+            { "subsession_id", subSessionId.ToString(CultureInfo.InvariantCulture) },
+            { "simsession_number", simSessionNumber.ToString(CultureInfo.InvariantCulture) },
+            { "team_id", teamId.ToString(CultureInfo.InvariantCulture) },
+        });
+
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SubsessionLapsHeaderContext.Default.SubsessionLapsHeader, cancellationToken).ConfigureAwait(false);
+
+        var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
+        var sessionLapsList = new List<SubsessionLap>();
+        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        {
+            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+
+            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+            if (!chunkResponse.IsSuccessStatusCode)
+            {
+                logger.LogError("Failed to retrieve chunk index {ChunkIndex} of {ChunkTotalCount}", index, data.ChunkInfo.NumChunks);
+                continue;
+            }
+
+            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SubsessionLapArrayContext.Default.SubsessionLapArray, cancellationToken).ConfigureAwait(false);
+            if (chunkData is null)
+            {
+                continue;
+            }
+
+            sessionLapsList.AddRange(chunkData);
+        }
+
+        return CreateResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
     }
 
     /// <summary>Retrieve the statistics for the currently authenticated member, grouped by year.</summary>
@@ -267,7 +445,8 @@ public class iRacingDataClient
             throw new InvalidOperationException("Must be logged in before requesting data.");
         }
 
-        return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/stats/member_yearly"), MemberYearlyStatisticsContext.Default.MemberYearlyStatistics, cancellationToken).ConfigureAwait(false);
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/stats/member_yearly"), MemberYearlyStatisticsContext.Default.MemberYearlyStatistics, cancellationToken).ConfigureAwait(false);
+        return CreateResponse(headers, data, logger);
     }
 
     /// <summary>Retrieve information about the races run during a week in the season.</summary>
@@ -291,7 +470,8 @@ public class iRacingDataClient
             { "event_type", eventType.ToString("D") },
             { "race_week_num", raceWeekNumber.ToString(CultureInfo.InvariantCulture) }
         });
-        return await CreateResponseViaInfoLinkAsync(new Uri(seasonResultsUrl), SeasonResultsContext.Default.SeasonResults, cancellationToken).ConfigureAwait(false);
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(new Uri(seasonResultsUrl), SeasonResultsContext.Default.SeasonResults, cancellationToken).ConfigureAwait(false);
+        return CreateResponse(headers, data, logger);
     }
 
     /// <summary>Retrieve information about the season & series.</summary>
@@ -311,7 +491,8 @@ public class iRacingDataClient
         {
             { "include_series", includeSeries ? "true" : "false" }
         });
-        return await CreateResponseViaInfoLinkAsync(new Uri(seasonSeriesUrl), SeasonSeriesArrayContext.Default.SeasonSeriesArray, cancellationToken).ConfigureAwait(false);
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(new Uri(seasonSeriesUrl), SeasonSeriesArrayContext.Default.SeasonSeriesArray, cancellationToken).ConfigureAwait(false);
+        return CreateResponse(headers, data, logger);
     }
 
     /// <summary>Return a summary of statistics for the given customer's career or that or the authenticated user.</summary>
@@ -320,7 +501,7 @@ public class iRacingDataClient
     /// <returns>A <see cref="DataResponse{TData}"/> containing the statistics in a <see cref="MemberCareer"/> object.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
-    public async Task<DataResponse<MemberCareer>> GetCareerStatisticsAsync(int? customerId, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<MemberCareer>> GetCareerStatisticsAsync(int? customerId = null, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
         {
@@ -335,7 +516,8 @@ public class iRacingDataClient
                 { "cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture) }
             });
         }
-        return await CreateResponseViaInfoLinkAsync(new Uri(careerStatisticsUrl), MemberCareerContext.Default.MemberCareer, cancellationToken).ConfigureAwait(false);
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(new Uri(careerStatisticsUrl), MemberCareerContext.Default.MemberCareer, cancellationToken).ConfigureAwait(false);
+        return CreateResponse(headers, data, logger);
     }
 
     /// <summary>Retrieve the recent race participation for the currently authenticated member.</summary>
@@ -350,7 +532,33 @@ public class iRacingDataClient
             throw new InvalidOperationException("Must be logged in before requesting data.");
         }
 
-        return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/stats/member_recent_races"), MemberRecentRacesContext.Default.MemberRecentRaces, cancellationToken).ConfigureAwait(false);
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/stats/member_recent_races"), MemberRecentRacesContext.Default.MemberRecentRaces, cancellationToken).ConfigureAwait(false);
+        return CreateResponse(headers, data, logger);
+    }
+
+    /// <summary>Retrieve overall summary figures for the <paramref name="customerId"/> given or the current authenticated user.</summary>
+    /// <param name="customerId">iRacing Customer Id for the member to return statistics for, or <see langword="null"/> for the currently authenticated user.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the member's recent races in a <see cref="MemberRecentRaces"/> object.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    public async Task<DataResponse<MemberSummary>> GetMemberSummaryAsync(int? customerId = null, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            throw new InvalidOperationException("Must be logged in before requesting data.");
+        }
+
+        var memberSummaryUrl = "https://members-ng.iracing.com/data/stats/member_summary";
+        if (customerId is not null)
+        {
+            memberSummaryUrl = QueryHelpers.AddQueryString(memberSummaryUrl, new Dictionary<string, string>
+            {
+                { "cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture) }
+            });
+        }
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(new Uri(memberSummaryUrl), MemberSummaryContext.Default.MemberSummary, cancellationToken).ConfigureAwait(false);
+        return CreateResponse(headers, data, logger);
     }
 
     /// <summary>Retrieve information about the track assets.</summary>
@@ -367,7 +575,8 @@ public class iRacingDataClient
         }
 
         var getTrackUrl = "https://members-ng.iracing.com/data/track/assets";
-        return await CreateResponseViaInfoLinkAsync(new Uri(getTrackUrl), TrackAssetsArrayContext.Default.IReadOnlyDictionaryStringTrackAssets, cancellationToken).ConfigureAwait(false);
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(new Uri(getTrackUrl), TrackAssetsArrayContext.Default.IReadOnlyDictionaryStringTrackAssets, cancellationToken).ConfigureAwait(false);
+        return CreateResponse(headers, data, logger);
     }
 
     /// <summary>Retrieve information about the tracks.</summary>
@@ -383,10 +592,11 @@ public class iRacingDataClient
         }
 
         var getTrackUrl = "https://members-ng.iracing.com/data/track/get";
-        return await CreateResponseViaInfoLinkAsync(new Uri(getTrackUrl), TrackArrayContext.Default.TrackArray, cancellationToken).ConfigureAwait(false);
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(new Uri(getTrackUrl), TrackArrayContext.Default.TrackArray, cancellationToken).ConfigureAwait(false);
+        return CreateResponse(headers, data, logger);
     }
 
-    private async Task<DataResponse<TData>> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
+    private async Task<(HttpResponseHeaders Headers, TData Data)> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
     {
         var infoLinkResponse = await httpClient.GetAsync(infoLinkUri, cancellationToken).ConfigureAwait(false);
         if (!infoLinkResponse.IsSuccessStatusCode)
@@ -394,7 +604,8 @@ public class iRacingDataClient
             var errorResponse = await infoLinkResponse.Content.ReadFromJsonAsync<ErrorResponse>(cancellationToken: cancellationToken)
                                                               .ConfigureAwait(false);
 
-            var exception = errorResponse switch { { ErrorCode: "Site Maintenance" } => new iRacingInMaintenancePeriodException(errorResponse.ErrorDescription ?? "iRacing services are down for maintenance."),
+            var exception = errorResponse switch {
+                { ErrorCode: "Site Maintenance" } => new iRacingInMaintenancePeriodException(errorResponse.ErrorDescription ?? "iRacing services are down for maintenance."),
                 _ => null
             };
 
@@ -410,19 +621,21 @@ public class iRacingDataClient
             }
         }
 
-        var infoLink = await infoLinkResponse.Content.ReadFromJsonAsync(LinkResultContext.Default.LinkResult, cancellationToken).ConfigureAwait(false);
+        var infoLink = await infoLinkResponse.Content.ReadFromJsonAsync(LinkResultContext.Default.LinkResult, cancellationToken)
+                                                     .ConfigureAwait(false);
         if (infoLink?.Link is null)
         {
             throw new iRacingDataClientException("Unrecognised result.");
         }
 
-        var data = await httpClient.GetFromJsonAsync(infoLink.Link, jsonTypeInfo, cancellationToken: cancellationToken).ConfigureAwait(false);
+        var data = await httpClient.GetFromJsonAsync(infoLink.Link, jsonTypeInfo, cancellationToken: cancellationToken)
+                                   .ConfigureAwait(false);
         if (data is null)
         {
             throw new iRacingDataClientException("Data not found.");
         }
 
-        return CreateResponse(infoLinkResponse.Headers, data, logger)!;
+        return (infoLinkResponse.Headers, data);
     }
 
     private static DataResponse<TData> CreateResponse<TData>(HttpResponseHeaders headers, TData data, ILogger logger)

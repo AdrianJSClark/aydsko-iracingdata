@@ -1,0 +1,43 @@
+{
+  "headers": {},
+  "content": {
+    "success": true,
+    "session_info": {
+      "subsession_id": 43625377,
+      "session_id": 167925995,
+      "simsession_number": 0,
+      "simsession_type": 6,
+      "num_laps_for_qual_average": 2,
+      "num_laps_for_solo_average": 5,
+      "event_type": 5,
+      "event_type_name": "Race",
+      "private_session_id": -1,
+      "season_name": "F3 Vertagear Championship - 2022 Season 1 - Fixed",
+      "season_short_name": "2022 Season 1",
+      "series_name": "F3 Vertagear Championship - Fixed",
+      "series_short_name": "F3 Vertagear Championship - Fixed",
+      "start_time": "2022-01-02T10:15:00Z",
+      "track": {
+        "track_id": 239,
+        "track_name": "Autodromo Nazionale Monza",
+        "config_name": "Grand Prix"
+      }
+    },
+    "best_lap_num": 17,
+    "best_lap_time": 1031561,
+    "best_nlaps_num": -1,
+    "best_nlaps_time": -1,
+    "best_qual_lap_num": -1,
+    "best_qual_lap_time": -1,
+    "best_qual_lap_at": null,
+    "chunk_info": {
+      "chunk_size": 500,
+      "num_chunks": 1,
+      "rows": 417,
+      "base_download_url": "https://dqfp1ltauszrc.cloudfront.net/public/lapdata/subsession/43625377/0/chart/",
+      "chunk_file_names": [
+        "4e805f4088f3acfcd7ad77b1bc204626dea0a17a16ed4bf82851973b00cee8b3.json"
+      ]
+    }
+  }
+}

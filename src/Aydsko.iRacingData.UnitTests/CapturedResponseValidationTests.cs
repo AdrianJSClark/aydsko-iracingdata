@@ -1,6 +1,9 @@
 ﻿// © 2022 Adrian Clark
 // This file is licensed to you under the MIT license.
 
+using Aydsko.iRacingData.Constants;
+using Aydsko.iRacingData.Results;
+
 namespace Aydsko.iRacingData.UnitTests;
 
 public class CapturedResponseValidationTests : MockedHttpTestBase
@@ -88,6 +91,26 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(carClasses.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(carClasses.TotalRateLimit, Is.EqualTo(100));
         Assert.That(carClasses.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+    }
+
+    [Test(TestOf = typeof(iRacingDataClient))]
+    public async Task GetDivisionsSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetDivisionsSuccessfulAsync)).ConfigureAwait(false);
+        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
+
+        var divisionsResponse = await sut.GetDivisionsAsync().ConfigureAwait(false);
+
+        Assert.That(divisionsResponse, Is.Not.Null);
+        Assert.That(divisionsResponse!.Data, Is.Not.Null);
+
+        Assert.That(divisionsResponse.Data, Has.Length.EqualTo(12));
+        Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("ALL")
+                                                   .And.Property(nameof(Division.Value)).EqualTo(-1));
+
+        Assert.That(divisionsResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(divisionsResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(divisionsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(iRacingDataClient))]
@@ -317,6 +340,24 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(iRacingDataClient))]
+    public async Task GetMemberSummarySuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetMemberSummarySuccessfulAsync)).ConfigureAwait(false);
+        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
+
+        var memberSummaryResponse = await sut.GetMemberSummaryAsync().ConfigureAwait(false);
+
+        Assert.That(memberSummaryResponse, Is.Not.Null);
+        Assert.That(memberSummaryResponse!.Data, Is.Not.Null);
+
+        //Assert.That(memberSummaryResponse.Data.Races, Has.Length.EqualTo(10));
+        Assert.That(memberSummaryResponse.Data.CustomerId, Is.EqualTo(123456));
+        Assert.That(memberSummaryResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(memberSummaryResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(memberSummaryResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+    }
+
+    [Test(TestOf = typeof(iRacingDataClient))]
     public async Task GetLeagueWithLicensesSucceedsAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetLeagueWithLicensesSucceedsAsync)).ConfigureAwait(false);
@@ -346,5 +387,78 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(memberStats.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
         Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+    }
+
+    [Test(TestOf = typeof(iRacingDataClient))]
+    public async Task GetSubSessionLapChartSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetSubSessionLapChartSuccessfulAsync)).ConfigureAwait(false);
+        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
+
+        var lapChartResponse = await sut.GetSubSessionLapChartAsync(12345, 0).ConfigureAwait(false);
+
+        Assert.That(lapChartResponse, Is.Not.Null);
+        Assert.That(lapChartResponse!.Data, Is.Not.Null);
+
+        Assert.That(lapChartResponse.Data.Header, Is.Not.Null);
+        Assert.That(lapChartResponse.Data.Header.Success, Is.True);
+        Assert.That(lapChartResponse.Data.Header.SessionInfo, Is.Not.Null);
+        Assert.That(lapChartResponse.Data.Laps, Has.Length.EqualTo(417));
+        Assert.That(lapChartResponse.Data.Laps, Has.ItemAt(0).Property(nameof(SubsessionChartLap.GroupId)).EqualTo(523780)
+                                                   .And.ItemAt(0).Property(nameof(SubsessionChartLap.Name)).EqualTo("Jake Dennis")
+                                                   .And.ItemAt(0).Property(nameof(SubsessionChartLap.LapPosition)).EqualTo(1));
+
+        Assert.That(lapChartResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+    }
+
+    [Test(TestOf = typeof(iRacingDataClient))]
+    public async Task GetSingleDriverSubsessionLapsSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetSingleDriverSubsessionLapsSuccessfulAsync)).ConfigureAwait(false);
+        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
+
+        var lapChartResponse = await sut.GetSingleDriverSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
+
+        Assert.That(lapChartResponse, Is.Not.Null);
+        Assert.That(lapChartResponse!.Data, Is.Not.Null);
+
+        Assert.That(lapChartResponse.Data.Header, Is.Not.Null);
+        Assert.That(lapChartResponse.Data.Header.Success, Is.True);
+        Assert.That(lapChartResponse.Data.Header.SessionInfo, Is.Not.Null);
+        Assert.That(lapChartResponse.Data.Laps, Has.Length.EqualTo(16));
+        Assert.That(lapChartResponse.Data.Laps, Has.ItemAt(0).Property(nameof(SubsessionLap.GroupId)).EqualTo(341554)
+                                                   .And.ItemAt(0).Property(nameof(SubsessionLap.Name)).EqualTo("Adrian Clark")
+                                                   .And.ItemAt(0).Property(nameof(SubsessionLap.Incident)).EqualTo(false));
+
+        Assert.That(lapChartResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+
+    }
+
+    [Test(TestOf = typeof(iRacingDataClient))]
+    public async Task GetTeamSubsessionLapsSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetTeamSubsessionLapsSuccessfulAsync)).ConfigureAwait(false);
+        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
+
+        var lapChartResponse = await sut.GetTeamSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
+
+        Assert.That(lapChartResponse, Is.Not.Null);
+        Assert.That(lapChartResponse!.Data, Is.Not.Null);
+
+        Assert.That(lapChartResponse.Data.Header, Is.Not.Null);
+        Assert.That(lapChartResponse.Data.Header.Success, Is.True);
+        Assert.That(lapChartResponse.Data.Header.SessionInfo, Is.Not.Null);
+        Assert.That(lapChartResponse.Data.Laps, Has.Length.EqualTo(500));
+        Assert.That(lapChartResponse.Data.Laps, Has.ItemAt(0).Property(nameof(SubsessionLap.GroupId)).EqualTo(-93376)
+                                                   .And.ItemAt(0).Property(nameof(SubsessionLap.Name)).EqualTo("Tempest Motorsports Neon")
+                                                   .And.ItemAt(0).Property(nameof(SubsessionLap.Incident)).EqualTo(false));
+
+        Assert.That(lapChartResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 }
