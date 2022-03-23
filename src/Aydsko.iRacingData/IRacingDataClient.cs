@@ -384,6 +384,55 @@ public class iRacingDataClient
         return CreateResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
     }
 
+    /// <summary>Get the lap details for a team in the given team subsession.</summary>
+    /// <param name="subSessionId">The identifier of the subsession for which results should be returned.</param>
+    /// <param name="simSessionNumber">The number of the session where <c>0</c> is the main event, <c>-1</c> event before the main, etc</param>
+    /// <param name="teamId">The unique team identifier value for the team from the race to return laps for.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the result details in a <see cref="SubSessionResult"/> object.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    public async Task<DataResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>> GetTeamSubsessionLapsAsync(int subSessionId, int simSessionNumber, int teamId, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            throw new InvalidOperationException("Must be logged in before requesting data.");
+        }
+
+        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/lap_data", new Dictionary<string, string>
+        {
+            { "subsession_id", subSessionId.ToString(CultureInfo.InvariantCulture) },
+            { "simsession_number", simSessionNumber.ToString(CultureInfo.InvariantCulture) },
+            { "team_id", teamId.ToString(CultureInfo.InvariantCulture) },
+        });
+
+        var (headers, data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SubsessionLapsHeaderContext.Default.SubsessionLapsHeader, cancellationToken).ConfigureAwait(false);
+
+        var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
+        var sessionLapsList = new List<SubsessionLap>();
+        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        {
+            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+
+            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+            if (!chunkResponse.IsSuccessStatusCode)
+            {
+                logger.LogError("Failed to retrieve chunk index {ChunkIndex} of {ChunkTotalCount}", index, data.ChunkInfo.NumChunks);
+                continue;
+            }
+
+            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SubsessionLapArrayContext.Default.SubsessionLapArray, cancellationToken).ConfigureAwait(false);
+            if (chunkData is null)
+            {
+                continue;
+            }
+
+            sessionLapsList.AddRange(chunkData);
+        }
+
+        return CreateResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
+    }
+
     /// <summary>Retrieve the statistics for the currently authenticated member, grouped by year.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A <see cref="DataResponse{TData}"/> containing the member's statistics in a <see cref="MemberYearlyStatistics"/> object.</returns>
