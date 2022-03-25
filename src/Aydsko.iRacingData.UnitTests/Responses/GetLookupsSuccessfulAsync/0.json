@@ -1,5 +1,11 @@
 ﻿{
-  "headers": {},
+  "headers": {
+    "Set-Cookie": [
+      "r_members=; Path=/; Expires=Thu, 01 Jan 1970 00:00:00 GMT",
+      "irsso_members=ABC123DEF456; Max-Age=31536000; Domain=.iracing.com; Path=/;",
+      "authtoken_members=%7B%22authtoken%22%3A%7B%22authcode%22%3A%22AbC123%22%2C%22email%22%3A%22test.user%40example.com%22%7D%7D; Max-Age=3600; Domain=.iracing.com; Path=/;"
+    ]
+  },
   "content": {
     "authcode": "51687dfd-1d8e-4faa-bf72-52cb36e4f762",
     "autoLoginSeries": null,

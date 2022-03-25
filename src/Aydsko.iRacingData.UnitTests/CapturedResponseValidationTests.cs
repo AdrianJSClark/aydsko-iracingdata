@@ -9,47 +9,22 @@ namespace Aydsko.iRacingData.UnitTests;
 public class CapturedResponseValidationTests : MockedHttpTestBase
 {
     // NUnit will ensure that "SetUp" runs before each test so these can all be forced to "null".
-    private iRacingDataClient sut = null!;
+    private DataClient sut = null!;
 
     [SetUp]
     public void SetUp()
     {
         BaseSetUp();
-        sut = new iRacingDataClient(HttpClient,
-                                    new TestLogger<iRacingDataClient>(),
-                                    new iRacingDataClientOptions(),
+        sut = new DataClient(HttpClient,
+                                    new TestLogger<DataClient>(),
+                                    new iRacingDataClientOptions() { Username = "test.user@example.com", Password = "SuperSecretPassword" },
                                     new System.Net.CookieContainer());
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
-    public async Task ValidCredentialsIsSuccessfulAsync()
-    {
-        await MessageHandler.QueueResponsesAsync(nameof(ValidCredentialsIsSuccessfulAsync)).ConfigureAwait(false);
-
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
-
-        Assert.That(MessageHandler.Requests.TryDequeue(out var request), Is.True, "Somehow no request was made.");
-        try
-        {
-            Assert.That(request, Is.Not.Null);
-
-            Assert.That(request!.RequestUri?.AbsoluteUri, Is.EqualTo("https://members-ng.iracing.com/auth"));
-            var content = await (request.Content?.ReadAsStringAsync() ?? Task.FromResult(string.Empty)).ConfigureAwait(false);
-            Assert.That(content, Is.Not.Null.Or.Empty.And.Contains("test.user@example.com").And.Contains("SuperSecretPassword"));
-
-            Assert.That(sut.IsLoggedIn, Is.True, "IsLoggedIn property should reflect state of authentication");
-        }
-        finally
-        {
-            request?.Dispose();
-        }
-    }
-
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetCarAssetDetailsSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetCarAssetDetailsSuccessfulAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var carAssets = await sut.GetCarAssetDetailsAsync().ConfigureAwait(false);
 
@@ -62,11 +37,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetCarsSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetCarsSuccessfulAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var cars = await sut.GetCarsAsync().ConfigureAwait(false);
 
@@ -79,11 +53,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(cars.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetCarClassesSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetCarClassesSuccessfulAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var carClasses = await sut.GetCarClassesAsync().ConfigureAwait(false);
 
@@ -96,11 +69,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(carClasses.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetDivisionsSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetDivisionsSuccessfulAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var divisionsResponse = await sut.GetDivisionsAsync().ConfigureAwait(false);
 
@@ -116,11 +88,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(divisionsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetLookupsSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetLookupsSuccessfulAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var lookupGroups = await sut.GetLookupsAsync().ConfigureAwait(false);
 
@@ -133,11 +104,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(lookupGroups.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetLicensesSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetLicensesSuccessfulAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var carAssets = await sut.GetLicensesAsync().ConfigureAwait(false);
 
@@ -150,11 +120,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetDriverInfoWithLicensesSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetDriverInfoWithLicensesSuccessfulAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var carAssets = await sut.GetDriverInfoAsync(new[] {123456}, true).ConfigureAwait(false);
 
@@ -170,11 +139,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetDriverInfoWithoutLicensesSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetDriverInfoWithoutLicensesSuccessfulAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var carAssets = await sut.GetDriverInfoAsync(new[] { 123456 }, false).ConfigureAwait(false);
 
@@ -188,11 +156,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetMemberInfoSucceedsAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetMemberInfoSucceedsAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var myInfo = await sut.GetMyInfoAsync().ConfigureAwait(false);
 
@@ -204,22 +171,20 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(myInfo.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetMemberInfoDuringMaintenanceThrowsAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetMemberInfoDuringMaintenanceThrowsAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         Assert.ThrowsAsync<iRacingInMaintenancePeriodException>(async () => {
             var myInfo = await sut.GetMyInfoAsync().ConfigureAwait(false);
         });
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetTracksSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetTracksSuccessfulAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var tracks = await sut.GetTracksAsync().ConfigureAwait(false);
 
@@ -232,11 +197,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(tracks.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetSeasonsWithoutSeriesSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSeasonsWithoutSeriesSuccessfulAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var seasons = await sut.GetSeasonsAsync(false).ConfigureAwait(false);
 
@@ -255,11 +219,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 #endif
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetSeasonsWithSeriesSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSeasonsWithSeriesSuccessfulAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var seasonsAndSeries = await sut.GetSeasonsAsync(true).ConfigureAwait(false);
 
@@ -278,11 +241,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 #endif
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetTrackAssetsSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetTrackAssetsSuccessfulAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var trackAssets = await sut.GetTrackAssetsAsync().ConfigureAwait(false);
 
@@ -295,22 +257,20 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(trackAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetSeasonResultsHandlesBadRequestAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSeasonResultsHandlesBadRequestAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         Assert.That(async () => {
             var badRequestResult = await sut.GetSeasonResultsAsync(0, Results.EventType.Race, 0, CancellationToken.None).ConfigureAwait(false);
         }, Throws.Exception.InstanceOf(typeof(HttpRequestException)).And.Message.Contains("400 (Bad Request)"));
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetMemberYearlyStatisticsSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetMemberYearlyStatisticsSuccessfulAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var memberStats = await sut.GetMemberYearlyStatisticsAsync().ConfigureAwait(false);
 
@@ -324,11 +284,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetMemberRecentRacesSucceedsAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetMemberRecentRacesSucceedsAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var memberStats = await sut.GetMemberRecentRacesAsync().ConfigureAwait(false);
 
@@ -342,11 +301,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetMemberSummarySuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetMemberSummarySuccessfulAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var memberSummaryResponse = await sut.GetMemberSummaryAsync().ConfigureAwait(false);
 
@@ -360,11 +318,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(memberSummaryResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetLeagueWithLicensesSucceedsAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetLeagueWithLicensesSucceedsAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var memberStats = await sut.GetLeagueAsync(123, true).ConfigureAwait(false);
 
@@ -376,11 +333,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetLeagueWithoutLicensesSucceedsAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetLeagueWithoutLicensesSucceedsAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var memberStats = await sut.GetLeagueAsync(123, false).ConfigureAwait(false);
 
@@ -392,11 +348,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetSubSessionLapChartSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSubSessionLapChartSuccessfulAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var lapChartResponse = await sut.GetSubSessionLapChartAsync(12345, 0).ConfigureAwait(false);
 
@@ -416,11 +371,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetSingleDriverSubsessionLapsSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSingleDriverSubsessionLapsSuccessfulAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var lapChartResponse = await sut.GetSingleDriverSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
 
@@ -441,11 +395,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
     }
 
-    [Test(TestOf = typeof(iRacingDataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetTeamSubsessionLapsSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetTeamSubsessionLapsSuccessfulAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
 
         var lapChartResponse = await sut.GetTeamSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
 

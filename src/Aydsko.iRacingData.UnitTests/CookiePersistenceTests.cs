@@ -14,7 +14,7 @@ public class CookiePersistenceTests : MockedHttpTestBase
     }
 
     [Test]
-    public async Task GivenOptionsWithNullDelegateValuesWhenLoginIsCalledThenItWillSucceedAsync()
+    public async Task GivenOptionsWithNullDelegateValuesWhenAMethodIsCalledThenItWillSucceedAsync()
     {
         var options = new iRacingDataClientOptions
         {
@@ -22,13 +22,13 @@ public class CookiePersistenceTests : MockedHttpTestBase
             SaveCookies = null,
         };
 
-        var sut = new iRacingDataClient(HttpClient,
-                                        new TestLogger<iRacingDataClient>(),
+        var sut = new DataClient(HttpClient,
+                                        new TestLogger<DataClient>(),
                                         options,
                                         CookieContainer);
 
-        await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.ValidCredentialsIsSuccessfulAsync)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
+        await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
         Assert.That(sut.IsLoggedIn, Is.True);
     }
@@ -43,13 +43,13 @@ public class CookiePersistenceTests : MockedHttpTestBase
             SaveCookies = (cookies) => savedCookies = cookies,
         };
 
-        var sut = new iRacingDataClient(HttpClient,
-                                        new TestLogger<iRacingDataClient>(),
-                                        options,
-                                        CookieContainer);
+        var sut = new DataClient(HttpClient,
+                                 new TestLogger<DataClient>(),
+                                 options,
+                                 CookieContainer);
 
-        await MessageHandler.QueueResponsesAsync(nameof(GivenOptionsWithASaveActionTheSaveActionIsCalledWithTheCookies)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
+        await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
         Assert.That(sut.IsLoggedIn, Is.True);
         Assert.That(savedCookies, Is.Not.Null);
@@ -69,17 +69,19 @@ public class CookiePersistenceTests : MockedHttpTestBase
 
         var options = new iRacingDataClientOptions
         {
+            Username = "test.user@example.com",
+            Password = "SuperSecretPassword",
             RestoreCookies = () => savedCookies,
             SaveCookies = null,
         };
 
-        var sut = new iRacingDataClient(HttpClient,
-                                        new TestLogger<iRacingDataClient>(),
-                                        options,
-                                        CookieContainer);
+        var sut = new DataClient(HttpClient,
+                                 new TestLogger<DataClient>(),
+                                 options,
+                                 CookieContainer);
 
-        await MessageHandler.QueueResponsesAsync(nameof(GivenOptionsWithASaveActionTheSaveActionIsCalledWithTheCookies)).ConfigureAwait(false);
-        await sut.LoginAsync("test.user@example.com", "SuperSecretPassword", CancellationToken.None).ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
+        await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
         Assert.That(sut.IsLoggedIn, Is.True);
 
@@ -88,5 +90,7 @@ public class CookiePersistenceTests : MockedHttpTestBase
         Assert.That(cookies, Has.Count.EqualTo(4));
         Assert.That(cookies, Has.One.Property(nameof(Cookie.Name)).EqualTo("first"));
         Assert.That(cookies, Has.One.Property(nameof(Cookie.Name)).EqualTo("second"));
+        Assert.That(cookies, Has.One.Property(nameof(Cookie.Name)).EqualTo("irsso_members"));
+        Assert.That(cookies, Has.One.Property(nameof(Cookie.Name)).EqualTo("authtoken_members"));
     }
 }
