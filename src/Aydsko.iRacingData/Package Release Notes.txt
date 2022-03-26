@@ -1,1 +1,9 @@
-﻿This release includes basic functionality which allows you to authenticate & query particular data items from the iRacing Data API.
+﻿Breaking Changes:
+
+ - username & password are now passed via the "options" object
+ - the login method is now called internally, calls to it can be removed
+ - "iRacingDataClient" has been renamed to an "IDataClient" interface
+
+New Features:
+
+ - ability to save & restore authentication tokens so unnecessary log ins can be avoided
