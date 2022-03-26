@@ -1,11 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Aydsko.iRacingData;
 
-using var provider = new ServiceCollection().AddIRacingDataApi()
-                                            .BuildServiceProvider();
-
-using var appScope = provider.CreateScope();
-
 Console.WriteLine("Aydsko iRacing Data API Example Console Application");
 
 Console.WriteLine();
@@ -22,15 +17,21 @@ if (username is null || password is null)
     return;
 }
 
-var iRacingClient = provider.GetRequiredService<iRacingDataClient>();
-await iRacingClient.LoginAsync(username, password);
+var services = new ServiceCollection();
+services.AddIRacingDataApi(options =>
+{
+    options.Username = username;
+    options.Password = password;
+});
 
-Console.WriteLine();
-Console.WriteLine("Login successful!");
+using var provider = services.BuildServiceProvider();
+using var appScope = provider.CreateScope();
 
+var iRacingClient = provider.GetRequiredService<IDataClient>();
 var myInfo = await iRacingClient.GetMyInfoAsync();
 
 Console.WriteLine();
+Console.WriteLine("Request successful!");
 Console.WriteLine($@"Driver name: {myInfo.Data.DisplayName}
 Customer ID: {myInfo.Data.CustomerId}
 Club: {myInfo.Data.ClubName}");
