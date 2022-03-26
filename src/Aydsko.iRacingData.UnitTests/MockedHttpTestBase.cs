@@ -1,17 +1,21 @@
 ﻿// © 2022 Adrian Clark
 // This file is licensed to you under the MIT license.
 
+using System.Net;
+
 namespace Aydsko.iRacingData.UnitTests;
 
 public class MockedHttpTestBase : IDisposable
 {
+    protected CookieContainer CookieContainer { get; set; } = null!;
     protected MockedHttpMessageHandler MessageHandler { get; set; } = null!;
     protected HttpClient HttpClient { get; set; } = null!;
     private bool disposedValue;
 
     protected void BaseSetUp()
     {
-        MessageHandler = new MockedHttpMessageHandler();
+        CookieContainer = new CookieContainer();
+        MessageHandler = new MockedHttpMessageHandler(CookieContainer);
         HttpClient = new HttpClient(MessageHandler);
     }
 
