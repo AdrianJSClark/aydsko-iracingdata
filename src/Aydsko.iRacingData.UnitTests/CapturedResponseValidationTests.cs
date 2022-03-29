@@ -242,6 +242,20 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
+    public async Task GetStatisticsSeriesSuccesfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetStatisticsSeriesSuccesfulAsync)).ConfigureAwait(false);
+
+        var statsSeriesResponse = await sut.GetStatisticsSeriesAsync(CancellationToken.None).ConfigureAwait(false);
+
+        Assert.That(statsSeriesResponse, Is.Not.Null);
+        Assert.That(statsSeriesResponse!.Data, Is.Not.Null);
+        Assert.That(statsSeriesResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(statsSeriesResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(statsSeriesResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+    }
+
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetTrackAssetsSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetTrackAssetsSuccessfulAsync)).ConfigureAwait(false);

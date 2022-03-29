@@ -1,7 +1,6 @@
 ﻿// © 2022 Adrian Clark
 // This file is licensed to you under the MIT license.
 
-using Aydsko.iRacingData.CarClasses;
 using Aydsko.iRacingData.Cars;
 using Aydsko.iRacingData.Constants;
 using Aydsko.iRacingData.Leagues;
@@ -391,7 +390,20 @@ internal class DataClient : IDataClient
         {
             { "include_series", includeSeries ? "true" : "false" }
         });
+
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(seasonSeriesUrl), SeasonSeriesArrayContext.Default.SeasonSeriesArray, cancellationToken).ConfigureAwait(false);
+        return CreateResponse(headers, data, logger);
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<StatisticsSeries[]>> GetStatisticsSeriesAsync(CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/series/stats_series"), StatisticsSeriesArrayContext.Default.StatisticsSeriesArray, cancellationToken).ConfigureAwait(false);
         return CreateResponse(headers, data, logger);
     }
 
