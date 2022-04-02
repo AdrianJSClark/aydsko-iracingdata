@@ -10,7 +10,7 @@ public class SeasonResults
     [JsonPropertyName("results_list")]
     public SeasonRaceResult[] ResultsList { get; set; } = Array.Empty<SeasonRaceResult>();
     [JsonPropertyName("event_type")]
-    public int EventType { get; set; }
+    public EventType EventType { get; set; }
     [JsonPropertyName("success")]
     public bool Success { get; set; }
     [JsonPropertyName("season_id")]
@@ -24,7 +24,7 @@ public class SeasonRaceResult
     [JsonPropertyName("race_week_num")]
     public int RaceWeekNum { get; set; }
     [JsonPropertyName("event_type")]
-    public int EventType { get; set; }
+    public EventType EventType { get; set; }
     [JsonPropertyName("event_type_name")]
     public string? EventTypeName { get; set; }
     [JsonPropertyName("start_time")]

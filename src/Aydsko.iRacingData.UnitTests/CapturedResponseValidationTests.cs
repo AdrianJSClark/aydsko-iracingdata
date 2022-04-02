@@ -125,7 +125,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetDriverInfoWithLicensesSuccessfulAsync)).ConfigureAwait(false);
 
-        var carAssets = await sut.GetDriverInfoAsync(new[] {123456}, true).ConfigureAwait(false);
+        var carAssets = await sut.GetDriverInfoAsync(new[] { 123456 }, true).ConfigureAwait(false);
 
         Assert.That(carAssets, Is.Not.Null);
         Assert.That(carAssets!.Data, Is.Not.Null);
@@ -176,7 +176,8 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetMemberInfoDuringMaintenanceThrowsAsync)).ConfigureAwait(false);
 
-        Assert.ThrowsAsync<iRacingInMaintenancePeriodException>(async () => {
+        Assert.ThrowsAsync<iRacingInMaintenancePeriodException>(async () =>
+        {
             var myInfo = await sut.GetMyInfoAsync().ConfigureAwait(false);
         });
     }
@@ -276,7 +277,8 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSeasonResultsHandlesBadRequestAsync)).ConfigureAwait(false);
 
-        Assert.That(async () => {
+        Assert.That(async () =>
+        {
             var badRequestResult = await sut.GetSeasonResultsAsync(0, Results.EventType.Race, 0, CancellationToken.None).ConfigureAwait(false);
         }, Throws.Exception.InstanceOf(typeof(HttpRequestException)).And.Message.Contains("400 (Bad Request)"));
     }
@@ -330,6 +332,21 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(memberSummaryResponse.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(memberSummaryResponse.TotalRateLimit, Is.EqualTo(100));
         Assert.That(memberSummaryResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+    }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetMemberDivisionSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetMemberDivisionSuccessfulAsync)).ConfigureAwait(false);
+
+        var memberDivisionResponse = await sut.GetMemberDivisionAsync(1234, EventType.Race, CancellationToken.None);
+
+        Assert.That(memberDivisionResponse, Is.Not.Null);
+        Assert.That(memberDivisionResponse.Data, Is.Not.Null);
+
+        Assert.That(memberDivisionResponse.Data.Success, Is.True);
+        Assert.That(memberDivisionResponse.Data.SeasonId, Is.EqualTo(1234));
+        Assert.That(memberDivisionResponse.Data.EventType, Is.EqualTo(EventType.Race));
     }
 
     [Test(TestOf = typeof(DataClient))]
