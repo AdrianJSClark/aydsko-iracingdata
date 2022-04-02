@@ -47,6 +47,12 @@ jobs:
         working-directory: src
         run: dotnet test -c Release --no-build --collect:"XPlat Code Coverage"
 
+      - uses: actions/upload-artifact@v2
+        if: success() || failure()
+        with:
+          name: test-results
+          path: '**/TestResult/*.trx'
+
       - name: 'Copy Package to Root'
         shell: pwsh
         run: Get-ChildItem -Path src\*\bin\Release\* -Recurse -Include *.nupkg | Copy-Item -Container:$false
