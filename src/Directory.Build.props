@@ -29,4 +29,13 @@
       <_Parameter1_IsLiteral>true</_Parameter1_IsLiteral>
     </AssemblyAttribute>
   </ItemGroup>
+
+  <PropertyGroup>
+    <!--
+    Ensure that test results are written, especially to be picked up by our automated builds.
+    Source: https://github.com/marketplace/actions/test-reporter#supported-formats
+    -->
+    <VSTestLogger>trx%3bLogFileName=$(MSBuildProjectName).trx</VSTestLogger>
+    <VSTestResultsDirectory>$(MSBuildThisFileDirectory)/TestResults/$(TargetFramework)</VSTestResultsDirectory>
+  </PropertyGroup>
 </Project>
