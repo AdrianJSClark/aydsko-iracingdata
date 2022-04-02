@@ -1,6 +1,7 @@
 ﻿// © 2022 Adrian Clark
 // This file is licensed to you under the MIT license.
 
+using Aydsko.iRacingData.Common;
 using Aydsko.iRacingData.Constants;
 using Aydsko.iRacingData.Results;
 
@@ -105,11 +106,11 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
-    public async Task GetLicensesSuccessfulAsync()
+    public async Task GetLicenseLookupsSuccessfulAsync()
     {
-        await MessageHandler.QueueResponsesAsync(nameof(GetLicensesSuccessfulAsync)).ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync(nameof(GetLicenseLookupsSuccessfulAsync)).ConfigureAwait(false);
 
-        var carAssets = await sut.GetLicensesAsync().ConfigureAwait(false);
+        var carAssets = await sut.GetLicenseLookupsAsync().ConfigureAwait(false);
 
         Assert.That(carAssets, Is.Not.Null);
         Assert.That(carAssets!.Data, Is.Not.Null);
@@ -279,7 +280,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         Assert.That(async () =>
         {
-            var badRequestResult = await sut.GetSeasonResultsAsync(0, Results.EventType.Race, 0, CancellationToken.None).ConfigureAwait(false);
+            var badRequestResult = await sut.GetSeasonResultsAsync(0, EventType.Race, 0, CancellationToken.None).ConfigureAwait(false);
         }, Throws.Exception.InstanceOf(typeof(HttpRequestException)).And.Message.Contains("400 (Bad Request)"));
     }
 

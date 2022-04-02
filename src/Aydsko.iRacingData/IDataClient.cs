@@ -75,7 +75,7 @@ public interface IDataClient
     /// <returns>A <see cref="DataResponse{TData}"/> containing an array of <see cref="License"/> objects.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="Exception">If there's a problem processing the result.</exception>
-    Task<DataResponse<License[]>> GetLicensesAsync(CancellationToken cancellationToken = default);
+    Task<DataResponse<LicenseLookup[]>> GetLicenseLookupsAsync(CancellationToken cancellationToken = default);
 
     /// <summary>Information about reference data defined by the system.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
@@ -83,6 +83,14 @@ public interface IDataClient
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="Exception">If there's a problem processing the result.</exception>
     Task<DataResponse<LookupGroup[]>> GetLookupsAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>Retrieve information about the authenticated member's division.</summary>
+    /// <param name="seasonId">Unique identifier for the racing season.</param>
+    /// <param name="eventType">The type of events to return, either <see cref="EventType.TimeTrial" /> or <see cref="EventType.Race" />.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="MemberDivision" /> object containing the result.</returns>
+    /// <remarks>Divisions are 0-based: 0 is Division 1, 10 is Rookie. See <see cref="GetDivisionsAsync(CancellationToken)"/> for more information.</remarks>
+    Task<DataResponse<MemberDivision>> GetMemberDivisionAsync(int seasonId, EventType eventType, CancellationToken cancellationToken = default);
 
     /// <summary>Retrieve the recent race participation for the currently authenticated member.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>

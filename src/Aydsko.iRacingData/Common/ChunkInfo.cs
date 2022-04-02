@@ -3,7 +3,7 @@
 
 using System.Text.Json.Serialization;
 
-namespace Aydsko.iRacingData.Results;
+namespace Aydsko.iRacingData.Common;
 
 public class ChunkInfo
 {

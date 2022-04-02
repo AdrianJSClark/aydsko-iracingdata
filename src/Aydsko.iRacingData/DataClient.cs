@@ -129,7 +129,7 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<License[]>> GetLicensesAsync(CancellationToken cancellationToken = default)
+    public async Task<DataResponse<LicenseLookup[]>> GetLicenseLookupsAsync(CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
         {
@@ -137,7 +137,7 @@ internal class DataClient : IDataClient
         }
 
         var licenseUrl = new Uri("https://members-ng.iracing.com/data/lookup/licenses");
-        (var headers, var data) = await CreateResponseViaInfoLinkAsync(licenseUrl, LicenseArrayContext.Default.LicenseArray, cancellationToken).ConfigureAwait(false);
+        (var headers, var data) = await CreateResponseViaInfoLinkAsync(licenseUrl, LicenseLookupArrayContext.Default.LicenseLookupArray, cancellationToken).ConfigureAwait(false);
         return CreateResponse(headers, data, logger);
     }
 
@@ -348,6 +348,7 @@ internal class DataClient : IDataClient
         return CreateResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
     }
 
+    /// <inheritdoc />
     public async Task<DataResponse<MemberDivision>> GetMemberDivisionAsync(int seasonId, EventType eventType, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)

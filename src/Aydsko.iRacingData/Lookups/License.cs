@@ -5,7 +5,7 @@ using System.Text.Json.Serialization;
 
 namespace Aydsko.iRacingData.Lookups;
 
-public class License
+public class LicenseLookup
 {
     [JsonPropertyName("license_group")]
     public int LicenseGroup { get; set; }
@@ -23,6 +23,6 @@ public class License
     public int? MinimumNumberOfTimeTrials { get; set; }
 }
 
-[JsonSerializable(typeof(License[])), JsonSourceGenerationOptions(WriteIndented = true)]
-internal partial class LicenseArrayContext : JsonSerializerContext
+[JsonSerializable(typeof(LicenseLookup[])), JsonSourceGenerationOptions(WriteIndented = true)]
+internal partial class LicenseLookupArrayContext : JsonSerializerContext
 { }
