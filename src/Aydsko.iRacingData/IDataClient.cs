@@ -1,7 +1,6 @@
 ﻿// © 2022 Adrian Clark
 // This file is licensed to you under the MIT license.
 
-using Aydsko.iRacingData.CarClasses;
 using Aydsko.iRacingData.Cars;
 using Aydsko.iRacingData.Constants;
 using Aydsko.iRacingData.Leagues;
@@ -131,6 +130,14 @@ public interface IDataClient
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     Task<DataResponse<SeasonSeries[]>> GetSeasonsAsync(bool includeSeries, CancellationToken cancellationToken = default);
+
+    /// <summary>Retrieve a list of series.</summary>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the season & optionally series detail in a <see cref="SeasonSeries"/> array.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <remarks>To get series and seasons for which standings should be available, filter the list where <see cref="StatisticsSeries.Official" /> is <see langword="true" />.</remarks>
+    Task<DataResponse<StatisticsSeries[]>> GetStatisticsSeriesAsync(CancellationToken cancellationToken = default);
 
     /// <summary>Get the lap details for a particular driver in the given single-driver subsession.</summary>
     /// <param name="subSessionId">The identifier of the subsession for which results should be returned.</param>

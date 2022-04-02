@@ -14,7 +14,7 @@ public class Track
     [JsonPropertyName("config_name")]
     public string ConfigName { get; set; } = default!;
     [JsonPropertyName("category_id")]
-    public int CategoryId { get; set; }
+    public int? CategoryId { get; set; }
     [JsonPropertyName("category")]
-    public string Category { get; set; } = default!;
+    public string? Category { get; set; }
 }
