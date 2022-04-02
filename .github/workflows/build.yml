@@ -51,7 +51,7 @@ jobs:
         if: success() || failure()
         with:
           name: test-results
-          path: '**/TestResult/**/*.trx'
+          path: '**\TestResults\**\*.trx'
 
       - name: 'Copy Package to Root'
         shell: pwsh
