@@ -404,6 +404,24 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
+    public async Task GetSeasonDriverStandingsSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetSeasonDriverStandingsSuccessfulAsync)).ConfigureAwait(false);
+
+        var seasonDriverStandingsResponse = await sut.GetSeasonDriverStandingsAsync(1234, 9, 0, CancellationToken.None).ConfigureAwait(false);
+
+        Assert.That(seasonDriverStandingsResponse, Is.Not.Null);
+        Assert.That(seasonDriverStandingsResponse!.Data, Is.Not.Null);
+
+        Assert.That(seasonDriverStandingsResponse.Data.Header, Is.Not.Null);
+        Assert.That(seasonDriverStandingsResponse.Data.Header.Success, Is.True);
+
+        Assert.That(seasonDriverStandingsResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(seasonDriverStandingsResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(seasonDriverStandingsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+    }
+
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetSingleDriverSubsessionLapsSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSingleDriverSubsessionLapsSuccessfulAsync)).ConfigureAwait(false);
