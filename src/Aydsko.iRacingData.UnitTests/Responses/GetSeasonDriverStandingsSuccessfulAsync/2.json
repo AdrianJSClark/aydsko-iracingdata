@@ -1,0 +1,24 @@
+{
+  "headers": {},
+  "content": {
+    "success": true,
+    "season_id": 3656,
+    "season_name": "Grand Prix Series - 2022 Season 2",
+    "season_short_name": "2022 Season 2",
+    "series_id": 260,
+    "series_name": "Grand Prix Series",
+    "car_class_id": 3185,
+    "race_week_num": 0,
+    "chunk_info": {
+      "chunk_size": 500,
+      "num_chunks": 2,
+      "rows": 647,
+      "base_download_url": "https://dqfp1ltauszrc.cloudfront.net/public/standings/season/3656/season-driver/3185/0/",
+      "chunk_file_names": [
+        "c1abec864bf6fb301a10b2cc05d33bcbc78b1a4b32bf8b97ca975450f93c0b12.json",
+        "c1ab788269a48ee1c78926d46b1b18eb1d7e6be9505a5f50a2f06e4899a3be23.json"
+      ]
+    },
+    "last_updated": "2022-04-02T11:34:30.81764Z"
+  }
+}

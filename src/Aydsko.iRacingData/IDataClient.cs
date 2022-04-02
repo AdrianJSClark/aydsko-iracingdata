@@ -75,7 +75,7 @@ public interface IDataClient
     /// <returns>A <see cref="DataResponse{TData}"/> containing an array of <see cref="License"/> objects.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="Exception">If there's a problem processing the result.</exception>
-    Task<DataResponse<License[]>> GetLicensesAsync(CancellationToken cancellationToken = default);
+    Task<DataResponse<LicenseLookup[]>> GetLicenseLookupsAsync(CancellationToken cancellationToken = default);
 
     /// <summary>Information about reference data defined by the system.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
@@ -83,6 +83,14 @@ public interface IDataClient
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="Exception">If there's a problem processing the result.</exception>
     Task<DataResponse<LookupGroup[]>> GetLookupsAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>Retrieve information about the authenticated member's division.</summary>
+    /// <param name="seasonId">Unique identifier for the racing season.</param>
+    /// <param name="eventType">The type of events to return, either <see cref="EventType.TimeTrial" /> or <see cref="EventType.Race" />.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="MemberDivision" /> object containing the result.</returns>
+    /// <remarks>Divisions are 0-based: 0 is Division 1, 10 is Rookie. See <see cref="GetDivisionsAsync(CancellationToken)"/> for more information.</remarks>
+    Task<DataResponse<MemberDivision>> GetMemberDivisionAsync(int seasonId, EventType eventType, CancellationToken cancellationToken = default);
 
     /// <summary>Retrieve the recent race participation for the currently authenticated member.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
@@ -112,6 +120,14 @@ public interface IDataClient
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     Task<DataResponse<MemberInfo>> GetMyInfoAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>Retrieve the driver standings for a season.</summary>
+    /// <param name="seasonId">Unique identifier for the racing season.</param>
+    /// <param name="carClassId">Car class identifier. See <see cref="GetCarClassesAsync(CancellationToken)" />.</param>
+    /// <param name="raceWeekNumber">Week number within the given season, starting with 0 for the first week.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A header with overall series information and an array of standings.</returns>
+    Task<DataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Standings)>> GetSeasonDriverStandingsAsync(int seasonId, int carClassId, int raceWeekNumber, CancellationToken cancellationToken = default);
 
     /// <summary>Retrieve information about the races run during a week in the season.</summary>
     /// <param name="seasonId">Unique identifier for the racing season.</param>

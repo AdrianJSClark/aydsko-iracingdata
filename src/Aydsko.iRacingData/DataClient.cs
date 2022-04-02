@@ -129,7 +129,7 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<License[]>> GetLicensesAsync(CancellationToken cancellationToken = default)
+    public async Task<DataResponse<LicenseLookup[]>> GetLicenseLookupsAsync(CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
         {
@@ -137,7 +137,7 @@ internal class DataClient : IDataClient
         }
 
         var licenseUrl = new Uri("https://members-ng.iracing.com/data/lookup/licenses");
-        (var headers, var data) = await CreateResponseViaInfoLinkAsync(licenseUrl, LicenseArrayContext.Default.LicenseArray, cancellationToken).ConfigureAwait(false);
+        (var headers, var data) = await CreateResponseViaInfoLinkAsync(licenseUrl, LicenseLookupArrayContext.Default.LicenseLookupArray, cancellationToken).ConfigureAwait(false);
         return CreateResponse(headers, data, logger);
     }
 
@@ -348,6 +348,7 @@ internal class DataClient : IDataClient
         return CreateResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
     }
 
+    /// <inheritdoc />
     public async Task<DataResponse<MemberDivision>> GetMemberDivisionAsync(int seasonId, EventType eventType, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
@@ -374,6 +375,48 @@ internal class DataClient : IDataClient
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/stats/member_yearly"), MemberYearlyStatisticsContext.Default.MemberYearlyStatistics, cancellationToken).ConfigureAwait(false);
         return CreateResponse(headers, data, logger);
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Standings)>> GetSeasonDriverStandingsAsync(int seasonId, int carClassId, int raceWeekNumber, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_driver_standings", new Dictionary<string, string>
+        {
+            { "season_id", seasonId.ToString(CultureInfo.InvariantCulture) },
+            { "car_class_id", carClassId.ToString(CultureInfo.InvariantCulture) },
+            { "race_week_num", raceWeekNumber.ToString(CultureInfo.InvariantCulture) },
+        });
+
+        (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonDriverStandingsHeaderContext.Default.SeasonDriverStandingsHeader, cancellationToken).ConfigureAwait(false);
+
+        var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
+        var sessionLapsList = new List<SeasonDriverStanding>();
+        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        {
+            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+
+            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+            if (!chunkResponse.IsSuccessStatusCode)
+            {
+                logger.LogError("Failed to retrieve chunk index {ChunkIndex} of {ChunkTotalCount}", index, data.ChunkInfo.NumChunks);
+                continue;
+            }
+
+            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SeasonDriverStandingArrayContext.Default.SeasonDriverStandingArray, cancellationToken).ConfigureAwait(false);
+            if (chunkData is null)
+            {
+                continue;
+            }
+
+            sessionLapsList.AddRange(chunkData);
+        }
+
+        return CreateResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
     }
 
     /// <inheritdoc />
