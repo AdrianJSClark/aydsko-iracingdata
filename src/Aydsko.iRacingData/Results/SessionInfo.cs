@@ -20,7 +20,7 @@ public class SessionInfo
     [JsonPropertyName("num_laps_for_solo_average")]
     public int NumLapsForSoloAverage { get; set; }
     [JsonPropertyName("event_type")]
-    public int EventType { get; set; }
+    public EventType EventType { get; set; }
     [JsonPropertyName("event_type_name")]
     public string EventTypeName { get; set; } = null!;
     [JsonPropertyName("private_session_id")]

@@ -52,7 +52,7 @@ public class SubSessionResult
     [JsonPropertyName("caution_type")]
     public int CautionType { get; set; }
     [JsonPropertyName("event_type")]
-    public int EventType { get; set; }
+    public EventType EventType { get; set; }
     [JsonPropertyName("event_type_name")]
     public string EventTypeName { get; set; } = default!;
     [JsonPropertyName("driver_changes")]
