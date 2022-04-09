@@ -467,4 +467,20 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
         Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetSubSessionResultSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetSubSessionResultSuccessfulAsync)).ConfigureAwait(false);
+
+        var subSessionResultResponse = await sut.GetSubSessionResultAsync(12345, false, CancellationToken.None).ConfigureAwait(false);
+
+        Assert.That(subSessionResultResponse, Is.Not.Null);
+        Assert.That(subSessionResultResponse!.Data, Is.Not.Null);
+
+        Assert.That(subSessionResultResponse.Data.SeasonId, Is.EqualTo(3620));
+        Assert.That(subSessionResultResponse.Data.SeriesName, Is.EqualTo("Global Fanatec Challenge"));
+        Assert.That(subSessionResultResponse.Data.SessionResults, Has.Length.EqualTo(2));
+        Assert.That(subSessionResultResponse.Data.SessionResults, Has.One.Property(nameof(SessionResults.SimSessionName)).EqualTo("RACE"));
+    }
 }

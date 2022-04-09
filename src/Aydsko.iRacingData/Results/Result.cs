@@ -116,7 +116,7 @@ public class Result
     public decimal OldSafetyRating => OldSubLevel / 100.0M;
 
     [JsonPropertyName("old_cpi")]
-    public int OldCornersPerIncident { get; set; }
+    public decimal OldCornersPerIncident { get; set; }
 
     [JsonPropertyName("oldi_rating")]
     public int OldIRating { get; set; }
@@ -139,7 +139,7 @@ public class Result
     public decimal NewSafetyRating => NewSubLevel / 100.0M;
 
     [JsonPropertyName("new_cpi")]
-    public int NewCornersPerIncident { get; set; }
+    public decimal NewCornersPerIncident { get; set; }
 
     [JsonPropertyName("newi_rating")]
     public int NewIRating { get; set; }
