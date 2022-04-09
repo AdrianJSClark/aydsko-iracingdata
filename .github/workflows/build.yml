@@ -55,6 +55,23 @@ jobs:
 
       - name: 'Copy Package to Root'
         shell: pwsh
+        run: |
+          mkdir coverage
+          cd coverage
+          Get-ChildItem -Path ..\src\* -Recurse -Include coverage.cobertura.xml | Copy-Item -Container:$false
+          pwd
+          dir
+
+      - name: 'Code Coverage Summary Report'
+        uses: insightsengineering/coverage-action@v2
+        with:
+          path: './coverage/coverage.cobertura.xml'
+          fail: false
+          publish: true
+          diff: false
+
+      - name: 'Copy Package to Root'
+        shell: pwsh
         run: Get-ChildItem -Path src\*\bin\Release\* -Recurse -Include *.nupkg | Copy-Item -Container:$false
 
       # Decided there's no need to do this each time for now.
