@@ -188,7 +188,7 @@ public interface IDataClient
     /// <param name="simSessionNumber">The number of the session where <c>0</c> is the main event, <c>-1</c> event before the main, etc</param>
     /// <param name="teamId">The unique team identifier value for the team from the race to return laps for.</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
-    /// <returns>A <see cref="DataResponse{TData}"/> containing the result details in a <see cref="SubSessionResult"/> object.</returns>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing overall session details in a <see cref="SubsessionLapsHeader"/> object along with an array of <see cref="SubsessionLap" />.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     Task<DataResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>> GetTeamSubsessionLapsAsync(int subSessionId, int simSessionNumber, int teamId, CancellationToken cancellationToken = default);
@@ -207,4 +207,11 @@ public interface IDataClient
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     Task<DataResponse<Tracks.Track[]>> GetTracksAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>Retrieve a list of session events.</summary>
+    /// <param name="subSessionId">The identifier of the subsession for which results should be returned.</param>
+    /// <param name="simSessionNumber">The number of the session where <c>0</c> is the main event, <c>-1</c> event before the main, etc</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns></returns>
+    Task<DataResponse<(SubsessionEventLogHeader Header, SubsessionEventLogItem[] LogItems)>> GetSubsessionEventLogAsync(int subSessionId, int simSessionNumber, CancellationToken cancellationToken = default);
 }
