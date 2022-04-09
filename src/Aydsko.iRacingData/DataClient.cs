@@ -265,6 +265,47 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
+    public async Task<DataResponse<(SubsessionEventLogHeader Header, SubsessionEventLogItem[] LogItems)>> GetSubsessionEventLogAsync(int subSessionId, int simSessionNumber, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/event_log", new Dictionary<string, string>
+        {
+            { "subsession_id", subSessionId.ToString(CultureInfo.InvariantCulture) },
+            { "simsession_number", simSessionNumber.ToString(CultureInfo.InvariantCulture) },
+        });
+
+        (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SubsessionEventLogHeaderContext.Default.SubsessionEventLogHeader, cancellationToken).ConfigureAwait(false);
+
+        var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
+        var sessionLapsList = new List<SubsessionEventLogItem>();
+        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        {
+            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+
+            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+            if (!chunkResponse.IsSuccessStatusCode)
+            {
+                logger.LogError("Failed to retrieve chunk index {ChunkIndex} of {ChunkTotalCount}", index, data.ChunkInfo.NumChunks);
+                continue;
+            }
+
+            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SubsessionEventLogItemArrayContext.Default.SubsessionEventLogItemArray, cancellationToken).ConfigureAwait(false);
+            if (chunkData is null)
+            {
+                continue;
+            }
+
+            sessionLapsList.AddRange(chunkData);
+        }
+
+        return CreateResponse<(SubsessionEventLogHeader Header, SubsessionEventLogItem[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
+    }
+
+    /// <inheritdoc />
     public async Task<DataResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>> GetSingleDriverSubsessionLapsAsync(int subSessionId, int simSessionNumber, int customerId, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)

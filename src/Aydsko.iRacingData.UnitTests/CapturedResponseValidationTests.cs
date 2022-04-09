@@ -483,4 +483,17 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(subSessionResultResponse.Data.SessionResults, Has.Length.EqualTo(2));
         Assert.That(subSessionResultResponse.Data.SessionResults, Has.One.Property(nameof(SessionResults.SimSessionName)).EqualTo("RACE"));
     }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetSubsessionEventLogSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetSubsessionEventLogSuccessfulAsync)).ConfigureAwait(false);
+
+        var subSessionResultResponse = await sut.GetSubsessionEventLogAsync(12345, 0, CancellationToken.None).ConfigureAwait(false);
+
+        Assert.That(subSessionResultResponse, Is.Not.Null);
+        Assert.That(subSessionResultResponse!.Data, Is.Not.Null);
+        Assert.That(subSessionResultResponse.Data.Header, Is.Not.Null);
+        Assert.That(subSessionResultResponse.Data.LogItems, Is.Not.Null);
+    }
 }
