@@ -1,9 +1,10 @@
-﻿Breaking Changes:
+﻿New iRacing Endpoints:
 
- - username & password are now passed via the "options" object
- - the login method is now called internally, calls to it can be removed
- - "iRacingDataClient" has been renamed to an "IDataClient" interface
+ - series/stats_series
+ - stats/member_division
+ - stats/season_driver_standings
+ - results/event_log
 
-New Features:
+Fixes:
 
- - ability to save & restore authentication tokens so unnecessary log ins can be avoided
+ - Session Results Value "old_cpi" Fails To Parse
