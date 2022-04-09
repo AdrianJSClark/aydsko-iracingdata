@@ -8,7 +8,7 @@ namespace Aydsko.iRacingData.Member;
 public class LicenseInfo : License
 {
     [JsonPropertyName("cpi")]
-    public float CornersPerIncident { get; set; }
+    public decimal CornersPerIncident { get; set; }
     [JsonPropertyName("irating")]
     public int IRating { get; set; }
     [JsonPropertyName("tt_rating")]
