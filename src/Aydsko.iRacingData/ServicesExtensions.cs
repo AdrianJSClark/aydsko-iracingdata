@@ -4,6 +4,7 @@
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using System.Net;
+using System.Reflection;
 
 namespace Aydsko.iRacingData;
 
@@ -11,14 +12,18 @@ public static class ServicesExtensions
 {
     public static IServiceCollection AddIRacingDataApi(this IServiceCollection services!!, Action<iRacingDataClientOptions> configureOptions!!)
     {
+#pragma warning disable CA1062 // Validate arguments of public methods
+        services.AddIRacingDataApiInternal(configureOptions);
+#pragma warning restore CA1062 // Validate arguments of public methods
+        return services;
+    }
+
+    static internal IHttpClientBuilder AddIRacingDataApiInternal(this IServiceCollection services!!, Action<iRacingDataClientOptions> configureOptions!!)
+    {
         services.TryAddSingleton(new CookieContainer());
 
         var options = new iRacingDataClientOptions();
-
-#pragma warning disable CA1062 // Validate arguments of public methods
         configureOptions(options);
-#pragma warning restore CA1062 // Validate arguments of public methods
-
         if (string.IsNullOrWhiteSpace(options.Username))
         {
             throw iRacingClientOptionsValueMissingException.Create(nameof(options.Username));
@@ -29,16 +34,39 @@ public static class ServicesExtensions
             throw iRacingClientOptionsValueMissingException.Create(nameof(options.Password));
         }
 
-        services.AddHttpClient<IDataClient, DataClient>((HttpClient httpClient, IServiceProvider provider) => new DataClient(httpClient,
-                                                                                                                                                  provider.GetRequiredService<ILogger<DataClient>>(),
-                                                                                                                                                  options,
-                                                                                                                                                  provider.GetRequiredService<CookieContainer>()))
-                .ConfigurePrimaryHttpMessageHandler(services => new HttpClientHandler
-                {
-                    UseCookies = true,
-                    CookieContainer = services.GetRequiredService<CookieContainer>()
-                });
+        var userAgentValue = CreateUserAgentValue(options);
 
-        return services;
+        var httpClientBuilder = services.AddHttpClient<IDataClient, DataClient>((HttpClient httpClient, IServiceProvider provider) => new DataClient(httpClient,
+                                                                                                                                                     provider.GetRequiredService<ILogger<DataClient>>(),
+                                                                                                                                                     options,
+                                                                                                                                                     provider.GetRequiredService<CookieContainer>()))
+                                        .ConfigureHttpClient(httpClient => httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(userAgentValue))
+                                        .ConfigureHttpMessageHandlerBuilder(msgHandlerBuilder =>
+                                        {
+                                            if (msgHandlerBuilder.PrimaryHandler is HttpClientHandler httpClientHandler)
+                                            {
+                                                httpClientHandler.UseCookies = true;
+                                                httpClientHandler.CookieContainer = msgHandlerBuilder.Services.GetRequiredService<CookieContainer>();
+                                            }
+                                        });
+
+        return httpClientBuilder;
+    }
+
+    private static string CreateUserAgentValue(iRacingDataClientOptions options!!)
+    {
+        if (options.UserAgentProductName is not string userAgentProductName)
+        {
+            userAgentProductName = Assembly.GetEntryAssembly()?.GetName().Name ?? "Unknown";
+        }
+
+        if (options.UserAgentProductVersion is not Version userAgentProductVersion)
+        {
+            userAgentProductVersion = Assembly.GetEntryAssembly()?.GetName().Version ?? new Version(0, 0);
+        }
+
+        var dataClientVersion = typeof(DataClient).Assembly.GetName().Version.ToString(3);
+        var userAgentValue = $"{userAgentProductName}/{userAgentProductVersion} Aydsko.iRacingDataClient/{dataClientVersion}";
+        return userAgentValue;
     }
 }
