@@ -8,6 +8,12 @@ namespace Aydsko.iRacingData;
 /// <summary>Configuration options for the iRacing Data Client.</summary>
 public class iRacingDataClientOptions
 {
+    /// <summary>Name of the application or product using the Data Client library to be included in the HTTP <c>User-Agent</c> header.</summary>
+    public string? UserAgentProductName { get; set; }
+
+    /// <summary>Version of the application or product using the Data Client library to be included in the HTTP <c>User-Agent</c> header.</summary>
+    public Version? UserAgentProductVersion { get; set; }
+
     /// <summary>iRacing user name to use for authentication.</summary>
     public string? Username { get; set; }
 
