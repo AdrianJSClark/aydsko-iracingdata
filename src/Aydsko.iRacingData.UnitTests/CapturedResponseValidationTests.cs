@@ -446,6 +446,17 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
+    public async Task GetSingleDriverSubsessionLapsForbiddenThrowsErrorsAsync()
+    {
+        await MessageHandler.QueueResponsesAsync("ResponseForbidden").ConfigureAwait(false);
+
+        Assert.ThrowsAsync<iRacingForbiddenResponseException>(async () =>
+        {
+            var lapChartResponse = await sut.GetSingleDriverSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
+        });
+    }
+
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetTeamSubsessionLapsSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetTeamSubsessionLapsSuccessfulAsync)).ConfigureAwait(false);
@@ -469,6 +480,17 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
+    public async Task GetTeamSubsessionLapsForbiddenThrowsErrorsAsync()
+    {
+        await MessageHandler.QueueResponsesAsync("ResponseForbidden").ConfigureAwait(false);
+
+        Assert.ThrowsAsync<iRacingForbiddenResponseException>(async () =>
+        {
+            var lapChartResponse = await sut.GetTeamSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
+        });
+    }
+
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetSubSessionResultSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSubSessionResultSuccessfulAsync)).ConfigureAwait(false);
@@ -485,6 +507,17 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
+    public async Task GetSubSessionResultForbiddenThrowsErrorsAsync()
+    {
+        await MessageHandler.QueueResponsesAsync("ResponseForbidden").ConfigureAwait(false);
+
+        Assert.ThrowsAsync<iRacingForbiddenResponseException>(async () =>
+        {
+            var lapChartResponse = await sut.GetSubSessionResultAsync(12345, false).ConfigureAwait(false);
+        });
+    }
+
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetSubsessionEventLogSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSubsessionEventLogSuccessfulAsync)).ConfigureAwait(false);
@@ -495,5 +528,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(subSessionResultResponse!.Data, Is.Not.Null);
         Assert.That(subSessionResultResponse.Data.Header, Is.Not.Null);
         Assert.That(subSessionResultResponse.Data.LogItems, Is.Not.Null);
+    }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetSubsessionEventLogForbiddenThrowsErrorsAsync()
+    {
+        await MessageHandler.QueueResponsesAsync("ResponseForbidden").ConfigureAwait(false);
+
+        Assert.ThrowsAsync<iRacingForbiddenResponseException>(async () =>
+        {
+            var lapChartResponse = await sut.GetSubsessionEventLogAsync(12345, 0).ConfigureAwait(false);
+        });
     }
 }
