@@ -615,9 +615,10 @@ internal class DataClient : IDataClient
             var errorResponse = await infoLinkResponse.Content.ReadFromJsonAsync<ErrorResponse>(cancellationToken: cancellationToken)
                                                               .ConfigureAwait(false);
 
-            var exception = errorResponse switch
+            Exception? exception = errorResponse switch
             {
                 { ErrorCode: "Site Maintenance" } => new iRacingInMaintenancePeriodException(errorResponse.ErrorDescription ?? "iRacing services are down for maintenance."),
+                { ErrorCode: "Forbidden" } => iRacingForbiddenResponseException.Create(),
                 _ => null
             };
 

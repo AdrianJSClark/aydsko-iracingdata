@@ -1,0 +1,11 @@
+{
+  "statuscode": 403,
+  "headers": {
+    "x-ratelimit-remaining": "99",
+    "x-ratelimit-limit": "100",
+    "x-ratelimit-reset": "1644451200"
+  },
+  "content": {
+    "error": "Forbidden"
+  }
+}

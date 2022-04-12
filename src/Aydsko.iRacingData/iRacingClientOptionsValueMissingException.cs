@@ -31,5 +31,4 @@ public class iRacingClientOptionsValueMissingException : iRacingDataClientExcept
         : base(serializationInfo, streamingContext)
     {
     }
-
 }
