@@ -540,4 +540,24 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
             var lapChartResponse = await sut.GetSubsessionEventLogAsync(12345, 0).ConfigureAwait(false);
         });
     }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetSeasonQualifyResultsSuccesfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetSeasonQualifyResultsSuccesfulAsync)).ConfigureAwait(false);
+
+        var lapChartResponse = await sut.GetSeasonQualifyResultsAsync(3587, 71, 0).ConfigureAwait(false);
+
+        Assert.That(lapChartResponse, Is.Not.Null);
+        Assert.That(lapChartResponse!.Data, Is.Not.Null);
+
+        Assert.That(lapChartResponse.Data.Header, Is.Not.Null);
+        Assert.That(lapChartResponse.Data.Header.Success, Is.True);
+        Assert.That(lapChartResponse.Data.Header.ChunkInfo, Is.Not.Null);
+        Assert.That(lapChartResponse.Data.Standings, Has.Length.EqualTo(3078));
+
+        Assert.That(lapChartResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+    }
 }

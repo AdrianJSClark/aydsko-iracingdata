@@ -82,6 +82,9 @@
       <_Parameter4>Scope = "module"</_Parameter4>
       <_Parameter4_IsLiteral>true</_Parameter4_IsLiteral>
     </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleToAttribute" Condition="'$(Configuration)' == 'Debug'">
+      <_Parameter1>LINQPadQuery</_Parameter1>
+    </AssemblyAttribute>
   </ItemGroup>
 
   <ItemGroup>

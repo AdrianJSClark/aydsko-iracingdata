@@ -129,6 +129,14 @@ public interface IDataClient
     /// <returns>A header with overall series information and an array of standings.</returns>
     Task<DataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Standings)>> GetSeasonDriverStandingsAsync(int seasonId, int carClassId, int raceWeekNumber, CancellationToken cancellationToken = default);
 
+    /// <summary>Retrieve the qualifying results for a season.</summary>
+    /// <param name="seasonId">Unique identifier for the racing season.</param>
+    /// <param name="carClassId">Car class identifier. See <see cref="GetCarClassesAsync(CancellationToken)" />.</param>
+    /// <param name="raceWeekNumber">Week number within the given season, starting with 0 for the first week.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A header with overall series information and an array of qualifying results.</returns>
+    Task<DataResponse<(SeasonQualifyResultsHeader Header, SeasonQualifyResult[] Standings)>> GetSeasonQualifyResultsAsync(int seasonId, int carClassId, int raceWeekNumber, CancellationToken cancellationToken = default);
+
     /// <summary>Retrieve information about the races run during a week in the season.</summary>
     /// <param name="seasonId">Unique identifier for the racing season.</param>
     /// <param name="eventType">The type of events to return.</param>
