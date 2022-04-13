@@ -1,0 +1,29 @@
+﻿{
+  "headers": {},
+  "content": {
+    "success": true,
+    "season_id": 3587,
+    "season_name": "NASCAR iRacing Class C Series - 2022 Season",
+    "season_short_name": "2022 Season",
+    "series_id": 47,
+    "series_name": "NASCAR iRacing Class C",
+    "car_class_id": 71,
+    "race_week_num": 0,
+    "chunk_info": {
+      "chunk_size": 500,
+      "num_chunks": 7,
+      "rows": 3078,
+      "base_download_url": "https://dqfp1ltauszrc.cloudfront.net/public/standings/season/3587/season-driver/71/0/",
+      "chunk_file_names": [
+        "6b80dc340e9a5fc4f04988e0c98987ca3e794eb80eefe21bad06412b3b699f12.json",
+        "68c5708be074ea5d9d02d2a16bbec12517c0fd073ea07c345e9d3bb72e26e29d.json",
+        "21257b98997854a754d12e96d2b2ca1ce80868a67359f322e26850d4b02cba6c.json",
+        "5507f211f81533a777b9f1eb61a621073073dd16030431fe88b751e68c9bd26f.json",
+        "9ab0db04bb3a9b45b48ffebd530965dc9b9ca1063746309d4927e89f4ba34ec6.json",
+        "c68f16fb3631dc881bab19b5b975efceb469269b9e54abda2b0927059453ba3f.json",
+        "70feebbb5b5ff234210355c3a96a502c5e0eed08504ab21c61291b470b2a27c4.json"
+      ]
+    },
+    "last_updated": "2022-04-13T13:58:08.794339Z"
+  }
+}

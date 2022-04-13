@@ -461,6 +461,49 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
+    public async Task<DataResponse<(SeasonQualifyResultsHeader Header, SeasonQualifyResult[] Standings)>> GetSeasonQualifyResultsAsync(int seasonId, int carClassId, int raceWeekNumber, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_driver_standings", new Dictionary<string, string>
+        {
+            { "season_id", seasonId.ToString(CultureInfo.InvariantCulture) },
+            { "car_class_id", carClassId.ToString(CultureInfo.InvariantCulture) },
+            { "race_week_num", raceWeekNumber.ToString(CultureInfo.InvariantCulture) },
+        });
+
+        (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonQualifyResultsHeaderContext.Default.SeasonQualifyResultsHeader, cancellationToken).ConfigureAwait(false);
+
+        var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
+        var seasonQualifyResults = new List<SeasonQualifyResult>();
+        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        {
+            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+
+            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+            if (!chunkResponse.IsSuccessStatusCode)
+            {
+                logger.LogError("Failed to retrieve chunk index {ChunkIndex} of {ChunkTotalCount}", index, data.ChunkInfo.NumChunks);
+                continue;
+            }
+
+            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SeasonQualifyResultArrayContext.Default.SeasonQualifyResultArray, cancellationToken).ConfigureAwait(false);
+            if (chunkData is null)
+            {
+                continue;
+            }
+
+            seasonQualifyResults.AddRange(chunkData);
+        }
+
+        return CreateResponse<(SeasonQualifyResultsHeader Header, SeasonQualifyResult[] Standings)>(headers, (data, seasonQualifyResults.ToArray()), logger);
+    }
+
+
+    /// <inheritdoc />
     public async Task<DataResponse<SeasonResults>> GetSeasonResultsAsync(int seasonId, EventType eventType, int raceWeekNumber, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
