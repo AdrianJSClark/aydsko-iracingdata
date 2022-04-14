@@ -241,7 +241,7 @@ internal class DataClient : IDataClient
 
         var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
         var sessionLapsList = new List<SubsessionChartLap>();
-        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
         {
             var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
@@ -282,7 +282,7 @@ internal class DataClient : IDataClient
 
         var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
         var sessionLapsList = new List<SubsessionEventLogItem>();
-        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
         {
             var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
@@ -324,7 +324,7 @@ internal class DataClient : IDataClient
 
         var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
         var sessionLapsList = new List<SubsessionLap>();
-        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
         {
             var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
@@ -366,7 +366,7 @@ internal class DataClient : IDataClient
 
         var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
         var sessionLapsList = new List<SubsessionLap>();
-        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
         {
             var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
@@ -437,7 +437,7 @@ internal class DataClient : IDataClient
 
         var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
         var sessionLapsList = new List<SeasonDriverStanding>();
-        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
         {
             var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
@@ -479,7 +479,7 @@ internal class DataClient : IDataClient
 
         var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
         var seasonQualifyResults = new List<SeasonQualifyResult>();
-        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
         {
             var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
@@ -521,7 +521,7 @@ internal class DataClient : IDataClient
 
         var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
         var seasonTimeTrialResults = new List<SeasonTimeTrialResult>();
-        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
         {
             var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
@@ -542,6 +542,48 @@ internal class DataClient : IDataClient
         }
 
         return CreateResponse<(SeasonTimeTrialResultsHeader Header, SeasonTimeTrialResult[] Standings)>(headers, (data, seasonTimeTrialResults.ToArray()), logger);
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<(SeasonTimeTrialStandingsHeader Header, SeasonTimeTrialStanding[] Standings)>> GetSeasonTimeTrialStandingsAsync(int seasonId, int carClassId, int raceWeekNumber, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_tt_standings", new Dictionary<string, string>
+        {
+            { "season_id", seasonId.ToString(CultureInfo.InvariantCulture) },
+            { "car_class_id", carClassId.ToString(CultureInfo.InvariantCulture) },
+            { "race_week_num", raceWeekNumber.ToString(CultureInfo.InvariantCulture) },
+        });
+
+        (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonTimeTrialStandingsHeaderContext.Default.SeasonTimeTrialStandingsHeader, cancellationToken).ConfigureAwait(false);
+
+        var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
+        var seasonTimeTrialStandings = new List<SeasonTimeTrialStanding>();
+        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        {
+            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+
+            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+            if (!chunkResponse.IsSuccessStatusCode)
+            {
+                logger.LogError("Failed to retrieve chunk index {ChunkIndex} of {ChunkTotalCount}", index, data.ChunkInfo.NumChunks);
+                continue;
+            }
+
+            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SeasonTimeTrialStandingArrayContext.Default.SeasonTimeTrialStandingArray, cancellationToken).ConfigureAwait(false);
+            if (chunkData is null)
+            {
+                continue;
+            }
+
+            seasonTimeTrialStandings.AddRange(chunkData);
+        }
+
+        return CreateResponse<(SeasonTimeTrialStandingsHeader Header, SeasonTimeTrialStanding[] Standings)>(headers, (data, seasonTimeTrialStandings.ToArray()), logger);
     }
 
     /// <inheritdoc />
