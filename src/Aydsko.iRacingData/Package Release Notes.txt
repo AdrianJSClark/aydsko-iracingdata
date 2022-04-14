@@ -1,10 +1,10 @@
 ﻿New iRacing Endpoints:
 
- - series/stats_series
- - stats/member_division
- - stats/season_driver_standings
- - results/event_log
+ - stats/season_qualify_results
+ - stats/season_tt_results
+ - stats/season_tt_standings
+ - stats/season_team_standings
 
 Fixes:
 
- - Session Results Value "old_cpi" Fails To Parse
+ - Add ability to handle a "Forbidden" response
