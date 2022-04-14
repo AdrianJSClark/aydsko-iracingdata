@@ -554,10 +554,30 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(lapChartResponse.Data.Header, Is.Not.Null);
         Assert.That(lapChartResponse.Data.Header.Success, Is.True);
         Assert.That(lapChartResponse.Data.Header.ChunkInfo, Is.Not.Null);
-        Assert.That(lapChartResponse.Data.Standings, Has.Length.EqualTo(3078));
+        Assert.That(lapChartResponse.Data.Results, Has.Length.EqualTo(3078));
 
         Assert.That(lapChartResponse.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
         Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+    }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetSeasonTimeTrialResultsSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetSeasonTimeTrialResultsSuccessfulAsync)).ConfigureAwait(false);
+
+        var timeTrialResponse = await sut.GetSeasonTimeTrialResultsAsync(3587, 71, 0).ConfigureAwait(false);
+
+        Assert.That(timeTrialResponse, Is.Not.Null);
+        Assert.That(timeTrialResponse!.Data, Is.Not.Null);
+
+        Assert.That(timeTrialResponse.Data.Header, Is.Not.Null);
+        Assert.That(timeTrialResponse.Data.Header.Success, Is.True);
+        Assert.That(timeTrialResponse.Data.Header.ChunkInfo, Is.Not.Null);
+        Assert.That(timeTrialResponse.Data.Results, Has.Length.EqualTo(60));
+
+        Assert.That(timeTrialResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(timeTrialResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(timeTrialResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
 }
