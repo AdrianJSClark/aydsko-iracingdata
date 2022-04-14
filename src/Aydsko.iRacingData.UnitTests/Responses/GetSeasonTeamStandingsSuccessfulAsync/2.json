@@ -1,0 +1,23 @@
+{
+  "headers": {},
+  "content": {
+    "success": true,
+    "season_id": 3591,
+    "season_name": "2022 BMW Sim GT Cup - 2022 Season 1",
+    "season_short_name": "2022 Season 1",
+    "series_id": 437,
+    "series_name": "BMW Sim GT Cup",
+    "car_class_id": 2742,
+    "race_week_num": 0,
+    "chunk_info": {
+      "chunk_size": 500,
+      "num_chunks": 1,
+      "rows": 192,
+      "base_download_url": "https://dqfp1ltauszrc.cloudfront.net/public/standings/season/3591/season-team/2742/0/",
+      "chunk_file_names": [
+        "9e17a1f861bb39cd1db4485a521fedcab9c67aba7c9416051e0873ea310aeb15.json"
+      ]
+    },
+    "last_updated": "2022-04-14T11:49:52.178026Z"
+  }
+}
