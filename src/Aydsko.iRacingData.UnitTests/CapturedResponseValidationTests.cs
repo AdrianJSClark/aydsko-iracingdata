@@ -600,4 +600,24 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(timeTrialResponse.TotalRateLimit, Is.EqualTo(100));
         Assert.That(timeTrialResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetSeasonTeamStandingsSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetSeasonTeamStandingsSuccessfulAsync)).ConfigureAwait(false);
+
+        var timeTrialResponse = await sut.GetSeasonTeamStandingsAsync(3587, 71, 0, CancellationToken.None).ConfigureAwait(false);
+
+        Assert.That(timeTrialResponse, Is.Not.Null);
+        Assert.That(timeTrialResponse!.Data, Is.Not.Null);
+
+        Assert.That(timeTrialResponse.Data.Header, Is.Not.Null);
+        Assert.That(timeTrialResponse.Data.Header.Success, Is.True);
+        Assert.That(timeTrialResponse.Data.Header.ChunkInfo, Is.Not.Null);
+        Assert.That(timeTrialResponse.Data.Standings, Has.Length.EqualTo(192));
+
+        Assert.That(timeTrialResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(timeTrialResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(timeTrialResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+    }
 }
