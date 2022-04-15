@@ -11,7 +11,13 @@ This library allows access via .NET to the iRacing "Data API". These APIs allow 
 Register the iRacing Data API client classes with the service provider.
 
 ```csharp
-services.AddiRacingDataApi(options => { options.Username = "your-iracing-user@example.com"; options.Password = "Your-iRacing-Password"; });
+services.AddiRacingDataApi(options =>
+{
+    options.Username = "your-iracing-user@example.com";
+    options.Password = "Your-iRacing-Password";
+    options.UserAgentProductName = "MyApplicationName";
+    options.UserAgentProductVersion = new Version(1, 0);
+});
 ```
 
 ### Use the Client

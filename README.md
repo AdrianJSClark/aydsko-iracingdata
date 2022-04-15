@@ -12,7 +12,7 @@ This library allows access via .NET to the iRacing "Data API". These APIs allow 
 
 [![Nuget](https://img.shields.io/nuget/dt/Aydsko.iRacingData?color=004880&label=NuGet&logo=NuGet)](https://www.nuget.org/packages/Aydsko.iRacingData)
 
-The library is distributed as a NuGet package. Install using your package manager of choice.
+The library is distributed as the `Aydsko.iRacingData` NuGet package. Install using your package manager of choice.
 
 To install using the `dotnet` command:
 
@@ -25,7 +25,13 @@ dotnet add package Aydsko.iRacingData
 Register the iRacing Data API client classes with the service provider.
 
 ```csharp
-services.AddiRacingDataApi(options => { options.Username = "your-iracing-user@example.com"; options.Password = "Your-iRacing-Password"; });
+services.AddiRacingDataApi(options =>
+{
+    options.Username = "your-iracing-user@example.com";
+    options.Password = "Your-iRacing-Password";
+    options.UserAgentProductName = "MyApplicationName";
+    options.UserAgentProductVersion = new Version(1, 0);
+});
 ```
 
 ## Use the Client
