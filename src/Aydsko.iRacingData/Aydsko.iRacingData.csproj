@@ -18,6 +18,8 @@
     <PackageIcon>Aydsko iRacing Data API Icon.png</PackageIcon>
     <PackageReadmeFile>Package README.md</PackageReadmeFile>
     <PackageReleaseNotes Condition="Exists('$(MSBuildProjectDirectory)/Package Release Notes.txt')">$([System.IO.File]::ReadAllText("$(MSBuildProjectDirectory)/Package Release Notes.txt"))</PackageReleaseNotes>
+
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -88,6 +90,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="DefaultDocumentation" Version="0.8.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.2.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="6.0.0" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="1.1.1">
