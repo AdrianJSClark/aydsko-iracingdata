@@ -1,0 +1,39 @@
+#### [Aydsko.iRacingData](index.md 'index')
+### [Aydsko.iRacingData](index.md#Aydsko.iRacingData 'Aydsko.iRacingData').[IDataClient](IDataClient.md 'Aydsko.iRacingData.IDataClient')
+
+## IDataClient.GetSeasonTimeTrialResultsAsync(int, int, int, CancellationToken) Method
+
+Retrieve the time trial results for a season.
+
+```csharp
+System.Threading.Tasks.Task<Aydsko.iRacingData.Common.DataResponse<(Aydsko.iRacingData.Stats.SeasonTimeTrialResultsHeader Header,Aydsko.iRacingData.Stats.SeasonTimeTrialResult[] Results)>> GetSeasonTimeTrialResultsAsync(int seasonId, int carClassId, int raceWeekNumber, System.Threading.CancellationToken cancellationToken=default(System.Threading.CancellationToken));
+```
+#### Parameters
+
+<a name='Aydsko.iRacingData.IDataClient.GetSeasonTimeTrialResultsAsync(int,int,int,System.Threading.CancellationToken).seasonId'></a>
+
+`seasonId` [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')
+
+Unique identifier for the racing season.
+
+<a name='Aydsko.iRacingData.IDataClient.GetSeasonTimeTrialResultsAsync(int,int,int,System.Threading.CancellationToken).carClassId'></a>
+
+`carClassId` [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')
+
+Car class identifier. See [GetCarClassesAsync(CancellationToken)](IDataClient.GetCarClassesAsync(CancellationToken).md 'Aydsko.iRacingData.IDataClient.GetCarClassesAsync(System.Threading.CancellationToken)').
+
+<a name='Aydsko.iRacingData.IDataClient.GetSeasonTimeTrialResultsAsync(int,int,int,System.Threading.CancellationToken).raceWeekNumber'></a>
+
+`raceWeekNumber` [System.Int32](https://docs.microsoft.com/en-us/dotnet/api/System.Int32 'System.Int32')
+
+Week number within the given season, starting with 0 for the first week.
+
+<a name='Aydsko.iRacingData.IDataClient.GetSeasonTimeTrialResultsAsync(int,int,int,System.Threading.CancellationToken).cancellationToken'></a>
+
+`cancellationToken` [System.Threading.CancellationToken](https://docs.microsoft.com/en-us/dotnet/api/System.Threading.CancellationToken 'System.Threading.CancellationToken')
+
+A token to allow the operation to be cancelled.
+
+#### Returns
+[System.Threading.Tasks.Task&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task-1 'System.Threading.Tasks.Task`1')[Aydsko.iRacingData.Common.DataResponse&lt;](DataResponse_TData_.md 'Aydsko.iRacingData.Common.DataResponse<TData>')[&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.ValueTuple 'System.ValueTuple')[Aydsko.iRacingData.Stats.SeasonTimeTrialResultsHeader](https://docs.microsoft.com/en-us/dotnet/api/Aydsko.iRacingData.Stats.SeasonTimeTrialResultsHeader 'Aydsko.iRacingData.Stats.SeasonTimeTrialResultsHeader')[,](https://docs.microsoft.com/en-us/dotnet/api/System.ValueTuple 'System.ValueTuple')[Aydsko.iRacingData.Stats.SeasonTimeTrialResult](https://docs.microsoft.com/en-us/dotnet/api/Aydsko.iRacingData.Stats.SeasonTimeTrialResult 'Aydsko.iRacingData.Stats.SeasonTimeTrialResult')[[]](https://docs.microsoft.com/en-us/dotnet/api/System.Array 'System.Array')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.ValueTuple 'System.ValueTuple')[&gt;](DataResponse_TData_.md 'Aydsko.iRacingData.Common.DataResponse<TData>')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task-1 'System.Threading.Tasks.Task`1')  
+A header with overall series information and an array of time trial results.

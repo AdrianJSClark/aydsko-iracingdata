@@ -1,0 +1,44 @@
+https://github.com/AdrianJSClark/aydsko-iracingdata/blob/master/documentation/api/
+M:Aydsko.iRacingData.IDataClient.GetCarAssetDetailsAsync(System.Threading.CancellationToken)|IDataClient.GetCarAssetDetailsAsync(CancellationToken).md|GetCarAssetDetailsAsync(CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetCarClassesAsync(System.Threading.CancellationToken)|IDataClient.GetCarClassesAsync(CancellationToken).md|GetCarClassesAsync(CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetCareerStatisticsAsync(System.Nullable{System.Int32},System.Threading.CancellationToken)|IDataClient.GetCareerStatisticsAsync(Nullable_int_,CancellationToken).md|GetCareerStatisticsAsync(Nullable<int>, CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetCarsAsync(System.Threading.CancellationToken)|IDataClient.GetCarsAsync(CancellationToken).md|GetCarsAsync(CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetDivisionsAsync(System.Threading.CancellationToken)|IDataClient.GetDivisionsAsync(CancellationToken).md|GetDivisionsAsync(CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetDriverInfoAsync(System.Int32[],System.Boolean,System.Threading.CancellationToken)|IDataClient.GetDriverInfoAsync(int[],bool,CancellationToken).md|GetDriverInfoAsync(int[], bool, CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetLicenseLookupsAsync(System.Threading.CancellationToken)|IDataClient.GetLicenseLookupsAsync(CancellationToken).md|GetLicenseLookupsAsync(CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetLookupsAsync(System.Threading.CancellationToken)|IDataClient.GetLookupsAsync(CancellationToken).md|GetLookupsAsync(CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetMemberDivisionAsync(System.Int32,Aydsko.iRacingData.Common.EventType,System.Threading.CancellationToken)|IDataClient.GetMemberDivisionAsync(int,EventType,CancellationToken).md|GetMemberDivisionAsync(int, EventType, CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetMemberRecentRacesAsync(System.Threading.CancellationToken)|IDataClient.GetMemberRecentRacesAsync(CancellationToken).md|GetMemberRecentRacesAsync(CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetMemberSummaryAsync(System.Nullable{System.Int32},System.Threading.CancellationToken)|IDataClient.GetMemberSummaryAsync(Nullable_int_,CancellationToken).md|GetMemberSummaryAsync(Nullable<int>, CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetMemberYearlyStatisticsAsync(System.Threading.CancellationToken)|IDataClient.GetMemberYearlyStatisticsAsync(CancellationToken).md|GetMemberYearlyStatisticsAsync(CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetMyInfoAsync(System.Threading.CancellationToken)|IDataClient.GetMyInfoAsync(CancellationToken).md|GetMyInfoAsync(CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetSeasonDriverStandingsAsync(System.Int32,System.Int32,System.Int32,System.Threading.CancellationToken)|IDataClient.GetSeasonDriverStandingsAsync(int,int,int,CancellationToken).md|GetSeasonDriverStandingsAsync(int, int, int, CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetSeasonQualifyResultsAsync(System.Int32,System.Int32,System.Int32,System.Threading.CancellationToken)|IDataClient.GetSeasonQualifyResultsAsync(int,int,int,CancellationToken).md|GetSeasonQualifyResultsAsync(int, int, int, CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetSeasonTimeTrialResultsAsync(System.Int32,System.Int32,System.Int32,System.Threading.CancellationToken)|IDataClient.GetSeasonTimeTrialResultsAsync(int,int,int,CancellationToken).md|GetSeasonTimeTrialResultsAsync(int, int, int, CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetSeasonTimeTrialStandingsAsync(System.Int32,System.Int32,System.Int32,System.Threading.CancellationToken)|IDataClient.GetSeasonTimeTrialStandingsAsync(int,int,int,CancellationToken).md|GetSeasonTimeTrialStandingsAsync(int, int, int, CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetSeasonTeamStandingsAsync(System.Int32,System.Int32,System.Int32,System.Threading.CancellationToken)|IDataClient.GetSeasonTeamStandingsAsync(int,int,int,CancellationToken).md|GetSeasonTeamStandingsAsync(int, int, int, CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetSeasonResultsAsync(System.Int32,Aydsko.iRacingData.Common.EventType,System.Int32,System.Threading.CancellationToken)|IDataClient.GetSeasonResultsAsync(int,EventType,int,CancellationToken).md|GetSeasonResultsAsync(int, EventType, int, CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetSingleDriverSubsessionLapsAsync(System.Int32,System.Int32,System.Int32,System.Threading.CancellationToken)|IDataClient.GetSingleDriverSubsessionLapsAsync(int,int,int,CancellationToken).md|GetSingleDriverSubsessionLapsAsync(int, int, int, CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetSubSessionLapChartAsync(System.Int32,System.Int32,System.Threading.CancellationToken)|IDataClient.GetSubSessionLapChartAsync(int,int,CancellationToken).md|GetSubSessionLapChartAsync(int, int, CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetSubSessionResultAsync(System.Int32,System.Boolean,System.Threading.CancellationToken)|IDataClient.GetSubSessionResultAsync(int,bool,CancellationToken).md|GetSubSessionResultAsync(int, bool, CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetTeamSubsessionLapsAsync(System.Int32,System.Int32,System.Int32,System.Threading.CancellationToken)|IDataClient.GetTeamSubsessionLapsAsync(int,int,int,CancellationToken).md|GetTeamSubsessionLapsAsync(int, int, int, CancellationToken)
+M:Aydsko.iRacingData.IDataClient.GetSubsessionEventLogAsync(System.Int32,System.Int32,System.Threading.CancellationToken)|IDataClient.GetSubsessionEventLogAsync(int,int,CancellationToken).md|GetSubsessionEventLogAsync(int, int, CancellationToken)
+N:Aydsko.iRacingData|index.md#Aydsko.iRacingData|Aydsko.iRacingData
+T:Aydsko.iRacingData.IDataClient|IDataClient.md|IDataClient
+P:Aydsko.iRacingData.iRacingDataClientOptions.UserAgentProductName|iRacingDataClientOptions.UserAgentProductName.md|UserAgentProductName
+P:Aydsko.iRacingData.iRacingDataClientOptions.UserAgentProductVersion|iRacingDataClientOptions.UserAgentProductVersion.md|UserAgentProductVersion
+P:Aydsko.iRacingData.iRacingDataClientOptions.Username|iRacingDataClientOptions.Username.md|Username
+P:Aydsko.iRacingData.iRacingDataClientOptions.Password|iRacingDataClientOptions.Password.md|Password
+P:Aydsko.iRacingData.iRacingDataClientOptions.RestoreCookies|iRacingDataClientOptions.RestoreCookies.md|RestoreCookies
+P:Aydsko.iRacingData.iRacingDataClientOptions.SaveCookies|iRacingDataClientOptions.SaveCookies.md|SaveCookies
+T:Aydsko.iRacingData.iRacingDataClientOptions|iRacingDataClientOptions.md|iRacingDataClientOptions
+P:Aydsko.iRacingData.Results.Result.OldSubLevel|Result.OldSubLevel.md|OldSubLevel
+P:Aydsko.iRacingData.Results.Result.NewSubLevel|Result.NewSubLevel.md|NewSubLevel
+N:Aydsko.iRacingData.Results|index.md#Aydsko.iRacingData.Results|Aydsko.iRacingData.Results
+T:Aydsko.iRacingData.Results.Result|Result.md|Result
+P:Aydsko.iRacingData.Common.DataResponse`1.TotalRateLimit|DataResponse_TData_.TotalRateLimit.md|TotalRateLimit
+P:Aydsko.iRacingData.Common.DataResponse`1.RateLimitRemaining|DataResponse_TData_.RateLimitRemaining.md|RateLimitRemaining
+P:Aydsko.iRacingData.Common.DataResponse`1.RateLimitReset|DataResponse_TData_.RateLimitReset.md|RateLimitReset
+P:Aydsko.iRacingData.Common.DataResponse`1.Data|DataResponse_TData_.Data.md|Data
+N:Aydsko.iRacingData.Common|index.md#Aydsko.iRacingData.Common|Aydsko.iRacingData.Common
+T:Aydsko.iRacingData.Common.DataResponse`1|DataResponse_TData_.md|DataResponse<TData>
