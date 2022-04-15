@@ -3,6 +3,8 @@
 
 ## DataResponse<TData> Class
 
+Common elements of an API response.
+
 ```csharp
 public class DataResponse<TData>
 ```

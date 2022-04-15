@@ -113,6 +113,10 @@
     <None Include="Package README.md" Pack="true" PackagePath="\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="CarClasses\" />
+  </ItemGroup>
+
   <Target Name="OutputVersionForCI" AfterTargets="MinVer" Condition="'$(TF_BUILD)' == 'true' Or '$(CI)' == 'true'">
     <PropertyGroup>
       <IsPreReleaseBuild>true</IsPreReleaseBuild>

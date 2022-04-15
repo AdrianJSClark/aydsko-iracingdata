@@ -3,6 +3,7 @@
 
 namespace Aydsko.iRacingData.Common;
 
+/// <summary>Common elements of an API response.</summary>
 public class DataResponse<TData>
 {
     /// <summary>The current total rate limit.</summary>

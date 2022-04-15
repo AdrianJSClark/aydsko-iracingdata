@@ -3,7 +3,7 @@
 
 ## IDataClient.GetMyInfoAsync(CancellationToken) Method
 
-Retrieve the [Aydsko.iRacingData.Member.MemberInfo](https://docs.microsoft.com/en-us/dotnet/api/Aydsko.iRacingData.Member.MemberInfo 'Aydsko.iRacingData.Member.MemberInfo') for the currently authenticated user.
+Retrieve the [MemberInfo](MemberInfo.md 'Aydsko.iRacingData.Member.MemberInfo') for the currently authenticated user.
 
 ```csharp
 System.Threading.Tasks.Task<Aydsko.iRacingData.Common.DataResponse<Aydsko.iRacingData.Member.MemberInfo>> GetMyInfoAsync(System.Threading.CancellationToken cancellationToken=default(System.Threading.CancellationToken));
@@ -17,8 +17,8 @@ System.Threading.Tasks.Task<Aydsko.iRacingData.Common.DataResponse<Aydsko.iRacin
 A token to allow the operation to be cancelled.
 
 #### Returns
-[System.Threading.Tasks.Task&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task-1 'System.Threading.Tasks.Task`1')[Aydsko.iRacingData.Common.DataResponse&lt;](DataResponse_TData_.md 'Aydsko.iRacingData.Common.DataResponse<TData>')[Aydsko.iRacingData.Member.MemberInfo](https://docs.microsoft.com/en-us/dotnet/api/Aydsko.iRacingData.Member.MemberInfo 'Aydsko.iRacingData.Member.MemberInfo')[&gt;](DataResponse_TData_.md 'Aydsko.iRacingData.Common.DataResponse<TData>')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task-1 'System.Threading.Tasks.Task`1')  
-A [DataResponse&lt;TData&gt;](DataResponse_TData_.md 'Aydsko.iRacingData.Common.DataResponse<TData>') containing the statistics in a [Aydsko.iRacingData.Member.MemberInfo](https://docs.microsoft.com/en-us/dotnet/api/Aydsko.iRacingData.Member.MemberInfo 'Aydsko.iRacingData.Member.MemberInfo') object.
+[System.Threading.Tasks.Task&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task-1 'System.Threading.Tasks.Task`1')[Aydsko.iRacingData.Common.DataResponse&lt;](DataResponse_TData_.md 'Aydsko.iRacingData.Common.DataResponse<TData>')[MemberInfo](MemberInfo.md 'Aydsko.iRacingData.Member.MemberInfo')[&gt;](DataResponse_TData_.md 'Aydsko.iRacingData.Common.DataResponse<TData>')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task-1 'System.Threading.Tasks.Task`1')  
+A [DataResponse&lt;TData&gt;](DataResponse_TData_.md 'Aydsko.iRacingData.Common.DataResponse<TData>') containing the statistics in a [MemberInfo](MemberInfo.md 'Aydsko.iRacingData.Member.MemberInfo') object.
 
 #### Exceptions
 

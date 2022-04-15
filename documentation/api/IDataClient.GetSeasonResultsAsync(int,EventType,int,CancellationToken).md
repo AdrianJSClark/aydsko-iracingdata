@@ -18,7 +18,7 @@ Unique identifier for the racing season.
 
 <a name='Aydsko.iRacingData.IDataClient.GetSeasonResultsAsync(int,Aydsko.iRacingData.Common.EventType,int,System.Threading.CancellationToken).eventType'></a>
 
-`eventType` [Aydsko.iRacingData.Common.EventType](https://docs.microsoft.com/en-us/dotnet/api/Aydsko.iRacingData.Common.EventType 'Aydsko.iRacingData.Common.EventType')
+`eventType` [EventType](EventType.md 'Aydsko.iRacingData.Common.EventType')
 
 The type of events to return.
 

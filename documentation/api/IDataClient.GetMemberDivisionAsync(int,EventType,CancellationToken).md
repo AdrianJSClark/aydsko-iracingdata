@@ -18,9 +18,9 @@ Unique identifier for the racing season.
 
 <a name='Aydsko.iRacingData.IDataClient.GetMemberDivisionAsync(int,Aydsko.iRacingData.Common.EventType,System.Threading.CancellationToken).eventType'></a>
 
-`eventType` [Aydsko.iRacingData.Common.EventType](https://docs.microsoft.com/en-us/dotnet/api/Aydsko.iRacingData.Common.EventType 'Aydsko.iRacingData.Common.EventType')
+`eventType` [EventType](EventType.md 'Aydsko.iRacingData.Common.EventType')
 
-The type of events to return, either [Aydsko.iRacingData.Common.EventType.TimeTrial](https://docs.microsoft.com/en-us/dotnet/api/Aydsko.iRacingData.Common.EventType.TimeTrial 'Aydsko.iRacingData.Common.EventType.TimeTrial') or [Aydsko.iRacingData.Common.EventType.Race](https://docs.microsoft.com/en-us/dotnet/api/Aydsko.iRacingData.Common.EventType.Race 'Aydsko.iRacingData.Common.EventType.Race').
+The type of events to return, either [TimeTrial](EventType.md#Aydsko.iRacingData.Common.EventType.TimeTrial 'Aydsko.iRacingData.Common.EventType.TimeTrial') or [Race](EventType.md#Aydsko.iRacingData.Common.EventType.Race 'Aydsko.iRacingData.Common.EventType.Race').
 
 <a name='Aydsko.iRacingData.IDataClient.GetMemberDivisionAsync(int,Aydsko.iRacingData.Common.EventType,System.Threading.CancellationToken).cancellationToken'></a>
 

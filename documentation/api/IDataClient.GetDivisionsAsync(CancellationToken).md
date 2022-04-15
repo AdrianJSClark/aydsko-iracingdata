@@ -17,8 +17,8 @@ System.Threading.Tasks.Task<Aydsko.iRacingData.Common.DataResponse<Aydsko.iRacin
 A token to allow the operation to be cancelled.
 
 #### Returns
-[System.Threading.Tasks.Task&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task-1 'System.Threading.Tasks.Task`1')[Aydsko.iRacingData.Common.DataResponse&lt;](DataResponse_TData_.md 'Aydsko.iRacingData.Common.DataResponse<TData>')[Aydsko.iRacingData.Constants.Division](https://docs.microsoft.com/en-us/dotnet/api/Aydsko.iRacingData.Constants.Division 'Aydsko.iRacingData.Constants.Division')[[]](https://docs.microsoft.com/en-us/dotnet/api/System.Array 'System.Array')[&gt;](DataResponse_TData_.md 'Aydsko.iRacingData.Common.DataResponse<TData>')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task-1 'System.Threading.Tasks.Task`1')  
-A [DataResponse&lt;TData&gt;](DataResponse_TData_.md 'Aydsko.iRacingData.Common.DataResponse<TData>') containing an array of [Aydsko.iRacingData.Constants.Division](https://docs.microsoft.com/en-us/dotnet/api/Aydsko.iRacingData.Constants.Division 'Aydsko.iRacingData.Constants.Division') objects.
+[System.Threading.Tasks.Task&lt;](https://docs.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task-1 'System.Threading.Tasks.Task`1')[Aydsko.iRacingData.Common.DataResponse&lt;](DataResponse_TData_.md 'Aydsko.iRacingData.Common.DataResponse<TData>')[Division](Division.md 'Aydsko.iRacingData.Constants.Division')[[]](https://docs.microsoft.com/en-us/dotnet/api/System.Array 'System.Array')[&gt;](DataResponse_TData_.md 'Aydsko.iRacingData.Common.DataResponse<TData>')[&gt;](https://docs.microsoft.com/en-us/dotnet/api/System.Threading.Tasks.Task-1 'System.Threading.Tasks.Task`1')  
+A [DataResponse&lt;TData&gt;](DataResponse_TData_.md 'Aydsko.iRacingData.Common.DataResponse<TData>') containing an array of [Division](Division.md 'Aydsko.iRacingData.Constants.Division') objects.
 
 #### Exceptions
 
