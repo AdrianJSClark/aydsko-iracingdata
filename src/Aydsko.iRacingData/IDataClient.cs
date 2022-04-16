@@ -65,7 +65,7 @@ public interface IDataClient
     /// <param name="leagueId">The unique identifier for the league.</param>
     /// <param name="includeLicenses">Indicates if license information should be included. Either <see langword="true"/> or <see langword="false"/> to exclude for performance purposes.</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
-    /// <returns>A <see cref="DataResponse{TData}"/> containing the season & optionally series detail in a <see cref="Tracks.Track"/> array.</returns>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the season &amp; optionally series detail in a <see cref="Tracks.Track"/> array.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     Task<DataResponse<League>> GetLeagueAsync(int leagueId, bool includeLicenses = false, CancellationToken cancellationToken = default);
@@ -171,17 +171,17 @@ public interface IDataClient
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     Task<DataResponse<SeasonResults>> GetSeasonResultsAsync(int seasonId, EventType eventType, int raceWeekNumber, CancellationToken cancellationToken = default);
 
-    /// <summary>Retrieve information about the season & series.</summary>
+    /// <summary>Retrieve information about the season &amp; series.</summary>
     /// <param name="includeSeries">Indicate if the series details should be included.</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
-    /// <returns>A <see cref="DataResponse{TData}"/> containing the season & optionally series detail in a <see cref="SeasonSeries"/> array.</returns>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the season &amp; optionally series detail in a <see cref="SeasonSeries"/> array.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     Task<DataResponse<SeasonSeries[]>> GetSeasonsAsync(bool includeSeries, CancellationToken cancellationToken = default);
 
     /// <summary>Retrieve a list of series.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
-    /// <returns>A <see cref="DataResponse{TData}"/> containing the season & optionally series detail in a <see cref="SeasonSeries"/> array.</returns>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the season &amp; optionally series detail in a <see cref="SeasonSeries"/> array.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <remarks>To get series and seasons for which standings should be available, filter the list where <see cref="StatisticsSeries.Official" /> is <see langword="true" />.</remarks>
@@ -228,14 +228,14 @@ public interface IDataClient
     /// <summary>Retrieve information about the track assets.</summary>
     /// <remarks>Image paths are relative to https://images-static.iracing.com/.</remarks>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
-    /// <returns>A <see cref="DataResponse{TData}"/> containing the season & optionally series detail in a <see cref="Tracks.Track"/> array.</returns>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the season &amp; optionally series detail in a <see cref="Tracks.Track"/> array.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     Task<DataResponse<IReadOnlyDictionary<string, TrackAssets>>> GetTrackAssetsAsync(CancellationToken cancellationToken = default);
 
     /// <summary>Retrieve information about the tracks.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
-    /// <returns>A <see cref="DataResponse{TData}"/> containing the season & optionally series detail in a <see cref="Tracks.Track"/> array.</returns>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the season &amp; optionally series detail in a <see cref="Tracks.Track"/> array.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     Task<DataResponse<Tracks.Track[]>> GetTracksAsync(CancellationToken cancellationToken = default);

@@ -1,11 +1,11 @@
 ## Aydsko.iRacingData.Member Namespace
-- **[MemberInfo](Aydsko.iRacingData.Member.md#Aydsko.iRacingData.Member.MemberInfo 'Aydsko.iRacingData.Member.MemberInfo')** `Class` Information about the iRacing member.
-  - **[AI](Aydsko.iRacingData.Member.md#Aydsko.iRacingData.Member.MemberInfo.AI 'Aydsko.iRacingData.Member.MemberInfo.AI')** `Property` Indicates if the member represented by this record an instance of the AI.
-  - **[CustomerId](Aydsko.iRacingData.Member.md#Aydsko.iRacingData.Member.MemberInfo.CustomerId 'Aydsko.iRacingData.Member.MemberInfo.CustomerId')** `Property` Unique identifier for the iRacing member's account.
-  - **[Email](Aydsko.iRacingData.Member.md#Aydsko.iRacingData.Member.MemberInfo.Email 'Aydsko.iRacingData.Member.MemberInfo.Email')** `Property` Member's email address.
-  - **[HasReadPp](Aydsko.iRacingData.Member.md#Aydsko.iRacingData.Member.MemberInfo.HasReadPp 'Aydsko.iRacingData.Member.MemberInfo.HasReadPp')** `Property` Indicates if the member has read the Privacy Policy.
-  - **[HasReadTC](Aydsko.iRacingData.Member.md#Aydsko.iRacingData.Member.MemberInfo.HasReadTC 'Aydsko.iRacingData.Member.MemberInfo.HasReadTC')** `Property` Indicates if the member has read the Terms & Conditions.
-  - **[HundredPercentClub](Aydsko.iRacingData.Member.md#Aydsko.iRacingData.Member.MemberInfo.HundredPercentClub 'Aydsko.iRacingData.Member.MemberInfo.HundredPercentClub')** `Property` Indicates if the user qualifies for the 100% Club.
-  - **[ReadPp](Aydsko.iRacingData.Member.md#Aydsko.iRacingData.Member.MemberInfo.ReadPp 'Aydsko.iRacingData.Member.MemberInfo.ReadPp')** `Property` Date and time stamp indicating when the user said they read the Privacy Policy.
-  - **[ReadTc](Aydsko.iRacingData.Member.md#Aydsko.iRacingData.Member.MemberInfo.ReadTc 'Aydsko.iRacingData.Member.MemberInfo.ReadTc')** `Property` Date and time stamp indicating when the user said they read the Terms & Conditions.
-  - **[TwentyPercentDiscount](Aydsko.iRacingData.Member.md#Aydsko.iRacingData.Member.MemberInfo.TwentyPercentDiscount 'Aydsko.iRacingData.Member.MemberInfo.TwentyPercentDiscount')** `Property` Indicates if the user qualifies for the 20% discount.
+- **[MemberInfo](Aydsko.iRacingData.Member#Aydsko.iRacingData.Member.MemberInfo 'Aydsko.iRacingData.Member.MemberInfo')** `Class` Information about the iRacing member.
+  - **[AI](Aydsko.iRacingData.Member#Aydsko.iRacingData.Member.MemberInfo.AI 'Aydsko.iRacingData.Member.MemberInfo.AI')** `Property` Indicates if the member represented by this record an instance of the AI.
+  - **[CustomerId](Aydsko.iRacingData.Member#Aydsko.iRacingData.Member.MemberInfo.CustomerId 'Aydsko.iRacingData.Member.MemberInfo.CustomerId')** `Property` Unique identifier for the iRacing member's account.
+  - **[Email](Aydsko.iRacingData.Member#Aydsko.iRacingData.Member.MemberInfo.Email 'Aydsko.iRacingData.Member.MemberInfo.Email')** `Property` Member's email address.
+  - **[HasReadPp](Aydsko.iRacingData.Member#Aydsko.iRacingData.Member.MemberInfo.HasReadPp 'Aydsko.iRacingData.Member.MemberInfo.HasReadPp')** `Property` Indicates if the member has read the Privacy Policy.
+  - **[HasReadTC](Aydsko.iRacingData.Member#Aydsko.iRacingData.Member.MemberInfo.HasReadTC 'Aydsko.iRacingData.Member.MemberInfo.HasReadTC')** `Property` Indicates if the member has read the Terms & Conditions.
+  - **[HundredPercentClub](Aydsko.iRacingData.Member#Aydsko.iRacingData.Member.MemberInfo.HundredPercentClub 'Aydsko.iRacingData.Member.MemberInfo.HundredPercentClub')** `Property` Indicates if the user qualifies for the 100% Club.
+  - **[ReadPp](Aydsko.iRacingData.Member#Aydsko.iRacingData.Member.MemberInfo.ReadPp 'Aydsko.iRacingData.Member.MemberInfo.ReadPp')** `Property` Date and time stamp indicating when the user said they read the Privacy Policy.
+  - **[ReadTc](Aydsko.iRacingData.Member#Aydsko.iRacingData.Member.MemberInfo.ReadTc 'Aydsko.iRacingData.Member.MemberInfo.ReadTc')** `Property` Date and time stamp indicating when the user said they read the Terms & Conditions.
+  - **[TwentyPercentDiscount](Aydsko.iRacingData.Member#Aydsko.iRacingData.Member.MemberInfo.TwentyPercentDiscount 'Aydsko.iRacingData.Member.MemberInfo.TwentyPercentDiscount')** `Property` Indicates if the user qualifies for the 20% discount.

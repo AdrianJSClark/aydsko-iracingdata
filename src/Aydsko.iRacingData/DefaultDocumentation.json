@@ -2,7 +2,7 @@
   "AssemblyFilePath": "bin\\Debug\\net6.0\\Aydsko.iRacingData.dll",
   "OutputDirectoryPath": "..\\..\\documentation\\api",
   "GeneratedAccessModifiers": "Public,Protected,ProtectedInternal",
-  "GeneratedPages": "Assembly,Types,Members",
+  "GeneratedPages": "Namespaces",
   "FileNameFactory": "Name",
   "ExternLinksFilePaths": null,
   "LinksOutputFilePath": "..\\..\\documentation\\DefaultDocumentation.Api.txt",
@@ -14,5 +14,7 @@
       "TableOfContents"
     ],
     "Markdown.TableOfContentsModes": "IncludeKind,IncludeSummary"
-  }
+  },
+  "Markdown.RemoveFileExtensionFromUrl": true,
+  "AssemblyPageName": "Home"
 }
