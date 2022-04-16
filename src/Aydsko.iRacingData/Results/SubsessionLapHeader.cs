@@ -1,6 +1,8 @@
 ﻿// © 2022 Adrian Clark
 // This file is licensed to you under the MIT license.
 
+using Aydsko.iRacingData.Converters;
+
 namespace Aydsko.iRacingData.Results;
 
 public class SubsessionLapsHeader
@@ -14,23 +16,23 @@ public class SubsessionLapsHeader
     [JsonPropertyName("best_lap_num")]
     public int BestLapNum { get; set; }
 
-    [JsonPropertyName("best_lap_time")]
-    public int BestLapTime { get; set; }
+    [JsonPropertyName("best_lap_time"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
+    public TimeSpan? BestLapTime { get; set; }
 
     [JsonPropertyName("best_nlaps_num")]
     public int BestNlapsNum { get; set; }
 
-    [JsonPropertyName("best_nlaps_time")]
-    public int BestNlapsTime { get; set; }
+    [JsonPropertyName("best_nlaps_time"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
+    public TimeSpan? BestNlapsTime { get; set; }
 
     [JsonPropertyName("best_qual_lap_num")]
-    public int BestQualLapNum { get; set; }
+    public int BestQualifyingLapNum { get; set; }
 
-    [JsonPropertyName("best_qual_lap_time")]
-    public int BestQualLapTime { get; set; }
+    [JsonPropertyName("best_qual_lap_time"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
+    public TimeSpan? BestQualifyingLapTime { get; set; }
 
     [JsonPropertyName("best_qual_lap_at")]
-    public object? BestQualLapAt { get; set; }
+    public object? BestQualifyingLapAt { get; set; }
 
     [JsonPropertyName("chunk_info")]
     public ChunkInfo ChunkInfo { get; set; } = null!;
