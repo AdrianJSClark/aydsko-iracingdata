@@ -7,14 +7,7 @@
   "ExternLinksFilePaths": null,
   "LinksOutputFilePath": "..\\..\\documentation\\DefaultDocumentation.Api.txt",
   "LinksBaseUrl": "https://github.com/AdrianJSClark/aydsko-iracingdata/blob/master/documentation/api/",
-  "NamespaceDocItem": {
-    "Sections": [
-      "Title",
-      "summary",
-      "TableOfContents"
-    ],
-    "Markdown.TableOfContentsModes": "IncludeKind,IncludeSummary"
-  },
   "Markdown.RemoveFileExtensionFromUrl": true,
-  "AssemblyPageName": "Home"
+  "AssemblyPageName": "Home",
+  "IncludeUndocumentedItems": true
 }
