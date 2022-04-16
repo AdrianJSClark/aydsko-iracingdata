@@ -1,0 +1,5 @@
+## Aydsko.iRacingData.CarClasses Namespace
+- **[CarsInClass](Aydsko.iRacingData.CarClasses.md#Aydsko.iRacingData.CarClasses.CarsInClass 'Aydsko.iRacingData.CarClasses.CarsInClass')** `Class` Details about a car.
+  - **[CarDirpath](Aydsko.iRacingData.CarClasses.md#Aydsko.iRacingData.CarClasses.CarsInClass.CarDirpath 'Aydsko.iRacingData.CarClasses.CarsInClass.CarDirpath')** `Property` The relative directory path for car setups and assets.
+  - **[CarId](Aydsko.iRacingData.CarClasses.md#Aydsko.iRacingData.CarClasses.CarsInClass.CarId 'Aydsko.iRacingData.CarClasses.CarsInClass.CarId')** `Property` Unique identifier for the car.
+  - **[Retired](Aydsko.iRacingData.CarClasses.md#Aydsko.iRacingData.CarClasses.CarsInClass.Retired 'Aydsko.iRacingData.CarClasses.CarsInClass.Retired')** `Property` Indicates if the car has been retired.

@@ -20,6 +20,7 @@
     <PackageReleaseNotes Condition="Exists('$(MSBuildProjectDirectory)/Package Release Notes.txt')">$([System.IO.File]::ReadAllText("$(MSBuildProjectDirectory)/Package Release Notes.txt"))</PackageReleaseNotes>
 
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DefaultDocumentationGeneratedPages>Namespaces</DefaultDocumentationGeneratedPages>
   </PropertyGroup>
 
   <ItemGroup>
