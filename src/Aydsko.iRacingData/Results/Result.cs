@@ -1,6 +1,7 @@
 ﻿// © 2022 Adrian Clark
 // This file is licensed to you under the MIT license.
 
+using Aydsko.iRacingData.Converters;
 using System.Text.Json.Serialization;
 
 namespace Aydsko.iRacingData.Results;
@@ -9,7 +10,7 @@ public class Result
 {
 
     [JsonPropertyName("cust_id")]
-    public int CustId { get; set; }
+    public int CustomerId { get; set; }
 
     [JsonPropertyName("display_name")]
     public string DisplayName { get; set; } = default!;
@@ -29,35 +30,35 @@ public class Result
     [JsonPropertyName("opt_laps_complete")]
     public int OptLapsComplete { get; set; }
 
-    [JsonPropertyName("interval")]
-    public int Interval { get; set; }
+    [JsonPropertyName("interval"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
+    public TimeSpan? Interval { get; set; }
 
-    [JsonPropertyName("class_interval")]
-    public int ClassInterval { get; set; }
+    [JsonPropertyName("class_interval"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
+    public TimeSpan? ClassInterval { get; set; }
 
-    [JsonPropertyName("average_lap")]
-    public int AverageLap { get; set; }
+    [JsonPropertyName("average_lap"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
+    public TimeSpan? AverageLap { get; set; }
 
     [JsonPropertyName("best_lap_num")]
-    public int BestLapNum { get; set; }
+    public int BestLapNumber { get; set; }
 
-    [JsonPropertyName("best_lap_time")]
-    public int BestLapTime { get; set; }
+    [JsonPropertyName("best_lap_time"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
+    public TimeSpan? BestLapTime { get; set; }
 
     [JsonPropertyName("best_nlaps_num")]
     public int BestNlapsNum { get; set; }
 
-    [JsonPropertyName("best_nlaps_time")]
-    public int BestNlapsTime { get; set; }
+    [JsonPropertyName("best_nlaps_time"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
+    public TimeSpan? BestNlapsTime { get; set; }
 
     [JsonPropertyName("best_qual_lap_at")]
-    public DateTime BestQualLapAt { get; set; }
+    public DateTime BestQualifyingLapAt { get; set; }
 
     [JsonPropertyName("best_qual_lap_num")]
-    public int BestQualLapNum { get; set; }
+    public int BestQualifyingLapNum { get; set; }
 
-    [JsonPropertyName("best_qual_lap_time")]
-    public int BestQualLapTime { get; set; }
+    [JsonPropertyName("best_qual_lap_time"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
+    public TimeSpan? BestQualifyingLapTime { get; set; }
 
     [JsonPropertyName("reason_out_id")]
     public int ReasonOutId { get; set; }
@@ -77,8 +78,8 @@ public class Result
     [JsonPropertyName("position")]
     public int Position { get; set; }
 
-    [JsonPropertyName("qual_lap_time")]
-    public int QualLapTime { get; set; }
+    [JsonPropertyName("qual_lap_time"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
+    public TimeSpan? QualifyingLapTime { get; set; }
 
     [JsonPropertyName("starting_position")]
     public int StartingPosition { get; set; }
@@ -160,7 +161,7 @@ public class Result
     public int Incidents { get; set; }
 
     [JsonPropertyName("max_pct_fuel_fill")]
-    public int MaxPctFuelFill { get; set; }
+    public int MaxPercentFuelFill { get; set; }
 
     [JsonPropertyName("weight_penalty_kg")]
     public int WeightPenaltyKg { get; set; }
@@ -169,7 +170,7 @@ public class Result
     public int LeaguePoints { get; set; }
 
     [JsonPropertyName("league_agg_points")]
-    public int LeagueAggPoints { get; set; }
+    public int LeagueAggregatePoints { get; set; }
 
     [JsonPropertyName("car_id")]
     public int CarId { get; set; }

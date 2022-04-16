@@ -1,6 +1,8 @@
 ﻿// © 2022 Adrian Clark
 // This file is licensed to you under the MIT license.
 
+using Aydsko.iRacingData.Converters;
+
 namespace Aydsko.iRacingData.Stats;
 
 public class SeasonTimeTrialResult
@@ -26,8 +28,8 @@ public class SeasonTimeTrialResult
     [JsonPropertyName("license")]
     public License License { get; set; } = null!;
 
-    [JsonPropertyName("best_nlaps_time")]
-    public int BestNlapsTime { get; set; }
+    [JsonPropertyName("best_nlaps_time"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
+    public TimeSpan? BestNlapsTime { get; set; }
 
     [JsonPropertyName("starts")]
     public int Starts { get; set; }
