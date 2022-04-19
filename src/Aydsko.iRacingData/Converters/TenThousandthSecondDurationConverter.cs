@@ -30,10 +30,15 @@ public class TenThousandthSecondDurationConverter : JsonConverter<TimeSpan?>
         return TimeSpan.FromSeconds(value.Value / 10000D); // iRacing reports to the ten-thousandth & this is the easiest way to parse out.
     }
 
-    public override void Write(Utf8JsonWriter writer!!,
+    public override void Write(Utf8JsonWriter writer,
                                TimeSpan? value,
                                JsonSerializerOptions options)
     {
+        if (writer is null)
+        {
+            throw new ArgumentNullException(nameof(writer));
+        }
+
         if (value is null)
         {
             writer.WriteNullValue();

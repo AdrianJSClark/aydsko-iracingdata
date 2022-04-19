@@ -10,25 +10,23 @@ public static class JsonConverterTestExtensions
 {
     private const string InvalidJsonObjectInputFormatMessage = "Expected input to be in the format \"{\"value\":\"(INPUT TO BE TESTED)\"}\" or \"{\"value\":(INPUT TO BE TESTED)}\" where (INPUT TO BE TESTED) was replaced with the value to be tested.";
 
-#pragma warning disable CA1062 // Validate arguments of public methods - check done with "!!" operator
-
-    public static IEnumerable<TestCaseData> ToReadValueTestCases<T>(this IEnumerable<(byte[] JsonBytes, T Value, string Name)> examples!!)
+    public static IEnumerable<TestCaseData> ToReadValueTestCases<T>(this IEnumerable<(byte[] JsonBytes, T Value, string Name)> examples)
     {
-        foreach (var (jsonValueBytes, timeValue, name) in examples)
+        foreach (var (jsonValueBytes, timeValue, name) in examples ?? Enumerable.Empty<(byte[] JsonBytes, T Value, string Name)>())
         {
             yield return new TestCaseData(new object[] { jsonValueBytes }).Returns(timeValue).SetName("Read Value: " + name);
         }
     }
 
-    public static IEnumerable<TestCaseData> ToWriteValueTestCases<T>(this IEnumerable<(byte[] JsonBytes, T Value, string Name)> examples!!)
+    public static IEnumerable<TestCaseData> ToWriteValueTestCases<T>(this IEnumerable<(byte[] JsonBytes, T Value, string Name)> examples)
     {
-        foreach (var (jsonValueBytes, timeValue, name) in examples)
+        foreach (var (jsonValueBytes, timeValue, name) in examples ?? Enumerable.Empty<(byte[] JsonBytes, T Value, string Name)>())
         {
             yield return new TestCaseData(timeValue).Returns(jsonValueBytes).SetName("Write Value: " + name);
         }
     }
 
-    public static Utf8JsonReader ToUtf8JsonReaderForTest(this byte[] input!!)
+    public static Utf8JsonReader ToUtf8JsonReaderForTest(this byte[] input)
     {
         var reader = new Utf8JsonReader(input.AsSpan());
 
@@ -50,8 +48,13 @@ public static class JsonConverterTestExtensions
         return reader;
     }
 
-    public static byte[] WriteUsingConverter<T>(this T input, JsonConverter<T> converter!!)
+    public static byte[] WriteUsingConverter<T>(this T input, JsonConverter<T> converter)
     {
+        if (converter is null)
+        {
+            throw new ArgumentNullException(nameof(converter));
+        }
+
         using var outputStream = new MemoryStream();
         using (var writer = new Utf8JsonWriter(outputStream))
         {
@@ -64,6 +67,4 @@ public static class JsonConverterTestExtensions
 
         return outputStream.ToArray();
     }
-
-#pragma warning restore CA1062 // Validate arguments of public methods
 }
