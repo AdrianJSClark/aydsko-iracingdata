@@ -27,57 +27,23 @@
     <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.SuppressMessageAttribute">
       <_Parameter1>Style</_Parameter1>
       <_Parameter2>IDE1006:Naming Styles</_Parameter2>
-      <_Parameter3>Justification = "&lt;The company name which supplies this data API uses the lowercase i prefix so this is a proper name.&gt;"</_Parameter3>
+      <_Parameter3>Justification = "The company name which supplies this data API uses the lowercase i prefix so this is a proper name."</_Parameter3>
       <_Parameter3_IsLiteral>true</_Parameter3_IsLiteral>
-      <_Parameter4>Scope = "type"</_Parameter4>
+      <_Parameter4>Scope = "module"</_Parameter4>
       <_Parameter4_IsLiteral>true</_Parameter4_IsLiteral>
-      <_Parameter5>Target = "~T:Aydsko.iRacingData.iRacingDataClientException"</_Parameter5>
-      <_Parameter5_IsLiteral>true</_Parameter5_IsLiteral>
-    </AssemblyAttribute>
-    <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.SuppressMessageAttribute">
-      <_Parameter1>Style</_Parameter1>
-      <_Parameter2>IDE1006:Naming Styles</_Parameter2>
-      <_Parameter3>Justification = "&lt;The company name which supplies this data API uses the lowercase i prefix so this is a proper name.&gt;"</_Parameter3>
-      <_Parameter3_IsLiteral>true</_Parameter3_IsLiteral>
-      <_Parameter4>Scope = "type"</_Parameter4>
-      <_Parameter4_IsLiteral>true</_Parameter4_IsLiteral>
-      <_Parameter5>Target = "~T:Aydsko.iRacingData.iRacingInMaintenancePeriodException"</_Parameter5>
-      <_Parameter5_IsLiteral>true</_Parameter5_IsLiteral>
-    </AssemblyAttribute>
-    <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.SuppressMessageAttribute">
-      <_Parameter1>Style</_Parameter1>
-      <_Parameter2>IDE1006:Naming Styles</_Parameter2>
-      <_Parameter3>Justification = "&lt;The company name which supplies this data API uses the lowercase i prefix so this is a proper name.&gt;"</_Parameter3>
-      <_Parameter3_IsLiteral>true</_Parameter3_IsLiteral>
-      <_Parameter4>Scope = "type"</_Parameter4>
-      <_Parameter4_IsLiteral>true</_Parameter4_IsLiteral>
-      <_Parameter5>Target = "~T:Aydsko.iRacingData.iRacingClientOptionsValueMissingException"</_Parameter5>
-      <_Parameter5_IsLiteral>true</_Parameter5_IsLiteral>
-    </AssemblyAttribute>
-    <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.SuppressMessageAttribute">
-      <_Parameter1>Style</_Parameter1>
-      <_Parameter2>IDE1006:Naming Styles</_Parameter2>
-      <_Parameter3>Justification = "&lt;The company name which supplies this data API uses the lowercase i prefix so this is a proper name.&gt;"</_Parameter3>
-      <_Parameter3_IsLiteral>true</_Parameter3_IsLiteral>
-      <_Parameter4>Scope = "type"</_Parameter4>
-      <_Parameter4_IsLiteral>true</_Parameter4_IsLiteral>
-      <_Parameter5>Target = "~T:Aydsko.iRacingData.iRacingForbiddenResponseException"</_Parameter5>
-      <_Parameter5_IsLiteral>true</_Parameter5_IsLiteral>
-    </AssemblyAttribute>
-    <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.SuppressMessageAttribute">
-      <_Parameter1>Style</_Parameter1>
-      <_Parameter2>IDE1006:Naming Styles</_Parameter2>
-      <_Parameter3>Justification = "&lt;The company name which supplies this data API uses the lowercase i prefix so this is a proper name.&gt;"</_Parameter3>
-      <_Parameter3_IsLiteral>true</_Parameter3_IsLiteral>
-      <_Parameter4>Scope = "type"</_Parameter4>
-      <_Parameter4_IsLiteral>true</_Parameter4_IsLiteral>
-      <_Parameter5>Target = "~T:Aydsko.iRacingData.iRacingDataClientOptions"</_Parameter5>
-      <_Parameter5_IsLiteral>true</_Parameter5_IsLiteral>
     </AssemblyAttribute>
     <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.SuppressMessageAttribute">
       <_Parameter1>Performance</_Parameter1>
       <_Parameter2>CA1819:Properties should not return arrays</_Parameter2>
-      <_Parameter3>Justification = "&lt;Usage is almost entirely data transfer objects (DTOs) which are one of the exemptions for this rule.&gt;"</_Parameter3>
+      <_Parameter3>Justification = "Usage is almost entirely data transfer objects (DTOs) which are one of the exemptions for this rule."</_Parameter3>
+      <_Parameter3_IsLiteral>true</_Parameter3_IsLiteral>
+      <_Parameter4>Scope = "module"</_Parameter4>
+      <_Parameter4_IsLiteral>true</_Parameter4_IsLiteral>
+    </AssemblyAttribute>
+    <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.SuppressMessageAttribute">
+      <_Parameter1>Design</_Parameter1>
+      <_Parameter2>CA1056:URI-like properties should not be strings</_Parameter2>
+      <_Parameter3>Justification = "Processing is simpler both for deserialization and combining for use."</_Parameter3>
       <_Parameter3_IsLiteral>true</_Parameter3_IsLiteral>
       <_Parameter4>Scope = "module"</_Parameter4>
       <_Parameter4_IsLiteral>true</_Parameter4_IsLiteral>
