@@ -135,6 +135,7 @@ csharp_style_prefer_not_pattern = true:suggestion
 dotnet_diagnostic.CA1812.severity = silent
 csharp_style_prefer_method_group_conversion = true:silent
 insert_final_newline = true
+csharp_style_prefer_parameter_null_checking = false:suggestion
 
 [*.{cs,vb}]
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
