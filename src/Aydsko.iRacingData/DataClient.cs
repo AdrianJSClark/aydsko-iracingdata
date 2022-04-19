@@ -248,7 +248,7 @@ internal class DataClient : IDataClient
             var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
             if (!chunkResponse.IsSuccessStatusCode)
             {
-                logger.LogError("Failed to retrieve chunk index {ChunkIndex} of {ChunkTotalCount}", index, data.ChunkInfo.NumChunks);
+                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                 continue;
             }
 
@@ -289,7 +289,7 @@ internal class DataClient : IDataClient
             var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
             if (!chunkResponse.IsSuccessStatusCode)
             {
-                logger.LogError("Failed to retrieve chunk index {ChunkIndex} of {ChunkTotalCount}", index, data.ChunkInfo.NumChunks);
+                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                 continue;
             }
 
@@ -331,7 +331,7 @@ internal class DataClient : IDataClient
             var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
             if (!chunkResponse.IsSuccessStatusCode)
             {
-                logger.LogError("Failed to retrieve chunk index {ChunkIndex} of {ChunkTotalCount}", index, data.ChunkInfo.NumChunks);
+                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                 continue;
             }
 
@@ -373,7 +373,7 @@ internal class DataClient : IDataClient
             var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
             if (!chunkResponse.IsSuccessStatusCode)
             {
-                logger.LogError("Failed to retrieve chunk index {ChunkIndex} of {ChunkTotalCount}", index, data.ChunkInfo.NumChunks);
+                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                 continue;
             }
 
@@ -444,7 +444,7 @@ internal class DataClient : IDataClient
             var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
             if (!chunkResponse.IsSuccessStatusCode)
             {
-                logger.LogError("Failed to retrieve chunk index {ChunkIndex} of {ChunkTotalCount}", index, data.ChunkInfo.NumChunks);
+                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                 continue;
             }
 
@@ -486,7 +486,7 @@ internal class DataClient : IDataClient
             var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
             if (!chunkResponse.IsSuccessStatusCode)
             {
-                logger.LogError("Failed to retrieve chunk index {ChunkIndex} of {ChunkTotalCount}", index, data.ChunkInfo.NumChunks);
+                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                 continue;
             }
 
@@ -528,7 +528,7 @@ internal class DataClient : IDataClient
             var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
             if (!chunkResponse.IsSuccessStatusCode)
             {
-                logger.LogError("Failed to retrieve chunk index {ChunkIndex} of {ChunkTotalCount}", index, data.ChunkInfo.NumChunks);
+                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                 continue;
             }
 
@@ -570,7 +570,7 @@ internal class DataClient : IDataClient
             var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
             if (!chunkResponse.IsSuccessStatusCode)
             {
-                logger.LogError("Failed to retrieve chunk index {ChunkIndex} of {ChunkTotalCount}", index, data.ChunkInfo.NumChunks);
+                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                 continue;
             }
 
@@ -612,7 +612,7 @@ internal class DataClient : IDataClient
             var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
             if (!chunkResponse.IsSuccessStatusCode)
             {
-                logger.LogError("Failed to retrieve chunk index {ChunkIndex} of {ChunkTotalCount}", index, data.ChunkInfo.NumChunks);
+                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                 continue;
             }
 

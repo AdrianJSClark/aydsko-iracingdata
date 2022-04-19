@@ -24,11 +24,15 @@ public class DateTimeConverter : JsonConverter<DateTime>
         return dateValue;
     }
 
-    [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "Check is being done, diagnostic requires an update.")]
-    public override void Write(Utf8JsonWriter writer!!,
+    public override void Write(Utf8JsonWriter writer,
                                DateTime value,
                                JsonSerializerOptions options)
     {
+        if (writer is null)
+        {
+            throw new ArgumentNullException(nameof(writer));
+        }
+
         writer.WriteStringValue(value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
     }
 }

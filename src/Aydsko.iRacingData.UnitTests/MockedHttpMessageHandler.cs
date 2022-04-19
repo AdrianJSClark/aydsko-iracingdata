@@ -22,9 +22,13 @@ public class MockedHttpMessageHandler : HttpMessageHandler
         this.cookieContainer = cookieContainer;
     }
 
-    [SuppressMessage("Design", "CA1062:Validate arguments of public methods", Justification = "<Pending>")]
-    protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request!!, CancellationToken cancellationToken)
+    protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
+        if (request is null)
+        {
+            throw new ArgumentNullException(nameof(request));
+        }
+
         cancellationToken.ThrowIfCancellationRequested();
 
         Requests.Enqueue(request);

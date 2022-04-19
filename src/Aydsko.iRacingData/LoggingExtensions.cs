@@ -1,6 +1,8 @@
 ﻿// © 2022 Adrian Clark
 // This file is licensed to you under the MIT license.
 
+using System.Net;
+
 namespace Aydsko.iRacingData;
 
 public static class LoggingExtensions
@@ -9,6 +11,7 @@ public static class LoggingExtensions
     private const int EventIdRateLimitsUpdated = 2;
     private const int EventIdErrorResponseUnknownTrace = 3;
     private const int EventIdErrorResponseTrace = 4;
+    private const int EventIdFailedToRetrieveChunkError = 5;
 
     private static readonly Action<ILogger, string, Exception?> loginSuccessful = LoggerMessage.Define<string>(LogLevel.Information,
                                                                                                                new EventId(EventIdLoginSuccessful, nameof(LoginSuccessful)),
@@ -22,6 +25,9 @@ public static class LoggingExtensions
     private static readonly Action<ILogger, string?, Exception?> errorResponse = LoggerMessage.Define<string?>(LogLevel.Trace,
                                                                                                                new EventId(EventIdErrorResponseTrace, nameof(ErrorResponse)),
                                                                                                                "Error response from iRacing API: {ErrorDescription}");
+    private static readonly Action<ILogger, int?, int?, HttpStatusCode?, string?, Exception?> failedToRetrieveChunkError = LoggerMessage.Define<int?, int?, HttpStatusCode?, string?>(LogLevel.Error,
+                                                                                                                                                                                      new EventId(EventIdFailedToRetrieveChunkError, nameof(FailedToRetrieveChunkError)),
+                                                                                                                                                                                      "Failed to retrieve chunk index {ChunkIndex} of {ChunkTotalCount} due to status code {HttpStatusCode} reason {HttpStatusReasonPhrase}");
 
     public static void LoginSuccessful(this ILogger logger, string userEmail)
     {
@@ -41,5 +47,10 @@ public static class LoggingExtensions
     public static void ErrorResponse(this ILogger logger, string? errorDescription, Exception exception)
     {
         errorResponse(logger, errorDescription, exception);
+    }
+
+    public static void FailedToRetrieveChunkError(this ILogger logger, int? chunkIndex, int? chunkTotalCount, HttpStatusCode? httpStatusCode, string? reasonPhrase)
+    {
+        failedToRetrieveChunkError(logger, chunkIndex, chunkTotalCount, httpStatusCode, reasonPhrase, null);
     }
 }

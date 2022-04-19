@@ -10,16 +10,31 @@ namespace Aydsko.iRacingData;
 
 public static class ServicesExtensions
 {
-    public static IServiceCollection AddIRacingDataApi(this IServiceCollection services!!, Action<iRacingDataClientOptions> configureOptions!!)
+    public static IServiceCollection AddIRacingDataApi(this IServiceCollection services, Action<iRacingDataClientOptions> configureOptions)
     {
-#pragma warning disable CA1062 // Validate arguments of public methods
+        if (services is null)
+        {
+            throw new ArgumentNullException(nameof(services));
+        }
+
+        if (configureOptions is null)
+        {
+            throw new ArgumentNullException(nameof(configureOptions));
+        }
+
         services.AddIRacingDataApiInternal(configureOptions);
-#pragma warning restore CA1062 // Validate arguments of public methods
         return services;
     }
 
-    static internal IHttpClientBuilder AddIRacingDataApiInternal(this IServiceCollection services!!, Action<iRacingDataClientOptions> configureOptions!!)
+    static internal IHttpClientBuilder AddIRacingDataApiInternal(this IServiceCollection services, Action<iRacingDataClientOptions> configureOptions)
     {
+        if (services is null)
+        {
+            throw new ArgumentNullException(nameof(services));
+        }
+
+        configureOptions ??= opt => { };
+
         services.TryAddSingleton(new CookieContainer());
 
         var options = new iRacingDataClientOptions();
@@ -53,8 +68,13 @@ public static class ServicesExtensions
         return httpClientBuilder;
     }
 
-    private static string CreateUserAgentValue(iRacingDataClientOptions options!!)
+    private static string CreateUserAgentValue(iRacingDataClientOptions options)
     {
+        if (options is null)
+        {
+            throw new ArgumentNullException(nameof(options));
+        }
+
         if (options.UserAgentProductName is not string userAgentProductName)
         {
             userAgentProductName = Assembly.GetEntryAssembly()?.GetName().Name ?? "Unknown";
@@ -65,7 +85,7 @@ public static class ServicesExtensions
             userAgentProductVersion = Assembly.GetEntryAssembly()?.GetName().Version ?? new Version(0, 0);
         }
 
-        var dataClientVersion = typeof(DataClient).Assembly.GetName().Version.ToString(3);
+        var dataClientVersion = typeof(DataClient).Assembly.GetName()?.Version?.ToString(3) ?? "0.0";
         var userAgentValue = $"{userAgentProductName}/{userAgentProductVersion} Aydsko.iRacingDataClient/{dataClientVersion}";
         return userAgentValue;
     }

@@ -8,7 +8,7 @@ namespace Aydsko.iRacingData;
 [Serializable]
 public class iRacingClientOptionsValueMissingException : iRacingDataClientException
 {
-    public static iRacingClientOptionsValueMissingException Create(string propertyName!!)
+    public static iRacingClientOptionsValueMissingException Create(string propertyName)
     {
         return new($"Required iRacingDataClientOptions value \"{propertyName}\" is null or whitespace.");
     }
