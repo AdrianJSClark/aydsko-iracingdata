@@ -340,7 +340,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetMemberDivisionSuccessfulAsync)).ConfigureAwait(false);
 
-        var memberDivisionResponse = await sut.GetMemberDivisionAsync(1234, EventType.Race, CancellationToken.None);
+        var memberDivisionResponse = await sut.GetMemberDivisionAsync(1234, EventType.Race, CancellationToken.None).ConfigureAwait(false);
 
         Assert.That(memberDivisionResponse, Is.Not.Null);
         Assert.That(memberDivisionResponse.Data, Is.Not.Null);
