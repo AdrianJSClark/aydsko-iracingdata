@@ -3,6 +3,7 @@
 
 using Aydsko.iRacingData.Cars;
 using Aydsko.iRacingData.Constants;
+using Aydsko.iRacingData.Exceptions;
 using Aydsko.iRacingData.Leagues;
 using Aydsko.iRacingData.Lookups;
 using Aydsko.iRacingData.Member;

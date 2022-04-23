@@ -3,6 +3,7 @@
 
 using Aydsko.iRacingData.Common;
 using Aydsko.iRacingData.Constants;
+using Aydsko.iRacingData.Exceptions;
 using Aydsko.iRacingData.Results;
 
 namespace Aydsko.iRacingData.UnitTests;
