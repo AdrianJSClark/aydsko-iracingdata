@@ -6,8 +6,11 @@ using System.Net;
 
 namespace Aydsko.iRacingData.UnitTests;
 
-public class ServicesTests
+/// <summary>Tests that validate the <see cref="ServicesExtensions.AddIRacingDataApi(IServiceCollection, Action{Aydsko.iRacingData.iRacingDataClientOptions})"/> operates as intended.</summary>
+public class ServicesExtensionsTests
 {
+    /// <summary>Ensure tha the login and default user agent value works.</summary>
+    /// <returns>A <see cref="Task"/> that resolves when the method completes.</returns>
     [Test]
     public async Task LoginAndUserAgentDefaultWorksWhenResolvedFromServicesAsync()
     {
@@ -39,6 +42,8 @@ public class ServicesTests
         }
     }
 
+    /// <summary>Ensure the login and a supplied user agent value.</summary>
+    /// <returns>A <see cref="Task"/> that resolves when the method completes.</returns>
     [Test]
     public async Task LoginAndUserAgentWorksWhenResolvedFromServicesAsync()
     {

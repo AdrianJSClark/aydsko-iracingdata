@@ -5,18 +5,25 @@ using Microsoft.Extensions.Logging;
 
 namespace Aydsko.iRacingData.UnitTests;
 
+/// <summary>A fake logger implementation for testing which writes to the <see cref="Console"/>.</summary>
+/// <typeparam name="T">Type context to include in the logging.</typeparam>
 public class TestLogger<T> : ILogger<T>
 {
+    private static readonly string ForTypeName = typeof(T).FullName ?? typeof(T).Name;
+
+    /// <inheritdoc/>
     public IDisposable BeginScope<TState>(TState state)
     {
         return new TestScope();
     }
 
+    /// <inheritdoc/>
     public bool IsEnabled(LogLevel logLevel)
     {
         return true;
     }
 
+    /// <inheritdoc/>
     public void Log<TState>(LogLevel logLevel,
                             EventId eventId,
                             TState state,
@@ -35,7 +42,7 @@ public class TestLogger<T> : ILogger<T>
             return;
         }
 
-        message = $"{logLevel}: {message}";
+        message = $"[{logLevel} | {ForTypeName}] : {message}";
 
         if (exception is not null)
         {
@@ -44,12 +51,12 @@ public class TestLogger<T> : ILogger<T>
 
         Console.WriteLine(message);
     }
-}
 
-public sealed class TestScope : IDisposable
-{
-    public void Dispose()
+    private sealed class TestScope : IDisposable
     {
-        GC.SuppressFinalize(this);
+        public void Dispose()
+        {
+            GC.SuppressFinalize(this);
+        }
     }
 }

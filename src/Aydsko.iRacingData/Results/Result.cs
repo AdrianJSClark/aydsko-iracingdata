@@ -102,8 +102,8 @@ public class Result
     public string DivisionName { get; set; } = default!;
 
     /// <summary>Driver license level at the start of the race. Refers to the <see cref="Lookups.LicenseLevel.LicenseId"/> property.</summary>
-    /// <seealso cref="DataClient.GetLicensesAsync(CancellationToken)"/>
-    /// <seealso cref="<see cref="Lookups.LicenseLevel"/>
+    /// <seealso cref="DataClient.GetLicenseLookupsAsync(CancellationToken)"/>
+    /// <seealso cref="Lookups.LicenseLevel"/>
     [JsonPropertyName("old_license_level")]
     public int OldLicenseLevel { get; set; }
 
@@ -125,8 +125,8 @@ public class Result
     public int OldTTrating { get; set; }
 
     /// <summary>Driver license level at the end of the race. Refers to the <see cref="Lookups.LicenseLevel.LicenseId"/> property.</summary>
-    /// <seealso cref="DataClient.GetLicensesAsync(CancellationToken)"/>
-    /// <seealso cref="<see cref="Lookups.LicenseLevel"/>
+    /// <seealso cref="DataClient.GetLicenseLookupsAsync(CancellationToken)"/>
+    /// <seealso cref="Lookups.LicenseLevel"/>
     [JsonPropertyName("new_license_level")]
     public int NewLicenseLevel { get; set; }
 
