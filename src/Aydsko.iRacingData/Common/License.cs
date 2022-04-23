@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// © 2022 Adrian Clark
+// This file is licensed to you under the MIT license.
 
 namespace Aydsko.iRacingData.Common;
 

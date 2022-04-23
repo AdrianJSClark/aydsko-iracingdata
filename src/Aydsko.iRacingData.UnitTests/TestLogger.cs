@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT license.
 
 using Microsoft.Extensions.Logging;
-using System;
 
 namespace Aydsko.iRacingData.UnitTests;
 

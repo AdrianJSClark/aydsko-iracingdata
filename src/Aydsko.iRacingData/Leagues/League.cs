@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT license.
 
 using System.Diagnostics.CodeAnalysis;
-using System.Text.Json.Serialization;
 
 namespace Aydsko.iRacingData.Leagues;
 

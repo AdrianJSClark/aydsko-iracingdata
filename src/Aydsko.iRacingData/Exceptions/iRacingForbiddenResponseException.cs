@@ -3,7 +3,7 @@
 
 using System.Runtime.Serialization;
 
-namespace Aydsko.iRacingData;
+namespace Aydsko.iRacingData.Exceptions;
 
 [Serializable]
 public class iRacingForbiddenResponseException : iRacingDataClientException
