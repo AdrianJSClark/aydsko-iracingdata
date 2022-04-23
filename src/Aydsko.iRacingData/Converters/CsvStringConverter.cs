@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT license.
 
 using System.Text.Json;
-using System.Text.Json.Serialization;
 
 namespace Aydsko.iRacingData.Converters;
 

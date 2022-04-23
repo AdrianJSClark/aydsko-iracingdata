@@ -1,8 +1,6 @@
 ﻿// © 2022 Adrian Clark
 // This file is licensed to you under the MIT license.
 
-using Microsoft.Extensions.DependencyInjection;
-
 namespace Aydsko.iRacingData.UnitTests;
 
 public class LoginViaOptionsTests : MockedHttpTestBase

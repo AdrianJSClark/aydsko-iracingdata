@@ -1,10 +1,8 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿// © 2022 Adrian Clark
+// This file is licensed to you under the MIT license.
+
+using Microsoft.Extensions.DependencyInjection;
 using System.Net;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Aydsko.iRacingData.UnitTests;
 
@@ -65,9 +63,9 @@ public class ServicesTests
 
         var lookups = await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
-        //Assert.That(sut.IsLoggedIn, Is.True);
         Assert.That(lookups, Is.Not.Null);
         Assert.That(lookups.Data, Is.Not.Null.Or.Empty);
+
         foreach (var request in messageHandler.Requests)
         {
             Assert.That(request.Headers.UserAgent.ToString(), Is.EqualTo($"UserAgentTest/1.0 Aydsko.iRacingDataClient/{typeof(IDataClient).Assembly.GetName().Version?.ToString(3)}"));
