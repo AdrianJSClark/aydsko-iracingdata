@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT license.
 
 using Aydsko.iRacingData.CarClasses;
-using System.Text.Json.Serialization;
 
 namespace Aydsko.iRacingData.Common;
 
