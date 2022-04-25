@@ -30,7 +30,7 @@ public class Track
     public int CornersPerLap { get; set; }
 
     [JsonPropertyName("created")]
-    public DateTime Created { get; set; }
+    public DateTimeOffset Created { get; set; }
 
     [JsonPropertyName("free_with_subscription")]
     public bool FreeWithSubscription { get; set; }

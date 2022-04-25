@@ -33,7 +33,7 @@ public class SeasonDriverStandingsHeader
     public ChunkInfo ChunkInfo { get; set; } = null!;
 
     [JsonPropertyName("last_updated")]
-    public DateTime LastUpdated { get; set; }
+    public DateTimeOffset LastUpdated { get; set; }
 }
 
 [JsonSerializable(typeof(SeasonDriverStandingsHeader)), JsonSourceGenerationOptions(WriteIndented = true)]
