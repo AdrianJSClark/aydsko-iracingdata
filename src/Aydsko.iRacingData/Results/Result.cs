@@ -51,7 +51,7 @@ public class Result
     public TimeSpan? BestNlapsTime { get; set; }
 
     [JsonPropertyName("best_qual_lap_at")]
-    public DateTime BestQualifyingLapAt { get; set; }
+    public DateTimeOffset? BestQualifyingLapAt { get; set; }
 
     [JsonPropertyName("best_qual_lap_num")]
     public int BestQualifyingLapNum { get; set; }

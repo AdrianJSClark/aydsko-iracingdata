@@ -17,7 +17,7 @@ public class SeasonRaceResult
     public string? EventTypeName { get; set; }
 
     [JsonPropertyName("start_time")]
-    public DateTime StartTime { get; set; }
+    public DateTimeOffset StartTime { get; set; }
 
     [JsonPropertyName("session_id")]
     public int SessionId { get; set; }

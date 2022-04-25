@@ -29,7 +29,7 @@ public class Race
     public int LicenseLevel { get; set; }
 
     [JsonPropertyName("session_start_time")]
-    public DateTime SessionStartTime { get; set; }
+    public DateTimeOffset SessionStartTime { get; set; }
 
     [JsonPropertyName("winner_group_id")]
     public int WinnerGroupId { get; set; }
