@@ -1,8 +1,4 @@
-﻿New iRacing Endpoints:
-
- - ???
-
-Fixes / Changes:
+﻿Fixes / Changes:
 
  - Fields that are durations (e.g. lap times or intervals) will use the "TimeSpan" data type
  - Fields that are instants (e.g. session start time) will use the "DateTimeOffset" data type
