@@ -9,14 +9,26 @@ public class Schedule
 {
     [JsonPropertyName("season_id")]
     public int SeasonId { get; set; }
+
+    /// <summary>An index number identifying the race week.</summary>
+    /// <remarks>The iRacing Data API works with zero-based race weeks, most people will use one-based.</remarks>
+    /// <seealso cref="RaceWeekNumber" />
     [JsonPropertyName("race_week_num")]
-    public int RaceWeekNum { get; set; }
+    public int RaceWeekIndex { get; set; }
+
+    /// <summary>The number of the race week within the season.</summary>
+    [JsonIgnore]
+    public int RaceWeekNumber => RaceWeekIndex + 1;
+
     [JsonPropertyName("series_id")]
     public int SeriesId { get; set; }
+
     [JsonPropertyName("series_name")]
     public string SeriesName { get; set; } = default!;
+
     [JsonPropertyName("season_name")]
     public string SeasonName { get; set; } = default!;
+
     [JsonPropertyName("schedule_name")]
     public string ScheduleName { get; set; } = default!;
 
@@ -30,26 +42,37 @@ public class Schedule
 
     [JsonPropertyName("simulated_time_multiplier")]
     public int SimulatedTimeMultiplier { get; set; }
+
     [JsonPropertyName("race_lap_limit")]
     public int? RaceLapLimit { get; set; }
+
     [JsonPropertyName("race_time_limit")]
     public int? RaceTimeLimit { get; set; }
+
     [JsonPropertyName("start_type")]
     public string StartType { get; set; } = default!;
+
     [JsonPropertyName("restart_type")]
     public string RestartType { get; set; } = default!;
+
     [JsonPropertyName("qual_attached")]
     public bool QualAttached { get; set; }
+
     [JsonPropertyName("yellow_flags")]
     public bool YellowFlags { get; set; }
+
     [JsonPropertyName("special_event_type")]
     public int? SpecialEventType { get; set; }
+
     [JsonPropertyName("track")]
     public Track Track { get; set; } = default!;
+
     [JsonPropertyName("weather")]
     public Weather Weather { get; set; } = default!;
+
     [JsonPropertyName("track_state")]
     public TrackState TrackState { get; set; } = default!;
+
     [JsonPropertyName("car_restrictions")]
     public CarRestrictions[] CarRestrictions { get; set; } = Array.Empty<CarRestrictions>();
 }
