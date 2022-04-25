@@ -37,8 +37,15 @@ public class SubSessionResult
     [JsonPropertyName("series_logo")]
     public string SeriesLogo { get; set; } = default!;
 
+    /// <summary>An index number identifying the race week.</summary>
+    /// <remarks>The iRacing Data API works with zero-based race weeks, most people will use one-based.</remarks>
+    /// <seealso cref="RaceWeekNumber" />
     [JsonPropertyName("race_week_num")]
-    public int RaceWeekNum { get; set; }
+    public int RaceWeekIndex { get; set; }
+
+    /// <summary>The number of the race week within the season.</summary>
+    [JsonIgnore]
+    public int RaceWeekNumber => RaceWeekIndex + 1;
 
     [JsonPropertyName("session_id")]
     public int SessionId { get; set; }
