@@ -14,21 +14,17 @@ public class iRacingClientOptionsValueMissingException : iRacingDataClientExcept
     }
 
     public iRacingClientOptionsValueMissingException()
-    {
-    }
+    { }
 
     public iRacingClientOptionsValueMissingException(string message)
         : base(message)
-    {
-    }
+    { }
 
     public iRacingClientOptionsValueMissingException(string message, Exception innerException)
         : base(message, innerException)
-    {
-    }
+    { }
 
     protected iRacingClientOptionsValueMissingException(SerializationInfo serializationInfo, StreamingContext streamingContext)
         : base(serializationInfo, streamingContext)
-    {
-    }
+    { }
 }

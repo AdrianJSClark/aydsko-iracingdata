@@ -7,6 +7,7 @@ public class MemberSummary
 {
     [JsonPropertyName("this_year")]
     public MemberSummaryYearStatistics YearStatistics { get; set; } = null!;
+
     [JsonPropertyName("cust_id")]
     public int CustomerId { get; set; }
 }

@@ -14,21 +14,17 @@ public class iRacingForbiddenResponseException : iRacingDataClientException
     }
 
     public iRacingForbiddenResponseException()
-    {
-    }
+    { }
 
     public iRacingForbiddenResponseException(string message)
         : base(message)
-    {
-    }
+    { }
 
     public iRacingForbiddenResponseException(string message, Exception innerException)
         : base(message, innerException)
-    {
-    }
+    { }
 
     protected iRacingForbiddenResponseException(SerializationInfo serializationInfo, StreamingContext streamingContext)
         : base(serializationInfo, streamingContext)
-    {
-    }
+    { }
 }

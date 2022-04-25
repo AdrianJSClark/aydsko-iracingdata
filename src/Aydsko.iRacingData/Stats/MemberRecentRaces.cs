@@ -6,6 +6,7 @@ public class MemberRecentRaces
 {
     [JsonPropertyName("races")]
     public Race[] Races { get; set; } = Array.Empty<Race>();
+
     [JsonPropertyName("cust_id")]
     public int CustomerId { get; set; }
 }

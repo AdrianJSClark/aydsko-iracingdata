@@ -7,6 +7,7 @@ public class Lookup
 {
     [JsonPropertyName("lookup_type")]
     public string LookupType { get; set; } = default!;
+
     [JsonPropertyName("lookup_values")]
     public LookupValue[] LookupValues { get; set; } = Array.Empty<LookupValue>();
 }

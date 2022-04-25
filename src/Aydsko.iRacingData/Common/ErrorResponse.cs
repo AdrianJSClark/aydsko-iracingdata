@@ -7,6 +7,7 @@ public class ErrorResponse
 {
     [JsonPropertyName("error")]
     public string? ErrorCode { get; set; }
+
     [JsonPropertyName("note")]
     public string? ErrorDescription { get; set; }
 }

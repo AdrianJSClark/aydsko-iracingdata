@@ -7,6 +7,7 @@ public class LookupGroup
 {
     [JsonPropertyName("tag")]
     public string Tag { get; set; } = default!;
+
     [JsonPropertyName("lookups")]
     public Lookup[] Lookups { get; set; } = Array.Empty<Lookup>();
 }

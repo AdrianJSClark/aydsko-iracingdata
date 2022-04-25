@@ -11,17 +11,20 @@ public class iRacingInMaintenancePeriodException : iRacingDataClientException
         HelpLink = "https://status.iracing.com/";
     }
 
-    public iRacingInMaintenancePeriodException(string message) : base(message)
+    public iRacingInMaintenancePeriodException(string message)
+        : base(message)
     {
         HelpLink = "https://status.iracing.com/";
     }
 
-    public iRacingInMaintenancePeriodException(string message, Exception inner) : base(message, inner)
+    public iRacingInMaintenancePeriodException(string message, Exception inner)
+        : base(message, inner)
     {
         HelpLink = "https://status.iracing.com/";
     }
 
-    protected iRacingInMaintenancePeriodException(
-      System.Runtime.Serialization.SerializationInfo info,
-      System.Runtime.Serialization.StreamingContext context) : base(info, context) { }
+    protected iRacingInMaintenancePeriodException(System.Runtime.Serialization.SerializationInfo info,
+                                                  System.Runtime.Serialization.StreamingContext context)
+        : base(info, context)
+    { }
 }

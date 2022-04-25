@@ -7,8 +7,10 @@ public class DriverInfoResponse
 {
     [JsonPropertyName("success")]
     public bool Success { get; set; }
+
     [JsonPropertyName("cust_ids")]
     public int[] CustomerIds { get; set; } = Array.Empty<int>();
+
     [JsonPropertyName("members")]
     public DriverInfo[] Drivers { get; set; } = Array.Empty<DriverInfo>();
 }

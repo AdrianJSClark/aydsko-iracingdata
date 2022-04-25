@@ -7,6 +7,7 @@ public class Image
 {
     [JsonPropertyName("small_logo")]
     public string? SmallLogo { get; set; }
+
     [JsonPropertyName("large_logo")]
     public string? LargeLogo { get; set; }
 }

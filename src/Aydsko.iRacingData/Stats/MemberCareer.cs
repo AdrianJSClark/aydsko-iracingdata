@@ -7,6 +7,7 @@ public class MemberCareer
 {
     [JsonPropertyName("stats")]
     public MemberCareerStatistics[] Statistics { get; set; } = default!;
+
     [JsonPropertyName("cust_id")]
     public int CustomerId { get; set; }
 }
