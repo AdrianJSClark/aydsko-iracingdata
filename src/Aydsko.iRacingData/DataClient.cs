@@ -16,6 +16,8 @@ using System.Globalization;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json.Serialization.Metadata;
 
 namespace Aydsko.iRacingData;
@@ -754,6 +756,7 @@ internal class DataClient : IDataClient
         return CreateResponse(headers, data, logger);
     }
 
+#pragma warning disable CA1308 // Normalize strings to uppercase - this algorithm requires lower case.
     private async Task LoginInternalAsync(CancellationToken cancellationToken)
     {
         if (options.RestoreCookies is not null
@@ -762,8 +765,22 @@ internal class DataClient : IDataClient
             cookieContainer.Add(savedCookies);
         }
 
+        string? encodedHash = null;
+        if (options.Use2022Season3Login)
+        {
+            using var sha256 = SHA256.Create();
+
+            var passwordAndEmail = options.Password + (options.Username?.ToLowerInvariant());
+            var hashedPasswordAndEmailBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordAndEmail));
+            encodedHash = Convert.ToBase64String(hashedPasswordAndEmailBytes);
+        }
+
         var loginResponse = await httpClient.PostAsJsonAsync("https://members-ng.iracing.com/auth",
-                                                             new { email = options.Username, password = options.Password },
+                                                             new
+                                                             {
+                                                                 email = options.Username,
+                                                                 password = options.Use2022Season3Login ? encodedHash : options.Password
+                                                             },
                                                              cancellationToken)
                                             .ConfigureAwait(false);
         loginResponse.EnsureSuccessStatusCode();
@@ -775,6 +792,7 @@ internal class DataClient : IDataClient
             saveCredentials(cookieContainer.GetAllCookies());
         }
     }
+#pragma warning restore CA1308 // Normalize strings to uppercase
 
     private async Task<(HttpResponseHeaders Headers, TData Data)> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
     {

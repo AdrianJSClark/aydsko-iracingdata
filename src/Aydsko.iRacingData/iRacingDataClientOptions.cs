@@ -25,4 +25,8 @@ public class iRacingDataClientOptions
 
     /// <summary>After a successful authentication called with the cookies to allow them to be saved.</summary>
     public Action<CookieCollection>? SaveCookies { get; set; }
+
+    /// <summary>Enable updated login protocols valid after 2022 Season 3 release.</summary>
+    /// <remarks>See: <seealso href="https://forums.iracing.com/discussion/22109/login-form-changes"/></remarks>
+    public bool Use2022Season3Login { get; set; }
 }
