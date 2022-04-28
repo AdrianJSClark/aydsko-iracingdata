@@ -1,5 +1,3 @@
 ﻿Fixes / Changes:
 
- - Fields that are durations (e.g. lap times or intervals) will use the "TimeSpan" data type
- - Fields that are instants (e.g. session start time) will use the "DateTimeOffset" data type
- - Added "RaceWeekNumber" properties which calculate the actual race week based on the zero-based "RaceWeekIndex"
+ - Added support for iRacing's 2022 Season 3 login algorithm update.
