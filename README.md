@@ -34,6 +34,23 @@ services.AddiRacingDataApi(options =>
 });
 ```
 
+### 2022 Season 3 Change in Login
+
+There is a change in the login algorithm due to be released with iRacing's 2022 Season 3 update. If this update has been released and authentication stops working enable the `Use2022Season3Login` flag on the options.
+
+```csharp
+services.AddiRacingDataApi(options =>
+{
+    options.Use2022Season3Login = true; // Add this line
+
+    options.Username = "your-iracing-user@example.com";
+    options.Password = "Your-iRacing-Password";
+    options.UserAgentProductName = "MyApplicationName";
+    options.UserAgentProductVersion = new Version(1, 0);
+});
+```
+
+
 ## Use the Client
 
 Use the injected `IDataClient` to authenticate and request data.
