@@ -24,6 +24,9 @@ public class iRacingDataClientOptions
     public Func<CookieCollection>? RestoreCookies { get; set; }
 
     /// <summary>After a successful authentication called with the cookies to allow them to be saved.</summary>
+    /// <remarks>
+    /// <para>One of the cookies returned in this collection <c>irsso_membersv2</c> may be used to authenticate with the <c>/membersite</c> and <c>/memberstats</c> endpoints on the classic site's API.</para>
+    /// </remarks>
     public Action<CookieCollection>? SaveCookies { get; set; }
 
     /// <summary>Enable updated login protocols valid after 2022 Season 3 release.</summary>
