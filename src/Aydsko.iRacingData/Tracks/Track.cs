@@ -20,8 +20,13 @@ public class Track
     [JsonPropertyName("category_id")]
     public int CategoryId { get; set; }
 
-    [JsonPropertyName("closes")]
-    public string Closes { get; set; } = default!;
+#if NET6_0_OR_GREATER
+    [JsonPropertyName("closes"), JsonConverter(typeof(DateOnlyConverter))]
+    public DateOnly Closes { get; set; } = default!;
+#else
+    [JsonPropertyName("closes"), JsonConverter(typeof(DateTimeConverter))]
+    public DateTime Closes { get; set; } = default!;
+#endif
 
     [JsonPropertyName("config_name")]
     public string ConfigName { get; set; } = default!;
@@ -80,8 +85,13 @@ public class Track
     [JsonPropertyName("number_pitstalls")]
     public int NumberPitstalls { get; set; }
 
-    [JsonPropertyName("opens")]
-    public string Opens { get; set; } = default!;
+#if NET6_0_OR_GREATER
+    [JsonPropertyName("opens"), JsonConverter(typeof(DateOnlyConverter))]
+    public DateOnly Opens { get; set; } = default!;
+#else
+    [JsonPropertyName("opens"), JsonConverter(typeof(DateTimeConverter))]
+    public DateTime Opens { get; set; } = default!;
+#endif
 
     [JsonPropertyName("package_id")]
     public int PackageId { get; set; }
