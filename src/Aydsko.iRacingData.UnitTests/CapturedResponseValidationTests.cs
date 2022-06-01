@@ -505,6 +505,36 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(subSessionResultResponse.Data.SeriesName, Is.EqualTo("Global Fanatec Challenge"));
         Assert.That(subSessionResultResponse.Data.SessionResults, Has.Length.EqualTo(2));
         Assert.That(subSessionResultResponse.Data.SessionResults, Has.One.Property(nameof(SessionResults.SimSessionName)).EqualTo("RACE"));
+
+        var raceResults = subSessionResultResponse.Data.SessionResults.Single(r => r.SimSessionName == "RACE");
+        Assert.That(raceResults.Results, Has.All.Property(nameof(Result.DriverResults)).Null); // Single-driver events don't have driver results.
+    }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetSubSessionResultForTeamSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetSubSessionResultForTeamSuccessfulAsync)).ConfigureAwait(false);
+
+        var subSessionResultResponse = await sut.GetSubSessionResultAsync(12345, false, CancellationToken.None).ConfigureAwait(false);
+
+        Assert.That(subSessionResultResponse, Is.Not.Null);
+        Assert.That(subSessionResultResponse!.Data, Is.Not.Null);
+
+        Assert.That(subSessionResultResponse.Data.SeasonId, Is.EqualTo(3720));
+        Assert.That(subSessionResultResponse.Data.SeriesName, Is.EqualTo("Nurburgring Endurance Championship"));
+        Assert.That(subSessionResultResponse.Data.SessionResults, Has.Length.EqualTo(3));
+        Assert.That(subSessionResultResponse.Data.SessionResults, Has.One.Property(nameof(SessionResults.SimSessionName)).EqualTo("RACE"));
+
+        var raceResults = subSessionResultResponse.Data.SessionResults.Single(r => r.SimSessionName == "RACE");
+        Assert.That(raceResults.Results, Has.All.Property(nameof(Result.DriverResults)).Not.Null); // Team events should have driver results.
+
+        var nollerRacing = raceResults.Results.SingleOrDefault(r => r.TeamId == -208016);
+        Assert.That(nollerRacing.DriverResults, Is.Empty.And.Not.Null);
+
+        var racingSociety = raceResults.Results.SingleOrDefault(r => r.TeamId == -261181);
+        Assert.That(racingSociety.DriverResults, Has.Length.EqualTo(2));
+        Assert.That(racingSociety.DriverResults, Has.One.Property(nameof(DriverResult.CustomerId)).EqualTo(696075));
+        Assert.That(racingSociety.DriverResults, Has.One.Property(nameof(DriverResult.CustomerId)).EqualTo(669671));
     }
 
     [Test(TestOf = typeof(DataClient))]

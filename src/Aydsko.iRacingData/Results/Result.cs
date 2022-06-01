@@ -2,14 +2,22 @@
 // This file is licensed to you under the MIT license.
 
 using Aydsko.iRacingData.Converters;
+using System.Diagnostics;
 
 namespace Aydsko.iRacingData.Results;
 
+[DebuggerDisplay("{DebuggerDisplay,nq}")]
 public class Result
 {
+    /// <summary>Unique identifier for the Team entry.</summary>
+    /// <remarks>This value will be <see langword="null"/> if this is not a Team event.</remarks>
+    [JsonPropertyName("team_id")]
+    public int? TeamId { get; set; }
 
+    /// <summary>Unique identifier for the Customer.</summary>
+    /// <remarks>This value will be <see langword="null"/> if this is a Team event.</remarks>
     [JsonPropertyName("cust_id")]
-    public int CustomerId { get; set; }
+    public int? CustomerId { get; set; }
 
     [JsonPropertyName("display_name")]
     public string DisplayName { get; set; } = default!;
@@ -83,6 +91,9 @@ public class Result
     [JsonPropertyName("starting_position")]
     public int StartingPosition { get; set; }
 
+    [JsonPropertyName("starting_position_in_class")]
+    public int? StartingPositionInClass { get; set; }
+
     [JsonPropertyName("car_class_id")]
     public int CarClassId { get; set; }
 
@@ -93,13 +104,13 @@ public class Result
     public string ClubName { get; set; } = default!;
 
     [JsonPropertyName("club_shortname")]
-    public string ClubShortname { get; set; } = default!;
+    public string? ClubShortname { get; set; } = default!;
 
     [JsonPropertyName("division")]
     public int Division { get; set; }
 
     [JsonPropertyName("division_name")]
-    public string DivisionName { get; set; } = default!;
+    public string? DivisionName { get; set; } = default!;
 
     /// <summary>Driver license level at the start of the race. Refers to the <see cref="Lookups.LicenseLevel.LicenseId"/> property.</summary>
     /// <seealso cref="DataClient.GetLicensesAsync(CancellationToken)"/>
@@ -194,4 +205,12 @@ public class Result
 
     [JsonPropertyName("ai")]
     public bool AI { get; set; }
+
+    [JsonPropertyName("driver_results")]
+    public DriverResult[]? DriverResults { get; set; }
+
+    private string DebuggerDisplay => (TeamId is null)
+                                   ? $"{CustomerId} \"{DisplayName}\"{(AI ? " (AI)" : "")} Q{StartingPosition} to P{Position}"
+                                   : $"{CustomerId} \"{DisplayName}\"{(AI ? " (AI)" : "")} Team {TeamId} ({DriverResults?.Length} drivers) Q{StartingPosition} to P{Position}";
+
 }

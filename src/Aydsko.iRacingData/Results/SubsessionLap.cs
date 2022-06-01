@@ -56,7 +56,7 @@ public class SubsessionLap
     public string[] LapEvents { get; set; } = null!;
 
     [JsonPropertyName("ai")]
-    public bool Ai { get; set; }
+    public bool AI { get; set; }
 }
 
 [JsonSerializable(typeof(SubsessionLap[])), JsonSourceGenerationOptions(WriteIndented = true)]
