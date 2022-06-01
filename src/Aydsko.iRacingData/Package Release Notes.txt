@@ -1,3 +1,6 @@
 ﻿Fixes / Changes:
 
+ - Added support for iRacing's 2022 Season 3 login algorithm update.
  - Added a note about the "irsso_membersv2" cookie, which allows authentication against the classic site endpoints.
+ - Support for team-based session results.
+ - Corrected "opens" and "closes" data type on "Track".

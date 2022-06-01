@@ -36,6 +36,8 @@ services.AddiRacingDataApi(options =>
 });
 ```
 
+See the ["Login Form Changes"](https://forums.iracing.com/discussion/22109/login-form-changes) thread on iRacing's Forums for full details.
+
 ### Use the Client
 
 Use the injected `iRacingDataClient` to authenticate and request data.
