@@ -20,6 +20,10 @@
     <PackageReleaseNotes Condition="Exists('$(MSBuildProjectDirectory)/Package Release Notes.txt')">$([System.IO.File]::ReadAllText("$(MSBuildProjectDirectory)/Package Release Notes.txt"))</PackageReleaseNotes>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(CI)' == 'true' And '$(GITHUB_HEAD_REF)' != ''">
+    <MinVerDefaultPreReleasePhase>$(GITHUB_HEAD_REF)</MinVerDefaultPreReleasePhase>
+  </PropertyGroup>
+
   <ItemGroup>
     <AssemblyAttribute Include="System.Runtime.CompilerServices.InternalsVisibleTo">
       <_Parameter1>Aydsko.iRacingData.UnitTests</_Parameter1>
