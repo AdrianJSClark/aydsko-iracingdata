@@ -1,0 +1,1965 @@
+﻿{
+  "headers": {},
+  "content": [
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "road",
+      "category_id": 2,
+      "eligible": true,
+      "max_starters": 30,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 2,
+      "search_filters": "null",
+      "series_id": 320,
+      "series_name": "13th Week iRacing Porsche Cup",
+      "series_short_name": "13th Week iRacing Porsche Cup"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "road",
+      "category_id": 2,
+      "eligible": true,
+      "max_starters": 30,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 1,
+      "search_filters": "null",
+      "series_id": 449,
+      "series_name": "13th Week GT3 Challenge - Fixed",
+      "series_short_name": "13th Week GT3 Challenge - Fixed"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "oval",
+      "category_id": 1,
+      "eligible": true,
+      "max_starters": 30,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 0,
+      "search_filters": "nascar,oval",
+      "series_id": 259,
+      "series_name": "PickUp Cup",
+      "series_short_name": "PickUp Cup"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 2,
+          "min_license_level": 8,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "road",
+      "category_id": 2,
+      "eligible": true,
+      "max_starters": 55,
+      "min_starters": 5,
+      "oval_caution_type": 0,
+      "road_caution_type": 1,
+      "series_id": 451,
+      "series_name": "Creventic Endurance Series",
+      "series_short_name": "Creventic Endurance Series"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "dirt_road",
+      "category_id": 4,
+      "eligible": true,
+      "max_starters": 14,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 2,
+      "search_filters": "null",
+      "series_id": 323,
+      "series_name": "13th Week iRacing Rallycross Series",
+      "series_short_name": "13th Week iRacing  Rallycross Series"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "oval",
+      "category_id": 1,
+      "eligible": true,
+      "max_starters": 20,
+      "min_starters": 8,
+      "oval_caution_type": 0,
+      "road_caution_type": 0,
+      "series_id": 134,
+      "series_name": "13th Week Street Stock Challenge",
+      "series_short_name": "13th Week Street Stock Challenge"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "road",
+      "category_id": 2,
+      "eligible": true,
+      "max_starters": 20,
+      "min_starters": 8,
+      "oval_caution_type": 0,
+      "road_caution_type": 0,
+      "search_filters": "null",
+      "series_id": 135,
+      "series_name": "13th Week Mazda Cup",
+      "series_short_name": "13th Week Mazda Cup"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "road",
+      "category_id": 2,
+      "eligible": true,
+      "max_starters": 30,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 2,
+      "search_filters": "road",
+      "series_id": 332,
+      "series_name": "13th Week iRacing Radical Cup",
+      "series_short_name": "13th Week iRacing Radical Cup"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 2,
+          "min_license_level": 8,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "oval",
+      "category_id": 1,
+      "eligible": false,
+      "max_starters": 37,
+      "min_starters": 8,
+      "oval_caution_type": 3,
+      "road_caution_type": 2,
+      "search_filters": "nascar,oval",
+      "series_id": 207,
+      "series_name": "NASCAR iRacing Series - Fixed",
+      "series_short_name": "NASCAR iRacing Series - Fixed"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 4,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "road",
+      "category_id": 2,
+      "eligible": true,
+      "max_starters": 60,
+      "min_starters": 8,
+      "oval_caution_type": 0,
+      "road_caution_type": 2,
+      "search_filters": "null",
+      "series_id": 275,
+      "series_name": "Nurburgring Endurance Championship",
+      "series_short_name": "Nurburgring Endurance Championship"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "dirt_oval",
+      "category_id": 3,
+      "eligible": true,
+      "max_starters": 14,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 0,
+      "search_filters": "null",
+      "series_id": 341,
+      "series_name": "13th Week Dirt Street Stock Challenge",
+      "series_short_name": "13th Week Dirt Street Stock Challenge"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "dirt_road",
+      "category_id": 4,
+      "eligible": true,
+      "max_starters": 10,
+      "min_starters": 4,
+      "oval_caution_type": 0,
+      "road_caution_type": 0,
+      "search_filters": "null",
+      "series_id": 470,
+      "series_name": "13th Week iRacing RX Lite",
+      "series_short_name": "13th Week iRacing RX Lite"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "oval",
+      "category_id": 1,
+      "eligible": true,
+      "max_starters": 26,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 1,
+      "search_filters": "null",
+      "series_id": 471,
+      "series_name": "Dallara Dash Pimax Series",
+      "series_short_name": "Dallara Dash Pimax Series"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "dirt_oval",
+      "category_id": 3,
+      "eligible": true,
+      "max_starters": 24,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 0,
+      "search_filters": "null",
+      "series_id": 344,
+      "series_name": "13th Week MudSkipping",
+      "series_short_name": "13th Week MudSkipping"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "dirt_road",
+      "category_id": 4,
+      "eligible": true,
+      "max_starters": 20,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 1,
+      "series_id": 345,
+      "series_name": "13th Week Symkhana",
+      "series_short_name": "13th Week Symkhana"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "road",
+      "category_id": 2,
+      "eligible": true,
+      "max_starters": 30,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 2,
+      "search_filters": "null",
+      "series_id": 355,
+      "series_name": "13th Week Ferrari GT3 Challenge",
+      "series_short_name": "13th Week Ferrari GT3 Challenge"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "road",
+      "category_id": 2,
+      "eligible": true,
+      "max_starters": 26,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 2,
+      "series_id": 421,
+      "series_name": "13th Week Shiny New Shakedown",
+      "series_short_name": "13th Week Shiny New Shakedown"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "oval",
+      "category_id": 1,
+      "eligible": true,
+      "max_starters": 14,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 0,
+      "series_id": 485,
+      "series_name": "13th Week Rookie Legends Cup",
+      "series_short_name": "13th Week Rookie Legends Cup"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 2,
+          "min_license_level": 8,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "oval",
+      "category_id": 1,
+      "eligible": false,
+      "max_starters": 37,
+      "min_starters": 8,
+      "oval_caution_type": 3,
+      "road_caution_type": 2,
+      "search_filters": "nascar,oval",
+      "series_id": 229,
+      "series_name": "NASCAR iRacing Series - Open",
+      "series_short_name": "NASCAR iRacing Series - Open"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "road",
+      "category_id": 2,
+      "eligible": true,
+      "max_starters": 30,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 0,
+      "series_id": 295,
+      "series_name": "13th Week - Battle of the Little Wings",
+      "series_short_name": "13th Week - Battle of the Little Wings"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 2,
+          "min_license_level": 8,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "road",
+      "category_id": 2,
+      "eligible": true,
+      "max_starters": 28,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 1,
+      "series_id": 495,
+      "series_name": "iRacing Grand Prix Tour",
+      "series_short_name": "iRacing Grand Prix Tour"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "dirt_oval",
+      "category_id": 3,
+      "eligible": true,
+      "max_starters": 16,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 0,
+      "search_filters": "dirtoval,dirtsprints",
+      "series_id": 303,
+      "series_name": "Sling Mud for Fun - Sprint Cars",
+      "series_short_name": "Sling Mud for Fun - Sprint Cars"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 2,
+          "min_license_level": 8,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "oval",
+      "category_id": 1,
+      "eligible": false,
+      "max_starters": 32,
+      "min_starters": 6,
+      "oval_caution_type": 3,
+      "road_caution_type": 2,
+      "search_filters": "nascar,oval",
+      "series_id": 47,
+      "series_name": "NASCAR iRacing Class C",
+      "series_short_name": "NASCAR iRacing Class C"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 2,
+          "min_license_level": 8,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "road",
+      "category_id": 2,
+      "eligible": true,
+      "max_starters": 28,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 1,
+      "series_id": 496,
+      "series_name": "iRacing Grand Prix Tour - Fixed",
+      "series_short_name": "iRacing Grand Prix Tour - Fixed"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "road",
+      "category_id": 2,
+      "eligible": true,
+      "max_starters": 30,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 0,
+      "series_id": 240,
+      "series_name": "13th Week iRacing Deutsche Drifters",
+      "series_short_name": "13th Week iRacing Deutsche Drifters"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "dirt_oval",
+      "category_id": 3,
+      "eligible": false,
+      "max_starters": 26,
+      "min_starters": 6,
+      "oval_caution_type": 4,
+      "road_caution_type": 0,
+      "series_id": 499,
+      "series_name": "WoO Late Model Buttkicker Qualifying Series",
+      "series_short_name": "WoO Late Model Buttkicker Qualifying Series"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "dirt_oval",
+      "category_id": 3,
+      "eligible": true,
+      "max_starters": 24,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 2,
+      "series_id": 435,
+      "series_name": "13th Week Muddy Mess",
+      "series_short_name": "13th Week Muddy Mess"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "road",
+      "category_id": 2,
+      "eligible": true,
+      "max_starters": 20,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 0,
+      "series_id": 244,
+      "series_name": "13th Week iRacing Identity Crisis",
+      "series_short_name": "13th Week iRacing Identity Crisis"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "oval",
+      "category_id": 1,
+      "eligible": true,
+      "max_starters": 24,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 0,
+      "search_filters": "nascar,oval",
+      "series_id": 116,
+      "series_name": "Carburetor Cup",
+      "series_short_name": "Carburetor Cup"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 4,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "road",
+      "category_id": 2,
+      "eligible": true,
+      "max_starters": 55,
+      "min_starters": 10,
+      "oval_caution_type": 0,
+      "road_caution_type": 2,
+      "series_id": 437,
+      "series_name": "BMW Sim GT Cup",
+      "series_short_name": "BMW Sim GT Cup"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "road",
+      "category_id": 2,
+      "eligible": true,
+      "max_starters": 40,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 0,
+      "series_id": 245,
+      "series_name": "13th Week iRacing Figure GR8",
+      "series_short_name": "13th Week iRacing Figure GR8"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 2,
+          "min_license_level": 8,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "road",
+      "category_id": 2,
+      "eligible": true,
+      "max_starters": 28,
+      "min_starters": 6,
+      "oval_caution_type": 3,
+      "road_caution_type": 1,
+      "search_filters": "roadtoindy,openwheel,road,oval",
+      "series_id": 374,
+      "series_name": "IndyCar iRacing Series",
+      "series_short_name": "IndyCar iRacing Series"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 5,
+          "min_license_level": 18,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        }
+      ],
+      "category": "oval",
+      "category_id": 1,
+      "eligible": false,
+      "max_starters": 35,
+      "min_starters": 6,
+      "oval_caution_type": 3,
+      "road_caution_type": 2,
+      "series_id": 438,
+      "series_name": "eNASCAR Road to Pro Qual Series - Round 1",
+      "series_short_name": "RTP Qual Series - Round 1"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "road",
+      "category_id": 2,
+      "eligible": true,
+      "max_starters": 30,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 1,
+      "series_id": 379,
+      "series_name": "13th Week Ridiculousness",
+      "series_short_name": "13th Week Ridiculousness"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "dirt_oval",
+      "category_id": 3,
+      "eligible": false,
+      "max_starters": 18,
+      "min_starters": 6,
+      "oval_caution_type": 4,
+      "road_caution_type": 0,
+      "search_filters": "null",
+      "series_id": 317,
+      "series_name": "13th Week DIRTcar UMP Modified",
+      "series_short_name": "13th Week DIRTcar UMP Modified"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 3,
+          "min_license_level": 12,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "oval",
+      "category_id": 1,
+      "eligible": false,
+      "max_starters": 34,
+      "min_starters": 6,
+      "oval_caution_type": 3,
+      "road_caution_type": 2,
+      "search_filters": "nascar,oval",
+      "series_id": 62,
+      "series_name": "NASCAR iRacing Class B",
+      "series_short_name": "NASCAR iRacing Class B"
+    },
+    {
+      "allowed_licenses": [
+        {
+          "license_group": 1,
+          "min_license_level": 1,
+          "max_license_level": 4,
+          "group_name": "Rookie"
+        },
+        {
+          "license_group": 2,
+          "min_license_level": 5,
+          "max_license_level": 8,
+          "group_name": "Class D"
+        },
+        {
+          "license_group": 3,
+          "min_license_level": 9,
+          "max_license_level": 12,
+          "group_name": "Class C"
+        },
+        {
+          "license_group": 4,
+          "min_license_level": 13,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "category": "dirt_road",
+      "category_id": 4,
+      "eligible": true,
+      "max_starters": 28,
+      "min_starters": 6,
+      "oval_caution_type": 0,
+      "road_caution_type": 0,
+      "series_id": 382,
+      "series_name": "13th Week 2x4 Off Road Trucks",
+      "series_short_name": "13th Week 2x4 Off Road Trucks"
+    }
+  ]
+}
