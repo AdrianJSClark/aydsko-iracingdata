@@ -91,6 +91,56 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
+    public async Task GetCategoriesSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetCategoriesSuccessfulAsync)).ConfigureAwait(false);
+
+        var divisionsResponse = await sut.GetCategoriesAsync().ConfigureAwait(false);
+
+        Assert.That(divisionsResponse, Is.Not.Null);
+        Assert.That(divisionsResponse!.Data, Is.Not.Null);
+
+        Assert.That(divisionsResponse.Data, Has.Length.EqualTo(4));
+        Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Oval")
+                                                   .And.Property(nameof(Division.Value)).EqualTo(1));
+        Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Road")
+                                                   .And.Property(nameof(Division.Value)).EqualTo(2));
+        Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Dirt oval")
+                                                   .And.Property(nameof(Division.Value)).EqualTo(3));
+        Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Dirt road")
+                                                   .And.Property(nameof(Division.Value)).EqualTo(4));
+
+        Assert.That(divisionsResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(divisionsResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(divisionsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+    }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetEventTypesSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetEventTypesSuccessfulAsync)).ConfigureAwait(false);
+
+        var divisionsResponse = await sut.GetEventTypesAsync().ConfigureAwait(false);
+
+        Assert.That(divisionsResponse, Is.Not.Null);
+        Assert.That(divisionsResponse!.Data, Is.Not.Null);
+
+        Assert.That(divisionsResponse.Data, Has.Length.EqualTo(4));
+        Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Practice")
+                                                   .And.Property(nameof(Division.Value)).EqualTo(2));
+        Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Qualify")
+                                                   .And.Property(nameof(Division.Value)).EqualTo(3));
+        Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Time Trial")
+                                                   .And.Property(nameof(Division.Value)).EqualTo(4));
+        Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Race")
+                                                   .And.Property(nameof(Division.Value)).EqualTo(5));
+
+        Assert.That(divisionsResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(divisionsResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(divisionsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+    }
+
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetLookupsSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetLookupsSuccessfulAsync)).ConfigureAwait(false);
@@ -281,7 +331,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         Assert.That(async () =>
         {
-            var badRequestResult = await sut.GetSeasonResultsAsync(0, EventType.Race, 0, CancellationToken.None).ConfigureAwait(false);
+            var badRequestResult = await sut.GetSeasonResultsAsync(0, Common.EventType.Race, 0, CancellationToken.None).ConfigureAwait(false);
         }, Throws.Exception.InstanceOf(typeof(HttpRequestException)).And.Message.Contains("400 (Bad Request)"));
     }
 
@@ -341,14 +391,14 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetMemberDivisionSuccessfulAsync)).ConfigureAwait(false);
 
-        var memberDivisionResponse = await sut.GetMemberDivisionAsync(1234, EventType.Race, CancellationToken.None).ConfigureAwait(false);
+        var memberDivisionResponse = await sut.GetMemberDivisionAsync(1234, Common.EventType.Race, CancellationToken.None).ConfigureAwait(false);
 
         Assert.That(memberDivisionResponse, Is.Not.Null);
         Assert.That(memberDivisionResponse.Data, Is.Not.Null);
 
         Assert.That(memberDivisionResponse.Data.Success, Is.True);
         Assert.That(memberDivisionResponse.Data.SeasonId, Is.EqualTo(1234));
-        Assert.That(memberDivisionResponse.Data.EventType, Is.EqualTo(EventType.Race));
+        Assert.That(memberDivisionResponse.Data.EventType, Is.EqualTo(Common.EventType.Race));
     }
 
     [Test(TestOf = typeof(DataClient))]

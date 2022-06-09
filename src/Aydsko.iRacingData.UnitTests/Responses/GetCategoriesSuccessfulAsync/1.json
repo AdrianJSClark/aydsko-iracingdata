@@ -1,0 +1,25 @@
+{
+  "headers": {
+    "x-ratelimit-remaining": "99",
+    "x-ratelimit-limit": "100",
+    "x-ratelimit-reset": "1644451200"
+  },
+  "content": [
+    {
+      "label": "Oval",
+      "value": 1
+    },
+    {
+      "label": "Road",
+      "value": 2
+    },
+    {
+      "label": "Dirt oval",
+      "value": 3
+    },
+    {
+      "label": "Dirt road",
+      "value": 4
+    }
+  ]
+}
