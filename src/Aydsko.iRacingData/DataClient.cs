@@ -765,21 +765,17 @@ internal class DataClient : IDataClient
             cookieContainer.Add(savedCookies);
         }
 
-        string? encodedHash = null;
-        if (options.Use2022Season3Login)
-        {
-            using var sha256 = SHA256.Create();
+        using var sha256 = SHA256.Create();
 
-            var passwordAndEmail = options.Password + (options.Username?.ToLowerInvariant());
-            var hashedPasswordAndEmailBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordAndEmail));
-            encodedHash = Convert.ToBase64String(hashedPasswordAndEmailBytes);
-        }
+        var passwordAndEmail = options.Password + (options.Username?.ToLowerInvariant());
+        var hashedPasswordAndEmailBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordAndEmail));
+        var encodedHash = Convert.ToBase64String(hashedPasswordAndEmailBytes);
 
         var loginResponse = await httpClient.PostAsJsonAsync("https://members-ng.iracing.com/auth",
                                                              new
                                                              {
                                                                  email = options.Username,
-                                                                 password = options.Use2022Season3Login ? encodedHash : options.Password
+                                                                 password = encodedHash
                                                              },
                                                              cancellationToken)
                                             .ConfigureAwait(false);
