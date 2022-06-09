@@ -53,7 +53,7 @@ public class Result
     public TimeSpan? BestLapTime { get; set; }
 
     [JsonPropertyName("best_nlaps_num")]
-    public int BestNlapsNum { get; set; }
+    public int BestNlapsNumber { get; set; }
 
     [JsonPropertyName("best_nlaps_time"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
     public TimeSpan? BestNlapsTime { get; set; }
