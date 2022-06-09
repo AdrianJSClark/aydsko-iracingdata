@@ -259,6 +259,15 @@ public interface IDataClient
     /// <param name="subSessionId">The identifier of the subsession for which results should be returned.</param>
     /// <param name="simSessionNumber">The number of the session where <c>0</c> is the main event, <c>-1</c> event before the main, etc</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
-    /// <returns></returns>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the subsession's event log header details in a <see cref="SubsessionEventLogHeader"/> and <see cref="SubsessionEventLogItem"/> array.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     Task<DataResponse<(SubsessionEventLogHeader Header, SubsessionEventLogItem[] LogItems)>> GetSubsessionEventLogAsync(int subSessionId, int simSessionNumber, CancellationToken cancellationToken = default);
+
+    /// <summary>Retrieve a list of the current season's series.</summary>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the series detail in a <see cref="SeriesDetail"/> array.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    Task<DataResponse<SeriesDetail[]>> GetSeriesAsync(CancellationToken cancellationToken = default);
 }
