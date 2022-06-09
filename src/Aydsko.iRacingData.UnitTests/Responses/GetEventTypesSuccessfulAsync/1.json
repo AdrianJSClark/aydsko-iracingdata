@@ -1,0 +1,25 @@
+{
+  "headers": {
+    "x-ratelimit-remaining": "99",
+    "x-ratelimit-limit": "100",
+    "x-ratelimit-reset": "1644451200"
+  },
+  "content": [
+    {
+      "label": "Practice",
+      "value": 2
+    },
+    {
+      "label": "Qualify",
+      "value": 3
+    },
+    {
+      "label": "Time Trial",
+      "value": 4
+    },
+    {
+      "label": "Race",
+      "value": 5
+    }
+  ]
+}

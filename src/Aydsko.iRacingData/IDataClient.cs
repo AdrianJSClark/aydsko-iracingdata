@@ -53,6 +53,20 @@ public interface IDataClient
     /// <exception cref="Exception">If there's a problem processing the result.</exception>
     Task<DataResponse<Division[]>> GetDivisionsAsync(CancellationToken cancellationToken = default);
 
+    /// <summary>Retrieves a list of the iRacing Race Categories.</summary>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing an array of <see cref="Category"/> objects.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="Exception">If there's a problem processing the result.</exception>
+    Task<DataResponse<Category[]>> GetCategoriesAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>Retrieves a list of the iRacing Event Types.</summary>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing an array of <see cref="Constants.EventType"/> objects.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="Exception">If there's a problem processing the result.</exception>
+    Task<DataResponse<Constants.EventType[]>> GetEventTypesAsync(CancellationToken cancellationToken = default);
+
     /// <summary>Retrieve information about one or more other drivers by their customer identifier.</summary>
     /// <param name="customerIds">An array of one or more customer identifiers.</param>
     /// <param name="includeLicenses">Indicates if license information should be included. Either <see langword="true"/> or <see langword="false"/> to exclude for performance purposes.</param>
@@ -87,11 +101,11 @@ public interface IDataClient
 
     /// <summary>Retrieve information about the authenticated member's division.</summary>
     /// <param name="seasonId">Unique identifier for the racing season.</param>
-    /// <param name="eventType">The type of events to return, either <see cref="EventType.TimeTrial" /> or <see cref="EventType.Race" />.</param>
+    /// <param name="eventType">The type of events to return, either <see cref="Common.EventType.TimeTrial" /> or <see cref="Common.EventType.Race" />.</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A <see cref="MemberDivision" /> object containing the result.</returns>
     /// <remarks>Divisions are 0-based: 0 is Division 1, 10 is Rookie. See <see cref="GetDivisionsAsync(CancellationToken)"/> for more information.</remarks>
-    Task<DataResponse<MemberDivision>> GetMemberDivisionAsync(int seasonId, EventType eventType, CancellationToken cancellationToken = default);
+    Task<DataResponse<MemberDivision>> GetMemberDivisionAsync(int seasonId, Common.EventType eventType, CancellationToken cancellationToken = default);
 
     /// <summary>Retrieve the recent race participation for the currently authenticated member.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
@@ -170,7 +184,7 @@ public interface IDataClient
     /// <returns>A <see cref="DataResponse{TData}"/> containing the races in a <see cref="SeasonResults"/> object.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
-    Task<DataResponse<SeasonResults>> GetSeasonResultsAsync(int seasonId, EventType eventType, int raceWeekNumber, CancellationToken cancellationToken = default);
+    Task<DataResponse<SeasonResults>> GetSeasonResultsAsync(int seasonId, Common.EventType eventType, int raceWeekNumber, CancellationToken cancellationToken = default);
 
     /// <summary>Retrieve information about the season & series.</summary>
     /// <param name="includeSeries">Indicate if the series details should be included.</param>

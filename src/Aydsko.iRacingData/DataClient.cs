@@ -102,6 +102,46 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
+    public async Task<DataResponse<Category[]>> GetCategoriesAsync(CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var constantsDivisionsUrl = new Uri("https://members-ng.iracing.com/data/constants/categories");
+        var constantsDivisionsResponse = await httpClient.GetAsync(constantsDivisionsUrl, cancellationToken).ConfigureAwait(false);
+
+        var data = await constantsDivisionsResponse.Content.ReadFromJsonAsync(CategoryArrayContext.Default.CategoryArray, cancellationToken).ConfigureAwait(false);
+        if (data is null)
+        {
+            throw new iRacingDataClientException("Data not found.");
+        }
+
+        return CreateResponse(constantsDivisionsResponse.Headers, data, logger)!;
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<Constants.EventType[]>> GetEventTypesAsync(CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var constantsDivisionsUrl = new Uri("https://members-ng.iracing.com/data/constants/event_types");
+        var constantsDivisionsResponse = await httpClient.GetAsync(constantsDivisionsUrl, cancellationToken).ConfigureAwait(false);
+
+        var data = await constantsDivisionsResponse.Content.ReadFromJsonAsync(EventTypeArrayContext.Default.EventTypeArray, cancellationToken).ConfigureAwait(false);
+        if (data is null)
+        {
+            throw new iRacingDataClientException("Data not found.");
+        }
+
+        return CreateResponse(constantsDivisionsResponse.Headers, data, logger)!;
+    }
+
+    /// <inheritdoc />
     public async Task<DataResponse<League>> GetLeagueAsync(int leagueId, bool includeLicenses = false, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
@@ -393,7 +433,7 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<MemberDivision>> GetMemberDivisionAsync(int seasonId, EventType eventType, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<MemberDivision>> GetMemberDivisionAsync(int seasonId, Common.EventType eventType, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
         {
@@ -632,7 +672,7 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<SeasonResults>> GetSeasonResultsAsync(int seasonId, EventType eventType, int raceWeekNumber, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<SeasonResults>> GetSeasonResultsAsync(int seasonId, Common.EventType eventType, int raceWeekNumber, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
         {
