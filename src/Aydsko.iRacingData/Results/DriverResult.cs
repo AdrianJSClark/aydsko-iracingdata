@@ -1,4 +1,6 @@
-﻿using System.Diagnostics;
+﻿using Aydsko.iRacingData.Converters;
+
+using System.Diagnostics;
 
 namespace Aydsko.iRacingData.Results;
 
@@ -29,35 +31,35 @@ public class DriverResult
     [JsonPropertyName("opt_laps_complete")]
     public int OptLapsComplete { get; set; }
 
-    [JsonPropertyName("interval")]
-    public int Interval { get; set; }
+    [JsonPropertyName("interval"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
+    public TimeSpan? Interval { get; set; }
 
-    [JsonPropertyName("class_interval")]
-    public int ClassInterval { get; set; }
+    [JsonPropertyName("class_interval"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
+    public TimeSpan? ClassInterval { get; set; }
 
-    [JsonPropertyName("average_lap")]
-    public int AverageLap { get; set; }
+    [JsonPropertyName("average_lap"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
+    public TimeSpan? AverageLap { get; set; }
 
     [JsonPropertyName("best_lap_num")]
-    public int BestLapNum { get; set; }
+    public int BestLapNumber { get; set; }
 
-    [JsonPropertyName("best_lap_time")]
-    public int BestLapTime { get; set; }
+    [JsonPropertyName("best_lap_time"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
+    public TimeSpan? BestLapTime { get; set; }
 
     [JsonPropertyName("best_nlaps_num")]
-    public int BestNlapsNum { get; set; }
+    public int BestNlapsNumber { get; set; }
 
-    [JsonPropertyName("best_nlaps_time")]
-    public int BestNlapsTime { get; set; }
+    [JsonPropertyName("best_nlaps_time"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
+    public TimeSpan? BestNlapsTime { get; set; }
 
     [JsonPropertyName("best_qual_lap_at")]
-    public DateTime BestQualLapAt { get; set; }
+    public DateTimeOffset? BestQualifyingLapAt { get; set; }
 
     [JsonPropertyName("best_qual_lap_num")]
     public int BestQualLapNum { get; set; }
 
-    [JsonPropertyName("best_qual_lap_time")]
-    public int BestQualLapTime { get; set; }
+    [JsonPropertyName("best_qual_lap_time"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
+    public TimeSpan? BestQualifyingLapTime { get; set; }
 
     [JsonPropertyName("reason_out_id")]
     public int ReasonOutId { get; set; }
@@ -77,14 +79,14 @@ public class DriverResult
     [JsonPropertyName("position")]
     public int Position { get; set; }
 
-    [JsonPropertyName("qual_lap_time")]
-    public int QualLapTime { get; set; }
+    [JsonPropertyName("qual_lap_time"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
+    public TimeSpan? QualifyingLapTime { get; set; }
 
     [JsonPropertyName("starting_position")]
     public int StartingPosition { get; set; }
 
     [JsonPropertyName("starting_position_in_class")]
-    public int StartingPositionInClass { get; set; }
+    public int? StartingPositionInClass { get; set; }
 
     [JsonPropertyName("car_class_id")]
     public int CarClassId { get; set; }
@@ -96,43 +98,59 @@ public class DriverResult
     public string ClubName { get; set; } = null!;
 
     [JsonPropertyName("club_shortname")]
-    public string ClubShortname { get; set; } = null!;
+    public string? ClubShortname { get; set; } = default!;
 
     [JsonPropertyName("division")]
     public int Division { get; set; }
 
     [JsonPropertyName("division_name")]
-    public string DivisionName { get; set; } = null!;
+    public string? DivisionName { get; set; } = default!;
 
+    /// <summary>Driver license level at the start of the race. Refers to the <see cref="Lookups.LicenseLevel.LicenseId"/> property.</summary>
+    /// <seealso cref="DataClient.GetLicensesAsync(CancellationToken)"/>
+    /// <seealso cref="<see cref="Lookups.LicenseLevel"/>
     [JsonPropertyName("old_license_level")]
     public int OldLicenseLevel { get; set; }
 
+    /// <summary>Detailed driver's license rating before the race.</summary>
+    /// <remarks>This value is multiplied by 100 to be expressed as an integer.</remarks>
     [JsonPropertyName("old_sub_level")]
     public int OldSubLevel { get; set; }
 
+    [JsonIgnore]
+    public decimal OldSafetyRating => OldSubLevel / 100.0M;
+
     [JsonPropertyName("old_cpi")]
-    public float OldCpi { get; set; }
+    public decimal OldCornersPerIncident { get; set; }
 
     [JsonPropertyName("oldi_rating")]
-    public int OldiRating { get; set; }
+    public int OldIRating { get; set; }
 
     [JsonPropertyName("old_ttrating")]
-    public int OldTtrating { get; set; }
+    public int OldTTrating { get; set; }
 
+    /// <summary>Driver license level at the end of the race. Refers to the <see cref="Lookups.LicenseLevel.LicenseId"/> property.</summary>
+    /// <seealso cref="DataClient.GetLicensesAsync(CancellationToken)"/>
+    /// <seealso cref="<see cref="Lookups.LicenseLevel"/>
     [JsonPropertyName("new_license_level")]
     public int NewLicenseLevel { get; set; }
 
+    /// <summary>Detailed driver's license rating after the race.</summary>
+    /// <remarks>This value is multiplied by 100 to be expressed as an integer.</remarks>
     [JsonPropertyName("new_sub_level")]
     public int NewSubLevel { get; set; }
 
+    [JsonIgnore]
+    public decimal NewSafetyRating => NewSubLevel / 100.0M;
+
     [JsonPropertyName("new_cpi")]
-    public float NewCpi { get; set; }
+    public decimal NewCornersPerIncident { get; set; }
 
     [JsonPropertyName("newi_rating")]
-    public int NewiRating { get; set; }
+    public int NewIRating { get; set; }
 
     [JsonPropertyName("new_ttrating")]
-    public int NewTtrating { get; set; }
+    public int NewTTRating { get; set; }
 
     [JsonPropertyName("multiplier")]
     public int Multiplier { get; set; }
