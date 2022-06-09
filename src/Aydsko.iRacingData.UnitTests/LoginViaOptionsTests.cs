@@ -36,10 +36,11 @@ public class LoginViaOptionsTests : MockedHttpTestBase
         var loginRequest = MessageHandler.Requests.Peek();
         Assert.That(loginRequest, Is.Not.Null);
 
-        var requestContent = await loginRequest.Content.ReadAsStringAsync();
-        Assert.That(requestContent, Is.Not.Null.Or.Empty);
+        var contentStreamTask = loginRequest.Content?.ReadAsStreamAsync() ?? Task.FromResult(Stream.Null);
+        using var requestContentStream = await contentStreamTask.ConfigureAwait(false);
+        Assert.That(requestContentStream, Is.Not.Null.Or.Empty);
 
-        var loginDto = await JsonSerializer.DeserializeAsync<TestLoginDto>(await loginRequest.Content.ReadAsStreamAsync());
+        var loginDto = await JsonSerializer.DeserializeAsync<TestLoginDto>(requestContentStream).ConfigureAwait(false);
         Assert.That(loginDto, Is.Not.Null);
 
         Assert.That(loginDto!.Email, Is.EqualTo("test.user@example.com"));
@@ -73,10 +74,11 @@ public class LoginViaOptionsTests : MockedHttpTestBase
         var loginRequest = MessageHandler.Requests.Peek();
         Assert.That(loginRequest, Is.Not.Null);
 
-        var requestContent = await loginRequest.Content.ReadAsStringAsync();
-        Assert.That(requestContent, Is.Not.Null.Or.Empty);
+        var contentStreamTask = loginRequest.Content?.ReadAsStreamAsync() ?? Task.FromResult(Stream.Null);
+        using var requestContentStream = await contentStreamTask.ConfigureAwait(false);
+        Assert.That(requestContentStream, Is.Not.Null);
 
-        var loginDto = await JsonSerializer.DeserializeAsync<TestLoginDto>(await loginRequest.Content.ReadAsStreamAsync());
+        var loginDto = await JsonSerializer.DeserializeAsync<TestLoginDto>(requestContentStream).ConfigureAwait(false);
         Assert.That(loginDto, Is.Not.Null);
 
         Assert.That(loginDto!.Email, Is.EqualTo("CLunky@iracing.Com"));

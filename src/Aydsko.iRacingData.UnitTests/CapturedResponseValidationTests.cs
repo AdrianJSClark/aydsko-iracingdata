@@ -529,12 +529,12 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(raceResults.Results, Has.All.Property(nameof(Result.DriverResults)).Not.Null); // Team events should have driver results.
 
         var nollerRacing = raceResults.Results.SingleOrDefault(r => r.TeamId == -208016);
-        Assert.That(nollerRacing.DriverResults, Is.Empty.And.Not.Null);
+        Assert.That(nollerRacing?.DriverResults, Is.Empty.And.Not.Null);
 
         var racingSociety = raceResults.Results.SingleOrDefault(r => r.TeamId == -261181);
-        Assert.That(racingSociety.DriverResults, Has.Length.EqualTo(2));
-        Assert.That(racingSociety.DriverResults, Has.One.Property(nameof(DriverResult.CustomerId)).EqualTo(696075));
-        Assert.That(racingSociety.DriverResults, Has.One.Property(nameof(DriverResult.CustomerId)).EqualTo(669671));
+        Assert.That(racingSociety?.DriverResults, Has.Length.EqualTo(2));
+        Assert.That(racingSociety?.DriverResults, Has.One.Property(nameof(DriverResult.CustomerId)).EqualTo(696075));
+        Assert.That(racingSociety?.DriverResults, Has.One.Property(nameof(DriverResult.CustomerId)).EqualTo(669671));
     }
 
     [Test(TestOf = typeof(DataClient))]
