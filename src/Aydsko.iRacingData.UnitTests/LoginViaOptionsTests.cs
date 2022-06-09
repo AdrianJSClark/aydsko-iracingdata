@@ -44,7 +44,7 @@ public class LoginViaOptionsTests : MockedHttpTestBase
         Assert.That(loginDto, Is.Not.Null);
 
         Assert.That(loginDto!.Email, Is.EqualTo("test.user@example.com"));
-        Assert.That(loginDto!.Password, Is.EqualTo("SuperSecretPassword"));
+        Assert.That(loginDto!.Password, Is.EqualTo("nXmEFCdpHheD1R3XBVkm6VQavR7ZLbW7SRmzo/MfFso="));
 
         Assert.That(sut.IsLoggedIn, Is.True);
         Assert.That(lookups, Is.Not.Null);
@@ -60,7 +60,6 @@ public class LoginViaOptionsTests : MockedHttpTestBase
             Password = "MyPassWord",
             RestoreCookies = null,
             SaveCookies = null,
-            Use2022Season3Login = true,
         };
 
         var sut = new DataClient(HttpClient,
