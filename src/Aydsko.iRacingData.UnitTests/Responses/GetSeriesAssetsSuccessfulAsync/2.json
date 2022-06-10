@@ -1,0 +1,264 @@
+﻿{
+  "headers": {},
+  "content": {
+    "47": {
+      "large_image": null,
+      "logo": "nascarcampingworldtruckseries-logo.png",
+      "series_copy": "Like its real world counterpart, the NASCAR Camping World Truck Series, the NASCAR iRacing Class C Series is both a stepping stone to the top ranks of stock car racing and a great racing series in and of itself. Each version of the series (fixed and open setup) features the 625 horsepower NASCAR Camping World Truck Series Chevrolet Silverado, Ford F-150, and Toyota Tundra. And just as the NGROTS takes its competitors and fans to all of NASCAR's top tracks, the two NiCCS feature a challenging mix of iRacing’s superspeedways, speedways, and short tracks.",
+      "series_id": 47,
+      "small_image": null
+    },
+    "62": {
+      "large_image": null,
+      "logo": "NXS-logo.png",
+      "series_copy": "The NASCAR iRacing Class B Series features the NASCAR XFINITY Chevrolet Camaro, Ford Mustang, and Toyota Supra stock cars as raced in the NASCAR XFINITY Series, with multi-car fields running the same schedule of short, intermediate and speedway ovals as the \"open\" Class B series. \r\n<br><br>\r\nThe series employs an open setup format, allowing competitors to squeeze those extra tenths out of their lap times with the right adjustments. Slightly narrower and with subtly different aerodynamic characteristics compared to its Class A counterpart, the Class B cars are the perfect intermediate step between the NASCAR Camping World Truck Series machinery and the Class A NASCAR Cup Series cars.",
+      "series_id": 62,
+      "small_image": null
+    },
+    "116": {
+      "large_image": null,
+      "logo": "carburetorcup-logo.png",
+      "series_copy": "Here's your chance to drive the NASCAR Cup Series Next Gen Chevrolet Camaro, Ford Mustang, and Toyota Camry on some of the world's fastest and most legendary speedways. \r\n<br><br>\r\nMake no mistake, these are iRacing's most demanding stock cars. But with a fixed setup and no points or championships, no iRating or Safety Ratings at stake, the Carburetor Cup offers you the chance to experience the fun and the challenge of racing the same car the pros battle in the eNASCAR Coca-Cola iRacing Series. Unlike that series, however, you dont need a Pro license to compete. In fact, there are no license restrictions in the Carb Cup, so iRacers of all talent and experience levels are encouraged to mix it up.\r\n<br><br>\r\nThis series is an Unofficial/Fun series - iRating and Safety Rating are not impacted and results won't show in your stats. The sporting code still applies.",
+      "series_id": 116,
+      "small_image": null
+    },
+    "134": {
+      "large_image": null,
+      "logo": "iracingstreetstockseries-logo.png",
+      "series_copy": "The 375 horsepower/3400 pound iRacing Street Stock is fast enough to get your attention, but rugged and forgiving of rookie mistakes.  In other words, it's the perfect vehicle for relatively inexperienced drivers to learn the stock car racing basics.  The Street Stock is at home on the intermediate speedways and short tracks alike, which makes it ideal for a Week 13 schedule featuring 30 lap races at Charlotte (Legends), Lanier, Oxford Plains, South Boston and Thompson International Speedway. \r\n<br><br>\r\nSafety Ratings and iRatings are in effect for the Week 13 iRacing Street Stock series, offering competitors the opportunity to boost their license ratings before promotions for Season 3 are finalized at week's end. Likewise, rookies who have yet to complete the category-specific minimum participation requirements for graduation to a D license (two official races or four time trials in each category) can do so.\r\n",
+      "series_id": 134,
+      "small_image": null
+    },
+    "135": {
+      "large_image": null,
+      "logo": "globalmx5cup-logo.png",
+      "series_copy": "There's more than one reason Mazdas Global MX-5 ranks among the world's most-raced cars:  horsepower for horsepower, pound for pound, dollar for dollar, euro for euro and yen for yen, the Global MX-5 can't be beat when it comes to high performance and fun.  See for yourself in Week 13 with 20 lap races at Charlotte, Lime Rock, Mazda Raceway Laguna Seca, the long and the short of Okayama  and Summit Point (full course and nosreffeJ  aka  Jefferson reverse).\r\n<br><br>\r\nSafety Ratings and iRatings are in effect for the Week 13 Global MX-5 Series, offering competitors the opportunity to boost their license ratings before promotions for Season 3 are finalized at week's end. Likewise, rookies who have yet to complete the category-specific minimum participation requirements for graduation to a D license (two official races or four time trials in each category) can do so.\r\n\r\n\r\n",
+      "series_id": 135,
+      "small_image": null
+    },
+    "207": {
+      "large_image": null,
+      "logo": "enascariracingseriesfixed-logo.png",
+      "series_copy": "The NASCAR iRacing Series Fixed is an Oval Class C series that precisely mirrors the NASCAR Cup Series, with four races over the course of each weekend at the virtual counterpart of the real world track where NASCAR is competing that week.  Competitors can choose the NASCAR Cup Series Next Gen Chevrolet Camaro, Ford Mustang or Toyota Camry for this series but must use the chassis/aerodynamic setup supplied by iRacing for each track.\r\n\r\nThe NASCAR iRacing Series Fixed runs from February through November with a couple of 'off-weeks' where there is no racing, exactly like the real world NASCAR Cup series. The series races will be approximately 50% in length and will have a limited number of timeslots each week (see the iRacing Forum for details).  Additionally, there will be four \"full length\" races throughout the season that run the same distance as their real world counterparts.",
+      "series_id": 207,
+      "small_image": null
+    },
+    "229": {
+      "large_image": null,
+      "logo": "enascariracingseries-logo.png",
+      "series_copy": "The NASCAR iRacing Series Open is an Oval Class C series that precisely mirrors the NASCAR Cup Series, with four races over the course of each weekend at the virtual counterpart of the real world track where NASCAR is competing that week.  Competitors can choose the NASCAR Cup Series Next Gen Chevrolet Camaro, Ford Mustang, or Toyota Camry and are free to develop their chassis and aerodynamic setups.\r\n\r\nThe NASCAR iRacing Series Open runs from February through November with a couple of 'off-weeks' where there is no racing exactly like the real world Cup Series. The series races will be approximately 50% in length and will have a limited number of timeslots each week (see the iRacing Forum for details).  Additionally, there will be four \"full length\" races throughout the season that run the same distance as their real world counterparts.",
+      "series_id": 229,
+      "small_image": null
+    },
+    "240": {
+      "large_image": null,
+      "logo": null,
+      "series_copy": "The latest edition of iRacing’s Deutsche Drifters series takes a whole new fleet of cars to Nurburgring’s Industrifahrten. This time, it’s the BMW M8 GTE, M4 GT3, and M4 GT4 going head-to-head on one of the automotive industry’s most hallowed proving grounds. Have you got what it takes to post the top time?",
+      "series_id": 240,
+      "small_image": null
+    },
+    "244": {
+      "large_image": null,
+      "logo": null,
+      "series_copy": "Go back in time with one of grand prix racing’s most legendary cars, the Lotus 49—but not where you’d think to do it. Take the wheel of this championship-winning grand prix car on fast ovals like the Indianapolis Motor Speedway, and see if you’ve got the strength and skill to keep it straight at high speeds!",
+      "series_id": 244,
+      "small_image": null
+    },
+    "245": {
+      "large_image": null,
+      "logo": "figuregr8-logo.png",
+      "series_copy": "Who doesn’t love a good figure-eight battle? We head to Irwindale Speedway with the Ford Mustang FR500 and Pro 2 Lite, alternating between days with and without the jump! Can you survive to the checkered flag?",
+      "series_id": 245,
+      "small_image": null
+    },
+    "259": {
+      "large_image": null,
+      "logo": "pickupcup-logo.png",
+      "series_copy": "The Chevy Silverado played a crucial role in the growth of the NASCAR Camping World Series. The bow-tie pickup was a staple of the series, winning five manufacturers championships between 1998 and 2012. Where better to race the Silverado than at Daytona International Speedway (circa 2007), Charlotte, Pocono and Phoenix.? The green flag waves on this unofficial series every hour so get out there and jump in a race.\r\n<br><br>\r\nThis series is an Unofficial/Fun series - iRating and Safety Rating are not impacted and results won't show in your stats. The sporting code still applies.\r\n",
+      "series_id": 259,
+      "small_image": null
+    },
+    "275": {
+      "large_image": null,
+      "logo": "NurbEC-logo.png",
+      "series_copy": "Experience the thrill of racing on one of the world’s most iconic race courses with the iRacing Nurburgring Endurance Series. Take the wheel in one of five classes—GT3, GT4, Cup, TCR, and MX5—in some of our most popular sports cars in a series of endurance events. Whether you’re sharing the cockpit with your teammates or trying to conquer the track on your own, this multi-class event offers one of the most unique challenges that a sports car racer could ask for.",
+      "series_id": 275,
+      "small_image": null
+    },
+    "295": {
+      "large_image": null,
+      "logo": "littlewings-logo.png",
+      "series_copy": "It’s open-wheel chaos in the latest Battle of the Little Wings, as the iRacing iR-04, Formula Renault 2.0, and USF2000 come out to play in a series of tricky road courses. With three very different cars and driving styles at play, as well as some of our newest tracks, these races can be simply about survival over anything else!",
+      "series_id": 295,
+      "small_image": null
+    },
+    "303": {
+      "large_image": null,
+      "logo": "sprintcarslingmudforfun-logo.png",
+      "series_copy": "While they may not enjoy the fame and fortune of a Formula One or NASCAR champion, where Messrs. Busch, Hamilton, Johnson and Vettel spend 99.99% of every race on pavement, guys like Daryn Pitman, Donny Schatz, Brady Bacon and friends do their best work hustling their sprint cars on the mixture of clay and soil of North America's great dirt tracks of North America. \r\n<br><br>\r\nSling Mud for Fun gives iRacers the opportunity to get their feet wet - and their visors dirty - at the wheel of a sprint car on a rotating schedule of tracks from week to week. All that's missing is the late night tows between tracks three or four times a week.\r\n<br><br>\r\nThis series is an Unofficial/Fun series - iRating and Safety Rating are not impacted and results won't show in your stats.",
+      "series_id": 303,
+      "small_image": null
+    },
+    "317": {
+      "large_image": null,
+      "logo": "dirtcarumpmodifiedseries-logo.png",
+      "series_copy": "The DIRT Car Ump Modified Series features, you guessed it, the UMP Modified cars. Racing is close and competitive in these cars. Featuring 750 horsepower they are built to the United Midwestern Promoters (UMP) specifications. This is a great series race in as you progress through the iRacing licenses.",
+      "series_id": 317,
+      "small_image": null
+    },
+    "320": {
+      "large_image": null,
+      "logo": "porscheiracingcup-logo.png",
+      "series_copy": "The Porsche iRacing Cup features the world's most raced GT car on some of the world's most legendary road courses. The Porsche 911 GT3 Cup is the digital version of the car that forms the basis of 20 series around the world including the Porsche GT3 Cup Challenge USA and the Porsche Mobil 1 Supercup, and which has launched the professional careers of some of the biggest names in sports car racing. With 485 hp on tap from the 4 liter, flat 6 engine, the Porsche iRacing Cup is your chance to make a name for yourself in sim racing.",
+      "series_id": 320,
+      "small_image": null
+    },
+    "323": {
+      "large_image": null,
+      "logo": "irxseries-logo.png",
+      "series_copy": "iRacing’s newest rallycross circuits make their debut in the 13th Week iRacing Rallycross Series. Get behind the wheel of these 600-horsepower beasts and go from 0 to 60 in 1.9 seconds as you take on the new layouts. Battle wheel-to-wheel and be sure to master that Joker Lap strategy as you go for the win!",
+      "series_id": 323,
+      "small_image": null
+    },
+    "332": {
+      "large_image": null,
+      "logo": "radicalcup-logo.png",
+      "series_copy": "Take on the next generation of Radical’s track-day and single-make series prototypes with the Radical SR10! With 425 horsepower in the engine and just 725 kilograms on the track, Radical’s latest challenger is one of the most agile and aggressive prototypes imaginable—and it comes at a fraction of the cost of a factory ride in the real world.",
+      "series_id": 332,
+      "small_image": null
+    },
+    "341": {
+      "large_image": null,
+      "logo": "13dirtcarstreetstockseries-logo.png",
+      "series_copy": "There's no better place to start dirt track racing than in this fixed set-up series featuring the iRacing Street Stock. Fast but rugged, the 375 horsepower/3400 pound iRacing Street Stock is right at home on iRacing dirt tracks.\r\n\r\nAlthough the Dirt Street Stock Series is designed for relatively inexperienced drivers to learn the basics of dirt track racing, the series is open to all license levels . . . which adds to the learning curve, not to mention the fun factor.\r\n",
+      "series_id": 341,
+      "small_image": null
+    },
+    "344": {
+      "large_image": null,
+      "logo": "mudskipping-logo.png",
+      "series_copy": "Skip Barber Race School open wheelers on dirt tracks, what could possibly go wrong?",
+      "series_id": 344,
+      "small_image": null
+    },
+    "345": {
+      "large_image": null,
+      "logo": "symkhana-logo.png",
+      "series_copy": "The 13th Week Symkhana series is all about the Dirt Legends car! One of the most popular starter race vehicles in America tackles not only its usual dirt, but also pavement and jumps on a slate of challenging rallycross courses. How well will you adapt?",
+      "series_id": 345,
+      "small_image": null
+    },
+    "355": {
+      "large_image": null,
+      "logo": "ferrarigt3challenge-logo.png",
+      "series_copy": "Few brands in the automotive world are as iconic as Ferrari, and the famed prancing horse has adorned some of the world’s most legendary racecars. The Ferrari 488 GT3 has competed around the world and taken plenty of impressive victories along the way. Now’s your chance to put this fine piece of Italian engineering to the test in a series of sprint races.",
+      "series_id": 355,
+      "small_image": null
+    },
+    "374": {
+      "large_image": null,
+      "logo": "NTTindycar-series.png",
+      "series_copy": "The IndyCar Series is the world's most diverse professional race series. With a schedule that includes road courses and ovals of all shapes and sizes, the series emphasizes the ability of drivers and teams to adapt to a vast array of different circumstances from sweeping, banked, baby's-bottom-smooth 220 mph turns to corrugated hairpins that rattle your molars at 35 mph.\r\n<br><br>\r\nFortunately those drivers and teams have the infinitely adaptable Dallara IR18 at their disposal.  With 700 horsepower on tap and a wide selection of downforce options, short oval, speedway and road course chassis setups, the Dallara is just the car to handle the multi-faceted challenges of the  IndyCar Series.",
+      "series_id": 374,
+      "small_image": null
+    },
+    "379": {
+      "large_image": null,
+      "logo": "ridiculousness-logo.png",
+      "series_copy": "Lotus 79s. Stock Car Brasil. The Global MX-5 Cup car. It's a combination that will either instill you with fear or inspiration, and it's the source of drama for the latest iRacing 13th Week Ridiculousness series! Can you handle the intensity and make it out the other side?",
+      "series_id": 379,
+      "small_image": null
+    },
+    "382": {
+      "large_image": null,
+      "logo": "2x4offroadseries-logo.png",
+      "series_copy": "Got an itch for off-road truck racing? Don’t care which truck you’re driving? The 13th Week 2x4 Off-Road Trucks series pits the Pro 4, Pro 2, and even Pro 2 Lite against one another. Whether you’re taking the higher-horsepower machines or just learning off-road racing in the Lite, these races are all about survival. It’s a good thing that all three are built to take on massive jumps and heavy contact!",
+      "series_id": 382,
+      "small_image": null
+    },
+    "421": {
+      "large_image": null,
+      "logo": "shinynewshakedown-logo.png",
+      "series_copy": "Get behind the wheel of our newest iRacing content in the Shiny New Shakedown! This special Week 13 series is all about taking brand new cars to the track and getting accustomed to their handling. For 2022 Season 2, it’s all about racing with the updated GT4 class on a variety of tracks including the new Sandown and Fuji circuits!",
+      "series_id": 421,
+      "small_image": null
+    },
+    "435": {
+      "large_image": null,
+      "logo": "muddymess-logo.png",
+      "series_copy": "Hop into iRacing’s newest Dirt Oval content with the 13th Week Muddy Mess! Featuring the new Port Royal Speedway, jump into the Dirt Sprint Car - 360 and tame the Speed Palace in Pennsylvania.",
+      "series_id": 435,
+      "small_image": null
+    },
+    "437": {
+      "large_image": null,
+      "logo": "bmwsimgtcup-logo.png",
+      "series_copy": "iRacing and BMW Motorsport have partnered to give iRacers a shot at racing the BMW M8 GTE on some of sports car racing’s most iconic tracks. Take on talented sim racers from around the world and see if you have what it takes to bring home the checkered flag!",
+      "series_id": 437,
+      "small_image": null
+    },
+    "438": {
+      "large_image": null,
+      "logo": "enascarroadtoproqualifyingseriesround1-logo.png",
+      "series_copy": "The first half of the eNASCAR Road to Pro Qualifying Series uses the current NASCAR Camping World Truck Series vehicles (Class C). Anyone with an Oval A 2.0 License or higher, excluding current eNASCAR Coca-Cola iRacing Series drivers, can take part in this eight-race series on Thursday nights, starting February 17 at Daytona International Speedway. Splits will be based on iRating, with a maximum of 35 cars per split. The top 70 point scorers will move on to the second half of the series.",
+      "series_id": 438,
+      "small_image": null
+    },
+    "449": {
+      "large_image": null,
+      "logo": "13thweekgt3challenge-logo.png",
+      "series_copy": "The GT3 division has become one of sports car racing’s most popular formulas in recent years, with series around the world adapting it for use on some of the world’s most iconic tracks. Discover why these cars are so beloved, without the stress of having to build a setup to go faster, with iRacing’s fixed setup GT3 Challenge.",
+      "series_id": 449,
+      "small_image": null
+    },
+    "451": {
+      "large_image": null,
+      "logo": "creventicenduranceseries-logo.png",
+      "series_copy": "The CREVENTIC Endurance Series (formerly the iRacing Endurance Series) features 12 hour team events running in tandem with the 24H Series powered by CREVENTIC. \r\n\r\nThis partnership with CREVENTIC, the organizers of not only the real-world 24H Series but the NEO Endurance league on iRacing, will see the combination of the strength and competitiveness of that well respected championship, while giving all iRacing members the opportunity to compete. The quartet of 12-hour events will feature a lineup of GT3, GT4, and touring cars at legendary tracks from around the world.",
+      "series_id": 451,
+      "small_image": null
+    },
+    "470": {
+      "large_image": null,
+      "logo": "13thweekirxlite-logo.png",
+      "series_copy": "The iRacing Rallycross Volkswagen Beetle Lite series is your first step up the iRX ladder after the Rookie level. The Beetle Lite has half the horsepower of its Supercar big brother to help iRacers learn the skill set required for rallycross, but is just as agile and fun behind the wheel. Get acclimated to the lower power band during Week 13 and be ready to hit it hard for the new season!",
+      "series_id": 470,
+      "small_image": null
+    },
+    "471": {
+      "large_image": null,
+      "logo": "dallaradash-logo.png",
+      "series_copy": "A \"Fun\" Series where Safety Rating and iRating are not impacted (although the sporting code still applies), the Dallara Dash features the DW12 that made its debut in the 2012 IndyCar season. Race at tracks like Charlotte, Indianapolis, Phoenix, and WeatherTech Raceway Laguna Seca. This series is fixed setup and open to all iRacing members with no license restrictions.",
+      "series_id": 471,
+      "small_image": null
+    },
+    "485": {
+      "large_image": null,
+      "logo": "13thweekrookielegendscup-logo.png",
+      "series_copy": "Everyone has to start their racing journey somewhere. The Rookie Legends Cup is for beginners ready to do just that with our Rookie Legends car, a 125-horsepower, 1,300-pound retro-inspired racing machine that has produced some of the biggest names in the sport. Without needing to worry about adjustments as with our Advanced Legends car, drivers can focus on developing speed and car control skills in a nimble starter ride that is capable of racing on both short ovals and road courses.",
+      "series_id": 485,
+      "small_image": null
+    },
+    "495": {
+      "large_image": null,
+      "logo": "iracinggrandprixtour-logo.png",
+      "series_copy": "The iRacing Grand Prix Tour is premier open-wheel racing's yearlong challenge across the world's premier racing circuits. Take the wheel of the Mercedes-AMG W12 E Performance across a challenging calendar of not only current real-world Grand Prix host venues, but also favorite venues from the past and a handful of unexpected circuits to complete the schedule. Do you have what it takes to experience grand prix glory? <br><br>This version of the iRacing Grand Prix Tour allows for custom setups, putting increased performance in the hands of the drivers who best understand how to tune their rides. See how much added speed you can get out of the 2021 World Constructor's Championship-winning car!",
+      "series_id": 495,
+      "small_image": null
+    },
+    "496": {
+      "large_image": null,
+      "logo": "iracinggrandprixtourfixed-logo.png",
+      "series_copy": "The iRacing Grand Prix Tour is premier open-wheel racing's yearlong challenge across the world’s premier racing circuits. Take the wheel of the Mercedes-AMG W12 E Performance across a challenging calendar of not only current real-world Grand Prix host venues, but also favorite venues from the past and a handful of unexpected circuits to complete the schedule. Do you have what it takes to experience grand prix glory? <br><br>This version of the iRacing Grand Prix Tour features a fixed setup, giving all drivers identically tuned equipment in each race. If you feel that purely driver skill should make the difference between who wins and loses, this is the division for you!",
+      "series_id": 496,
+      "small_image": null
+    },
+    "499": {
+      "large_image": null,
+      "logo": "woobuttkickerlmqualseries-logo.png",
+      "series_copy": "\"The Greatest Show on Virtual Dirt\" takes it to the next level with this qualifying series. The most ambitious dirt drivers now have the opportunity to take their dirt-slinging skills to the Pro level by competing in this qualifying series. Drivers will take their Super Late Models to many of the dirt tracks on the iRacing service including I-55, Charlotte, and Williams Grove and the ones that come out on top will be granted the elusive Pro License!",
+      "series_id": 499,
+      "small_image": null
+    }
+  }
+}

@@ -270,4 +270,12 @@ public interface IDataClient
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     Task<DataResponse<SeriesDetail[]>> GetSeriesAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>Retrieve a the current season's series assets.</summary>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing a dictionary with the series identifier as the key and the assets details in a <see cref="SeriesAsset"/> item.</returns>
+    /// <remarks>All image paths are relative to <c>https://images-static.iracing.com</c>.</remarks>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    Task<DataResponse<IReadOnlyDictionary<string, SeriesAsset>>> GetSeriesAssetsAsync(CancellationToken cancellationToken = default);
 }
