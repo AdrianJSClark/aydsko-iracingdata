@@ -765,14 +765,23 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<MemberRecentRaces>> GetMemberRecentRacesAsync(CancellationToken cancellationToken = default)
+    public async Task<DataResponse<MemberRecentRaces>> GetMemberRecentRacesAsync(int? customerId = null, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
         {
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/stats/member_recent_races"), MemberRecentRacesContext.Default.MemberRecentRaces, cancellationToken).ConfigureAwait(false);
+        var memberRecentRacesUrl = "https://members-ng.iracing.com/data/stats/member_recent_races";
+        if (customerId is not null)
+        {
+            memberRecentRacesUrl = QueryHelpers.AddQueryString(memberRecentRacesUrl, new Dictionary<string, string>
+            {
+                { "cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture) }
+            });
+        }
+
+        (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(memberRecentRacesUrl), MemberRecentRacesContext.Default.MemberRecentRaces, cancellationToken).ConfigureAwait(false);
         return CreateResponse(headers, data, logger);
     }
 
