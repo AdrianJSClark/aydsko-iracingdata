@@ -69,7 +69,7 @@ jobs:
       - name: Push Pre-Release Package to GitHub Packages
         if: ${{ steps.build-solution.outputs.PRERELEASE == 'true' }}
         shell: pwsh
-        run: dotnet nuget push *.nupkg --api-key ${{ secrets.GITHUB_TOKEN }} --source "https://nuget.pkg.github.com/AdrianJSClark/index.json"
+        run: dotnet nuget push *.nupkg --api-key ${{ secrets.PACKAGE_UPLOAD }} --source "https://nuget.pkg.github.com/AdrianJSClark/index.json"
 
       - name: 'Create Draft Release'
         if: ${{ steps.build-solution.outputs.PRERELEASE == 'false' }}
