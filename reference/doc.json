@@ -16,12 +16,86 @@
     }
   },
   "constants": {
+    "categories": {
+      "link": "https://members-ng.iracing.com/data/constants/categories",
+      "note": "Constant; returned directly as an array of objects"
+    },
     "divisions": {
       "link": "https://members-ng.iracing.com/data/constants/divisions",
+      "note": "Constant; returned directly as an array of objects"
+    },
+    "event_types": {
+      "link": "https://members-ng.iracing.com/data/constants/event_types",
       "note": "Constant; returned directly as an array of objects"
     }
   },
   "league": {
+    "cust_league_sessions": {
+      "link": "https://members-ng.iracing.com/data/league/cust_league_sessions",
+      "parameters": {
+        "mine": {
+          "type": "boolean",
+          "note": "If true, return only sessions created by this user."
+        },
+        "package_id": {
+          "type": "number",
+          "note": "If set, return only sessions using this car or track package ID."
+        }
+      }
+    },
+    "directory": {
+      "link": "https://members-ng.iracing.com/data/league/directory",
+      "parameters": {
+        "search": {
+          "type": "string",
+          "note": "Will search against league name, description, owner, and league ID."
+        },
+        "tag": {
+          "type": "string",
+          "note": "One or more tags, comma-separated."
+        },
+        "restrict_to_member": {
+          "type": "boolean",
+          "note": "If true include only leagues for which customer is a member."
+        },
+        "restrict_to_recruiting": {
+          "type": "boolean",
+          "note": "If true include only leagues which are recruiting."
+        },
+        "restrict_to_friends": {
+          "type": "boolean",
+          "note": "If true include only leagues owned by a friend."
+        },
+        "restrict_to_watched": {
+          "type": "boolean",
+          "note": "If true include only leagues owned by a watched member."
+        },
+        "minimum_roster_count": {
+          "type": "number",
+          "note": "If set include leagues with at least this number of members."
+        },
+        "maximum_roster_count": {
+          "type": "number",
+          "note": "If set include leagues with no more than this number of members."
+        },
+        "lowerbound": {
+          "type": "number",
+          "note": "First row of results to return.  Defaults to 1."
+        },
+        "upperbound": {
+          "type": "number",
+          "note": "Last row of results to return. Defaults to lowerbound + 39."
+        },
+        "sort": {
+          "type": "string",
+          "note": "One of relevance, leaguename, displayname, rostercount. displayname is owners's name. Defaults to relevance."
+        },
+        "order": {
+          "type": "string",
+          "note": "One of asc or desc.  Defaults to asc."
+        }
+      }
+    },
     "get": {
       "link": "https://members-ng.iracing.com/data/league/get",
       "parameters": {
@@ -32,6 +106,69 @@
         "include_licenses": {
           "type": "boolean",
           "note": "For faster responses, only request when necessary."
+        }
+      }
+    },
+    "get_points_systems": {
+      "link": "https://members-ng.iracing.com/data/league/get_points_systems",
+      "parameters": {
+        "league_id": {
+          "type": "number",
+          "required": true
+        },
+        "season_id": {
+          "type": "number",
+          "note": "If included and the season is using custom points (points_system_id:2) then the custom points option is included in the returned list. Otherwise the custom points option is not returned."
+        }
+      }
+    },
+    "seasons": {
+      "link": "https://members-ng.iracing.com/data/league/seasons",
+      "parameters": {
+        "league_id": {
+          "type": "number",
+          "required": true
+        },
+        "retired": {
+          "type": "boolean",
+          "note": "If true include seasons which are no longer active."
+        }
+      }
+    },
+    "season_standings": {
+      "link": "https://members-ng.iracing.com/data/league/season_standings",
+      "parameters": {
+        "league_id": {
+          "type": "number",
+          "required": true
+        },
+        "season_id": {
+          "type": "number",
+          "required": true
+        },
+        "car_class_id": {
+          "type": "number"
+        },
+        "car_id": {
+          "type": "number",
+          "note": "If car_class_id is included then the standings are for the car in that car class, otherwise they are for the car across car classes."
+        }
+      }
+    },
+    "season_sessions": {
+      "link": "https://members-ng.iracing.com/data/league/season_sessions",
+      "parameters": {
+        "league_id": {
+          "type": "number",
+          "required": true
+        },
+        "season_id": {
+          "type": "number",
+          "required": true
+        },
+        "results_only": {
+          "type": "boolean",
+          "note": "If true include only sessions for which results are available."
         }
       }
     }
@@ -46,6 +183,25 @@
     }
   },
   "member": {
+    "chart_data": {
+      "link": "https://members-ng.iracing.com/data/member/chart_data",
+      "parameters": {
+        "cust_id": {
+          "type": "number",
+          "required": true
+        },
+        "category_id": {
+          "type": "number",
+          "required": true,
+          "note": "1 - Oval; 2 - Road; 3 - Dirt oval; 4 - Dirt road"
+        },
+        "chart_type": {
+          "type": "number",
+          "required": true,
+          "note": "1 - iRating; 2 - TT Rating; 3 - License/SR"
+        }
+      }
+    },
     "get": {
       "link": "https://members-ng.iracing.com/data/member/get",
       "parameters": {
@@ -75,6 +231,20 @@
         },
         "include_licenses": {
           "type": "boolean"
+        }
+      }
+    },
+    "event_log": {
+      "link": "https://members-ng.iracing.com/data/results/event_log",
+      "parameters": {
+        "subsession_id": {
+          "type": "number",
+          "required": true
+        },
+        "simsession_number": {
+          "type": "number",
+          "required": true,
+          "note": "The main event is 0; the preceding event is -1, and so on."
         }
       }
     },
@@ -114,6 +284,114 @@
         }
       }
     },
+    "search_hosted": {
+      "link": "https://members-ng.iracing.com/data/results/search_hosted",
+      "note": "Hosted and league sessions.  Maximum time frame of 90 days. Results split into one or more files with chunks of results. For scraping results the most effective approach is to keep track of the maximum end_time found during a search then make the subsequent call using that date/time as the finish_range_begin and skip any subsessions that are duplicated.  Results are ordered by subsessionid which is a proxy for start time. Requires one of: start_range_begin, finish_range_begin. Requires one of: cust_id, host_cust_id, session_name.",
+      "parameters": {
+        "start_range_begin": {
+          "type": "string",
+          "note": "Session start times. ISO-8601 UTC time zero offset: \"2022-04-01T15:45Z\"."
+        },
+        "start_range_end": {
+          "type": "string",
+          "note": "ISO-8601 UTC time zero offset: \"2022-04-01T15:45Z\". Exclusive. May be omitted if start_range_begin is less than 90 days in the past."
+        },
+        "finish_range_begin": {
+          "type": "string",
+          "note": "Session finish times. ISO-8601 UTC time zero offset: \"2022-04-01T15:45Z\"."
+        },
+        "finish_range_end": {
+          "type": "string",
+          "note": "ISO-8601 UTC time zero offset: \"2022-04-01T15:45Z\". Exclusive. May be omitted if finish_range_begin is less than 90 days in the past."
+        },
+        "cust_id": {
+          "type": "number",
+          "note": "The participant's customer ID."
+        },
+        "host_cust_id": {
+          "type": "number",
+          "note": "The host's customer ID."
+        },
+        "session_name": {
+          "type": "string",
+          "note": "Part or all of the session's name."
+        },
+        "league_id": {
+          "type": "number",
+          "note": "Include only results for the league with this ID."
+        },
+        "league_season_id": {
+          "type": "number",
+          "note": "Include only results for the league season with this ID."
+        },
+        "car_id": {
+          "type": "number",
+          "note": "One of the cars used by the session."
+        },
+        "track_id": {
+          "type": "number",
+          "note": "The ID of the track used by the session."
+        },
+        "category_ids": {
+          "type": "numbers",
+          "note": "Track categories to include in the search.  Defaults to all. ?category_ids=1,2,3,4"
+        }
+      }
+    },
+    "search_series": {
+      "link": "https://members-ng.iracing.com/data/results/search_series",
+      "note": "Official series.  Maximum time frame of 90 days. Results split into one or more files with chunks of results. For scraping results the most effective approach is to keep track of the maximum end_time found during a search then make the subsequent call using that date/time as the finish_range_begin and skip any subsessions that are duplicated.  Results are ordered by subsessionid which is a proxy for start time but groups together multiple splits of a series when multiple series launch sessions at the same time. Requires at least one of: season_year and season_quarter, start_range_begin, finish_range_begin.",
+      "parameters": {
+        "season_year": {
+          "type": "number",
+          "note": "Required when using season_quarter."
+        },
+        "season_quarter": {
+          "type": "number",
+          "note": "Required when using season_year."
+        },
+        "start_range_begin": {
+          "type": "string",
+          "note": "Session start times. ISO-8601 UTC time zero offset: \"2022-04-01T15:45Z\"."
+        },
+        "start_range_end": {
+          "type": "string",
+          "note": "ISO-8601 UTC time zero offset: \"2022-04-01T15:45Z\". Exclusive. May be omitted if start_range_begin is less than 90 days in the past."
+        },
+        "finish_range_begin": {
+          "type": "string",
+          "note": "Session finish times. ISO-8601 UTC time zero offset: \"2022-04-01T15:45Z\"."
+        },
+        "finish_range_end": {
+          "type": "string",
+          "note": "ISO-8601 UTC time zero offset: \"2022-04-01T15:45Z\". Exclusive. May be omitted if finish_range_begin is less than 90 days in the past."
+        },
+        "cust_id": {
+          "type": "number",
+          "note": "Include only sessions in which this customer participated."
+        },
+        "series_id": {
+          "type": "number",
+          "note": "Include only sessions for series with this ID."
+        },
+        "race_week_num": {
+          "type": "number",
+          "note": "Include only sessions with this race week number."
+        },
+        "official_only": {
+          "type": "boolean",
+          "note": "If true, include only sessions earning championship points. Defaults to all."
+        },
+        "event_types": {
+          "type": "numbers",
+          "note": "Types of events to include in the search. Defaults to all. ?event_types=2,3,4,5"
+        },
+        "category_ids": {
+          "type": "numbers",
+          "note": "License categories to include in the search.  Defaults to all. ?category_ids=1,2,3,4"
+        }
+      }
+    },
     "season_results": {
       "link": "https://members-ng.iracing.com/data/results/season_results",
       "parameters": {
@@ -133,6 +411,15 @@
     }
   },
   "series": {
+    "assets": {
+      "link": "https://members-ng.iracing.com/data/series/assets",
+      "note": [
+        "image paths are relative to https://images-static.iracing.com/"
+      ]
+    },
+    "get": {
+      "link": "https://members-ng.iracing.com/data/series/get"
+    },
     "seasons": {
       "link": "https://members-ng.iracing.com/data/series/seasons",
       "parameters": {
@@ -140,6 +427,10 @@
           "type": "boolean"
         }
       }
+    },
+    "stats_series": {
+      "link": "https://members-ng.iracing.com/data/series/stats_series",
+      "note": "To get series and seasons for which standings should be available, filter the list by official: true."
     }
   },
   "stats": {
@@ -149,6 +440,21 @@
         "cust_id": {
           "type": "number",
           "note": "Defaults to the authenticated member."
+        }
+      }
+    },
+    "member_division": {
+      "link": "https://members-ng.iracing.com/data/stats/member_division",
+      "note": "Divisions are 0-based: 0 is Division 1, 10 is Rookie. See /data/constants/divisons for more information. Always for the authenticated member.",
+      "parameters": {
+        "season_id": {
+          "type": "number",
+          "required": true
+        },
+        "event_type": {
+          "type": "number",
+          "required": true,
+          "note": "The event type code for the division type: 4 - Time Trial; 5 - Race"
         }
       }
     },
@@ -176,6 +482,125 @@
         "cust_id": {
           "type": "number",
           "note": "Defaults to the authenticated member."
+        }
+      }
+    },
+    "season_driver_standings": {
+      "link": "https://members-ng.iracing.com/data/stats/season_driver_standings",
+      "parameters": {
+        "season_id": {
+          "type": "number",
+          "required": true
+        },
+        "car_class_id": {
+          "type": "number",
+          "required": true
+        },
+        "race_week_num": {
+          "type": "number",
+          "note": "The first race week of a season is 0."
+        }
+      }
+    },
+    "season_supersession_standings": {
+      "link": "https://members-ng.iracing.com/data/stats/season_supersession_standings",
+      "parameters": {
+        "season_id": {
+          "type": "number",
+          "required": true
+        },
+        "car_class_id": {
+          "type": "number",
+          "required": true
+        },
+        "race_week_num": {
+          "type": "number",
+          "note": "The first race week of a season is 0."
+        }
+      }
+    },
+    "season_team_standings": {
+      "link": "https://members-ng.iracing.com/data/stats/season_team_standings",
+      "parameters": {
+        "season_id": {
+          "type": "number",
+          "required": true
+        },
+        "car_class_id": {
+          "type": "number",
+          "required": true
+        },
+        "race_week_num": {
+          "type": "number",
+          "note": "The first race week of a season is 0."
+        }
+      }
+    },
+    "season_tt_standings": {
+      "link": "https://members-ng.iracing.com/data/stats/season_tt_standings",
+      "parameters": {
+        "season_id": {
+          "type": "number",
+          "required": true
+        },
+        "car_class_id": {
+          "type": "number",
+          "required": true
+        },
+        "race_week_num": {
+          "type": "number",
+          "note": "The first race week of a season is 0."
+        }
+      }
+    },
+    "season_tt_results": {
+      "link": "https://members-ng.iracing.com/data/stats/season_tt_results",
+      "parameters": {
+        "season_id": {
+          "type": "number",
+          "required": true
+        },
+        "car_class_id": {
+          "type": "number",
+          "required": true
+        },
+        "race_week_num": {
+          "type": "number",
+          "required": true,
+          "note": "The first race week of a season is 0."
+        }
+      }
+    },
+    "season_qualify_results": {
+      "link": "https://members-ng.iracing.com/data/stats/season_qualify_results",
+      "parameters": {
+        "season_id": {
+          "type": "number",
+          "required": true
+        },
+        "car_class_id": {
+          "type": "number",
+          "required": true
+        },
+        "race_week_num": {
+          "type": "number",
+          "required": true,
+          "note": "The first race week of a season is 0."
+        }
+      }
+    }
+  },
+  "team": {
+    "get": {
+      "link": "https://members-ng.iracing.com/data/team/get",
+      "parameters": {
+        "team_id": {
+          "type": "number",
+          "required": true
+        },
+        "include_licenses": {
+          "type": "boolean",
+          "note": "For faster responses, only request when necessary."
         }
       }
     }
