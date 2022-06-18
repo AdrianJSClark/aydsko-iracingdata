@@ -15,19 +15,19 @@ public class RaceSummary
     public int LapsComplete { get; set; }
 
     [JsonPropertyName("num_cautions")]
-    public int NumCautions { get; set; }
+    public int NumberOfCautions { get; set; }
 
     [JsonPropertyName("num_caution_laps")]
-    public int NumCautionLaps { get; set; }
+    public int NumberOfCautionLaps { get; set; }
 
     [JsonPropertyName("num_lead_changes")]
-    public int NumLeadChanges { get; set; }
+    public int NumberOfLeadChanges { get; set; }
 
     [JsonPropertyName("field_strength")]
     public int FieldStrength { get; set; }
 
     [JsonPropertyName("num_opt_laps")]
-    public int NumOptLaps { get; set; }
+    public int NumberOfOptLaps { get; set; }
 
     [JsonPropertyName("has_opt_path")]
     public bool HasOptPath { get; set; }

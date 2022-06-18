@@ -9,7 +9,7 @@ public class ChunkInfo
     public int ChunkSize { get; set; }
 
     [JsonPropertyName("num_chunks")]
-    public int NumChunks { get; set; }
+    public int NumberOfChunks { get; set; }
 
     [JsonPropertyName("rows")]
     public int Rows { get; set; }

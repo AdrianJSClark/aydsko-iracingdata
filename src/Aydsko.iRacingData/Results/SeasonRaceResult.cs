@@ -42,16 +42,16 @@ public class SeasonRaceResult
     public TimeSpan? EventBestLapTime { get; set; }
 
     [JsonPropertyName("num_cautions")]
-    public int NumCautions { get; set; }
+    public int NumberOfCautions { get; set; }
 
     [JsonPropertyName("num_caution_laps")]
-    public int NumCautionLaps { get; set; }
+    public int NumberOfCautionLaps { get; set; }
 
     [JsonPropertyName("num_lead_changes")]
-    public int NumLeadChanges { get; set; }
+    public int NumberOfLeadChanges { get; set; }
 
     [JsonPropertyName("num_drivers")]
-    public int NumDrivers { get; set; }
+    public int NumberOfDrivers { get; set; }
 
     [JsonPropertyName("track")]
     public ResultTrackInfo Track { get; set; } = null!;

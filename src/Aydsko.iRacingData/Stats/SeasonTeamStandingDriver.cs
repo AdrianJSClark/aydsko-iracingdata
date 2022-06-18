@@ -9,7 +9,7 @@ public class SeasonTeamStandingDriver
     public int Rank { get; set; }
 
     [JsonPropertyName("cust_id")]
-    public int CustId { get; set; }
+    public int CustomerId { get; set; }
 
     [JsonPropertyName("display_name")]
     public string DisplayName { get; set; } = null!;
