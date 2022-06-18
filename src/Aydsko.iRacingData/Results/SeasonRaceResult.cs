@@ -54,5 +54,5 @@ public class SeasonRaceResult
     public int NumDrivers { get; set; }
 
     [JsonPropertyName("track")]
-    public SeasonResultTrack Track { get; set; } = null!;
+    public ResultTrackInfo Track { get; set; } = null!;
 }

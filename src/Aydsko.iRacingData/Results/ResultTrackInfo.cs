@@ -3,7 +3,7 @@
 
 namespace Aydsko.iRacingData.Results;
 
-public class SeasonResultTrack
+public class ResultTrackInfo
 {
     [JsonPropertyName("track_id")]
     public int TrackId { get; set; }

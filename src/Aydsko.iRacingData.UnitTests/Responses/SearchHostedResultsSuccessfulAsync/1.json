@@ -1,0 +1,32 @@
+﻿{
+  "headers": {
+    "x-ratelimit-remaining": "99",
+    "x-ratelimit-limit": "100",
+    "x-ratelimit-reset": "1644451200"
+  },
+  "content": {
+    "type": "search_hosted_results",
+    "data": {
+      "success": true,
+      "chunk_info": {
+        "chunk_size": 500,
+        "num_chunks": 1,
+        "rows": 53,
+        "base_download_url": "https://scorpio-assets.s3.amazonaws.com/members/messaging-services/short_lived/hosted_search/6091ebd5f4acbbdb20fd858a6770f0e452238d541b1f5fd7206653d1f922551c/",
+        "chunk_file_names": [
+          "2a54311dac6b83faf96d0293056df0bedaa51d9acb5d1364d8ffa5b2faa9d161.json?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20220618T025234Z&X-Amz-SignedHeaders=host&X-Amz-Expires=1200&X-Amz-Credential=AKIAUO6OO4A3357USLO7%2F20220618%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=e64178727046052fb9e7cb2c5f7ac09c9140d028634062af397906800e10fb63"
+        ]
+      },
+      "params": {
+        "start_range_begin": "2022-03-30T00:00:00Z",
+        "category_ids": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "session_name": "Missed Apex"
+      }
+    }
+  }
+}

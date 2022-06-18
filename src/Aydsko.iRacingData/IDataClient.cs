@@ -41,10 +41,10 @@ public interface IDataClient
 
     /// <summary>Retrieves details about the cars.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
-    /// <returns>A <see cref="DataResponse{TData}"/> containing an array of <see cref="CarInfo"/> objects.</returns>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing an array of <see cref="global::Aydsko.iRacingData.Cars.CarInfo"/> objects.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="Exception">If there's a problem processing the result.</exception>
-    Task<DataResponse<CarInfo[]>> GetCarsAsync(CancellationToken cancellationToken = default);
+    Task<DataResponse<Cars.CarInfo[]>> GetCarsAsync(CancellationToken cancellationToken = default);
 
     /// <summary>Retrieves a list of the iRacing Divisions.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
@@ -279,4 +279,26 @@ public interface IDataClient
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     Task<DataResponse<IReadOnlyDictionary<string, SeriesAsset>>> GetSeriesAssetsAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>Search for hosted and league sessions over a maximum period of 90 days.</summary>
+    /// <param name="searchParameters">Parameters object containing the values to use in the search.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the search's header details in a <see cref="HostedResultsHeader"/> and <see cref="HostedResultItem"/> array for the results.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <remarks>
+    /// <para>
+    /// For scraping results the most effective approach is to keep track of the maximum <see cref="HostedResultItem.EndTime"/>
+    /// found during a search then make the subsequent call using that date/time as the <see cref="HostedSearchParameters.FinishRangeBegin"/>
+    /// and skip any subsessions that are duplicated. Results are ordered by subsessionid which is a proxy for start time.
+    /// </para>
+    /// <para>
+    /// Valid searches must be structured as follows:
+    /// <list type="bullet">
+    /// <item>requires one of: <see cref="HostedSearchParameters.StartRangeBegin"/>, <see cref="HostedSearchParameters.FinishRangeBegin"/></item>
+    /// <item>requires one of: <see cref="HostedSearchParameters.ParticipantCustomerId"/>, <see cref="HostedSearchParameters.HostCustomerId"/>, <see cref="HostedSearchParameters.SessionName"/></item>
+    /// </list>
+    /// </para>
+    /// </remarks>
+    Task<DataResponse<(HostedResultsHeader Header, HostedResultItem[] Items)>> SearchHostedResultsAsync(HostedSearchParameters searchParameters, CancellationToken cancellationToken = default);
 }
