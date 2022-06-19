@@ -5,6 +5,7 @@ using Aydsko.iRacingData.Common;
 using Aydsko.iRacingData.Constants;
 using Aydsko.iRacingData.Exceptions;
 using Aydsko.iRacingData.Results;
+using Aydsko.iRacingData.Searches;
 
 namespace Aydsko.iRacingData.UnitTests;
 
@@ -752,6 +753,33 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(searchHostedResponse.Data.Header.Data.Success, Is.True);
         Assert.That(searchHostedResponse.Data.Header.Data.ChunkInfo, Is.Not.Null);
         Assert.That(searchHostedResponse.Data.Items, Has.Length.EqualTo(53));
+
+        Assert.That(searchHostedResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(searchHostedResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(searchHostedResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+    }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task SearchOfficialResultsSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(SearchOfficialResultsSuccessfulAsync)).ConfigureAwait(false);
+
+        var searchParams = new OfficialSearchParameters
+        {
+            SeasonYear = 2022,
+            SeasonQuarter = 3,
+            SeriesId = 260
+        };
+        var searchHostedResponse = await sut.SearchOfficialResultsAsync(searchParams, CancellationToken.None).ConfigureAwait(false);
+
+        Assert.That(searchHostedResponse, Is.Not.Null);
+        Assert.That(searchHostedResponse!.Data, Is.Not.Null);
+
+        Assert.That(searchHostedResponse.Data.Header, Is.Not.Null);
+        Assert.That(searchHostedResponse.Data.Header.Data, Is.Not.Null);
+        Assert.That(searchHostedResponse.Data.Header.Data.Success, Is.True);
+        Assert.That(searchHostedResponse.Data.Header.Data.ChunkInfo, Is.Not.Null);
+        Assert.That(searchHostedResponse.Data.Items, Has.Length.EqualTo(333));
 
         Assert.That(searchHostedResponse.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(searchHostedResponse.TotalRateLimit, Is.EqualTo(100));

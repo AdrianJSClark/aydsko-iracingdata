@@ -8,6 +8,7 @@ using Aydsko.iRacingData.Leagues;
 using Aydsko.iRacingData.Lookups;
 using Aydsko.iRacingData.Member;
 using Aydsko.iRacingData.Results;
+using Aydsko.iRacingData.Searches;
 using Aydsko.iRacingData.Series;
 using Aydsko.iRacingData.Stats;
 using Aydsko.iRacingData.Tracks;
@@ -19,7 +20,6 @@ using System.Net.Http.Json;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json.Serialization.Metadata;
-using System.Threading;
 
 namespace Aydsko.iRacingData;
 
@@ -699,126 +699,6 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<(HostedResultsHeader Header, HostedResultItem[] Items)>> SearchHostedResultsAsync(HostedSearchParameters searchParameters, CancellationToken cancellationToken = default)
-    {
-#if (NET6_0_OR_GREATER)
-        ArgumentNullException.ThrowIfNull(searchParameters);
-#else
-        if (searchParameters is null)
-        {
-            throw new ArgumentNullException(nameof(searchParameters));
-        }
-#endif
-
-        if (searchParameters is { StartRangeBegin: null, FinishRangeBegin: null })
-        {
-            throw new ArgumentException("Must supply one of \"StartRangeBegin\" or \"FinishRangeBegin\"", nameof(searchParameters));
-        }
-
-        if (searchParameters is { ParticipantCustomerId: null, HostCustomerId: null, SessionName: null or { Length: 0 } })
-        {
-            throw new ArgumentException("Must supply one of \"ParticipantCustomerId\", \"HostCustomerId\", or \"SessionName\"", nameof(searchParameters));
-        }
-
-        if (ValidateSearchDateRange(searchParameters.StartRangeBegin, searchParameters.StartRangeEnd, nameof(searchParameters), nameof(searchParameters.StartRangeBegin), nameof(searchParameters.StartRangeEnd)) is Exception startRangeEx)
-        {
-            throw startRangeEx;
-        }
-
-        if (ValidateSearchDateRange(searchParameters.FinishRangeBegin, searchParameters.FinishRangeEnd, nameof(searchParameters), nameof(searchParameters.FinishRangeBegin), nameof(searchParameters.FinishRangeEnd)) is Exception finishRangeEx)
-        {
-            throw finishRangeEx;
-        }
-
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
-
-        var queryParams = new Dictionary<string, string>();
-        queryParams.AddParameterIfNotNull(() => searchParameters.StartRangeBegin);
-        queryParams.AddParameterIfNotNull(() => searchParameters.StartRangeEnd);
-        queryParams.AddParameterIfNotNull(() => searchParameters.FinishRangeBegin);
-        queryParams.AddParameterIfNotNull(() => searchParameters.FinishRangeEnd);
-        queryParams.AddParameterIfNotNull(() => searchParameters.ParticipantCustomerId);
-        queryParams.AddParameterIfNotNull(() => searchParameters.HostCustomerId);
-        queryParams.AddParameterIfNotNull(() => searchParameters.SessionName);
-        queryParams.AddParameterIfNotNull(() => searchParameters.LeagueId);
-        queryParams.AddParameterIfNotNull(() => searchParameters.LeagueSeasonId);
-        queryParams.AddParameterIfNotNull(() => searchParameters.CarId);
-        queryParams.AddParameterIfNotNull(() => searchParameters.TrackId);
-        queryParams.AddParameterIfNotNull(() => searchParameters.CategoryIds);
-
-        var searchHostedUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/search_hosted", queryParams);
-
-        (var headers, var header) = await GetResponseAsync(new Uri(searchHostedUrl), HostedResultsHeaderContext.Default.HostedResultsHeader, cancellationToken).ConfigureAwait(false);
-
-        var baseChunkUrl = new Uri(header.Data.ChunkInfo.BaseDownloadUrl);
-        var searchResults = new List<HostedResultItem>();
-
-        foreach (var (chunkFileName, index) in header.Data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
-        {
-            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
-
-            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
-            if (!chunkResponse.IsSuccessStatusCode)
-            {
-                logger.FailedToRetrieveChunkError(index, header.Data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
-                continue;
-            }
-
-            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(HostedResultItemContext.Default.HostedResultItemArray, cancellationToken).ConfigureAwait(false);
-            if (chunkData is null)
-            {
-                continue;
-            }
-
-            searchResults.AddRange(chunkData);
-        }
-
-        return BuildDataResponse<(HostedResultsHeader Header, HostedResultItem[] Results)>(headers, (header, searchResults.ToArray()), logger);
-    }
-
-    private static Exception? ValidateSearchDateRange(DateTime? rangeBegin, DateTime? rangeEnd, string paramName, string rangeBeginFieldName, string rangeEndFieldName)
-    {
-        if (rangeBegin is not null)
-        {
-            if (rangeBegin.Value > DateTime.UtcNow)
-            {
-                return new ArgumentOutOfRangeException(paramName, $"Value for \"{rangeBeginFieldName}\" cannot be in the future.");
-            }
-
-            if (rangeEnd is null
-                && (Math.Abs(DateTime.UtcNow.Subtract(rangeBegin.Value).TotalDays) > 90))
-            {
-                return new ArgumentOutOfRangeException(paramName, $"Must supply value for \"{rangeEndFieldName}\" if \"{rangeBeginFieldName}\" is more than 90 days in the past.");
-            }
-        }
-
-        if (rangeEnd is not null)
-        {
-            if (rangeBegin is not null)
-            {
-                if (rangeBegin >= rangeEnd)
-                {
-                    return new ArgumentOutOfRangeException(paramName, $"Value for \"{rangeBeginFieldName}\" cannot be after \"{rangeEndFieldName}\".");
-                }
-
-                if (Math.Abs(rangeEnd.Value.Subtract(rangeBegin.Value).TotalDays) > 90)
-                {
-                    return new ArgumentOutOfRangeException(paramName, $"Value for \"{rangeEndFieldName}\" cannot be more than 90 days after \"{rangeBeginFieldName}\".");
-                }
-            }
-            else
-            {
-                return new ArgumentException($"Must supply value for \"{rangeBeginFieldName}\" if \"{rangeEndFieldName}\" is specified.", paramName);
-            }
-        }
-
-        return null;
-    }
-
-    /// <inheritdoc />
     public async Task<DataResponse<SeasonResults>> GetSeasonResultsAsync(int seasonId, Common.EventType eventType, int raceWeekNumber, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
@@ -952,6 +832,207 @@ internal class DataClient : IDataClient
         return BuildDataResponse(headers, data, logger);
     }
 
+    /// <inheritdoc />
+    public async Task<DataResponse<(HostedResultsHeader Header, HostedResultItem[] Items)>> SearchHostedResultsAsync(HostedSearchParameters searchParameters, CancellationToken cancellationToken = default)
+    {
+#if (NET6_0_OR_GREATER)
+        ArgumentNullException.ThrowIfNull(searchParameters);
+#else
+        if (searchParameters is null)
+        {
+            throw new ArgumentNullException(nameof(searchParameters));
+        }
+#endif
+
+        if (searchParameters is { StartRangeBegin: null, FinishRangeBegin: null })
+        {
+            throw new ArgumentException("Must supply one of \"StartRangeBegin\" or \"FinishRangeBegin\"", nameof(searchParameters));
+        }
+
+        if (searchParameters is { ParticipantCustomerId: null, HostCustomerId: null, SessionName: null or { Length: 0 } })
+        {
+            throw new ArgumentException("Must supply one of \"ParticipantCustomerId\", \"HostCustomerId\", or \"SessionName\"", nameof(searchParameters));
+        }
+
+        if (ValidateSearchDateRange(searchParameters.StartRangeBegin, searchParameters.StartRangeEnd, nameof(searchParameters), nameof(searchParameters.StartRangeBegin), nameof(searchParameters.StartRangeEnd)) is Exception startRangeEx)
+        {
+            throw startRangeEx;
+        }
+
+        if (ValidateSearchDateRange(searchParameters.FinishRangeBegin, searchParameters.FinishRangeEnd, nameof(searchParameters), nameof(searchParameters.FinishRangeBegin), nameof(searchParameters.FinishRangeEnd)) is Exception finishRangeEx)
+        {
+            throw finishRangeEx;
+        }
+
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var queryParams = new Dictionary<string, string>();
+        queryParams.AddParameterIfNotNull(() => searchParameters.StartRangeBegin);
+        queryParams.AddParameterIfNotNull(() => searchParameters.StartRangeEnd);
+        queryParams.AddParameterIfNotNull(() => searchParameters.FinishRangeBegin);
+        queryParams.AddParameterIfNotNull(() => searchParameters.FinishRangeEnd);
+        queryParams.AddParameterIfNotNull(() => searchParameters.ParticipantCustomerId);
+        queryParams.AddParameterIfNotNull(() => searchParameters.HostCustomerId);
+        queryParams.AddParameterIfNotNull(() => searchParameters.SessionName);
+        queryParams.AddParameterIfNotNull(() => searchParameters.LeagueId);
+        queryParams.AddParameterIfNotNull(() => searchParameters.LeagueSeasonId);
+        queryParams.AddParameterIfNotNull(() => searchParameters.CarId);
+        queryParams.AddParameterIfNotNull(() => searchParameters.TrackId);
+        queryParams.AddParameterIfNotNull(() => searchParameters.CategoryIds);
+
+        var searchHostedUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/search_hosted", queryParams);
+
+        (var headers, var header) = await GetResponseAsync(new Uri(searchHostedUrl), HostedResultsHeaderContext.Default.HostedResultsHeader, cancellationToken).ConfigureAwait(false);
+
+        var baseChunkUrl = new Uri(header.Data.ChunkInfo.BaseDownloadUrl);
+        var searchResults = new List<HostedResultItem>();
+
+        foreach (var (chunkFileName, index) in header.Data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        {
+            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+
+            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+            if (!chunkResponse.IsSuccessStatusCode)
+            {
+                logger.FailedToRetrieveChunkError(index, header.Data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                continue;
+            }
+
+            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(HostedResultItemContext.Default.HostedResultItemArray, cancellationToken).ConfigureAwait(false);
+            if (chunkData is null)
+            {
+                continue;
+            }
+
+            searchResults.AddRange(chunkData);
+        }
+
+        return BuildDataResponse<(HostedResultsHeader Header, HostedResultItem[] Results)>(headers, (header, searchResults.ToArray()), logger);
+    }
+
+    /// <inheritdoc/>
+    public async Task<DataResponse<(OfficialSearchResultHeader Header, OfficialSearchResultItem[] Items)>> SearchOfficialResultsAsync(OfficialSearchParameters searchParameters, CancellationToken cancellationToken = default)
+    {
+#if (NET6_0_OR_GREATER)
+        ArgumentNullException.ThrowIfNull(searchParameters);
+#else
+        if (searchParameters is null)
+        {
+            throw new ArgumentNullException(nameof(searchParameters));
+        }
+#endif
+
+        if ((searchParameters.SeasonYear is null || searchParameters.SeasonQuarter is null)
+            && searchParameters.StartRangeBegin is null
+            && searchParameters.FinishRangeBegin is null)
+        {
+            throw new ArgumentException("Must supply one of \"SeasonYear\" and \"SeasonQuarter\", \"StartRangeBegin\", or \"FinishRangeBegin\"", nameof(searchParameters));
+        }
+
+        if (searchParameters.SeasonQuarter is not null and (< 1 or > 4))
+        {
+            throw new ArgumentOutOfRangeException(nameof(searchParameters), searchParameters.SeasonQuarter, "Invalid \"SeasonQuarter\" value. Must be between 1 and 4 (inclusive).");
+        }
+
+        if (ValidateSearchDateRange(searchParameters.StartRangeBegin, searchParameters.StartRangeEnd, nameof(searchParameters), nameof(searchParameters.StartRangeBegin), nameof(searchParameters.StartRangeEnd)) is Exception startRangeEx)
+        {
+            throw startRangeEx;
+        }
+
+        if (ValidateSearchDateRange(searchParameters.FinishRangeBegin, searchParameters.FinishRangeEnd, nameof(searchParameters), nameof(searchParameters.FinishRangeBegin), nameof(searchParameters.FinishRangeEnd)) is Exception finishRangeEx)
+        {
+            throw finishRangeEx;
+        }
+
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var queryParams = new Dictionary<string, string>();
+        queryParams.AddParameterIfNotNull(() => searchParameters.StartRangeBegin);
+        queryParams.AddParameterIfNotNull(() => searchParameters.StartRangeEnd);
+        queryParams.AddParameterIfNotNull(() => searchParameters.FinishRangeBegin);
+        queryParams.AddParameterIfNotNull(() => searchParameters.FinishRangeEnd);
+        queryParams.AddParameterIfNotNull(() => searchParameters.ParticipantCustomerId);
+        queryParams.AddParameterIfNotNull(() => searchParameters.SeriesId);
+        queryParams.AddParameterIfNotNull(() => searchParameters.RaceWeekIndex);
+        queryParams.AddParameterIfNotNull(() => searchParameters.OfficialOnly);
+        queryParams.AddParameterIfNotNull(() => searchParameters.EventTypes);
+        queryParams.AddParameterIfNotNull(() => searchParameters.CategoryIds);
+
+        var searchHostedUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/search_series", queryParams);
+
+        (var headers, var header) = await GetResponseAsync(new Uri(searchHostedUrl), OfficialSearchResultHeaderContext.Default.OfficialSearchResultHeader, cancellationToken).ConfigureAwait(false);
+
+        var baseChunkUrl = new Uri(header.Data.ChunkInfo.BaseDownloadUrl);
+        var searchResults = new List<OfficialSearchResultItem>();
+
+        foreach (var (chunkFileName, index) in header.Data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        {
+            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+
+            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+            if (!chunkResponse.IsSuccessStatusCode)
+            {
+                logger.FailedToRetrieveChunkError(index, header.Data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                continue;
+            }
+
+            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(OfficialSearchResultItemArrayContext.Default.OfficialSearchResultItemArray, cancellationToken).ConfigureAwait(false);
+            if (chunkData is null)
+            {
+                continue;
+            }
+
+            searchResults.AddRange(chunkData);
+        }
+
+        return BuildDataResponse<(OfficialSearchResultHeader Header, OfficialSearchResultItem[] Results)>(headers, (header, searchResults.ToArray()), logger);
+    }
+
+    private static Exception? ValidateSearchDateRange(DateTime? rangeBegin, DateTime? rangeEnd, string paramName, string rangeBeginFieldName, string rangeEndFieldName)
+    {
+        if (rangeBegin is not null)
+        {
+            if (rangeBegin.Value > DateTime.UtcNow)
+            {
+                return new ArgumentOutOfRangeException(paramName, $"Value for \"{rangeBeginFieldName}\" cannot be in the future.");
+            }
+
+            if (rangeEnd is null
+                && (Math.Abs(DateTime.UtcNow.Subtract(rangeBegin.Value).TotalDays) > 90))
+            {
+                return new ArgumentOutOfRangeException(paramName, $"Must supply value for \"{rangeEndFieldName}\" if \"{rangeBeginFieldName}\" is more than 90 days in the past.");
+            }
+        }
+
+        if (rangeEnd is not null)
+        {
+            if (rangeBegin is not null)
+            {
+                if (rangeBegin >= rangeEnd)
+                {
+                    return new ArgumentOutOfRangeException(paramName, $"Value for \"{rangeBeginFieldName}\" cannot be after \"{rangeEndFieldName}\".");
+                }
+
+                if (Math.Abs(rangeEnd.Value.Subtract(rangeBegin.Value).TotalDays) > 90)
+                {
+                    return new ArgumentOutOfRangeException(paramName, $"Value for \"{rangeEndFieldName}\" cannot be more than 90 days after \"{rangeBeginFieldName}\".");
+                }
+            }
+            else
+            {
+                return new ArgumentException($"Must supply value for \"{rangeBeginFieldName}\" if \"{rangeEndFieldName}\" is specified.", paramName);
+            }
+        }
+
+        return null;
+    }
+
 #pragma warning disable CA1308 // Normalize strings to uppercase - this algorithm requires lower case.
     private async Task LoginInternalAsync(CancellationToken cancellationToken)
     {
@@ -1029,8 +1110,8 @@ internal class DataClient : IDataClient
         return (response.Headers, data);
     }
 
-    private static async Task HandleUnsuccessfulResponseAsync(HttpResponseMessage httpResponse, ILogger logger)
-{
+    private async static Task HandleUnsuccessfulResponseAsync(HttpResponseMessage httpResponse, ILogger logger)
+    {
         var errorResponse = await httpResponse.Content.ReadFromJsonAsync<ErrorResponse>(cancellationToken: CancellationToken.None)
                                                   .ConfigureAwait(false);
 
@@ -1052,7 +1133,6 @@ internal class DataClient : IDataClient
             throw exception;
         }
     }
-
 
     private static DataResponse<TData> BuildDataResponse<TData>(HttpResponseHeaders headers, TData data, ILogger logger)
     {

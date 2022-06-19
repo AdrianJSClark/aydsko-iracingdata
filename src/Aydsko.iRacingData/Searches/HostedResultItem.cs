@@ -1,10 +1,11 @@
-﻿using System;
+﻿using Aydsko.iRacingData.Results;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Aydsko.iRacingData.Results;
+namespace Aydsko.iRacingData.Searches;
 
 public class HostedResultItem
 {

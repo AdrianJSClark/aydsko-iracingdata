@@ -1,6 +1,6 @@
 ﻿using Aydsko.iRacingData.Stats;
 
-namespace Aydsko.iRacingData.Results;
+namespace Aydsko.iRacingData.Searches;
 
 public class HostedResultsHeader
 {
