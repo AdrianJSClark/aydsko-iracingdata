@@ -8,6 +8,7 @@ using Aydsko.iRacingData.Leagues;
 using Aydsko.iRacingData.Lookups;
 using Aydsko.iRacingData.Member;
 using Aydsko.iRacingData.Results;
+using Aydsko.iRacingData.Searches;
 using Aydsko.iRacingData.Series;
 using Aydsko.iRacingData.Stats;
 using Aydsko.iRacingData.Tracks;
@@ -52,11 +53,11 @@ internal class DataClient : IDataClient
 
         var carAssetDetailsUrl = new Uri("https://members-ng.iracing.com/data/car/assets");
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(carAssetDetailsUrl, CarAssetDetailDictionaryContext.Default.IReadOnlyDictionaryStringCarAssetDetail, cancellationToken).ConfigureAwait(false);
-        return CreateResponse(headers, data, logger);
+        return BuildDataResponse(headers, data, logger);
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<CarInfo[]>> GetCarsAsync(CancellationToken cancellationToken = default)
+    public async Task<DataResponse<Cars.CarInfo[]>> GetCarsAsync(CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
         {
@@ -65,7 +66,7 @@ internal class DataClient : IDataClient
 
         var carInfoUrl = new Uri("https://members-ng.iracing.com/data/car/get");
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(carInfoUrl, CarInfoArrayContext.Default.CarInfoArray, cancellationToken).ConfigureAwait(false);
-        return CreateResponse(headers, data, logger);
+        return BuildDataResponse(headers, data, logger);
     }
 
     /// <inheritdoc />
@@ -78,7 +79,7 @@ internal class DataClient : IDataClient
 
         var carClassUrl = new Uri("https://members-ng.iracing.com/data/carclass/get");
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(carClassUrl, CarClassArrayContext.Default.CarClassArray, cancellationToken).ConfigureAwait(false);
-        return CreateResponse(headers, data, logger);
+        return BuildDataResponse(headers, data, logger);
     }
 
     /// <inheritdoc />
@@ -98,7 +99,7 @@ internal class DataClient : IDataClient
             throw new iRacingDataClientException("Data not found.");
         }
 
-        return CreateResponse(constantsDivisionsResponse.Headers, data, logger)!;
+        return BuildDataResponse(constantsDivisionsResponse.Headers, data, logger)!;
     }
 
     /// <inheritdoc />
@@ -118,7 +119,7 @@ internal class DataClient : IDataClient
             throw new iRacingDataClientException("Data not found.");
         }
 
-        return CreateResponse(constantsDivisionsResponse.Headers, data, logger)!;
+        return BuildDataResponse(constantsDivisionsResponse.Headers, data, logger)!;
     }
 
     /// <inheritdoc />
@@ -138,7 +139,7 @@ internal class DataClient : IDataClient
             throw new iRacingDataClientException("Data not found.");
         }
 
-        return CreateResponse(constantsDivisionsResponse.Headers, data, logger)!;
+        return BuildDataResponse(constantsDivisionsResponse.Headers, data, logger)!;
     }
 
     /// <inheritdoc />
@@ -155,7 +156,7 @@ internal class DataClient : IDataClient
             { "include_licenses", includeLicenses.ToString() }
         });
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(getTrackUrl), LeagueContext.Default.League, cancellationToken).ConfigureAwait(false);
-        return CreateResponse(headers, data, logger);
+        return BuildDataResponse(headers, data, logger);
     }
 
     /// <inheritdoc />
@@ -168,7 +169,7 @@ internal class DataClient : IDataClient
 
         var lookupsUrl = new Uri("https://members-ng.iracing.com/data/lookup/get?weather=weather_wind_speed_units&weather=weather_wind_speed_max&weather=weather_wind_speed_min&licenselevels=licenselevels");
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(lookupsUrl, LookupGroupArrayContext.Default.LookupGroupArray, cancellationToken).ConfigureAwait(false);
-        return CreateResponse(headers, data, logger);
+        return BuildDataResponse(headers, data, logger);
     }
 
     /// <inheritdoc />
@@ -181,7 +182,7 @@ internal class DataClient : IDataClient
 
         var licenseUrl = new Uri("https://members-ng.iracing.com/data/lookup/licenses");
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(licenseUrl, LicenseLookupArrayContext.Default.LicenseLookupArray, cancellationToken).ConfigureAwait(false);
-        return CreateResponse(headers, data, logger);
+        return BuildDataResponse(headers, data, logger);
     }
 
     /// <inheritdoc />
@@ -233,7 +234,7 @@ internal class DataClient : IDataClient
             throw new iRacingDataClientException("Failed to properly retrieve results.");
         }
 
-        return CreateResponse(infoLinkResponse.Headers, info.Drivers!, logger);
+        return BuildDataResponse(infoLinkResponse.Headers, info.Drivers!, logger);
     }
 
     /// <inheritdoc />
@@ -245,7 +246,7 @@ internal class DataClient : IDataClient
         }
         var memberInfoUrl = new Uri("https://members-ng.iracing.com/data/member/info");
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(memberInfoUrl, MemberInfoContext.Default.MemberInfo, cancellationToken).ConfigureAwait(false);
-        return CreateResponse(headers, data, logger);
+        return BuildDataResponse(headers, data, logger);
     }
 
     /// <inheritdoc />
@@ -263,7 +264,7 @@ internal class DataClient : IDataClient
         });
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionResultUrl), SubSessionResultContext.Default.SubSessionResult, cancellationToken).ConfigureAwait(false);
-        return CreateResponse(headers, data, logger);
+        return BuildDataResponse(headers, data, logger);
     }
 
     /// <inheritdoc />
@@ -291,7 +292,7 @@ internal class DataClient : IDataClient
             var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
             if (!chunkResponse.IsSuccessStatusCode)
             {
-                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                 continue;
             }
 
@@ -304,7 +305,7 @@ internal class DataClient : IDataClient
             sessionLapsList.AddRange(chunkData);
         }
 
-        return CreateResponse<(SubsessionLapsHeader Header, SubsessionChartLap[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
+        return BuildDataResponse<(SubsessionLapsHeader Header, SubsessionChartLap[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
     }
 
     /// <inheritdoc />
@@ -332,7 +333,7 @@ internal class DataClient : IDataClient
             var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
             if (!chunkResponse.IsSuccessStatusCode)
             {
-                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                 continue;
             }
 
@@ -345,7 +346,7 @@ internal class DataClient : IDataClient
             sessionLapsList.AddRange(chunkData);
         }
 
-        return CreateResponse<(SubsessionEventLogHeader Header, SubsessionEventLogItem[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
+        return BuildDataResponse<(SubsessionEventLogHeader Header, SubsessionEventLogItem[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
     }
 
     /// <inheritdoc />
@@ -358,7 +359,7 @@ internal class DataClient : IDataClient
 
         var seriesUrl = new Uri("https://members-ng.iracing.com/data/series/get");
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(seriesUrl, SeriesDetailArrayContext.Default.SeriesDetailArray, cancellationToken).ConfigureAwait(false);
-        return CreateResponse(headers, data, logger);
+        return BuildDataResponse(headers, data, logger);
     }
 
     /// <inheritdoc />
@@ -371,7 +372,7 @@ internal class DataClient : IDataClient
 
         var seriesUrl = new Uri("https://members-ng.iracing.com/data/series/assets");
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(seriesUrl, SeriesAssetReadOnlyDictionaryContext.Default.IReadOnlyDictionaryStringSeriesAsset, cancellationToken).ConfigureAwait(false);
-        return CreateResponse(headers, data, logger);
+        return BuildDataResponse(headers, data, logger);
     }
 
     /// <inheritdoc />
@@ -400,7 +401,7 @@ internal class DataClient : IDataClient
             var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
             if (!chunkResponse.IsSuccessStatusCode)
             {
-                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                 continue;
             }
 
@@ -413,7 +414,7 @@ internal class DataClient : IDataClient
             sessionLapsList.AddRange(chunkData);
         }
 
-        return CreateResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
+        return BuildDataResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
     }
 
     /// <inheritdoc />
@@ -442,7 +443,7 @@ internal class DataClient : IDataClient
             var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
             if (!chunkResponse.IsSuccessStatusCode)
             {
-                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                 continue;
             }
 
@@ -455,7 +456,7 @@ internal class DataClient : IDataClient
             sessionLapsList.AddRange(chunkData);
         }
 
-        return CreateResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
+        return BuildDataResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
     }
 
     /// <inheritdoc />
@@ -472,7 +473,7 @@ internal class DataClient : IDataClient
             { "event_type", eventType.ToString("D") }
         });
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(memberDivisionUrl), MemberDivisionContext.Default.MemberDivision, cancellationToken).ConfigureAwait(false);
-        return CreateResponse(headers, data, logger);
+        return BuildDataResponse(headers, data, logger);
     }
 
     /// <inheritdoc />
@@ -484,7 +485,7 @@ internal class DataClient : IDataClient
         }
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/stats/member_yearly"), MemberYearlyStatisticsContext.Default.MemberYearlyStatistics, cancellationToken).ConfigureAwait(false);
-        return CreateResponse(headers, data, logger);
+        return BuildDataResponse(headers, data, logger);
     }
 
     /// <inheritdoc />
@@ -513,7 +514,7 @@ internal class DataClient : IDataClient
             var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
             if (!chunkResponse.IsSuccessStatusCode)
             {
-                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                 continue;
             }
 
@@ -526,7 +527,7 @@ internal class DataClient : IDataClient
             sessionLapsList.AddRange(chunkData);
         }
 
-        return CreateResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
+        return BuildDataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
     }
 
     /// <inheritdoc />
@@ -555,7 +556,7 @@ internal class DataClient : IDataClient
             var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
             if (!chunkResponse.IsSuccessStatusCode)
             {
-                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                 continue;
             }
 
@@ -568,7 +569,7 @@ internal class DataClient : IDataClient
             seasonQualifyResults.AddRange(chunkData);
         }
 
-        return CreateResponse<(SeasonQualifyResultsHeader Header, SeasonQualifyResult[] Standings)>(headers, (data, seasonQualifyResults.ToArray()), logger);
+        return BuildDataResponse<(SeasonQualifyResultsHeader Header, SeasonQualifyResult[] Standings)>(headers, (data, seasonQualifyResults.ToArray()), logger);
     }
 
     /// <inheritdoc />
@@ -597,7 +598,7 @@ internal class DataClient : IDataClient
             var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
             if (!chunkResponse.IsSuccessStatusCode)
             {
-                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                 continue;
             }
 
@@ -610,7 +611,7 @@ internal class DataClient : IDataClient
             seasonTimeTrialResults.AddRange(chunkData);
         }
 
-        return CreateResponse<(SeasonTimeTrialResultsHeader Header, SeasonTimeTrialResult[] Standings)>(headers, (data, seasonTimeTrialResults.ToArray()), logger);
+        return BuildDataResponse<(SeasonTimeTrialResultsHeader Header, SeasonTimeTrialResult[] Standings)>(headers, (data, seasonTimeTrialResults.ToArray()), logger);
     }
 
     /// <inheritdoc />
@@ -639,7 +640,7 @@ internal class DataClient : IDataClient
             var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
             if (!chunkResponse.IsSuccessStatusCode)
             {
-                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                 continue;
             }
 
@@ -652,7 +653,7 @@ internal class DataClient : IDataClient
             seasonTimeTrialStandings.AddRange(chunkData);
         }
 
-        return CreateResponse<(SeasonTimeTrialStandingsHeader Header, SeasonTimeTrialStanding[] Standings)>(headers, (data, seasonTimeTrialStandings.ToArray()), logger);
+        return BuildDataResponse<(SeasonTimeTrialStandingsHeader Header, SeasonTimeTrialStanding[] Standings)>(headers, (data, seasonTimeTrialStandings.ToArray()), logger);
     }
 
     /// <inheritdoc />
@@ -681,7 +682,7 @@ internal class DataClient : IDataClient
             var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
             if (!chunkResponse.IsSuccessStatusCode)
             {
-                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                 continue;
             }
 
@@ -694,7 +695,7 @@ internal class DataClient : IDataClient
             seasonTeamStandings.AddRange(chunkData);
         }
 
-        return CreateResponse<(SeasonTeamStandingsHeader Header, SeasonTeamStanding[] Standings)>(headers, (data, seasonTeamStandings.ToArray()), logger);
+        return BuildDataResponse<(SeasonTeamStandingsHeader Header, SeasonTeamStanding[] Standings)>(headers, (data, seasonTeamStandings.ToArray()), logger);
     }
 
     /// <inheritdoc />
@@ -712,7 +713,7 @@ internal class DataClient : IDataClient
             { "race_week_num", raceWeekNumber.ToString(CultureInfo.InvariantCulture) }
         });
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(seasonResultsUrl), SeasonResultsContext.Default.SeasonResults, cancellationToken).ConfigureAwait(false);
-        return CreateResponse(headers, data, logger);
+        return BuildDataResponse(headers, data, logger);
     }
 
     /// <inheritdoc />
@@ -729,7 +730,7 @@ internal class DataClient : IDataClient
         });
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(seasonSeriesUrl), SeasonSeriesArrayContext.Default.SeasonSeriesArray, cancellationToken).ConfigureAwait(false);
-        return CreateResponse(headers, data, logger);
+        return BuildDataResponse(headers, data, logger);
     }
 
     /// <inheritdoc />
@@ -741,7 +742,7 @@ internal class DataClient : IDataClient
         }
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/series/stats_series"), StatisticsSeriesArrayContext.Default.StatisticsSeriesArray, cancellationToken).ConfigureAwait(false);
-        return CreateResponse(headers, data, logger);
+        return BuildDataResponse(headers, data, logger);
     }
 
     /// <inheritdoc />
@@ -761,7 +762,7 @@ internal class DataClient : IDataClient
             });
         }
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(careerStatisticsUrl), MemberCareerContext.Default.MemberCareer, cancellationToken).ConfigureAwait(false);
-        return CreateResponse(headers, data, logger);
+        return BuildDataResponse(headers, data, logger);
     }
 
     /// <inheritdoc />
@@ -782,7 +783,7 @@ internal class DataClient : IDataClient
         }
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(memberRecentRacesUrl), MemberRecentRacesContext.Default.MemberRecentRaces, cancellationToken).ConfigureAwait(false);
-        return CreateResponse(headers, data, logger);
+        return BuildDataResponse(headers, data, logger);
     }
 
     /// <inheritdoc />
@@ -802,7 +803,7 @@ internal class DataClient : IDataClient
             });
         }
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(memberSummaryUrl), MemberSummaryContext.Default.MemberSummary, cancellationToken).ConfigureAwait(false);
-        return CreateResponse(headers, data, logger);
+        return BuildDataResponse(headers, data, logger);
     }
 
     /// <inheritdoc />
@@ -815,7 +816,7 @@ internal class DataClient : IDataClient
 
         var getTrackUrl = "https://members-ng.iracing.com/data/track/assets";
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(getTrackUrl), TrackAssetsArrayContext.Default.IReadOnlyDictionaryStringTrackAssets, cancellationToken).ConfigureAwait(false);
-        return CreateResponse(headers, data, logger);
+        return BuildDataResponse(headers, data, logger);
     }
 
     /// <inheritdoc />
@@ -828,7 +829,208 @@ internal class DataClient : IDataClient
 
         var getTrackUrl = "https://members-ng.iracing.com/data/track/get";
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(getTrackUrl), TrackArrayContext.Default.TrackArray, cancellationToken).ConfigureAwait(false);
-        return CreateResponse(headers, data, logger);
+        return BuildDataResponse(headers, data, logger);
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<(HostedResultsHeader Header, HostedResultItem[] Items)>> SearchHostedResultsAsync(HostedSearchParameters searchParameters, CancellationToken cancellationToken = default)
+    {
+#if (NET6_0_OR_GREATER)
+        ArgumentNullException.ThrowIfNull(searchParameters);
+#else
+        if (searchParameters is null)
+        {
+            throw new ArgumentNullException(nameof(searchParameters));
+        }
+#endif
+
+        if (searchParameters is { StartRangeBegin: null, FinishRangeBegin: null })
+        {
+            throw new ArgumentException("Must supply one of \"StartRangeBegin\" or \"FinishRangeBegin\"", nameof(searchParameters));
+        }
+
+        if (searchParameters is { ParticipantCustomerId: null, HostCustomerId: null, SessionName: null or { Length: 0 } })
+        {
+            throw new ArgumentException("Must supply one of \"ParticipantCustomerId\", \"HostCustomerId\", or \"SessionName\"", nameof(searchParameters));
+        }
+
+        if (ValidateSearchDateRange(searchParameters.StartRangeBegin, searchParameters.StartRangeEnd, nameof(searchParameters), nameof(searchParameters.StartRangeBegin), nameof(searchParameters.StartRangeEnd)) is Exception startRangeEx)
+        {
+            throw startRangeEx;
+        }
+
+        if (ValidateSearchDateRange(searchParameters.FinishRangeBegin, searchParameters.FinishRangeEnd, nameof(searchParameters), nameof(searchParameters.FinishRangeBegin), nameof(searchParameters.FinishRangeEnd)) is Exception finishRangeEx)
+        {
+            throw finishRangeEx;
+        }
+
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var queryParams = new Dictionary<string, string>();
+        queryParams.AddParameterIfNotNull(() => searchParameters.StartRangeBegin);
+        queryParams.AddParameterIfNotNull(() => searchParameters.StartRangeEnd);
+        queryParams.AddParameterIfNotNull(() => searchParameters.FinishRangeBegin);
+        queryParams.AddParameterIfNotNull(() => searchParameters.FinishRangeEnd);
+        queryParams.AddParameterIfNotNull(() => searchParameters.ParticipantCustomerId);
+        queryParams.AddParameterIfNotNull(() => searchParameters.HostCustomerId);
+        queryParams.AddParameterIfNotNull(() => searchParameters.SessionName);
+        queryParams.AddParameterIfNotNull(() => searchParameters.LeagueId);
+        queryParams.AddParameterIfNotNull(() => searchParameters.LeagueSeasonId);
+        queryParams.AddParameterIfNotNull(() => searchParameters.CarId);
+        queryParams.AddParameterIfNotNull(() => searchParameters.TrackId);
+        queryParams.AddParameterIfNotNull(() => searchParameters.CategoryIds);
+
+        var searchHostedUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/search_hosted", queryParams);
+
+        (var headers, var header) = await GetResponseAsync(new Uri(searchHostedUrl), HostedResultsHeaderContext.Default.HostedResultsHeader, cancellationToken).ConfigureAwait(false);
+
+        var baseChunkUrl = new Uri(header.Data.ChunkInfo.BaseDownloadUrl);
+        var searchResults = new List<HostedResultItem>();
+
+        foreach (var (chunkFileName, index) in header.Data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        {
+            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+
+            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+            if (!chunkResponse.IsSuccessStatusCode)
+            {
+                logger.FailedToRetrieveChunkError(index, header.Data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                continue;
+            }
+
+            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(HostedResultItemContext.Default.HostedResultItemArray, cancellationToken).ConfigureAwait(false);
+            if (chunkData is null)
+            {
+                continue;
+            }
+
+            searchResults.AddRange(chunkData);
+        }
+
+        return BuildDataResponse<(HostedResultsHeader Header, HostedResultItem[] Results)>(headers, (header, searchResults.ToArray()), logger);
+    }
+
+    /// <inheritdoc/>
+    public async Task<DataResponse<(OfficialSearchResultHeader Header, OfficialSearchResultItem[] Items)>> SearchOfficialResultsAsync(OfficialSearchParameters searchParameters, CancellationToken cancellationToken = default)
+    {
+#if (NET6_0_OR_GREATER)
+        ArgumentNullException.ThrowIfNull(searchParameters);
+#else
+        if (searchParameters is null)
+        {
+            throw new ArgumentNullException(nameof(searchParameters));
+        }
+#endif
+
+        if ((searchParameters.SeasonYear is null || searchParameters.SeasonQuarter is null)
+            && searchParameters.StartRangeBegin is null
+            && searchParameters.FinishRangeBegin is null)
+        {
+            throw new ArgumentException("Must supply one of \"SeasonYear\" and \"SeasonQuarter\", \"StartRangeBegin\", or \"FinishRangeBegin\"", nameof(searchParameters));
+        }
+
+        if (searchParameters.SeasonQuarter is not null and (< 1 or > 4))
+        {
+            throw new ArgumentOutOfRangeException(nameof(searchParameters), searchParameters.SeasonQuarter, "Invalid \"SeasonQuarter\" value. Must be between 1 and 4 (inclusive).");
+        }
+
+        if (ValidateSearchDateRange(searchParameters.StartRangeBegin, searchParameters.StartRangeEnd, nameof(searchParameters), nameof(searchParameters.StartRangeBegin), nameof(searchParameters.StartRangeEnd)) is Exception startRangeEx)
+        {
+            throw startRangeEx;
+        }
+
+        if (ValidateSearchDateRange(searchParameters.FinishRangeBegin, searchParameters.FinishRangeEnd, nameof(searchParameters), nameof(searchParameters.FinishRangeBegin), nameof(searchParameters.FinishRangeEnd)) is Exception finishRangeEx)
+        {
+            throw finishRangeEx;
+        }
+
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var queryParams = new Dictionary<string, string>();
+        queryParams.AddParameterIfNotNull(() => searchParameters.StartRangeBegin);
+        queryParams.AddParameterIfNotNull(() => searchParameters.StartRangeEnd);
+        queryParams.AddParameterIfNotNull(() => searchParameters.FinishRangeBegin);
+        queryParams.AddParameterIfNotNull(() => searchParameters.FinishRangeEnd);
+        queryParams.AddParameterIfNotNull(() => searchParameters.ParticipantCustomerId);
+        queryParams.AddParameterIfNotNull(() => searchParameters.SeriesId);
+        queryParams.AddParameterIfNotNull(() => searchParameters.RaceWeekIndex);
+        queryParams.AddParameterIfNotNull(() => searchParameters.OfficialOnly);
+        queryParams.AddParameterIfNotNull(() => searchParameters.EventTypes);
+        queryParams.AddParameterIfNotNull(() => searchParameters.CategoryIds);
+
+        var searchHostedUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/search_series", queryParams);
+
+        (var headers, var header) = await GetResponseAsync(new Uri(searchHostedUrl), OfficialSearchResultHeaderContext.Default.OfficialSearchResultHeader, cancellationToken).ConfigureAwait(false);
+
+        var baseChunkUrl = new Uri(header.Data.ChunkInfo.BaseDownloadUrl);
+        var searchResults = new List<OfficialSearchResultItem>();
+
+        foreach (var (chunkFileName, index) in header.Data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        {
+            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+
+            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+            if (!chunkResponse.IsSuccessStatusCode)
+            {
+                logger.FailedToRetrieveChunkError(index, header.Data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                continue;
+            }
+
+            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(OfficialSearchResultItemArrayContext.Default.OfficialSearchResultItemArray, cancellationToken).ConfigureAwait(false);
+            if (chunkData is null)
+            {
+                continue;
+            }
+
+            searchResults.AddRange(chunkData);
+        }
+
+        return BuildDataResponse<(OfficialSearchResultHeader Header, OfficialSearchResultItem[] Results)>(headers, (header, searchResults.ToArray()), logger);
+    }
+
+    private static Exception? ValidateSearchDateRange(DateTime? rangeBegin, DateTime? rangeEnd, string paramName, string rangeBeginFieldName, string rangeEndFieldName)
+    {
+        if (rangeBegin is not null)
+        {
+            if (rangeBegin.Value > DateTime.UtcNow)
+            {
+                return new ArgumentOutOfRangeException(paramName, $"Value for \"{rangeBeginFieldName}\" cannot be in the future.");
+            }
+
+            if (rangeEnd is null
+                && (Math.Abs(DateTime.UtcNow.Subtract(rangeBegin.Value).TotalDays) > 90))
+            {
+                return new ArgumentOutOfRangeException(paramName, $"Must supply value for \"{rangeEndFieldName}\" if \"{rangeBeginFieldName}\" is more than 90 days in the past.");
+            }
+        }
+
+        if (rangeEnd is not null)
+        {
+            if (rangeBegin is not null)
+            {
+                if (rangeBegin >= rangeEnd)
+                {
+                    return new ArgumentOutOfRangeException(paramName, $"Value for \"{rangeBeginFieldName}\" cannot be after \"{rangeEndFieldName}\".");
+                }
+
+                if (Math.Abs(rangeEnd.Value.Subtract(rangeBegin.Value).TotalDays) > 90)
+                {
+                    return new ArgumentOutOfRangeException(paramName, $"Value for \"{rangeEndFieldName}\" cannot be more than 90 days after \"{rangeBeginFieldName}\".");
+                }
+            }
+            else
+            {
+                return new ArgumentException($"Must supply value for \"{rangeBeginFieldName}\" if \"{rangeEndFieldName}\" is specified.", paramName);
+            }
+        }
+
+        return null;
     }
 
 #pragma warning disable CA1308 // Normalize strings to uppercase - this algorithm requires lower case.
@@ -870,26 +1072,7 @@ internal class DataClient : IDataClient
         var infoLinkResponse = await httpClient.GetAsync(infoLinkUri, cancellationToken).ConfigureAwait(false);
         if (!infoLinkResponse.IsSuccessStatusCode)
         {
-            var errorResponse = await infoLinkResponse.Content.ReadFromJsonAsync<ErrorResponse>(cancellationToken: cancellationToken)
-                                                              .ConfigureAwait(false);
-
-            Exception? exception = errorResponse switch
-            {
-                { ErrorCode: "Site Maintenance" } => new iRacingInMaintenancePeriodException(errorResponse.ErrorDescription ?? "iRacing services are down for maintenance."),
-                { ErrorCode: "Forbidden" } => iRacingForbiddenResponseException.Create(),
-                _ => null
-            };
-
-            if (exception is null)
-            {
-                logger.ErrorResponseUnknown();
-                infoLinkResponse.EnsureSuccessStatusCode();
-            }
-            else
-            {
-                logger.ErrorResponse(errorResponse!.ErrorDescription, exception);
-                throw exception;
-            }
+            await HandleUnsuccessfulResponseAsync(infoLinkResponse, logger).ConfigureAwait(false);
         }
 
         var infoLink = await infoLinkResponse.Content.ReadFromJsonAsync(LinkResultContext.Default.LinkResult, cancellationToken)
@@ -909,7 +1092,49 @@ internal class DataClient : IDataClient
         return (infoLinkResponse.Headers, data);
     }
 
-    private static DataResponse<TData> CreateResponse<TData>(HttpResponseHeaders headers, TData data, ILogger logger)
+    private async Task<(HttpResponseHeaders Headers, TData Data)> GetResponseAsync<TData>(Uri iRacingUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
+    {
+        var response = await httpClient.GetAsync(iRacingUri, cancellationToken).ConfigureAwait(false);
+        if (!response.IsSuccessStatusCode)
+        {
+            await HandleUnsuccessfulResponseAsync(response, logger).ConfigureAwait(false);
+        }
+
+        var data = await response.Content.ReadFromJsonAsync(jsonTypeInfo, cancellationToken: cancellationToken)
+                                         .ConfigureAwait(false);
+        if (data is null)
+        {
+            throw new iRacingDataClientException("Data not found.");
+        }
+
+        return (response.Headers, data);
+    }
+
+    private async static Task HandleUnsuccessfulResponseAsync(HttpResponseMessage httpResponse, ILogger logger)
+    {
+        var errorResponse = await httpResponse.Content.ReadFromJsonAsync<ErrorResponse>(cancellationToken: CancellationToken.None)
+                                                  .ConfigureAwait(false);
+
+        Exception? exception = errorResponse switch
+        {
+            { ErrorCode: "Site Maintenance" } => new iRacingInMaintenancePeriodException(errorResponse.ErrorDescription ?? "iRacing services are down for maintenance."),
+            { ErrorCode: "Forbidden" } => iRacingForbiddenResponseException.Create(),
+            _ => null
+        };
+
+        if (exception is null)
+        {
+            logger.ErrorResponseUnknown();
+            httpResponse.EnsureSuccessStatusCode();
+        }
+        else
+        {
+            logger.ErrorResponse(errorResponse!.ErrorDescription, exception);
+            throw exception;
+        }
+    }
+
+    private static DataResponse<TData> BuildDataResponse<TData>(HttpResponseHeaders headers, TData data, ILogger logger)
     {
         var response = new DataResponse<TData> { Data = data };
 

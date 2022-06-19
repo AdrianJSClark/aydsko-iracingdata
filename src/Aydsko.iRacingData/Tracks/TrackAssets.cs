@@ -38,7 +38,7 @@ public class TrackAssets
     public string? North { get; set; }
 
     [JsonPropertyName("num_svg_images")]
-    public int NumSvgImages { get; set; }
+    public int NumberOfSvgImages { get; set; }
 
     [JsonPropertyName("small_image")]
     public string? SmallImage { get; set; }

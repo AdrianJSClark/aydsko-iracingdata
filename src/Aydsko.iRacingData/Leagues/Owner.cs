@@ -6,7 +6,7 @@ namespace Aydsko.iRacingData.Leagues;
 public class Owner
 {
     [JsonPropertyName("cust_id")]
-    public int CustId { get; set; }
+    public int CustomerId { get; set; }
 
     [JsonPropertyName("display_name")]
     public string DisplayName { get; set; } = null!;

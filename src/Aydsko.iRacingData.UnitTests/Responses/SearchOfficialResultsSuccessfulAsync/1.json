@@ -1,0 +1,40 @@
+﻿{
+  "headers": {
+    "x-ratelimit-remaining": "99",
+    "x-ratelimit-limit": "100",
+    "x-ratelimit-reset": "1644451200"
+  },
+  "content": {
+    "type": "search_series_results",
+    "data": {
+      "success": true,
+      "chunk_info": {
+        "chunk_size": 500,
+        "num_chunks": 1,
+        "rows": 333,
+        "base_download_url": "https://scorpio-assets.s3.amazonaws.com/members/messaging-services/short_lived/series_search/6e4b4a47beca67026fa9b2039bc8e1c6e42ed55472c3416d6d9323086dd03abd/",
+        "chunk_file_names": [
+          "21ca52a3c6e7fbac1ad9fc565ef02f7b2aacc3bc1ede8c6a5d4fab192f0adc14.json?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20220618T234233Z&X-Amz-SignedHeaders=host&X-Amz-Expires=1200&X-Amz-Credential=AKIAUO6OO4A3357USLO7%2F20220618%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=c2e813ebd517949ee638817e2c1ce1db73e17719eb79a23ff793aebab01d6569"
+        ]
+      },
+      "params": {
+        "category_ids": [
+          1,
+          2,
+          3,
+          4
+        ],
+        "series_id": 260,
+        "season_year": 2022,
+        "season_quarter": 3,
+        "official_only": false,
+        "event_types": [
+          2,
+          3,
+          4,
+          5
+        ]
+      }
+    }
+  }
+}

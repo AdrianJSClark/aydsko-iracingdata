@@ -18,10 +18,10 @@ public class SessionInfo
     public int SimsessionType { get; set; }
 
     [JsonPropertyName("num_laps_for_qual_average")]
-    public int NumLapsForQualAverage { get; set; }
+    public int NumberOfLapsForQualifyingAverage { get; set; }
 
     [JsonPropertyName("num_laps_for_solo_average")]
-    public int NumLapsForSoloAverage { get; set; }
+    public int NumberOfLapsForSoloAverage { get; set; }
 
     [JsonPropertyName("event_type")]
     public EventType EventType { get; set; }

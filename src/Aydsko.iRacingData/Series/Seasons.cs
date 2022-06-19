@@ -90,7 +90,7 @@ public class SeasonSeries
     public object? NextRaceSession { get; set; }
 
     [JsonPropertyName("num_opt_laps")]
-    public int NumOptLaps { get; set; }
+    public int NumberOfOptLaps { get; set; }
 
     [JsonPropertyName("official")]
     public bool Official { get; set; }

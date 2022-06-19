@@ -66,10 +66,10 @@ public class SubSessionResult
     public DateTimeOffset EndTime { get; set; }
 
     [JsonPropertyName("num_laps_for_qual_average")]
-    public int NumLapsForQualAverage { get; set; }
+    public int NumberOfLapsForQualifyingAverage { get; set; }
 
     [JsonPropertyName("num_laps_for_solo_average")]
-    public int NumLapsForSoloAverage { get; set; }
+    public int NumberOfLapsForSoloAverage { get; set; }
 
     [JsonPropertyName("corners_per_lap")]
     public int CornersPerLap { get; set; }
@@ -117,13 +117,13 @@ public class SubSessionResult
     public int EventLapsComplete { get; set; }
 
     [JsonPropertyName("num_cautions")]
-    public int NumCautions { get; set; }
+    public int NumberOfCautions { get; set; }
 
     [JsonPropertyName("num_caution_laps")]
-    public int NumCautionLaps { get; set; }
+    public int NumberOfCautionLaps { get; set; }
 
     [JsonPropertyName("num_lead_changes")]
-    public int NumLeadChanges { get; set; }
+    public int NumberOfLeadChanges { get; set; }
 
     [JsonPropertyName("official_session")]
     public bool OfficialSession { get; set; }
