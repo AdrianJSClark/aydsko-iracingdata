@@ -325,4 +325,6 @@ public interface IDataClient
     /// </para>
     /// </remarks>
     Task<DataResponse<(OfficialSearchResultHeader Header, OfficialSearchResultItem[] Items)>> SearchOfficialResultsAsync(OfficialSearchParameters searchParameters, CancellationToken cancellationToken = default);
+
+    Task<DataResponse<MemberChart>> GetMemberChartData(int customerId, int categoryId, Member.MemberChartType chartType, CancellationToken cancellationToken = default);
 }

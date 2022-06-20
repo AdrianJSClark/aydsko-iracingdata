@@ -785,4 +785,19 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(searchHostedResponse.TotalRateLimit, Is.EqualTo(100));
         Assert.That(searchHostedResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
     }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetMemberChartDataSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetMemberChartDataSuccessfulAsync)).ConfigureAwait(false);
+
+        var memberChartResponse = await sut.GetMemberChartData(341554, 2, Member.MemberChartType.IRating, CancellationToken.None).ConfigureAwait(false);
+
+        Assert.That(memberChartResponse, Is.Not.Null);
+        Assert.That(memberChartResponse.Data, Is.Not.Null);
+
+        Assert.That(memberChartResponse.Data.Success, Is.True);
+        Assert.That(memberChartResponse.Data.Points, Has.Length.EqualTo(104));
+        Assert.That(memberChartResponse.Data.ChartType, Is.EqualTo(Member.MemberChartType.IRating));
+    }
 }
