@@ -152,8 +152,8 @@ internal class DataClient : IDataClient
 
         var getTrackUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/get", new Dictionary<string, string>
         {
-            { "league_id", leagueId.ToString(CultureInfo.InvariantCulture) },
-            { "include_licenses", includeLicenses.ToString() }
+            ["league_id"] = leagueId.ToString(CultureInfo.InvariantCulture),
+            ["include_licenses"] = includeLicenses.ToString(),
         });
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(getTrackUrl), LeagueContext.Default.League, cancellationToken).ConfigureAwait(false);
         return BuildDataResponse(headers, data, logger);
@@ -200,8 +200,8 @@ internal class DataClient : IDataClient
 
         var driverInfoRequestUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/member/get", new Dictionary<string, string>
         {
-            { "cust_ids", string.Join(",", customerIds) },
-            { "include_licenses", includeLicenses ? "true" : "false" }
+            ["cust_ids"] = string.Join(",", customerIds),
+            ["include_licenses"] = includeLicenses ? "true" : "false",
         });
         var infoLinkResponse = await httpClient.GetAsync(new Uri(driverInfoRequestUrl), cancellationToken)
                                                .ConfigureAwait(false);
@@ -259,8 +259,8 @@ internal class DataClient : IDataClient
 
         var subSessionResultUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/get", new Dictionary<string, string>
         {
-            { "subsession_id", subSessionId.ToString(CultureInfo.InvariantCulture) },
-            { "include_licenses", includeLicenses ? "true" : "false" }
+            ["subsession_id"] = subSessionId.ToString(CultureInfo.InvariantCulture),
+            ["include_licenses"] = includeLicenses ? "true" : "false",
         });
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionResultUrl), SubSessionResultContext.Default.SubSessionResult, cancellationToken).ConfigureAwait(false);
@@ -277,8 +277,8 @@ internal class DataClient : IDataClient
 
         var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/lap_chart_data", new Dictionary<string, string>
         {
-            { "subsession_id", subSessionId.ToString(CultureInfo.InvariantCulture) },
-            { "simsession_number", simSessionNumber.ToString(CultureInfo.InvariantCulture) },
+            ["subsession_id"] = subSessionId.ToString(CultureInfo.InvariantCulture),
+            ["simsession_number"] = simSessionNumber.ToString(CultureInfo.InvariantCulture),
         });
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SubsessionLapsHeaderContext.Default.SubsessionLapsHeader, cancellationToken).ConfigureAwait(false);
@@ -318,8 +318,8 @@ internal class DataClient : IDataClient
 
         var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/event_log", new Dictionary<string, string>
         {
-            { "subsession_id", subSessionId.ToString(CultureInfo.InvariantCulture) },
-            { "simsession_number", simSessionNumber.ToString(CultureInfo.InvariantCulture) },
+            ["subsession_id"] = subSessionId.ToString(CultureInfo.InvariantCulture),
+            ["simsession_number"] = simSessionNumber.ToString(CultureInfo.InvariantCulture),
         });
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SubsessionEventLogHeaderContext.Default.SubsessionEventLogHeader, cancellationToken).ConfigureAwait(false);
@@ -385,9 +385,9 @@ internal class DataClient : IDataClient
 
         var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/lap_data", new Dictionary<string, string>
         {
-            { "subsession_id", subSessionId.ToString(CultureInfo.InvariantCulture) },
-            { "simsession_number", simSessionNumber.ToString(CultureInfo.InvariantCulture) },
-            { "cust_id", customerId.ToString(CultureInfo.InvariantCulture) },
+            ["subsession_id"] = subSessionId.ToString(CultureInfo.InvariantCulture),
+            ["simsession_number"] = simSessionNumber.ToString(CultureInfo.InvariantCulture),
+            ["cust_id"] = customerId.ToString(CultureInfo.InvariantCulture),
         });
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SubsessionLapsHeaderContext.Default.SubsessionLapsHeader, cancellationToken).ConfigureAwait(false);
@@ -427,9 +427,9 @@ internal class DataClient : IDataClient
 
         var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/lap_data", new Dictionary<string, string>
         {
-            { "subsession_id", subSessionId.ToString(CultureInfo.InvariantCulture) },
-            { "simsession_number", simSessionNumber.ToString(CultureInfo.InvariantCulture) },
-            { "team_id", teamId.ToString(CultureInfo.InvariantCulture) },
+            ["subsession_id"] = subSessionId.ToString(CultureInfo.InvariantCulture),
+            ["simsession_number"] = simSessionNumber.ToString(CultureInfo.InvariantCulture),
+            ["team_id"] = teamId.ToString(CultureInfo.InvariantCulture),
         });
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SubsessionLapsHeaderContext.Default.SubsessionLapsHeader, cancellationToken).ConfigureAwait(false);
@@ -469,8 +469,8 @@ internal class DataClient : IDataClient
 
         var memberDivisionUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/member_division", new Dictionary<string, string>
         {
-            { "season_id", seasonId.ToString(CultureInfo.InvariantCulture) },
-            { "event_type", eventType.ToString("D") }
+            ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
+            ["event_type"] = eventType.ToString("D"),
         });
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(memberDivisionUrl), MemberDivisionContext.Default.MemberDivision, cancellationToken).ConfigureAwait(false);
         return BuildDataResponse(headers, data, logger);
@@ -500,7 +500,7 @@ internal class DataClient : IDataClient
         {
             ["cust_id"] = customerId.ToString(CultureInfo.InvariantCulture),
             ["category_id"] = categoryId.ToString(CultureInfo.InvariantCulture),
-            ["chart_type"] = chartType.ToString("D")
+            ["chart_type"] = chartType.ToString("D"),
         });
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(memberChartUrl), MemberChartContext.Default.MemberChart, cancellationToken).ConfigureAwait(false);
@@ -517,9 +517,9 @@ internal class DataClient : IDataClient
 
         var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_driver_standings", new Dictionary<string, string>
         {
-            { "season_id", seasonId.ToString(CultureInfo.InvariantCulture) },
-            { "car_class_id", carClassId.ToString(CultureInfo.InvariantCulture) },
-            { "race_week_num", raceWeekNumber.ToString(CultureInfo.InvariantCulture) },
+            ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
+            ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
+            ["race_week_num"] = raceWeekNumber.ToString(CultureInfo.InvariantCulture),
         });
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonDriverStandingsHeaderContext.Default.SeasonDriverStandingsHeader, cancellationToken).ConfigureAwait(false);
@@ -559,9 +559,9 @@ internal class DataClient : IDataClient
 
         var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_driver_standings", new Dictionary<string, string>
         {
-            { "season_id", seasonId.ToString(CultureInfo.InvariantCulture) },
-            { "car_class_id", carClassId.ToString(CultureInfo.InvariantCulture) },
-            { "race_week_num", raceWeekNumber.ToString(CultureInfo.InvariantCulture) },
+            ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
+            ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
+            ["race_week_num"] = raceWeekNumber.ToString(CultureInfo.InvariantCulture),
         });
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonQualifyResultsHeaderContext.Default.SeasonQualifyResultsHeader, cancellationToken).ConfigureAwait(false);
@@ -601,9 +601,9 @@ internal class DataClient : IDataClient
 
         var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_tt_results", new Dictionary<string, string>
         {
-            { "season_id", seasonId.ToString(CultureInfo.InvariantCulture) },
-            { "car_class_id", carClassId.ToString(CultureInfo.InvariantCulture) },
-            { "race_week_num", raceWeekNumber.ToString(CultureInfo.InvariantCulture) },
+            ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
+            ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
+            ["race_week_num"] = raceWeekNumber.ToString(CultureInfo.InvariantCulture),
         });
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonTimeTrialResultsHeaderContext.Default.SeasonTimeTrialResultsHeader, cancellationToken).ConfigureAwait(false);
@@ -643,9 +643,9 @@ internal class DataClient : IDataClient
 
         var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_tt_standings", new Dictionary<string, string>
         {
-            { "season_id", seasonId.ToString(CultureInfo.InvariantCulture) },
-            { "car_class_id", carClassId.ToString(CultureInfo.InvariantCulture) },
-            { "race_week_num", raceWeekNumber.ToString(CultureInfo.InvariantCulture) },
+            ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
+            ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
+            ["race_week_num"] = raceWeekNumber.ToString(CultureInfo.InvariantCulture),
         });
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonTimeTrialStandingsHeaderContext.Default.SeasonTimeTrialStandingsHeader, cancellationToken).ConfigureAwait(false);
@@ -685,9 +685,9 @@ internal class DataClient : IDataClient
 
         var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_team_standings", new Dictionary<string, string>
         {
-            { "season_id", seasonId.ToString(CultureInfo.InvariantCulture) },
-            { "car_class_id", carClassId.ToString(CultureInfo.InvariantCulture) },
-            { "race_week_num", raceWeekNumber.ToString(CultureInfo.InvariantCulture) },
+            ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
+            ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
+            ["race_week_num"] = raceWeekNumber.ToString(CultureInfo.InvariantCulture),
         });
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonTeamStandingsHeaderContext.Default.SeasonTeamStandingsHeader, cancellationToken).ConfigureAwait(false);
@@ -727,9 +727,9 @@ internal class DataClient : IDataClient
 
         var seasonResultsUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/season_results", new Dictionary<string, string>
         {
-            { "season_id", seasonId.ToString(CultureInfo.InvariantCulture) },
-            { "event_type", eventType.ToString("D") },
-            { "race_week_num", raceWeekNumber.ToString(CultureInfo.InvariantCulture) }
+            ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
+            ["event_type"] = eventType.ToString("D"),
+            ["race_week_num"] = raceWeekNumber.ToString(CultureInfo.InvariantCulture),
         });
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(seasonResultsUrl), SeasonResultsContext.Default.SeasonResults, cancellationToken).ConfigureAwait(false);
         return BuildDataResponse(headers, data, logger);
@@ -745,7 +745,7 @@ internal class DataClient : IDataClient
 
         var seasonSeriesUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/series/seasons", new Dictionary<string, string>
         {
-            { "include_series", includeSeries ? "true" : "false" }
+            ["include_series"] = includeSeries ? "true" : "false",
         });
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(seasonSeriesUrl), SeasonSeriesArrayContext.Default.SeasonSeriesArray, cancellationToken).ConfigureAwait(false);
@@ -777,7 +777,7 @@ internal class DataClient : IDataClient
         {
             careerStatisticsUrl = QueryHelpers.AddQueryString(careerStatisticsUrl, new Dictionary<string, string>
             {
-                { "cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture) }
+                ["cust_id"] = customerId.Value.ToString(CultureInfo.InvariantCulture),
             });
         }
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(careerStatisticsUrl), MemberCareerContext.Default.MemberCareer, cancellationToken).ConfigureAwait(false);
@@ -797,7 +797,7 @@ internal class DataClient : IDataClient
         {
             memberRecentRacesUrl = QueryHelpers.AddQueryString(memberRecentRacesUrl, new Dictionary<string, string>
             {
-                { "cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture) }
+                ["cust_id"] = customerId.Value.ToString(CultureInfo.InvariantCulture),
             });
         }
 
@@ -818,7 +818,7 @@ internal class DataClient : IDataClient
         {
             memberSummaryUrl = QueryHelpers.AddQueryString(memberSummaryUrl, new Dictionary<string, string>
             {
-                { "cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture) }
+                ["cust_id"] = customerId.Value.ToString(CultureInfo.InvariantCulture),
             });
         }
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(memberSummaryUrl), MemberSummaryContext.Default.MemberSummary, cancellationToken).ConfigureAwait(false);
