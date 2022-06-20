@@ -489,6 +489,25 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
+    public async Task<DataResponse<MemberChart>> GetMemberChartData(int customerId, int categoryId, MemberChartType chartType, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var memberChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/member/chart_data", new Dictionary<string, string>
+        {
+            ["cust_id"] = customerId.ToString(CultureInfo.InvariantCulture),
+            ["category_id"] = categoryId.ToString(CultureInfo.InvariantCulture),
+            ["chart_type"] = chartType.ToString("D")
+        });
+
+        (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(memberChartUrl), MemberChartContext.Default.MemberChart, cancellationToken).ConfigureAwait(false);
+        return BuildDataResponse(headers, data, logger);
+    }
+
+    /// <inheritdoc />
     public async Task<DataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Standings)>> GetSeasonDriverStandingsAsync(int seasonId, int carClassId, int raceWeekNumber, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
