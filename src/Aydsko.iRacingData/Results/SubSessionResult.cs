@@ -169,6 +169,24 @@ public class SubSessionResult
 
     [JsonPropertyName("results_restricted")]
     public bool ResultsRestricted { get; set; }
+
+    [JsonPropertyName("host_id")]
+    public int HostId { get; set; }
+
+    [JsonPropertyName("session_name")]
+    public string SessionName { get; set; } = default!;
+
+    [JsonPropertyName("league_id")]
+    public int? LeagueId { get; set; }
+
+    [JsonPropertyName("league_name")]
+    public string? LeagueName { get; set; } = default!;
+
+    [JsonPropertyName("league_season_id")]
+    public int? LeagueSeasonId { get; set; }
+
+    [JsonPropertyName("league_season_name")]
+    public string? LeagueSeasonName { get; set; } = default!;
 }
 
 [JsonSerializable(typeof(SubSessionResult)), JsonSourceGenerationOptions(WriteIndented = true)]

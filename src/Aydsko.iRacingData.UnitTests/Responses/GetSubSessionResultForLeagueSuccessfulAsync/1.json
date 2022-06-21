@@ -1,0 +1,10 @@
+﻿{
+  "headers": {
+    "x-ratelimit-remaining": "99",
+    "x-ratelimit-limit": "100",
+    "x-ratelimit-reset": "1644451200"
+  },
+  "content": {
+    "link": "https://scorpio-assets.s3.amazonaws.com/production/data-server/cache/data-services/results/get/69eb734d-a7f1-4475-bbce-6e4e3337248d?AWSAccessKeyId=AKIAUO6OO4A3357USLO7&Expires=1655811173&Signature=7cjGc39zWldbnl7KaEGZgflLNQE%3D"
+  }
+}
