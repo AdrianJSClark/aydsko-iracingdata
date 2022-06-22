@@ -36,11 +36,6 @@ static internal class Extensions
             throw new ArgumentException("Couldn't understand the expresssion.", nameof(param));
         }
 
-        //var objectMember = Expression.Convert(paramMemberExp, typeof(object));
-        //var getterLambda = Expression.Lambda<Func<object>>(objectMember);
-        //var getter = getterLambda.Compile();
-        //var parameterValue = (T)getter();
-
         var parameterValue = param.Compile()();
 
         if (parameterValue is null)
@@ -53,6 +48,7 @@ static internal class Extensions
             string stringParam => stringParam,
             DateTime dateTimeParam => dateTimeParam.ToString("yyyy-MM-dd\\THH:mm\\Z", CultureInfo.InvariantCulture),
             Array arrayParam => string.Join(",", GetNonNullValues(arrayParam)),
+            IEnumerable<string> enumerableOfString => string.Join(",", enumerableOfString),
             _ => Convert.ToString(parameterValue, CultureInfo.InvariantCulture)
         };
 
