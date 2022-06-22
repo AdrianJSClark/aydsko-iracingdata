@@ -619,6 +619,27 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
+    public async Task GetSubSessionResultForLeagueSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetSubSessionResultForLeagueSuccessfulAsync)).ConfigureAwait(false);
+
+        var subSessionResultResponse = await sut.GetSubSessionResultAsync(12345, false, CancellationToken.None).ConfigureAwait(false);
+
+        Assert.That(subSessionResultResponse, Is.Not.Null);
+        Assert.That(subSessionResultResponse!.Data, Is.Not.Null);
+
+        Assert.That(subSessionResultResponse.Data.SeasonId, Is.EqualTo(0));
+        Assert.That(subSessionResultResponse.Data.SeriesName, Is.EqualTo("Hosted iRacing"));
+        Assert.That(subSessionResultResponse.Data.SessionResults, Has.Length.EqualTo(3));
+        Assert.That(subSessionResultResponse.Data.SessionResults, Has.One.Property(nameof(SessionResults.SimSessionName)).EqualTo("RACE"));
+
+        Assert.That(subSessionResultResponse.Data.LeagueId, Is.EqualTo(5453));
+        Assert.That(subSessionResultResponse.Data.LeagueName, Is.EqualTo("Snail Speed Racing - GT3 League"));
+        Assert.That(subSessionResultResponse.Data.LeagueSeasonName, Is.EqualTo("2022-S2"));
+        Assert.That(subSessionResultResponse.Data.HostId, Is.EqualTo(411093));
+    }
+
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetSubSessionResultForbiddenThrowsErrorsAsync()
     {
         await MessageHandler.QueueResponsesAsync("ResponseForbidden").ConfigureAwait(false);
