@@ -4,6 +4,7 @@
 using Aydsko.iRacingData.Common;
 using Aydsko.iRacingData.Constants;
 using Aydsko.iRacingData.Exceptions;
+using Aydsko.iRacingData.Leagues;
 using Aydsko.iRacingData.Results;
 using Aydsko.iRacingData.Searches;
 
@@ -820,5 +821,19 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(memberChartResponse.Data.Success, Is.True);
         Assert.That(memberChartResponse.Data.Points, Has.Length.EqualTo(104));
         Assert.That(memberChartResponse.Data.ChartType, Is.EqualTo(Member.MemberChartType.IRating));
+    }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task SearchLeagueDirectorySuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(SearchLeagueDirectorySuccessfulAsync)).ConfigureAwait(false);
+
+        var searchParams = new SearchLeagueDirectoryParameters();
+        var leagueDirectoryResponse = await sut.SearchLeagueDirectoryAsync(searchParams, CancellationToken.None).ConfigureAwait(false);
+
+        Assert.That(leagueDirectoryResponse, Is.Not.Null);
+        Assert.That(leagueDirectoryResponse.Data, Is.Not.Null);
+
+        Assert.That(leagueDirectoryResponse.Data.Success, Is.True);
     }
 }

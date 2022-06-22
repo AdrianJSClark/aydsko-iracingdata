@@ -1013,6 +1013,74 @@ internal class DataClient : IDataClient
         return BuildDataResponse<(OfficialSearchResultHeader Header, OfficialSearchResultItem[] Results)>(headers, (header, searchResults.ToArray()), logger);
     }
 
+    /// <inheritdoc/>
+    public async Task<DataResponse<LeagueDirectoryResultPage>> SearchLeagueDirectoryAsync(SearchLeagueDirectoryParameters searchParameters, CancellationToken cancellationToken = default)
+    {
+#if (NET6_0_OR_GREATER)
+        ArgumentNullException.ThrowIfNull(searchParameters);
+#else
+        if (searchParameters is null)
+        {
+            throw new ArgumentNullException(nameof(searchParameters));
+        }
+#endif
+
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var queryParams = new Dictionary<string, string>();
+        queryParams.AddParameterIfNotNull(() => searchParameters.Search);
+        queryParams.AddParameterIfNotNull(() => searchParameters.Tag);
+        queryParams.AddParameterIfNotNull(() => searchParameters.RestrictToMember);
+        queryParams.AddParameterIfNotNull(() => searchParameters.RestrictToRecruiting);
+        queryParams.AddParameterIfNotNull(() => searchParameters.RestrictToFriends);
+        queryParams.AddParameterIfNotNull(() => searchParameters.RestrictToWatched);
+        queryParams.AddParameterIfNotNull(() => searchParameters.MinimumRosterCount);
+        queryParams.AddParameterIfNotNull(() => searchParameters.MaximumRosterCount);
+        queryParams.AddParameterIfNotNull(() => searchParameters.Lowerbound);
+        queryParams.AddParameterIfNotNull(() => searchParameters.Upperbound);
+
+        if (searchParameters.OrderByField is SearchLeagueOrderByField orderBy)
+        {
+            switch (orderBy)
+            {
+                case SearchLeagueOrderByField.Relevance:
+                    queryParams["sort"] = "relevance";
+                    break;
+                case SearchLeagueOrderByField.LeagueName:
+                    queryParams["sort"] = "leaguename";
+                    break;
+                case SearchLeagueOrderByField.OwnersDisplayName:
+                    queryParams["sort"] = "displayname";
+                    break;
+                case SearchLeagueOrderByField.RosterCount:
+                    queryParams["sort"] = "rostercount";
+                    break;
+            }
+        }
+
+        if (searchParameters.OrderDirection is ResultOrderDirection orderDirection)
+        {
+            switch (orderDirection)
+            {
+                case ResultOrderDirection.Ascending:
+                    queryParams["order"] = "asc";
+                    break;
+                case ResultOrderDirection.Descending:
+                    queryParams["order"] = "desc";
+                    break;
+            }
+        }
+
+        var searchLeagueDirectoryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/directory", queryParams);
+
+        (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(searchLeagueDirectoryUrl), LeagueDirectoryResultPageContext.Default.LeagueDirectoryResultPage, cancellationToken).ConfigureAwait(false);
+
+        return BuildDataResponse(headers, data, logger);
+    }
+
     private static Exception? ValidateSearchDateRange(DateTime? rangeBegin, DateTime? rangeEnd, string paramName, string rangeBeginFieldName, string rangeEndFieldName)
     {
         if (rangeBegin is not null)

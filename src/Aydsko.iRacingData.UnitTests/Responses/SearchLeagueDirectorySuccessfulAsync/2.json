@@ -1,0 +1,1124 @@
+{
+  "headers": {},
+  "content": {
+    "results_page": [
+      {
+        "league_id": 8234,
+        "owner_id": 341554,
+        "league_name": "Adrian's Test League",
+        "created": "2022-03-05T12:43:53Z",
+        "about": "Adrian's league for testing things.",
+        "url": "https://iracing.adrianclark.dev",
+        "roster_count": 1,
+        "recruiting": false,
+        "is_admin": true,
+        "is_member": true,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 341554,
+          "display_name": "Adrian Clark",
+          "helmet": {
+            "pattern": 50,
+            "color1": "981F24",
+            "color2": "000000",
+            "color3": "ED2129",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 7135,
+        "owner_id": 590694,
+        "league_name": "Open Wheel Championship",
+        "created": "2021-06-29T23:04:55Z",
+        "about": "Open Wheel Championship",
+        "url": "https://nerve-esports.com/NerveOP/NerveOW.html",
+        "roster_count": 3,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 590694,
+          "display_name": "Pedro R Barbosa",
+          "helmet": {
+            "pattern": 24,
+            "color1": "ffffff",
+            "color2": "090909",
+            "color3": "0066ff",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 8097,
+        "owner_id": 36283,
+        "league_name": "m4em 24H",
+        "created": "2022-01-30T12:10:29Z",
+        "about": "24 hours. Live broadcast. £1000 Prize money. 25th of June 2022.",
+        "url": "https://www.facebook.com/M4EMN12H/",
+        "roster_count": 15,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 36283,
+          "display_name": "Bradley Philpot",
+          "helmet": {
+            "pattern": 28,
+            "color1": "ff0017",
+            "color2": "000000",
+            "color3": "00ff12",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 4170,
+        "owner_id": 445755,
+        "league_name": "#0   Kangaroo Cup",
+        "created": "2020-04-01T00:22:17Z",
+        "about": "Free Disc Brake Australia products for those who win each race.  Free to join the league and we run a fix car setup.  This league is designed to be a fun way to spend the off season.",
+        "url": "http://DiscBrakeAustraliaUSA",
+        "roster_count": 280,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 445755,
+          "display_name": "Mathew Roskey",
+          "helmet": {
+            "pattern": 1,
+            "color1": "111111",
+            "color2": "ffffff",
+            "color3": "f06e34",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 5509,
+        "owner_id": 445293,
+        "league_name": "#0 5150 Next Gen Series",
+        "created": "2020-08-23T17:45:55Z",
+        "about": "We here at 5150 strive to be as professional as we can in racing while maintaining a certain aspect of humor, fun, and some good ole fashioned American style ball busting. While we take every race seriously, and are very much competitive in nature we also strive to be overall a gaming community, friends and sometimes become more like family. You ask yourself why do i need to join 5150? Well that answer is pretty simple......We drive harder than Ricky bobby in the brickyard 500, we make days of thunder look like a true story based on us all while maintaining that.....special twinkle in your mommy's eyes when she talks about us. \n \n 5150 Cup Series Racing Day; \n Season 3: Every Tuesday's @ 6:30PM EST",
+        "url": "http://www.5150RacingLeague.com",
+        "roster_count": 44,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 445293,
+          "display_name": "Taylor Litzenberger",
+          "helmet": {
+            "pattern": 2,
+            "color1": "001e72",
+            "color2": "ffffff",
+            "color3": "000000",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 5959,
+        "owner_id": 445293,
+        "league_name": "#0 5150 SuperSpeedway Series",
+        "created": "2020-11-23T20:56:12Z",
+        "about": "We here at 5150 strive to be as professional as we can in racing while maintaining a certain aspect of humor, fun, and some good ole fashioned American style ball busting. While we take every race seriously, and are very much competitive in nature we also strive to be overall a gaming community, friends and sometimes become more like family. You ask yourself why do i need to join 5150? Well that answer is pretty simple......We drive harder than Ricky bobby in the brickyard 500, we make days of thunder look like a true story based on us all while maintaining that.....special twinkle in your mommy's eyes when she talks about us.",
+        "url": "https://discord.gg/Dr4qVnA",
+        "roster_count": 38,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 445293,
+          "display_name": "Taylor Litzenberger",
+          "helmet": {
+            "pattern": 2,
+            "color1": "001e72",
+            "color2": "ffffff",
+            "color3": "000000",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 7874,
+        "owner_id": 685696,
+        "league_name": "#0 AMM Formula One World Championship",
+        "created": "2021-12-16T14:02:06Z",
+        "about": "In this league we aim to emulate real-life Formula 1 - completing full-length seasons, half-distance races with an active race control. There may be some wildcard races that we throw in the season as not all current F1 circuits are available in iRacing. \n \n This league is European-based and so all sessions will be hosted using the GMT timezone. \n \n #F1 #Formula One #Formula 1",
+        "url": "https://discord.gg/FHXygw23aJ",
+        "roster_count": 33,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 685696,
+          "display_name": "Matt Cole8",
+          "helmet": {
+            "pattern": 62,
+            "color1": "e3fe0f",
+            "color2": "e3fe0f",
+            "color3": "011545",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 4591,
+        "owner_id": 435331,
+        "league_name": "#0 American Fantasy Motorsports Racing League",
+        "created": "2020-04-26T20:35:03Z",
+        "about": "Races are held EVERY SUNDAY Starting at 6PM EASTERN TIME, GREEN FLAG at 7:05PM\n\nWe are currently gearing up for season 1 of this revamped league.\n\nTop 10 drivers will be paid at the end of the season provided they meet the requirements of a Full time or Part time driver role.\n\nCurrently accepting C Class 2.0 and higher.\n\nhttps://discord.gg/3gpPY4zngX\n\nPlease make sure to also join our Discord server. Our race control is Decker Morrow and Joseph Penn.",
+        "url": "https://discord.gg/3gpPY4zngX",
+        "roster_count": 77,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 435331,
+          "display_name": "Spencer Duesburry2",
+          "helmet": {
+            "pattern": 3,
+            "color1": "203668",
+            "color2": "ffffff",
+            "color3": "203668",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 5752,
+        "owner_id": 481993,
+        "league_name": "#0 American Sports Car Championship",
+        "created": "2020-10-15T10:29:18Z",
+        "about": "6 Week Schedule, using GTE (GTLM) and GT3 (GTD) cars.\nFor the first season, we will be using FIXED setups. Some tracks we were able to get custom setups. Others, we were not.\n\nSchedule:\nWeek 1: Daytona Intl Speedway (Road Course) - 60 Mins\nWeek 2: Watkins Glen (Boot W/ Chicane) - 45 Mins\nWeek 3: Road America - 45 Mins\nWeek 4: Laguna Seca - 45 Mins\nWeek 5: Lime Rock - 45 Mins\nWeek 6: Long Beach - 60 Mins\n\nAll races are 8x time acceleration",
+        "url": "None",
+        "roster_count": 16,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 481993,
+          "display_name": "Mark Chandler3",
+          "helmet": {
+            "pattern": 3,
+            "color1": "232A24",
+            "color2": "ffffff",
+            "color3": "fc0706",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 6980,
+        "owner_id": 177265,
+        "league_name": "#0 Circle Sports League",
+        "created": "2021-05-22T16:24:29Z",
+        "url": "None",
+        "roster_count": 1,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 177265,
+          "display_name": "Chris Yates",
+          "helmet": {
+            "pattern": 49,
+            "color1": "000000",
+            "color2": "ffdc14",
+            "color3": "6D6E71",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 4861,
+        "owner_id": 90941,
+        "league_name": "#0 CleanRacing.net Monday Truck Fix Setup",
+        "created": "2020-05-18T02:49:24Z",
+        "about": "Monday nights Trucks. \n Practice 7:30PM Eastern \n Qualifying 8:30PM Eastern followed by race \n Fixed setup \n Long races with the goal of keeping them under green \n \n I have in the past organized sim racing leagues way back to NR2003. I know what I am getting into.",
+        "url": "http://cleanracing.net",
+        "roster_count": 36,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 90941,
+          "display_name": "Frederick Garcia",
+          "helmet": {
+            "pattern": 59,
+            "color1": "000000",
+            "color2": "ffffff",
+            "color3": "000000",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 6649,
+        "owner_id": 479844,
+        "league_name": "#0 Dad's League",
+        "created": "2021-03-16T21:41:56Z",
+        "about": "RACING FIXED EVERY NIGHT AT 9PM EST AND NEW SEASONS FORMING",
+        "url": "None",
+        "roster_count": 161,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 479844,
+          "display_name": "Chad Dooley",
+          "helmet": {
+            "pattern": 62,
+            "color1": "000000",
+            "color2": "3300ff",
+            "color3": "111111",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 5544,
+        "owner_id": 228154,
+        "league_name": "#0 Excel Sim Racing",
+        "created": "2020-08-30T18:42:55Z",
+        "about": "Hello and welcome to the LMSC SHORT TRACK ASPHALT SERIES! originated on 8/30/2020. we race short tracks and expect very good and clean racing at all times until the last lap! \nJared F Clarke and Billy Estes will be the people in charge.\n\nInterested? please feel free to join the discord and see if it fits for you:\n\nhttps://discord.gg/QxX24N",
+        "url": "None",
+        "roster_count": 45,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 228154,
+          "display_name": "Jared F Clarke",
+          "helmet": {
+            "pattern": 12,
+            "color1": "000000",
+            "color2": "cb0b0b",
+            "color3": "000000",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 4947,
+        "owner_id": 414939,
+        "league_name": "#0 Fixed Pro Late Series",
+        "created": "2020-05-26T23:59:16Z",
+        "roster_count": 60,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 414939,
+          "display_name": "Derrike Riley",
+          "helmet": {
+            "pattern": 6,
+            "color1": "000000",
+            "color2": "FFFFFF",
+            "color3": "6D6E71",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 4005,
+        "owner_id": 245750,
+        "league_name": "#0 Great Lakes Midget League",
+        "created": "2020-03-13T16:11:06Z",
+        "url": "None",
+        "roster_count": 1,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 245750,
+          "display_name": "Bryer Fritz",
+          "helmet": {
+            "pattern": 46,
+            "color1": "4bc8f7",
+            "color2": "ffffff",
+            "color3": "070808",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 6000,
+        "owner_id": 420177,
+        "league_name": "#0 Great Lakes Midget Series",
+        "created": "2020-12-01T04:05:51Z",
+        "about": "The Great Lakes Midget Series races midgets every Monday night at 7pm est! Join the discord for more information!",
+        "url": "greatlakesracing.com",
+        "roster_count": 33,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 420177,
+          "display_name": "Cody G Williams",
+          "helmet": {
+            "pattern": 8,
+            "color1": "050505",
+            "color2": "e74b04",
+            "color3": "8004d2",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 1187,
+        "owner_id": 145596,
+        "league_name": "#0 Great Lakes Sprint Car Series",
+        "created": "2014-07-21T21:33:43Z",
+        "about": "Wednesday Night 7:00 PM EST 410 Sprint cars \n\n\n\nLeague Discord Link: https://discord.gg/8WCQX5r3ZF *MUST JOIN DISCORD*",
+        "url": "https://greatlakestruckser.wixsite.com/glrs",
+        "roster_count": 104,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 145596,
+          "display_name": "Shane Nicewonger",
+          "helmet": {
+            "pattern": 1,
+            "color1": "aea3a3",
+            "color2": "000000",
+            "color3": "0a0a0a",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 6786,
+        "owner_id": 611805,
+        "league_name": "#0 Midwest Motorsports - Cup Series",
+        "created": "2021-04-10T18:17:23Z",
+        "about": "Fixed-Setup League Racing \n \n League Races - Sundays @ 7:00PM EST \n \n Next Gen Cup Cars \n \n 50% Fuel and 3 Tire Sets \n \n For more information and to Sign Up, Check out the Official Midwest Motorsports Web Page.",
+        "url": "http://www.midwest-motorsports.com",
+        "roster_count": 43,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 611805,
+          "display_name": "Eric Thaler",
+          "helmet": {
+            "pattern": 35,
+            "color1": "ffffff",
+            "color2": "001549",
+            "color3": "0041db",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 8325,
+        "owner_id": 611805,
+        "league_name": "#0 Midwest Motorsports - Xfinity Series",
+        "created": "2022-03-27T14:21:02Z",
+        "about": "Fixed-Setup League Racing \n \n League Races - Saturdays @ 6:00PM EST \n \n Xfinity Cars \n \n 40% Fuel and 2 Tire Sets \n \n For more information and to Sign Up, Check out the Official Midwest Motorsports Web Page.",
+        "url": "http://www.midwest-motorsports.com",
+        "roster_count": 39,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 611805,
+          "display_name": "Eric Thaler",
+          "helmet": {
+            "pattern": 35,
+            "color1": "ffffff",
+            "color2": "001549",
+            "color3": "0041db",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 8054,
+        "owner_id": 611805,
+        "league_name": "#0 Midwest Motorsports Road Series",
+        "created": "2022-01-21T01:44:59Z",
+        "about": "Fixed Set up \n \n 1 Fast Repair Per Race \n \n 20 Incident Limit \n \n 1- 10 Min Qualifying \n 1- 10 Min Sprint Race \n 1- 30 Min Feature Race \n \n See our Web Page for More info and to fully sign up!",
+        "url": "http://www.midwest-motorsports.com",
+        "roster_count": 21,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 611805,
+          "display_name": "Eric Thaler",
+          "helmet": {
+            "pattern": 35,
+            "color1": "ffffff",
+            "color2": "001549",
+            "color3": "0041db",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 4281,
+        "owner_id": 413204,
+        "league_name": "#0 NAS (North America Simsport)",
+        "created": "2020-04-07T22:29:08Z",
+        "about": "DISCORD: https://discord.gg/fDETZwD7PF\n\n\nN.A.S. (North American Simsport)\n\n  NAS is a new sim racing network of drivers on different gaming platforms that trying to connect to people in North America only, for a better gaming experience.  Its better to race with people in our region for network connection stability, and for race scheduling due to our timezones.  Our main focus is iRacing, with our league just starting up in January, we hope to recruit drivers for Road and Oval season.  We also have some experts on web-developing, Streaming, Networking, Graphic Design",
+        "url": "https://www.youtube.com/channel/UCIljDEsD_FSXiNbCNvovvjQ?view_as=subscriber",
+        "roster_count": 39,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 413204,
+          "display_name": "Vince Burke",
+          "helmet": {
+            "pattern": 8,
+            "color1": "ffffff",
+            "color2": "9f0c0c",
+            "color3": "000000",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 3668,
+        "owner_id": 349095,
+        "league_name": "#0 North American iRacing Stock Car Challenge Cup Series",
+        "created": "2019-09-30T08:34:26Z",
+        "about": "Hello and thank you for checking out &#8220;The North American iRacing Stock Car Challenge&#8221; or the NAISCC for short. \n \n Who we are: \n This is our fifth season as a league but we have very talented drivers within our ranks. \n We are broadcasted by Turn 3 Racing Network on both Facebook and YouTube! \n \n What we do: \n We run a iRacing Default setup for each track as well as real time weather for that area. We have the current NASCAR playoff system in place and do roughly 50% of the real life distances. \n \n Requirements: \n If you are interested in joining the league, all we ask is that you have a B class license and over 1500 iRating. As well to join discord, though it's optional, yet highly recommended you do so to retrieve info on race day or for any activities during the week.",
+        "url": "None",
+        "roster_count": 47,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 349095,
+          "display_name": "Aaron Kralik",
+          "helmet": {
+            "pattern": 17,
+            "color1": "111111",
+            "color2": "000000",
+            "color3": "000000",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 8469,
+        "owner_id": 292881,
+        "league_name": "#0 Renegade Racing League",
+        "created": "2022-04-30T21:54:16Z",
+        "about": "Apply Today! \n Renegade Racing League is looking for more members for our upcoming season 4!! \n It's FREE TO JOIN, and includes a $100 Championship purse for the Top 3 in points, we're running Saturdays 8pm Green Flag. \n We're going to be running the 1987 Nascar Cup cars, Fixed Setups, 100% Fuel, Tire Sets are Runs + 1 = Sets \n For more information please visit our website at https://renegaderacingleague.wixsite.com/renegade/about \n and join our Discord server (Link on the website) \n We look forward to seeing you!!! \n Currently searching for admins!! Apply today!! \n \n Projected Season 4 Schedule \n \n Race #1 Daytona - 80Laps \n Race #2 Phoenix - 150Laps \n Race #3 Las Vegas - 125Laps \n Race #4 Autoclub - 100Laps \n Race #5 Kansas - 125Laps \n Race #6 Pocono - 80laps \n Race #7 Talladega - 80laps \n Race #8 (New if possible) Atlanta - 125Laps \n Race #9 Nashville SS - 130Laps \n Race #10 Michigan - 150Laps",
+        "url": "https://renegaderacingleague.wixsite.com/renegade",
+        "roster_count": 14,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 292881,
+          "display_name": "Wesley Johnson5",
+          "helmet": {
+            "pattern": 55,
+            "color1": "14ff00",
+            "color2": "0dff00",
+            "color3": "000000",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 6395,
+        "owner_id": 297124,
+        "league_name": "#0 Southern All-Star Dirt Series",
+        "created": "2021-01-31T01:44:41Z",
+        "about": "The Southern All-Star Late Model Dirt Series is a FIXED SUPER LATE MODEL SERIES. With full races and and a full racing schedule thru out each week! 60 drivers allowed into each night. Every race is points worthy! At the end of the season the champion will get a series t-shirt in the mail! ",
+        "url": "None",
+        "roster_count": 66,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 297124,
+          "display_name": "Tyler Thurmond",
+          "helmet": {
+            "pattern": 42,
+            "color1": "fb1313",
+            "color2": "fff9f9",
+            "color3": "ffffff",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 7111,
+        "owner_id": 292164,
+        "league_name": "#0 iSeries Motorsports",
+        "created": "2021-06-21T16:50:00Z",
+        "about": "Real Money Cash Races\n\n$100 purse per race\n\nMust join discord\n\nhttps://discord.gg/M9PmWJyjPq",
+        "url": "None",
+        "roster_count": 6,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 292164,
+          "display_name": "Josh Howard",
+          "helmet": {
+            "pattern": 1,
+            "color1": "ffffff",
+            "color2": "fc0706",
+            "color3": "111111",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 4113,
+        "owner_id": 441932,
+        "league_name": "#0.. TRD Racing League",
+        "created": "2020-03-26T22:36:41Z",
+        "about": "The Red Door (TRD) live virtual music venue is not a business, does not accept donations, and is privately funded for the sole purpose of enhancing the virtual experience through hosting live virtual performances, races and general in-world social activities on various platforms for entertainment.\n\nTRD has hosted racing events in Secondlife.com and Sansar.  This is our first hosted race in iRacing.com and look forward to hosting more in the future. We appreciate your patience, suggestions and feedback.  \n",
+        "url": "None",
+        "roster_count": 105,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 441932,
+          "display_name": "Dominic Busher",
+          "helmet": {
+            "pattern": 3,
+            "color1": "111111",
+            "color2": "0f0f10",
+            "color3": "6d6e71",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 3781,
+        "owner_id": 395530,
+        "league_name": "#0.0 REKLES Racing Pro 2,4 & Lite",
+        "created": "2019-12-06T19:12:40Z",
+        "about": "Discordhttps://discord.gg/jpkPdZ5 \n\n\nhttps://www.youtube.com/channel/UCRgsux0Fe4WNcQrwinibBZA?view_as=subscriber",
+        "url": "https://www.youtube.com/channel/UCRgsux0Fe4WNcQrwinibBZA?view_as=subscriber",
+        "roster_count": 257,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 395530,
+          "display_name": "Jeremy Sodorff",
+          "helmet": {
+            "pattern": 12,
+            "color1": "111111",
+            "color2": "ffe600",
+            "color3": "ffffff",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 3550,
+        "owner_id": 152536,
+        "league_name": "#0.0 SCL - Fixed Oval Racing",
+        "created": "2019-08-05T19:33:39Z",
+        "about": "FIXED SETUP - CUP, TRUCKS,  STREET STOCKS\n\nEst 2010 Providing clean, and competitive racing with fixed setups for 11 years. SCL is an online e-racing league that sanctions one of the best in console/pc based sim championship racing. Traditionally based on the Gran Turismo series, SCL transitioned to ps4 and the Project Cars 2 game in fall 2017. We have now transitioned to iRacing for our 10th Anniversary. SCL championship seasons typically run approximately 13 weeks followed by a 4-5 week offseason, which has resulted in 30 completed championship seasons since 2010.\n\nSCL is unique in that we have blended a fine combination of staying true to our roots and what we have built ourselves upon, while also having schedules that appeal to a broad population. SCL's primary North American Tour features a fine selection of the best in old school domestic racing on speedways and short tracks.",
+        "url": "http://www.sundaycupleague.wix.com/scrn",
+        "roster_count": 1123,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 152536,
+          "display_name": "Kip Dugger",
+          "helmet": {
+            "pattern": 23,
+            "color1": "57ff1f",
+            "color2": "882a95",
+            "color3": "fbfe20",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 4190,
+        "owner_id": 312492,
+        "league_name": "#000 Nortons Racing League ARCA SERIES 2022",
+        "created": "2020-04-02T18:35:16Z",
+        "about": "Nortons Racing League ARCA Series \n \n If you are interested in racing this season for this league FULL TIME with an assigned number please fill out this form, it will only take 5 minutes of your day. \n [you must fill this forum out to race in the league] \n https://forms.gle/mhBJRqQWwKBvDKSs5 (Google Forms) \n (you also need to choose a number on the form) \n \n INCIDENT REPORT > https://forms.gle/gnRZGNq16BPZcYhA8 \n",
+        "url": "https://discord.gg/NSf7rY4mAy",
+        "roster_count": 92,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 312492,
+          "display_name": "Joshua Nortington",
+          "helmet": {
+            "pattern": 56,
+            "color1": "ffffff",
+            "color2": "000efa",
+            "color3": "5907cd",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 3539,
+        "owner_id": 390918,
+        "league_name": "#00001 RagTagRacingLeague",
+        "created": "2019-07-31T07:05:55Z",
+        "about": "Cash Prizes  //  For membership, refer to https://www.patreon.com/rtrl\n\nPage under construction",
+        "url": "None",
+        "roster_count": 13,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 390918,
+          "display_name": "Justin Powell2",
+          "helmet": {
+            "pattern": 56,
+            "color1": "2A3795",
+            "color2": "000000",
+            "color3": "FFFFFF",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 1539,
+        "owner_id": 176060,
+        "league_name": "#001 World Figure 8 Championship!",
+        "created": "2015-05-25T20:39:53Z",
+        "roster_count": 26,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 176060,
+          "display_name": "Ryan Tower",
+          "helmet": {
+            "pattern": 8,
+            "color1": "ea0404",
+            "color2": "faeeee",
+            "color3": "09090a",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 2673,
+        "owner_id": 250452,
+        "league_name": "#001 iPunting Motorsport Variations",
+        "created": "2018-02-05T15:50:07Z",
+        "about": "Weird and stupid challenges every week. $5 gift card to the winner of each season. FREE CONTENT IN OFFICIAL LEAGUE EVENTS ONLY. iRacing is not only a place for hardcore training and high-performance driving. It's a place to find new teammates, make new friends and have fun overall. iPunting offers you a new way to look at old concepts. We take familiar ingredients and turn in into something new!",
+        "url": "None",
+        "roster_count": 176,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 250452,
+          "display_name": "Nikolay Ladushkin",
+          "helmet": {
+            "pattern": 59,
+            "color1": "7ecdc8",
+            "color2": "1c5452",
+            "color3": "ffcc0a",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 2767,
+        "owner_id": 319571,
+        "league_name": "#003 AOD Free Content Leauge",
+        "created": "2018-04-13T05:08:30Z",
+        "about": "This league will only use free content for its races. Races will be on Wednesday Nights 9 pm CST. We welcome all levels of racers who want to get better at iRacing. Races will start when there are at least 20 members.",
+        "url": "None",
+        "roster_count": 76,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 319571,
+          "display_name": "Alexey Reed",
+          "helmet": {
+            "pattern": 1,
+            "color1": "931f1f",
+            "color2": "000000",
+            "color3": "ffffff",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 5209,
+        "owner_id": 527006,
+        "league_name": "007 Racing Bandits",
+        "created": "2020-07-05T01:36:45Z",
+        "about": "Friendly league run by everyone who joins. ",
+        "url": "None",
+        "roster_count": 69,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 527006,
+          "display_name": "Jack Nutting",
+          "helmet": {
+            "pattern": 13,
+            "color1": "02ff9e",
+            "color2": "0020c2",
+            "color3": "ff4747",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 501,
+        "owner_id": 17416,
+        "league_name": "#01 Racing On The Web",
+        "created": "2013-01-18T07:39:06Z",
+        "url": "None",
+        "roster_count": 9,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 17416,
+          "display_name": "Pierfrancesco Santacroce",
+          "helmet": {
+            "pattern": 40,
+            "color1": "ffe500",
+            "color2": "191919",
+            "color3": "191919",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 1494,
+        "owner_id": 145915,
+        "league_name": "#01 Road Racing league",
+        "created": "2015-04-09T23:28:54Z",
+        "about": "Join now to get a good number of Car\nWe will begin a series when we have 20 members in this league.\nThe first series will be a Mazda Mx5 Racing comp on Ten different track configurations\nAt about round 7 i will start asking people for ideas. We are also looking for a permanent race control men for each series",
+        "url": "None",
+        "roster_count": 5,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 145915,
+          "display_name": "Fiona Worthington",
+          "helmet": {
+            "pattern": 34,
+            "color1": "69b34d",
+            "color2": "918a3b",
+            "color3": "e909f1",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 701,
+        "owner_id": 124397,
+        "league_name": "#01 TEAM EOR GT3 CUP 2020",
+        "created": "2013-07-01T09:19:29Z",
+        "about": "Our second GT3 Season will be starting on Wednesday 8th April 8pm GMT\n\n\nStay tuned for more information.",
+        "url": "https://www.facebook.com/teameor",
+        "roster_count": 152,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 124397,
+          "display_name": "James Gahagan",
+          "helmet": {
+            "pattern": 68,
+            "color1": "ffffff",
+            "color2": "ffffff",
+            "color3": "ffffff",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 3279,
+        "owner_id": 295126,
+        "league_name": "#01 patriot racing league",
+        "created": "2019-03-15T04:55:23Z",
+        "about": "looking  to have fun and race hard, will be running NWMT, K and N east , arca, and cars slm tour we will try to run the schedule as close as possible to the real thing. if this sounds like fun come and join us. ",
+        "url": "None",
+        "roster_count": 17,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 295126,
+          "display_name": "Nick Kocis",
+          "helmet": {
+            "pattern": 3,
+            "color1": "0d0d0c",
+            "color2": "0e0b0b",
+            "color3": "0d0c0d",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 597,
+        "owner_id": 119215,
+        "league_name": "0SRacing.net Asphalt",
+        "created": "2013-04-02T15:29:34Z",
+        "about": "SK Modified, Tour Modified, Fixed Setups",
+        "url": "https://osracing.net",
+        "roster_count": 208,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 119215,
+          "display_name": "Jeff Kendrick",
+          "helmet": {
+            "pattern": 0,
+            "color1": "F4F4F4",
+            "color2": "000080",
+            "color3": "F4F4F4",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      },
+      {
+        "league_id": 2237,
+        "owner_id": 119215,
+        "league_name": "0SRacing.net Dirt",
+        "created": "2017-04-03T19:25:16Z",
+        "about": "Big Block Modified, Modified Fixed Setup",
+        "url": "http://osracing.net",
+        "roster_count": 253,
+        "recruiting": true,
+        "is_admin": false,
+        "is_member": false,
+        "pending_application": false,
+        "pending_invitation": false,
+        "owner": {
+          "cust_id": 119215,
+          "display_name": "Jeff Kendrick",
+          "helmet": {
+            "pattern": 0,
+            "color1": "F4F4F4",
+            "color2": "000080",
+            "color3": "F4F4F4",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        }
+      }
+    ],
+    "success": true,
+    "lowerbound": 1,
+    "upperbound": 40,
+    "row_count": 6787
+  }
+}

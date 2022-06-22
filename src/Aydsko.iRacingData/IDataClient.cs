@@ -327,4 +327,12 @@ public interface IDataClient
     Task<DataResponse<(OfficialSearchResultHeader Header, OfficialSearchResultItem[] Items)>> SearchOfficialResultsAsync(OfficialSearchParameters searchParameters, CancellationToken cancellationToken = default);
 
     Task<DataResponse<MemberChart>> GetMemberChartData(int customerId, int categoryId, Member.MemberChartType chartType, CancellationToken cancellationToken = default);
+
+    /// <summary>Searches the league directory based on the given parameters.</summary>
+    /// <param name="searchParameters">Parameters object containing the values to use in the search.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the search's results as a <see cref="LeagueDirectoryResultPage"/> object.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    Task<DataResponse<LeagueDirectoryResultPage>> SearchLeagueDirectoryAsync(SearchLeagueDirectoryParameters searchParameters, CancellationToken cancellationToken = default);
 }
