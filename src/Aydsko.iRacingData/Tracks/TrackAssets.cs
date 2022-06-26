@@ -46,8 +46,14 @@ public class TrackAssets
     [JsonPropertyName("track_id")]
     public int TrackId { get; set; }
 
+    /// <summary>The base URL for the track map images detailed in <see cref="TrackMapLayers"/>.</summary>
+    /// <seealso cref="MapLayers" />
     [JsonPropertyName("track_map")]
-    public string? TrackMap { get; set; }
+    public string TrackMap { get; set; } = default!;
+
+    /// <summary>Track map image files to be combined with the base URL in <see cref="TrackMap"/>.</summary>
+    [JsonPropertyName("track_map_layers")]
+    public MapLayers TrackMapLayers { get; set; } = default!;
 }
 
 [JsonSerializable(typeof(IReadOnlyDictionary<string, TrackAssets>)), JsonSourceGenerationOptions(WriteIndented = true)]
