@@ -350,7 +350,23 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(trackAssets, Is.Not.Null);
         Assert.That(trackAssets!.Data, Is.Not.Null);
 
-        Assert.That(trackAssets.Data, Has.Count.EqualTo(332));
+        Assert.That(trackAssets.Data, Has.Count.EqualTo(340));
+        Assert.That(trackAssets.Data.ContainsKey("1"), Is.True);
+
+        var limeRockPark = trackAssets.Data["1"];
+
+        Assert.That(limeRockPark, Is.Not.Null);
+        Assert.That(limeRockPark.Coordinates, Is.EqualTo("41.9282105,-73.3839642"));
+        Assert.That(limeRockPark.TrackMap, Is.EqualTo("https://dqfp1ltauszrc.cloudfront.net/public/track-maps/tracks_limerock/1-limerock-full/"));
+        Assert.That(limeRockPark.TrackMapLayers, Is.Not.Null);
+
+        Assert.That(limeRockPark.TrackMapLayers.Background, Is.EqualTo("background.svg"));
+        Assert.That(limeRockPark.TrackMapLayers.Inactive, Is.EqualTo("inactive.svg"));
+        Assert.That(limeRockPark.TrackMapLayers.Active, Is.EqualTo("active.svg"));
+        Assert.That(limeRockPark.TrackMapLayers.PitRoad, Is.EqualTo("pitroad.svg"));
+        Assert.That(limeRockPark.TrackMapLayers.StartFinish, Is.EqualTo("start-finish.svg"));
+        Assert.That(limeRockPark.TrackMapLayers.Turns, Is.EqualTo("turns.svg"));
+
         Assert.That(trackAssets.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(trackAssets.TotalRateLimit, Is.EqualTo(100));
         Assert.That(trackAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
