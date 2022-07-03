@@ -1,8 +1,9 @@
 ﻿Fixes / Changes:
 
  - Made the new login from iRacing's 2022 Season 3 the default. The "Use2022Season3Login" flag is not obsolete and will be removed in the next release.
- - Improved naming consistency between "Results.DriverResult" and "Results.Result" classes.
+
  - Used "TimeSpan" for duration data on "Results.DriverResult" instead of raw numbers.
+
  - Implemented new endpoints:
     - "Categories" and "Event Types" constants
     - "Series"
@@ -11,11 +12,18 @@
     - "Official Session" search
     - "Member Chart Data"
     - "League Directory Search"
+
  - Support for new "Track Assets" fields which return map layers.
+
+
 
 Contributions:
 
- - From DuncWatts: Customer Id parameter to "Member Recent Races" query.
- - From dennis: League Properties on "Results.SubSessionResult" class.
+ - From Duncan Watts (https://github.com/DuncWatts):
+    - Customer Id parameter to "Member Recent Races" query.
 
-Thanks to Duncan Watts (https://github.com/DuncWatts) & Dennis Møllegaard Pedersen (https://github.com/dennis) for helping out with a PR.
+ - From Dennis Møllegaard Pedersen (https://github.com/dennis):
+    - Improved naming consistency between "Results.DriverResult" and "Results.Result" classes.
+    - League Properties on "Results.SubSessionResult" class.
+
+Thanks to Duncan & Dennis for helping out with pull requests to the library!
