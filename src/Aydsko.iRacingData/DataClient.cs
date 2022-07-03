@@ -1081,17 +1081,17 @@ internal class DataClient : IDataClient
         return BuildDataResponse(headers, data, logger);
     }
 
-    private static Exception? ValidateSearchDateRange(DateTime? rangeBegin, DateTime? rangeEnd, string paramName, string rangeBeginFieldName, string rangeEndFieldName)
+    private Exception? ValidateSearchDateRange(DateTime? rangeBegin, DateTime? rangeEnd, string paramName, string rangeBeginFieldName, string rangeEndFieldName)
     {
         if (rangeBegin is not null)
         {
-            if (rangeBegin.Value > DateTime.UtcNow)
+            if (rangeBegin.Value > GetDateTimeUtcNow())
             {
                 return new ArgumentOutOfRangeException(paramName, $"Value for \"{rangeBeginFieldName}\" cannot be in the future.");
             }
 
             if (rangeEnd is null
-                && (Math.Abs(DateTime.UtcNow.Subtract(rangeBegin.Value).TotalDays) > 90))
+                && (Math.Abs(GetDateTimeUtcNow().Subtract(rangeBegin.Value).TotalDays) > 90))
             {
                 return new ArgumentOutOfRangeException(paramName, $"Must supply value for \"{rangeEndFieldName}\" if \"{rangeBeginFieldName}\" is more than 90 days in the past.");
             }
@@ -1119,6 +1119,8 @@ internal class DataClient : IDataClient
 
         return null;
     }
+
+    private DateTime GetDateTimeUtcNow() => options.CurrentDateTimeSource is null ? DateTime.UtcNow : options.CurrentDateTimeSource().UtcDateTime;
 
 #pragma warning disable CA1308 // Normalize strings to uppercase - this algorithm requires lower case.
     private async Task LoginInternalAsync(CancellationToken cancellationToken)

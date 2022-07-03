@@ -33,4 +33,8 @@ public class iRacingDataClientOptions
     /// <remarks>See: <seealso href="https://forums.iracing.com/discussion/22109/login-form-changes"/></remarks>
     [Obsolete("2022 Season 3 login protocols are now required by iRacing and used by default. This option is now ignored.")]
     public bool Use2022Season3Login { get; set; }
+
+    /// <summary>The source of the current date & time in UTC for the library.</summary>
+    /// <remarks>Defaults to <see cref="DateTimeOffset.UtcNow"/>.</remarks>
+    public Func<DateTimeOffset>? CurrentDateTimeSource { get; set; }
 }

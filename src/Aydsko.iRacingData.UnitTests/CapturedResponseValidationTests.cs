@@ -1,7 +1,6 @@
 ﻿// © 2022 Adrian Clark
 // This file is licensed to you under the MIT license.
 
-using Aydsko.iRacingData.Common;
 using Aydsko.iRacingData.Constants;
 using Aydsko.iRacingData.Exceptions;
 using Aydsko.iRacingData.Leagues;
@@ -20,9 +19,14 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     {
         BaseSetUp();
         sut = new DataClient(HttpClient,
-                                    new TestLogger<DataClient>(),
-                                    new iRacingDataClientOptions() { Username = "test.user@example.com", Password = "SuperSecretPassword" },
-                                    new System.Net.CookieContainer());
+                             new TestLogger<DataClient>(),
+                             new iRacingDataClientOptions()
+                             {
+                                 Username = "test.user@example.com",
+                                 Password = "SuperSecretPassword",
+                                 CurrentDateTimeSource = () => new DateTimeOffset(2022, 04, 05, 0, 0, 0, TimeSpan.Zero)
+                             },
+                             new System.Net.CookieContainer());
     }
 
     [Test(TestOf = typeof(DataClient))]
