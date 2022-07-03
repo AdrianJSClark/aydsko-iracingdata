@@ -31,5 +31,6 @@ public class iRacingDataClientOptions
 
     /// <summary>Enable updated login protocols valid after 2022 Season 3 release.</summary>
     /// <remarks>See: <seealso href="https://forums.iracing.com/discussion/22109/login-form-changes"/></remarks>
+    [Obsolete("2022 Season 3 login protocols are now required by iRacing and used by default. This option is now ignored.")]
     public bool Use2022Season3Login { get; set; }
 }
