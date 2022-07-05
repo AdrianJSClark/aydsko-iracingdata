@@ -21,12 +21,14 @@ public class MemberChart
     public int CustomerId { get; set; }
 }
 
+#pragma warning disable CA1008 // Enums should have zero value - this enum is derived from iRacing API values which don't have a zero member.
 public enum MemberChartType
 {
     IRating = 1,
     TTRating = 2,
     LicenseSafetyRating = 3
 }
+#pragma warning restore CA1008 // Enums should have zero value
 
 public class MemberChartDataPoint
 {
