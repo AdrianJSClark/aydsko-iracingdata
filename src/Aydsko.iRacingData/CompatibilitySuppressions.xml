@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Suppressions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Suppression>
+    <DiagnosticId>CP0001</DiagnosticId>
+    <Target>T:Aydsko.iRacingData.Converters.DateOnlyConverter</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+  </Suppression>
+</Suppressions>
