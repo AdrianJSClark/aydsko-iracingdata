@@ -373,7 +373,16 @@ public interface IDataClient
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
     Task<DataResponse<(OfficialSearchResultHeader Header, OfficialSearchResultItem[] Items)>> SearchOfficialResultsAsync(OfficialSearchParameters searchParameters, CancellationToken cancellationToken = default);
 
-    Task<DataResponse<MemberChart>> GetMemberChartData(int customerId, int categoryId, Member.MemberChartType chartType, CancellationToken cancellationToken = default);
+    /// <summary>Obtains the source data to generate charts about a customer's account.</summary>
+    /// <param name="customerId">iRacing Customer Id for the member to return statistics for, or <see langword="null"/> for the currently authenticated user.</param>
+    /// <param name="categoryId">The category the chart data should be for. 1 - Oval; 2 - Road; 3 - Dirt oval; 4 - Dirt road</param>
+    /// <param name="chartType">Data to return in the chart. 1 - iRating; 2 - TT Rating; 3 - License/SR</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the <see cref="MemberChart"/> information.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
+    Task<DataResponse<MemberChart>> GetMemberChartData(int? customerId, int categoryId, MemberChartType chartType, CancellationToken cancellationToken = default);
 
     /// <summary>Searches the league directory based on the given parameters.</summary>
     /// <param name="searchParameters">Parameters object containing the values to use in the search.</param>

@@ -489,19 +489,26 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<MemberChart>> GetMemberChartData(int customerId, int categoryId, MemberChartType chartType, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<MemberChart>> GetMemberChartData(int? customerId, int categoryId, MemberChartType chartType, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
         {
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var memberChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/member/chart_data", new Dictionary<string, string>
+        var parameters = new Dictionary<string, string>
         {
-            ["cust_id"] = customerId.ToString(CultureInfo.InvariantCulture),
+            //["cust_id"] = customerId.ToString(CultureInfo.InvariantCulture),
             ["category_id"] = categoryId.ToString(CultureInfo.InvariantCulture),
             ["chart_type"] = chartType.ToString("D"),
-        });
+        };
+
+        if (customerId is not null)
+        {
+            parameters["cust_id"] = customerId.Value.ToString(CultureInfo.InvariantCulture);
+        }
+
+        var memberChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/member/chart_data", parameters);
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(memberChartUrl), MemberChartContext.Default.MemberChart, cancellationToken).ConfigureAwait(false);
         return BuildDataResponse(headers, data, logger);
