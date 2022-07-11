@@ -1,13 +1,10 @@
 ﻿Fixes / Changes:
 
- - "Customer Id" is now optional for Chart Data. It will default to the authenticated member.
- - Some renaming of properties to make them clearer.
- - Make documentation explaining exceptions consistent.
+ - TODO
 
 
 Contributions:
 
- - From Dennis Møllegaard Pedersen (https://github.com/dennis):
-    - Improve handling unauthorized responses (Pull Request #94)
+ - TODO
 
 Thanks for helping out with pull requests to the library!
