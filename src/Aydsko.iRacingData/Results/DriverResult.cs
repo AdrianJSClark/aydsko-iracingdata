@@ -47,16 +47,16 @@ public class DriverResult
     public TimeSpan? BestLapTime { get; set; }
 
     [JsonPropertyName("best_nlaps_num")]
-    public int BestNlapsNumber { get; set; }
+    public int BestNLapsNumber { get; set; }
 
     [JsonPropertyName("best_nlaps_time"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
-    public TimeSpan? BestNlapsTime { get; set; }
+    public TimeSpan? BestNLapsTime { get; set; }
 
     [JsonPropertyName("best_qual_lap_at")]
     public DateTimeOffset? BestQualifyingLapAt { get; set; }
 
     [JsonPropertyName("best_qual_lap_num")]
-    public int BestQualLapNum { get; set; }
+    public int BestQualifyingLapNumber { get; set; }
 
     [JsonPropertyName("best_qual_lap_time"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
     public TimeSpan? BestQualifyingLapTime { get; set; }
@@ -68,7 +68,7 @@ public class DriverResult
     public string ReasonOut { get; set; } = null!;
 
     [JsonPropertyName("champ_points")]
-    public int ChampPoints { get; set; }
+    public int ChampionshipPoints { get; set; }
 
     [JsonPropertyName("drop_race")]
     public bool DropRace { get; set; }
@@ -127,7 +127,7 @@ public class DriverResult
     public int OldIRating { get; set; }
 
     [JsonPropertyName("old_ttrating")]
-    public int OldTTrating { get; set; }
+    public int OldTimeTrialRating { get; set; }
 
     /// <summary>Driver license level at the end of the race. Refers to the <see cref="Lookups.LicenseLevel.LicenseId"/> property.</summary>
     /// <seealso cref="DataClient.GetLicensesAsync(CancellationToken)"/>
@@ -150,7 +150,7 @@ public class DriverResult
     public int NewIRating { get; set; }
 
     [JsonPropertyName("new_ttrating")]
-    public int NewTTRating { get; set; }
+    public int NewTimeTrialRating { get; set; }
 
     [JsonPropertyName("multiplier")]
     public int Multiplier { get; set; }
@@ -165,7 +165,7 @@ public class DriverResult
     public int Incidents { get; set; }
 
     [JsonPropertyName("max_pct_fuel_fill")]
-    public int MaxPctFuelFill { get; set; }
+    public int MaximumPercentFuelFill { get; set; }
 
     [JsonPropertyName("weight_penalty_kg")]
     public int WeightPenaltyKg { get; set; }
@@ -174,13 +174,13 @@ public class DriverResult
     public int LeaguePoints { get; set; }
 
     [JsonPropertyName("league_agg_points")]
-    public int LeagueAggPoints { get; set; }
+    public int LeagueAggregatePoints { get; set; }
 
     [JsonPropertyName("car_id")]
     public int CarId { get; set; }
 
     [JsonPropertyName("aggregate_champ_points")]
-    public int AggregateChampPoints { get; set; }
+    public int AggregateChampionshipPoints { get; set; }
 
     [JsonPropertyName("livery")]
     public Livery Livery { get; set; } = null!;

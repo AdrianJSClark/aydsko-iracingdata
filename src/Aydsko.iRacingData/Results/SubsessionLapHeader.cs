@@ -14,19 +14,19 @@ public class SubsessionLapsHeader
     public SessionInfo SessionInfo { get; set; } = null!;
 
     [JsonPropertyName("best_lap_num")]
-    public int BestLapNum { get; set; }
+    public int BestLapNumber { get; set; }
 
     [JsonPropertyName("best_lap_time"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
     public TimeSpan? BestLapTime { get; set; }
 
     [JsonPropertyName("best_nlaps_num")]
-    public int BestNlapsNum { get; set; }
+    public int BestNLapsNumber { get; set; }
 
     [JsonPropertyName("best_nlaps_time"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
-    public TimeSpan? BestNlapsTime { get; set; }
+    public TimeSpan? BestNLapsTime { get; set; }
 
     [JsonPropertyName("best_qual_lap_num")]
-    public int BestQualifyingLapNum { get; set; }
+    public int BestQualifyingLapNumber { get; set; }
 
     [JsonPropertyName("best_qual_lap_time"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
     public TimeSpan? BestQualifyingLapTime { get; set; }
