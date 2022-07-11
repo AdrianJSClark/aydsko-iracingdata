@@ -1,7 +1,8 @@
 ﻿Fixes / Changes:
 
- - (TODO)
-
+ - "Customer Id" is now optional for Chart Data. It will default to the authenticated member.
+ - Some renaming of properties to make them clearer.
+ - Make documentation explaining exceptions consistent.
 
 
 Contributions:
