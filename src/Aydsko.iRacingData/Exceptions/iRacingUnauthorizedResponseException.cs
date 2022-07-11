@@ -10,7 +10,7 @@ public class iRacingUnauthorizedResponseException : iRacingDataClientException
 {
     public static iRacingUnauthorizedResponseException Create()
     {
-        return new("Requested unauthorized.");
+        return new("The iRacing API returned an \"Unauthorized\" response code.");
     }
 
     public iRacingUnauthorizedResponseException()
