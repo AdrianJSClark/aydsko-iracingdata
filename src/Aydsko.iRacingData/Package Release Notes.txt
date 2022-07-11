@@ -6,6 +6,7 @@
 
 Contributions:
 
- - (TODO)
+ - From Dennis Møllegaard Pedersen (https://github.com/dennis):
+    - Improve handling unauthorized responses (Pull Request #94)
 
 Thanks for helping out with pull requests to the library!
