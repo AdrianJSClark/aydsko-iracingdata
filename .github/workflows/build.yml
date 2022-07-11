@@ -67,9 +67,11 @@ jobs:
         run: Get-ChildItem -Path src\*\bin\Release\* -Recurse -Include *.nupkg | Copy-Item -Container:$false
 
       - name: Push Pre-Release Package to GitHub Packages
-        if: ${{ steps.build-solution.outputs.PRERELEASE == 'true' }}
+        if: steps.build-solution.outputs.PRERELEASE == 'true' && (${{ env.PACKAGE_KEY }} == null || ${{ env.PACKAGE_KEY }} == '')
         shell: pwsh
-        run: dotnet nuget push *.nupkg --api-key ${{ secrets.PACKAGE_UPLOAD }} --source "https://nuget.pkg.github.com/AdrianJSClark/index.json"
+        run: dotnet nuget push *.nupkg --api-key ${{ env.PACKAGE_KEY }} --source "https://nuget.pkg.github.com/AdrianJSClark/index.json"
+        env:
+            PACKAGE_KEY: ${{ secrets.PACKAGE_UPLOAD }}
 
       - name: 'Create Draft Release'
         if: ${{ steps.build-solution.outputs.PRERELEASE == 'false' }}
