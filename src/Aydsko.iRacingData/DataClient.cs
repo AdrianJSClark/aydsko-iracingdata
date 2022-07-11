@@ -1199,7 +1199,7 @@ internal class DataClient : IDataClient
         return (response.Headers, data);
     }
 
-    private async static Task HandleUnsuccessfulResponseAsync(HttpResponseMessage httpResponse, ILogger logger)
+    private async Task HandleUnsuccessfulResponseAsync(HttpResponseMessage httpResponse, ILogger logger)
     {
         var errorResponse = await httpResponse.Content.ReadFromJsonAsync<ErrorResponse>(cancellationToken: CancellationToken.None)
                                                   .ConfigureAwait(false);
@@ -1208,6 +1208,7 @@ internal class DataClient : IDataClient
         {
             { ErrorCode: "Site Maintenance" } => new iRacingInMaintenancePeriodException(errorResponse.ErrorDescription ?? "iRacing services are down for maintenance."),
             { ErrorCode: "Forbidden" } => iRacingForbiddenResponseException.Create(),
+            { ErrorCode: "Unauthorized" } => iRacingUnauthorizedResponseException.Create(),
             _ => null
         };
 
@@ -1218,6 +1219,12 @@ internal class DataClient : IDataClient
         }
         else
         {
+            if (exception is iRacingUnauthorizedResponseException)
+            {
+                // Unauthorized might just be our session expired
+                IsLoggedIn = false;
+            }
+
             logger.ErrorResponse(errorResponse!.ErrorDescription, exception);
             throw exception;
         }
