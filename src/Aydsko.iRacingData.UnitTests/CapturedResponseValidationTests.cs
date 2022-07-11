@@ -672,6 +672,19 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
+    public async Task GetSubSessionResultUnauthorizedThrowsErrorsAsync()
+    {
+        await MessageHandler.QueueResponsesAsync("ResponseUnauthorized").ConfigureAwait(false);
+
+        Assert.ThrowsAsync<iRacingUnauthorizedResponseException>(async () =>
+        {
+            var lapChartResponse = await sut.GetSubSessionResultAsync(12345, false).ConfigureAwait(false);
+        });
+
+        Assert.False(sut.IsLoggedIn);
+    }
+
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetSubsessionEventLogSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSubsessionEventLogSuccessfulAsync)).ConfigureAwait(false);

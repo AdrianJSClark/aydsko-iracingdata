@@ -1,0 +1,11 @@
+{
+  "statuscode": 401,
+  "headers": {
+    "x-ratelimit-remaining": "238",
+    "x-ratelimit-limit": "240",
+    "x-ratelimit-reset": "1657533187"
+  },
+  "content": {
+    "error": "Unauthorized"
+  }
+}
