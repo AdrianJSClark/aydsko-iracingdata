@@ -939,7 +939,7 @@ internal class DataClient : IDataClient
         return BuildDataResponse<(HostedResultsHeader Header, HostedResultItem[] Results)>(headers, (header, searchResults.ToArray()), logger);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public async Task<DataResponse<(OfficialSearchResultHeader Header, OfficialSearchResultItem[] Items)>> SearchOfficialResultsAsync(OfficialSearchParameters searchParameters, CancellationToken cancellationToken = default)
     {
 #if (NET6_0_OR_GREATER)
@@ -1020,7 +1020,7 @@ internal class DataClient : IDataClient
         return BuildDataResponse<(OfficialSearchResultHeader Header, OfficialSearchResultItem[] Results)>(headers, (header, searchResults.ToArray()), logger);
     }
 
-    /// <inheritdoc/>
+    /// <inheritdoc />
     public async Task<DataResponse<LeagueDirectoryResultPage>> SearchLeagueDirectoryAsync(SearchLeagueDirectoryParameters searchParameters, CancellationToken cancellationToken = default)
     {
 #if (NET6_0_OR_GREATER)
@@ -1085,6 +1085,24 @@ internal class DataClient : IDataClient
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(searchLeagueDirectoryUrl), LeagueDirectoryResultPageContext.Default.LeagueDirectoryResultPage, cancellationToken).ConfigureAwait(false);
 
+        return BuildDataResponse(headers, data, logger);
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<ListOfSeasons>> ListSeasonsAsync(int seasonYear, int seasonQuarter, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var memberSummaryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/season/list", new Dictionary<string, string>
+        {
+            ["season_year"] = seasonYear.ToString(CultureInfo.InvariantCulture),
+            ["season_quarter"] = seasonQuarter.ToString(CultureInfo.InvariantCulture),
+        });
+
+        (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(memberSummaryUrl), ListOfSeasonsContext.Default.ListOfSeasons, cancellationToken).ConfigureAwait(false);
         return BuildDataResponse(headers, data, logger);
     }
 
