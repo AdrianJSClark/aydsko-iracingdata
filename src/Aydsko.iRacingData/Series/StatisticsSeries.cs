@@ -27,7 +27,7 @@ public class StatisticsSeries
     public bool Official { get; set; }
 
     [JsonPropertyName("seasons")]
-    public Season[] Seasons { get; set; } = default!;
+    public StatisticsSeason[] Seasons { get; set; } = default!;
 }
 
 [JsonSerializable(typeof(StatisticsSeries[])), JsonSourceGenerationOptions(WriteIndented = true)]

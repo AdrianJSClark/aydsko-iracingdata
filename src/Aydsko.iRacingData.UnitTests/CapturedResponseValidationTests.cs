@@ -6,6 +6,7 @@ using Aydsko.iRacingData.Exceptions;
 using Aydsko.iRacingData.Leagues;
 using Aydsko.iRacingData.Results;
 using Aydsko.iRacingData.Searches;
+using Aydsko.iRacingData.Series;
 
 namespace Aydsko.iRacingData.UnitTests;
 
@@ -868,5 +869,21 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(leagueDirectoryResponse.Data, Is.Not.Null);
 
         Assert.That(leagueDirectoryResponse.Data.Success, Is.True);
+    }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task ListSeasonsSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(ListSeasonsSuccessfulAsync)).ConfigureAwait(false);
+
+        var listSeasonsResponse = await sut.ListSeasonsAsync(2022, 1, CancellationToken.None).ConfigureAwait(false);
+
+        Assert.That(listSeasonsResponse, Is.Not.Null);
+        Assert.That(listSeasonsResponse.Data, Is.Not.Null);
+
+        Assert.That(listSeasonsResponse.Data, Has.Property(nameof(ListOfSeasons.SeasonYear)).EqualTo(2022));
+        Assert.That(listSeasonsResponse.Data, Has.Property(nameof(ListOfSeasons.SeasonQuarter)).EqualTo(1));
+        Assert.That(listSeasonsResponse.Data, Has.Property(nameof(ListOfSeasons.Seasons)).Not.Null.Or.Empty);
+        Assert.That(listSeasonsResponse.Data.Seasons, Has.Length.EqualTo(126));
     }
 }
