@@ -4,29 +4,53 @@
       "link": "https://members-ng.iracing.com/data/car/assets",
       "note": [
         "image paths are relative to https://images-static.iracing.com/"
-      ]
+      ],
+      "expirationSeconds": 900
     },
     "get": {
-      "link": "https://members-ng.iracing.com/data/car/get"
+      "link": "https://members-ng.iracing.com/data/car/get",
+      "expirationSeconds": 900
     }
   },
   "carclass": {
     "get": {
-      "link": "https://members-ng.iracing.com/data/carclass/get"
+      "link": "https://members-ng.iracing.com/data/carclass/get",
+      "expirationSeconds": 900
     }
   },
   "constants": {
     "categories": {
       "link": "https://members-ng.iracing.com/data/constants/categories",
-      "note": "Constant; returned directly as an array of objects"
+      "note": "Constant; returned directly as an array of objects",
+      "expirationSeconds": 900
     },
     "divisions": {
       "link": "https://members-ng.iracing.com/data/constants/divisions",
-      "note": "Constant; returned directly as an array of objects"
+      "note": "Constant; returned directly as an array of objects",
+      "expirationSeconds": 900
     },
     "event_types": {
       "link": "https://members-ng.iracing.com/data/constants/event_types",
-      "note": "Constant; returned directly as an array of objects"
+      "note": "Constant; returned directly as an array of objects",
+      "expirationSeconds": 900
+    }
+  },
+  "hosted": {
+    "combined_sessions": {
+      "link": "https://members-ng.iracing.com/data/hosted/combined_sessions",
+      "note": "Sessions that can be joined as a driver or spectator, and also includes non-league pending sessions for the user.",
+      "parameters": {
+        "package_id": {
+          "type": "number",
+          "note": "If set, return only sessions using this car or track package ID."
+        }
+      },
+      "expirationSeconds": 60
+    },
+    "sessions": {
+      "link": "https://members-ng.iracing.com/data/hosted/sessions",
+      "note": "Sessions that can be joined as a driver. Without spectator and non-league pending sessions for the user.",
+      "expirationSeconds": 60
     }
   },
   "league": {
@@ -41,7 +65,8 @@
           "type": "number",
           "note": "If set, return only sessions using this car or track package ID."
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "directory": {
       "link": "https://members-ng.iracing.com/data/league/directory",
@@ -94,7 +119,8 @@
           "type": "string",
           "note": "One of asc or desc.  Defaults to asc."
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "get": {
       "link": "https://members-ng.iracing.com/data/league/get",
@@ -107,7 +133,8 @@
           "type": "boolean",
           "note": "For faster responses, only request when necessary."
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "get_points_systems": {
       "link": "https://members-ng.iracing.com/data/league/get_points_systems",
@@ -120,7 +147,17 @@
           "type": "number",
           "note": "If included and the season is using custom points (points_system_id:2) then the custom points option is included in the returned list. Otherwise the custom points option is not returned."
         }
-      }
+      },
+      "expirationSeconds": 900
+    },
+    "membership": {
+      "link": "https://members-ng.iracing.com/data/league/membership",
+      "parameters": {
+        "include_league": {
+          "type": "boolean"
+        }
+      },
+      "expirationSeconds": 900
     },
     "seasons": {
       "link": "https://members-ng.iracing.com/data/league/seasons",
@@ -133,7 +170,8 @@
           "type": "boolean",
           "note": "If true include seasons which are no longer active."
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "season_standings": {
       "link": "https://members-ng.iracing.com/data/league/season_standings",
@@ -153,7 +191,8 @@
           "type": "number",
           "note": "If car_class_id is included then the standings are for the car in that car class, otherwise they are for the car across car classes."
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "season_sessions": {
       "link": "https://members-ng.iracing.com/data/league/season_sessions",
@@ -170,7 +209,8 @@
           "type": "boolean",
           "note": "If true include only sessions for which results are available."
         }
-      }
+      },
+      "expirationSeconds": 900
     }
   },
   "lookup": {
@@ -186,17 +226,36 @@
           "type": "number",
           "required": true
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "countries": {
-      "link": "https://members-ng.iracing.com/data/lookup/countries"
+      "link": "https://members-ng.iracing.com/data/lookup/countries",
+      "expirationSeconds": 900
+    },
+    "drivers": {
+      "link": "https://members-ng.iracing.com/data/lookup/drivers",
+      "parameters": {
+        "search_term": {
+          "type": "string",
+          "required": true,
+          "note": "A cust_id or partial name for which to search."
+        },
+        "league_id": {
+          "type": "number",
+          "note": "Narrow the search to the roster of the given league."
+        }
+      },
+      "expirationSeconds": 900
     },
     "get": {
       "link": "https://members-ng.iracing.com/data/lookup/get",
-      "note": "?weather=weather_wind_speed_units&weather=weather_wind_speed_max&weather=weather_wind_speed_min&licenselevels=licenselevels"
+      "note": "?weather=weather_wind_speed_units&weather=weather_wind_speed_max&weather=weather_wind_speed_min&licenselevels=licenselevels",
+      "expirationSeconds": 900
     },
     "licenses": {
-      "link": "https://members-ng.iracing.com/data/lookup/licenses"
+      "link": "https://members-ng.iracing.com/data/lookup/licenses",
+      "expirationSeconds": 900
     }
   },
   "member": {
@@ -217,7 +276,8 @@
           "required": true,
           "note": "1 - iRating; 2 - TT Rating; 3 - License/SR"
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "get": {
       "link": "https://members-ng.iracing.com/data/member/get",
@@ -230,11 +290,23 @@
         "include_licenses": {
           "type": "boolean"
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "info": {
       "link": "https://members-ng.iracing.com/data/member/info",
-      "note": "Always the authenticated member."
+      "note": "Always the authenticated member.",
+      "expirationSeconds": 900
+    },
+    "profile": {
+      "link": "https://members-ng.iracing.com/data/member/profile",
+      "parameters": {
+        "cust_id": {
+          "type": "number",
+          "note": "Defaults to the authenticated member."
+        }
+      },
+      "expirationSeconds": 900
     }
   },
   "results": {
@@ -249,7 +321,8 @@
         "include_licenses": {
           "type": "boolean"
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "event_log": {
       "link": "https://members-ng.iracing.com/data/results/event_log",
@@ -263,7 +336,8 @@
           "required": true,
           "note": "The main event is 0; the preceding event is -1, and so on."
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "lap_chart_data": {
       "link": "https://members-ng.iracing.com/data/results/lap_chart_data",
@@ -277,7 +351,8 @@
           "required": true,
           "note": "The main event is 0; the preceding event is -1, and so on."
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "lap_data": {
       "link": "https://members-ng.iracing.com/data/results/lap_data",
@@ -299,7 +374,8 @@
           "type": "number",
           "note": "Required if the subsession was a team event."
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "search_hosted": {
       "link": "https://members-ng.iracing.com/data/results/search_hosted",
@@ -353,7 +429,8 @@
           "type": "numbers",
           "note": "Track categories to include in the search.  Defaults to all. ?category_ids=1,2,3,4"
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "search_series": {
       "link": "https://members-ng.iracing.com/data/results/search_series",
@@ -407,7 +484,8 @@
           "type": "numbers",
           "note": "License categories to include in the search.  Defaults to all. ?category_ids=1,2,3,4"
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "season_results": {
       "link": "https://members-ng.iracing.com/data/results/season_results",
@@ -424,7 +502,8 @@
           "type": "number",
           "note": "The first race week of a season is 0."
         }
-      }
+      },
+      "expirationSeconds": 900
     }
   },
   "season": {
@@ -439,7 +518,22 @@
           "type": "number",
           "required": true
         }
-      }
+      },
+      "expirationSeconds": 900
+    },
+    "race_guide": {
+      "link": "https://members-ng.iracing.com/data/season/race_guide",
+      "parameters": {
+        "from": {
+          "type": "string",
+          "note": "ISO-8601 offset format. Defaults to the current time. Include sessions with start times up to 3 hours after this time. Times in the past will be rewritten to the current time."
+        },
+        "include_end_after_from": {
+          "type": "boolean",
+          "note": "Include sessions which start before 'from' but end after."
+        }
+      },
+      "expirationSeconds": 60
     }
   },
   "series": {
@@ -447,10 +541,12 @@
       "link": "https://members-ng.iracing.com/data/series/assets",
       "note": [
         "image paths are relative to https://images-static.iracing.com/"
-      ]
+      ],
+      "expirationSeconds": 900
     },
     "get": {
-      "link": "https://members-ng.iracing.com/data/series/get"
+      "link": "https://members-ng.iracing.com/data/series/get",
+      "expirationSeconds": 900
     },
     "seasons": {
       "link": "https://members-ng.iracing.com/data/series/seasons",
@@ -458,14 +554,30 @@
         "include_series": {
           "type": "boolean"
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "stats_series": {
       "link": "https://members-ng.iracing.com/data/series/stats_series",
-      "note": "To get series and seasons for which standings should be available, filter the list by official: true."
+      "note": "To get series and seasons for which standings should be available, filter the list by official: true.",
+      "expirationSeconds": 900
     }
   },
   "stats": {
+    "member_bests": {
+      "link": "https://members-ng.iracing.com/data/stats/member_bests",
+      "parameters": {
+        "cust_id": {
+          "type": "number",
+          "note": "Defaults to the authenticated member."
+        },
+        "car_id": {
+          "type": "number",
+          "note": "First call should exclude car_id; use cars_driven list in return for subsequent calls."
+        }
+      },
+      "expirationSeconds": 900
+    },
     "member_career": {
       "link": "https://members-ng.iracing.com/data/stats/member_career",
       "parameters": {
@@ -473,7 +585,8 @@
           "type": "number",
           "note": "Defaults to the authenticated member."
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "member_division": {
       "link": "https://members-ng.iracing.com/data/stats/member_division",
@@ -488,7 +601,8 @@
           "required": true,
           "note": "The event type code for the division type: 4 - Time Trial; 5 - Race"
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "member_recent_races": {
       "link": "https://members-ng.iracing.com/data/stats/member_recent_races",
@@ -497,7 +611,8 @@
           "type": "number",
           "note": "Defaults to the authenticated member."
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "member_summary": {
       "link": "https://members-ng.iracing.com/data/stats/member_summary",
@@ -506,7 +621,8 @@
           "type": "number",
           "note": "Defaults to the authenticated member."
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "member_yearly": {
       "link": "https://members-ng.iracing.com/data/stats/member_yearly",
@@ -515,7 +631,8 @@
           "type": "number",
           "note": "Defaults to the authenticated member."
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "season_driver_standings": {
       "link": "https://members-ng.iracing.com/data/stats/season_driver_standings",
@@ -528,11 +645,20 @@
           "type": "number",
           "required": true
         },
+        "club_id": {
+          "type": "number",
+          "note": "Defaults to all (-1)."
+        },
+        "division": {
+          "type": "number",
+          "note": "Divisions are 0-based: 0 is Division 1, 10 is Rookie. See /data/constants/divisons for more information. Defaults to all."
+        },
         "race_week_num": {
           "type": "number",
           "note": "The first race week of a season is 0."
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "season_supersession_standings": {
       "link": "https://members-ng.iracing.com/data/stats/season_supersession_standings",
@@ -545,11 +671,20 @@
           "type": "number",
           "required": true
         },
+        "club_id": {
+          "type": "number",
+          "note": "Defaults to all (-1)."
+        },
+        "division": {
+          "type": "number",
+          "note": "Divisions are 0-based: 0 is Division 1, 10 is Rookie. See /data/constants/divisons for more information. Defaults to all."
+        },
         "race_week_num": {
           "type": "number",
           "note": "The first race week of a season is 0."
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "season_team_standings": {
       "link": "https://members-ng.iracing.com/data/stats/season_team_standings",
@@ -566,7 +701,8 @@
           "type": "number",
           "note": "The first race week of a season is 0."
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "season_tt_standings": {
       "link": "https://members-ng.iracing.com/data/stats/season_tt_standings",
@@ -579,11 +715,20 @@
           "type": "number",
           "required": true
         },
+        "club_id": {
+          "type": "number",
+          "note": "Defaults to all (-1)."
+        },
+        "division": {
+          "type": "number",
+          "note": "Divisions are 0-based: 0 is Division 1, 10 is Rookie. See /data/constants/divisons for more information. Defaults to all."
+        },
         "race_week_num": {
           "type": "number",
           "note": "The first race week of a season is 0."
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "season_tt_results": {
       "link": "https://members-ng.iracing.com/data/stats/season_tt_results",
@@ -600,8 +745,17 @@
           "type": "number",
           "required": true,
           "note": "The first race week of a season is 0."
+        },
+        "club_id": {
+          "type": "number",
+          "note": "Defaults to all (-1)."
+        },
+        "division": {
+          "type": "number",
+          "note": "Divisions are 0-based: 0 is Division 1, 10 is Rookie. See /data/constants/divisons for more information. Defaults to all."
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "season_qualify_results": {
       "link": "https://members-ng.iracing.com/data/stats/season_qualify_results",
@@ -618,8 +772,17 @@
           "type": "number",
           "required": true,
           "note": "The first race week of a season is 0."
+        },
+        "club_id": {
+          "type": "number",
+          "note": "Defaults to all (-1)."
+        },
+        "division": {
+          "type": "number",
+          "note": "Divisions are 0-based: 0 is Division 1, 10 is Rookie. See /data/constants/divisons for more information. Defaults to all."
         }
-      }
+      },
+      "expirationSeconds": 900
     },
     "world_records": {
       "link": "https://members-ng.iracing.com/data/stats/world_records",
@@ -640,7 +803,8 @@
           "type": "number",
           "note": "Limit best times to a given quarter; only applicable when year is used."
         }
-      }
+      },
+      "expirationSeconds": 900
     }
   },
   "team": {
@@ -655,7 +819,8 @@
           "type": "boolean",
           "note": "For faster responses, only request when necessary."
         }
-      }
+      },
+      "expirationSeconds": 900
     }
   },
   "track": {
@@ -663,10 +828,12 @@
       "link": "https://members-ng.iracing.com/data/track/assets",
       "note": [
         "image paths are relative to https://images-static.iracing.com/"
-      ]
+      ],
+      "expirationSeconds": 900
     },
     "get": {
-      "link": "https://members-ng.iracing.com/data/track/get"
+      "link": "https://members-ng.iracing.com/data/track/get",
+      "expirationSeconds": 900
     }
   }
 }
