@@ -44,6 +44,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(carAssets.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(carAssets.TotalRateLimit, Is.EqualTo(100));
         Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(carAssets.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -60,6 +61,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(cars.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(cars.TotalRateLimit, Is.EqualTo(100));
         Assert.That(cars.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(cars.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -76,6 +78,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(carClasses.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(carClasses.TotalRateLimit, Is.EqualTo(100));
         Assert.That(carClasses.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(carClasses.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -161,6 +164,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(lookupGroups.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(lookupGroups.TotalRateLimit, Is.EqualTo(100));
         Assert.That(lookupGroups.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(lookupGroups.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -177,6 +181,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(carAssets.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(carAssets.TotalRateLimit, Is.EqualTo(100));
         Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(carAssets.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -196,6 +201,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(carAssets.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(carAssets.TotalRateLimit, Is.EqualTo(100));
         Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(carAssets.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -213,6 +219,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(carAssets.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(carAssets.TotalRateLimit, Is.EqualTo(100));
         Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(carAssets.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -228,6 +235,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(myInfo.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(myInfo.TotalRateLimit, Is.EqualTo(100));
         Assert.That(myInfo.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(myInfo.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -252,9 +260,11 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(tracks!.Data, Is.Not.Null);
 
         Assert.That(tracks.Data, Has.Length.EqualTo(332));
+
         Assert.That(tracks.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(tracks.TotalRateLimit, Is.EqualTo(100));
         Assert.That(tracks.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(tracks.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -271,6 +281,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(seasons.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(seasons.TotalRateLimit, Is.EqualTo(100));
         Assert.That(seasons.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(seasons.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
 
 #if NET6_0_OR_GREATER
         Assert.That(seasons.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateOnly(2022, 02, 15)));
@@ -293,6 +304,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(seasonsAndSeries.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(seasonsAndSeries.TotalRateLimit, Is.EqualTo(100));
         Assert.That(seasonsAndSeries.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(seasonsAndSeries.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
 
 #if NET6_0_OR_GREATER
         Assert.That(seasonsAndSeries.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateOnly(2022, 02, 15)));
@@ -313,6 +325,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(statsSeriesResponse.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(statsSeriesResponse.TotalRateLimit, Is.EqualTo(100));
         Assert.That(statsSeriesResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(statsSeriesResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -328,6 +341,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(seriesResponse.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(seriesResponse.TotalRateLimit, Is.EqualTo(100));
         Assert.That(seriesResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(seriesResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -343,6 +357,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(seriesResponse.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(seriesResponse.TotalRateLimit, Is.EqualTo(100));
         Assert.That(seriesResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(seriesResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -375,6 +390,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(trackAssets.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(trackAssets.TotalRateLimit, Is.EqualTo(100));
         Assert.That(trackAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(trackAssets.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -403,6 +419,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(memberStats.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
         Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(memberStats.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -420,6 +437,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(memberStats.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
         Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(memberStats.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -437,6 +455,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(memberSummaryResponse.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(memberSummaryResponse.TotalRateLimit, Is.EqualTo(100));
         Assert.That(memberSummaryResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(memberSummaryResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -452,6 +471,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(memberDivisionResponse.Data.Success, Is.True);
         Assert.That(memberDivisionResponse.Data.SeasonId, Is.EqualTo(1234));
         Assert.That(memberDivisionResponse.Data.EventType, Is.EqualTo(Common.EventType.Race));
+        Assert.That(memberDivisionResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -467,6 +487,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(memberStats.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
         Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(memberStats.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -482,6 +503,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(memberStats.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
         Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(memberStats.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -505,6 +527,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(lapChartResponse.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
         Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(lapChartResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -523,6 +546,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(seasonDriverStandingsResponse.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(seasonDriverStandingsResponse.TotalRateLimit, Is.EqualTo(100));
         Assert.That(seasonDriverStandingsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(seasonDriverStandingsResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -546,7 +570,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(lapChartResponse.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
         Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-
+        Assert.That(lapChartResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -581,6 +605,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(lapChartResponse.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
         Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(lapChartResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -611,6 +636,11 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var raceResults = subSessionResultResponse.Data.SessionResults.Single(r => r.SimSessionName == "RACE");
         Assert.That(raceResults.Results, Has.All.Property(nameof(Result.DriverResults)).Null); // Single-driver events don't have driver results.
+
+        Assert.That(subSessionResultResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -638,6 +668,11 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(racingSociety?.DriverResults, Has.Length.EqualTo(2));
         Assert.That(racingSociety?.DriverResults, Has.One.Property(nameof(DriverResult.CustomerId)).EqualTo(696075));
         Assert.That(racingSociety?.DriverResults, Has.One.Property(nameof(DriverResult.CustomerId)).EqualTo(669671));
+
+        Assert.That(subSessionResultResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -659,6 +694,11 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(subSessionResultResponse.Data.LeagueName, Is.EqualTo("Snail Speed Racing - GT3 League"));
         Assert.That(subSessionResultResponse.Data.LeagueSeasonName, Is.EqualTo("2022-S2"));
         Assert.That(subSessionResultResponse.Data.HostId, Is.EqualTo(411093));
+
+        Assert.That(subSessionResultResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -696,6 +736,11 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(subSessionResultResponse!.Data, Is.Not.Null);
         Assert.That(subSessionResultResponse.Data.Header, Is.Not.Null);
         Assert.That(subSessionResultResponse.Data.LogItems, Is.Not.Null);
+
+        Assert.That(subSessionResultResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -727,6 +772,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(lapChartResponse.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
         Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(lapChartResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -747,6 +793,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(timeTrialResponse.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(timeTrialResponse.TotalRateLimit, Is.EqualTo(100));
         Assert.That(timeTrialResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(timeTrialResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -767,6 +814,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(timeTrialResponse.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(timeTrialResponse.TotalRateLimit, Is.EqualTo(100));
         Assert.That(timeTrialResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(timeTrialResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -787,6 +835,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(timeTrialResponse.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(timeTrialResponse.TotalRateLimit, Is.EqualTo(100));
         Assert.That(timeTrialResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(timeTrialResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -855,6 +904,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(memberChartResponse.Data.Success, Is.True);
         Assert.That(memberChartResponse.Data.Points, Has.Length.EqualTo(104));
         Assert.That(memberChartResponse.Data.ChartType, Is.EqualTo(Member.MemberChartType.IRating));
+        Assert.That(memberChartResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -869,6 +919,11 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(leagueDirectoryResponse.Data, Is.Not.Null);
 
         Assert.That(leagueDirectoryResponse.Data.Success, Is.True);
+
+        Assert.That(leagueDirectoryResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(leagueDirectoryResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(leagueDirectoryResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(leagueDirectoryResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -885,5 +940,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(listSeasonsResponse.Data, Has.Property(nameof(ListOfSeasons.SeasonQuarter)).EqualTo(1));
         Assert.That(listSeasonsResponse.Data, Has.Property(nameof(ListOfSeasons.Seasons)).Not.Null.Or.Empty);
         Assert.That(listSeasonsResponse.Data.Seasons, Has.Length.EqualTo(126));
+
+        Assert.That(listSeasonsResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(listSeasonsResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(listSeasonsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(listSeasonsResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 }

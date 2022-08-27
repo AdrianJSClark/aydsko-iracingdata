@@ -5,6 +5,7 @@
     "x-ratelimit-reset": "1644451200"
   },
   "content": {
-    "link": "https://scorpio-assets.s3.amazonaws.com/production/data-server/cache/data-services/track/get/232ba08f-b086-46f7-a11a-c93a12f5aebb?AWSAccessKeyId=AKIAUO6OO4A3357USLO7&Expires=1645791048&Signature=gkN94l6AmLbCenaMpDx0fDVNHl0%3D"
+    "link": "https://scorpio-assets.s3.amazonaws.com/production/data-server/cache/data-services/track/get/232ba08f-b086-46f7-a11a-c93a12f5aebb?AWSAccessKeyId=AKIAUO6OO4A3357USLO7&Expires=1645791048&Signature=gkN94l6AmLbCenaMpDx0fDVNHl0%3D",
+    "expires": "2022-08-27T11:23:19.507Z"
   }
 }

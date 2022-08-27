@@ -1,7 +1,8 @@
 {
     "statuscode": 400,
     "headers": {},
-    "content": {
-        "link": "https://scorpio-assets.s3.amazonaws.com/production/data-server/cache/data-services/results/season_results/869b8e16-351c-4780-85ad-3e5a100a8078?AWSAccessKeyId=AKIAUO6OO4A3357USLO7&Expires=1645965500&Signature=g3Zv8UntiEyQsIsgNNNSgpNEWDM%3D"
-      }
+  "content": {
+    "link": "https://scorpio-assets.s3.amazonaws.com/production/data-server/cache/data-services/results/season_results/869b8e16-351c-4780-85ad-3e5a100a8078?AWSAccessKeyId=AKIAUO6OO4A3357USLO7&Expires=1645965500&Signature=g3Zv8UntiEyQsIsgNNNSgpNEWDM%3D",
+    "expires": "2022-08-27T11:23:19.507Z"
+  }
 }
