@@ -1,9 +1,17 @@
 ﻿// © 2022 Adrian Clark
 // This file is licensed to you under the MIT license.
 
+using System.Globalization;
+using System.Net;
+using System.Net.Http.Headers;
+using System.Net.Http.Json;
+using System.Security.Cryptography;
+using System.Text;
+using System.Text.Json.Serialization.Metadata;
 using Aydsko.iRacingData.Cars;
 using Aydsko.iRacingData.Constants;
 using Aydsko.iRacingData.Exceptions;
+using Aydsko.iRacingData.Hosted;
 using Aydsko.iRacingData.Leagues;
 using Aydsko.iRacingData.Lookups;
 using Aydsko.iRacingData.Member;
@@ -13,13 +21,6 @@ using Aydsko.iRacingData.Series;
 using Aydsko.iRacingData.Stats;
 using Aydsko.iRacingData.Tracks;
 using Microsoft.AspNetCore.WebUtilities;
-using System.Globalization;
-using System.Net;
-using System.Net.Http.Headers;
-using System.Net.Http.Json;
-using System.Security.Cryptography;
-using System.Text;
-using System.Text.Json.Serialization.Metadata;
 
 namespace Aydsko.iRacingData;
 

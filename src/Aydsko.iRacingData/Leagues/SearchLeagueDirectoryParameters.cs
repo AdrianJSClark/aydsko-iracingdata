@@ -1,6 +1,4 @@
-﻿using Aydsko.iRacingData.Converters;
-
-namespace Aydsko.iRacingData.Leagues;
+﻿namespace Aydsko.iRacingData.Leagues;
 
 public class SearchLeagueDirectoryParameters
 {
