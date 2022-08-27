@@ -1309,4 +1309,9 @@ internal class DataClient : IDataClient
 
         return response;
     }
+
+    public Task<DataResponse<CombinedSessionsResult>> ListHostedSessionsCombinedAsync(int? packageId = null, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
+    }
 }

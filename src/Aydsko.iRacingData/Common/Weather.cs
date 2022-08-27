@@ -1,10 +1,13 @@
 ﻿// © 2022 Adrian Clark
 // This file is licensed to you under the MIT license.
 
-namespace Aydsko.iRacingData.Results;
+namespace Aydsko.iRacingData.Common;
 
 public class Weather
 {
+    [JsonPropertyName("version")]
+    public int Version { get; set; }
+
     [JsonPropertyName("type")]
     public int Type { get; set; }
 
@@ -40,10 +43,4 @@ public class Weather
 
     [JsonPropertyName("time_of_day")]
     public int TimeOfDay { get; set; }
-
-    [JsonPropertyName("simulated_start_utc_time")]
-    public DateTimeOffset SimulatedStartUtcTime { get; set; }
-
-    [JsonPropertyName("simulated_start_utc_offset")]
-    public int SimulatedStartUtcOffset { get; set; }
 }
