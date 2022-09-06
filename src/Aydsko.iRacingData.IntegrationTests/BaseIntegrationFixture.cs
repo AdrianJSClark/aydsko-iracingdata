@@ -29,6 +29,7 @@ public class BaseIntegrationFixture : IDisposable
                                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
                                 .AddJsonFile("appsettings.json", false)
                                 .AddUserSecrets(typeof(MemberInfoTest).Assembly)
+                                .AddEnvironmentVariables("IRACINGDATA_")
                                 .Build();
 
         _cookieContainer = new CookieContainer();
