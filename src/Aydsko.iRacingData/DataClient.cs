@@ -12,7 +12,6 @@ using System.Text.Json.Serialization.Metadata;
 using Aydsko.iRacingData.Cars;
 using Aydsko.iRacingData.Constants;
 using Aydsko.iRacingData.Exceptions;
-using Aydsko.iRacingData.Hosted;
 using Aydsko.iRacingData.Leagues;
 using Aydsko.iRacingData.Lookups;
 using Aydsko.iRacingData.Member;
@@ -528,19 +527,27 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Standings)>> GetSeasonDriverStandingsAsync(int seasonId, int carClassId, int raceWeekNumber, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Standings)>> GetSeasonDriverStandingsAsync(int seasonId, int carClassId, int raceWeekNumber, int clubId = -1, int? division = null, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
         {
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_driver_standings", new Dictionary<string, string>
+        var queryParams = new Dictionary<string, string>
         {
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
             ["race_week_num"] = raceWeekNumber.ToString(CultureInfo.InvariantCulture),
-        });
+            ["club_id"] = clubId.ToString(CultureInfo.InvariantCulture),
+        };
+
+        if (division is int divisionValue)
+        {
+            queryParams.Add("division", divisionValue.ToString(CultureInfo.InvariantCulture));
+        }
+
+        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_driver_standings", queryParams);
 
         (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonDriverStandingsHeaderContext.Default.SeasonDriverStandingsHeader, cancellationToken).ConfigureAwait(false);
 
@@ -575,21 +582,29 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<(SeasonQualifyResultsHeader Header, SeasonQualifyResult[] Results)>> GetSeasonQualifyResultsAsync(int seasonId, int carClassId, int raceWeekNumber, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<(SeasonQualifyResultsHeader Header, SeasonQualifyResult[] Results)>> GetSeasonQualifyResultsAsync(int seasonId, int carClassId, int raceWeekNumber, int clubId = -1, int? division = null, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
         {
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_driver_standings", new Dictionary<string, string>
+        var queryParams = new Dictionary<string, string>
         {
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
             ["race_week_num"] = raceWeekNumber.ToString(CultureInfo.InvariantCulture),
-        });
+            ["club_id"] = clubId.ToString(CultureInfo.InvariantCulture),
+        };
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonQualifyResultsHeaderContext.Default.SeasonQualifyResultsHeader, cancellationToken).ConfigureAwait(false);
+        if (division is int divisionValue)
+        {
+            queryParams.Add("division", divisionValue.ToString(CultureInfo.InvariantCulture));
+        }
+
+        var qualifyResultsUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_qualify_results", queryParams);
+
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(qualifyResultsUrl), SeasonQualifyResultsHeaderContext.Default.SeasonQualifyResultsHeader, cancellationToken).ConfigureAwait(false);
 
         var seasonQualifyResults = new List<SeasonQualifyResult>();
 
@@ -622,19 +637,27 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<(SeasonTimeTrialResultsHeader Header, SeasonTimeTrialResult[] Results)>> GetSeasonTimeTrialResultsAsync(int seasonId, int carClassId, int raceWeekNumber, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<(SeasonTimeTrialResultsHeader Header, SeasonTimeTrialResult[] Results)>> GetSeasonTimeTrialResultsAsync(int seasonId, int carClassId, int raceWeekNumber, int clubId = -1, int? division = null, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
         {
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_tt_results", new Dictionary<string, string>
+        var resultsStatsSearchParams = new Dictionary<string, string>
         {
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
             ["race_week_num"] = raceWeekNumber.ToString(CultureInfo.InvariantCulture),
-        });
+            ["club_id"] = clubId.ToString(CultureInfo.InvariantCulture),
+        };
+
+        if (division is int divisionValue)
+        {
+            resultsStatsSearchParams.Add("division", divisionValue.ToString(CultureInfo.InvariantCulture));
+        }
+
+        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_tt_results", resultsStatsSearchParams);
 
         (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonTimeTrialResultsHeaderContext.Default.SeasonTimeTrialResultsHeader, cancellationToken).ConfigureAwait(false);
 
@@ -669,19 +692,27 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<(SeasonTimeTrialStandingsHeader Header, SeasonTimeTrialStanding[] Standings)>> GetSeasonTimeTrialStandingsAsync(int seasonId, int carClassId, int raceWeekNumber, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<(SeasonTimeTrialStandingsHeader Header, SeasonTimeTrialStanding[] Standings)>> GetSeasonTimeTrialStandingsAsync(int seasonId, int carClassId, int raceWeekNumber, int clubId = -1, int? division = null, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
         {
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_tt_standings", new Dictionary<string, string>
+        var resultsStatsSearchParams = new Dictionary<string, string>
         {
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
             ["race_week_num"] = raceWeekNumber.ToString(CultureInfo.InvariantCulture),
-        });
+            ["club_id"] = clubId.ToString(CultureInfo.InvariantCulture),
+        };
+
+        if (division is int divisionValue)
+        {
+            resultsStatsSearchParams.Add("division", divisionValue.ToString(CultureInfo.InvariantCulture));
+        }
+
+        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_tt_standings", resultsStatsSearchParams);
 
         (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonTimeTrialStandingsHeaderContext.Default.SeasonTimeTrialStandingsHeader, cancellationToken).ConfigureAwait(false);
 

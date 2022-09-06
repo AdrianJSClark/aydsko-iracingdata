@@ -4,7 +4,6 @@
 using Aydsko.iRacingData.Cars;
 using Aydsko.iRacingData.Constants;
 using Aydsko.iRacingData.Exceptions;
-using Aydsko.iRacingData.Hosted;
 using Aydsko.iRacingData.Leagues;
 using Aydsko.iRacingData.Lookups;
 using Aydsko.iRacingData.Member;
@@ -186,45 +185,53 @@ public interface IDataClient
     /// <param name="seasonId">Unique identifier for the racing season.</param>
     /// <param name="carClassId">Car class identifier. See <see cref="GetCarClassesAsync(CancellationToken)" />.</param>
     /// <param name="raceWeekNumber">Week number within the given season, starting with 0 for the first week.</param>
+    /// <param name="clubId">Club identifier to search. Defaults to "all" (-1).</param>
+    /// <param name="division">Division to search. Note that divisions are zero-based. See <see cref="GetDivisionsAsync(CancellationToken)"/>.</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A header with overall series information and an array of standings.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
-    Task<DataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Standings)>> GetSeasonDriverStandingsAsync(int seasonId, int carClassId, int raceWeekNumber, CancellationToken cancellationToken = default);
+    Task<DataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Standings)>> GetSeasonDriverStandingsAsync(int seasonId, int carClassId, int raceWeekNumber, int clubId = -1, int? division = null, CancellationToken cancellationToken = default);
 
     /// <summary>Retrieve the qualifying results for a season.</summary>
     /// <param name="seasonId">Unique identifier for the racing season.</param>
     /// <param name="carClassId">Car class identifier. See <see cref="GetCarClassesAsync(CancellationToken)" />.</param>
     /// <param name="raceWeekNumber">Week number within the given season, starting with 0 for the first week.</param>
+    /// <param name="clubId">Club identifier to search. Defaults to "all" (-1).</param>
+    /// <param name="division">Division to search. Note that divisions are zero-based. See <see cref="GetDivisionsAsync(CancellationToken)"/>.</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A header with overall series information and an array of qualifying results.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
-    Task<DataResponse<(SeasonQualifyResultsHeader Header, SeasonQualifyResult[] Results)>> GetSeasonQualifyResultsAsync(int seasonId, int carClassId, int raceWeekNumber, CancellationToken cancellationToken = default);
+    Task<DataResponse<(SeasonQualifyResultsHeader Header, SeasonQualifyResult[] Results)>> GetSeasonQualifyResultsAsync(int seasonId, int carClassId, int raceWeekNumber, int clubId = -1, int? division = null, CancellationToken cancellationToken = default);
 
     /// <summary>Retrieve the time trial results for a season.</summary>
     /// <param name="seasonId">Unique identifier for the racing season.</param>
     /// <param name="carClassId">Car class identifier. See <see cref="GetCarClassesAsync(CancellationToken)" />.</param>
     /// <param name="raceWeekNumber">Week number within the given season, starting with 0 for the first week.</param>
+    /// <param name="clubId">Club identifier to search. Defaults to "all" (-1).</param>
+    /// <param name="division">Division to search. Note that divisions are zero-based. See <see cref="GetDivisionsAsync(CancellationToken)"/>.</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A header with overall series information and an array of time trial results.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
-    Task<DataResponse<(SeasonTimeTrialResultsHeader Header, SeasonTimeTrialResult[] Results)>> GetSeasonTimeTrialResultsAsync(int seasonId, int carClassId, int raceWeekNumber, CancellationToken cancellationToken = default);
+    Task<DataResponse<(SeasonTimeTrialResultsHeader Header, SeasonTimeTrialResult[] Results)>> GetSeasonTimeTrialResultsAsync(int seasonId, int carClassId, int raceWeekNumber, int clubId = -1, int? division = null, CancellationToken cancellationToken = default);
 
     /// <summary>Retrieve the time trial standings for a season.</summary>
     /// <param name="seasonId">Unique identifier for the racing season.</param>
     /// <param name="carClassId">Car class identifier. See <see cref="GetCarClassesAsync(CancellationToken)" />.</param>
     /// <param name="raceWeekNumber">Week number within the given season, starting with 0 for the first week.</param>
+    /// <param name="clubId">Club identifier to search. Defaults to "all" (-1).</param>
+    /// <param name="division">Division to search. Note that divisions are zero-based. See <see cref="GetDivisionsAsync(CancellationToken)"/>.</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A header with overall series information and an array of time trial standings.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
-    Task<DataResponse<(SeasonTimeTrialStandingsHeader Header, SeasonTimeTrialStanding[] Standings)>> GetSeasonTimeTrialStandingsAsync(int seasonId, int carClassId, int raceWeekNumber, CancellationToken cancellationToken = default);
+    Task<DataResponse<(SeasonTimeTrialStandingsHeader Header, SeasonTimeTrialStanding[] Standings)>> GetSeasonTimeTrialStandingsAsync(int seasonId, int carClassId, int raceWeekNumber, int clubId = -1, int? division = null, CancellationToken cancellationToken = default);
 
     /// <summary>Retrieve the team standings for a season.</summary>
     /// <param name="seasonId">Unique identifier for the racing season.</param>
