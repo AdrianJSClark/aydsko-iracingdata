@@ -58,6 +58,7 @@
       <_Parameter4_IsLiteral>true</_Parameter4_IsLiteral>
     </AssemblyAttribute>
     <InternalsVisibleTo Include="LINQPadQuery" />
+    <InternalsVisibleTo Include="Aydsko.iRacingData.IntegrationTests" />
   </ItemGroup>
 
   <ItemGroup>
