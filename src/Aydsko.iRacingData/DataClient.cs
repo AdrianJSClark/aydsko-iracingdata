@@ -994,27 +994,31 @@ internal class DataClient : IDataClient
 
         (var headers, var header) = await GetResponseAsync(new Uri(searchHostedUrl), OfficialSearchResultHeaderContext.Default.OfficialSearchResultHeader, cancellationToken).ConfigureAwait(false);
 
-        var baseChunkUrl = new Uri(header.Data.ChunkInfo.BaseDownloadUrl);
         var searchResults = new List<OfficialSearchResultItem>();
 
-        foreach (var (chunkFileName, index) in header.Data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        if (header.Data.ChunkInfo.NumberOfChunks > 0)
         {
-            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+            var baseChunkUrl = new Uri(header.Data.ChunkInfo.BaseDownloadUrl);
 
-            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
-            if (!chunkResponse.IsSuccessStatusCode)
+            foreach (var (chunkFileName, index) in header.Data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
             {
-                logger.FailedToRetrieveChunkError(index, header.Data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
-                continue;
-            }
+                var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
-            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(OfficialSearchResultItemArrayContext.Default.OfficialSearchResultItemArray, cancellationToken).ConfigureAwait(false);
-            if (chunkData is null)
-            {
-                continue;
-            }
+                var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+                if (!chunkResponse.IsSuccessStatusCode)
+                {
+                    logger.FailedToRetrieveChunkError(index, header.Data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    continue;
+                }
 
-            searchResults.AddRange(chunkData);
+                var chunkData = await chunkResponse.Content.ReadFromJsonAsync(OfficialSearchResultItemArrayContext.Default.OfficialSearchResultItemArray, cancellationToken).ConfigureAwait(false);
+                if (chunkData is null)
+                {
+                    continue;
+                }
+
+                searchResults.AddRange(chunkData);
+            }
         }
 
         return BuildDataResponse<(OfficialSearchResultHeader Header, OfficialSearchResultItem[] Results)>(headers, (header, searchResults.ToArray()), logger);

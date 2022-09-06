@@ -58,6 +58,7 @@
       <_Parameter4_IsLiteral>true</_Parameter4_IsLiteral>
     </AssemblyAttribute>
     <InternalsVisibleTo Include="LINQPadQuery" />
+    <InternalsVisibleTo Include="Aydsko.iRacingData.IntegrationTests" />
   </ItemGroup>
 
   <ItemGroup>
@@ -67,11 +68,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="MinVer" Version="3.1.0">
+    <PackageReference Include="MinVer" Version="4.2.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Text.Json" Version="6.0.3" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
+    <PackageReference Include="System.Text.Json" Version="6.0.5" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
     <PackageReference Include="System.Net.Http.Json" Version="6.0.0" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
   </ItemGroup>
 

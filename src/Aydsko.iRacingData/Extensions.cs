@@ -43,14 +43,17 @@ static internal class Extensions
             return;
         }
 
+#pragma warning disable CA1308 // Normalize strings to uppercase
         var parameterStringValue = parameterValue switch
         {
             string stringParam => stringParam,
             DateTime dateTimeParam => dateTimeParam.ToString("yyyy-MM-dd\\THH:mm\\Z", CultureInfo.InvariantCulture),
             Array arrayParam => string.Join(",", GetNonNullValues(arrayParam)),
             IEnumerable<string> enumerableOfString => string.Join(",", enumerableOfString),
+            bool boolParam => boolParam.ToString().ToLowerInvariant(),
             _ => Convert.ToString(parameterValue, CultureInfo.InvariantCulture)
         };
+#pragma warning restore CA1308 // Normalize strings to uppercase
 
         var propNameAttr = paramMemberExp.Member.GetCustomAttributes<JsonPropertyNameAttribute>().FirstOrDefault();
         var parameterName = propNameAttr?.Name ?? paramMemberExp.Member.Name;
