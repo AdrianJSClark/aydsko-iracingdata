@@ -46,6 +46,8 @@ jobs:
         shell: pwsh
         working-directory: src
         run: dotnet test -c Release --no-build --collect:"XPlat Code Coverage"
+        env:
+          IRACINGDATA_IRACINGDATA__PASSWORD: ${{ secrets.IRACING_PASSWORD }}
 
       - uses: actions/upload-artifact@v2
         if: success() || failure()
