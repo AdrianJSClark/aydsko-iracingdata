@@ -17,7 +17,7 @@ public class ResultsSearchSeriesTest : BaseIntegrationFixture
             ParticipantCustomerId = 341554
         };
 
-        var searchResults = await Client.SearchOfficialResultsAsync(searchParameters);
+        var searchResults = await Client.SearchOfficialResultsAsync(searchParameters).ConfigureAwait(false);
 
         Assert.That(searchResults, Is.Not.Null);
         Assert.That(searchResults.Data.Header, Is.Not.Null);
@@ -38,7 +38,7 @@ public class ResultsSearchSeriesTest : BaseIntegrationFixture
             CategoryIds = new[] { 1 }
         };
 
-        var searchResults = await Client.SearchOfficialResultsAsync(searchParameters);
+        var searchResults = await Client.SearchOfficialResultsAsync(searchParameters).ConfigureAwait(false);
 
         Assert.That(searchResults, Is.Not.Null);
         Assert.That(searchResults.Data.Header, Is.Not.Null);

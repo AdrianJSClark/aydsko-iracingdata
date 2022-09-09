@@ -801,7 +801,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSeasonTimeTrialStandingsSuccessfulAsync)).ConfigureAwait(false);
 
-        var timeTrialResponse = await sut.GetSeasonTimeTrialStandingsAsync(3587, 71, 0, CancellationToken.None).ConfigureAwait(false);
+        var timeTrialResponse = await sut.GetSeasonTimeTrialStandingsAsync(3587, 71, 0, cancellationToken: CancellationToken.None).ConfigureAwait(false);
 
         Assert.That(timeTrialResponse, Is.Not.Null);
         Assert.That(timeTrialResponse!.Data, Is.Not.Null);
