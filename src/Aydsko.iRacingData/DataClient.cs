@@ -7,6 +7,7 @@ using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Security.Cryptography;
 using System.Text;
+using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 using Aydsko.iRacingData.Cars;
 using Aydsko.iRacingData.Constants;
@@ -1204,16 +1205,19 @@ internal class DataClient : IDataClient
     }
 #pragma warning restore CA1308 // Normalize strings to uppercase
 
+    private const string RateLimitExceededContent = "Rate limit exceeded";
+
     private async Task<(HttpResponseHeaders Headers, TData Data, DateTimeOffset? Expires)> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
     {
         var infoLinkResponse = await httpClient.GetAsync(infoLinkUri, cancellationToken).ConfigureAwait(false);
-        if (!infoLinkResponse.IsSuccessStatusCode)
+        var content = await infoLinkResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+        if (!infoLinkResponse.IsSuccessStatusCode || content == RateLimitExceededContent)
         {
-            await HandleUnsuccessfulResponseAsync(infoLinkResponse, logger).ConfigureAwait(false);
+            HandleUnsuccessfulResponse(infoLinkResponse, content, logger);
         }
 
-        var infoLink = await infoLinkResponse.Content.ReadFromJsonAsync(LinkResultContext.Default.LinkResult, cancellationToken)
-                                                     .ConfigureAwait(false);
+        var infoLink = JsonSerializer.Deserialize(content, LinkResultContext.Default.LinkResult);
         if (infoLink?.Link is null)
         {
             throw new iRacingDataClientException("Unrecognised result.");
@@ -1232,9 +1236,14 @@ internal class DataClient : IDataClient
     private async Task<(HttpResponseHeaders Headers, TData Data)> GetResponseAsync<TData>(Uri iRacingUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
     {
         var response = await httpClient.GetAsync(iRacingUri, cancellationToken).ConfigureAwait(false);
-        if (!response.IsSuccessStatusCode)
+
+        // This isn't the most performant way of going here, but annoyingly if you exceed the rate limit it isn't an issue just
+        // the string "Rate limit exceeded" so we need the string to check that.
+        var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+        if (!response.IsSuccessStatusCode || responseContent == RateLimitExceededContent)
         {
-            await HandleUnsuccessfulResponseAsync(response, logger).ConfigureAwait(false);
+            HandleUnsuccessfulResponse(response, responseContent, logger);
         }
 
         var data = await response.Content.ReadFromJsonAsync(jsonTypeInfo, cancellationToken: cancellationToken)
@@ -1247,18 +1256,29 @@ internal class DataClient : IDataClient
         return (response.Headers, data);
     }
 
-    private async Task HandleUnsuccessfulResponseAsync(HttpResponseMessage httpResponse, ILogger logger)
+    private void HandleUnsuccessfulResponse(HttpResponseMessage httpResponse, string content, ILogger logger)
     {
-        var errorResponse = await httpResponse.Content.ReadFromJsonAsync<ErrorResponse>(cancellationToken: CancellationToken.None)
-                                                  .ConfigureAwait(false);
+        string? errorDescription;
+        Exception? exception;
 
-        Exception? exception = errorResponse switch
+        if (content == "Rate limit exceeded")
         {
-            { ErrorCode: "Site Maintenance" } => new iRacingInMaintenancePeriodException(errorResponse.ErrorDescription ?? "iRacing services are down for maintenance."),
-            { ErrorCode: "Forbidden" } => iRacingForbiddenResponseException.Create(),
-            { ErrorCode: "Unauthorized" } => iRacingUnauthorizedResponseException.Create(),
-            _ => null
-        };
+            errorDescription = content;
+            exception = iRacingRateLimitExceededException.Create();
+        }
+        else
+        {
+            var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(content);
+            errorDescription = errorResponse?.ErrorDescription;
+
+            exception = errorResponse switch
+            {
+                { ErrorCode: "Site Maintenance" } => new iRacingInMaintenancePeriodException(errorResponse.ErrorDescription ?? "iRacing services are down for maintenance."),
+                { ErrorCode: "Forbidden" } => iRacingForbiddenResponseException.Create(),
+                { ErrorCode: "Unauthorized" } => iRacingUnauthorizedResponseException.Create(),
+                _ => null
+            };
+        }
 
         if (exception is null)
         {
@@ -1273,7 +1293,7 @@ internal class DataClient : IDataClient
                 IsLoggedIn = false;
             }
 
-            logger.ErrorResponse(errorResponse!.ErrorDescription, exception);
+            logger.ErrorResponse(errorDescription, exception);
             throw exception;
         }
     }
