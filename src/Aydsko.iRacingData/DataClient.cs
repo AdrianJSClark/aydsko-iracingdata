@@ -283,26 +283,31 @@ internal class DataClient : IDataClient
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SubsessionLapsHeaderContext.Default.SubsessionLapsHeader, cancellationToken).ConfigureAwait(false);
 
-        var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
         var sessionLapsList = new List<SubsessionChartLap>();
-        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
+
+        if (data.ChunkInfo.NumberOfChunks > 0)
         {
-            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+            var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
 
-            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
-            if (!chunkResponse.IsSuccessStatusCode)
+            foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
             {
-                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
-                continue;
-            }
+                var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
-            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SubsessionChartLapArrayContext.Default.SubsessionChartLapArray, cancellationToken).ConfigureAwait(false);
-            if (chunkData is null)
-            {
-                continue;
-            }
+                var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+                if (!chunkResponse.IsSuccessStatusCode)
+                {
+                    logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    continue;
+                }
 
-            sessionLapsList.AddRange(chunkData);
+                var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SubsessionChartLapArrayContext.Default.SubsessionChartLapArray, cancellationToken).ConfigureAwait(false);
+                if (chunkData is null)
+                {
+                    continue;
+                }
+
+                sessionLapsList.AddRange(chunkData);
+            }
         }
 
         return BuildDataResponse<(SubsessionLapsHeader Header, SubsessionChartLap[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
@@ -324,26 +329,31 @@ internal class DataClient : IDataClient
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SubsessionEventLogHeaderContext.Default.SubsessionEventLogHeader, cancellationToken).ConfigureAwait(false);
 
-        var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
         var sessionLapsList = new List<SubsessionEventLogItem>();
-        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
+
+        if (data.ChunkInfo.NumberOfChunks > 0)
         {
-            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+            var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
 
-            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
-            if (!chunkResponse.IsSuccessStatusCode)
+            foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
             {
-                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
-                continue;
-            }
+                var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
-            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SubsessionEventLogItemArrayContext.Default.SubsessionEventLogItemArray, cancellationToken).ConfigureAwait(false);
-            if (chunkData is null)
-            {
-                continue;
-            }
+                var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+                if (!chunkResponse.IsSuccessStatusCode)
+                {
+                    logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    continue;
+                }
 
-            sessionLapsList.AddRange(chunkData);
+                var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SubsessionEventLogItemArrayContext.Default.SubsessionEventLogItemArray, cancellationToken).ConfigureAwait(false);
+                if (chunkData is null)
+                {
+                    continue;
+                }
+
+                sessionLapsList.AddRange(chunkData);
+            }
         }
 
         return BuildDataResponse<(SubsessionEventLogHeader Header, SubsessionEventLogItem[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
@@ -392,26 +402,31 @@ internal class DataClient : IDataClient
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SubsessionLapsHeaderContext.Default.SubsessionLapsHeader, cancellationToken).ConfigureAwait(false);
 
-        var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
         var sessionLapsList = new List<SubsessionLap>();
-        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
+
+        if (data.ChunkInfo.NumberOfChunks > 0)
         {
-            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+            var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
 
-            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
-            if (!chunkResponse.IsSuccessStatusCode)
+            foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
             {
-                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
-                continue;
-            }
+                var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
-            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SubsessionLapArrayContext.Default.SubsessionLapArray, cancellationToken).ConfigureAwait(false);
-            if (chunkData is null)
-            {
-                continue;
-            }
+                var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+                if (!chunkResponse.IsSuccessStatusCode)
+                {
+                    logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    continue;
+                }
 
-            sessionLapsList.AddRange(chunkData);
+                var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SubsessionLapArrayContext.Default.SubsessionLapArray, cancellationToken).ConfigureAwait(false);
+                if (chunkData is null)
+                {
+                    continue;
+                }
+
+                sessionLapsList.AddRange(chunkData);
+            }
         }
 
         return BuildDataResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
@@ -434,26 +449,31 @@ internal class DataClient : IDataClient
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SubsessionLapsHeaderContext.Default.SubsessionLapsHeader, cancellationToken).ConfigureAwait(false);
 
-        var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
         var sessionLapsList = new List<SubsessionLap>();
-        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
+
+        if (data.ChunkInfo.NumberOfChunks > 0)
         {
-            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+            var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
 
-            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
-            if (!chunkResponse.IsSuccessStatusCode)
+            foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
             {
-                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
-                continue;
-            }
+                var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
-            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SubsessionLapArrayContext.Default.SubsessionLapArray, cancellationToken).ConfigureAwait(false);
-            if (chunkData is null)
-            {
-                continue;
-            }
+                var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+                if (!chunkResponse.IsSuccessStatusCode)
+                {
+                    logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    continue;
+                }
 
-            sessionLapsList.AddRange(chunkData);
+                var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SubsessionLapArrayContext.Default.SubsessionLapArray, cancellationToken).ConfigureAwait(false);
+                if (chunkData is null)
+                {
+                    continue;
+                }
+
+                sessionLapsList.AddRange(chunkData);
+            }
         }
 
         return BuildDataResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
@@ -531,26 +551,31 @@ internal class DataClient : IDataClient
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonDriverStandingsHeaderContext.Default.SeasonDriverStandingsHeader, cancellationToken).ConfigureAwait(false);
 
-        var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
         var sessionLapsList = new List<SeasonDriverStanding>();
-        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
+
+        if (data.ChunkInfo.NumberOfChunks > 0)
         {
-            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+            var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
 
-            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
-            if (!chunkResponse.IsSuccessStatusCode)
+            foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
             {
-                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
-                continue;
-            }
+                var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
-            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SeasonDriverStandingArrayContext.Default.SeasonDriverStandingArray, cancellationToken).ConfigureAwait(false);
-            if (chunkData is null)
-            {
-                continue;
-            }
+                var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+                if (!chunkResponse.IsSuccessStatusCode)
+                {
+                    logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    continue;
+                }
 
-            sessionLapsList.AddRange(chunkData);
+                var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SeasonDriverStandingArrayContext.Default.SeasonDriverStandingArray, cancellationToken).ConfigureAwait(false);
+                if (chunkData is null)
+                {
+                    continue;
+                }
+
+                sessionLapsList.AddRange(chunkData);
+            }
         }
 
         return BuildDataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger);
@@ -573,26 +598,31 @@ internal class DataClient : IDataClient
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonQualifyResultsHeaderContext.Default.SeasonQualifyResultsHeader, cancellationToken).ConfigureAwait(false);
 
-        var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
         var seasonQualifyResults = new List<SeasonQualifyResult>();
-        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
+
+        if (data.ChunkInfo.NumberOfChunks > 0)
         {
-            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+            var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
 
-            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
-            if (!chunkResponse.IsSuccessStatusCode)
+            foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
             {
-                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
-                continue;
-            }
+                var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
-            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SeasonQualifyResultArrayContext.Default.SeasonQualifyResultArray, cancellationToken).ConfigureAwait(false);
-            if (chunkData is null)
-            {
-                continue;
-            }
+                var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+                if (!chunkResponse.IsSuccessStatusCode)
+                {
+                    logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    continue;
+                }
 
-            seasonQualifyResults.AddRange(chunkData);
+                var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SeasonQualifyResultArrayContext.Default.SeasonQualifyResultArray, cancellationToken).ConfigureAwait(false);
+                if (chunkData is null)
+                {
+                    continue;
+                }
+
+                seasonQualifyResults.AddRange(chunkData);
+            }
         }
 
         return BuildDataResponse<(SeasonQualifyResultsHeader Header, SeasonQualifyResult[] Standings)>(headers, (data, seasonQualifyResults.ToArray()), logger);
@@ -615,26 +645,31 @@ internal class DataClient : IDataClient
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonTimeTrialResultsHeaderContext.Default.SeasonTimeTrialResultsHeader, cancellationToken).ConfigureAwait(false);
 
-        var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
         var seasonTimeTrialResults = new List<SeasonTimeTrialResult>();
-        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
+
+        if (data.ChunkInfo.NumberOfChunks > 0)
         {
-            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+            var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
 
-            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
-            if (!chunkResponse.IsSuccessStatusCode)
+            foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
             {
-                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
-                continue;
-            }
+                var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
-            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SeasonTimeTrialResultArrayContext.Default.SeasonTimeTrialResultArray, cancellationToken).ConfigureAwait(false);
-            if (chunkData is null)
-            {
-                continue;
-            }
+                var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+                if (!chunkResponse.IsSuccessStatusCode)
+                {
+                    logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    continue;
+                }
 
-            seasonTimeTrialResults.AddRange(chunkData);
+                var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SeasonTimeTrialResultArrayContext.Default.SeasonTimeTrialResultArray, cancellationToken).ConfigureAwait(false);
+                if (chunkData is null)
+                {
+                    continue;
+                }
+
+                seasonTimeTrialResults.AddRange(chunkData);
+            }
         }
 
         return BuildDataResponse<(SeasonTimeTrialResultsHeader Header, SeasonTimeTrialResult[] Standings)>(headers, (data, seasonTimeTrialResults.ToArray()), logger);
@@ -657,26 +692,30 @@ internal class DataClient : IDataClient
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonTimeTrialStandingsHeaderContext.Default.SeasonTimeTrialStandingsHeader, cancellationToken).ConfigureAwait(false);
 
-        var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
         var seasonTimeTrialStandings = new List<SeasonTimeTrialStanding>();
-        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+
+        if (data.ChunkInfo.NumberOfChunks > 0)
         {
-            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
-
-            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
-            if (!chunkResponse.IsSuccessStatusCode)
+            var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
+            foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
             {
-                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
-                continue;
-            }
+                var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
-            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SeasonTimeTrialStandingArrayContext.Default.SeasonTimeTrialStandingArray, cancellationToken).ConfigureAwait(false);
-            if (chunkData is null)
-            {
-                continue;
-            }
+                var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+                if (!chunkResponse.IsSuccessStatusCode)
+                {
+                    logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    continue;
+                }
 
-            seasonTimeTrialStandings.AddRange(chunkData);
+                var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SeasonTimeTrialStandingArrayContext.Default.SeasonTimeTrialStandingArray, cancellationToken).ConfigureAwait(false);
+                if (chunkData is null)
+                {
+                    continue;
+                }
+
+                seasonTimeTrialStandings.AddRange(chunkData);
+            }
         }
 
         return BuildDataResponse<(SeasonTimeTrialStandingsHeader Header, SeasonTimeTrialStanding[] Standings)>(headers, (data, seasonTimeTrialStandings.ToArray()), logger);
@@ -699,26 +738,31 @@ internal class DataClient : IDataClient
 
         (var headers, var data) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonTeamStandingsHeaderContext.Default.SeasonTeamStandingsHeader, cancellationToken).ConfigureAwait(false);
 
-        var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
         var seasonTeamStandings = new List<SeasonTeamStanding>();
-        foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+
+        if (data.ChunkInfo.NumberOfChunks > 0)
         {
-            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+            var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
 
-            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
-            if (!chunkResponse.IsSuccessStatusCode)
+            foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
             {
-                logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
-                continue;
-            }
+                var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
-            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SeasonTeamStandingArrayContext.Default.SeasonTeamStandingArray, cancellationToken).ConfigureAwait(false);
-            if (chunkData is null)
-            {
-                continue;
-            }
+                var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+                if (!chunkResponse.IsSuccessStatusCode)
+                {
+                    logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    continue;
+                }
 
-            seasonTeamStandings.AddRange(chunkData);
+                var chunkData = await chunkResponse.Content.ReadFromJsonAsync(SeasonTeamStandingArrayContext.Default.SeasonTeamStandingArray, cancellationToken).ConfigureAwait(false);
+                if (chunkData is null)
+                {
+                    continue;
+                }
+
+                seasonTeamStandings.AddRange(chunkData);
+            }
         }
 
         return BuildDataResponse<(SeasonTeamStandingsHeader Header, SeasonTeamStanding[] Standings)>(headers, (data, seasonTeamStandings.ToArray()), logger);
@@ -912,28 +956,31 @@ internal class DataClient : IDataClient
         var searchHostedUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/search_hosted", queryParams);
 
         (var headers, var header) = await GetResponseAsync(new Uri(searchHostedUrl), HostedResultsHeaderContext.Default.HostedResultsHeader, cancellationToken).ConfigureAwait(false);
-
-        var baseChunkUrl = new Uri(header.Data.ChunkInfo.BaseDownloadUrl);
+        
         var searchResults = new List<HostedResultItem>();
-
-        foreach (var (chunkFileName, index) in header.Data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+        if (header.Data.ChunkInfo.NumberOfChunks > 0)
         {
-            var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+            var baseChunkUrl = new Uri(header.Data.ChunkInfo.BaseDownloadUrl);
 
-            var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
-            if (!chunkResponse.IsSuccessStatusCode)
+            foreach (var (chunkFileName, index) in header.Data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
             {
-                logger.FailedToRetrieveChunkError(index, header.Data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
-                continue;
-            }
+                var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
-            var chunkData = await chunkResponse.Content.ReadFromJsonAsync(HostedResultItemContext.Default.HostedResultItemArray, cancellationToken).ConfigureAwait(false);
-            if (chunkData is null)
-            {
-                continue;
-            }
+                var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+                if (!chunkResponse.IsSuccessStatusCode)
+                {
+                    logger.FailedToRetrieveChunkError(index, header.Data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    continue;
+                }
 
-            searchResults.AddRange(chunkData);
+                var chunkData = await chunkResponse.Content.ReadFromJsonAsync(HostedResultItemContext.Default.HostedResultItemArray, cancellationToken).ConfigureAwait(false);
+                if (chunkData is null)
+                {
+                    continue;
+                }
+
+                searchResults.AddRange(chunkData);
+            }
         }
 
         return BuildDataResponse<(HostedResultsHeader Header, HostedResultItem[] Results)>(headers, (header, searchResults.ToArray()), logger);
