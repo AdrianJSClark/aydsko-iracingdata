@@ -1,10 +1,16 @@
 ﻿Fixes / Changes:
 
- - TODO
+ - Failed logins now throw a "iRacingLoginFailedException" when the login actually fails.
+ - The "Rate limit exceeded" response is properly handled and throws a "iRacingRateLimitExceededException"
+ - Support added for the "Expires" property for endpoint links
+ - Support added for the "Hosted Combined Sessions" endpoint (/data/hosted/combined_sessions)
+ - "Use2022Season3Login" property has been removed as the new login process is now mandatory
+
 
 
 Contributions:
 
- - TODO
+ - From Matt Carroll (https://github.com/mwcarroll)
+    - Add count check so chunked data properly handles zero result responses
 
 Thanks for helping out with pull requests to the library!
