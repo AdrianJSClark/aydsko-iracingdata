@@ -51,7 +51,7 @@ jobs:
         shell: pwsh
         working-directory: src
         run: dotnet test -c Release --no-build --collect:"XPlat Code Coverage" --filter "TestCategory=Integration"
-        if: ${{ format('{0}', secrets.IRACING_PASSWORD) != '' }}
+        if: ${{ format('{0}', env.IRACINGDATA_IRACINGDATA__PASSWORD) != '' }}
         env:
           IRACINGDATA_IRACINGDATA__PASSWORD: ${{ secrets.IRACING_PASSWORD }}
 
