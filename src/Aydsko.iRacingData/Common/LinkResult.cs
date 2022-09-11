@@ -7,6 +7,8 @@ internal class LinkResult
 {
     [JsonPropertyName("link")]
     public string Link { get; set; } = default!;
+    [JsonPropertyName("expires")]
+    public DateTimeOffset? Expires { get; set; }
 }
 
 [JsonSerializable(typeof(LinkResult)), JsonSourceGenerationOptions(WriteIndented = true)]

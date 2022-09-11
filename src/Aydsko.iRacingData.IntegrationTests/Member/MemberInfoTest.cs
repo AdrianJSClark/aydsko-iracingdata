@@ -8,7 +8,7 @@ public class MemberInfoTest : BaseIntegrationFixture
     [Test]
     public async Task TestMemberInfoAsync()
     {
-        var memberInfo = await Client.GetMyInfoAsync();
+        var memberInfo = await Client.GetMyInfoAsync().ConfigureAwait(false);
 
         Assert.That(memberInfo, Is.Not.Null);
         Assert.That(memberInfo.Data, Is.Not.Null);

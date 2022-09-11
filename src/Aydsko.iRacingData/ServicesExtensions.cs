@@ -1,11 +1,11 @@
 ﻿// © 2022 Adrian Clark
 // This file is licensed to you under the MIT license.
 
+using System.Net;
+using System.Reflection;
 using Aydsko.iRacingData.Exceptions;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
-using System.Net;
-using System.Reflection;
 
 namespace Aydsko.iRacingData;
 

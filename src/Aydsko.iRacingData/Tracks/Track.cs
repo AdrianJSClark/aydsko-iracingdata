@@ -1,8 +1,8 @@
 ﻿// © 2022 Adrian Clark
 // This file is licensed to you under the MIT license.
 
-using Aydsko.iRacingData.Converters;
 using System.Diagnostics.CodeAnalysis;
+using Aydsko.iRacingData.Converters;
 
 namespace Aydsko.iRacingData.Tracks;
 

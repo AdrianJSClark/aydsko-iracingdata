@@ -14,6 +14,9 @@ public class DataResponse<TData>
     /// <summary>Instant at which the rate limit will be reset.</summary>
     public DateTimeOffset? RateLimitReset { get; set; }
 
+    /// <summary>Indicates when the server's cache of the data will expire.</summary>
+    public DateTimeOffset? DataExpires { get; set; }
+
     /// <summary>Data returned from the API call.</summary>
     public TData Data { get; set; } = default!;
 }

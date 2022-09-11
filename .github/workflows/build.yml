@@ -42,10 +42,16 @@ jobs:
         working-directory: src
         run: dotnet build -c Release
 
-      - name: 'Run Tests'
+      - name: 'Run Unit Tests'
         shell: pwsh
         working-directory: src
-        run: dotnet test -c Release --no-build --collect:"XPlat Code Coverage"
+        run: dotnet test -c Release --no-build --collect:"XPlat Code Coverage" --filter "TestCategory!=Integration"
+
+      - name: 'Run Integration Tests'
+        shell: pwsh
+        working-directory: src
+        run: dotnet test -c Release --no-build --collect:"XPlat Code Coverage" --filter "TestCategory=Integration"
+        if: ${{ format('{0}', env.IRACINGDATA_IRACINGDATA__PASSWORD) != '' }}
         env:
           IRACINGDATA_IRACINGDATA__PASSWORD: ${{ secrets.IRACING_PASSWORD }}
 

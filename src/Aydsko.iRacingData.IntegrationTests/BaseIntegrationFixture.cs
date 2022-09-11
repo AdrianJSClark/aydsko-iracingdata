@@ -33,7 +33,12 @@ public class BaseIntegrationFixture : IDisposable
                                 .Build();
 
         _cookieContainer = new CookieContainer();
-        _handler = new HttpClientHandler() { CookieContainer = _cookieContainer, UseCookies = true };
+        _handler = new HttpClientHandler()
+        {
+            CookieContainer = _cookieContainer,
+            UseCookies = true,
+            CheckCertificateRevocationList = true
+        };
         _httpClient = new HttpClient(_handler);
 
         var options = new iRacingDataClientOptions

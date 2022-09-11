@@ -150,7 +150,7 @@ public class SubSessionResult
     public Track Track { get; set; } = default!;
 
     [JsonPropertyName("weather")]
-    public Weather Weather { get; set; } = default!;
+    public ResultsWeather Weather { get; set; } = default!;
 
     [JsonPropertyName("track_state")]
     public TrackState TrackState { get; set; } = default!;
