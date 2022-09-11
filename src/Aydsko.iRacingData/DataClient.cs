@@ -1174,33 +1174,48 @@ internal class DataClient : IDataClient
 #pragma warning disable CA1308 // Normalize strings to uppercase - this algorithm requires lower case.
     private async Task LoginInternalAsync(CancellationToken cancellationToken)
     {
-        if (options.RestoreCookies is not null
-            && options.RestoreCookies() is CookieCollection savedCookies)
+        try
         {
-            cookieContainer.Add(savedCookies);
+            if (options.RestoreCookies is not null
+        && options.RestoreCookies() is CookieCollection savedCookies)
+            {
+                cookieContainer.Add(savedCookies);
+            }
+
+            using var sha256 = SHA256.Create();
+
+            var passwordAndEmail = options.Password + (options.Username?.ToLowerInvariant());
+            var hashedPasswordAndEmailBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordAndEmail));
+            var encodedHash = Convert.ToBase64String(hashedPasswordAndEmailBytes);
+
+            var loginResponse = await httpClient.PostAsJsonAsync("https://members-ng.iracing.com/auth",
+                                                                 new
+                                                                 {
+                                                                     email = options.Username,
+                                                                     password = encodedHash
+                                                                 },
+                                                                 cancellationToken)
+                                                .ConfigureAwait(false);
+
+            var loginResult = await loginResponse.Content.ReadFromJsonAsync(LoginResponseContext.Default.LoginResponse, cancellationToken).ConfigureAwait(false);
+
+            if (loginResponse.IsSuccessStatusCode is false || loginResult is null || loginResult.Success is false)
+            {
+                var message = loginResult?.Message ?? $"Login failed with HTTP response \"{loginResponse.StatusCode} {loginResponse.ReasonPhrase}\"";
+                throw iRacingLoginFailedException.Create(message, loginResult?.VerificationRequired);
+            }
+
+            IsLoggedIn = true;
+            logger.LoginSuccessful(options.Username!);
+
+            if (options.SaveCookies is Action<CookieCollection> saveCredentials)
+            {
+                saveCredentials(cookieContainer.GetAllCookies());
+            }
         }
-
-        using var sha256 = SHA256.Create();
-
-        var passwordAndEmail = options.Password + (options.Username?.ToLowerInvariant());
-        var hashedPasswordAndEmailBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordAndEmail));
-        var encodedHash = Convert.ToBase64String(hashedPasswordAndEmailBytes);
-
-        var loginResponse = await httpClient.PostAsJsonAsync("https://members-ng.iracing.com/auth",
-                                                             new
-                                                             {
-                                                                 email = options.Username,
-                                                                 password = encodedHash
-                                                             },
-                                                             cancellationToken)
-                                            .ConfigureAwait(false);
-        loginResponse.EnsureSuccessStatusCode();
-        IsLoggedIn = true;
-        logger.LoginSuccessful(options.Username!);
-
-        if (options.SaveCookies is Action<CookieCollection> saveCredentials)
+        catch (Exception ex) when (ex is not iRacingDataClientException)
         {
-            saveCredentials(cookieContainer.GetAllCookies());
+            throw iRacingLoginFailedException.Create(ex);
         }
     }
 #pragma warning restore CA1308 // Normalize strings to uppercase

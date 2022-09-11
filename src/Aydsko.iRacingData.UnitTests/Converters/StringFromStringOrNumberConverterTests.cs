@@ -1,0 +1,46 @@
+﻿// © 2022 Adrian Clark
+// This file is licensed to you under the MIT license.
+
+using System.Text;
+using System.Text.Json;
+using Aydsko.iRacingData.Converters;
+
+namespace Aydsko.iRacingData.UnitTests.Converters;
+
+public class StringFromStringOrNumberConverterTests
+{
+    private StringFromStringOrNumberConverter _sut = null!;
+
+    [OneTimeSetUp]
+    public void OneTimeSetUp()
+    {
+        // There is no state in the converter so it only needs to be created once for each set of test runs.
+        _sut = new StringFromStringOrNumberConverter();
+    }
+
+    [Test, TestCaseSource(nameof(ReadValueTestCases))]
+    public string? ReadValue(byte[] input)
+    {
+        var reader = input.ToUtf8JsonReaderForTest();
+        return _sut.Read(ref reader, typeof(string), new JsonSerializerOptions());
+    }
+
+    [Test, TestCaseSource(nameof(WriteValueTestCases))]
+    public byte[] WriteValue(string input)
+    {
+        var result = input.WriteUsingConverter(_sut);
+        Console.WriteLine(Encoding.UTF8.GetString(result));
+        return result;
+    }
+
+    public static IEnumerable<TestCaseData> ReadValueTestCases() => Examples().ToReadValueTestCases();
+    public static IEnumerable<TestCaseData> WriteValueTestCases() => Examples().ToWriteValueTestCases();
+
+    private static IEnumerable<(byte[] JsonBytes, string? Value, string Name)> Examples()
+    {
+        yield return (Encoding.UTF8.GetBytes(@"{""value"":0}"), "0", "JSON Number value of zero");
+        yield return (Encoding.UTF8.GetBytes(@"{""value"":""1""}"), "1", "JSON Number value of 1");
+        yield return (Encoding.UTF8.GetBytes(@"{""value"":""ABC123""}"), "ABC123", "JSON String value of 'ABC123'");
+        yield return (Encoding.UTF8.GetBytes(@"{""value"":null}"), null, "JSON Null value");
+    }
+}
