@@ -45,6 +45,26 @@ internal class DataClient : IDataClient
         this.cookieContainer = cookieContainer;
     }
 
+    /// <inheritdoc/>
+    public void UseUsernameAndPassword(string username, string password)
+    {
+        if (string.IsNullOrWhiteSpace(username))
+        {
+            throw iRacingClientOptionsValueMissingException.Create(nameof(username));
+        }
+
+        if (string.IsNullOrWhiteSpace(password))
+        {
+            throw iRacingClientOptionsValueMissingException.Create(nameof(password));
+        }
+
+        options.Username = username;
+        options.Password = password;
+
+        // If the username & password has been updated likely the authentication needs to run again.
+        IsLoggedIn = false;
+    }
+
     /// <inheritdoc />
     public async Task<DataResponse<IReadOnlyDictionary<string, CarAssetDetail>>> GetCarAssetDetailsAsync(CancellationToken cancellationToken = default)
     {
@@ -929,7 +949,7 @@ internal class DataClient : IDataClient
         var searchHostedUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/search_hosted", queryParams);
 
         (var headers, var header) = await GetResponseAsync(new Uri(searchHostedUrl), HostedResultsHeaderContext.Default.HostedResultsHeader, cancellationToken).ConfigureAwait(false);
-        
+
         var searchResults = new List<HostedResultItem>();
         if (header.Data.ChunkInfo.NumberOfChunks > 0)
         {
@@ -1174,10 +1194,20 @@ internal class DataClient : IDataClient
 #pragma warning disable CA1308 // Normalize strings to uppercase - this algorithm requires lower case.
     private async Task LoginInternalAsync(CancellationToken cancellationToken)
     {
+        if (string.IsNullOrWhiteSpace(options.Username))
+        {
+            throw iRacingClientOptionsValueMissingException.Create(nameof(options.Username));
+        }
+
+        if (string.IsNullOrWhiteSpace(options.Password))
+        {
+            throw iRacingClientOptionsValueMissingException.Create(nameof(options.Password));
+        }
+
         try
         {
             if (options.RestoreCookies is not null
-        && options.RestoreCookies() is CookieCollection savedCookies)
+                && options.RestoreCookies() is CookieCollection savedCookies)
             {
                 cookieContainer.Add(savedCookies);
             }

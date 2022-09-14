@@ -18,6 +18,12 @@ namespace Aydsko.iRacingData;
 
 public interface IDataClient
 {
+    /// <summary>Supply the username and password if they weren't supplied through the <see cref="iRacingDataClientOptions"/> object.</summary>
+    /// <param name="username">iRacing user name to use for authentication.</param>
+    /// <param name="password">Password associated with the iRacing user name used to authenticate.</param>
+    /// <exception cref="iRacingClientOptionsValueMissingException">Either <paramref name="username"/> or <paramref name="password"/> were <see langword="null"/> or white space.</exception>
+    void UseUsernameAndPassword(string username, string password);
+
     /// <summary>Retrieves details about the car assets, including image paths and descriptions.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A <see cref="DataResponse{TData}"/> containing a dictionary which maps the car identifier to a <see cref="CarAssetDetail"/> object for each car.</returns>

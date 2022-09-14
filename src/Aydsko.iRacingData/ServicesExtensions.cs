@@ -40,15 +40,6 @@ public static class ServicesExtensions
 
         var options = new iRacingDataClientOptions();
         configureOptions(options);
-        if (string.IsNullOrWhiteSpace(options.Username))
-        {
-            throw iRacingClientOptionsValueMissingException.Create(nameof(options.Username));
-        }
-
-        if (string.IsNullOrWhiteSpace(options.Password))
-        {
-            throw iRacingClientOptionsValueMissingException.Create(nameof(options.Password));
-        }
 
         var userAgentValue = CreateUserAgentValue(options);
 
