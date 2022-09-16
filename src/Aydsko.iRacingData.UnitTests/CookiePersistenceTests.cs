@@ -20,12 +20,14 @@ public class CookiePersistenceTests : MockedHttpTestBase
         {
             RestoreCookies = null,
             SaveCookies = null,
+            Username = "fake.for.unit.tests@example.com",
+            Password = "obviously.fake.password.value",
         };
 
         var sut = new DataClient(HttpClient,
-                                        new TestLogger<DataClient>(),
-                                        options,
-                                        CookieContainer);
+                                 new TestLogger<DataClient>(),
+                                 options,
+                                 CookieContainer);
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
         await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
@@ -41,6 +43,8 @@ public class CookiePersistenceTests : MockedHttpTestBase
         {
             RestoreCookies = null,
             SaveCookies = (cookies) => savedCookies = cookies,
+            Username = "fake.for.unit.tests@example.com",
+            Password = "obviously.fake.password.value",
         };
 
         var sut = new DataClient(HttpClient,
