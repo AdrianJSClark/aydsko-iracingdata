@@ -1,0 +1,101 @@
+{
+  "headers": {},
+  "content": [
+    {
+      "league_id": 8835,
+      "league_name": "Snail Speed Racing - Endurance",
+      "owner": false,
+      "admin": false,
+      "league_mail_opt_out": false,
+      "league_pm_opt_out": false,
+      "car_number": null,
+      "nick_name": null,
+      "league": {
+        "league_id": 8835,
+        "owner_id": 2940959,
+        "league_name": "Snail Speed Racing - Endurance",
+        "created": "2022-08-14T11:50:28Z",
+        "hidden": false,
+        "message": "https://iracing.com",
+        "about": "A Snail Racing league",
+        "url": "https://iracing.com",
+        "recruiting": false,
+        "private_wall": false,
+        "private_roster": false,
+        "private_schedule": false,
+        "private_results": false,
+        "is_owner": false,
+        "is_admin": false,
+        "roster_count": 45,
+        "owner": {
+          "cust_id": 2940959,
+          "display_name": "Edward L. Walker",
+          "helmet": {
+            "pattern": 67,
+            "color1": "2f2440",
+            "color2": "ba0f30",
+            "color3": "2f2440",
+            "face_type": 0,
+            "helmet_type": 0
+          },
+          "car_number": null,
+          "nick_name": null
+        },
+        "image": {
+          "small_logo": null,
+          "large_logo": null
+        },
+        "tags": {
+          "categorized": [],
+          "not_categorized": []
+        },
+        "league_applications": [],
+        "pending_requests": [],
+        "is_member": true,
+        "is_applicant": false,
+        "is_invite": false,
+        "is_ignored": false,
+        "roster": [
+          {
+            "cust_id": 2940959,
+            "display_name": "Edward L. Walker",
+            "helmet": {
+              "pattern": 67,
+              "color1": "2f2440",
+              "color2": "ba0f30",
+              "color3": "2f2440",
+              "face_type": 0,
+              "helmet_type": 0
+            },
+            "owner": true,
+            "admin": true,
+            "league_mail_opt_out": false,
+            "league_pm_opt_out": false,
+            "league_member_since": "2022-08-14T11:50:28Z",
+            "car_number": null,
+            "nick_name": null
+          },
+          {
+            "cust_id": 2210962,
+            "display_name": "Steve G. Hollis",
+            "helmet": {
+              "pattern": 35,
+              "color1": "cc0000",
+              "color2": "101820",
+              "color3": "eff1f3",
+              "face_type": 0,
+              "helmet_type": 0
+            },
+            "owner": false,
+            "admin": true,
+            "league_mail_opt_out": false,
+            "league_pm_opt_out": false,
+            "league_member_since": "2022-08-14T12:05:50Z",
+            "car_number": null,
+            "nick_name": null
+          }
+        ]
+      }
+    }
+  ]
+}
