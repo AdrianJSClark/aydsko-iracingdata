@@ -418,13 +418,4 @@ public interface IDataClient
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
     Task<DataResponse<ListOfSeasons>> ListSeasonsAsync(int seasonYear, int seasonQuarter, CancellationToken cancellationToken = default);
-
-    /// <summary>Sessions that can be joined as a driver or spectator, and also includes non-league pending sessions for the user.</summary>
-    /// <param name="packageId">If set, return only sessions using this car or track package ID.</param>
-    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
-    /// <returns>A <see cref="DataResponse{TData}"/> containing the search's results as a <see cref="CombinedSessionsResult"/> object.</returns>
-    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
-    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
-    /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
-    Task<DataResponse<CombinedSessionsResult>> ListHostedSessionsCombinedAsync(int? packageId = null, CancellationToken cancellationToken = default);
 }
