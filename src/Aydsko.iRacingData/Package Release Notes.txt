@@ -1,10 +1,12 @@
 ﻿Fixes / Changes:
 
- - TODO
+ - Username & Password are now optional during initial config. The "UseUsernameAndPassword(...)" method must be called first after resolving the "IDataClient" in this case.
+
 
 
 Contributions:
 
- - TODO
+ - From Dennis Møllegaard Pedersen (https://github.com/dennis):
+    - Support League Membership Endpoint (Pull Request #97)
 
 Thanks for helping out with pull requests to the library!
