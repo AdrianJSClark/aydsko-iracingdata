@@ -1379,4 +1379,19 @@ internal class DataClient : IDataClient
     {
         throw new NotImplementedException();
     }
+
+    public async Task<DataResponse<LeagueMembership[]>> GetLeagueMembershipAsync(bool includeLeague = false, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var getMembershipUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/membership", new Dictionary<string, string>
+        {
+            ["include_league"] = includeLeague ? "1" : "0"
+        });
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(getMembershipUrl), LeagueMembershipArrayContext.Default.LeagueMembershipArray, cancellationToken).ConfigureAwait(false);
+        return BuildDataResponse(headers, data, logger, expires);
+    }
 }

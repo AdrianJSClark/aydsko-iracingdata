@@ -25,7 +25,7 @@ dotnet add package Aydsko.iRacingData
 Register the iRacing Data API client classes with the service provider.
 
 ```csharp
-services.AddiRacingDataApi(options =>
+services.AddIRacingDataApi(options =>
 {
     options.Username = "your-iracing-user@example.com";
     options.Password = "Your-iRacing-Password";
