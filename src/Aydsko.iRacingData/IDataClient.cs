@@ -39,7 +39,7 @@ public interface IDataClient
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
-    Task<DataResponse<CarClass[]>> GetCarClassesAsync(CancellationToken cancellationToken = default);
+    Task<DataResponse<Common.CarClass[]>> GetCarClassesAsync(CancellationToken cancellationToken = default);
 
     /// <summary>Return a summary of statistics for the given customer's career or that or the authenticated user.</summary>
     /// <param name="customerId">iRacing Customer Id for the member to return statistics for, or <see langword="null"/> for the currently authenticated user.</param>
@@ -66,6 +66,16 @@ public interface IDataClient
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
     Task<DataResponse<Leagues.LeagueMembership[]>> GetLeagueMembershipAsync(bool includeLeague = false, CancellationToken cancellationToken = default);
+
+    /// <summary>Retrieves league's seasons</summary>
+    /// <param name="leagueId">League Id to return seasons for.</param>
+    /// <param name="retired">If <see langword="true"/> include seasons which are no longer active.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing an array of <see cref="global::Aydsko.iRacingData.Leagues.LeagueSeasons"/> objects.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
+    Task<DataResponse<LeagueSeasons>> GetLeagueSeasonsAsync(int leagueId, bool includeRetired = false, CancellationToken cancellationToken = default);
 
     /// <summary>Retrieves a list of the iRacing Divisions.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
