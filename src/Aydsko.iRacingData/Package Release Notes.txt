@@ -6,6 +6,7 @@
 
 Contributions:
 
- - TODO
+ - From Dennis Møllegaard Pedersen (https://github.com/dennis):
+    - Support League Seasons Endpoint (Pull Request #112)
 
 Thanks for helping out with pull requests to the library!
