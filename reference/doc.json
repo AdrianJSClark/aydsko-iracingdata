@@ -259,6 +259,16 @@
     }
   },
   "member": {
+    "awards": {
+      "link": "https://members-ng.iracing.com/data/member/awards",
+      "parameters": {
+        "cust_id": {
+          "type": "number",
+          "note": "Defaults to the authenticated member."
+        }
+      },
+      "expirationSeconds": 900
+    },
     "chart_data": {
       "link": "https://members-ng.iracing.com/data/member/chart_data",
       "parameters": {
