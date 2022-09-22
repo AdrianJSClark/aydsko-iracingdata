@@ -535,7 +535,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSeasonDriverStandingsSuccessfulAsync)).ConfigureAwait(false);
 
-        var seasonDriverStandingsResponse = await sut.GetSeasonDriverStandingsAsync(1234, 9, 0, CancellationToken.None).ConfigureAwait(false);
+        var seasonDriverStandingsResponse = await sut.GetSeasonDriverStandingsAsync(1234, 9, 0, cancellationToken: CancellationToken.None).ConfigureAwait(false);
 
         Assert.That(seasonDriverStandingsResponse, Is.Not.Null);
         Assert.That(seasonDriverStandingsResponse!.Data, Is.Not.Null);
