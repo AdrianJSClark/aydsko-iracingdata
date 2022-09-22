@@ -1,0 +1,202 @@
+{
+  "headers": {},
+  "content": {
+    "subscribed": false,
+    "seasons": [
+      {
+        "league_id": 5453,
+        "season_id": 84447,
+        "points_system_id": 8,
+        "season_name": "2022-S4",
+        "active": true,
+        "hidden": false,
+        "num_drops": 4,
+        "no_drops_on_or_after_race_num": -1,
+        "points_cars": [
+          {
+            "car_id": 73,
+            "car_name": "Audi R8 LMS GT3",
+            "team_car": false
+          },
+          {
+            "car_id": 132,
+            "car_name": "BMW M4 GT3",
+            "team_car": false
+          },
+          {
+            "car_id": 144,
+            "car_name": "Ferrari 488 GT3 Evo 2020",
+            "team_car": false
+          },
+          {
+            "car_id": 133,
+            "car_name": "Lamborghini Huracán GT3 EVO",
+            "team_car": false
+          },
+          {
+            "car_id": 43,
+            "car_name": "McLaren MP4-12C GT3",
+            "team_car": false
+          },
+          {
+            "car_id": 156,
+            "car_name": "Mercedes-AMG GT3 2020",
+            "team_car": false
+          },
+          {
+            "car_id": 137,
+            "car_name": "Porsche 911 GT3 R",
+            "team_car": false
+          }
+        ],
+        "driver_points_car_classes": [
+          {
+            "car_class_id": 0,
+            "name": "All Car Classes",
+            "cars_in_class": [
+              {
+                "car_id": 0,
+                "car_name": "All Cars"
+              },
+              {
+                "car_id": 144,
+                "car_name": "Ferrari 488 GT3 Evo 2020"
+              },
+              {
+                "car_id": 132,
+                "car_name": "BMW M4 GT3"
+              },
+              {
+                "car_id": 133,
+                "car_name": "Lamborghini Huracán GT3 EVO"
+              },
+              {
+                "car_id": 73,
+                "car_name": "Audi R8 LMS GT3"
+              },
+              {
+                "car_id": 137,
+                "car_name": "Porsche 911 GT3 R"
+              },
+              {
+                "car_id": 43,
+                "car_name": "McLaren MP4-12C GT3"
+              },
+              {
+                "car_id": 156,
+                "car_name": "Mercedes-AMG GT3 2020"
+              }
+            ]
+          }
+        ],
+        "team_points_car_classes": [
+          {
+            "car_class_id": 0,
+            "name": "All Car Classes",
+            "cars_in_class": [
+              {
+                "car_id": 0,
+                "car_name": "All Cars"
+              },
+              {
+                "car_id": 144,
+                "car_name": "Ferrari 488 GT3 Evo 2020"
+              },
+              {
+                "car_id": 132,
+                "car_name": "BMW M4 GT3"
+              },
+              {
+                "car_id": 137,
+                "car_name": "Porsche 911 GT3 R"
+              },
+              {
+                "car_id": 156,
+                "car_name": "Mercedes-AMG GT3 2020"
+              }
+            ]
+          }
+        ],
+        "points_system_name": "Club Racing",
+        "points_system_desc": "1st through 20th earn points. "
+      },
+      {
+        "league_id": 5453,
+        "season_id": 59765,
+        "points_system_id": 4,
+        "season_name": "2020-S1 (Exhibition races)",
+        "active": false,
+        "hidden": false,
+        "num_drops": 0,
+        "no_drops_on_or_after_race_num": -1,
+        "points_cars": [
+          {
+            "car_id": 43,
+            "car_name": "McLaren MP4-12C GT3",
+            "team_car": false
+          },
+          {
+            "car_id": 55,
+            "car_name": "[Legacy] BMW Z4 GT3",
+            "team_car": false
+          },
+          {
+            "car_id": 94,
+            "car_name": "[Legacy] Ferrari 488 GT3",
+            "team_car": false
+          },
+          {
+            "car_id": 72,
+            "car_name": "[Legacy] Mercedes-AMG GT3",
+            "team_car": false
+          }
+        ],
+        "driver_points_car_classes": [
+          {
+            "car_class_id": 0,
+            "name": "All Car Classes",
+            "cars_in_class": [
+              {
+                "car_id": 0,
+                "car_name": "All Cars"
+              },
+              {
+                "car_id": 55,
+                "car_name": "[Legacy] BMW Z4 GT3"
+              },
+              {
+                "car_id": 72,
+                "car_name": "[Legacy] Mercedes-AMG GT3"
+              },
+              {
+                "car_id": 43,
+                "car_name": "McLaren MP4-12C GT3"
+              },
+              {
+                "car_id": 94,
+                "car_name": "[Legacy] Ferrari 488 GT3"
+              }
+            ]
+          }
+        ],
+        "team_points_car_classes": [
+          {
+            "car_class_id": 0,
+            "name": "All Car Classes",
+            "cars_in_class": [
+              {
+                "car_id": 0,
+                "car_name": "All Cars"
+              }
+            ]
+          }
+        ],
+        "points_system_name": "Grand Prix",
+        "points_system_desc": "Positions 1 through 10 awarded 25, 18, 15, 12, 10, 8, 6, 4, 2, and 1 points.  Remaining positions awarded 0 points."
+      }
+    ],
+    "success": true,
+    "retired": true,
+    "league_id": 5453
+  }
+}

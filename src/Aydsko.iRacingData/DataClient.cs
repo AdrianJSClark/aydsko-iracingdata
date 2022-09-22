@@ -92,7 +92,7 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<CarClass[]>> GetCarClassesAsync(CancellationToken cancellationToken = default)
+    public async Task<DataResponse<Common.CarClass[]>> GetCarClassesAsync(CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
         {
@@ -1387,6 +1387,23 @@ internal class DataClient : IDataClient
             ["include_league"] = includeLeague ? "1" : "0"
         });
         (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(getMembershipUrl), LeagueMembershipArrayContext.Default.LeagueMembershipArray, cancellationToken).ConfigureAwait(false);
+        return BuildDataResponse(headers, data, logger, expires);
+    }
+
+    public async Task<DataResponse<LeagueSeasons>> GetLeagueSeasonsAsync(int leagueId, bool includeRetired = false, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var getLeagueSeasons = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/seasons", new Dictionary<string, string>
+        {
+            ["league_id"] = leagueId.ToString(CultureInfo.InvariantCulture),
+            ["retired"] = includeRetired ? "1" : "0"
+        });
+
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(getLeagueSeasons), LeagueSeasonsContext.Default.LeagueSeasons, cancellationToken).ConfigureAwait(false);
         return BuildDataResponse(headers, data, logger, expires);
     }
 }
