@@ -185,6 +185,23 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
+    public async Task GetClubHistoryLookupsSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetClubHistoryLookupsSuccessfulAsync)).ConfigureAwait(false);
+
+        var clubHistoryLookups = await sut.GetClubHistoryLookupsAsync(2022, 1).ConfigureAwait(false);
+
+        Assert.That(clubHistoryLookups, Is.Not.Null);
+        Assert.That(clubHistoryLookups!.Data, Is.Not.Null);
+
+        Assert.That(clubHistoryLookups.Data, Has.Length.EqualTo(42));
+        Assert.That(clubHistoryLookups.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(clubHistoryLookups.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(clubHistoryLookups.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(clubHistoryLookups.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+    }
+
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetDriverInfoWithLicensesSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetDriverInfoWithLicensesSuccessfulAsync)).ConfigureAwait(false);

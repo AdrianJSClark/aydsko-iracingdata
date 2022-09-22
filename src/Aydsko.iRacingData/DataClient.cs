@@ -194,6 +194,25 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
+    public async Task<DataResponse<ClubHistoryLookup[]>> GetClubHistoryLookupsAsync(int seasonYear, int seasonQuarter, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var queryParams = new Dictionary<string, string>
+        {
+            ["season_year"] = seasonYear.ToString(CultureInfo.InvariantCulture),
+            ["season_quarter"] = seasonQuarter.ToString(CultureInfo.InvariantCulture),
+        };
+
+        var queryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/lookup/club_history", queryParams);
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), ClubHistoryLookupArrayContext.Default.ClubHistoryLookupArray, cancellationToken).ConfigureAwait(false);
+        return BuildDataResponse(headers, data, logger, expires);
+    }
+
+    /// <inheritdoc />
     public async Task<DataResponse<LicenseLookup[]>> GetLicenseLookupsAsync(CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)

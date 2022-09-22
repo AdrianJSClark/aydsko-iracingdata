@@ -136,6 +136,17 @@ public interface IDataClient
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
     Task<DataResponse<LookupGroup[]>> GetLookupsAsync(CancellationToken cancellationToken = default);
 
+    /// <summary>Information about the Clubs configured in iRacing.</summary>
+    /// <param name="seasonYear">Year to retrieve club information from.</param>
+    /// <param name="seasonQuarter">Quarter to retrieve club information from.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing an array of <see cref="ClubHistoryLookup"/> objects.</returns>
+    /// <remarks>Returns an earlier history if requested quarter does not have a club history.</remarks>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
+    Task<DataResponse<ClubHistoryLookup[]>> GetClubHistoryLookupsAsync(int seasonYear, int seasonQuarter, CancellationToken cancellationToken = default);
+
     /// <summary>Retrieve information about the authenticated member's division.</summary>
     /// <param name="seasonId">Unique identifier for the racing season.</param>
     /// <param name="eventType">The type of events to return, either <see cref="Common.EventType.TimeTrial" /> or <see cref="Common.EventType.Race" />.</param>
