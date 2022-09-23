@@ -1,0 +1,1595 @@
+{
+  "headers": {},
+  "content": {
+    "subscribed": false,
+    "sessions": [
+      {
+        "season_id": 3590,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 229,
+        "race_week_num": 29,
+        "end_time": "2022-09-24T03:36:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3691,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 495,
+        "race_week_num": 16,
+        "end_time": "2022-09-24T03:05:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3847,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 182,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:23:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3848,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 139,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:29:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3850,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 32,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:30:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3851,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 443,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:29:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3864,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 45,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:22:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3868,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 505,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:34:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3871,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 74,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:40:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3872,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 285,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:54:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3875,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 190,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:32:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3877,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 417,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:45:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3895,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 103,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:50:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3897,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 131,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:38:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3903,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 448,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:14:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3910,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 484,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:45:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3913,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 471,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:27:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3917,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 292,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:23:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3918,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 291,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:19:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3937,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 325,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:43:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3938,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 462,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:19:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3942,
+        "start_time": "2022-09-24T01:00:00Z",
+        "super_session": false,
+        "series_id": 490,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:23:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3862,
+        "start_time": "2022-09-24T01:15:00Z",
+        "super_session": false,
+        "series_id": 440,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:42:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3866,
+        "start_time": "2022-09-24T01:15:00Z",
+        "super_session": false,
+        "series_id": 34,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:52:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3878,
+        "start_time": "2022-09-24T01:15:00Z",
+        "super_session": false,
+        "series_id": 223,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:03:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3880,
+        "start_time": "2022-09-24T01:15:00Z",
+        "super_session": false,
+        "series_id": 164,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:01:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3885,
+        "start_time": "2022-09-24T01:15:00Z",
+        "super_session": false,
+        "series_id": 431,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:56:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3888,
+        "start_time": "2022-09-24T01:15:00Z",
+        "super_session": false,
+        "series_id": 399,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:00:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3900,
+        "start_time": "2022-09-24T01:15:00Z",
+        "super_session": false,
+        "series_id": 444,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:49:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3923,
+        "start_time": "2022-09-24T01:15:00Z",
+        "super_session": false,
+        "series_id": 327,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:57:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3925,
+        "start_time": "2022-09-24T01:15:00Z",
+        "super_session": false,
+        "series_id": 442,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:58:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3934,
+        "start_time": "2022-09-24T01:15:00Z",
+        "super_session": false,
+        "series_id": 459,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:34:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3846,
+        "start_time": "2022-09-24T01:30:00Z",
+        "super_session": false,
+        "series_id": 483,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:53:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3849,
+        "start_time": "2022-09-24T01:30:00Z",
+        "super_session": false,
+        "series_id": 455,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:56:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3852,
+        "start_time": "2022-09-24T01:30:00Z",
+        "super_session": false,
+        "series_id": 112,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:09:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3854,
+        "start_time": "2022-09-24T01:30:00Z",
+        "super_session": false,
+        "series_id": 502,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:14:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3870,
+        "start_time": "2022-09-24T01:30:00Z",
+        "super_session": false,
+        "series_id": 210,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:17:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3881,
+        "start_time": "2022-09-24T01:30:00Z",
+        "super_session": false,
+        "series_id": 413,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:56:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3894,
+        "start_time": "2022-09-24T01:30:00Z",
+        "super_session": false,
+        "series_id": 201,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:22:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3914,
+        "start_time": "2022-09-24T01:30:00Z",
+        "super_session": false,
+        "series_id": 259,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:55:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3915,
+        "start_time": "2022-09-24T01:30:00Z",
+        "super_session": false,
+        "series_id": 446,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:47:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3919,
+        "start_time": "2022-09-24T01:30:00Z",
+        "super_session": false,
+        "series_id": 466,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:50:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3920,
+        "start_time": "2022-09-24T01:30:00Z",
+        "super_session": false,
+        "series_id": 305,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:16:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3928,
+        "start_time": "2022-09-24T01:30:00Z",
+        "super_session": false,
+        "series_id": 458,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:52:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3938,
+        "start_time": "2022-09-24T01:30:00Z",
+        "super_session": false,
+        "series_id": 462,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:49:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3939,
+        "start_time": "2022-09-24T01:30:00Z",
+        "super_session": false,
+        "series_id": 463,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T01:53:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3856,
+        "start_time": "2022-09-24T01:45:00Z",
+        "super_session": false,
+        "series_id": 503,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:29:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3857,
+        "start_time": "2022-09-24T01:45:00Z",
+        "super_session": false,
+        "series_id": 353,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:14:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3858,
+        "start_time": "2022-09-24T01:45:00Z",
+        "super_session": false,
+        "series_id": 497,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:19:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3863,
+        "start_time": "2022-09-24T01:45:00Z",
+        "super_session": false,
+        "series_id": 167,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:18:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3873,
+        "start_time": "2022-09-24T01:45:00Z",
+        "super_session": false,
+        "series_id": 493,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:36:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3890,
+        "start_time": "2022-09-24T01:45:00Z",
+        "super_session": false,
+        "series_id": 299,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:26:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3893,
+        "start_time": "2022-09-24T01:45:00Z",
+        "super_session": false,
+        "series_id": 432,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:29:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3896,
+        "start_time": "2022-09-24T01:45:00Z",
+        "super_session": false,
+        "series_id": 53,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:44:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3906,
+        "start_time": "2022-09-24T01:45:00Z",
+        "super_session": false,
+        "series_id": 359,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:46:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3912,
+        "start_time": "2022-09-24T01:45:00Z",
+        "super_session": false,
+        "series_id": 116,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:10:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3916,
+        "start_time": "2022-09-24T01:45:00Z",
+        "super_session": false,
+        "series_id": 315,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:03:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3930,
+        "start_time": "2022-09-24T01:45:00Z",
+        "super_session": false,
+        "series_id": 309,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:27:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3931,
+        "start_time": "2022-09-24T01:45:00Z",
+        "super_session": false,
+        "series_id": 308,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:34:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3935,
+        "start_time": "2022-09-24T01:45:00Z",
+        "super_session": false,
+        "series_id": 460,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:05:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3588,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 62,
+        "race_week_num": 31,
+        "end_time": "2022-09-24T03:29:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3847,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 182,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:23:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3848,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 139,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:29:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3850,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 32,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:30:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3851,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 443,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:29:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3860,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 457,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:34:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3865,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 441,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:22:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3876,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 102,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:57:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3883,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 133,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:03:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3901,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 228,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:54:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3908,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 191,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:55:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3909,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 260,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:15:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3911,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 429,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:50:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3913,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 471,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:27:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3917,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 292,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:23:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3918,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 291,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:19:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3922,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 311,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:40:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3926,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 428,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:39:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3936,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 461,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:18:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3938,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 462,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:19:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3941,
+        "start_time": "2022-09-24T02:00:00Z",
+        "super_session": false,
+        "series_id": 391,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:23:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3861,
+        "start_time": "2022-09-24T02:15:00Z",
+        "super_session": false,
+        "series_id": 33,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:42:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3866,
+        "start_time": "2022-09-24T02:15:00Z",
+        "super_session": false,
+        "series_id": 34,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:52:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3879,
+        "start_time": "2022-09-24T02:15:00Z",
+        "super_session": false,
+        "series_id": 416,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:53:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3880,
+        "start_time": "2022-09-24T02:15:00Z",
+        "super_session": false,
+        "series_id": 164,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:01:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3882,
+        "start_time": "2022-09-24T02:15:00Z",
+        "super_session": false,
+        "series_id": 165,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:34:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3884,
+        "start_time": "2022-09-24T02:15:00Z",
+        "super_session": false,
+        "series_id": 231,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:04:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3886,
+        "start_time": "2022-09-24T02:15:00Z",
+        "super_session": false,
+        "series_id": 456,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:56:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3887,
+        "start_time": "2022-09-24T02:15:00Z",
+        "super_session": false,
+        "series_id": 414,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:04:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3889,
+        "start_time": "2022-09-24T02:15:00Z",
+        "super_session": false,
+        "series_id": 405,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:16:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3934,
+        "start_time": "2022-09-24T02:15:00Z",
+        "super_session": false,
+        "series_id": 459,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:34:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3846,
+        "start_time": "2022-09-24T02:30:00Z",
+        "super_session": false,
+        "series_id": 483,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:53:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3849,
+        "start_time": "2022-09-24T02:30:00Z",
+        "super_session": false,
+        "series_id": 455,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:56:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3852,
+        "start_time": "2022-09-24T02:30:00Z",
+        "super_session": false,
+        "series_id": 112,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:09:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3853,
+        "start_time": "2022-09-24T02:30:00Z",
+        "super_session": false,
+        "series_id": 491,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:59:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3899,
+        "start_time": "2022-09-24T02:30:00Z",
+        "super_session": false,
+        "series_id": 65,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:26:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3907,
+        "start_time": "2022-09-24T02:30:00Z",
+        "super_session": false,
+        "series_id": 58,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:08:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3914,
+        "start_time": "2022-09-24T02:30:00Z",
+        "super_session": false,
+        "series_id": 259,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:55:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3915,
+        "start_time": "2022-09-24T02:30:00Z",
+        "super_session": false,
+        "series_id": 446,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:47:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3919,
+        "start_time": "2022-09-24T02:30:00Z",
+        "super_session": false,
+        "series_id": 466,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:50:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3924,
+        "start_time": "2022-09-24T02:30:00Z",
+        "super_session": false,
+        "series_id": 306,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:19:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3927,
+        "start_time": "2022-09-24T02:30:00Z",
+        "super_session": false,
+        "series_id": 307,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:12:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3938,
+        "start_time": "2022-09-24T02:30:00Z",
+        "super_session": false,
+        "series_id": 462,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:49:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3940,
+        "start_time": "2022-09-24T02:30:00Z",
+        "super_session": false,
+        "series_id": 464,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T02:53:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3587,
+        "start_time": "2022-09-24T02:45:00Z",
+        "super_session": false,
+        "series_id": 47,
+        "race_week_num": 31,
+        "end_time": "2022-09-24T04:06:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3855,
+        "start_time": "2022-09-24T02:45:00Z",
+        "super_session": false,
+        "series_id": 430,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:14:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3857,
+        "start_time": "2022-09-24T02:45:00Z",
+        "super_session": false,
+        "series_id": 353,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:14:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3859,
+        "start_time": "2022-09-24T02:45:00Z",
+        "super_session": false,
+        "series_id": 498,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:19:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3863,
+        "start_time": "2022-09-24T02:45:00Z",
+        "super_session": false,
+        "series_id": 167,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:18:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3867,
+        "start_time": "2022-09-24T02:45:00Z",
+        "super_session": false,
+        "series_id": 269,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:29:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3869,
+        "start_time": "2022-09-24T02:45:00Z",
+        "super_session": false,
+        "series_id": 63,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:24:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3891,
+        "start_time": "2022-09-24T02:45:00Z",
+        "super_session": false,
+        "series_id": 476,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:26:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3898,
+        "start_time": "2022-09-24T02:45:00Z",
+        "super_session": false,
+        "series_id": 447,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:44:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3912,
+        "start_time": "2022-09-24T02:45:00Z",
+        "super_session": false,
+        "series_id": 116,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:10:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3916,
+        "start_time": "2022-09-24T02:45:00Z",
+        "super_session": false,
+        "series_id": 315,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:03:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3921,
+        "start_time": "2022-09-24T02:45:00Z",
+        "super_session": false,
+        "series_id": 310,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:28:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3932,
+        "start_time": "2022-09-24T02:45:00Z",
+        "super_session": false,
+        "series_id": 369,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:09:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3935,
+        "start_time": "2022-09-24T02:45:00Z",
+        "super_session": false,
+        "series_id": 460,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:05:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3847,
+        "start_time": "2022-09-24T03:00:00Z",
+        "super_session": false,
+        "series_id": 182,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:23:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3848,
+        "start_time": "2022-09-24T03:00:00Z",
+        "super_session": false,
+        "series_id": 139,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:29:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3850,
+        "start_time": "2022-09-24T03:00:00Z",
+        "super_session": false,
+        "series_id": 32,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:30:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3851,
+        "start_time": "2022-09-24T03:00:00Z",
+        "super_session": false,
+        "series_id": 443,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:29:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3864,
+        "start_time": "2022-09-24T03:00:00Z",
+        "super_session": false,
+        "series_id": 45,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:22:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3868,
+        "start_time": "2022-09-24T03:00:00Z",
+        "super_session": false,
+        "series_id": 505,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:34:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3871,
+        "start_time": "2022-09-24T03:00:00Z",
+        "super_session": false,
+        "series_id": 74,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:40:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3872,
+        "start_time": "2022-09-24T03:00:00Z",
+        "super_session": false,
+        "series_id": 285,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:54:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3875,
+        "start_time": "2022-09-24T03:00:00Z",
+        "super_session": false,
+        "series_id": 190,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:32:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3877,
+        "start_time": "2022-09-24T03:00:00Z",
+        "super_session": false,
+        "series_id": 417,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:45:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3895,
+        "start_time": "2022-09-24T03:00:00Z",
+        "super_session": false,
+        "series_id": 103,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:50:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3897,
+        "start_time": "2022-09-24T03:00:00Z",
+        "super_session": false,
+        "series_id": 131,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:38:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3903,
+        "start_time": "2022-09-24T03:00:00Z",
+        "super_session": false,
+        "series_id": 448,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:14:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3910,
+        "start_time": "2022-09-24T03:00:00Z",
+        "super_session": false,
+        "series_id": 484,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:45:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3913,
+        "start_time": "2022-09-24T03:00:00Z",
+        "super_session": false,
+        "series_id": 471,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:27:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3917,
+        "start_time": "2022-09-24T03:00:00Z",
+        "super_session": false,
+        "series_id": 292,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:23:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3918,
+        "start_time": "2022-09-24T03:00:00Z",
+        "super_session": false,
+        "series_id": 291,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:19:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3937,
+        "start_time": "2022-09-24T03:00:00Z",
+        "super_session": false,
+        "series_id": 325,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:43:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3938,
+        "start_time": "2022-09-24T03:00:00Z",
+        "super_session": false,
+        "series_id": 462,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:19:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3942,
+        "start_time": "2022-09-24T03:00:00Z",
+        "super_session": false,
+        "series_id": 490,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:23:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3862,
+        "start_time": "2022-09-24T03:15:00Z",
+        "super_session": false,
+        "series_id": 440,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:42:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3866,
+        "start_time": "2022-09-24T03:15:00Z",
+        "super_session": false,
+        "series_id": 34,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:52:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3878,
+        "start_time": "2022-09-24T03:15:00Z",
+        "super_session": false,
+        "series_id": 223,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:03:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3880,
+        "start_time": "2022-09-24T03:15:00Z",
+        "super_session": false,
+        "series_id": 164,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:01:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3885,
+        "start_time": "2022-09-24T03:15:00Z",
+        "super_session": false,
+        "series_id": 431,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:56:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3888,
+        "start_time": "2022-09-24T03:15:00Z",
+        "super_session": false,
+        "series_id": 399,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:00:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3900,
+        "start_time": "2022-09-24T03:15:00Z",
+        "super_session": false,
+        "series_id": 444,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:49:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3923,
+        "start_time": "2022-09-24T03:15:00Z",
+        "super_session": false,
+        "series_id": 327,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:57:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3925,
+        "start_time": "2022-09-24T03:15:00Z",
+        "super_session": false,
+        "series_id": 442,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:58:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3934,
+        "start_time": "2022-09-24T03:15:00Z",
+        "super_session": false,
+        "series_id": 459,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:34:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3846,
+        "start_time": "2022-09-24T03:30:00Z",
+        "super_session": false,
+        "series_id": 483,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:53:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3849,
+        "start_time": "2022-09-24T03:30:00Z",
+        "super_session": false,
+        "series_id": 455,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:56:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3852,
+        "start_time": "2022-09-24T03:30:00Z",
+        "super_session": false,
+        "series_id": 112,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:09:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3854,
+        "start_time": "2022-09-24T03:30:00Z",
+        "super_session": false,
+        "series_id": 502,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:14:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3870,
+        "start_time": "2022-09-24T03:30:00Z",
+        "super_session": false,
+        "series_id": 210,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:17:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3881,
+        "start_time": "2022-09-24T03:30:00Z",
+        "super_session": false,
+        "series_id": 413,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:56:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3894,
+        "start_time": "2022-09-24T03:30:00Z",
+        "super_session": false,
+        "series_id": 201,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:22:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3914,
+        "start_time": "2022-09-24T03:30:00Z",
+        "super_session": false,
+        "series_id": 259,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:55:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3915,
+        "start_time": "2022-09-24T03:30:00Z",
+        "super_session": false,
+        "series_id": 446,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:47:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3919,
+        "start_time": "2022-09-24T03:30:00Z",
+        "super_session": false,
+        "series_id": 466,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:50:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3920,
+        "start_time": "2022-09-24T03:30:00Z",
+        "super_session": false,
+        "series_id": 305,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:16:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3928,
+        "start_time": "2022-09-24T03:30:00Z",
+        "super_session": false,
+        "series_id": 458,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:52:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3938,
+        "start_time": "2022-09-24T03:30:00Z",
+        "super_session": false,
+        "series_id": 462,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:49:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3939,
+        "start_time": "2022-09-24T03:30:00Z",
+        "super_session": false,
+        "series_id": 463,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T03:53:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3856,
+        "start_time": "2022-09-24T03:45:00Z",
+        "super_session": false,
+        "series_id": 503,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:29:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3857,
+        "start_time": "2022-09-24T03:45:00Z",
+        "super_session": false,
+        "series_id": 353,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:14:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3858,
+        "start_time": "2022-09-24T03:45:00Z",
+        "super_session": false,
+        "series_id": 497,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:19:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3863,
+        "start_time": "2022-09-24T03:45:00Z",
+        "super_session": false,
+        "series_id": 167,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:18:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3873,
+        "start_time": "2022-09-24T03:45:00Z",
+        "super_session": false,
+        "series_id": 493,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:36:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3890,
+        "start_time": "2022-09-24T03:45:00Z",
+        "super_session": false,
+        "series_id": 299,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:26:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3893,
+        "start_time": "2022-09-24T03:45:00Z",
+        "super_session": false,
+        "series_id": 432,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:29:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3896,
+        "start_time": "2022-09-24T03:45:00Z",
+        "super_session": false,
+        "series_id": 53,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:44:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3906,
+        "start_time": "2022-09-24T03:45:00Z",
+        "super_session": false,
+        "series_id": 359,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:46:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3912,
+        "start_time": "2022-09-24T03:45:00Z",
+        "super_session": false,
+        "series_id": 116,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:10:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3916,
+        "start_time": "2022-09-24T03:45:00Z",
+        "super_session": false,
+        "series_id": 315,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:03:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3930,
+        "start_time": "2022-09-24T03:45:00Z",
+        "super_session": false,
+        "series_id": 309,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:27:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3931,
+        "start_time": "2022-09-24T03:45:00Z",
+        "super_session": false,
+        "series_id": 308,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:34:00Z",
+        "entry_count": 0
+      },
+      {
+        "season_id": 3935,
+        "start_time": "2022-09-24T03:45:00Z",
+        "super_session": false,
+        "series_id": 460,
+        "race_week_num": 1,
+        "end_time": "2022-09-24T04:05:00Z",
+        "entry_count": 0
+      }
+    ],
+    "block_begin_time": "2022-09-24T01:00:00Z",
+    "block_end_time": "2022-09-24T04:00:00Z",
+    "success": true
+  }
+}
