@@ -1530,4 +1530,18 @@ internal class DataClient : IDataClient
         (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(raceGuideUrl), RaceGuideResultsContext.Default.RaceGuideResults, cancellationToken).ConfigureAwait(false);
         return BuildDataResponse(headers, data, logger, expires);
     }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<Country[]>> GetCountriesAsync(CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var countryUrl = "https://members-ng.iracing.com/data/lookup/countries";
+
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(countryUrl), CountryArrayContext.Default.CountryArray, cancellationToken).ConfigureAwait(false);
+        return BuildDataResponse(headers, data, logger, expires);
+    }
 }
