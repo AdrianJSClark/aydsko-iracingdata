@@ -1,4 +1,7 @@
-﻿namespace Aydsko.iRacingData.Searches;
+﻿// © 2022 Adrian Clark
+// This file is licensed to you under the MIT license.
+
+namespace Aydsko.iRacingData.Searches;
 
 /// <summary>Parameters for a hosted or league session search.</summary>
 /// <remarks>

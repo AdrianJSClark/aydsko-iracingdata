@@ -1,4 +1,7 @@
-﻿using Aydsko.iRacingData.Converters;
+﻿// © 2022 Adrian Clark
+// This file is licensed to you under the MIT license.
+
+using Aydsko.iRacingData.Converters;
 using Aydsko.iRacingData.Results;
 
 namespace Aydsko.iRacingData.Searches;
