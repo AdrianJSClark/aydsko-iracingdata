@@ -12,7 +12,6 @@ public class MemberSummary
     public int CustomerId { get; set; }
 }
 
-
 [JsonSerializable(typeof(MemberSummary)), JsonSourceGenerationOptions(WriteIndented = true)]
 internal partial class MemberSummaryContext : JsonSerializerContext
 { }
