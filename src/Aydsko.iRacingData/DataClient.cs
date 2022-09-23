@@ -261,6 +261,26 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
+    public async Task<DataResponse<MemberProfile>> GetMemberProfileAsync(int? customerId = null, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var memberProfileUrl = "https://members-ng.iracing.com/data/member/profile";
+        if (customerId is not null)
+        {
+            memberProfileUrl = QueryHelpers.AddQueryString(memberProfileUrl, new Dictionary<string, string>
+            {
+                ["cust_id"] = customerId.Value.ToString(CultureInfo.InvariantCulture),
+            });
+        }
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(memberProfileUrl), MemberProfileContext.Default.MemberProfile, cancellationToken).ConfigureAwait(false);
+        return BuildDataResponse(headers, data, logger, expires);
+    }
+
+    /// <inheritdoc />
     public async Task<DataResponse<SubSessionResult>> GetSubSessionResultAsync(int subSessionId, bool includeLicenses, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
