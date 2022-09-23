@@ -1,13 +1,9 @@
-﻿using Aydsko.iRacingData.IntegrationTests.Member;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿// © 2022 Adrian Clark
+// This file is licensed to you under the MIT license.
+
 using System.Net;
-using System.Net.Http;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
+using Aydsko.iRacingData.IntegrationTests.Member;
+using Microsoft.Extensions.Configuration;
 
 namespace Aydsko.iRacingData.IntegrationTests;
 

@@ -1,4 +1,7 @@
-﻿namespace Aydsko.iRacingData.Lookups;
+﻿// © 2022 Adrian Clark
+// This file is licensed to you under the MIT license.
+
+namespace Aydsko.iRacingData.Lookups;
 
 public class DriverSearchResult
 {
