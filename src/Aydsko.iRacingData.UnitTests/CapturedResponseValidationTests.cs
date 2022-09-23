@@ -996,4 +996,20 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(listSeasonsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
         Assert.That(listSeasonsResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetRaceGuideSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetRaceGuideSuccessfulAsync)).ConfigureAwait(false);
+
+        var raceGuideResponse = await sut.GetRaceGuideAsync().ConfigureAwait(false);
+
+        Assert.That(raceGuideResponse, Is.Not.Null);
+        Assert.That(raceGuideResponse!.Data, Is.Not.Null);
+
+        Assert.That(raceGuideResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(raceGuideResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(raceGuideResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(raceGuideResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+    }
 }

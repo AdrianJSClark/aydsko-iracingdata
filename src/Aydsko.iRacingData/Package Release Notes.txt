@@ -5,6 +5,7 @@
  - Fix issue where "GetSeasonQualifyResultsAsync" method called the wrong API URL
  - Support Member Profile Endpoint (Issue #101)
  - Support Drivers Lookup Endpoint (Issue #103)
+ - Support Season "Race Guide" Endpoint (Issue 100)
 
 
 

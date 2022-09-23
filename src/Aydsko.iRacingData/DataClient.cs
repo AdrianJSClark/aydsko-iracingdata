@@ -1499,4 +1499,35 @@ internal class DataClient : IDataClient
         (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(getLeagueSeasons), LeagueSeasonsContext.Default.LeagueSeasons, cancellationToken).ConfigureAwait(false);
         return BuildDataResponse(headers, data, logger, expires);
     }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<RaceGuideResults>> GetRaceGuideAsync(DateTimeOffset? from = null, bool? includeEndAfterFrom = null, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var raceGuideUrl = "https://members-ng.iracing.com/data/season/race_guide";
+
+        var queryParams = new Dictionary<string, string>();
+        if (from is not null)
+        {
+            var fromUtc = from.Value.UtcDateTime.ToString("yyyy-MM-dd\\THH:mm\\Z", CultureInfo.InvariantCulture);
+            queryParams.Add("from", fromUtc);
+        }
+
+        if (includeEndAfterFrom is not null)
+        {
+            queryParams.Add("include_end_after_from", includeEndAfterFrom.ToString().ToLowerInvariant());
+        }
+
+        if (queryParams.Count > 0)
+        {
+            raceGuideUrl = QueryHelpers.AddQueryString(raceGuideUrl, queryParams);
+        }
+
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(raceGuideUrl), RaceGuideResultsContext.Default.RaceGuideResults, cancellationToken).ConfigureAwait(false);
+        return BuildDataResponse(headers, data, logger, expires);
+    }
 }
