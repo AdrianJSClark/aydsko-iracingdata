@@ -213,6 +213,29 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
+    public async Task<DataResponse<DriverSearchResult[]>> SearchDriversAsync(string searchTerm, int? leagueId = null, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var queryParams = new Dictionary<string, string>
+        {
+            ["search_term"] = searchTerm
+        };
+
+        if (leagueId is not null)
+        {
+            queryParams.Add("league_id", leagueId.Value.ToString(CultureInfo.InvariantCulture));
+        }
+
+        var queryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/lookup/drivers", queryParams);
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), DriverSearchResultContext.Default.DriverSearchResultArray, cancellationToken).ConfigureAwait(false);
+        return BuildDataResponse(headers, data, logger, expires);
+    }
+
+    /// <inheritdoc />
     public async Task<DataResponse<LicenseLookup[]>> GetLicenseLookupsAsync(CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)

@@ -1,0 +1,17 @@
+{
+  "headers": {},
+  "content": [
+    {
+      "cust_id": 341554,
+      "display_name": "Adrian Clark",
+      "helmet": {
+        "pattern": 50,
+        "color1": "981f24",
+        "color2": "000000",
+        "color3": "ed2129",
+        "face_type": 4,
+        "helmet_type": 0
+      }
+    }
+  ]
+}
