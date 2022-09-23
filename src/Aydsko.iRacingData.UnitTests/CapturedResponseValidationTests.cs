@@ -1012,4 +1012,20 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(raceGuideResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
         Assert.That(raceGuideResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetCountriesSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetCountriesSuccessfulAsync)).ConfigureAwait(false);
+
+        var countryResponse = await sut.GetCountriesAsync().ConfigureAwait(false);
+
+        Assert.That(countryResponse, Is.Not.Null);
+        Assert.That(countryResponse!.Data, Is.Not.Null);
+
+        Assert.That(countryResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(countryResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(countryResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(countryResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+    }
 }
