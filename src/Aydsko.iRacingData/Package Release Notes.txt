@@ -3,7 +3,8 @@
  - Support Optional "Club Id" and "Division" Parameters (Issue #104)
  - Add Club History Endpoint (Issue #89)
  - Fix issue where "GetSeasonQualifyResultsAsync" method called the wrong API URL
- - Support Member Profile Endpoint (Issues #101)
+ - Support Member Profile Endpoint (Issue #101)
+ - Support Drivers Lookup Endpoint (Issue #103)
 
 
 

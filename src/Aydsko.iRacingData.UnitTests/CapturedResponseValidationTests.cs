@@ -272,6 +272,23 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
+    public async Task SearchDriversSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(SearchDriversSuccessfulAsync)).ConfigureAwait(false);
+
+        var memberProfileResponse = await sut.SearchDriversAsync("123456").ConfigureAwait(false);
+
+        Assert.That(memberProfileResponse, Is.Not.Null);
+        Assert.That(memberProfileResponse!.Data, Is.Not.Null);
+        Assert.That(memberProfileResponse.Data, Has.Length.EqualTo(1));
+
+        Assert.That(memberProfileResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(memberProfileResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(memberProfileResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(memberProfileResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+    }
+
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetMemberInfoDuringMaintenanceThrowsAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetMemberInfoDuringMaintenanceThrowsAsync)).ConfigureAwait(false);
