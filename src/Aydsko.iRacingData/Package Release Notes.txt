@@ -10,6 +10,7 @@
  - Support Driver Awards Endpoint (Issue #111)
  - Support World Records Endpoint (Issue #93)
  - Support Team Data Endpoint (Issue #68)
+ - Support League Points Systems Endpoint (Issue #71)
 
 
 
