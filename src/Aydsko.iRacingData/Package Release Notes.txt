@@ -13,5 +13,6 @@ Contributions:
 
  - From Dennis Møllegaard Pedersen (https://github.com/dennis):
     - Support League Seasons Endpoint (Pull Request #112)
+    - Support League Season Sessions Endpoint (Pull Request #120)
 
 Thanks for helping out with pull requests to the library!
