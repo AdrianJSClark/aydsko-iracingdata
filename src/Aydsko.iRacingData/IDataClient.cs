@@ -297,6 +297,14 @@ public interface IDataClient
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
     Task<DataResponse<(WorldRecordsHeader Header, WorldRecordEntry[] Entries)>> GetWorldRecordsAsync(int carId, int trackId, int? seasonYear = null, int? seasonQuarter = null, CancellationToken cancellationToken = default);
 
+    /// <summary>Information about an iRacing Team.</summary>
+    /// <param name="teamId">Unique identifier for the team.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the team details in a <see cref="TeamInfo"/> object.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
+    Task<DataResponse<TeamInfo>> GetTeamAsync(int teamId, CancellationToken cancellationToken = default);
+
     /// <summary>Retrieve the time trial results for a season.</summary>
     /// <param name="seasonId">Unique identifier for the racing season.</param>
     /// <param name="carClassId">Car class identifier. See <see cref="GetCarClassesAsync(CancellationToken)" />.</param>
@@ -356,7 +364,7 @@ public interface IDataClient
 
     /// <summary>Retrieve a list of series.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
-    /// <returns>A <see cref="DataResponse{TData}"/> containing the season & optionally series detail in a <see cref="SeasonSeries"/> array.</returns>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the series in a <see cref="StatisticsSeries"/> array.</returns>
     /// <remarks>To get series and seasons for which standings should be available, filter the list where <see cref="StatisticsSeries.Official" /> is <see langword="true" />.</remarks>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>

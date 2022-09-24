@@ -9,6 +9,7 @@
  - Support Season "Race Guide" Endpoint (Issue #100)
  - Support Driver Awards Endpoint (Issue #111)
  - Support World Records Endpoint (Issue #93)
+ - Support Team Data Endpoint (Issue #68)
 
 
 

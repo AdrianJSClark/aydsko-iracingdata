@@ -710,6 +710,24 @@ internal class DataClient : IDataClient
         return BuildDataResponse<(WorldRecordsHeader Header, WorldRecordEntry[] Entries)>(headers, (data, entries.ToArray()), logger, expires);
     }
 
+    /// <inheritdoc />
+    public async Task<DataResponse<TeamInfo>> GetTeamAsync(int teamId, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var queryUrl = "https://members-ng.iracing.com/data/team/get";
+
+        queryUrl = QueryHelpers.AddQueryString(queryUrl, new Dictionary<string, string>
+        {
+            ["team_id"] = teamId.ToString(CultureInfo.InvariantCulture),
+        });
+
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), TeamInfoContext.Default.TeamInfo, cancellationToken).ConfigureAwait(false);
+        return BuildDataResponse(headers, data, logger, expires);
+    }
 
     /// <inheritdoc />
     public async Task<DataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Standings)>> GetSeasonDriverStandingsAsync(int seasonId, int carClassId, int raceWeekNumber, int clubId = -1, int? division = null, CancellationToken cancellationToken = default)

@@ -1,0 +1,64 @@
+{
+  "headers": {},
+  "content": {
+    "team_id": -259167,
+    "owner_id": 341554,
+    "team_name": "Team Adrian Clark",
+    "created": "2022-01-03T05:54:31Z",
+    "hidden": false,
+    "about": "",
+    "url": "",
+    "roster_count": 1,
+    "recruiting": true,
+    "private_wall": true,
+    "is_default": true,
+    "is_owner": true,
+    "is_admin": true,
+    "suit": {
+      "pattern": 1,
+      "color1": "73182c",
+      "color2": "ffffff",
+      "color3": "fff000"
+    },
+    "owner": {
+      "cust_id": 341554,
+      "display_name": "Adrian Clark",
+      "helmet": {
+        "pattern": 50,
+        "color1": "981f24",
+        "color2": "000000",
+        "color3": "ed2129",
+        "face_type": 4,
+        "helmet_type": 0
+      },
+      "owner": true,
+      "admin": true
+    },
+    "tags": {
+      "categorized": [],
+      "not_categorized": []
+    },
+    "team_applications": [],
+    "pending_requests": [],
+    "is_member": true,
+    "is_applicant": false,
+    "is_invite": false,
+    "is_ignored": false,
+    "roster": [
+      {
+        "cust_id": 341554,
+        "display_name": "Adrian Clark",
+        "helmet": {
+          "pattern": 50,
+          "color1": "981f24",
+          "color2": "000000",
+          "color3": "ed2129",
+          "face_type": 4,
+          "helmet_type": 0
+        },
+        "owner": true,
+        "admin": true
+      }
+    ]
+  }
+}
