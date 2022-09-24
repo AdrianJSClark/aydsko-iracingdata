@@ -168,6 +168,16 @@ public interface IDataClient
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
     Task<DataResponse<League>> GetLeagueAsync(int leagueId, bool includeLicenses = false, CancellationToken cancellationToken = default);
 
+    /// <summary>Get information about the points systems available to a league.</summary>
+    /// <param name="leagueId">The unique identifier for the league.</param>
+    /// <param name="seasonId">If included and the season is using custom points then the custom points option is included in the returned list. Otherwise the custom points option is not returned.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the league point system information in a <see cref="LeagePointsSystems"/> object.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
+    Task<DataResponse<LeagePointsSystems>> GetLeaguePointsSystemsAsync(int leagueId, int? seasonId = null, CancellationToken cancellationToken = default);
+
     /// <summary>Information about license levels available in the iRacing system.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A <see cref="DataResponse{TData}"/> containing an array of <see cref="License"/> objects.</returns>

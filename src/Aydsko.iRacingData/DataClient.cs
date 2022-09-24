@@ -219,6 +219,31 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
+    public async Task<DataResponse<LeagePointsSystems>> GetLeaguePointsSystemsAsync(int leagueId, int? seasonId = null, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+        var queryUrl = "https://members-ng.iracing.com/data/league/get_points_systems";
+
+        var queryParams = new Dictionary<string, string>
+        {
+            ["league_id"] = leagueId.ToString(CultureInfo.InvariantCulture),
+        };
+
+        if (seasonId is int seasonIdValue)
+        {
+            queryParams.Add("season_id", seasonIdValue.ToString(CultureInfo.InvariantCulture));
+        }
+
+        queryUrl = QueryHelpers.AddQueryString(queryUrl, queryParams);
+
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), LeagePointsSystemsContext.Default.LeagePointsSystems, cancellationToken).ConfigureAwait(false);
+        return BuildDataResponse(headers, data, logger, expires);
+    }
+
+    /// <inheritdoc />
     public async Task<DataResponse<LookupGroup[]>> GetLookupsAsync(CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
