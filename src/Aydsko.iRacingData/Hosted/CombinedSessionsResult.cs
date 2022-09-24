@@ -3,19 +3,10 @@
 
 namespace Aydsko.iRacingData.Hosted;
 
-public class CombinedSessionsResult
+public class CombinedSessionsResult : HostedSessionsResult
 {
-    [JsonPropertyName("subscribed")]
-    public bool Subscribed { get; set; }
-
     [JsonPropertyName("sequence")]
     public int Sequence { get; set; }
-
-    [JsonPropertyName("sessions")]
-    public Session[] Sessions { get; set; } = Array.Empty<Session>();
-
-    [JsonPropertyName("success")]
-    public bool Success { get; set; }
 }
 
 [JsonSerializable(typeof(CombinedSessionsResult)), JsonSourceGenerationOptions(WriteIndented = true)]
