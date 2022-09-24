@@ -649,6 +649,69 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
+    public async Task<DataResponse<(WorldRecordsHeader Header, WorldRecordEntry[] Entries)>> GetWorldRecordsAsync(int carId, int trackId, int? seasonYear = null, int? seasonQuarter = null, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var queryParams = new Dictionary<string, string>
+        {
+            ["car_id"] = carId.ToString(CultureInfo.InvariantCulture),
+            ["track_id"] = trackId.ToString(CultureInfo.InvariantCulture),
+        };
+
+        if (seasonYear is int seasonYearValue)
+        {
+            queryParams.Add("season_year", seasonYearValue.ToString(CultureInfo.InvariantCulture));
+        }
+
+        if (seasonQuarter is int seasonQuarterValue)
+        {
+            if (seasonYear is null)
+            {
+                throw new ArgumentException($"Must supply a value for \"{nameof(seasonYear)}\" to use \"{nameof(seasonQuarter)}\".", nameof(seasonQuarter));
+            }
+            queryParams.Add("season_quarter", seasonQuarterValue.ToString(CultureInfo.InvariantCulture));
+        }
+
+        var queryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/world_records", queryParams);
+
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), WorldRecordsHeaderContext.Default.WorldRecordsHeader, cancellationToken).ConfigureAwait(false);
+
+        var entries = new List<WorldRecordEntry>();
+
+        if (data.Data.ChunkInfo is ChunkInfo { NumberOfChunks: > 0 } chunkInfo)
+        {
+            var baseChunkUrl = new Uri(chunkInfo.BaseDownloadUrl);
+
+            foreach (var (chunkFileName, index) in chunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
+            {
+                var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+
+                var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+                if (!chunkResponse.IsSuccessStatusCode)
+                {
+                    logger.FailedToRetrieveChunkError(index, chunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    continue;
+                }
+
+                var chunkData = await chunkResponse.Content.ReadFromJsonAsync(WorldRecordEntryArrayContext.Default.WorldRecordEntryArray, cancellationToken).ConfigureAwait(false);
+                if (chunkData is null)
+                {
+                    continue;
+                }
+
+                entries.AddRange(chunkData);
+            }
+        }
+
+        return BuildDataResponse<(WorldRecordsHeader Header, WorldRecordEntry[] Entries)>(headers, (data, entries.ToArray()), logger, expires);
+    }
+
+
+    /// <inheritdoc />
     public async Task<DataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Standings)>> GetSeasonDriverStandingsAsync(int seasonId, int carClassId, int raceWeekNumber, int clubId = -1, int? division = null, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
