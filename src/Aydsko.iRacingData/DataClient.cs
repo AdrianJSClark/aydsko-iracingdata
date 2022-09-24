@@ -924,6 +924,36 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
+    public async Task<DataResponse<MemberBests>> GetBestLapStatisticsAsync(int? customerId = null, int? carId = null, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var careerStatisticsUrl = "https://members-ng.iracing.com/data/stats/member_bests";
+        var queryParams = new Dictionary<string, string>();
+
+        if (customerId is not null)
+        {
+            queryParams.Add("cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture));
+        }
+
+        if (carId is not null)
+        {
+            queryParams.Add("car_id", carId.Value.ToString(CultureInfo.InvariantCulture));
+        }
+
+        if (queryParams.Count > 0)
+        {
+            careerStatisticsUrl = QueryHelpers.AddQueryString(careerStatisticsUrl, queryParams);
+        }
+
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(careerStatisticsUrl), MemberBestsContext.Default.MemberBests, cancellationToken).ConfigureAwait(false);
+        return BuildDataResponse(headers, data, logger, expires);
+    }
+
+    /// <inheritdoc />
     public async Task<DataResponse<MemberCareer>> GetCareerStatisticsAsync(int? customerId = null, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)

@@ -40,6 +40,16 @@ public interface IDataClient
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
     Task<DataResponse<Common.CarClass[]>> GetCarClassesAsync(CancellationToken cancellationToken = default);
 
+    /// <summary>The best laps in various cars & tracks for the given customer's career or that or the authenticated user.</summary>
+    /// <param name="customerId">iRacing Customer Id for the member to return statistics for, or <see langword="null"/> for the currently authenticated user.</param>
+    /// <param name="carId">Car to return statistics for. Should pass <see langword="null"/> for the first call & then should be an identifier from <see cref="MemberBests.CarsDriven"/>.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the best laps in a <see cref="MemberBests"/> object.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
+    Task<DataResponse<MemberBests>> GetBestLapStatisticsAsync(int? customerId = null, int? carId = null, CancellationToken cancellationToken = default);
+
     /// <summary>Return a summary of statistics for the given customer's career or that or the authenticated user.</summary>
     /// <param name="customerId">iRacing Customer Id for the member to return statistics for, or <see langword="null"/> for the currently authenticated user.</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
