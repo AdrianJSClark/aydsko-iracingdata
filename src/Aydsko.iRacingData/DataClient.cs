@@ -272,6 +272,28 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
+    public async Task<DataResponse<MemberAward[]>> GetDriverAwardsAsync(int? customerId = null, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var queryUrl = "https://members-ng.iracing.com/data/member/awards";
+
+        if (customerId is not null)
+        {
+            queryUrl = QueryHelpers.AddQueryString(queryUrl, new Dictionary<string, string>
+            {
+                ["cust_id"] = customerId.Value.ToString(CultureInfo.InvariantCulture),
+            });
+        };
+
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), MemberAwardArrayContext.Default.MemberAwardArray, cancellationToken).ConfigureAwait(false);
+        return BuildDataResponse(headers, data, logger, expires);
+    }
+
+    /// <inheritdoc />
     public async Task<DataResponse<MemberInfo>> GetMyInfoAsync(CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
