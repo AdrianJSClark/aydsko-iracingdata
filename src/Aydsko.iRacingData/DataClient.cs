@@ -1544,4 +1544,23 @@ internal class DataClient : IDataClient
         (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(countryUrl), CountryArrayContext.Default.CountryArray, cancellationToken).ConfigureAwait(false);
         return BuildDataResponse(headers, data, logger, expires);
     }
+
+    public async Task<DataResponse<LeagueSeasonSessions>> GetLeagueSeasonSessionsAsync(int leagueId, int seasonId, bool resultsOnly = false, CancellationToken cancellationToken = default)
+
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var getLeagueSeasonSessions = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/season_sessions", new Dictionary<string, string>
+        {
+            ["league_id"] = leagueId.ToString(CultureInfo.InvariantCulture),
+            ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
+            ["results_only"] = resultsOnly ? "1" : "0"
+        });
+
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(getLeagueSeasonSessions), LeagueSeasonSessionsContext.Default.LeagueSeasonSessions, cancellationToken).ConfigureAwait(false);
+        return BuildDataResponse(headers, data, logger, expires);
+    }
 }

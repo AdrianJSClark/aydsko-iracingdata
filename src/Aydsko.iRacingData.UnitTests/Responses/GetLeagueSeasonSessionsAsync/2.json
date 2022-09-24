@@ -1,0 +1,1470 @@
+{
+  "headers": {},
+  "content": {
+    "sessions": [
+      {
+        "cars": [
+          {
+            "car_id": 144,
+            "car_name": "Ferrari 488 GT3 Evo 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 156,
+            "car_name": "Mercedes-AMG GT3 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 73,
+            "car_name": "Audi R8 LMS GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 137,
+            "car_name": "Porsche 911 GT3 R",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 59,
+            "car_name": "Ford GT GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 43,
+            "car_name": "McLaren MP4-12C GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 133,
+            "car_name": "Lamborghini Huracán GT3 EVO",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 132,
+            "car_name": "BMW M4 GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          }
+        ],
+        "consec_cautions_single_file": false,
+        "damage_model": 0,
+        "do_not_count_caution_laps": false,
+        "do_not_paint_cars": false,
+        "driver_changes": false,
+        "entry_count": 0,
+        "green_white_checkered_limit": 0,
+        "has_results": true,
+        "launch_at": "2022-06-19T19:00:55Z",
+        "league_id": 5453,
+        "league_season_id": 80478,
+        "lone_qualify": false,
+        "max_ai_drivers": 0,
+        "must_use_diff_tire_types_in_race": false,
+        "no_lapper_wave_arounds": false,
+        "num_opt_laps": 0,
+        "pace_car_class_id": null,
+        "pace_car_id": null,
+        "password_protected": false,
+        "practice_length": 60,
+        "private_session_id": 2933022,
+        "qualify_laps": 0,
+        "qualify_length": 15,
+        "race_laps": 0,
+        "race_length": 40,
+        "session_id": 179968846,
+        "short_parade_lap": false,
+        "start_on_qual_tire": false,
+        "start_zone": false,
+        "status": 4,
+        "subsession_id": 46557088,
+        "team_entry_count": 0,
+        "telemetry_force_to_disk": 0,
+        "telemetry_restriction": 0,
+        "time_limit": 120,
+        "track": {
+          "track_id": 390,
+          "track_name": "Hockenheimring Baden-Württemberg",
+          "config_name": "Grand Prix"
+        },
+        "track_state": {
+          "leave_marbles": false,
+          "practice_rubber": -1,
+          "qualify_rubber": -1,
+          "warmup_rubber": -1,
+          "race_rubber": -1,
+          "practice_grip_compound": -1,
+          "qualify_grip_compound": -1,
+          "warmup_grip_compound": -1,
+          "race_grip_compound": -1
+        },
+        "weather": {
+          "version": 0,
+          "type": 1,
+          "temp_units": 0,
+          "temp_value": 78,
+          "rel_humidity": 55,
+          "fog": 0,
+          "wind_dir": 0,
+          "wind_units": 0,
+          "wind_value": 2,
+          "skies": 1,
+          "weather_var_initial": 0,
+          "weather_var_ongoing": 0,
+          "allow_fog": false,
+          "track_water": 0,
+          "precip_option": 0
+        },
+        "winner_id": 487764,
+        "winner_name": "Tobias Seck"
+      },
+      {
+        "cars": [
+          {
+            "car_id": 144,
+            "car_name": "Ferrari 488 GT3 Evo 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 156,
+            "car_name": "Mercedes-AMG GT3 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 73,
+            "car_name": "Audi R8 LMS GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 137,
+            "car_name": "Porsche 911 GT3 R",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 59,
+            "car_name": "Ford GT GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 43,
+            "car_name": "McLaren MP4-12C GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 133,
+            "car_name": "Lamborghini Huracán GT3 EVO",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 132,
+            "car_name": "BMW M4 GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          }
+        ],
+        "consec_cautions_single_file": false,
+        "damage_model": 0,
+        "do_not_count_caution_laps": false,
+        "do_not_paint_cars": false,
+        "driver_changes": false,
+        "entry_count": 0,
+        "green_white_checkered_limit": 0,
+        "has_results": true,
+        "launch_at": "2022-06-26T19:00:03Z",
+        "league_id": 5453,
+        "league_season_id": 80478,
+        "lone_qualify": false,
+        "max_ai_drivers": 0,
+        "must_use_diff_tire_types_in_race": false,
+        "no_lapper_wave_arounds": false,
+        "num_opt_laps": 0,
+        "pace_car_class_id": null,
+        "pace_car_id": null,
+        "password_protected": false,
+        "practice_length": 60,
+        "private_session_id": 2944985,
+        "qualify_laps": 0,
+        "qualify_length": 15,
+        "race_laps": 0,
+        "race_length": 40,
+        "session_id": 180543774,
+        "short_parade_lap": false,
+        "start_on_qual_tire": false,
+        "start_zone": false,
+        "status": 4,
+        "subsession_id": 46681019,
+        "team_entry_count": 0,
+        "telemetry_force_to_disk": 0,
+        "telemetry_restriction": 0,
+        "time_limit": 120,
+        "track": {
+          "track_id": 179,
+          "track_name": "Long Beach Street Circuit"
+        },
+        "track_state": {
+          "leave_marbles": false,
+          "practice_rubber": -1,
+          "qualify_rubber": -1,
+          "warmup_rubber": -1,
+          "race_rubber": -1,
+          "practice_grip_compound": -1,
+          "qualify_grip_compound": -1,
+          "warmup_grip_compound": -1,
+          "race_grip_compound": -1
+        },
+        "weather": {
+          "version": 0,
+          "type": 1,
+          "temp_units": 0,
+          "temp_value": 78,
+          "rel_humidity": 55,
+          "fog": 0,
+          "wind_dir": 0,
+          "wind_units": 0,
+          "wind_value": 2,
+          "skies": 1,
+          "weather_var_initial": 0,
+          "weather_var_ongoing": 0,
+          "allow_fog": false,
+          "track_water": 0,
+          "precip_option": 0
+        },
+        "winner_id": 487764,
+        "winner_name": "Tobias Seck"
+      },
+      {
+        "cars": [
+          {
+            "car_id": 144,
+            "car_name": "Ferrari 488 GT3 Evo 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 156,
+            "car_name": "Mercedes-AMG GT3 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 73,
+            "car_name": "Audi R8 LMS GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 137,
+            "car_name": "Porsche 911 GT3 R",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 59,
+            "car_name": "Ford GT GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 43,
+            "car_name": "McLaren MP4-12C GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 133,
+            "car_name": "Lamborghini Huracán GT3 EVO",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 132,
+            "car_name": "BMW M4 GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          }
+        ],
+        "consec_cautions_single_file": false,
+        "damage_model": 0,
+        "do_not_count_caution_laps": false,
+        "do_not_paint_cars": false,
+        "driver_changes": false,
+        "entry_count": 0,
+        "green_white_checkered_limit": 0,
+        "has_results": true,
+        "launch_at": "2022-07-03T19:00:35Z",
+        "league_id": 5453,
+        "league_season_id": 80478,
+        "lone_qualify": false,
+        "max_ai_drivers": 0,
+        "must_use_diff_tire_types_in_race": false,
+        "no_lapper_wave_arounds": false,
+        "num_opt_laps": 0,
+        "pace_car_class_id": null,
+        "pace_car_id": null,
+        "password_protected": false,
+        "practice_length": 60,
+        "private_session_id": 2953845,
+        "qualify_laps": 0,
+        "qualify_length": 15,
+        "race_laps": 0,
+        "race_length": 40,
+        "session_id": 181113516,
+        "short_parade_lap": false,
+        "start_on_qual_tire": false,
+        "start_zone": false,
+        "status": 4,
+        "subsession_id": 47067486,
+        "team_entry_count": 0,
+        "telemetry_force_to_disk": 0,
+        "telemetry_restriction": 0,
+        "time_limit": 120,
+        "track": {
+          "track_id": 444,
+          "track_name": "Fuji International Speedway",
+          "config_name": "Grand Prix"
+        },
+        "track_state": {
+          "leave_marbles": false,
+          "practice_rubber": -1,
+          "qualify_rubber": -1,
+          "warmup_rubber": -1,
+          "race_rubber": -1,
+          "practice_grip_compound": -1,
+          "qualify_grip_compound": -1,
+          "warmup_grip_compound": -1,
+          "race_grip_compound": -1
+        },
+        "weather": {
+          "version": 0,
+          "type": 1,
+          "temp_units": 0,
+          "temp_value": 78,
+          "rel_humidity": 55,
+          "fog": 0,
+          "wind_dir": 0,
+          "wind_units": 0,
+          "wind_value": 2,
+          "skies": 1,
+          "weather_var_initial": 0,
+          "weather_var_ongoing": 0,
+          "allow_fog": false,
+          "track_water": 0,
+          "precip_option": 0
+        },
+        "winner_id": 465946,
+        "winner_name": "John Mcaree"
+      },
+      {
+        "cars": [
+          {
+            "car_id": 144,
+            "car_name": "Ferrari 488 GT3 Evo 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 156,
+            "car_name": "Mercedes-AMG GT3 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 73,
+            "car_name": "Audi R8 LMS GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 137,
+            "car_name": "Porsche 911 GT3 R",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 59,
+            "car_name": "Ford GT GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 43,
+            "car_name": "McLaren MP4-12C GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 133,
+            "car_name": "Lamborghini Huracán GT3 EVO",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 132,
+            "car_name": "BMW M4 GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          }
+        ],
+        "consec_cautions_single_file": false,
+        "damage_model": 0,
+        "do_not_count_caution_laps": false,
+        "do_not_paint_cars": false,
+        "driver_changes": false,
+        "entry_count": 0,
+        "green_white_checkered_limit": 0,
+        "has_results": true,
+        "launch_at": "2022-07-10T19:00:32Z",
+        "league_id": 5453,
+        "league_season_id": 80478,
+        "lone_qualify": false,
+        "max_ai_drivers": 0,
+        "must_use_diff_tire_types_in_race": false,
+        "no_lapper_wave_arounds": false,
+        "num_opt_laps": 0,
+        "pace_car_class_id": null,
+        "pace_car_id": null,
+        "password_protected": false,
+        "practice_length": 60,
+        "private_session_id": 2964611,
+        "qualify_laps": 0,
+        "qualify_length": 15,
+        "race_laps": 0,
+        "race_length": 40,
+        "session_id": 181680619,
+        "short_parade_lap": false,
+        "start_on_qual_tire": false,
+        "start_zone": false,
+        "status": 4,
+        "subsession_id": 49675743,
+        "team_entry_count": 0,
+        "telemetry_force_to_disk": 0,
+        "telemetry_restriction": 0,
+        "time_limit": 120,
+        "track": {
+          "track_id": 434,
+          "track_name": "Watkins Glen International",
+          "config_name": "Boot"
+        },
+        "track_state": {
+          "leave_marbles": false,
+          "practice_rubber": -1,
+          "qualify_rubber": -1,
+          "warmup_rubber": -1,
+          "race_rubber": -1,
+          "practice_grip_compound": -1,
+          "qualify_grip_compound": -1,
+          "warmup_grip_compound": -1,
+          "race_grip_compound": -1
+        },
+        "weather": {
+          "version": 0,
+          "type": 1,
+          "temp_units": 0,
+          "temp_value": 78,
+          "rel_humidity": 55,
+          "fog": 0,
+          "wind_dir": 0,
+          "wind_units": 0,
+          "wind_value": 2,
+          "skies": 1,
+          "weather_var_initial": 0,
+          "weather_var_ongoing": 0,
+          "allow_fog": false,
+          "track_water": 0,
+          "precip_option": 0
+        },
+        "winner_id": 529881,
+        "winner_name": "Corey R Edwards"
+      },
+      {
+        "cars": [
+          {
+            "car_id": 144,
+            "car_name": "Ferrari 488 GT3 Evo 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 156,
+            "car_name": "Mercedes-AMG GT3 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 73,
+            "car_name": "Audi R8 LMS GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 137,
+            "car_name": "Porsche 911 GT3 R",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 59,
+            "car_name": "Ford GT GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 43,
+            "car_name": "McLaren MP4-12C GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 133,
+            "car_name": "Lamborghini Huracán GT3 EVO",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 132,
+            "car_name": "BMW M4 GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          }
+        ],
+        "consec_cautions_single_file": false,
+        "damage_model": 0,
+        "do_not_count_caution_laps": false,
+        "do_not_paint_cars": false,
+        "driver_changes": false,
+        "entry_count": 0,
+        "green_white_checkered_limit": 0,
+        "has_results": true,
+        "launch_at": "2022-07-17T19:00:02Z",
+        "league_id": 5453,
+        "league_season_id": 80478,
+        "lone_qualify": false,
+        "max_ai_drivers": 0,
+        "must_use_diff_tire_types_in_race": false,
+        "no_lapper_wave_arounds": false,
+        "num_opt_laps": 0,
+        "pace_car_class_id": null,
+        "pace_car_id": null,
+        "password_protected": false,
+        "practice_length": 60,
+        "private_session_id": 2973440,
+        "qualify_laps": 0,
+        "qualify_length": 15,
+        "race_laps": 0,
+        "race_length": 40,
+        "session_id": 182247700,
+        "short_parade_lap": false,
+        "start_on_qual_tire": false,
+        "start_zone": false,
+        "status": 4,
+        "subsession_id": 49795886,
+        "team_entry_count": 0,
+        "telemetry_force_to_disk": 0,
+        "telemetry_restriction": 0,
+        "time_limit": 120,
+        "track": {
+          "track_id": 218,
+          "track_name": "Circuit Gilles Villeneuve"
+        },
+        "track_state": {
+          "leave_marbles": false,
+          "practice_rubber": -1,
+          "qualify_rubber": -1,
+          "warmup_rubber": -1,
+          "race_rubber": -1,
+          "practice_grip_compound": -1,
+          "qualify_grip_compound": -1,
+          "warmup_grip_compound": -1,
+          "race_grip_compound": -1
+        },
+        "weather": {
+          "version": 0,
+          "type": 1,
+          "temp_units": 0,
+          "temp_value": 78,
+          "rel_humidity": 55,
+          "fog": 0,
+          "wind_dir": 0,
+          "wind_units": 0,
+          "wind_value": 2,
+          "skies": 1,
+          "weather_var_initial": 0,
+          "weather_var_ongoing": 0,
+          "allow_fog": false,
+          "track_water": 0,
+          "precip_option": 0
+        },
+        "winner_id": 508128,
+        "winner_name": "Gordon Hales"
+      },
+      {
+        "cars": [
+          {
+            "car_id": 144,
+            "car_name": "Ferrari 488 GT3 Evo 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 156,
+            "car_name": "Mercedes-AMG GT3 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 73,
+            "car_name": "Audi R8 LMS GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 137,
+            "car_name": "Porsche 911 GT3 R",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 59,
+            "car_name": "Ford GT GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 43,
+            "car_name": "McLaren MP4-12C GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 133,
+            "car_name": "Lamborghini Huracán GT3 EVO",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 132,
+            "car_name": "BMW M4 GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          }
+        ],
+        "consec_cautions_single_file": false,
+        "damage_model": 0,
+        "do_not_count_caution_laps": false,
+        "do_not_paint_cars": false,
+        "driver_changes": false,
+        "entry_count": 0,
+        "green_white_checkered_limit": 0,
+        "has_results": true,
+        "launch_at": "2022-07-24T19:00:58Z",
+        "league_id": 5453,
+        "league_season_id": 80478,
+        "lone_qualify": false,
+        "max_ai_drivers": 0,
+        "must_use_diff_tire_types_in_race": false,
+        "no_lapper_wave_arounds": false,
+        "num_opt_laps": 0,
+        "pace_car_class_id": null,
+        "pace_car_id": null,
+        "password_protected": false,
+        "practice_length": 60,
+        "private_session_id": 2983961,
+        "qualify_laps": 0,
+        "qualify_length": 15,
+        "race_laps": 0,
+        "race_length": 40,
+        "session_id": 182824456,
+        "short_parade_lap": false,
+        "start_on_qual_tire": false,
+        "start_zone": false,
+        "status": 4,
+        "subsession_id": 49924590,
+        "team_entry_count": 0,
+        "telemetry_force_to_disk": 0,
+        "telemetry_restriction": 0,
+        "time_limit": 120,
+        "track": {
+          "track_id": 165,
+          "track_name": "Circuit de Spa-Francorchamps",
+          "config_name": "Endurance"
+        },
+        "track_state": {
+          "leave_marbles": false,
+          "practice_rubber": -1,
+          "qualify_rubber": -1,
+          "warmup_rubber": -1,
+          "race_rubber": -1,
+          "practice_grip_compound": -1,
+          "qualify_grip_compound": -1,
+          "warmup_grip_compound": -1,
+          "race_grip_compound": -1
+        },
+        "weather": {
+          "version": 0,
+          "type": 1,
+          "temp_units": 0,
+          "temp_value": 78,
+          "rel_humidity": 55,
+          "fog": 0,
+          "wind_dir": 0,
+          "wind_units": 0,
+          "wind_value": 2,
+          "skies": 1,
+          "weather_var_initial": 0,
+          "weather_var_ongoing": 0,
+          "allow_fog": false,
+          "track_water": 0,
+          "precip_option": 0
+        },
+        "winner_id": 531182,
+        "winner_name": "Maarten de Jong"
+      },
+      {
+        "cars": [
+          {
+            "car_id": 144,
+            "car_name": "Ferrari 488 GT3 Evo 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 156,
+            "car_name": "Mercedes-AMG GT3 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 73,
+            "car_name": "Audi R8 LMS GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 137,
+            "car_name": "Porsche 911 GT3 R",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 59,
+            "car_name": "Ford GT GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 43,
+            "car_name": "McLaren MP4-12C GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 133,
+            "car_name": "Lamborghini Huracán GT3 EVO",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 132,
+            "car_name": "BMW M4 GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          }
+        ],
+        "consec_cautions_single_file": false,
+        "damage_model": 0,
+        "do_not_count_caution_laps": false,
+        "do_not_paint_cars": false,
+        "driver_changes": false,
+        "entry_count": 0,
+        "green_white_checkered_limit": 0,
+        "has_results": true,
+        "launch_at": "2022-07-31T19:00:54Z",
+        "league_id": 5453,
+        "league_season_id": 80478,
+        "lone_qualify": false,
+        "max_ai_drivers": 0,
+        "must_use_diff_tire_types_in_race": false,
+        "no_lapper_wave_arounds": false,
+        "num_opt_laps": 0,
+        "pace_car_class_id": null,
+        "pace_car_id": null,
+        "password_protected": false,
+        "practice_length": 60,
+        "private_session_id": 2993268,
+        "qualify_laps": 0,
+        "qualify_length": 15,
+        "race_laps": 0,
+        "race_length": 40,
+        "session_id": 183397085,
+        "short_parade_lap": false,
+        "start_on_qual_tire": false,
+        "start_zone": false,
+        "status": 4,
+        "subsession_id": 50067571,
+        "team_entry_count": 0,
+        "telemetry_force_to_disk": 0,
+        "telemetry_restriction": 0,
+        "time_limit": 120,
+        "track": {
+          "track_id": 443,
+          "track_name": "Sandown International Motor Raceway"
+        },
+        "track_state": {
+          "leave_marbles": false,
+          "practice_rubber": -1,
+          "qualify_rubber": -1,
+          "warmup_rubber": -1,
+          "race_rubber": -1,
+          "practice_grip_compound": -1,
+          "qualify_grip_compound": -1,
+          "warmup_grip_compound": -1,
+          "race_grip_compound": -1
+        },
+        "weather": {
+          "version": 0,
+          "type": 1,
+          "temp_units": 0,
+          "temp_value": 78,
+          "rel_humidity": 55,
+          "fog": 0,
+          "wind_dir": 0,
+          "wind_units": 0,
+          "wind_value": 2,
+          "skies": 1,
+          "weather_var_initial": 0,
+          "weather_var_ongoing": 0,
+          "allow_fog": false,
+          "track_water": 0,
+          "precip_option": 0
+        },
+        "winner_id": 487764,
+        "winner_name": "Tobias Seck"
+      },
+      {
+        "cars": [
+          {
+            "car_id": 144,
+            "car_name": "Ferrari 488 GT3 Evo 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 156,
+            "car_name": "Mercedes-AMG GT3 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 73,
+            "car_name": "Audi R8 LMS GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 137,
+            "car_name": "Porsche 911 GT3 R",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 59,
+            "car_name": "Ford GT GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 43,
+            "car_name": "McLaren MP4-12C GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 133,
+            "car_name": "Lamborghini Huracán GT3 EVO",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 132,
+            "car_name": "BMW M4 GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          }
+        ],
+        "consec_cautions_single_file": false,
+        "damage_model": 0,
+        "do_not_count_caution_laps": false,
+        "do_not_paint_cars": false,
+        "driver_changes": false,
+        "entry_count": 0,
+        "green_white_checkered_limit": 0,
+        "has_results": true,
+        "launch_at": "2022-08-07T19:00:37Z",
+        "league_id": 5453,
+        "league_season_id": 80478,
+        "lone_qualify": false,
+        "max_ai_drivers": 0,
+        "must_use_diff_tire_types_in_race": false,
+        "no_lapper_wave_arounds": false,
+        "num_opt_laps": 0,
+        "pace_car_class_id": null,
+        "pace_car_id": null,
+        "password_protected": false,
+        "practice_length": 60,
+        "private_session_id": 2997841,
+        "qualify_laps": 0,
+        "qualify_length": 15,
+        "race_laps": 0,
+        "race_length": 40,
+        "session_id": 183973506,
+        "short_parade_lap": false,
+        "start_on_qual_tire": false,
+        "start_zone": false,
+        "status": 4,
+        "subsession_id": 50261826,
+        "team_entry_count": 0,
+        "telemetry_force_to_disk": 0,
+        "telemetry_restriction": 0,
+        "time_limit": 120,
+        "track": {
+          "track_id": 413,
+          "track_name": "Hungaroring"
+        },
+        "track_state": {
+          "leave_marbles": false,
+          "practice_rubber": -1,
+          "qualify_rubber": -1,
+          "warmup_rubber": -1,
+          "race_rubber": -1,
+          "practice_grip_compound": -1,
+          "qualify_grip_compound": -1,
+          "warmup_grip_compound": -1,
+          "race_grip_compound": -1
+        },
+        "weather": {
+          "version": 0,
+          "type": 1,
+          "temp_units": 0,
+          "temp_value": 78,
+          "rel_humidity": 55,
+          "fog": 0,
+          "wind_dir": 0,
+          "wind_units": 0,
+          "wind_value": 2,
+          "skies": 1,
+          "weather_var_initial": 0,
+          "weather_var_ongoing": 0,
+          "allow_fog": false,
+          "track_water": 0,
+          "precip_option": 0
+        },
+        "winner_id": 489765,
+        "winner_name": "David Mcaree"
+      },
+      {
+        "cars": [
+          {
+            "car_id": 144,
+            "car_name": "Ferrari 488 GT3 Evo 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 156,
+            "car_name": "Mercedes-AMG GT3 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 73,
+            "car_name": "Audi R8 LMS GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 137,
+            "car_name": "Porsche 911 GT3 R",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 59,
+            "car_name": "Ford GT GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 43,
+            "car_name": "McLaren MP4-12C GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 133,
+            "car_name": "Lamborghini Huracán GT3 EVO",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 132,
+            "car_name": "BMW M4 GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          }
+        ],
+        "consec_cautions_single_file": false,
+        "damage_model": 0,
+        "do_not_count_caution_laps": false,
+        "do_not_paint_cars": false,
+        "driver_changes": false,
+        "entry_count": 0,
+        "green_white_checkered_limit": 0,
+        "has_results": true,
+        "launch_at": "2022-08-14T19:00:04Z",
+        "league_id": 5453,
+        "league_season_id": 80478,
+        "lone_qualify": false,
+        "max_ai_drivers": 0,
+        "must_use_diff_tire_types_in_race": false,
+        "no_lapper_wave_arounds": false,
+        "num_opt_laps": 0,
+        "pace_car_class_id": null,
+        "pace_car_id": null,
+        "password_protected": false,
+        "practice_length": 60,
+        "private_session_id": 2997845,
+        "qualify_laps": 0,
+        "qualify_length": 15,
+        "race_laps": 0,
+        "race_length": 40,
+        "session_id": 184540563,
+        "short_parade_lap": false,
+        "start_on_qual_tire": false,
+        "start_zone": false,
+        "status": 4,
+        "subsession_id": 50380622,
+        "team_entry_count": 0,
+        "telemetry_force_to_disk": 0,
+        "telemetry_restriction": 0,
+        "time_limit": 120,
+        "track": {
+          "track_id": 168,
+          "track_name": "Suzuka International Racing Course",
+          "config_name": "Grand Prix"
+        },
+        "track_state": {
+          "leave_marbles": false,
+          "practice_rubber": -1,
+          "qualify_rubber": -1,
+          "warmup_rubber": -1,
+          "race_rubber": -1,
+          "practice_grip_compound": -1,
+          "qualify_grip_compound": -1,
+          "warmup_grip_compound": -1,
+          "race_grip_compound": -1
+        },
+        "weather": {
+          "version": 0,
+          "type": 1,
+          "temp_units": 0,
+          "temp_value": 78,
+          "rel_humidity": 55,
+          "fog": 0,
+          "wind_dir": 0,
+          "wind_units": 0,
+          "wind_value": 2,
+          "skies": 1,
+          "weather_var_initial": 0,
+          "weather_var_ongoing": 0,
+          "allow_fog": false,
+          "track_water": 0,
+          "precip_option": 0
+        },
+        "winner_id": 425570,
+        "winner_name": "Ian Carder"
+      },
+      {
+        "cars": [
+          {
+            "car_id": 144,
+            "car_name": "Ferrari 488 GT3 Evo 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 156,
+            "car_name": "Mercedes-AMG GT3 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 73,
+            "car_name": "Audi R8 LMS GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 137,
+            "car_name": "Porsche 911 GT3 R",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 59,
+            "car_name": "Ford GT GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 43,
+            "car_name": "McLaren MP4-12C GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 133,
+            "car_name": "Lamborghini Huracán GT3 EVO",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 132,
+            "car_name": "BMW M4 GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          }
+        ],
+        "consec_cautions_single_file": false,
+        "damage_model": 0,
+        "do_not_count_caution_laps": false,
+        "do_not_paint_cars": false,
+        "driver_changes": false,
+        "entry_count": 0,
+        "green_white_checkered_limit": 0,
+        "has_results": true,
+        "launch_at": "2022-08-21T19:19:32Z",
+        "league_id": 5453,
+        "league_season_id": 80478,
+        "lone_qualify": false,
+        "max_ai_drivers": 0,
+        "must_use_diff_tire_types_in_race": false,
+        "no_lapper_wave_arounds": false,
+        "num_opt_laps": 0,
+        "pace_car_class_id": null,
+        "pace_car_id": null,
+        "password_protected": false,
+        "practice_length": 45,
+        "private_session_id": 3021396,
+        "qualify_laps": 0,
+        "qualify_length": 15,
+        "race_laps": 0,
+        "race_length": 40,
+        "session_id": 185116577,
+        "short_parade_lap": false,
+        "start_on_qual_tire": false,
+        "start_zone": false,
+        "status": 4,
+        "subsession_id": 50567243,
+        "team_entry_count": 0,
+        "telemetry_force_to_disk": 0,
+        "telemetry_restriction": 0,
+        "time_limit": 120,
+        "track": {
+          "track_id": 250,
+          "track_name": "Nürburgring Grand-Prix-Strecke",
+          "config_name": "Grand Prix"
+        },
+        "track_state": {
+          "leave_marbles": false,
+          "practice_rubber": -1,
+          "qualify_rubber": -1,
+          "warmup_rubber": -1,
+          "race_rubber": -1,
+          "practice_grip_compound": -1,
+          "qualify_grip_compound": -1,
+          "warmup_grip_compound": -1,
+          "race_grip_compound": -1
+        },
+        "weather": {
+          "version": 0,
+          "type": 1,
+          "temp_units": 0,
+          "temp_value": 78,
+          "rel_humidity": 55,
+          "fog": 0,
+          "wind_dir": 0,
+          "wind_units": 0,
+          "wind_value": 2,
+          "skies": 1,
+          "weather_var_initial": 0,
+          "weather_var_ongoing": 0,
+          "allow_fog": false,
+          "track_water": 0,
+          "precip_option": 0
+        },
+        "winner_id": 111365,
+        "winner_name": "Joeri Steinmetz"
+      },
+      {
+        "cars": [
+          {
+            "car_id": 144,
+            "car_name": "Ferrari 488 GT3 Evo 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 156,
+            "car_name": "Mercedes-AMG GT3 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 73,
+            "car_name": "Audi R8 LMS GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 137,
+            "car_name": "Porsche 911 GT3 R",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 59,
+            "car_name": "Ford GT GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 43,
+            "car_name": "McLaren MP4-12C GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 133,
+            "car_name": "Lamborghini Huracán GT3 EVO",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 132,
+            "car_name": "BMW M4 GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          }
+        ],
+        "consec_cautions_single_file": false,
+        "damage_model": 0,
+        "do_not_count_caution_laps": false,
+        "do_not_paint_cars": false,
+        "driver_changes": false,
+        "entry_count": 0,
+        "green_white_checkered_limit": 0,
+        "has_results": true,
+        "launch_at": "2022-08-28T19:13:13Z",
+        "league_id": 5453,
+        "league_season_id": 80478,
+        "lone_qualify": false,
+        "max_ai_drivers": 0,
+        "must_use_diff_tire_types_in_race": false,
+        "no_lapper_wave_arounds": false,
+        "num_opt_laps": 0,
+        "pace_car_class_id": null,
+        "pace_car_id": null,
+        "password_protected": false,
+        "practice_length": 45,
+        "private_session_id": 3030214,
+        "qualify_laps": 0,
+        "qualify_length": 10,
+        "race_laps": 0,
+        "race_length": 40,
+        "session_id": 185684245,
+        "short_parade_lap": false,
+        "start_on_qual_tire": false,
+        "start_zone": false,
+        "status": 4,
+        "subsession_id": 50691921,
+        "team_entry_count": 0,
+        "telemetry_force_to_disk": 0,
+        "telemetry_restriction": 0,
+        "time_limit": 120,
+        "track": {
+          "track_id": 153,
+          "track_name": "Mid-Ohio Sports Car Course",
+          "config_name": "Full Course"
+        },
+        "track_state": {
+          "leave_marbles": false,
+          "practice_rubber": -1,
+          "qualify_rubber": -1,
+          "warmup_rubber": -1,
+          "race_rubber": -1,
+          "practice_grip_compound": -1,
+          "qualify_grip_compound": -1,
+          "warmup_grip_compound": -1,
+          "race_grip_compound": -1
+        },
+        "weather": {
+          "version": 0,
+          "type": 1,
+          "temp_units": 1,
+          "temp_value": 26,
+          "rel_humidity": 55,
+          "fog": 0,
+          "wind_dir": 0,
+          "wind_units": 1,
+          "wind_value": 3,
+          "skies": 1,
+          "weather_var_initial": 0,
+          "weather_var_ongoing": 0,
+          "allow_fog": false,
+          "track_water": 0,
+          "precip_option": 0
+        },
+        "winner_id": 111365,
+        "winner_name": "Joeri Steinmetz"
+      },
+      {
+        "cars": [
+          {
+            "car_id": 144,
+            "car_name": "Ferrari 488 GT3 Evo 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 156,
+            "car_name": "Mercedes-AMG GT3 2020",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 73,
+            "car_name": "Audi R8 LMS GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 137,
+            "car_name": "Porsche 911 GT3 R",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 59,
+            "car_name": "Ford GT GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 43,
+            "car_name": "McLaren MP4-12C GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 133,
+            "car_name": "Lamborghini Huracán GT3 EVO",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          },
+          {
+            "car_id": 132,
+            "car_name": "BMW M4 GT3",
+            "car_class_id": 0,
+            "car_class_name": "Hosted All Cars Class"
+          }
+        ],
+        "consec_cautions_single_file": false,
+        "damage_model": 0,
+        "do_not_count_caution_laps": false,
+        "do_not_paint_cars": false,
+        "driver_changes": false,
+        "entry_count": 0,
+        "green_white_checkered_limit": 0,
+        "has_results": true,
+        "launch_at": "2022-09-04T19:00:32Z",
+        "league_id": 5453,
+        "league_season_id": 80478,
+        "lone_qualify": false,
+        "max_ai_drivers": 0,
+        "must_use_diff_tire_types_in_race": false,
+        "no_lapper_wave_arounds": false,
+        "num_opt_laps": 0,
+        "pace_car_class_id": null,
+        "pace_car_id": null,
+        "password_protected": false,
+        "practice_length": 60,
+        "private_session_id": 3038779,
+        "qualify_laps": 0,
+        "qualify_length": 15,
+        "race_laps": 0,
+        "race_length": 40,
+        "session_id": 186256027,
+        "short_parade_lap": false,
+        "start_on_qual_tire": false,
+        "start_zone": false,
+        "status": 4,
+        "subsession_id": 50814981,
+        "team_entry_count": 0,
+        "telemetry_force_to_disk": 0,
+        "telemetry_restriction": 0,
+        "time_limit": 120,
+        "track": {
+          "track_id": 127,
+          "track_name": "Road Atlanta",
+          "config_name": "Full Course"
+        },
+        "track_state": {
+          "leave_marbles": false,
+          "practice_rubber": -1,
+          "qualify_rubber": -1,
+          "warmup_rubber": -1,
+          "race_rubber": -1,
+          "practice_grip_compound": -1,
+          "qualify_grip_compound": -1,
+          "warmup_grip_compound": -1,
+          "race_grip_compound": -1
+        },
+        "weather": {
+          "version": 0,
+          "type": 1,
+          "temp_units": 0,
+          "temp_value": 78,
+          "rel_humidity": 55,
+          "fog": 0,
+          "wind_dir": 0,
+          "wind_units": 0,
+          "wind_value": 2,
+          "skies": 1,
+          "weather_var_initial": 0,
+          "weather_var_ongoing": 0,
+          "allow_fog": false,
+          "track_water": 0,
+          "precip_option": 0
+        },
+        "winner_id": 487764,
+        "winner_name": "Tobias Seck"
+      }
+    ],
+    "success": true,
+    "season_id": 80478,
+    "league_id": 5453
+  }
+}
