@@ -12,6 +12,7 @@ using System.Text.Json.Serialization.Metadata;
 using Aydsko.iRacingData.Cars;
 using Aydsko.iRacingData.Constants;
 using Aydsko.iRacingData.Exceptions;
+using Aydsko.iRacingData.Hosted;
 using Aydsko.iRacingData.Leagues;
 using Aydsko.iRacingData.Lookups;
 using Aydsko.iRacingData.Member;
@@ -164,6 +165,42 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
+    public async Task<DataResponse<CombinedSessionsResult>> ListHostedSessionsCombinedAsync(int? packageId = null, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var queryUrl = "https://members-ng.iracing.com/data/hosted/combined_sessions";
+
+        if (packageId is not null)
+        {
+            queryUrl = QueryHelpers.AddQueryString(queryUrl, new Dictionary<string, string>
+            {
+                ["package_id"] = packageId.Value.ToString(CultureInfo.InvariantCulture)
+            });
+        }
+
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), CombinedSessionsResultContext.Default.CombinedSessionsResult, cancellationToken).ConfigureAwait(false);
+        return BuildDataResponse(headers, data, logger, expires);
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<HostedSessionsResult>> ListHostedSessionsAsync(CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var queryUrl = "https://members-ng.iracing.com/data/hosted/sessions";
+
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), HostedSessionsResultContext.Default.HostedSessionsResult, cancellationToken).ConfigureAwait(false);
+        return BuildDataResponse(headers, data, logger, expires);
+    }
+
+    /// <inheritdoc />
     public async Task<DataResponse<League>> GetLeagueAsync(int leagueId, bool includeLicenses = false, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
@@ -176,6 +213,7 @@ internal class DataClient : IDataClient
             ["league_id"] = leagueId.ToString(CultureInfo.InvariantCulture),
             ["include_licenses"] = includeLicenses.ToString(),
         });
+
         (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(getTrackUrl), LeagueContext.Default.League, cancellationToken).ConfigureAwait(false);
         return BuildDataResponse(headers, data, logger, expires);
     }

@@ -370,4 +370,46 @@
     <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0006</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.IDataClient.GetHostedSessionsCombinedAsync(System.Nullable{System.Int32},System.Threading.CancellationToken)</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0006</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.IDataClient.GetHostedSessionsAsync(System.Threading.CancellationToken)</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0006</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.IDataClient.GetHostedSessionsCombinedAsync(System.Nullable{System.Int32},System.Threading.CancellationToken)</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0006</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.IDataClient.GetHostedSessionsAsync(System.Threading.CancellationToken)</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0006</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.IDataClient.ListHostedSessionsAsync(System.Threading.CancellationToken)</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0006</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.IDataClient.ListHostedSessionsAsync(System.Threading.CancellationToken)</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
 </Suppressions>
