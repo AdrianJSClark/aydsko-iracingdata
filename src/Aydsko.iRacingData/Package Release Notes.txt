@@ -1,23 +1,11 @@
 ﻿Fixes / Changes:
 
- - Support Optional "Club Id" and "Division" Parameters (Issue #104)
- - Add Club History Endpoint (Issue #89)
- - Fix issue where "GetSeasonQualifyResultsAsync" method called the wrong API URL
- - Support Member Profile Endpoint (Issue #101)
- - Support Member Bests Endpoint (Issue #102)
- - Support Drivers Lookup Endpoint (Issue #103)
- - Support Season "Race Guide" Endpoint (Issue #100)
- - Support Driver Awards Endpoint (Issue #111)
- - Support World Records Endpoint (Issue #93)
- - Support Team Data Endpoint (Issue #68)
- - Support League Points Systems Endpoint (Issue #71)
+ - TODO
 
 
 
 Contributions:
 
- - From Dennis Møllegaard Pedersen (https://github.com/dennis):
-    - Support League Seasons Endpoint (Pull Request #112)
-    - Support League Season Sessions Endpoint (Pull Request #120)
+ - TODO
 
 Thanks for helping out with pull requests to the library!
