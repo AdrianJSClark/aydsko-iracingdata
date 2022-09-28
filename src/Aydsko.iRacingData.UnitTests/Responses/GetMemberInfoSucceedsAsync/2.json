@@ -20,8 +20,8 @@
         "last_login": "2022-01-01T00:00:00.000000Z",
         "read_comp_rules": "2019-01-01T00:00:00Z",
         "account": {
-            "ir_dollars": 0,
-            "ir_credits": 0,
+            "ir_dollars": 1.23,
+            "ir_credits": 4.56,
             "status": "active"
         },
         "helmet": {
