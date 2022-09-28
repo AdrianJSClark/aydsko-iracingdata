@@ -20,6 +20,8 @@ if (username is null || password is null)
 var services = new ServiceCollection();
 services.AddIRacingDataApi(options =>
 {
+    options.UserAgentProductName = "Aydsko.iRacing Example";
+    options.UserAgentProductVersion = typeof(Program).Assembly.GetName().Version;
     options.Username = username;
     options.Password = password;
 });
