@@ -1,11 +1,6 @@
 ﻿Fixes / Changes:
 
- - TODO
-
-
-
-Contributions:
-
- - TODO
+ - Accept Pre-Hashed Password (Issue #130)
+   - Allow a user of the library the ability of using a pre-encoded password rather than the plain text.
 
 Thanks for helping out with pull requests to the library!
