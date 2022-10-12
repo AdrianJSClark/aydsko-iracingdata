@@ -1,6 +1,11 @@
 ﻿Fixes / Changes:
 
- - Error running example console application (Issue #127)
-   - Resolved problem with iRacing Dollars & Credits data type
+ - TODO
 
-Thanks for helping out with issues & pull requests to the library!
+
+
+Contributions:
+
+ - TODO
+
+Thanks for helping out with pull requests to the library!
