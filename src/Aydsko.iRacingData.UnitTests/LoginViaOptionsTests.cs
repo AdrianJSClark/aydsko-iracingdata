@@ -14,13 +14,13 @@ public class LoginViaOptionsTests : MockedHttpTestBase
         BaseSetUp();
     }
 
-    [Test]
-    public async Task GivenOptionsWithUsernameAndPasswordWhenAMethodIsCalledThenItWillSucceedAsync()
+    [TestCaseSource(nameof(GetTestCases))]
+    public async Task ValidateLoginRequestViaOptions(string username, string password, string expectedEncodedPassword)
     {
         var options = new iRacingDataClientOptions
         {
-            Username = "test.user@example.com",
-            Password = "SuperSecretPassword",
+            Username = username,
+            Password = password,
             RestoreCookies = null,
             SaveCookies = null,
         };
@@ -43,49 +43,18 @@ public class LoginViaOptionsTests : MockedHttpTestBase
         var loginDto = await JsonSerializer.DeserializeAsync<TestLoginDto>(requestContentStream).ConfigureAwait(false);
         Assert.That(loginDto, Is.Not.Null);
 
-        Assert.That(loginDto!.Email, Is.EqualTo("test.user@example.com"));
-        Assert.That(loginDto!.Password, Is.EqualTo("nXmEFCdpHheD1R3XBVkm6VQavR7ZLbW7SRmzo/MfFso="));
+        Assert.That(loginDto!.Email, Is.EqualTo(username));
+        Assert.That(loginDto!.Password, Is.EqualTo(expectedEncodedPassword));
 
         Assert.That(sut.IsLoggedIn, Is.True);
         Assert.That(lookups, Is.Not.Null);
         Assert.That(lookups.Data, Is.Not.Null.Or.Empty);
     }
 
-    [Test]
-    public async Task GivenOptionsWithUsernameAndPasswordAndGiven22S3ModeWhenAMethodIsCalledThenItWillSucceedAsync()
+    public static IEnumerable<TestCaseData> GetTestCases()
     {
-        var options = new iRacingDataClientOptions
-        {
-            Username = "CLunky@iracing.Com",
-            Password = "MyPassWord",
-            RestoreCookies = null,
-            SaveCookies = null,
-        };
-
-        var sut = new DataClient(HttpClient,
-                                 new TestLogger<DataClient>(),
-                                 options,
-                                 CookieContainer);
-
-        await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
-        var lookups = await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
-
-        var loginRequest = MessageHandler.Requests.Peek();
-        Assert.That(loginRequest, Is.Not.Null);
-
-        var contentStreamTask = loginRequest.Content?.ReadAsStreamAsync() ?? Task.FromResult(Stream.Null);
-        using var requestContentStream = await contentStreamTask.ConfigureAwait(false);
-        Assert.That(requestContentStream, Is.Not.Null);
-
-        var loginDto = await JsonSerializer.DeserializeAsync<TestLoginDto>(requestContentStream).ConfigureAwait(false);
-        Assert.That(loginDto, Is.Not.Null);
-
-        Assert.That(loginDto!.Email, Is.EqualTo("CLunky@iracing.Com"));
-        Assert.That(loginDto!.Password, Is.EqualTo("xGKecAR27ALXNuMLsGaG0v5Q9pSs2tZTZRKNgmHMg+Q="));
-
-        Assert.That(sut.IsLoggedIn, Is.True);
-        Assert.That(lookups, Is.Not.Null);
-        Assert.That(lookups.Data, Is.Not.Null.Or.Empty);
+        yield return new("test.user@example.com", "SuperSecretPassword", "nXmEFCdpHheD1R3XBVkm6VQavR7ZLbW7SRmzo/MfFso=");
+        yield return new("CLunky@iracing.Com", "MyPassWord", "xGKecAR27ALXNuMLsGaG0v5Q9pSs2tZTZRKNgmHMg+Q=");
     }
 
     private class TestLoginDto
