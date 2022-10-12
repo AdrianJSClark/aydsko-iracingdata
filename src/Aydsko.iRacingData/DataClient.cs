@@ -1715,7 +1715,7 @@ internal class DataClient : IDataClient
 
         if (includeEndAfterFrom is not null)
         {
-            queryParams.Add("include_end_after_from", includeEndAfterFrom.ToString().ToLowerInvariant());
+            queryParams.Add("include_end_after_from", includeEndAfterFrom.Value.ToString().ToLowerInvariant());
         }
 
         if (queryParams.Count > 0)
