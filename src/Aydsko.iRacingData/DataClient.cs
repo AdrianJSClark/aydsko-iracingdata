@@ -46,7 +46,7 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc/>
-    public void UseUsernameAndPassword(string username, string password)
+    public void UseUsernameAndPassword(string username, string password, bool passwordIsEncoded)
     {
         if (string.IsNullOrWhiteSpace(username))
         {
@@ -60,9 +60,16 @@ internal class DataClient : IDataClient
 
         options.Username = username;
         options.Password = password;
+        options.PasswordIsEncoded = passwordIsEncoded;
 
         // If the username & password has been updated likely the authentication needs to run again.
         IsLoggedIn = false;
+    }
+
+    /// <inheritdoc/>
+    public void UseUsernameAndPassword(string username, string password)
+    {
+        UseUsernameAndPassword(username, password, false);
     }
 
     /// <inheritdoc />
@@ -1501,11 +1508,20 @@ internal class DataClient : IDataClient
                 cookieContainer.Add(savedCookies);
             }
 
-            using var sha256 = SHA256.Create();
+            string? encodedHash = null;
 
-            var passwordAndEmail = options.Password + (options.Username?.ToLowerInvariant());
-            var hashedPasswordAndEmailBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordAndEmail));
-            var encodedHash = Convert.ToBase64String(hashedPasswordAndEmailBytes);
+            if (options.PasswordIsEncoded)
+            {
+                encodedHash = options.Password;
+            }
+            else
+            {
+                using var sha256 = SHA256.Create();
+
+                var passwordAndEmail = options.Password + (options.Username?.ToLowerInvariant());
+                var hashedPasswordAndEmailBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordAndEmail));
+                encodedHash = Convert.ToBase64String(hashedPasswordAndEmailBytes); 
+            }
 
             var loginResponse = await httpClient.PostAsJsonAsync("https://members-ng.iracing.com/auth",
                                                                  new

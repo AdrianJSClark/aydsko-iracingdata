@@ -20,6 +20,10 @@ public class iRacingDataClientOptions
     /// <summary>Password associated with the iRacing user name used to authenticate.</summary>
     public string? Password { get; set; }
 
+    /// <summary>If <see langword="true" /> indicates the <see cref="Password"/> property value is already encoded ready for submission to the iRacing API.</summary>
+    /// <seealso href="https://forums.iracing.com/discussion/22109/login-form-changes/p1" />
+    public bool PasswordIsEncoded { get; set; }
+
     /// <summary>Called to retrieve cookie values stored from a previous authentication.</summary>
     public Func<CookieCollection>? RestoreCookies { get; set; }
 
