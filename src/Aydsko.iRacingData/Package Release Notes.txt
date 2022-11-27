@@ -1,3 +1,11 @@
 ﻿Fixes / Changes:
 
- - "LicenseChangeOval" and "LicenseChangeRoad" changed from an integer to boolean on "Result" and "DriverResult" types to better represent the data.
+ - TODO
+
+
+
+Contributions:
+
+ - TODO
+
+Thanks for helping out with pull requests to the library!

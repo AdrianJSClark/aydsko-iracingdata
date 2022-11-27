@@ -161,11 +161,11 @@ public class Result
     [JsonPropertyName("multiplier")]
     public int Multiplier { get; set; }
 
-    [JsonPropertyName("license_change_oval"), JsonConverter(typeof(BoolFromOneOrNegativeOneConverter))]
-    public bool LicenseChangeOval { get; set; }
+    [JsonPropertyName("license_change_oval")]
+    public int LicenseChangeOval { get; set; }
 
-    [JsonPropertyName("license_change_road"), JsonConverter(typeof(BoolFromOneOrNegativeOneConverter))]
-    public bool LicenseChangeRoad { get; set; }
+    [JsonPropertyName("license_change_road")]
+    public int LicenseChangeRoad { get; set; }
 
     [JsonPropertyName("incidents")]
     public int Incidents { get; set; }
