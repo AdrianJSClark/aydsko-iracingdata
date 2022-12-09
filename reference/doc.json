@@ -308,6 +308,11 @@
       "note": "Always the authenticated member.",
       "expirationSeconds": 900
     },
+    "participation_credits": {
+      "link": "https://members-ng.iracing.com/data/member/participation_credits",
+      "note": "Always the authenticated member.",
+      "expirationSeconds": 900
+    },
     "profile": {
       "link": "https://members-ng.iracing.com/data/member/profile",
       "parameters": {
@@ -556,6 +561,17 @@
     },
     "get": {
       "link": "https://members-ng.iracing.com/data/series/get",
+      "expirationSeconds": 900
+    },
+    "past_seasons": {
+      "link": "https://members-ng.iracing.com/data/series/past_seasons",
+      "note": "Get all seasons for a series. Filter list by official:true for seasons with standings.",
+      "parameters": {
+        "series_id": {
+          "type": "number",
+          "required": true
+        }
+      },
       "expirationSeconds": 900
     },
     "seasons": {
