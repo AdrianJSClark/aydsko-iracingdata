@@ -1,3 +1,3 @@
 ﻿Fixes / Changes:
 
- - REVERT: "LicenseChangeOval" and "LicenseChangeRoad" changed from an integer to boolean on "Result" and "DriverResult" types.
+ - Added documentation to `Tracks.Track.TrackConfigLength` and added `Tracks.Track.TrackConfigLengthKm` (Issue #132 https://github.com/AdrianJSClark/aydsko-iracingdata/issues/132)
