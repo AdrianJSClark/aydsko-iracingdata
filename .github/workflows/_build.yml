@@ -47,11 +47,12 @@ jobs:
         env:
           IRACINGDATA_IRACINGDATA__PASSWORD: ${{ secrets.IRACING_PASSWORD }}
 
-      - uses: actions/upload-artifact@v2
+      - uses: dorny/test-reporter@v1
         if: success() || failure()
         with:
-          name: test-results
-          path: '**\TestResults\**\*.trx'
+          name: '.NET Tests'
+          path: '**/*.trx'
+          reporter: 'dotnet-trx'
 
       - name: 'Copy Package to Root'
         shell: pwsh

@@ -11,20 +11,6 @@ jobs:
     name: Build & Test
     uses: ./.github/workflows/_build.yml
 
-  report:
-    name: Publish Test Results
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v2
-
-      - uses: dorny/test-reporter@v1
-        with:
-          name: '.NET Tests'
-          path: '**/*.trx'
-          reporter: 'dotnet-trx'
-
   deploy:
     name: Deploy Pre-Release NuGet Packages to Repository Packages
     needs: build
