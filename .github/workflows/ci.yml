@@ -1,0 +1,31 @@
+name: Build & Publish Pre-Release (main)
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build & Test
+    uses: ./.github/workflows/_build.yml
+
+  deploy:
+    name: Deploy Pre-Release NuGet Packages to Repository Packages
+    needs: build
+    runs-on: windows-latest
+
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+
+      - name: Push Pre-Release Package to GitHub Packages
+        if: (format('{0}', env.PACKAGE_KEY) != '')
+        shell: pwsh
+        run: dotnet nuget push *.nupkg --api-key ${{ env.PACKAGE_KEY }} --source "https://nuget.pkg.github.com/AdrianJSClark/index.json"
+        env:
+            PACKAGE_KEY: ${{ secrets.PACKAGE_UPLOAD }}

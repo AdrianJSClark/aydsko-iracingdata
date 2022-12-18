@@ -1,15 +1,7 @@
 name: Build Aydsko iRacing Data API
 
 on:
-  push:
-    branches:
-      - main
-    tags:
-      - '[0-9]+.[0-9]+.[0-9]+'
-  pull_request:
-    branches:
-      - main
-  workflow_dispatch:
+  workflow_call:
 
 jobs:
   build:
@@ -55,11 +47,12 @@ jobs:
         env:
           IRACINGDATA_IRACINGDATA__PASSWORD: ${{ secrets.IRACING_PASSWORD }}
 
-      - uses: actions/upload-artifact@v2
+      - uses: dorny/test-reporter@v1
         if: success() || failure()
         with:
-          name: test-results
-          path: '**\TestResults\**\*.trx'
+          name: '.NET Tests'
+          path: '**/*.trx'
+          reporter: 'dotnet-trx'
 
       - name: 'Copy Package to Root'
         shell: pwsh
@@ -74,23 +67,14 @@ jobs:
         shell: pwsh
         run: Get-ChildItem -Path src\*\bin\Release\* -Recurse -Include *.nupkg | Copy-Item -Container:$false
 
-      - name: Push Pre-Release Package to GitHub Packages
-        if: steps.build-solution.outputs.PRERELEASE == 'true' && (format('{0}', env.PACKAGE_KEY) != '')
-        shell: pwsh
-        run: dotnet nuget push *.nupkg --api-key ${{ env.PACKAGE_KEY }} --source "https://nuget.pkg.github.com/AdrianJSClark/index.json"
-        env:
-            PACKAGE_KEY: ${{ secrets.PACKAGE_UPLOAD }}
-
-      - name: 'Create Draft Release'
-        if: ${{ steps.build-solution.outputs.PRERELEASE == 'false' }}
-        shell: pwsh
-        # Can't just use wildcard in this command due to https://github.com/cli/cli/issues/5099 so use Get-Item
-        run: gh release create --draft --title "${{ steps.build-solution.outputs.BUILDVERSION }}" --notes-file "src\Aydsko.iRacingData\Package Release Notes.txt" "release-${{ steps.build-solution.outputs.BUILDVERSION }}" (Get-Item *.nupkg)
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
       - name: 'Upload Artifacts'
         uses: actions/upload-artifact@v2
         with:
           name: NuGet Packages
           path: Aydsko.*.nupkg
+
+      - name: 'Upload Release Notes'
+        uses: actions/upload-artifact@v2
+        with:
+          name: Release Notes
+          path: 'src\Aydsko.iRacingData\Package Release Notes.txt'
