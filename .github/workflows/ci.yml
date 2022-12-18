@@ -27,5 +27,6 @@ jobs:
         if: (format('{0}', env.PACKAGE_KEY) != '')
         shell: pwsh
         run: dotnet nuget push *.nupkg --api-key ${{ env.PACKAGE_KEY }} --source "https://nuget.pkg.github.com/AdrianJSClark/index.json"
+        working-directory: ./NuGet Packages/
         env:
             PACKAGE_KEY: ${{ secrets.PACKAGE_UPLOAD }}

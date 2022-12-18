@@ -26,6 +26,7 @@ jobs:
       - name: Create Draft Release
         shell: pwsh
         # Can't just use wildcard in this command due to https://github.com/cli/cli/issues/5099 so use Get-Item
-        run: gh release create --draft --title "${{ github.ref_name }}" --notes-file "**\Release Notes\**\Package Release Notes.txt" "release-${{ github.ref_name }}" (Get-Item *.nupkg)
+        run: gh release create --draft --title "${{ github.ref_name }}" --notes-file "..\Release Notes\Package Release Notes.txt" "release-${{ github.ref_name }}" (Get-Item *.nupkg)
+        working-directory: ./NuGet Packages/
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
