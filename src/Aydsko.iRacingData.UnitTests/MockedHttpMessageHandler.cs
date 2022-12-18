@@ -33,6 +33,7 @@ public class MockedHttpMessageHandler : HttpMessageHandler
 
         Requests.Enqueue(request);
 
+#if NET6_0_OR_GREATER
         if (Responses.TryDequeue(out var response))
         {
             if (response.Headers.TryGetValues("Set-Cookie", out var cookieValues))
@@ -41,6 +42,21 @@ public class MockedHttpMessageHandler : HttpMessageHandler
             }
             return Task.FromResult(response);
         }
+#else
+        try
+        {
+            var response = Responses.Dequeue();
+            if (response.Headers.TryGetValues("Set-Cookie", out var cookieValues))
+            {
+                cookieContainer.SetCookies(request.RequestUri!, string.Join(",", cookieValues));
+            }
+            return Task.FromResult(response);
+        }
+        catch (InvalidOperationException)
+        {
+            // There was no response. Fall through to the not found below.
+        }
+#endif
 
         return Task.FromResult(new HttpResponseMessage(HttpStatusCode.NotFound));
     }
@@ -75,7 +91,7 @@ public class MockedHttpMessageHandler : HttpMessageHandler
                 Content = new StringContent(responseDictionary["content"].ToString(), Encoding.UTF8, "text/json")
             };
 
-            foreach (var (headerName, values) in responseDictionary["headers"].EnumerateObject()
+            foreach (var header in responseDictionary["headers"].EnumerateObject()
                                                                        .ToDictionary(prop => prop.Name,
                                                                                      prop =>
                                                                                      {
@@ -89,7 +105,7 @@ public class MockedHttpMessageHandler : HttpMessageHandler
                                                                                          }
                                                                                      }).ToArray())
             {
-                responseMessage.Headers.Add(headerName, values);
+                responseMessage.Headers.Add(header.Key, header.Value);
             }
 
             Responses.Enqueue(responseMessage);
