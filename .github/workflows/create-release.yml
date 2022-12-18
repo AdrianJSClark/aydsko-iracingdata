@@ -1,0 +1,45 @@
+name: Build & Create Release (main)
+
+on:
+  push:
+    branches:
+      - main
+    tags:
+      - '[0-9]+.[0-9]+.[0-9]+'
+  workflow_dispatch:
+
+jobs:
+  build:
+    name: Build & Test
+    uses: ./.github/workflows/_build.yml
+
+  report:
+    name: Publish Test Results
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - uses: dorny/test-reporter@v1
+        with:
+          artifact: test-results
+          name: '.NET Tests'
+          path: '**/*.trx'
+          reporter: 'dotnet-trx'
+
+  deploy:
+    name: Deploy Pre-Release NuGet Packages to Repository Packages
+    needs: build
+    runs-on: windows-latest
+
+    steps:
+      - name: Download Artifacts
+        uses: actions/download-artifact@v2
+
+      - name: Setup .NET SDK
+        uses: actions/setup-dotnet@v3
+
+      - name: Create Draft Release
+        shell: pwsh
+        # Can't just use wildcard in this command due to https://github.com/cli/cli/issues/5099 so use Get-Item
+        run: gh release create --draft --title "${{ github.ref_name }}" --notes-file "**\Release Notes\**\Package Release Notes.txt" "release-${{ github.ref_name }}" (Get-Item *.nupkg)
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

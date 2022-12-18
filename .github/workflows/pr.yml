@@ -1,12 +1,20 @@
-name: 'Test Report'
+name: Build Pull-Request
+
 on:
-  workflow_run:
-    workflows: ['Build Aydsko iRacing Data API']
-    types:
-      - completed
+  pull_request:
+    branches:
+      - main
+
+  workflow_dispatch:
 
 jobs:
+  build:
+    name: Build & Test
+    uses: ./.github/workflows/_build.yml
+
   report:
+    name: Publish Test Results
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - uses: dorny/test-reporter@v1
