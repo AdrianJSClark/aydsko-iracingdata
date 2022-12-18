@@ -16,6 +16,10 @@ jobs:
     needs: build
     runs-on: windows-latest
 
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Avoid pre-populating the NuGet package cache
+
     steps:
       - name: Download Artifacts
         uses: actions/download-artifact@v2
