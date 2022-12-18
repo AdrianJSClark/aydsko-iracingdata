@@ -141,8 +141,13 @@ public class Track
     [JsonPropertyName("time_zone")]
     public string TimeZone { get; set; } = default!;
 
+    /// <summary>The length of this track configuration in miles.</summary>
     [JsonPropertyName("track_config_length")]
-    public float TrackConfigLength { get; set; }
+    public decimal TrackConfigLength { get; set; }
+
+    /// <summary>The length of this track configuration converted to kilometres.</summary>
+    [JsonIgnore]
+    public decimal TrackConfigLengthKm => Math.Truncate(TrackConfigLength * 160.9344M) / 100;
 
     [JsonPropertyName("track_dirpath")]
     public string TrackDirpath { get; set; } = default!;
