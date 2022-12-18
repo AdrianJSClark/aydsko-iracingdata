@@ -1,0 +1,3971 @@
+﻿{
+  "headers": {},
+  "content": {
+    "success": true,
+    "series": {
+      "series_id": 260,
+      "series_name": "Formula A - Grand Prix Series",
+      "series_short_name": "Formula A - Grand Prix Series",
+      "category_id": 2,
+      "category": "road",
+      "active": true,
+      "official": true,
+      "fixed_setup": false,
+      "search_filters": "openwheel,road",
+      "logo": "formulaagrandprixseries-logo.png",
+      "license_group": 4,
+      "license_group_types": [
+        {
+          "license_group_type": 4
+        }
+      ],
+      "allowed_licenses": [
+        {
+          "parent_id": 260,
+          "license_group": 4,
+          "min_license_level": 16,
+          "max_license_level": 16,
+          "group_name": "Class B"
+        },
+        {
+          "parent_id": 260,
+          "license_group": 5,
+          "min_license_level": 17,
+          "max_license_level": 20,
+          "group_name": "Class A"
+        },
+        {
+          "parent_id": 260,
+          "license_group": 6,
+          "min_license_level": 21,
+          "max_license_level": 24,
+          "group_name": "Pro"
+        },
+        {
+          "parent_id": 260,
+          "license_group": 7,
+          "min_license_level": 25,
+          "max_license_level": 28,
+          "group_name": "Pro/WC"
+        }
+      ],
+      "seasons": [
+        {
+          "season_id": 4041,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2023 Season 1",
+          "season_short_name": "2023 Season 1",
+          "season_year": 2023,
+          "season_quarter": 1,
+          "active": true,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 4013,
+              "short_name": "Mercedes-AMG W13",
+              "name": "Mercedes-AMG W13 E Performance",
+              "relative_speed": 219
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 4041,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 444,
+                "track_name": "Fuji International Speedway",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 4041,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 403,
+                "track_name": "Red Bull Ring",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 4041,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 266,
+                "track_name": "Autodromo Internazionale Enzo e Dino Ferrari",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 4041,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 4041,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 390,
+                "track_name": "Hockenheimring Baden-Württemberg",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 4041,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            },
+            {
+              "season_id": 4041,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 4041,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 341,
+                "track_name": "Silverstone Circuit",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 4041,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 4041,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 4041,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 463,
+                "track_name": "Circuit de Nevers Magny-Cours",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 4041,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 3909,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2022 Season 4",
+          "season_short_name": "2022 Season 4",
+          "season_year": 2022,
+          "season_quarter": 4,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 3185,
+              "short_name": "AMG W12 E",
+              "name": "Mercedes-AMG W12 E Performance",
+              "relative_speed": 220
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 3909,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3909,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 319,
+                "track_name": "Detroit Grand Prix at Belle Isle",
+                "config_name": "Belle Isle"
+              }
+            },
+            {
+              "season_id": 3909,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 434,
+                "track_name": "Watkins Glen International",
+                "config_name": "Boot"
+              }
+            },
+            {
+              "season_id": 3909,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3909,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 341,
+                "track_name": "Silverstone Circuit",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3909,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 229,
+                "track_name": "Circuit of the Americas",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3909,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 18,
+                "track_name": "Road America",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 3909,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 403,
+                "track_name": "Red Bull Ring",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3909,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3909,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 448,
+                "track_name": "Indianapolis Motor Speedway",
+                "config_name": "Road Course"
+              }
+            },
+            {
+              "season_id": 3909,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 349,
+                "track_name": "Circuit de Barcelona Catalunya",
+                "config_name": "Historic"
+              }
+            },
+            {
+              "season_id": 3909,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 3784,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2022 Season 3",
+          "season_short_name": "2022 Season 3",
+          "season_year": 2022,
+          "season_quarter": 3,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 3185,
+              "short_name": "AMG W12 E",
+              "name": "Mercedes-AMG W12 E Performance",
+              "relative_speed": 220
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 3784,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 3784,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 444,
+                "track_name": "Fuji International Speedway",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3784,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 341,
+                "track_name": "Silverstone Circuit",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3784,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 403,
+                "track_name": "Red Bull Ring",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3784,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3784,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 390,
+                "track_name": "Hockenheimring Baden-Württemberg",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3784,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 413,
+                "track_name": "Hungaroring"
+              }
+            },
+            {
+              "season_id": 3784,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3784,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 229,
+                "track_name": "Circuit of the Americas",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3784,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3784,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            },
+            {
+              "season_id": 3784,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 149,
+                "track_name": "Circuit Park Zandvoort",
+                "config_name": "Grand Prix"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 3656,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2022 Season 2",
+          "season_short_name": "2022 Season 2",
+          "season_year": 2022,
+          "season_quarter": 2,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 3185,
+              "short_name": "AMG W12 E",
+              "name": "Mercedes-AMG W12 E Performance",
+              "relative_speed": 220
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 3656,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3656,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            },
+            {
+              "season_id": 3656,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 390,
+                "track_name": "Hockenheimring Baden-Württemberg",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3656,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 413,
+                "track_name": "Hungaroring"
+              }
+            },
+            {
+              "season_id": 3656,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 403,
+                "track_name": "Red Bull Ring",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3656,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 266,
+                "track_name": "Autodromo Internazionale Enzo e Dino Ferrari",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3656,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3656,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 341,
+                "track_name": "Silverstone Circuit",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3656,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 3656,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 345,
+                "track_name": "Circuit de Barcelona Catalunya",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3656,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3656,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 3529,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2022 Season 1",
+          "season_short_name": "2022 Season 1",
+          "season_year": 2022,
+          "season_quarter": 1,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 3185,
+              "short_name": "AMG W12 E",
+              "name": "Mercedes-AMG W12 E Performance",
+              "relative_speed": 220
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 3529,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 341,
+                "track_name": "Silverstone Circuit",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3529,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            },
+            {
+              "season_id": 3529,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3529,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 403,
+                "track_name": "Red Bull Ring",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3529,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 345,
+                "track_name": "Circuit de Barcelona Catalunya",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3529,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 266,
+                "track_name": "Autodromo Internazionale Enzo e Dino Ferrari",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3529,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 413,
+                "track_name": "Hungaroring"
+              }
+            },
+            {
+              "season_id": 3529,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 390,
+                "track_name": "Hockenheimring Baden-Württemberg",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3529,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3529,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 3529,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3529,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 3409,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2021 Season 4",
+          "season_short_name": "2021 Season 4",
+          "season_year": 2021,
+          "season_quarter": 4,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 78,
+              "short_name": "McLaren MP4-30",
+              "name": "McLaren MP4-30",
+              "relative_speed": 196
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 3409,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3409,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 413,
+                "track_name": "Hungaroring"
+              }
+            },
+            {
+              "season_id": 3409,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 403,
+                "track_name": "Red Bull Ring",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3409,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3409,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 390,
+                "track_name": "Hockenheimring Baden-Württemberg",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3409,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 229,
+                "track_name": "Circuit of the Americas",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3409,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 341,
+                "track_name": "Silverstone Circuit",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3409,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3409,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 3409,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 345,
+                "track_name": "Circuit de Barcelona Catalunya",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3409,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3409,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 3289,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2021 Season 3",
+          "season_short_name": "2021 Season 3",
+          "season_year": 2021,
+          "season_quarter": 3,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 78,
+              "short_name": "McLaren MP4-30",
+              "name": "McLaren MP4-30",
+              "relative_speed": 196
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 3289,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 345,
+                "track_name": "Circuit de Barcelona Catalunya",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3289,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3289,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 403,
+                "track_name": "Red Bull Ring",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3289,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 3289,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 341,
+                "track_name": "Silverstone Circuit",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3289,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3289,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 266,
+                "track_name": "Autodromo Internazionale Enzo e Dino Ferrari",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3289,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3289,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 134,
+                "track_name": "Indianapolis Motor Speedway",
+                "config_name": "Road Course - 2009"
+              }
+            },
+            {
+              "season_id": 3289,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3289,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            },
+            {
+              "season_id": 3289,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 149,
+                "track_name": "Circuit Park Zandvoort",
+                "config_name": "Grand Prix"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 3173,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2021 Season 2",
+          "season_short_name": "2021 Season 2",
+          "season_year": 2021,
+          "season_quarter": 2,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 78,
+              "short_name": "McLaren MP4-30",
+              "name": "McLaren MP4-30",
+              "relative_speed": 196
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 3173,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 345,
+                "track_name": "Circuit de Barcelona Catalunya",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3173,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 152,
+                "track_name": "Phillip Island Circuit"
+              }
+            },
+            {
+              "season_id": 3173,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 390,
+                "track_name": "Hockenheimring Baden-Württemberg",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3173,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 341,
+                "track_name": "Silverstone Circuit",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3173,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 3173,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3173,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            },
+            {
+              "season_id": 3173,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3173,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 18,
+                "track_name": "Road America",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 3173,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3173,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 319,
+                "track_name": "Detroit Grand Prix at Belle Isle",
+                "config_name": "Belle Isle"
+              }
+            },
+            {
+              "season_id": 3173,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 3068,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2021 Season 1",
+          "season_short_name": "2021 Season 1",
+          "season_year": 2021,
+          "season_quarter": 1,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 78,
+              "short_name": "McLaren MP4-30",
+              "name": "McLaren MP4-30",
+              "relative_speed": 196
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 3068,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 345,
+                "track_name": "Circuit de Barcelona Catalunya",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3068,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 195,
+                "track_name": "Twin Ring Motegi",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3068,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 266,
+                "track_name": "Autodromo Internazionale Enzo e Dino Ferrari",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3068,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 341,
+                "track_name": "Silverstone Circuit",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3068,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 3068,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3068,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            },
+            {
+              "season_id": 3068,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3068,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 149,
+                "track_name": "Circuit Park Zandvoort",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3068,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 3068,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 179,
+                "track_name": "Long Beach Street Circuit"
+              }
+            },
+            {
+              "season_id": 3068,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 2963,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2020 Season 4",
+          "season_short_name": "2020 Season 4",
+          "season_year": 2020,
+          "season_quarter": 4,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 78,
+              "short_name": "McLaren MP4-30",
+              "name": "McLaren MP4-30",
+              "relative_speed": 196
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 2963,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 341,
+                "track_name": "Silverstone Circuit",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2963,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2963,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            },
+            {
+              "season_id": 2963,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2963,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 229,
+                "track_name": "Circuit of the Americas",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2963,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 345,
+                "track_name": "Circuit de Barcelona Catalunya",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2963,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 266,
+                "track_name": "Autodromo Internazionale Enzo e Dino Ferrari",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2963,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 2963,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 18,
+                "track_name": "Road America",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 2963,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 108,
+                "track_name": "[Retired] Watkins Glen International",
+                "config_name": "[Retired] Classic Boot"
+              }
+            },
+            {
+              "season_id": 2963,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2963,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 2866,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2020 Season 3",
+          "season_short_name": "2020 Season 3",
+          "season_year": 2020,
+          "season_quarter": 3,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 30,
+              "short_name": "Williams FW31",
+              "name": "Williams FW31",
+              "relative_speed": 200
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 2866,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            },
+            {
+              "season_id": 2866,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 149,
+                "track_name": "Circuit Park Zandvoort",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2866,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 18,
+                "track_name": "Road America",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 2866,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 41,
+                "track_name": "[Legacy] Silverstone Circuit - 2008",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2866,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 166,
+                "track_name": "Okayama International Circuit",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 2866,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 95,
+                "track_name": "Sebring International Raceway",
+                "config_name": "International"
+              }
+            },
+            {
+              "season_id": 2866,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2866,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 319,
+                "track_name": "Detroit Grand Prix at Belle Isle",
+                "config_name": "Belle Isle"
+              }
+            },
+            {
+              "season_id": 2866,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 152,
+                "track_name": "Phillip Island Circuit"
+              }
+            },
+            {
+              "season_id": 2866,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 349,
+                "track_name": "Circuit de Barcelona Catalunya",
+                "config_name": "Historic"
+              }
+            },
+            {
+              "season_id": 2866,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 98,
+                "track_name": "Sonoma Raceway",
+                "config_name": "Cup"
+              }
+            },
+            {
+              "season_id": 2866,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 268,
+                "track_name": "Circuit des 24 Heures du Mans",
+                "config_name": "24 Heures du Mans"
+              }
+            },
+            {
+              "season_id": 2866,
+              "race_week_num": 12,
+              "track": {
+                "track_id": 297,
+                "track_name": "Snetterton Circuit",
+                "config_name": "300"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 2764,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2020 Season 2",
+          "season_short_name": "2020 Season 2",
+          "season_year": 2020,
+          "season_quarter": 2,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 30,
+              "short_name": "Williams FW31",
+              "name": "Williams FW31",
+              "relative_speed": 200
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 2764,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 266,
+                "track_name": "Autodromo Internazionale Enzo e Dino Ferrari",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2764,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 108,
+                "track_name": "[Retired] Watkins Glen International",
+                "config_name": "[Retired] Classic Boot"
+              }
+            },
+            {
+              "season_id": 2764,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 47,
+                "track_name": "WeatherTech Raceway at Laguna Seca",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 2764,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 2764,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2764,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 195,
+                "track_name": "Twin Ring Motegi",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2764,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 229,
+                "track_name": "Circuit of the Americas",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2764,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 134,
+                "track_name": "Indianapolis Motor Speedway",
+                "config_name": "Road Course - 2009"
+              }
+            },
+            {
+              "season_id": 2764,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 345,
+                "track_name": "Circuit de Barcelona Catalunya",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2764,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2764,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2764,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 2665,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2020 Season 1",
+          "season_short_name": "2020 Season 1",
+          "season_year": 2020,
+          "season_quarter": 1,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 30,
+              "short_name": "Williams FW31",
+              "name": "Williams FW31",
+              "relative_speed": 200
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 2665,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 107,
+                "track_name": "[Retired] Watkins Glen International",
+                "config_name": "[Retired] Boot"
+              }
+            },
+            {
+              "season_id": 2665,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 95,
+                "track_name": "Sebring International Raceway",
+                "config_name": "International"
+              }
+            },
+            {
+              "season_id": 2665,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 341,
+                "track_name": "Silverstone Circuit",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2665,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 2,
+                "track_name": "Virginia International Raceway",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 2665,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 127,
+                "track_name": "Road Atlanta",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 2665,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 268,
+                "track_name": "Circuit des 24 Heures du Mans",
+                "config_name": "24 Heures du Mans"
+              }
+            },
+            {
+              "season_id": 2665,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 349,
+                "track_name": "Circuit de Barcelona Catalunya",
+                "config_name": "Historic"
+              }
+            },
+            {
+              "season_id": 2665,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 144,
+                "track_name": "Canadian Tire Motorsports Park"
+              }
+            },
+            {
+              "season_id": 2665,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            },
+            {
+              "season_id": 2665,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 152,
+                "track_name": "Phillip Island Circuit"
+              }
+            },
+            {
+              "season_id": 2665,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 149,
+                "track_name": "Circuit Park Zandvoort",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2665,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 18,
+                "track_name": "Road America",
+                "config_name": "Full Course"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 2578,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2019 Season 4",
+          "season_short_name": "2019 Season 4",
+          "season_year": 2019,
+          "season_quarter": 4,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 30,
+              "short_name": "Williams FW31",
+              "name": "Williams FW31",
+              "relative_speed": 200
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 2578,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2578,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 266,
+                "track_name": "Autodromo Internazionale Enzo e Dino Ferrari",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2578,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 108,
+                "track_name": "[Retired] Watkins Glen International",
+                "config_name": "[Retired] Classic Boot"
+              }
+            },
+            {
+              "season_id": 2578,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 41,
+                "track_name": "[Legacy] Silverstone Circuit - 2008",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2578,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 345,
+                "track_name": "Circuit de Barcelona Catalunya",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2578,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2578,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 229,
+                "track_name": "Circuit of the Americas",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2578,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2578,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2578,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 2578,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 18,
+                "track_name": "Road America",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 2578,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 2487,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2019 Season 3",
+          "season_short_name": "2019 Season 3",
+          "season_year": 2019,
+          "season_quarter": 3,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 30,
+              "short_name": "Williams FW31",
+              "name": "Williams FW31",
+              "relative_speed": 200
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 2487,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 2487,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2487,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 152,
+                "track_name": "Phillip Island Circuit"
+              }
+            },
+            {
+              "season_id": 2487,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2487,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 341,
+                "track_name": "Silverstone Circuit",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2487,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 319,
+                "track_name": "Detroit Grand Prix at Belle Isle",
+                "config_name": "Belle Isle"
+              }
+            },
+            {
+              "season_id": 2487,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2487,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 134,
+                "track_name": "Indianapolis Motor Speedway",
+                "config_name": "Road Course - 2009"
+              }
+            },
+            {
+              "season_id": 2487,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2487,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 195,
+                "track_name": "Twin Ring Motegi",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2487,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 18,
+                "track_name": "Road America",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 2487,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 2394,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2019 Season 2",
+          "season_short_name": "2019 Season 2",
+          "season_year": 2019,
+          "season_quarter": 2,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 30,
+              "short_name": "Williams FW31",
+              "name": "Williams FW31",
+              "relative_speed": 200
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 2394,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 229,
+                "track_name": "Circuit of the Americas",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2394,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2394,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 108,
+                "track_name": "[Retired] Watkins Glen International",
+                "config_name": "[Retired] Classic Boot"
+              }
+            },
+            {
+              "season_id": 2394,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2394,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 18,
+                "track_name": "Road America",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 2394,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 2394,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 41,
+                "track_name": "[Legacy] Silverstone Circuit - 2008",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2394,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2394,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 266,
+                "track_name": "Autodromo Internazionale Enzo e Dino Ferrari",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2394,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 134,
+                "track_name": "Indianapolis Motor Speedway",
+                "config_name": "Road Course - 2009"
+              }
+            },
+            {
+              "season_id": 2394,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2394,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 2310,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2019 Season 1 Fixed",
+          "season_short_name": "2019 Season 1",
+          "season_year": 2019,
+          "season_quarter": 1,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": true,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 78,
+              "short_name": "McLaren MP4-30",
+              "name": "McLaren MP4-30",
+              "relative_speed": 196
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 2310,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 229,
+                "track_name": "Circuit of the Americas",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2310,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2310,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 108,
+                "track_name": "[Retired] Watkins Glen International",
+                "config_name": "[Retired] Classic Boot"
+              }
+            },
+            {
+              "season_id": 2310,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2310,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 18,
+                "track_name": "Road America",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 2310,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 2310,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 41,
+                "track_name": "[Legacy] Silverstone Circuit - 2008",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2310,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2310,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 266,
+                "track_name": "Autodromo Internazionale Enzo e Dino Ferrari",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2310,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 134,
+                "track_name": "Indianapolis Motor Speedway",
+                "config_name": "Road Course - 2009"
+              }
+            },
+            {
+              "season_id": 2310,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2310,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 2232,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2018 Season 4 Fixed",
+          "season_short_name": "2018 Season 4",
+          "season_year": 2018,
+          "season_quarter": 4,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": true,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 78,
+              "short_name": "McLaren MP4-30",
+              "name": "McLaren MP4-30",
+              "relative_speed": 196
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 2232,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 41,
+                "track_name": "[Legacy] Silverstone Circuit - 2008",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2232,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2232,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2232,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            },
+            {
+              "season_id": 2232,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2232,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 229,
+                "track_name": "Circuit of the Americas",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2232,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 266,
+                "track_name": "Autodromo Internazionale Enzo e Dino Ferrari",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2232,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 2232,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 95,
+                "track_name": "Sebring International Raceway",
+                "config_name": "International"
+              }
+            },
+            {
+              "season_id": 2232,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 18,
+                "track_name": "Road America",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 2232,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 108,
+                "track_name": "[Retired] Watkins Glen International",
+                "config_name": "[Retired] Classic Boot"
+              }
+            },
+            {
+              "season_id": 2232,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 2150,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2018 Season 3",
+          "season_short_name": "2018 Season 3",
+          "season_year": 2018,
+          "season_quarter": 3,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 78,
+              "short_name": "McLaren MP4-30",
+              "name": "McLaren MP4-30",
+              "relative_speed": 196
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 2150,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 41,
+                "track_name": "[Legacy] Silverstone Circuit - 2008",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2150,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2150,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            },
+            {
+              "season_id": 2150,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 266,
+                "track_name": "Autodromo Internazionale Enzo e Dino Ferrari",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2150,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2150,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 149,
+                "track_name": "Circuit Park Zandvoort",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2150,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 2150,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2150,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 18,
+                "track_name": "Road America",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 2150,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2150,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 134,
+                "track_name": "Indianapolis Motor Speedway",
+                "config_name": "Road Course - 2009"
+              }
+            },
+            {
+              "season_id": 2150,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 229,
+                "track_name": "Circuit of the Americas",
+                "config_name": "Grand Prix"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 2070,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2018 Season 2",
+          "season_short_name": "2018 Season 2",
+          "season_year": 2018,
+          "season_quarter": 2,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 78,
+              "short_name": "McLaren MP4-30",
+              "name": "McLaren MP4-30",
+              "relative_speed": 196
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 2070,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2070,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            },
+            {
+              "season_id": 2070,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2070,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 41,
+                "track_name": "[Legacy] Silverstone Circuit - 2008",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2070,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 2070,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2070,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 18,
+                "track_name": "Road America",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 2070,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 195,
+                "track_name": "Twin Ring Motegi",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2070,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2070,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 229,
+                "track_name": "Circuit of the Americas",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 2070,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 108,
+                "track_name": "[Retired] Watkins Glen International",
+                "config_name": "[Retired] Classic Boot"
+              }
+            },
+            {
+              "season_id": 2070,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 266,
+                "track_name": "Autodromo Internazionale Enzo e Dino Ferrari",
+                "config_name": "Grand Prix"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 1986,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2018 Season 1",
+          "season_short_name": "2018 Season 1",
+          "season_year": 2018,
+          "season_quarter": 1,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 78,
+              "short_name": "McLaren MP4-30",
+              "name": "McLaren MP4-30",
+              "relative_speed": 196
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 1986,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1986,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 108,
+                "track_name": "[Retired] Watkins Glen International",
+                "config_name": "[Retired] Classic Boot"
+              }
+            },
+            {
+              "season_id": 1986,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 18,
+                "track_name": "Road America",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 1986,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            },
+            {
+              "season_id": 1986,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 266,
+                "track_name": "Autodromo Internazionale Enzo e Dino Ferrari",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1986,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 134,
+                "track_name": "Indianapolis Motor Speedway",
+                "config_name": "Road Course - 2009"
+              }
+            },
+            {
+              "season_id": 1986,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1986,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 41,
+                "track_name": "[Legacy] Silverstone Circuit - 2008",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1986,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 229,
+                "track_name": "Circuit of the Americas",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1986,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1986,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1986,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 1916,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2017 Season 4",
+          "season_short_name": "2017 Season 4",
+          "season_year": 2017,
+          "season_quarter": 4,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 78,
+              "short_name": "McLaren MP4-30",
+              "name": "McLaren MP4-30",
+              "relative_speed": 196
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 1916,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 18,
+                "track_name": "Road America",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 1916,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 95,
+                "track_name": "Sebring International Raceway",
+                "config_name": "International"
+              }
+            },
+            {
+              "season_id": 1916,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 108,
+                "track_name": "[Retired] Watkins Glen International",
+                "config_name": "[Retired] Classic Boot"
+              }
+            },
+            {
+              "season_id": 1916,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            },
+            {
+              "season_id": 1916,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1916,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 266,
+                "track_name": "Autodromo Internazionale Enzo e Dino Ferrari",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1916,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1916,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1916,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 1916,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 41,
+                "track_name": "[Legacy] Silverstone Circuit - 2008",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1916,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1916,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 229,
+                "track_name": "Circuit of the Americas",
+                "config_name": "Grand Prix"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 1853,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2017 Season 3",
+          "season_short_name": "2017 Season 3",
+          "season_year": 2017,
+          "season_quarter": 3,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 78,
+              "short_name": "McLaren MP4-30",
+              "name": "McLaren MP4-30",
+              "relative_speed": 196
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 1853,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 1853,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 229,
+                "track_name": "Circuit of the Americas",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1853,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 266,
+                "track_name": "Autodromo Internazionale Enzo e Dino Ferrari",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1853,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 127,
+                "track_name": "Road Atlanta",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 1853,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 41,
+                "track_name": "[Legacy] Silverstone Circuit - 2008",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1853,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 18,
+                "track_name": "Road America",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 1853,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 134,
+                "track_name": "Indianapolis Motor Speedway",
+                "config_name": "Road Course - 2009"
+              }
+            },
+            {
+              "season_id": 1853,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1853,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            },
+            {
+              "season_id": 1853,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 152,
+                "track_name": "Phillip Island Circuit"
+              }
+            },
+            {
+              "season_id": 1853,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1853,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 1786,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2017 Season 2",
+          "season_short_name": "2017 Season 2",
+          "season_year": 2017,
+          "season_quarter": 2,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 78,
+              "short_name": "McLaren MP4-30",
+              "name": "McLaren MP4-30",
+              "relative_speed": 196
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 1786,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 95,
+                "track_name": "Sebring International Raceway",
+                "config_name": "International"
+              }
+            },
+            {
+              "season_id": 1786,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 134,
+                "track_name": "Indianapolis Motor Speedway",
+                "config_name": "Road Course - 2009"
+              }
+            },
+            {
+              "season_id": 1786,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 1786,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1786,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1786,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 18,
+                "track_name": "Road America",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 1786,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1786,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 41,
+                "track_name": "[Legacy] Silverstone Circuit - 2008",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1786,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1786,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 145,
+                "track_name": "Brands Hatch Circuit",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1786,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 166,
+                "track_name": "Okayama International Circuit",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 1786,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 108,
+                "track_name": "[Retired] Watkins Glen International",
+                "config_name": "[Retired] Classic Boot"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 1722,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2017 Season 1",
+          "season_short_name": "2017 Season 1",
+          "season_year": 2017,
+          "season_quarter": 1,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 78,
+              "short_name": "McLaren MP4-30",
+              "name": "McLaren MP4-30",
+              "relative_speed": 196
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 1722,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1722,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 229,
+                "track_name": "Circuit of the Americas",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1722,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 95,
+                "track_name": "Sebring International Raceway",
+                "config_name": "International"
+              }
+            },
+            {
+              "season_id": 1722,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            },
+            {
+              "season_id": 1722,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 266,
+                "track_name": "Autodromo Internazionale Enzo e Dino Ferrari",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1722,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1722,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 268,
+                "track_name": "Circuit des 24 Heures du Mans",
+                "config_name": "24 Heures du Mans"
+              }
+            },
+            {
+              "season_id": 1722,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 1722,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 152,
+                "track_name": "Phillip Island Circuit"
+              }
+            },
+            {
+              "season_id": 1722,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 41,
+                "track_name": "[Legacy] Silverstone Circuit - 2008",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1722,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 195,
+                "track_name": "Twin Ring Motegi",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1722,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 1661,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2016 Season 4",
+          "season_short_name": "2016 Season 4",
+          "season_year": 2016,
+          "season_quarter": 4,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 78,
+              "short_name": "McLaren MP4-30",
+              "name": "McLaren MP4-30",
+              "relative_speed": 196
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 1661,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 266,
+                "track_name": "Autodromo Internazionale Enzo e Dino Ferrari",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1661,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 41,
+                "track_name": "[Legacy] Silverstone Circuit - 2008",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1661,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1661,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 108,
+                "track_name": "[Retired] Watkins Glen International",
+                "config_name": "[Retired] Classic Boot"
+              }
+            },
+            {
+              "season_id": 1661,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1661,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 18,
+                "track_name": "Road America",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 1661,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 229,
+                "track_name": "Circuit of the Americas",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1661,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 1661,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1661,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1661,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            },
+            {
+              "season_id": 1661,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 134,
+                "track_name": "Indianapolis Motor Speedway",
+                "config_name": "Road Course - 2009"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 1611,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2016 Season 3",
+          "season_short_name": "2016 Season 3",
+          "season_year": 2016,
+          "season_quarter": 3,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 78,
+              "short_name": "McLaren MP4-30",
+              "name": "McLaren MP4-30",
+              "relative_speed": 196
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 1611,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 266,
+                "track_name": "Autodromo Internazionale Enzo e Dino Ferrari",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1611,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 229,
+                "track_name": "Circuit of the Americas",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1611,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 233,
+                "track_name": "Donington Park Racing Circuit",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1611,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 41,
+                "track_name": "[Legacy] Silverstone Circuit - 2008",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1611,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1611,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 166,
+                "track_name": "Okayama International Circuit",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 1611,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1611,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 134,
+                "track_name": "Indianapolis Motor Speedway",
+                "config_name": "Road Course - 2009"
+              }
+            },
+            {
+              "season_id": 1611,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 1611,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1611,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            },
+            {
+              "season_id": 1611,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 1559,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2016 Season 2",
+          "season_short_name": "2016 Season 2",
+          "season_year": 2016,
+          "season_quarter": 2,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 78,
+              "short_name": "McLaren MP4-30",
+              "name": "McLaren MP4-30",
+              "relative_speed": 196
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 1559,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 95,
+                "track_name": "Sebring International Raceway",
+                "config_name": "International"
+              }
+            },
+            {
+              "season_id": 1559,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 195,
+                "track_name": "Twin Ring Motegi",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1559,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 18,
+                "track_name": "Road America",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 1559,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1559,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1559,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1559,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 108,
+                "track_name": "[Retired] Watkins Glen International",
+                "config_name": "[Retired] Classic Boot"
+              }
+            },
+            {
+              "season_id": 1559,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1559,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 41,
+                "track_name": "[Legacy] Silverstone Circuit - 2008",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1559,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            },
+            {
+              "season_id": 1559,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 149,
+                "track_name": "Circuit Park Zandvoort",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1559,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            }
+          ]
+        },
+        {
+          "season_id": 1502,
+          "series_id": 260,
+          "season_name": "Formula A - Grand Prix Series - 2016 Season 1",
+          "season_short_name": "2016 Season 1",
+          "season_year": 2016,
+          "season_quarter": 1,
+          "active": false,
+          "official": true,
+          "driver_changes": false,
+          "fixed_setup": false,
+          "license_group": 5,
+          "license_group_types": [
+            {
+              "license_group_type": 5
+            }
+          ],
+          "car_classes": [
+            {
+              "car_class_id": 78,
+              "short_name": "McLaren MP4-30",
+              "name": "McLaren MP4-30",
+              "relative_speed": 196
+            }
+          ],
+          "race_weeks": [
+            {
+              "season_id": 1502,
+              "race_week_num": 0,
+              "track": {
+                "track_id": 18,
+                "track_name": "Road America",
+                "config_name": "Full Course"
+              }
+            },
+            {
+              "season_id": 1502,
+              "race_week_num": 1,
+              "track": {
+                "track_id": 218,
+                "track_name": "Circuit Gilles Villeneuve"
+              }
+            },
+            {
+              "season_id": 1502,
+              "race_week_num": 2,
+              "track": {
+                "track_id": 108,
+                "track_name": "[Retired] Watkins Glen International",
+                "config_name": "[Retired] Classic Boot"
+              }
+            },
+            {
+              "season_id": 1502,
+              "race_week_num": 3,
+              "track": {
+                "track_id": 229,
+                "track_name": "Circuit of the Americas",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1502,
+              "race_week_num": 4,
+              "track": {
+                "track_id": 134,
+                "track_name": "Indianapolis Motor Speedway",
+                "config_name": "Road Course - 2009"
+              }
+            },
+            {
+              "season_id": 1502,
+              "race_week_num": 5,
+              "track": {
+                "track_id": 250,
+                "track_name": "Nürburgring Grand-Prix-Strecke",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1502,
+              "race_week_num": 6,
+              "track": {
+                "track_id": 212,
+                "track_name": "Autódromo José Carlos Pace",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1502,
+              "race_week_num": 7,
+              "track": {
+                "track_id": 152,
+                "track_name": "Phillip Island Circuit"
+              }
+            },
+            {
+              "season_id": 1502,
+              "race_week_num": 8,
+              "track": {
+                "track_id": 168,
+                "track_name": "Suzuka International Racing Course",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1502,
+              "race_week_num": 9,
+              "track": {
+                "track_id": 41,
+                "track_name": "[Legacy] Silverstone Circuit - 2008",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1502,
+              "race_week_num": 10,
+              "track": {
+                "track_id": 239,
+                "track_name": "Autodromo Nazionale Monza",
+                "config_name": "Grand Prix"
+              }
+            },
+            {
+              "season_id": 1502,
+              "race_week_num": 11,
+              "track": {
+                "track_id": 163,
+                "track_name": "Circuit de Spa-Francorchamps",
+                "config_name": "Grand Prix Pits"
+              }
+            }
+          ]
+        }
+      ]
+    },
+    "series_id": 260
+  }
+}

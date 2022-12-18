@@ -1758,6 +1758,7 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
+<<<<<<< HEAD
     public async Task<DataResponse<ParticipationCredits[]>> GetMemberParticipationCreditsAsync(CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
@@ -1771,6 +1772,8 @@ internal class DataClient : IDataClient
         return BuildDataResponse(headers, data, logger, expires);
     }
 
+=======
+>>>>>>> 4cf40cc (WIP)
     public async Task<DataResponse<LeagueSeasonSessions>> GetLeagueSeasonSessionsAsync(int leagueId, int seasonId, bool resultsOnly = false, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
@@ -1790,7 +1793,7 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<PastSeriesDetail>> GetPastSeasonsForSeriesAsync(int seriesId, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<PastSeason[]>> GetPastSeasonsForSeriesAsync(int seriesId, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
         {
@@ -1804,7 +1807,7 @@ internal class DataClient : IDataClient
             ["series_id"] = seriesId.ToString(CultureInfo.InvariantCulture),
         });
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(getPastSeasonsForSeriesUrl), PastSeriesResultContext.Default.PastSeriesResult, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data.Series, logger, expires);
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(getPastSeasonsForSeriesUrl), PastSeasonArrayContext.Default.PastSeasonArray, cancellationToken).ConfigureAwait(false);
+        return BuildDataResponse(headers, data, logger, expires);
     }
 }

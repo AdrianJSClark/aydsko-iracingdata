@@ -66,7 +66,7 @@ public class SeasonSeries
     public int LicenseGroup { get; set; }
 
     [JsonPropertyName("license_group_types")]
-    public LicenseGroupTypes[] LicenseGroupTypes { get; set; } = Array.Empty<LicenseGroupTypes>();
+    public LicenseGroupType[] LicenseGroupTypes { get; set; } = Array.Empty<LicenseGroupType>();
 
     [JsonPropertyName("lucky_dog")]
     public bool LuckyDog { get; set; }
