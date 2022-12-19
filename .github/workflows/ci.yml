@@ -34,3 +34,9 @@ jobs:
         working-directory: ./NuGet Packages/
         env:
             PACKAGE_KEY: ${{ secrets.PACKAGE_UPLOAD }}
+
+      - name: Delete Old Packages
+        uses: smartsquaregmbh/delete-old-packages@v0.4.0
+        with:
+          keep: 5
+          names: Aydsko.iRacingData
