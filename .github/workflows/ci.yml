@@ -35,11 +35,7 @@ jobs:
         env:
             PACKAGE_KEY: ${{ secrets.PACKAGE_UPLOAD }}
 
-      - name: Delete Old Packages
-        uses: smartsquaregmbh/delete-old-packages@v0.6.0
+      - uses: actions/delete-package-versions@v3
         with:
-          keep: 5
-          dry-run: true
-          token: ${{ secrets.PACKAGE_UPLOAD }}
-          names: |
-            Aydsko.iRacingData
+          package-name: 'Aydsko.iRacingData'
+          min-versions-to-keep: 5
