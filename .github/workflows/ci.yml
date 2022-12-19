@@ -42,4 +42,4 @@ jobs:
           dry-run: true
           token: ${{ secrets.PACKAGE_UPLOAD }}
           names: |
-            aydsko-iracingdata
+            Aydsko.iRacingData
