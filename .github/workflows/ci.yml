@@ -40,6 +40,5 @@ jobs:
         with:
           keep: 5
           dry-run: true
-          type: nuget
           names: |
-            'Aydsko.iRacingData'
+            Aydsko.iRacingData
