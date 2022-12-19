@@ -40,5 +40,6 @@ jobs:
         with:
           keep: 5
           dry-run: true
+          token: ${{ secrets.PACKAGE_UPLOAD }}
           names: |
             aydsko-iracingdata
