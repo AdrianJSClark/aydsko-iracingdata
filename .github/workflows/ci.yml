@@ -38,9 +38,8 @@ jobs:
       - name: Delete Old Packages
         uses: smartsquaregmbh/delete-old-packages@v0.6.0
         with:
-          user: AdrianJSClark
           keep: 5
           dry-run: true
-          token: ${{ secrets.PACKAGE_UPLOAD }}
+          type: nuget
           names: |
-            Aydsko.iRacingData
+            'Aydsko.iRacingData'
