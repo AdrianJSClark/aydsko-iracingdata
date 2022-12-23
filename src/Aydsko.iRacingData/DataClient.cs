@@ -1757,6 +1757,20 @@ internal class DataClient : IDataClient
         return BuildDataResponse(headers, data, logger, expires);
     }
 
+    /// <inheritdoc />
+    public async Task<DataResponse<ParticipationCredits[]>> GetMemberParticipationCreditsAsync(CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var participationCreditsUrl = "https://members-ng.iracing.com/data/member/participation_credits";
+
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(participationCreditsUrl), ParticipationCreditsArrayContext.Default.ParticipationCreditsArray, cancellationToken).ConfigureAwait(false);
+        return BuildDataResponse(headers, data, logger, expires);
+    }
+
     public async Task<DataResponse<LeagueSeasonSessions>> GetLeagueSeasonSessionsAsync(int leagueId, int seasonId, bool resultsOnly = false, CancellationToken cancellationToken = default)
 
     {

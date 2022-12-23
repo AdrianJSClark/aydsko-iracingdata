@@ -1,0 +1,44 @@
+{
+  "headers": {},
+  "content": [
+    {
+      "cust_id": 341554,
+      "season_id": 4019,
+      "series_id": 456,
+      "series_name": "Formula C - Moza Racing Dallara F3 Series- Fixed",
+      "license_group": 3,
+      "license_group_name": "Class C",
+      "participation_credits": 4,
+      "min_weeks": 8,
+      "weeks": 1,
+      "earned_credits": 0,
+      "total_credits": 0
+    },
+    {
+      "cust_id": 341554,
+      "season_id": 4077,
+      "series_id": 514,
+      "series_name": "iRacing GR Cup - Fixed",
+      "license_group": 2,
+      "license_group_name": "Class D",
+      "participation_credits": 4,
+      "min_weeks": 8,
+      "weeks": 1,
+      "earned_credits": 0,
+      "total_credits": 0
+    },
+    {
+      "cust_id": 341554,
+      "season_id": 4042,
+      "series_id": 484,
+      "series_name": "Formula A - Grand Prix Series - Fixed",
+      "license_group": 5,
+      "license_group_name": "Class A",
+      "participation_credits": 7,
+      "min_weeks": 8,
+      "weeks": 2,
+      "earned_credits": 0,
+      "total_credits": 0
+    }
+  ]
+}
