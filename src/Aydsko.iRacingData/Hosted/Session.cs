@@ -276,7 +276,7 @@ public class Session
     public TrackTypes[] TrackTypes { get; set; } = Array.Empty<TrackTypes>();
 
     [JsonPropertyName("license_group_types")]
-    public LicenseGroupTypes[] LicenseGroupTypes { get; set; } = Array.Empty<LicenseGroupTypes>();
+    public LicenseGroupType[] LicenseGroupTypes { get; set; } = Array.Empty<LicenseGroupType>();
 
     [JsonPropertyName("event_types")]
     public EventTypes[] EventTypes { get; set; } = Array.Empty<EventTypes>();

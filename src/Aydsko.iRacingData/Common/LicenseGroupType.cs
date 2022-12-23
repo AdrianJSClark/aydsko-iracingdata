@@ -1,10 +1,10 @@
 ﻿// © 2022 Adrian Clark
 // This file is licensed to you under the MIT license.
 
-namespace Aydsko.iRacingData.Series;
+namespace Aydsko.iRacingData.Common;
 
-public class LicenseGroupTypes
+public class LicenseGroupType
 {
     [JsonPropertyName("license_group_type")]
-    public int LicenseGroupType { get; set; }
+    public int LicenseGroupTypeId { get; set; }
 }
