@@ -19,12 +19,14 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{2BA7
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{1146D36E-DBC4-4073-986C-8D74B62A1332}"
 	ProjectSection(SolutionItems) = preProject
-		..\.github\workflows\build.yml = ..\.github\workflows\build.yml
+		..\.github\workflows\ci.yml = ..\.github\workflows\ci.yml
+		..\.github\workflows\create-release.yml = ..\.github\workflows\create-release.yml
+		..\.github\workflows\pr.yml = ..\.github\workflows\pr.yml
 		..\.github\workflows\publish-release.yml = ..\.github\workflows\publish-release.yml
-		..\.github\workflows\tests-report.yml = ..\.github\workflows\tests-report.yml
+		..\.github\workflows\_build.yml = ..\.github\workflows\_build.yml
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aydsko.iRacingData.IntegrationTests", "Aydsko.iRacingData.IntegrationTests\Aydsko.iRacingData.IntegrationTests.csproj", "{5883CAAD-C11B-417A-B5DC-729867B66916}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aydsko.iRacingData.IntegrationTests", "Aydsko.iRacingData.IntegrationTests\Aydsko.iRacingData.IntegrationTests.csproj", "{5883CAAD-C11B-417A-B5DC-729867B66916}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
