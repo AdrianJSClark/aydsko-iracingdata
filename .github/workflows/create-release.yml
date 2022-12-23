@@ -12,7 +12,7 @@ jobs:
     uses: ./.github/workflows/_build.yml
 
   deploy:
-    name: Deploy Pre-Release NuGet Packages to Repository Packages
+    name: Create Draft Release with NuGet Packages
     needs: build
     runs-on: windows-latest
 
