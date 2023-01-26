@@ -1,0 +1,8 @@
+{
+    "statuscode": 200,
+    "headers": {},
+  "content": {
+    "link": "https://scorpio-assets.s3.amazonaws.com/production/data-server/cache/data-services/league/season_standings/0d758094-d679-4271-9152-0f691bec7c40?AWSAccessKeyId=AKIAUO6OO4A3357USLO7&Expires=1674756881&Signature=xTfAPhX5bAL%2BNAaTRsiCi2X0TM4%3D",
+    "expires": "2023-01-26T18:27:41.822Z"
+  }
+}
