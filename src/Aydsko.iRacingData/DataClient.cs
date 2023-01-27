@@ -1,4 +1,4 @@
-﻿// © 2022 Adrian Clark
+﻿// © 2023 Adrian Clark
 // This file is licensed to you under the MIT license.
 
 using System.Globalization;
@@ -1771,6 +1771,7 @@ internal class DataClient : IDataClient
         return BuildDataResponse(headers, data, logger, expires);
     }
 
+    /// <inheritdoc />
     public async Task<DataResponse<LeagueSeasonSessions>> GetLeagueSeasonSessionsAsync(int leagueId, int seasonId, bool resultsOnly = false, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
@@ -1806,5 +1807,38 @@ internal class DataClient : IDataClient
 
         (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(getPastSeasonsForSeriesUrl), PastSeriesResultContext.Default.PastSeriesResult, cancellationToken).ConfigureAwait(false);
         return BuildDataResponse(headers, data.Series, logger, expires);
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<SeasonStandings>> GetSeasonStandingsAsync(int leagueId, int seasonId, int? carClassId = null, int? carId = null, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var queryUrl = "https://members-ng.iracing.com/data/league/season_standings";
+
+        var queryParams = new Dictionary<string, string>
+        {
+            ["league_id"] = leagueId.ToString(CultureInfo.InvariantCulture),
+            ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
+        };
+
+        if (carClassId is not null)
+        {
+            queryParams.Add("car_class_id", carClassId.Value.ToString(CultureInfo.InvariantCulture));
+        }
+
+        if (carId is not null)
+        {
+            queryParams.Add("car_id", carId.Value.ToString(CultureInfo.InvariantCulture));
+        }
+
+        queryUrl = QueryHelpers.AddQueryString(queryUrl, queryParams);
+
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), SeasonStandingsContext.Default.SeasonStandings, cancellationToken).ConfigureAwait(false);
+
+        return BuildDataResponse(headers, data, logger, expires);
     }
 }

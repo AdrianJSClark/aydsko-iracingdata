@@ -1,0 +1,63 @@
+{
+  "headers": {},
+  "content": {
+    "car_class_id": 0,
+    "success": true,
+    "season_id": 83697,
+    "car_id": 0,
+    "standings": {
+      "driver_standings": [
+        {
+          "rownum": 1,
+          "position": 1,
+          "driver": {
+            "cust_id": 411093,
+            "display_name": "Dennis Møllegaard Pedersen",
+            "helmet": {
+              "pattern": 61,
+              "color1": "000000",
+              "color2": "fc549f",
+              "color3": "000000",
+              "face_type": 4,
+              "helmet_type": 0
+            }
+          },
+          "car_number": null,
+          "driver_nickname": null,
+          "wins": 1,
+          "average_start": 7,
+          "average_finish": 2,
+          "base_points": 2210,
+          "negative_adjustments": 0,
+          "positive_adjustments": 0,
+          "total_adjustments": 0,
+          "total_points": 2210
+        }
+      ],
+      "team_standings": [
+        {
+          "rownum": 1,
+          "position": 1,
+          "team": {
+            "team_id": -220264,
+            "owner_id": 411093,
+            "team_name": "The Apex Odd Twin",
+            "owner": {
+              "cust_id": 411093,
+              "display_name": "Dennis Møllegaard Pedersen",
+              "helmet": {
+                "pattern": 61,
+                "color1": "000000",
+                "color2": "fc549f",
+                "color3": "000000",
+                "face_type": 4,
+                "helmet_type": 0
+              }
+            }
+          }
+        }
+      ]
+    },
+    "league_id": 8835
+  }
+}

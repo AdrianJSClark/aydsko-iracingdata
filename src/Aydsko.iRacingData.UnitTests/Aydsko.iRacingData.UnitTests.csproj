@@ -24,5 +24,4 @@
   <ItemGroup>
     <EmbeddedResource Include="Responses/**/*.json" />
   </ItemGroup>
-
 </Project>

@@ -105,6 +105,19 @@ public interface IDataClient
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
     Task<DataResponse<LeagueSeasonSessions>> GetLeagueSeasonSessionsAsync(int leagueId, int seasonId, bool resultsOnly = false, CancellationToken cancellationToken = default);
 
+    /// <summary>Retrieves league's season's standings</summary>
+    /// <param name="leagueId">League Id to return sessions for.</param>
+    /// <param name="seasonId">Season Id to return sessions for.</param>
+    /// <param name="carClassId">If <see langword="true"/> include only sessions which results are available.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <param name="carId">A token to allow the operation to be cancelled.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing <see cref="global::Aydsko.iRacingData.Leagues.SeasonStandings"/>.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
+    Task<DataResponse<SeasonStandings>> GetSeasonStandingsAsync(int leagueId, int seasonId, int? carClassId = null, int? carId = null, CancellationToken cancellationToken = default);
+
     /// <summary>Retrieves a list of the iRacing Divisions.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A <see cref="DataResponse{TData}"/> containing an array of <see cref="Division"/> objects.</returns>
