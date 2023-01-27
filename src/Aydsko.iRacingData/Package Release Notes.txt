@@ -1,5 +1,12 @@
-﻿Fixes / Changes:
+﻿﻿Fixes / Changes:
 
- - Added documentation to `Tracks.Track.TrackConfigLength` and added `Tracks.Track.TrackConfigLengthKm` (Issue #132 https://github.com/AdrianJSClark/aydsko-iracingdata/issues/132)
- - Support the "Participation Credits" Endpoint (Issue #134 https://github.com/AdrianJSClark/aydsko-iracingdata/issues/134)
- - Support the "Past Seasons" Endpoint (Issue #133 https://github.com/AdrianJSClark/aydsko-iracingdata/issues/133)
+ - TODO
+
+
+
+Contributions:
+
+ - From Dennis Møllegaard Pedersen (https://github.com/dennis):
+    - Implement League Season Standings Endpoint (Pull Request #142)
+
+Thanks for helping out with pull requests to the library!
