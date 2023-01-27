@@ -24,4 +24,8 @@
   <ItemGroup>
     <EmbeddedResource Include="Responses/**/*.json" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Remove="Responses\GetServiceStatusSuccessfulAsync\0.json" />
+  </ItemGroup>
 </Project>

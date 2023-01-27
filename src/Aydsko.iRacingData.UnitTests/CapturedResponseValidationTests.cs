@@ -1176,4 +1176,20 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
         Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
+
+    [Test(TestOf =typeof(DataClient))]
+    public async Task GetServiceStatusSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetServiceStatusSuccessfulAsync)).ConfigureAwait(false);
+
+        var response = await sut.GetServiceStatusAsync().ConfigureAwait(false);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response.Timestamp, Is.EqualTo(new DateTimeOffset(2023, 1, 27, 12, 29, 57, 713, TimeSpan.Zero)));
+            Assert.That(response.MaintenanceMessages, Has.Length.EqualTo(1));
+            Assert.That(response.MaintenanceMessages[0], Is.EqualTo("Downtime has been scheduled for the 2023 Season 1 Patch 3 Hotfix 1 Release on January 27th at 1100 EST / 1600 GMT. Please see Staff Announcements on the iRacing Forums for more details."));
+        });
+    }
 }

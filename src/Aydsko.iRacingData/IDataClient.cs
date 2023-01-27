@@ -600,4 +600,10 @@ public interface IDataClient
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
     Task<DataResponse<PastSeriesDetail>> GetPastSeasonsForSeriesAsync(int seriesId, CancellationToken cancellationToken = default);
+
+    /// <summary>Retrieve the current iRacing Service Status information.</summary>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <returns>The current status of the various services that make up iRacing.</returns>
+    Task<StatusResult> GetServiceStatusAsync(CancellationToken cancellationToken = default);
 }

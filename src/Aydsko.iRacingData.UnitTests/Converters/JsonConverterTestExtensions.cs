@@ -40,7 +40,7 @@ public static class JsonConverterTestExtensions
             throw new ArgumentException(InvalidJsonObjectInputFormatMessage);
         }
 
-        if (!(reader.Read() && (reader.TokenType == JsonTokenType.String || reader.TokenType == JsonTokenType.Number || reader.TokenType == JsonTokenType.Null)))
+        if (!(reader.Read() && (reader.TokenType == JsonTokenType.StartArray || reader.TokenType == JsonTokenType.String || reader.TokenType == JsonTokenType.Number || reader.TokenType == JsonTokenType.Null)))
         {
             throw new ArgumentException(InvalidJsonObjectInputFormatMessage);
         }
