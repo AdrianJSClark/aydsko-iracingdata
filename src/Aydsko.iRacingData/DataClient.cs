@@ -1841,4 +1841,17 @@ internal class DataClient : IDataClient
 
         return BuildDataResponse(headers, data, logger, expires);
     }
+
+    /// <inheritdoc />
+    public async Task<StatusResult> GetServiceStatusAsync(CancellationToken cancellationToken = default)
+    {
+        var data = await httpClient.GetFromJsonAsync("https://status.iracing.com/status.json", StatusResultContext.Default.StatusResult, cancellationToken: cancellationToken)
+                                   .ConfigureAwait(false);
+        if (data is null)
+        {
+            throw new iRacingDataClientException("Data not found.");
+        }
+
+        return data;
+    }
 }

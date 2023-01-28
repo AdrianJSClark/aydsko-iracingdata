@@ -1029,7 +1029,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(countryResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
     }
 
-    [Test(TestOf =typeof(DataClient))]
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetDriverAwardsSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetDriverAwardsSuccessfulAsync)).ConfigureAwait(false);
@@ -1098,7 +1098,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetWorldRecordStatisticsSuccessfulAsync)).ConfigureAwait(false);
 
-        var response = await sut.GetWorldRecordsAsync(145,341).ConfigureAwait(false);
+        var response = await sut.GetWorldRecordsAsync(145, 341).ConfigureAwait(false);
 
         Assert.That(response, Is.Not.Null);
         Assert.That(response!.Data, Is.Not.Null);
@@ -1175,5 +1175,77 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(response.TotalRateLimit, Is.EqualTo(100));
         Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
         Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+    }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetServiceStatusSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetServiceStatusSuccessfulAsync)).ConfigureAwait(false);
+
+        var response = await sut.GetServiceStatusAsync().ConfigureAwait(false);
+
+        Assert.That(response, Is.Not.Null);
+        Assert.That(response.Timestamp, Is.EqualTo(new DateTimeOffset(2023, 1, 27, 12, 29, 57, 713, TimeSpan.Zero)));
+        Assert.That(response.MaintenanceMessages, Has.Length.EqualTo(1));
+        Assert.That(response.MaintenanceMessages[0], Is.EqualTo("Downtime has been scheduled for the 2023 Season 1 Patch 3 Hotfix 1 Release on January 27th at 1100 EST / 1600 GMT. Please see Staff Announcements on the iRacing Forums for more details."));
+
+        Assert.That(response.Tests, Is.Not.Null);
+
+        Assert.That(response.Tests.ConfigurationFlags, Is.Not.Null);
+
+        Assert.That(response.Tests.ConfigurationFlags.iRacingUIinMaintenanceMode, Is.Not.Null);
+        Assert.That(response.Tests.ConfigurationFlags.iRacingUIinMaintenanceMode.Description, Is.EqualTo("Result is a 0 or a 1. 0 means BetaUI is NOT in maintenance mode."));
+        Assert.That(response.Tests.ConfigurationFlags.iRacingUIinMaintenanceMode.Result, Is.Not.Null.And.Length.EqualTo(241));
+        Assert.That(response.Tests.ConfigurationFlags.iRacingUIinMaintenanceMode.SummaryLabel, Is.EqualTo("No"));
+        Assert.That(response.Tests.ConfigurationFlags.iRacingUIinMaintenanceMode.SummaryLevel, Is.EqualTo(0));
+
+        Assert.That(response.Tests.ConfigurationFlags.TestDriveAvailable, Is.Not.Null);
+        Assert.That(response.Tests.ConfigurationFlags.TestDriveAvailable.Description, Is.EqualTo("Result is a 0 or a 1. 0 means TestDrive is disabled."));
+        Assert.That(response.Tests.ConfigurationFlags.TestDriveAvailable.Result, Is.Not.Null.And.Length.EqualTo(241));
+        Assert.That(response.Tests.ConfigurationFlags.TestDriveAvailable.SummaryLabel, Is.EqualTo("Yes"));
+        Assert.That(response.Tests.ConfigurationFlags.TestDriveAvailable.SummaryLevel, Is.EqualTo(2));
+
+        Assert.That(response.Tests.ConfigurationFlags.ClassicMemberSiteInMaintenanceMode, Is.Not.Null);
+        Assert.That(response.Tests.ConfigurationFlags.ClassicMemberSiteInMaintenanceMode.Description, Is.EqualTo("Result is a 0 or a 1. 0 means the classic website is NOT in maintenance mode."));
+        Assert.That(response.Tests.ConfigurationFlags.ClassicMemberSiteInMaintenanceMode.Result, Is.Not.Null.And.Length.EqualTo(241));
+        Assert.That(response.Tests.ConfigurationFlags.ClassicMemberSiteInMaintenanceMode.SummaryLabel, Is.EqualTo("No"));
+        Assert.That(response.Tests.ConfigurationFlags.ClassicMemberSiteInMaintenanceMode.SummaryLevel, Is.EqualTo(0));
+
+        Assert.That(response.Tests.Websites, Is.Not.Null);
+        Assert.That(response.Tests.Websites.PublicSiteWwwiRacingCom, Is.Not.Null);
+        Assert.That(response.Tests.Websites.PublicSiteWwwiRacingCom.Description, Is.EqualTo("Result is a 0 or a 1. 0 means the website returned something other than HTTP/200 or has the wrong content."));
+        Assert.That(response.Tests.Websites.PublicSiteWwwiRacingCom.Result, Is.Not.Null.And.Length.EqualTo(241));
+        Assert.That(response.Tests.Websites.PublicSiteWwwiRacingCom.SummaryLabel, Is.EqualTo("Okay"));
+        Assert.That(response.Tests.Websites.PublicSiteWwwiRacingCom.SummaryLevel, Is.EqualTo(2));
+
+        Assert.That(response.Tests.Websites.Forums, Is.Not.Null);
+        Assert.That(response.Tests.Websites.Forums.Description, Is.EqualTo("Result is a 0 or 1. 0 means high response error rates."));
+        Assert.That(response.Tests.Websites.Forums.Result, Is.Not.Null.And.Length.EqualTo(241));
+        Assert.That(response.Tests.Websites.Forums.SummaryLabel, Is.EqualTo("Okay"));
+        Assert.That(response.Tests.Websites.Forums.SummaryLevel, Is.EqualTo(2));
+
+        Assert.That(response.Tests.Websites.Downloads, Is.Not.Null);
+        Assert.That(response.Tests.Websites.Downloads.Description, Is.EqualTo("Result is a 0 or a 1. 0 means the website returned something other than HTTP/200 or has the wrong content."));
+        Assert.That(response.Tests.Websites.Downloads.Result, Is.Not.Null.And.Length.EqualTo(241));
+        Assert.That(response.Tests.Websites.Downloads.SummaryLabel, Is.EqualTo("Okay"));
+        Assert.That(response.Tests.Websites.Downloads.SummaryLevel, Is.EqualTo(2));
+
+        Assert.That(response.Tests.Websites.LegacyForums, Is.Not.Null);
+        Assert.That(response.Tests.Websites.LegacyForums.Description, Is.EqualTo("Result is a 0 or 1. 0 means high response error rates."));
+        Assert.That(response.Tests.Websites.LegacyForums.Result, Is.Not.Null.And.Length.EqualTo(241));
+        Assert.That(response.Tests.Websites.LegacyForums.SummaryLabel, Is.EqualTo("Okay"));
+        Assert.That(response.Tests.Websites.LegacyForums.SummaryLevel, Is.EqualTo(2));
+
+        Assert.That(response.Tests.RaceServerNetwork, Is.Not.Null);
+
+        Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivitySydney.Description, Is.EqualTo("Result is a 0 or a 1. 0 means the farm is experiencing connectivity issues."));
+        Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivitySydney.Result, Is.Not.Null.And.Length.EqualTo(241));
+        Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivitySydney.SummaryLabel, Is.EqualTo("Okay"));
+        Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivitySydney.SummaryLevel, Is.EqualTo(2));
+
+        Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivityUSWestCoast.Description, Is.EqualTo("Result is a 0 or a 1. 0 means the farm is experiencing connectivity issues."));
+        Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivityUSWestCoast.Result, Is.Not.Null.And.Length.EqualTo(241));
+        Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivityUSWestCoast.SummaryLabel, Is.EqualTo("Okay"));
+        Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivityUSWestCoast.SummaryLevel, Is.EqualTo(2));
     }
 }

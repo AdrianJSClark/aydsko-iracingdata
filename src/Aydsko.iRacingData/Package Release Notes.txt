@@ -1,6 +1,6 @@
 ﻿﻿Fixes / Changes:
 
- - TODO
+ - Support iRacing Status Information (Issue #143)
 
 
 
