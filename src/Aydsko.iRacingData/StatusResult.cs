@@ -22,34 +22,34 @@ public class StatusResult
 
 public class Tests
 {
-    [JsonPropertyName("ConfigurationFlags")]
+    [JsonPropertyName("Configuration Flags")]
     public ConfigurationFlags ConfigurationFlags { get; set; } = default!;
 
     [JsonPropertyName("Websites")]
     public Websites Websites { get; set; } = default!;
 
-    [JsonPropertyName("RaceserverNetwork")]
-    public RaceserverNetwork RaceserverNetwork { get; set; } = default!;
+    [JsonPropertyName("Raceserver Network")]
+    public RaceServerNetwork RaceServerNetwork { get; set; } = default!;
 
-    [JsonPropertyName("BackendServices")]
+    [JsonPropertyName("Backend Services")]
     public BackendServices BackendServices { get; set; } = default!;
 }
 
 public class ConfigurationFlags
 {
-    [JsonPropertyName("iRacingUIinMaintenanceMode")]
+    [JsonPropertyName("iRacing UI in Maintenance Mode")]
     public ServiceStatusDetail iRacingUIinMaintenanceMode { get; set; } = default!;
 
-    [JsonPropertyName("TestDriveAvailable")]
+    [JsonPropertyName("TestDrive Available")]
     public ServiceStatusDetail TestDriveAvailable { get; set; } = default!;
 
-    [JsonPropertyName("ClassicMemberSiteinMaintenanceMode")]
+    [JsonPropertyName("Classic Member Site in Maintenance Mode")]
     public ServiceStatusDetail ClassicMemberSiteInMaintenanceMode { get; set; } = default!;
 }
 
 public class Websites
 {
-    [JsonPropertyName("PublicSitewwwiracingcom")]
+    [JsonPropertyName("Public Site (www.iracing.com)")]
     public ServiceStatusDetail PublicSiteWwwiRacingCom { get; set; } = default!;
 
     [JsonPropertyName("Forums")]
@@ -58,67 +58,67 @@ public class Websites
     [JsonPropertyName("Downloads")]
     public ServiceStatusDetail Downloads { get; set; } = default!;
 
-    [JsonPropertyName("LegacyForums")]
+    [JsonPropertyName("Legacy Forums")]
     public ServiceStatusDetail LegacyForums { get; set; } = default!;
 }
 
-public class RaceserverNetwork
+public class RaceServerNetwork
 {
-    [JsonPropertyName("RaceserverCapacityBoston")]
+    [JsonPropertyName("Raceserver Capacity - Boston")]
     public ServiceStatusDetail RaceServerCapacityBoston { get; set; } = default!;
 
-    [JsonPropertyName("RaceserverCapacityFrankfurt")]
+    [JsonPropertyName("Raceserver Capacity - Frankfurt")]
     public ServiceStatusDetail RaceServerCapacityFrankfurt { get; set; } = default!;
 
-    [JsonPropertyName("RaceserverCapacitySaoPaulo")]
+    [JsonPropertyName("Raceserver Capacity - Sao Paulo")]
     public ServiceStatusDetail RaceServerCapacitySaoPaulo { get; set; } = default!;
 
-    [JsonPropertyName("RaceserverCapacitySydney")]
+    [JsonPropertyName("Raceserver Capacity - Sydney")]
     public ServiceStatusDetail RaceServerCapacitySydney { get; set; } = default!;
 
-    [JsonPropertyName("RaceserverCapacityTokyo")]
+    [JsonPropertyName("Raceserver Capacity - Tokyo")]
     public ServiceStatusDetail RaceServerCapacityTokyo { get; set; } = default!;
 
-    [JsonPropertyName("RaceserverCapacityUSWestCoast")]
+    [JsonPropertyName("Raceserver Capacity - US West Coast")]
     public ServiceStatusDetail RaceServerCapacityUSWestCoast { get; set; } = default!;
 
-    [JsonPropertyName("RaceserverConnectivityBoston")]
+    [JsonPropertyName("Raceserver Connectivity - Boston")]
     public ServiceStatusDetail RaceServerConnectivityBoston { get; set; } = default!;
 
-    [JsonPropertyName("RaceserverConnectivityFrankfurt")]
+    [JsonPropertyName("Raceserver Connectivity - Frankfurt")]
     public ServiceStatusDetail RaceServerConnectivityFrankfurt { get; set; } = default!;
 
-    [JsonPropertyName("RaceserverConnectivitySaoPaulo")]
+    [JsonPropertyName("Raceserver Connectivity - Sao Paulo")]
     public ServiceStatusDetail RaceServerConnectivitySaoPaulo { get; set; } = default!;
 
-    [JsonPropertyName("RaceserverConnectivitySydney")]
+    [JsonPropertyName("Raceserver Connectivity - Sydney")]
     public ServiceStatusDetail RaceServerConnectivitySydney { get; set; } = default!;
 
-    [JsonPropertyName("RaceserverConnectivityTokyo")]
+    [JsonPropertyName("Raceserver Connectivity - Tokyo")]
     public ServiceStatusDetail RaceServerConnectivityTokyo { get; set; } = default!;
 
-    [JsonPropertyName("RaceserverConnectivityUSWestCoast")]
+    [JsonPropertyName("Raceserver Connectivity - US West Coast")]
     public ServiceStatusDetail RaceServerConnectivityUSWestCoast { get; set; } = default!;
 
-    [JsonPropertyName("SessionSchedulerLatency")]
+    [JsonPropertyName("Session Scheduler Latency")]
     public ServiceStatusDetail SessionSchedulerLatency { get; set; } = default!;
 
-    [JsonPropertyName("ConnectionStatusBetweenAUNZandBoston")]
+    [JsonPropertyName("Connection Status Between AU/NZ and Boston")]
     public ServiceStatusDetail ConnectionStatusBetweenAUNZandBoston { get; set; } = default!;
 }
 
 public class BackendServices
 {
-    [JsonPropertyName("UIBackendServices")]
+    [JsonPropertyName("UI Backend Services")]
     public ServiceStatusDetail UIBackendServices { get; set; } = default!;
 
-    [JsonPropertyName("LoginandAuthentication")]
-    public ServiceStatusDetail LoginandAuthentication { get; set; } = default!;
+    [JsonPropertyName("Login and Authentication")]
+    public ServiceStatusDetail LoginAndAuthentication { get; set; } = default!;
 
-    [JsonPropertyName("RaceResultsProcessing")]
+    [JsonPropertyName("Race Results Processing")]
     public ServiceStatusDetail RaceResultsProcessing { get; set; } = default!;
 
-    [JsonPropertyName("StatsAPI")]
+    [JsonPropertyName("Stats API")]
     public ServiceStatusDetail StatsAPI { get; set; } = default!;
 }
 
@@ -162,7 +162,7 @@ public class ServiceStatusHistoryItem : IEquatable<ServiceStatusHistoryItem>
 #if NET6_0_OR_GREATER
         return HashCode.Combine(Instant.GetHashCode(), Value.GetHashCode());
 #else
-        return Instant.GetHashCode() ^ Value.GetHashCode();
+        return Tuple.Create(Instant, Value).GetHashCode();
 #endif
     }
 }
