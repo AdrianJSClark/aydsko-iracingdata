@@ -1169,6 +1169,13 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         Assert.That(response, Is.Not.Null);
         Assert.That(response!.Data, Is.Not.Null);
+
+        Assert.That(response.Data.SeriesName, Is.EqualTo("Formula A - Grand Prix Series"));
+        Assert.That(response.Data.SearchFilters, Is.EqualTo("openwheel,road"));
+        Assert.That(response.Data.FixedSetup, Is.False);
+        Assert.That(response.Data.Logo, Is.EqualTo("formulaagrandprixseries-logo.png"));
+        Assert.That(response.Data.LogoUri, Is.EqualTo(new Uri("https://images-static.iracing.com/img/logos/series/formulaagrandprixseries-logo.png")));
+
         Assert.That(response.Data.Seasons, Has.Length.EqualTo(29));
 
         Assert.That(response.RateLimitRemaining, Is.EqualTo(99));

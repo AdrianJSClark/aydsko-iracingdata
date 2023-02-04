@@ -1,6 +1,7 @@
 ﻿﻿Fixes / Changes:
 
  - Support iRacing Status Information (Issue #143)
+ - Specify Full Path For Past Series "Logo" Field (Issue #141)
 
 
 

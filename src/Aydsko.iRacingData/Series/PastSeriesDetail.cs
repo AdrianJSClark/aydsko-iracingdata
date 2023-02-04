@@ -50,6 +50,9 @@ public class PastSeriesDetail
     [JsonPropertyName("logo")]
     public string Logo { get; set; } = default!;
 
+    [JsonIgnore]
+    public Uri LogoUri => new(new Uri("https://images-static.iracing.com/img/logos/series/"), Logo);
+
     [JsonPropertyName("license_group")]
     public int LicenseGroup { get; set; }
 
