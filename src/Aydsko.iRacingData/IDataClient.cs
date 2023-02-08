@@ -1,4 +1,4 @@
-﻿// © 2022 Adrian Clark
+﻿// © 2023 Adrian Clark
 // This file is licensed to you under the MIT license.
 
 using Aydsko.iRacingData.Cars;
@@ -12,6 +12,7 @@ using Aydsko.iRacingData.Results;
 using Aydsko.iRacingData.Searches;
 using Aydsko.iRacingData.Series;
 using Aydsko.iRacingData.Stats;
+using Aydsko.iRacingData.TimeAttack;
 using Aydsko.iRacingData.Tracks;
 
 namespace Aydsko.iRacingData;
@@ -606,4 +607,20 @@ public interface IDataClient
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <returns>The current status of the various services that make up iRacing.</returns>
     Task<StatusResult> GetServiceStatusAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>Get a list of Time Attack series.</summary>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <returns>An array of <see cref="TimeAttackSeason"/> objects.</returns>
+    Task<TimeAttackSeason[]> GetTimeAttackSeasonsAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>Retrieves the current member's Time Attack results for the given season.</summary>
+    /// <param name="competitionSeasonId">The Time Attack season identifier to return results for.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing an array of <see cref="TimeAttackMemberSeasonResult"/> objects.</returns>
+    /// <remarks>Always returns information for the currently authenticated member.</remarks>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
+    Task<DataResponse<TimeAttackMemberSeasonResult[]>> GetTimeAttackMemberSeasonResultsAsync(int competitionSeasonId, CancellationToken cancellationToken = default);
 }

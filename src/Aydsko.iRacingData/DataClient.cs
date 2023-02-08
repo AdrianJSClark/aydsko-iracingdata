@@ -20,6 +20,7 @@ using Aydsko.iRacingData.Results;
 using Aydsko.iRacingData.Searches;
 using Aydsko.iRacingData.Series;
 using Aydsko.iRacingData.Stats;
+using Aydsko.iRacingData.TimeAttack;
 using Aydsko.iRacingData.Tracks;
 using Microsoft.AspNetCore.WebUtilities;
 
@@ -1520,7 +1521,7 @@ internal class DataClient : IDataClient
 
                 var passwordAndEmail = options.Password + (options.Username?.ToLowerInvariant());
                 var hashedPasswordAndEmailBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordAndEmail));
-                encodedHash = Convert.ToBase64String(hashedPasswordAndEmailBytes); 
+                encodedHash = Convert.ToBase64String(hashedPasswordAndEmailBytes);
             }
 
             var loginResponse = await httpClient.PostAsJsonAsync("https://members-ng.iracing.com/auth",
@@ -1845,13 +1846,54 @@ internal class DataClient : IDataClient
     /// <inheritdoc />
     public async Task<StatusResult> GetServiceStatusAsync(CancellationToken cancellationToken = default)
     {
-        var data = await httpClient.GetFromJsonAsync("https://status.iracing.com/status.json", StatusResultContext.Default.StatusResult, cancellationToken: cancellationToken)
-                                   .ConfigureAwait(false);
-        if (data is null)
+        var data = (await httpClient.GetFromJsonAsync("https://status.iracing.com/status.json",
+                                                     StatusResultContext.Default.StatusResult,
+                                                     cancellationToken: cancellationToken)
+                                   .ConfigureAwait(false))
+                    ?? throw new iRacingDataClientException("Data not found.");
+
+        return data!;
+    }
+
+    /// <inheritdoc />
+    public async Task<TimeAttackSeason[]> GetTimeAttackSeasonsAsync(CancellationToken cancellationToken = default)
+    {
+        // A "magic" sequence of URLs from Nicholas Bailey: https://forums.iracing.com/discussion/comment/302454/#Comment_302454
+
+        var indexData = (await httpClient.GetFromJsonAsync("https://dqfp1ltauszrc.cloudfront.net/public/time-attack/schedules/time_attack_schedule_index.json",
+                                                           TimeAttackScheduleIndexContext.Default.TimeAttackScheduleIndex,
+                                                           cancellationToken: cancellationToken)
+                                   .ConfigureAwait(false))
+                         ?? throw new iRacingDataClientException("Data not found.");
+
+        var data = (await httpClient.GetFromJsonAsync($"https://dqfp1ltauszrc.cloudfront.net/public/time-attack/schedules/{indexData.ScheduleFilename}.json",
+                                                      TimeAttackSeasonArrayContext.Default.TimeAttackSeasonArray,
+                                                      cancellationToken: cancellationToken)
+                                   .ConfigureAwait(false))
+                    ?? throw new iRacingDataClientException("Data not found.");
+
+        return data!;
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<TimeAttackMemberSeasonResult[]>> GetTimeAttackMemberSeasonResultsAsync(int competitionSeasonId, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
         {
-            throw new iRacingDataClientException("Data not found.");
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        return data;
+        var queryUrl = "https://members-ng.iracing.com/data/time_attack/member_season_results";
+
+        var queryParams = new Dictionary<string, string>
+        {
+            ["ta_comp_season_id"] = competitionSeasonId.ToString(CultureInfo.InvariantCulture),
+        };
+
+        queryUrl = QueryHelpers.AddQueryString(queryUrl, queryParams);
+
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), TimeAttackMemberSeasonResultArrayContext.Default.TimeAttackMemberSeasonResultArray, cancellationToken).ConfigureAwait(false);
+
+        return BuildDataResponse(headers, data, logger, expires);
     }
 }
