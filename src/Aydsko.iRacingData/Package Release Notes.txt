@@ -1,13 +1,11 @@
 ﻿﻿Fixes / Changes:
 
- - Support iRacing Status Information (Issue #143)
- - Specify Full Path For Past Series "Logo" Field (Issue #141)
+ - Add Time Attack Member Season Results Endpoint (Issue #145)
+   - Includes an endpoint to get a list of Time Attack seasons
+   - Also includes an endpoint to get the member's season results
 
 
 
 Contributions:
-
- - From Dennis Møllegaard Pedersen (https://github.com/dennis):
-    - Implement League Season Standings Endpoint (Pull Request #142)
 
 Thanks for helping out with pull requests to the library!
