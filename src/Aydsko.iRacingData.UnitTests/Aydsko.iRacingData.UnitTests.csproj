@@ -27,5 +27,8 @@
 
   <ItemGroup>
     <None Remove="Responses\GetServiceStatusSuccessfulAsync\0.json" />
+    <None Remove="Responses\GetTimeAttackMemberSeasonResults\0.json" />
+    <None Remove="Responses\GetTimeAttackMemberSeasonResults\1.json" />
+    <None Remove="Responses\GetTimeAttackSeriesSuccessfulAsync\0.json" />
   </ItemGroup>
 </Project>

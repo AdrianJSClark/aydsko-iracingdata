@@ -7,6 +7,7 @@ using Aydsko.iRacingData.Leagues;
 using Aydsko.iRacingData.Results;
 using Aydsko.iRacingData.Searches;
 using Aydsko.iRacingData.Series;
+using Aydsko.iRacingData.TimeAttack;
 
 namespace Aydsko.iRacingData.UnitTests;
 
@@ -1254,5 +1255,28 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivityUSWestCoast.Result, Is.Not.Null.And.Length.EqualTo(241));
         Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivityUSWestCoast.SummaryLabel, Is.EqualTo("Okay"));
         Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivityUSWestCoast.SummaryLevel, Is.EqualTo(2));
+    }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetTimeAttackSeriesSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetTimeAttackSeriesSuccessfulAsync)).ConfigureAwait(false);
+
+        var response = await sut.GetTimeAttackSeriesAsync().ConfigureAwait(false);
+
+        Assert.That(response, Is.Not.Null);
+        Assert.That(response, Has.Length.EqualTo(51));
+
+        var competition1001 = response.SingleOrDefault(c => c.CompetitionId == 1001);
+
+        Assert.That(competition1001, Is.Not.Null);
+
+#if NET6_0_OR_GREATER
+        Assert.That(competition1001!.StartDate, Is.EqualTo(new DateOnly(2022, 12, 13)));
+        Assert.That(competition1001.EndDate, Is.EqualTo(new DateOnly(2023, 3, 5)));
+#else
+        Assert.That(competition1001.StartDate, Is.EqualTo(new DateTime(2022, 12, 13)));
+        Assert.That(competition1001.EndDate, Is.EqualTo(new DateTime(2023, 3, 5)));
+#endif
     }
 }

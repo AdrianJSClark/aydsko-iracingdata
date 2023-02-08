@@ -20,6 +20,7 @@ using Aydsko.iRacingData.Results;
 using Aydsko.iRacingData.Searches;
 using Aydsko.iRacingData.Series;
 using Aydsko.iRacingData.Stats;
+using Aydsko.iRacingData.TimeAttack;
 using Aydsko.iRacingData.Tracks;
 using Microsoft.AspNetCore.WebUtilities;
 
@@ -1520,7 +1521,7 @@ internal class DataClient : IDataClient
 
                 var passwordAndEmail = options.Password + (options.Username?.ToLowerInvariant());
                 var hashedPasswordAndEmailBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordAndEmail));
-                encodedHash = Convert.ToBase64String(hashedPasswordAndEmailBytes); 
+                encodedHash = Convert.ToBase64String(hashedPasswordAndEmailBytes);
             }
 
             var loginResponse = await httpClient.PostAsJsonAsync("https://members-ng.iracing.com/auth",
@@ -1845,12 +1846,30 @@ internal class DataClient : IDataClient
     /// <inheritdoc />
     public async Task<StatusResult> GetServiceStatusAsync(CancellationToken cancellationToken = default)
     {
-        var data = await httpClient.GetFromJsonAsync("https://status.iracing.com/status.json", StatusResultContext.Default.StatusResult, cancellationToken: cancellationToken)
-                                   .ConfigureAwait(false);
-        if (data is null)
-        {
-            throw new iRacingDataClientException("Data not found.");
-        }
+        var data = (await httpClient.GetFromJsonAsync("https://status.iracing.com/status.json",
+                                                     StatusResultContext.Default.StatusResult,
+                                                     cancellationToken: cancellationToken)
+                                   .ConfigureAwait(false))
+                    ?? throw new iRacingDataClientException("Data not found.");
+
+        return data;
+    }
+
+    public async Task<TimeAttackSeries[]> GetTimeAttackSeriesAsync(CancellationToken cancellationToken = default)
+    {
+        // A "magic" sequence of URLs from Nicholas Bailey: https://forums.iracing.com/discussion/comment/302454/#Comment_302454
+
+        var indexData = (await httpClient.GetFromJsonAsync("https://dqfp1ltauszrc.cloudfront.net/public/time-attack/schedules/time_attack_schedule_index.json",
+                                                           TimeAttackScheduleIndexContext.Default.TimeAttackScheduleIndex,
+                                                           cancellationToken: cancellationToken)
+                                   .ConfigureAwait(false))
+                         ?? throw new iRacingDataClientException("Data not found.");
+
+        var data = (await httpClient.GetFromJsonAsync($"https://dqfp1ltauszrc.cloudfront.net/public/time-attack/schedules/{indexData.ScheduleFilename}.json",
+                                                      TimeAttackSeriesArrayContext.Default.TimeAttackSeriesArray,
+                                                      cancellationToken: cancellationToken)
+                                   .ConfigureAwait(false))
+                    ?? throw new iRacingDataClientException("Data not found.");
 
         return data;
     }

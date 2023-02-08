@@ -1,4 +1,4 @@
-﻿// © 2022 Adrian Clark
+﻿// © 2023 Adrian Clark
 // This file is licensed to you under the MIT license.
 
 using Aydsko.iRacingData.Cars;
@@ -12,6 +12,7 @@ using Aydsko.iRacingData.Results;
 using Aydsko.iRacingData.Searches;
 using Aydsko.iRacingData.Series;
 using Aydsko.iRacingData.Stats;
+using Aydsko.iRacingData.TimeAttack;
 using Aydsko.iRacingData.Tracks;
 
 namespace Aydsko.iRacingData;
@@ -606,4 +607,10 @@ public interface IDataClient
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <returns>The current status of the various services that make up iRacing.</returns>
     Task<StatusResult> GetServiceStatusAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>Get a list of Time Attack series.</summary>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <returns>An array of <see cref="TimeAttackSeries"/> objects.</returns>
+    Task<TimeAttackSeries[]> GetTimeAttackSeriesAsync(CancellationToken cancellationToken = default);
 }
