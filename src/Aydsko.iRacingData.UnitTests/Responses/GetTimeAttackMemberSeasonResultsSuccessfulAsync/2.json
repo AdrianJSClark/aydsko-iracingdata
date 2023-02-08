@@ -1,0 +1,31 @@
+{
+  "headers": {},
+  "content": [
+    {
+      "comp_season_id": 3212,
+      "cust_id": 341554,
+      "track_id": 218,
+      "best_lap_time": 762649,
+      "best_lap_at": "2023-02-04T12:13:40Z",
+      "record_date": "2023-02-04T12:21:30Z",
+      "comparative_rank": 8,
+      "decile": 8,
+      "percent_rank": 0.825,
+      "time_behind_first_of_next_decile": 22397,
+      "time_behind_last_of_next_decile": 6356
+    },
+    {
+      "comp_season_id": 3212,
+      "cust_id": 341554,
+      "track_id": 341,
+      "best_lap_time": 908513,
+      "best_lap_at": "2023-02-04T12:31:07Z",
+      "record_date": "2023-02-04T12:51:34Z",
+      "comparative_rank": 14,
+      "decile": 8,
+      "percent_rank": 0.8488372,
+      "time_behind_first_of_next_decile": 16864,
+      "time_behind_last_of_next_decile": 6193
+    }
+  ]
+}

@@ -5,7 +5,7 @@ using Aydsko.iRacingData.Converters;
 
 namespace Aydsko.iRacingData.TimeAttack;
 
-public class TimeAttackSeries
+public class TimeAttackSeason
 {
     [JsonPropertyName("comp_id")]
     public int CompetitionId { get; set; }
@@ -91,6 +91,6 @@ public class TimeAttackSeries
     public object AllowedMembers { get; set; } = default!;
 }
 
-[JsonSerializable(typeof(TimeAttackSeries[])), JsonSourceGenerationOptions(WriteIndented = true)]
-internal partial class TimeAttackSeriesArrayContext : JsonSerializerContext
+[JsonSerializable(typeof(TimeAttackSeason[])), JsonSourceGenerationOptions(WriteIndented = true)]
+internal partial class TimeAttackSeasonArrayContext : JsonSerializerContext
 { }

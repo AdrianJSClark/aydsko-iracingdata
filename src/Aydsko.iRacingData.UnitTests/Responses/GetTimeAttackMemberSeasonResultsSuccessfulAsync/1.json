@@ -1,0 +1,11 @@
+﻿{
+  "headers": {
+    "x-ratelimit-remaining": "99",
+    "x-ratelimit-limit": "100",
+    "x-ratelimit-reset": "1644451200"
+  },
+  "content": {
+    "link": "https://scorpio-assets.s3.amazonaws.com/production/data-server/cache/data-services/time_attack/member_season_results/27573555-f3c4-4f9b-a67b-e1737205e7bf?AWSAccessKeyId=AKIAUO6OO4A3357USLO7&Expires=1675863384&Signature=xHlFy1GDbUrkvs1A1d4fMSslFU4%3D",
+    "expires": "2022-08-27T11:23:19.507Z"
+  }
+}

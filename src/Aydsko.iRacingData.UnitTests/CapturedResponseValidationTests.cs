@@ -1,4 +1,4 @@
-﻿// © 2022 Adrian Clark
+﻿// © 2023 Adrian Clark
 // This file is licensed to you under the MIT license.
 
 using Aydsko.iRacingData.Constants;
@@ -1262,7 +1262,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetTimeAttackSeriesSuccessfulAsync)).ConfigureAwait(false);
 
-        var response = await sut.GetTimeAttackSeriesAsync().ConfigureAwait(false);
+        var response = await sut.GetTimeAttackSeasonsAsync().ConfigureAwait(false);
 
         Assert.That(response, Is.Not.Null);
         Assert.That(response, Has.Length.EqualTo(51));
@@ -1278,5 +1278,30 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(competition1001.StartDate, Is.EqualTo(new DateTime(2022, 12, 13)));
         Assert.That(competition1001.EndDate, Is.EqualTo(new DateTime(2023, 3, 5)));
 #endif
+    }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetTimeAttackMemberSeasonResultsSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetTimeAttackMemberSeasonResultsSuccessfulAsync)).ConfigureAwait(false);
+
+        var response = await sut.GetTimeAttackMemberSeasonResultsAsync(3212).ConfigureAwait(false);
+
+        Assert.That(response, Is.Not.Null);
+        Assert.That(response.Data, Is.Not.Null);
+        Assert.That(response.Data, Has.Length.EqualTo(2));
+
+        var itemZero = response.Data[0];
+        Assert.That(itemZero, Is.Not.Null);
+        Assert.That(itemZero, Has.Property(nameof(TimeAttackMemberSeasonResult.CustomerId)).EqualTo(341554)
+                                 .And.Property(nameof(TimeAttackMemberSeasonResult.TrackId)).EqualTo(218)
+                                 .And.Property(nameof(TimeAttackMemberSeasonResult.CompetitionSeasonId)).EqualTo(3212)
+                                 .And.Property(nameof(TimeAttackMemberSeasonResult.BestLapTime)).EqualTo(TimeSpan.FromSeconds(76.2649)));
+
+        var itemOne = response.Data[1];
+        Assert.That(itemOne, Has.Property(nameof(TimeAttackMemberSeasonResult.CustomerId)).EqualTo(341554)
+                                .And.Property(nameof(TimeAttackMemberSeasonResult.TrackId)).EqualTo(341)
+                                .And.Property(nameof(TimeAttackMemberSeasonResult.CompetitionSeasonId)).EqualTo(3212)
+                                .And.Property(nameof(TimeAttackMemberSeasonResult.BestLapTime)).EqualTo(TimeSpan.FromSeconds(90.8513)));
     }
 }

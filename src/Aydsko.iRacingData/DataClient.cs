@@ -1852,10 +1852,11 @@ internal class DataClient : IDataClient
                                    .ConfigureAwait(false))
                     ?? throw new iRacingDataClientException("Data not found.");
 
-        return data;
+        return data!;
     }
 
-    public async Task<TimeAttackSeries[]> GetTimeAttackSeriesAsync(CancellationToken cancellationToken = default)
+    /// <inheritdoc />
+    public async Task<TimeAttackSeason[]> GetTimeAttackSeasonsAsync(CancellationToken cancellationToken = default)
     {
         // A "magic" sequence of URLs from Nicholas Bailey: https://forums.iracing.com/discussion/comment/302454/#Comment_302454
 
@@ -1866,11 +1867,33 @@ internal class DataClient : IDataClient
                          ?? throw new iRacingDataClientException("Data not found.");
 
         var data = (await httpClient.GetFromJsonAsync($"https://dqfp1ltauszrc.cloudfront.net/public/time-attack/schedules/{indexData.ScheduleFilename}.json",
-                                                      TimeAttackSeriesArrayContext.Default.TimeAttackSeriesArray,
+                                                      TimeAttackSeasonArrayContext.Default.TimeAttackSeasonArray,
                                                       cancellationToken: cancellationToken)
                                    .ConfigureAwait(false))
                     ?? throw new iRacingDataClientException("Data not found.");
 
-        return data;
+        return data!;
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<TimeAttackMemberSeasonResult[]>> GetTimeAttackMemberSeasonResultsAsync(int competitionSeasonId, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var queryUrl = "https://members-ng.iracing.com/data/time_attack/member_season_results";
+
+        var queryParams = new Dictionary<string, string>
+        {
+            ["ta_comp_season_id"] = competitionSeasonId.ToString(CultureInfo.InvariantCulture),
+        };
+
+        queryUrl = QueryHelpers.AddQueryString(queryUrl, queryParams);
+
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), TimeAttackMemberSeasonResultArrayContext.Default.TimeAttackMemberSeasonResultArray, cancellationToken).ConfigureAwait(false);
+
+        return BuildDataResponse(headers, data, logger, expires);
     }
 }
