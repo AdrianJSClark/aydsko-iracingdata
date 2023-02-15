@@ -33,9 +33,10 @@ public class ServicesTests
         //Assert.That(sut.IsLoggedIn, Is.True);
         Assert.That(lookups, Is.Not.Null);
         Assert.That(lookups.Data, Is.Not.Null.Or.Empty);
-        foreach (var request in messageHandler.Requests)
+
+        foreach (var request in messageHandler.RequestContent)
         {
-            Assert.That(request.Headers.UserAgent.ToString(), Is.Not.Null);
+            Assert.That(string.Join(" ", request.Headers.Where(h => h.Key == "User-Agent").SelectMany(h => h.Value)), Is.Not.Null.Or.Empty);
         }
     }
 
@@ -65,10 +66,9 @@ public class ServicesTests
 
         Assert.That(lookups, Is.Not.Null);
         Assert.That(lookups.Data, Is.Not.Null.Or.Empty);
-
-        foreach (var request in messageHandler.Requests)
+        foreach (var request in messageHandler.RequestContent)
         {
-            Assert.That(request.Headers.UserAgent.ToString(), Is.EqualTo($"UserAgentTest/1.0 Aydsko.iRacingDataClient/{typeof(IDataClient).Assembly.GetName().Version?.ToString(3)}"));
+            Assert.That(string.Join(" ", request.Headers.Where(h => h.Key == "User-Agent").SelectMany(h => h.Value)), Is.EqualTo($"UserAgentTest/1.0 Aydsko.iRacingDataClient/{typeof(IDataClient).Assembly.GetName().Version?.ToString(3)}"));
         }
     }
 }

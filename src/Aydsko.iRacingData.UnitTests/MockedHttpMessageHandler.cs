@@ -1,7 +1,6 @@
-﻿// © 2022 Adrian Clark
+﻿// © 2023 Adrian Clark
 // This file is licensed to you under the MIT license.
 
-using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Reflection;
 using System.Text;
@@ -14,7 +13,7 @@ public class MockedHttpMessageHandler : HttpMessageHandler
     private readonly Assembly ResourceAssembly = typeof(MockedHttpMessageHandler).Assembly;
     private readonly CookieContainer cookieContainer;
 
-    public Queue<HttpRequestMessage> Requests { get; } = new();
+    public Queue<MockedHttpRequest> RequestContent { get; } = new();
     public Queue<HttpResponseMessage> Responses { get; } = new();
 
     public MockedHttpMessageHandler(CookieContainer cookieContainer)
@@ -31,8 +30,9 @@ public class MockedHttpMessageHandler : HttpMessageHandler
 
         cancellationToken.ThrowIfCancellationRequested();
 
-        Requests.Enqueue(request);
+        RequestContent.Enqueue(new MockedHttpRequest(request));
 
+#if NET6_0_OR_GREATER
         if (Responses.TryDequeue(out var response))
         {
             if (response.Headers.TryGetValues("Set-Cookie", out var cookieValues))
@@ -41,11 +41,25 @@ public class MockedHttpMessageHandler : HttpMessageHandler
             }
             return Task.FromResult(response);
         }
+#else
+        try
+        {
+            var response = Responses.Dequeue();
+            if (response.Headers.TryGetValues("Set-Cookie", out var cookieValues))
+            {
+                cookieContainer.SetCookies(request.RequestUri!, string.Join(",", cookieValues));
+            }
+            return Task.FromResult(response);
+        }
+        catch (InvalidOperationException)
+        {
+            // There was no response. Fall through to the not found below.
+        }
+#endif
 
         return Task.FromResult(new HttpResponseMessage(HttpStatusCode.NotFound));
     }
 
-    [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "Streams need to be available for use.")]
     public async Task QueueResponsesAsync(string testName)
     {
         foreach (var manifestName in ResourceAssembly.GetManifestResourceNames()
@@ -75,7 +89,7 @@ public class MockedHttpMessageHandler : HttpMessageHandler
                 Content = new StringContent(responseDictionary["content"].ToString(), Encoding.UTF8, "text/json")
             };
 
-            foreach (var (headerName, values) in responseDictionary["headers"].EnumerateObject()
+            foreach (var header in responseDictionary["headers"].EnumerateObject()
                                                                        .ToDictionary(prop => prop.Name,
                                                                                      prop =>
                                                                                      {
@@ -89,7 +103,7 @@ public class MockedHttpMessageHandler : HttpMessageHandler
                                                                                          }
                                                                                      }).ToArray())
             {
-                responseMessage.Headers.Add(headerName, values);
+                responseMessage.Headers.Add(header.Key, header.Value);
             }
 
             Responses.Enqueue(responseMessage);

@@ -34,14 +34,14 @@ public class PasswordEncodingTests : MockedHttpTestBase
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
         var lookups = await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
-        var loginRequest = MessageHandler.Requests.Peek();
-        Assert.That(loginRequest, Is.Not.Null);
+        Assert.That(MessageHandler.RequestContent, Has.Count.GreaterThanOrEqualTo(1));
 
-        var contentStreamTask = loginRequest.Content?.ReadAsStreamAsync() ?? Task.FromResult(Stream.Null);
-        using var requestContentStream = await contentStreamTask.ConfigureAwait(false);
-        Assert.That(requestContentStream, Is.Not.Null.Or.Empty);
+        var request = MessageHandler.RequestContent.Dequeue();
+        Assert.That(request, Is.Not.Null);
 
-        var loginDto = await JsonSerializer.DeserializeAsync<TestLoginDto>(requestContentStream).ConfigureAwait(false);
+        Assert.That(request.ContentStream, Is.Not.Null.Or.Empty);
+
+        var loginDto = await JsonSerializer.DeserializeAsync<TestLoginDto>(request.ContentStream).ConfigureAwait(false);
         Assert.That(loginDto, Is.Not.Null);
 
         Assert.That(loginDto!.Email, Is.EqualTo(username));
@@ -72,14 +72,12 @@ public class PasswordEncodingTests : MockedHttpTestBase
 
         var lookups = await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
-        var loginRequest = MessageHandler.Requests.Peek();
-        Assert.That(loginRequest, Is.Not.Null);
+        var request = MessageHandler.RequestContent.Peek();
+        Assert.That(request, Is.Not.Null);
 
-        var contentStreamTask = loginRequest.Content?.ReadAsStreamAsync() ?? Task.FromResult(Stream.Null);
-        using var requestContentStream = await contentStreamTask.ConfigureAwait(false);
-        Assert.That(requestContentStream, Is.Not.Null.Or.Empty);
+        Assert.That(request.ContentStream, Is.Not.Null.Or.Empty);
 
-        var loginDto = await JsonSerializer.DeserializeAsync<TestLoginDto>(requestContentStream).ConfigureAwait(false);
+        var loginDto = await JsonSerializer.DeserializeAsync<TestLoginDto>(request.ContentStream).ConfigureAwait(false);
         Assert.That(loginDto, Is.Not.Null);
 
         Assert.That(loginDto!.Email, Is.EqualTo(username));
@@ -110,14 +108,11 @@ public class PasswordEncodingTests : MockedHttpTestBase
 
         var lookups = await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
-        var loginRequest = MessageHandler.Requests.Peek();
-        Assert.That(loginRequest, Is.Not.Null);
+        var request = MessageHandler.RequestContent.Dequeue();
+        Assert.That(request, Is.Not.Null);
+        Assert.That(request.ContentStream, Is.Not.Null.Or.Empty);
 
-        var contentStreamTask = loginRequest.Content?.ReadAsStreamAsync() ?? Task.FromResult(Stream.Null);
-        using var requestContentStream = await contentStreamTask.ConfigureAwait(false);
-        Assert.That(requestContentStream, Is.Not.Null.Or.Empty);
-
-        var loginDto = await JsonSerializer.DeserializeAsync<TestLoginDto>(requestContentStream).ConfigureAwait(false);
+        var loginDto = await JsonSerializer.DeserializeAsync<TestLoginDto>(request.ContentStream).ConfigureAwait(false);
         Assert.That(loginDto, Is.Not.Null);
 
         Assert.That(loginDto!.Email, Is.EqualTo(username));

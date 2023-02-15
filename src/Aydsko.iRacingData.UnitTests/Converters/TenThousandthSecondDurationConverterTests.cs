@@ -26,11 +26,10 @@ public class TenThousandthSecondDurationConverterTests
     }
 
     [Test, TestCaseSource(nameof(WriteValueTestCases))]
-    public byte[] WriteValue(TimeSpan? input)
+    public string WriteValue(TimeSpan? input)
     {
         var result = input.WriteUsingConverter(_sut);
-        Console.WriteLine(UTF8.GetString(result));
-        return result;
+        return UTF8.GetString(result);
     }
 
     public static IEnumerable<TestCaseData> ReadValueTestCases() => Examples().ToReadValueTestCases();
