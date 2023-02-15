@@ -1,11 +1,11 @@
-﻿﻿Fixes / Changes:
+﻿Fixes / Changes:
 
- - Add Time Attack Member Season Results Endpoint (Issue #145)
-   - Includes an endpoint to get a list of Time Attack seasons
-   - Also includes an endpoint to get the member's season results
+ - TODO
 
 
 
 Contributions:
+
+ - TODO
 
 Thanks for helping out with pull requests to the library!
