@@ -4,6 +4,8 @@ on:
   push:
     branches:
       - main
+    paths-ignore:
+      - '**/Package Release Notes.txt'
   workflow_dispatch:
 
 jobs:
