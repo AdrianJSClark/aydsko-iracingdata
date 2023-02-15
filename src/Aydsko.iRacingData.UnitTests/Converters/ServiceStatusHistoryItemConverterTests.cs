@@ -24,11 +24,10 @@ public class ServiceStatusHistoryItemArrayConverterConverterTests
     }
 
     [Test, TestCaseSource(nameof(WriteValueTestCases))]
-    public byte[] WriteValue(ServiceStatusHistoryItem[] input)
+    public string WriteValue(ServiceStatusHistoryItem[] input)
     {
         var result = input.WriteUsingConverter(_sut);
-        Console.WriteLine(UTF8.GetString(result));
-        return result;
+        return UTF8.GetString(result);
     }
 
     public static IEnumerable<TestCaseData> ReadValueTestCases() => Examples().ToReadValueTestCases();

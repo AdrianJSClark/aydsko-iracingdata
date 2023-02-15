@@ -26,11 +26,10 @@ public class StringFromStringOrNumberConverterTests
     }
 
     [Test, TestCaseSource(nameof(WriteValueTestCases))]
-    public byte[] WriteValue(string input)
+    public string WriteValue(string input)
     {
         var result = input.WriteUsingConverter(_sut);
-        Console.WriteLine(Encoding.UTF8.GetString(result));
-        return result;
+        return Encoding.UTF8.GetString(result);
     }
 
     public static IEnumerable<TestCaseData> ReadValueTestCases() => Examples().ToReadValueTestCases();

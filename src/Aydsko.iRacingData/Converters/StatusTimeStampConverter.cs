@@ -27,7 +27,7 @@ public class StatusTimeStampConverter : JsonConverter<DateTimeOffset>
     {
         if (value is DateTimeOffset instant)
         {
-            var rawValue = (instant - Epoch).TotalMilliseconds / 1000;
+            var rawValue = (decimal)(instant - Epoch).TotalMilliseconds / 1000;
             writer.WriteNumberValue(rawValue);
             return;
         }

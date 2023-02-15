@@ -26,11 +26,10 @@ public class StatusTimeStampConverterTests
     }
 
     [Test, TestCaseSource(nameof(WriteValueTestCases))]
-    public byte[] WriteValue(DateTimeOffset input)
+    public string WriteValue(DateTimeOffset input)
     {
         var result = input.WriteUsingConverter(_sut);
-        Console.WriteLine(UTF8.GetString(result));
-        return result;
+        return UTF8.GetString(result);
     }
 
     public static IEnumerable<TestCaseData> ReadValueTestCases() => Examples().ToReadValueTestCases();

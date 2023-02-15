@@ -1,7 +1,6 @@
-﻿// © 2022 Adrian Clark
+﻿// © 2023 Adrian Clark
 // This file is licensed to you under the MIT license.
 
-using System.Diagnostics.CodeAnalysis;
 using System.Net;
 using System.Reflection;
 using System.Text;
@@ -14,7 +13,7 @@ public class MockedHttpMessageHandler : HttpMessageHandler
     private readonly Assembly ResourceAssembly = typeof(MockedHttpMessageHandler).Assembly;
     private readonly CookieContainer cookieContainer;
 
-    public Queue<HttpRequestMessage> Requests { get; } = new();
+    public Queue<MockedHttpRequest> RequestContent { get; } = new();
     public Queue<HttpResponseMessage> Responses { get; } = new();
 
     public MockedHttpMessageHandler(CookieContainer cookieContainer)
@@ -31,7 +30,7 @@ public class MockedHttpMessageHandler : HttpMessageHandler
 
         cancellationToken.ThrowIfCancellationRequested();
 
-        Requests.Enqueue(request);
+        RequestContent.Enqueue(new MockedHttpRequest(request));
 
 #if NET6_0_OR_GREATER
         if (Responses.TryDequeue(out var response))
@@ -61,7 +60,6 @@ public class MockedHttpMessageHandler : HttpMessageHandler
         return Task.FromResult(new HttpResponseMessage(HttpStatusCode.NotFound));
     }
 
-    [SuppressMessage("Reliability", "CA2000:Dispose objects before losing scope", Justification = "Streams need to be available for use.")]
     public async Task QueueResponsesAsync(string testName)
     {
         foreach (var manifestName in ResourceAssembly.GetManifestResourceNames()

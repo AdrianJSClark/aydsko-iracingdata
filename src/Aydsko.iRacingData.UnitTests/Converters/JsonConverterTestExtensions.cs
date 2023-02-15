@@ -22,7 +22,7 @@ public static class JsonConverterTestExtensions
     {
         foreach (var (jsonValueBytes, timeValue, name) in examples ?? Enumerable.Empty<(byte[] JsonBytes, T Value, string Name)>())
         {
-            yield return new TestCaseData(timeValue).Returns(jsonValueBytes).SetName("Write Value: " + name);
+            yield return new TestCaseData(timeValue).Returns(System.Text.Encoding.UTF8.GetString(jsonValueBytes)).SetName("Write Value: " + name);
         }
     }
 
