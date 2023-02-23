@@ -1517,10 +1517,16 @@ internal class DataClient : IDataClient
             }
             else
             {
-                using var sha256 = SHA256.Create();
 
                 var passwordAndEmail = options.Password + (options.Username?.ToLowerInvariant());
+
+#if NET6_0_OR_GREATER
+                var hashedPasswordAndEmailBytes = SHA256.HashData(Encoding.UTF8.GetBytes(passwordAndEmail));
+#else
+                using var sha256 = SHA256.Create();
                 var hashedPasswordAndEmailBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordAndEmail));
+#endif
+
                 encodedHash = Convert.ToBase64String(hashedPasswordAndEmailBytes);
             }
 
@@ -1533,9 +1539,18 @@ internal class DataClient : IDataClient
                                                                  cancellationToken)
                                                 .ConfigureAwait(false);
 
+            if (loginResponse.IsSuccessStatusCode is false)
+            {
+                if (loginResponse.StatusCode == HttpStatusCode.ServiceUnavailable)
+                {
+                    throw new iRacingInMaintenancePeriodException("Maintenance assumed because login returned HTTP Error 503 \"Service Unavailable\".");
+                }
+                throw new iRacingLoginFailedException($"Login failed with HTTP response \"{loginResponse.StatusCode} {loginResponse.ReasonPhrase}\"");
+            }
+
             var loginResult = await loginResponse.Content.ReadFromJsonAsync(LoginResponseContext.Default.LoginResponse, cancellationToken).ConfigureAwait(false);
 
-            if (loginResponse.IsSuccessStatusCode is false || loginResult is null || loginResult.Success is false)
+            if (loginResult is null || loginResult.Success is false)
             {
                 var message = loginResult?.Message ?? $"Login failed with HTTP response \"{loginResponse.StatusCode} {loginResponse.ReasonPhrase}\"";
                 throw iRacingLoginFailedException.Create(message, loginResult?.VerificationRequired);
