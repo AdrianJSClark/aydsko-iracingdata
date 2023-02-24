@@ -1,11 +1,3 @@
 ﻿Fixes / Changes:
 
- - TODO
-
-
-
-Contributions:
-
- - TODO
-
-Thanks for helping out with pull requests to the library!
+ - Better handling for situations where iRacing is offline at the time you attempt to authenticate.
