@@ -13,8 +13,6 @@ Register the iRacing Data API client classes with the service provider.
 ```csharp
 services.AddiRacingDataApi(options =>
 {
-    options.Username = "your-iracing-user@example.com";
-    options.Password = "Your-iRacing-Password";
     options.UserAgentProductName = "MyApplicationName";
     options.UserAgentProductVersion = new Version(1, 0);
 });
@@ -34,8 +32,10 @@ public class ExampleService
         this.dataClient = dataClient;
     }
 
-    public async Task<MemberInfo> GetMyInfoAsync(CancellationToken cancellationToken = default)
+    public async Task<MemberInfo> GetMyInfoAsync(string iRacingUsername, string iRacingPassword CancellationToken cancellationToken = default)
     {
+        dataClient.UseUsernameAndPassword(iRacingUsername, iRacingPassword);
+
         var infoResponse = await dataClient.GetMyInfoAsync(cancellationToken);
         return infoResponse.Data;
     }
