@@ -31,8 +31,14 @@ public class TrackAssets
     [JsonPropertyName("large_image")]
     public string? LargeImage { get; set; }
 
+    [JsonIgnore]
+    public Uri LargeImageUrl => new(new(new(ImagePathBase), Folder?.TrimEnd('/') + '/'), LargeImage);
+
     [JsonPropertyName("logo")]
     public string? Logo { get; set; }
+
+    [JsonIgnore]
+    public Uri LogoUrl => new(new(ImagePathBase), Logo);
 
     [JsonPropertyName("north")]
     public string? North { get; set; }
@@ -42,6 +48,9 @@ public class TrackAssets
 
     [JsonPropertyName("small_image")]
     public string? SmallImage { get; set; }
+
+    [JsonIgnore]
+    public Uri SmallImageUrl => new(new(new(ImagePathBase), Folder?.TrimEnd('/') + '/'), SmallImage);
 
     [JsonPropertyName("track_id")]
     public int TrackId { get; set; }
