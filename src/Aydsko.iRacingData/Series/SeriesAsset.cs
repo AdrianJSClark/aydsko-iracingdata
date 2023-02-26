@@ -5,13 +5,16 @@ namespace Aydsko.iRacingData.Series;
 
 public class SeriesAsset
 {
-    public const string ImagePathBase = "https://images-static.iracing.com/";
+    public const string ImagePathBase = "https://images-static.iracing.com/img/logos/series/";
 
     [JsonPropertyName("large_image")]
     public object LargeImage { get; set; } = default!;
 
     [JsonPropertyName("logo")]
     public string Logo { get; set; } = default!;
+
+    [JsonIgnore]
+    public Uri LogoUrl => new(new(ImagePathBase), Logo);
 
     [JsonPropertyName("series_copy")]
     public string SeriesCopy { get; set; } = default!;
