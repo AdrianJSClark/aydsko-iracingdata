@@ -18,13 +18,18 @@ public class StatusTimeStampConverter : JsonConverter<DateTimeOffset>
             return Epoch.AddMilliseconds(1000 * rawValue);
         }
 
-        return default(DateTimeOffset);
+        return default;
     }
 
     public override void Write(Utf8JsonWriter writer,
                                DateTimeOffset value,
                                JsonSerializerOptions options)
     {
+        if (writer is null)
+        {
+            throw new ArgumentNullException(nameof(writer));
+        }
+
         if (value is DateTimeOffset instant)
         {
             var rawValue = (decimal)(instant - Epoch).TotalMilliseconds / 1000;

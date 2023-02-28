@@ -54,6 +54,16 @@ public class ServiceStatusHistoryItemArrayConverter : JsonConverter<ServiceStatu
                                ServiceStatusHistoryItem[] value,
                                JsonSerializerOptions options)
     {
+        if (writer is null)
+        {
+            throw new ArgumentNullException(nameof(writer));
+        }
+
+        if (value is null)
+        {
+            throw new ArgumentNullException(nameof(value));
+        }
+
         writer.WriteStartArray();
 
         foreach (var item in value)

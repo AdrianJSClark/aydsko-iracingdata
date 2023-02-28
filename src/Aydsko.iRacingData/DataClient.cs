@@ -1576,7 +1576,12 @@ internal class DataClient : IDataClient
     private async Task<(HttpResponseHeaders Headers, TData Data, DateTimeOffset? Expires)> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
     {
         var infoLinkResponse = await httpClient.GetAsync(infoLinkUri, cancellationToken).ConfigureAwait(false);
+
+#if NET6_0_OR_GREATER
+        var content = await infoLinkResponse.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+#else
         var content = await infoLinkResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+#endif
 
         if (!infoLinkResponse.IsSuccessStatusCode || content == RateLimitExceededContent)
         {
@@ -1605,8 +1610,11 @@ internal class DataClient : IDataClient
 
         // This isn't the most performant way of going here, but annoyingly if you exceed the rate limit it isn't an issue just
         // the string "Rate limit exceeded" so we need the string to check that.
+#if NET6_0_OR_GREATER
+        var responseContent = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+#else
         var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-
+#endif
         if (!response.IsSuccessStatusCode || responseContent == RateLimitExceededContent)
         {
             HandleUnsuccessfulResponse(response, responseContent, logger);
@@ -1747,7 +1755,9 @@ internal class DataClient : IDataClient
 
         if (includeEndAfterFrom is not null)
         {
+#pragma warning disable CA1308 // Normalize strings to uppercase - This value needs to be lowercase for API compatibility.
             queryParams.Add("include_end_after_from", includeEndAfterFrom.Value.ToString().ToLowerInvariant());
+#pragma warning restore CA1308 // Normalize strings to uppercase
         }
 
         if (queryParams.Count > 0)

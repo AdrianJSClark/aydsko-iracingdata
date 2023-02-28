@@ -9,7 +9,7 @@ public class GetTracksTests : BaseIntegrationFixture
     [SetUp]
     public async Task SetUp()
     {
-        var tracksResponse = await Client.GetTracksAsync(CancellationToken.None);
+        var tracksResponse = await Client.GetTracksAsync(CancellationToken.None).ConfigureAwait(false);
         tracksData = tracksResponse.Data;
     }
 

@@ -10,7 +10,7 @@ public class ResultsGetTest : BaseIntegrationFixture
     [Test]
     public async Task GivenAValidSubsessionIdThenAResultIsReturned()
     {
-        var results = await Client.GetSubSessionResultAsync(50033865, true);
+        var results = await Client.GetSubSessionResultAsync(50033865, true).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

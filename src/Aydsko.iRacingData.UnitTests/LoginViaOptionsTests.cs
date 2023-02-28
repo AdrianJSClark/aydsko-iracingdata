@@ -123,6 +123,7 @@ public class PasswordEncodingTests : MockedHttpTestBase
         Assert.That(lookups.Data, Is.Not.Null.Or.Empty);
     }
 
+#pragma warning disable CA1024 // Use properties where appropriate - NUnit's API requires these to be methods.
     public static IEnumerable<TestCaseData> GetTestCases()
     {
         yield return new("test.user@example.com", "SuperSecretPassword", false, "nXmEFCdpHheD1R3XBVkm6VQavR7ZLbW7SRmzo/MfFso=");
@@ -137,8 +138,9 @@ public class PasswordEncodingTests : MockedHttpTestBase
         yield return new("test.user@example.com", "SuperSecretPassword", "nXmEFCdpHheD1R3XBVkm6VQavR7ZLbW7SRmzo/MfFso=");
         yield return new("CLunky@iracing.Com", "MyPassWord", "xGKecAR27ALXNuMLsGaG0v5Q9pSs2tZTZRKNgmHMg+Q=");
     }
+#pragma warning restore CA1024 // Use properties where appropriate
 
-    private class TestLoginDto
+    private sealed class TestLoginDto
     {
         [JsonPropertyName("email")]
         public string? Email { get; set; }

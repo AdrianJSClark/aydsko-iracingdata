@@ -84,10 +84,12 @@ public class MockedHttpMessageHandler : HttpMessageHandler
                 statusCode = HttpStatusCode.OK;
             }
 
+#pragma warning disable CA2000 // Dispose objects before losing scope - These responses are intentionally created to be returned later. This is OK in a test helper.
             var responseMessage = new HttpResponseMessage(statusCode)
             {
                 Content = new StringContent(responseDictionary["content"].ToString(), Encoding.UTF8, "text/json")
             };
+#pragma warning restore CA2000 // Dispose objects before losing scope
 
             foreach (var header in responseDictionary["headers"].EnumerateObject()
                                                                        .ToDictionary(prop => prop.Name,
