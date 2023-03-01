@@ -1,0 +1,85 @@
+From David Tucker (https://members.iracing.com/jforum/posts/list/3794777.page#12413480)
+
+The following image handlers are supported:
+
+// support custom paints
+pk_car.png - render the car
+pk_body.png - render our new user avatar (suit, hed, helmet)
+pk_suit.png - render just the suit without helmet or head
+pk_helmet.png - render a helmet
+
+// don't support custom paints
+pk_head.png - pre-rendered view of the avatars face
+pk_number.png - render a car's number stamp, can render any number.
+pk_club.png - all club logos
+pk_sponsor.png - all sponsor decals.
+
+There are a series of optional arguments that control how the render works.  Each of these below can be passed for any pk_XXX.png entry, although not all make sense in all cases.  Most can be skipped, a reasonable default will be filled in for you.
+
+// shared
+size=d // size of the image to show
+view=d // alternate rendered view of image
+
+// stamp layers
+licCol=x // hex color FFFFFF
+club=d // club decal
+sponsors=s1,s2,s3,s4,s5 // support up to 5 sponsors, currently only first 2 used
+name=s   // driver/team name, not yet implemented but renders name on windshield
+stampShow=d // optionally force club/sponsors off
+
+// number, like a stamp but handled separately
+numPat=d  // for fixed font cars use a -carId to render the correct font
+numCol=x,x,x // hex as in FFFFFF,FFFFFF,FFFFFF
+numSlnt=d // (0)normal, (1)left, (2)right, (3)forward, (4)back
+number=s  //(ie 001, 23, etc)
+numShow=d // turn off display of number
+
+// car
+carPath=s // rt2000, etc
+carPat=d // web pattern number
+carCol=x,x,x // hex colors
+carCustPaint=s // full path to .tga file on disk, forces sponsor/club off and replaces web paint
+
+// car wheel rim
+carRimType=d // (0)matt, (1)chrome, (2)brushed aluminum, (3)glossy
+carRimCol=x,x,x // hex colors
+
+// suit
+suitType=d // suit (body) model
+suitPat=d  // web pattern number
+suitCol=x,x,x // hex colors
+suitCustPaint=s // full path to .tga file on disk
+
+// helmet
+hlmtType=d // helmet model
+hlmtPat=d // web pattern number
+hlmtCol=x,x,x // hex colors
+hlmtCustPaint=s // full path to .tga file on disk
+
+// face
+faceType=d // face (head) model
+
+
+Here are some sample calls.  Note that on members you have to pass &view=1 to get my more advanced car rendering code to work, otherwise custom paints won't work.  And for club/sponsors the view controls the stamp type (rectangle/square)
+
+// Custom paint on a car
+http://localhost:32034/pk_car.png?size=2&view=1&carPath=astonmartin\dbr9&number=32&carCustPaint=C:\Users\david\Documents\iRacing\paint\astonmartin%20dbr9\test_helmet.tga
+
+// and the rest
+http://localhost:32034/pk_car.png?size=0&view=1&licCol=00FF77&club=0&sponsors=2,32,4,5,3&name=Team_Rocket&numPat=3&numCol=FFFF00,0000FF,00FF00&numSlnt=2&number=34&carPath=astonmartin\dbr9&carPat=11&carCol=334477,00FF99,23FFFF&carRimType=2&carRimCol=3F
+
+http://localhost:32034/pk_car.png?size=2&view=1&licCol=00FF77&club=0&sponsors=2,32,4,5,3&name=Team_Rocket&numPat=3&numCol=FFFF00,0000FF,00FF00&numSlnt=2&number=34&carPath=astonmartin\dbr9&carPat=1&carCol=334477,00FF99,23FFFF&carRimType=0&carRimCol=3FFF00,232323,FF0000
+
+http://localhost:32034/pk_body.png?size=1&view=2&suitType=0&suitPat=12&suitCol=003366,432100,FF77FF&hlmtType=0&hlmtPat=15&hlmtCol=446699,000055,9900FF&faceType=6
+
+http://localhost:32034/pk_suit.png?size=1&suitPat=12&licCol=fc0706&suitCol=003366,432100,FF77FF&view=0&suitType=0
+
+http://localhost:32034/pk_helmet.png?size=2&hlmtPat=12&licCol=fc0706&hlmtCol=003366,432100,FF77FF&view=0&hlmtType=0
+
+http://localhost:32034/pk_head.png?size=1&view=0&suitType=0&suitPat=12&suitCol=003366,432100,FF77FF&faceType=6
+
+http://localhost:32034/pk_number.png?view=1&number=012&numPat=3&numCol=2FFF00,FFFF00,00FF00&numSlnt=1
+
+http://localhost:32034/pk_club.png?&club=13&view=0
+
+http://localhost:32034/pk_sponsor.png?&sponsors=3&view=1
