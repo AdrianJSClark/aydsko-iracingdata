@@ -43,15 +43,15 @@ public interface IDataClient
 
     /// <summary>Retrieves details about the car classes.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
-    /// <returns>A <see cref="DataResponse{TData}"/> containing an array of <see cref="CarClass"/> objects.</returns>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing an array of <see cref="Common.CarClass"/> objects.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
     Task<DataResponse<Common.CarClass[]>> GetCarClassesAsync(CancellationToken cancellationToken = default);
 
-    /// <summary>The best laps in various cars & tracks for the given customer's career or that or the authenticated user.</summary>
+    /// <summary>The best laps in various cars and tracks for the given customer's career or that or the authenticated user.</summary>
     /// <param name="customerId">iRacing Customer Id for the member to return statistics for, or <see langword="null"/> for the currently authenticated user.</param>
-    /// <param name="carId">Car to return statistics for. Should pass <see langword="null"/> for the first call & then should be an identifier from <see cref="MemberBests.CarsDriven"/>.</param>
+    /// <param name="carId">Car to return statistics for. Should pass <see langword="null"/> for the first call and then should be an identifier from <see cref="MemberBests.CarsDriven"/>.</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A <see cref="DataResponse{TData}"/> containing the best laps in a <see cref="MemberBests"/> object.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
@@ -87,7 +87,7 @@ public interface IDataClient
 
     /// <summary>Retrieves league's seasons</summary>
     /// <param name="leagueId">League Id to return seasons for.</param>
-    /// <param name="retired">If <see langword="true"/> include seasons which are no longer active.</param>
+    /// <param name="includeRetired">If <see langword="true"/> include seasons which are no longer active.</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A <see cref="DataResponse{TData}"/> containing an array of <see cref="global::Aydsko.iRacingData.Leagues.LeagueSeasons"/> objects.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
@@ -110,7 +110,6 @@ public interface IDataClient
     /// <param name="leagueId">League Id to return sessions for.</param>
     /// <param name="seasonId">Season Id to return sessions for.</param>
     /// <param name="carClassId">If <see langword="true"/> include only sessions which results are available.</param>
-    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <param name="carId">A token to allow the operation to be cancelled.</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A <see cref="DataResponse{TData}"/> containing <see cref="global::Aydsko.iRacingData.Leagues.SeasonStandings"/>.</returns>
@@ -183,7 +182,7 @@ public interface IDataClient
     /// <param name="leagueId">The unique identifier for the league.</param>
     /// <param name="includeLicenses">Indicates if license information should be included. Either <see langword="true"/> or <see langword="false"/> to exclude for performance purposes.</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
-    /// <returns>A <see cref="DataResponse{TData}"/> containing the season & optionally series detail in a <see cref="Tracks.Track"/> array.</returns>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the season and optionally series detail in a <see cref="Tracks.Track"/> array.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
@@ -330,6 +329,7 @@ public interface IDataClient
 
     /// <summary>Information about an iRacing Team.</summary>
     /// <param name="teamId">Unique identifier for the team.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A <see cref="DataResponse{TData}"/> containing the team details in a <see cref="TeamInfo"/> object.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
@@ -384,10 +384,10 @@ public interface IDataClient
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
     Task<DataResponse<SeasonResults>> GetSeasonResultsAsync(int seasonId, Common.EventType eventType, int raceWeekNumber, CancellationToken cancellationToken = default);
 
-    /// <summary>Retrieve information about the season & series.</summary>
+    /// <summary>Retrieve information about the season and series.</summary>
     /// <param name="includeSeries">Indicate if the series details should be included.</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
-    /// <returns>A <see cref="DataResponse{TData}"/> containing the season & optionally series detail in a <see cref="SeasonSeries"/> array.</returns>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the season and optionally series detail in a <see cref="SeasonSeries"/> array.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
@@ -447,7 +447,7 @@ public interface IDataClient
     /// <summary>Retrieve information about the track assets.</summary>
     /// <remarks>Image paths are relative to https://images-static.iracing.com/.</remarks>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
-    /// <returns>A <see cref="DataResponse{TData}"/> containing the season & optionally series detail in a <see cref="Tracks.Track"/> array.</returns>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the season and optionally series detail in a <see cref="Tracks.Track"/> array.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
@@ -455,7 +455,7 @@ public interface IDataClient
 
     /// <summary>Retrieve information about the tracks.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
-    /// <returns>A <see cref="DataResponse{TData}"/> containing the season & optionally series detail in a <see cref="Tracks.Track"/> array.</returns>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the season and optionally series detail in a <see cref="Tracks.Track"/> array.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
@@ -495,7 +495,7 @@ public interface IDataClient
     /// <remarks>
     /// <para>
     /// For scraping results the most effective approach is to keep track of the maximum <see cref="HostedResultItem.EndTime"/>
-    /// found during a search then make the subsequent call using that date/time as the <see cref="HostedSearchParameters.FinishRangeBegin"/>
+    /// found during a search then make the subsequent call using that date/time as the <see cref="SearchParameters.FinishRangeBegin"/>
     /// and skip any subsessions that are duplicated. Results are ordered by subsessionid which is a proxy for start time.
     /// </para>
     /// <para>
