@@ -33,7 +33,7 @@ public class iRacingDataClientOptions
     /// </remarks>
     public Action<CookieCollection>? SaveCookies { get; set; }
 
-    /// <summary>The source of the current date & time in UTC for the library.</summary>
+    /// <summary>The source of the current date and time in UTC for the library.</summary>
     /// <remarks>Defaults to <see cref="DateTimeOffset.UtcNow"/>.</remarks>
     public Func<DateTimeOffset>? CurrentDateTimeSource { get; set; }
 }

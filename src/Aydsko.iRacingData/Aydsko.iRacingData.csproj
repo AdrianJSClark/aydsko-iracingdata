@@ -12,6 +12,10 @@
     <EnableStrictModeForCompatibleTfms>true</EnableStrictModeForCompatibleTfms>
 
     <ImplicitUsings>enable</ImplicitUsings>
+
+    <!-- Generate Documentation Comments and skip warnings for undocumented members. -->
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>1591</NoWarn>
   </PropertyGroup>
 
   <PropertyGroup>

@@ -34,7 +34,7 @@ public class OfficialSearchParameters : SearchParameters
     public int? RaceWeekIndex { get; set; }
 
     /// <summary>The number of the race week within the season to search for.</summary>
-    /// <remarks>Converted to & from <see cref="RaceWeekIndex"/>.</remarks>
+    /// <remarks>Converted to and from <see cref="RaceWeekIndex"/>.</remarks>
     [JsonIgnore]
     public int? RaceWeekNumber
     {
