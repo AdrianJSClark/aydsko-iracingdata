@@ -1,3 +1,4 @@
 ﻿Fixes / Changes:
 
  - Include XML Documentation files in the package (Issue #151)
+ - Include tags in the package (Issue #152)
