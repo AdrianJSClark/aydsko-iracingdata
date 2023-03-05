@@ -16,6 +16,12 @@ public class TrackAssets
     [JsonPropertyName("coordinates")]
     public string? Coordinates { get; set; }
 
+    /// <summary>Latitude and longitude of the circuit.</summary>
+    /// <remarks>Parsed version of the <see cref="Coordinates"/> property value.</remarks>
+    [JsonIgnore]
+    public TrackCoordinate? GeographicalCoordinate => TrackCoordinate.TryParse(Coordinates, out var coordinates) ? coordinates : null;
+
+    /// <summary>Description or details about the track in HTML format.</summary>
     [JsonPropertyName("detail_copy")]
     public string? DetailCopy { get; set; }
 
