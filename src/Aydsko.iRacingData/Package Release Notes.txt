@@ -2,3 +2,4 @@
 
  - Include XML Documentation files in the package (Issue #151)
  - Include tags in the package (Issue #152)
+ - Update Season Schedule with "race_time_descriptors" Field (Issue #158)
