@@ -351,16 +351,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(seasonsAndSeries, Is.Not.Null);
         Assert.That(seasonsAndSeries!.Data, Is.Not.Null);
 
-        Assert.That(seasonsAndSeries.Data, Has.Length.EqualTo(96));
+        Assert.That(seasonsAndSeries.Data, Has.Length.EqualTo(33));
         Assert.That(seasonsAndSeries.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(seasonsAndSeries.TotalRateLimit, Is.EqualTo(100));
         Assert.That(seasonsAndSeries.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
         Assert.That(seasonsAndSeries.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
 
 #if NET6_0_OR_GREATER
-        Assert.That(seasonsAndSeries.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateOnly(2022, 02, 15)));
+        Assert.That(seasonsAndSeries.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateOnly(2023, 03, 11)));
 #else
-        Assert.That(seasonsAndSeries.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateTime(2022, 02, 15)));
+        Assert.That(seasonsAndSeries.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateTime(2023, 03, 11)));
 #endif
     }
 

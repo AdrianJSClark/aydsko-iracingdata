@@ -5,6 +5,9 @@ namespace Aydsko.iRacingData.Series;
 
 public class Weather
 {
+    [JsonPropertyName("version")]
+    public int Version { get; set; }
+
     [JsonPropertyName("type")]
     public int Type { get; set; }
 

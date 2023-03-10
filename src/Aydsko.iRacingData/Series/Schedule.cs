@@ -56,13 +56,28 @@ public class Schedule
     public string RestartType { get; set; } = default!;
 
     [JsonPropertyName("qual_attached")]
-    public bool QualAttached { get; set; }
+    public bool QualifyingIsAttached { get; set; }
 
-    [JsonPropertyName("yellow_flags")]
-    public bool YellowFlags { get; set; }
+    [Obsolete("Use property \"QualifyingIsAttached\"")]
+    public bool QualAttached { get => QualifyingIsAttached; set => QualifyingIsAttached = value; }
+
+    [Obsolete("No longer in use. Renamed to \"HasFullCourseCautions\".")]
+    public bool YellowFlags { get => HasFullCourseCautions ?? false; set => HasFullCourseCautions = value; }
+
+    [JsonPropertyName("full_course_cautions")]
+    public bool? HasFullCourseCautions { get; set; }
 
     [JsonPropertyName("special_event_type")]
     public int? SpecialEventType { get; set; }
+
+    [JsonPropertyName("start_zone")]
+    public bool? HasStartZone { get; set; }
+
+    [JsonPropertyName("enable_pitlane_collisions")]
+    public bool? PitlaneCollisionsEnabled { get; set; }
+
+    [JsonPropertyName("short_parade_lap")]
+    public bool? HasShortParadeLap { get; set; }
 
     [JsonPropertyName("track")]
     public Track Track { get; set; } = default!;
@@ -72,6 +87,9 @@ public class Schedule
 
     [JsonPropertyName("track_state")]
     public TrackState TrackState { get; set; } = default!;
+
+    [JsonPropertyName("race_time_descriptors")]
+    public RaceTimeDescriptors[]? RaceTimeDescriptors { get; set; }
 
     [JsonPropertyName("car_restrictions")]
     public CarRestrictions[] CarRestrictions { get; set; } = Array.Empty<CarRestrictions>();
