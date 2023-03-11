@@ -60,10 +60,15 @@ public class MockedHttpMessageHandler : HttpMessageHandler
         return Task.FromResult(new HttpResponseMessage(HttpStatusCode.NotFound));
     }
 
-    public async Task QueueResponsesAsync(string testName)
+    public async Task QueueResponsesAsync(string testName, bool prefixLoginResponse = true)
     {
-        foreach (var manifestName in ResourceAssembly.GetManifestResourceNames()
-                                                     .Where(mrn => mrn.StartsWith($"Aydsko.iRacingData.UnitTests.Responses.{testName}", StringComparison.InvariantCultureIgnoreCase)))
+        var manifestResourceNames = (prefixLoginResponse
+                                        ? new[] { "Aydsko.iRacingData.UnitTests.Responses.SucessfulLogin.json" }
+                                        : Array.Empty<string>()
+                                    ).Concat(ResourceAssembly.GetManifestResourceNames()
+                                                             .Where(mrn => mrn.StartsWith($"Aydsko.iRacingData.UnitTests.Responses.{testName}", StringComparison.InvariantCultureIgnoreCase)));
+
+        foreach (var manifestName in manifestResourceNames)
         {
             var resourceStream = ResourceAssembly.GetManifestResourceStream(manifestName)
                 ?? throw ResourceNotFoundException.ForManifestResourceName(manifestName);

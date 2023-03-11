@@ -3,3 +3,6 @@
  - Include XML Documentation files in the package (Issue #151)
  - Include tags in the package (Issue #152)
  - Update Season Schedule with "race_time_descriptors" Field (Issue #158)
+ - Enable Building of Track Image URLs (Issue #154)
+   - Introduces the "TrackScreenshotService" class to provide URLs for the circuit screenshots.
+   - Previously it was impossible to create these URLs as the required information wasn't in the results.
