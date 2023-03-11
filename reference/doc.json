@@ -153,6 +153,10 @@
     "membership": {
       "link": "https://members-ng.iracing.com/data/league/membership",
       "parameters": {
+        "cust_id": {
+          "type": "number",
+          "note": "If different from the authenticated member, the following resrictions apply: - Caller cannot be on requested customer's block list or an empty list will result; - Requested customer cannot have their online activity prefrence set to hidden or an empty list will result; - Only leagues for which the requested customer is an admin and the league roster is not private are returned."
+        },
         "include_league": {
           "type": "boolean"
         }
@@ -549,6 +553,16 @@
         }
       },
       "expirationSeconds": 60
+    },
+    "spectator_subsessionids": {
+      "link": "https://members-ng.iracing.com/data/season/spectator_subsessionids",
+      "parameters": {
+        "event_types": {
+          "type": "numbers",
+          "note": "Types of events to include in the search. Defaults to all. ?event_types=2,3,4,5"
+        }
+      },
+      "expirationSeconds": 900
     }
   },
   "series": {
@@ -626,6 +640,24 @@
           "type": "number",
           "required": true,
           "note": "The event type code for the division type: 4 - Time Trial; 5 - Race"
+        }
+      },
+      "expirationSeconds": 900
+    },
+    "member_recap": {
+      "link": "https://members-ng.iracing.com/data/stats/member_recap",
+      "parameters": {
+        "cust_id": {
+          "type": "number",
+          "note": "Defaults to the authenticated member."
+        },
+        "year": {
+          "type": "number",
+          "note": "Season year; if not supplied the current calendar year (UTC) is used."
+        },
+        "season": {
+          "type": "number",
+          "note": "Season (quarter) within the year; if not supplied the recap will be fore the entire year."
         }
       },
       "expirationSeconds": 900
