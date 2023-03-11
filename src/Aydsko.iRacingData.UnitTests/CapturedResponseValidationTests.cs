@@ -292,7 +292,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     [Test(TestOf = typeof(DataClient))]
     public async Task GetMemberInfoDuringMaintenanceThrowsAsync()
     {
-        await MessageHandler.QueueResponsesAsync(nameof(GetMemberInfoDuringMaintenanceThrowsAsync)).ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync(nameof(GetMemberInfoDuringMaintenanceThrowsAsync), false).ConfigureAwait(false);
 
         Assert.ThrowsAsync<iRacingInMaintenancePeriodException>(async () =>
         {
@@ -627,7 +627,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     [Test(TestOf = typeof(DataClient))]
     public async Task GetSingleDriverSubsessionLapsForbiddenThrowsErrorsAsync()
     {
-        await MessageHandler.QueueResponsesAsync("ResponseForbidden").ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync("ResponseForbidden", false).ConfigureAwait(false);
 
         Assert.ThrowsAsync<iRacingForbiddenResponseException>(async () =>
         {
@@ -662,7 +662,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     [Test(TestOf = typeof(DataClient))]
     public async Task GetTeamSubsessionLapsForbiddenThrowsErrorsAsync()
     {
-        await MessageHandler.QueueResponsesAsync("ResponseForbidden").ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync("ResponseForbidden", false).ConfigureAwait(false);
 
         Assert.ThrowsAsync<iRacingForbiddenResponseException>(async () =>
         {
@@ -755,7 +755,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     [Test(TestOf = typeof(DataClient))]
     public async Task GetSubSessionResultForbiddenThrowsErrorsAsync()
     {
-        await MessageHandler.QueueResponsesAsync("ResponseForbidden").ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync("ResponseForbidden", false).ConfigureAwait(false);
 
         Assert.ThrowsAsync<iRacingForbiddenResponseException>(async () =>
         {
@@ -766,7 +766,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     [Test(TestOf = typeof(DataClient))]
     public async Task GetSubSessionResultUnauthorizedThrowsErrorsAsync()
     {
-        await MessageHandler.QueueResponsesAsync("ResponseUnauthorized").ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync("ResponseUnauthorized", false).ConfigureAwait(false);
 
         Assert.ThrowsAsync<iRacingUnauthorizedResponseException>(async () =>
         {
@@ -797,7 +797,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     [Test(TestOf = typeof(DataClient))]
     public async Task GetSubsessionEventLogForbiddenThrowsErrorsAsync()
     {
-        await MessageHandler.QueueResponsesAsync("ResponseForbidden").ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync("ResponseForbidden", false).ConfigureAwait(false);
 
         Assert.ThrowsAsync<iRacingForbiddenResponseException>(async () =>
         {
@@ -1188,7 +1188,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     [Test(TestOf = typeof(DataClient))]
     public async Task GetServiceStatusSuccessfulAsync()
     {
-        await MessageHandler.QueueResponsesAsync(nameof(GetServiceStatusSuccessfulAsync)).ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync(nameof(GetServiceStatusSuccessfulAsync), false).ConfigureAwait(false);
 
         var response = await sut.GetServiceStatusAsync().ConfigureAwait(false);
 
@@ -1260,7 +1260,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     [Test(TestOf = typeof(DataClient))]
     public async Task GetTimeAttackSeriesSuccessfulAsync()
     {
-        await MessageHandler.QueueResponsesAsync(nameof(GetTimeAttackSeriesSuccessfulAsync)).ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync(nameof(GetTimeAttackSeriesSuccessfulAsync), false).ConfigureAwait(false);
 
         var response = await sut.GetTimeAttackSeasonsAsync().ConfigureAwait(false);
 
