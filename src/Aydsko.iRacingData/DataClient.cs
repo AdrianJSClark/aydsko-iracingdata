@@ -123,11 +123,8 @@ internal class DataClient : IDataClient
         var constantsDivisionsUrl = new Uri("https://members-ng.iracing.com/data/constants/divisions");
         var constantsDivisionsResponse = await httpClient.GetAsync(constantsDivisionsUrl, cancellationToken).ConfigureAwait(false);
 
-        var data = await constantsDivisionsResponse.Content.ReadFromJsonAsync(DivisionArrayContext.Default.DivisionArray, cancellationToken).ConfigureAwait(false);
-        if (data is null)
-        {
-            throw new iRacingDataClientException("Data not found.");
-        }
+        var data = await constantsDivisionsResponse.Content.ReadFromJsonAsync(DivisionArrayContext.Default.DivisionArray, cancellationToken).ConfigureAwait(false)
+                   ?? throw new iRacingDataClientException("Data not found.");
 
         return BuildDataResponse(constantsDivisionsResponse.Headers, data, logger)!;
     }
@@ -1938,6 +1935,27 @@ internal class DataClient : IDataClient
         queryUrl = QueryHelpers.AddQueryString(queryUrl, queryParams);
 
         (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), TimeAttackMemberSeasonResultArrayContext.Default.TimeAttackMemberSeasonResultArray, cancellationToken).ConfigureAwait(false);
+
+        return BuildDataResponse(headers, data, logger, expires);
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<MemberRecap>> GetMemberRecapAsync(int? customerId = null, int? seasonYear = null, int? seasonQuarter = null, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var queryUrl = "https://members-ng.iracing.com/data/stats/member_recap";
+
+        var queryParameters = new Dictionary<string, string>();
+        queryParameters.AddParameterIfNotNull("cust_id", customerId);
+        queryParameters.AddParameterIfNotNull("year", seasonYear);
+        queryParameters.AddParameterIfNotNull("season", seasonQuarter);
+        queryUrl = QueryHelpers.AddQueryString(queryUrl, queryParameters);
+
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), MemberRecapContext.Default.MemberRecap, cancellationToken).ConfigureAwait(false);
 
         return BuildDataResponse(headers, data, logger, expires);
     }

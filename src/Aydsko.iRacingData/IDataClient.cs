@@ -641,4 +641,14 @@ public interface IDataClient
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
     Task<DataResponse<TimeAttackMemberSeasonResult[]>> GetTimeAttackMemberSeasonResultsAsync(int competitionSeasonId, CancellationToken cancellationToken = default);
+
+    /// <param name="customerId">Optional, if supplied returns statistics for this iRacing Customer Id. Defaults to the currently authenticated user's Customer Id.</param>
+    /// <param name="seasonYear">Optional, if supplied limits times to the given year. Defaults to the current calendar year.</param>
+    /// <param name="seasonQuarter">Optional, if supplied limits times to a given quarter.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing a <see cref="MemberRecap"/> object.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
+    Task<DataResponse<MemberRecap>> GetMemberRecapAsync(int? customerId = null, int? seasonYear = null, int? seasonQuarter = null, CancellationToken cancellationToken = default);
 }

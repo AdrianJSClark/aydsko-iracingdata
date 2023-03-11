@@ -26,6 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="Responses\GetMemberRecapSuccessfulAsync\2.json" />
     <None Remove="Responses\GetServiceStatusSuccessfulAsync\0.json" />
   </ItemGroup>
 </Project>
