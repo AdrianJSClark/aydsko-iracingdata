@@ -4,6 +4,7 @@
 using System.Net;
 using System.Reflection;
 using Aydsko.iRacingData.Exceptions;
+using Aydsko.iRacingData.Tracks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -37,6 +38,7 @@ public static class ServicesExtensions
         configureOptions ??= opt => { };
 
         services.TryAddSingleton(new CookieContainer());
+        services.TryAddTransient<TrackScreenshotService>();
 
         var options = new iRacingDataClientOptions();
         configureOptions(options);
