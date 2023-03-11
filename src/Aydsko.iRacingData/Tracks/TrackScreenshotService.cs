@@ -55,7 +55,7 @@ public class TrackScreenshotService
             yield break;
         }
 
-        for (var i = 1; i < trackAssets.NumberOfSvgImages; i++)
+        for (var i = 1; i <= trackAssets.NumberOfSvgImages; i++)
         {
             yield return new Uri(trackScreenshotBaseUrl, $"{i:00}.jpg");
         }
@@ -128,7 +128,7 @@ public class TrackScreenshotService
 
         var trackIdString = trackId.ToString(CultureInfo.InvariantCulture);
 
-        if (trackAssetsResponse?.Data.TryGetValue(trackIdString, out var trackAssets) ?? true)
+        if (trackAssetsResponse is null || !trackAssetsResponse.Data.TryGetValue(trackIdString, out var trackAssets))
         {
             throw new ArgumentOutOfRangeException(nameof(trackId), "Track identifier supplied could not be used to locate track assets.");
         }

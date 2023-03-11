@@ -22,7 +22,7 @@ internal class TrackScreenshotServiceTests : MockedHttpTestBase
 
         // Make use of our captured responses.
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTracksSuccessfulAsync)).ConfigureAwait(false);
-        await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTrackAssetsSuccessfulAsync)).ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTrackAssetsSuccessfulAsync), false).ConfigureAwait(false);
 
         sut = new TrackScreenshotService(dataClient);
     }
@@ -33,7 +33,7 @@ internal class TrackScreenshotServiceTests : MockedHttpTestBase
         const int hungaroringTrackId = 413;
         var hungaroringResults = await sut.GetScreenshotLinksAsync(hungaroringTrackId).ConfigureAwait(false);
 
-        Assert.That(hungaroringResults, Has.Count.EqualTo(11));
+        Assert.That(hungaroringResults?.Count(), Is.EqualTo(11));
         Assert.Multiple(() =>
         {
             Assert.That(hungaroringResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/370_screenshots/01.jpg")));
@@ -56,7 +56,7 @@ internal class TrackScreenshotServiceTests : MockedHttpTestBase
         const int suzukaTrackId = 168;
         var suzukaResults = await sut.GetScreenshotLinksAsync(suzukaTrackId).ConfigureAwait(false);
 
-        Assert.That(suzukaResults, Has.Count.EqualTo(4));
+        Assert.That(suzukaResults?.Count(), Is.EqualTo(4));
         Assert.Multiple(() =>
         {
             Assert.That(suzukaResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/114_screenshots/01.jpg")));
