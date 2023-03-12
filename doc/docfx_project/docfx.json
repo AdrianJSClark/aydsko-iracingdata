@@ -67,6 +67,7 @@
       "_appName": "Aydsko iRacing Data API",
       "_appLogoPath": "images/Aydsko iRacing Data API Icon.png",
       "_disableContribution": true
-    }
+    },
+    "xrefService": [ "https://xref.docs.microsoft.com/query?uid={uid}" ]
   }
 }
