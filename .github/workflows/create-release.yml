@@ -17,7 +17,9 @@ jobs:
 
   deploy:
     name: Create Draft Release with NuGet Packages
-    needs: build
+    needs:
+      - build
+      - build-docs
     runs-on: windows-latest
 
     env:
@@ -34,6 +36,6 @@ jobs:
       - name: Create Draft Release
         shell: pwsh
         # Can't just use wildcard in this command due to https://github.com/cli/cli/issues/5099 so use Get-Item
-        run: gh release create --repo "AdrianJSClark/aydsko-iracingdata" --draft --title "${{ github.ref_name }}" --notes-file "..\Release Notes\Package Release Notes.txt" "release-${{ github.ref_name }}" (Get-Item "NuGet Packages/*.nupkg","Documentation Site/*.zip")
+        run: gh release create --repo "AdrianJSClark/aydsko-iracingdata" --draft --title "${{ github.ref_name }}" --notes-file "Release Notes\Package Release Notes.txt" "release-${{ github.ref_name }}" (Get-Item "NuGet Packages/*.nupkg","Documentation Site/*.zip")
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
