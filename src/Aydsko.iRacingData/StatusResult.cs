@@ -14,19 +14,19 @@ public class StatusResult
     public DateTimeOffset Timestamp { get; set; }
 
     [JsonPropertyName("tests")]
-    public Tests Tests { get; set; } = default!;
+    public StatusResultTests Tests { get; set; } = default!;
 
     [JsonPropertyName("maint_messages")]
     public string[] MaintenanceMessages { get; set; } = Array.Empty<string>();
 }
 
-public class Tests
+public class StatusResultTests
 {
     [JsonPropertyName("Configuration Flags")]
     public ConfigurationFlags ConfigurationFlags { get; set; } = default!;
 
     [JsonPropertyName("Websites")]
-    public Websites Websites { get; set; } = default!;
+    public StatusResultWebsites Websites { get; set; } = default!;
 
     [JsonPropertyName("Raceserver Network")]
     public RaceServerNetwork RaceServerNetwork { get; set; } = default!;
@@ -47,7 +47,7 @@ public class ConfigurationFlags
     public ServiceStatusDetail ClassicMemberSiteInMaintenanceMode { get; set; } = default!;
 }
 
-public class Websites
+public class StatusResultWebsites
 {
     [JsonPropertyName("Public Site (www.iracing.com)")]
     public ServiceStatusDetail PublicSiteWwwiRacingCom { get; set; } = default!;
