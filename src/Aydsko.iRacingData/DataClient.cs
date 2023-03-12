@@ -1959,4 +1959,23 @@ internal class DataClient : IDataClient
 
         return BuildDataResponse(headers, data, logger, expires);
     }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<SpectatorSubsessionIds>> GetSpectatorSubsessionIdentifiersAsync(Common.EventType[]? eventTypes = null, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var queryUrl = "https://members-ng.iracing.com/data/season/spectator_subsessionids";
+
+        var queryParameters = new Dictionary<string, string>();
+        queryParameters.AddParameterIfNotNull("event_types", eventTypes);
+        queryUrl = QueryHelpers.AddQueryString(queryUrl, queryParameters);
+
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), SpectatorSubsessionIdsContext.Default.SpectatorSubsessionIds, cancellationToken).ConfigureAwait(false);
+
+        return BuildDataResponse(headers, data, logger, expires);
+    }
 }

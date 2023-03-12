@@ -1328,4 +1328,19 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
                                                  .And.Property(nameof(RecapStatistics.FavoriteCar)).Not.Null
                                                  .And.Property(nameof(RecapStatistics.FavoriteTrack)).Not.Null);
     }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetSpectatorSubsessionIdentifiersAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetSpectatorSubsessionIdentifiersAsync)).ConfigureAwait(false);
+
+        var response = await sut.GetSpectatorSubsessionIdentifiersAsync().ConfigureAwait(false);
+
+        Assert.That(response, Is.Not.Null);
+        Assert.That(response.Data, Is.Not.Null);
+
+        Assert.That(response.Data, Has.Property(nameof(SpectatorSubsessionIds.EventTypes)).EqualTo(new[] { Common.EventType.Qualify, Common.EventType.Practice, Common.EventType.TimeTrial, Common.EventType.Race })
+                                      .And.Property(nameof(SpectatorSubsessionIds.Success)).EqualTo(true)
+                                      .And.Property(nameof(SpectatorSubsessionIds.SubsessionIdentifiers)).Length.EqualTo(192));
+    }
 }
