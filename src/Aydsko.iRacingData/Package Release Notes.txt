@@ -6,3 +6,7 @@
  - Enable Building of Track Image URLs (Issue #154)
    - Introduces the "TrackScreenshotService" class to provide URLs for the circuit screenshots.
    - Previously it was impossible to create these URLs as the required information wasn't in the results.
+ - Implement 2023 Season 2 Updates (Issue #155)
+   - Add the "Member Recap" endpoint (/data/stats/member_recap) to provide a summary of a driver's year or season.
+   - Add the "Spectator Subsession Identifiers" endpoint (/data/season/spectator_subsessionids) to list subsessions available to spectate.
+   - Ability to query league membership by Customer Identifier (/data/league/membership)

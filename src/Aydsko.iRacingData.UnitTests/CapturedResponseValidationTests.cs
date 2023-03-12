@@ -7,6 +7,7 @@ using Aydsko.iRacingData.Leagues;
 using Aydsko.iRacingData.Results;
 using Aydsko.iRacingData.Searches;
 using Aydsko.iRacingData.Series;
+using Aydsko.iRacingData.Stats;
 using Aydsko.iRacingData.TimeAttack;
 
 namespace Aydsko.iRacingData.UnitTests;
@@ -1303,5 +1304,43 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
                                 .And.Property(nameof(TimeAttackMemberSeasonResult.TrackId)).EqualTo(341)
                                 .And.Property(nameof(TimeAttackMemberSeasonResult.CompetitionSeasonId)).EqualTo(3212)
                                 .And.Property(nameof(TimeAttackMemberSeasonResult.BestLapTime)).EqualTo(TimeSpan.FromSeconds(90.8513)));
+    }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetMemberRecapSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetMemberRecapSuccessfulAsync)).ConfigureAwait(false);
+
+        var response = await sut.GetMemberRecapAsync().ConfigureAwait(false);
+
+        Assert.That(response, Is.Not.Null);
+        Assert.That(response.Data, Is.Not.Null);
+
+        Assert.That(response.Data, Has.Property(nameof(MemberRecap.CustomerId)).EqualTo(341554)
+                                      .And.Property(nameof(MemberRecap.Success)).EqualTo(true)
+                                      .And.Property(nameof(MemberRecap.Season)).Null
+                                      .And.Property(nameof(MemberRecap.Year)).EqualTo(2023));
+
+        Assert.That(response.Data.Statistics, Is.Not.Null);
+
+        Assert.That(response.Data.Statistics, Has.Property(nameof(RecapStatistics.NumberOfStarts)).EqualTo(34)
+                                                 .And.Property(nameof(RecapStatistics.TotalLapsLed)).EqualTo(40)
+                                                 .And.Property(nameof(RecapStatistics.FavoriteCar)).Not.Null
+                                                 .And.Property(nameof(RecapStatistics.FavoriteTrack)).Not.Null);
+    }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetSpectatorSubsessionIdentifiersAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetSpectatorSubsessionIdentifiersAsync)).ConfigureAwait(false);
+
+        var response = await sut.GetSpectatorSubsessionIdentifiersAsync().ConfigureAwait(false);
+
+        Assert.That(response, Is.Not.Null);
+        Assert.That(response.Data, Is.Not.Null);
+
+        Assert.That(response.Data, Has.Property(nameof(SpectatorSubsessionIds.EventTypes)).EqualTo(new[] { Common.EventType.Qualify, Common.EventType.Practice, Common.EventType.TimeTrial, Common.EventType.Race })
+                                      .And.Property(nameof(SpectatorSubsessionIds.Success)).EqualTo(true)
+                                      .And.Property(nameof(SpectatorSubsessionIds.SubsessionIdentifiers)).Length.EqualTo(192));
     }
 }

@@ -123,11 +123,8 @@ internal class DataClient : IDataClient
         var constantsDivisionsUrl = new Uri("https://members-ng.iracing.com/data/constants/divisions");
         var constantsDivisionsResponse = await httpClient.GetAsync(constantsDivisionsUrl, cancellationToken).ConfigureAwait(false);
 
-        var data = await constantsDivisionsResponse.Content.ReadFromJsonAsync(DivisionArrayContext.Default.DivisionArray, cancellationToken).ConfigureAwait(false);
-        if (data is null)
-        {
-            throw new iRacingDataClientException("Data not found.");
-        }
+        var data = await constantsDivisionsResponse.Content.ReadFromJsonAsync(DivisionArrayContext.Default.DivisionArray, cancellationToken).ConfigureAwait(false)
+                   ?? throw new iRacingDataClientException("Data not found.");
 
         return BuildDataResponse(constantsDivisionsResponse.Headers, data, logger)!;
     }
@@ -1378,33 +1375,33 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var queryParams = new Dictionary<string, string>();
-        queryParams.AddParameterIfNotNull(() => searchParameters.Search);
-        queryParams.AddParameterIfNotNull(() => searchParameters.Tag);
-        queryParams.AddParameterIfNotNull(() => searchParameters.RestrictToMember);
-        queryParams.AddParameterIfNotNull(() => searchParameters.RestrictToRecruiting);
-        queryParams.AddParameterIfNotNull(() => searchParameters.RestrictToFriends);
-        queryParams.AddParameterIfNotNull(() => searchParameters.RestrictToWatched);
-        queryParams.AddParameterIfNotNull(() => searchParameters.MinimumRosterCount);
-        queryParams.AddParameterIfNotNull(() => searchParameters.MaximumRosterCount);
-        queryParams.AddParameterIfNotNull(() => searchParameters.Lowerbound);
-        queryParams.AddParameterIfNotNull(() => searchParameters.Upperbound);
+        var queryParameters = new Dictionary<string, string>();
+        queryParameters.AddParameterIfNotNull(() => searchParameters.Search);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.Tag);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.RestrictToMember);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.RestrictToRecruiting);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.RestrictToFriends);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.RestrictToWatched);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.MinimumRosterCount);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.MaximumRosterCount);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.Lowerbound);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.Upperbound);
 
         if (searchParameters.OrderByField is SearchLeagueOrderByField orderBy)
         {
             switch (orderBy)
             {
                 case SearchLeagueOrderByField.Relevance:
-                    queryParams["sort"] = "relevance";
+                    queryParameters["sort"] = "relevance";
                     break;
                 case SearchLeagueOrderByField.LeagueName:
-                    queryParams["sort"] = "leaguename";
+                    queryParameters["sort"] = "leaguename";
                     break;
                 case SearchLeagueOrderByField.OwnersDisplayName:
-                    queryParams["sort"] = "displayname";
+                    queryParameters["sort"] = "displayname";
                     break;
                 case SearchLeagueOrderByField.RosterCount:
-                    queryParams["sort"] = "rostercount";
+                    queryParameters["sort"] = "rostercount";
                     break;
             }
         }
@@ -1414,15 +1411,15 @@ internal class DataClient : IDataClient
             switch (orderDirection)
             {
                 case ResultOrderDirection.Ascending:
-                    queryParams["order"] = "asc";
+                    queryParameters["order"] = "asc";
                     break;
                 case ResultOrderDirection.Descending:
-                    queryParams["order"] = "desc";
+                    queryParameters["order"] = "desc";
                     break;
             }
         }
 
-        var searchLeagueDirectoryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/directory", queryParams);
+        var searchLeagueDirectoryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/directory", queryParameters);
 
         (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(searchLeagueDirectoryUrl), LeagueDirectoryResultPageContext.Default.LeagueDirectoryResultPage, cancellationToken).ConfigureAwait(false);
 
@@ -1704,21 +1701,41 @@ internal class DataClient : IDataClient
         return response;
     }
 
+    /// <inheritdoc />
     public async Task<DataResponse<LeagueMembership[]>> GetLeagueMembershipAsync(bool includeLeague = false, CancellationToken cancellationToken = default)
+    {
+        return await GetLeagueMembershipInternalAsync(null, includeLeague, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<LeagueMembership[]>> GetLeagueMembershipAsync(int customerId, bool includeLeague = false, CancellationToken cancellationToken = default)
+    {
+        return await GetLeagueMembershipInternalAsync(customerId, includeLeague, cancellationToken).ConfigureAwait(false);
+    }
+
+    private async Task<DataResponse<LeagueMembership[]>> GetLeagueMembershipInternalAsync(int? customerId, bool includeLeague = false, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
         {
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var getMembershipUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/membership", new Dictionary<string, string>
+        var queryString = new Dictionary<string, string>
         {
             ["include_league"] = includeLeague ? "1" : "0"
-        });
+        };
+
+        if (customerId?.ToString(CultureInfo.InvariantCulture) is string customerIdValue)
+        {
+            queryString.Add("cust_id", customerIdValue);
+        }
+
+        var getMembershipUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/membership", queryString);
         (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(getMembershipUrl), LeagueMembershipArrayContext.Default.LeagueMembershipArray, cancellationToken).ConfigureAwait(false);
         return BuildDataResponse(headers, data, logger, expires);
     }
 
+    /// <inheritdoc />
     public async Task<DataResponse<LeagueSeasons>> GetLeagueSeasonsAsync(int leagueId, bool includeRetired = false, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
@@ -1918,6 +1935,46 @@ internal class DataClient : IDataClient
         queryUrl = QueryHelpers.AddQueryString(queryUrl, queryParams);
 
         (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), TimeAttackMemberSeasonResultArrayContext.Default.TimeAttackMemberSeasonResultArray, cancellationToken).ConfigureAwait(false);
+
+        return BuildDataResponse(headers, data, logger, expires);
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<MemberRecap>> GetMemberRecapAsync(int? customerId = null, int? seasonYear = null, int? seasonQuarter = null, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var queryUrl = "https://members-ng.iracing.com/data/stats/member_recap";
+
+        var queryParameters = new Dictionary<string, string>();
+        queryParameters.AddParameterIfNotNull("cust_id", customerId);
+        queryParameters.AddParameterIfNotNull("year", seasonYear);
+        queryParameters.AddParameterIfNotNull("season", seasonQuarter);
+        queryUrl = QueryHelpers.AddQueryString(queryUrl, queryParameters);
+
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), MemberRecapContext.Default.MemberRecap, cancellationToken).ConfigureAwait(false);
+
+        return BuildDataResponse(headers, data, logger, expires);
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<SpectatorSubsessionIds>> GetSpectatorSubsessionIdentifiersAsync(Common.EventType[]? eventTypes = null, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+
+        var queryUrl = "https://members-ng.iracing.com/data/season/spectator_subsessionids";
+
+        var queryParameters = new Dictionary<string, string>();
+        queryParameters.AddParameterIfNotNull("event_types", eventTypes);
+        queryUrl = QueryHelpers.AddQueryString(queryUrl, queryParameters);
+
+        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), SpectatorSubsessionIdsContext.Default.SpectatorSubsessionIds, cancellationToken).ConfigureAwait(false);
 
         return BuildDataResponse(headers, data, logger, expires);
     }

@@ -1,50 +1,84 @@
 ﻿// © 2023 Adrian Clark
 // This file is licensed to you under the MIT license.
 
-using System.Collections;
 using System.Globalization;
 using System.Linq.Expressions;
-using System.Net;
 using System.Reflection;
+
+#if NET6_0_OR_GREATER
+using System.Reflection.Metadata;
+#else
+using System.Collections;
+using System.Net;
+#endif
 
 namespace Aydsko.iRacingData;
 
 static internal class Extensions
 {
+    static internal void AddParameterIfNotNull<T>(this IDictionary<string, string> parameters, string parameterName, T parameterValue)
+    {
+#if (NET6_0_OR_GREATER)
+        ArgumentNullException.ThrowIfNull(parameterName);
+#else
+        if (parameterName is null)
+        {
+            throw new ArgumentNullException(nameof(parameterName));
+        }
+#endif  
+        if (string.IsNullOrWhiteSpace(parameterName))
+        {
+            throw new ArgumentException("Parameter name cannot be whitespace.", nameof(parameterName));
+        }
+
+        var parameterStringValue = GetParameterAsStringValue(parameterValue);
+        parameters.Add(parameterName, parameterStringValue ?? string.Empty);
+    }
+
     /// <summary>Add the parameter with the property's <see cref="JsonPropertyNameAttribute.Name"/> as the key and it's value if that value is not null.</summary>
     /// <typeparam name="T">Type of the property.</typeparam>
     /// <param name="parameters">Collection of parameters to add to.</param>
-    /// <param name="param">An expression which accesses the property.</param>
-    /// <exception cref="ArgumentException">The expresssion couldn't be properly understood by the method.</exception>
-    static internal void AddParameterIfNotNull<T>(this IDictionary<string, string> parameters, Expression<Func<T>> param)
+    /// <param name="parameter">An expression which accesses the property.</param>
+    /// <exception cref="ArgumentException">The expression couldn't be properly understood by the method.</exception>
+    static internal void AddParameterIfNotNull<T>(this IDictionary<string, string> parameters, Expression<Func<T>> parameter)
     {
 #if (NET6_0_OR_GREATER)
-        ArgumentNullException.ThrowIfNull(param);
+        ArgumentNullException.ThrowIfNull(parameter);
 #else
-        if (param is null)
+        if (parameter is null)
         {
-            throw new ArgumentNullException(nameof(param));
+            throw new ArgumentNullException(nameof(parameter));
         }
 #endif
 
-        var paramMemberExp = (param.Body is UnaryExpression unaryExp)
-                                 ? unaryExp.Operand as MemberExpression
-                                 : param.Body as MemberExpression;
+        var parameterMemberExp = (parameter.Body is UnaryExpression unaryExp)
+                                     ? unaryExp.Operand as MemberExpression
+                                     : parameter.Body as MemberExpression;
 
-        if (paramMemberExp is null || paramMemberExp.Member is not PropertyInfo memberPropertyInfo)
+        if (parameterMemberExp is null || parameterMemberExp.Member is not PropertyInfo memberPropertyInfo)
         {
-            throw new ArgumentException("Couldn't understand the expresssion.", nameof(param));
+            throw new ArgumentException("Couldn't understand the expression.", nameof(parameter));
         }
 
-        var parameterValue = param.Compile()();
+        var parameterValue = parameter.Compile()();
 
         if (parameterValue is null)
         {
             return;
         }
 
+        var propNameAttribute = parameterMemberExp.Member.GetCustomAttributes<JsonPropertyNameAttribute>().FirstOrDefault();
+        var parameterName = propNameAttribute?.Name ?? parameterMemberExp.Member.Name;
+
+        var parameterStringValue = GetParameterAsStringValue(parameterValue);
+
+        parameters.Add(new(parameterName, parameterStringValue ?? string.Empty));
+    }
+
+    private static string? GetParameterAsStringValue<T>(T parameterValue)
+    {
 #pragma warning disable CA1308 // Normalize strings to uppercase
-        var parameterStringValue = parameterValue switch
+        return parameterValue switch
         {
             string stringParam => stringParam,
             DateTime dateTimeParam => dateTimeParam.ToString("yyyy-MM-dd\\THH:mm\\Z", CultureInfo.InvariantCulture),
@@ -54,11 +88,6 @@ static internal class Extensions
             _ => Convert.ToString(parameterValue, CultureInfo.InvariantCulture)
         };
 #pragma warning restore CA1308 // Normalize strings to uppercase
-
-        var propNameAttr = paramMemberExp.Member.GetCustomAttributes<JsonPropertyNameAttribute>().FirstOrDefault();
-        var parameterName = propNameAttr?.Name ?? paramMemberExp.Member.Name;
-
-        parameters.Add(new(parameterName, parameterStringValue ?? string.Empty));
 
         static IEnumerable<string> GetNonNullValues(Array array)
         {

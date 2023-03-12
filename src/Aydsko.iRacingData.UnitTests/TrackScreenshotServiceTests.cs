@@ -1,7 +1,8 @@
 ﻿using Aydsko.iRacingData.Tracks;
 
 namespace Aydsko.iRacingData.UnitTests;
-internal class TrackScreenshotServiceTests : MockedHttpTestBase
+
+internal sealed class TrackScreenshotServiceTests : MockedHttpTestBase
 {
     // NUnit will ensure that "SetUp" runs before each test so these can all be forced to "null".
     private TrackScreenshotService sut = null!;

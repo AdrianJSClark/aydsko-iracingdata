@@ -1,0 +1,29 @@
+{
+  "headers": {},
+  "content": {
+    "year": 2023,
+    "stats": {
+      "starts": 34,
+      "wins": 3,
+      "top5": 15,
+      "avg_start_position": 7,
+      "avg_finish_position": 7,
+      "laps": 749,
+      "laps_led": 40,
+      "favorite_car": {
+        "car_id": 161,
+        "car_name": "Mercedes-AMG W13 E Performance",
+        "car_image": "https://images-static.iracing.com/img/cars/mercedesw13/mercedesw13-small.jpg"
+      },
+      "favorite_track": {
+        "track_id": 250,
+        "track_name": "Nürburgring Grand-Prix-Strecke",
+        "config_name": "Grand Prix",
+        "track_logo": "https://images-static.iracing.com/img/logos/tracks/nurburgring-logo.png"
+      }
+    },
+    "success": true,
+    "season": null,
+    "cust_id": 341554
+  }
+}

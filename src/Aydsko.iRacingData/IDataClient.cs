@@ -76,7 +76,7 @@ public interface IDataClient
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
     Task<DataResponse<Cars.CarInfo[]>> GetCarsAsync(CancellationToken cancellationToken = default);
 
-    /// <summary>Retrieves league membership</summary>
+    /// <summary>Retrieves league membership.</summary>
     /// <param name="includeLeague">Indicates if league information should be included. Either <see langword="true"/> or <see langword="false"/> to exclude for performance purposes.</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A <see cref="DataResponse{TData}"/> containing an array of <see cref="global::Aydsko.iRacingData.Leagues.LeagueMembership"/> objects.</returns>
@@ -84,6 +84,24 @@ public interface IDataClient
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
     Task<DataResponse<Leagues.LeagueMembership[]>> GetLeagueMembershipAsync(bool includeLeague = false, CancellationToken cancellationToken = default);
+
+    /// <summary>Retrieves league membership.</summary>
+    /// <param name="customerId">The customer for which membership should be retrieved.</param>
+    /// <param name="includeLeague">Indicates if league information should be included. Either <see langword="true"/> or <see langword="false"/> to exclude for performance purposes.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing an array of <see cref="global::Aydsko.iRacingData.Leagues.LeagueMembership"/> objects.</returns>
+    /// <remarks>
+    /// If the value passed for <paramref name="customerId"/> is different from the authenticated member, the following restrictions apply:
+    /// <list type="bullet">
+    /// <item>Caller cannot be on requested customer's block list or an empty list will result;</item>
+    /// <item>Requested customer cannot have their online activity preference set to hidden or an empty list will result;</item>
+    /// <item>Only leagues for which the requested customer is an admin and the league roster is not private are returned.</item>
+    /// </list>
+    /// </remarks>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
+    Task<DataResponse<Leagues.LeagueMembership[]>> GetLeagueMembershipAsync(int customerId, bool includeLeague = false, CancellationToken cancellationToken = default);
 
     /// <summary>Retrieves league's seasons</summary>
     /// <param name="leagueId">League Id to return seasons for.</param>
@@ -623,4 +641,24 @@ public interface IDataClient
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
     Task<DataResponse<TimeAttackMemberSeasonResult[]>> GetTimeAttackMemberSeasonResultsAsync(int competitionSeasonId, CancellationToken cancellationToken = default);
+
+    /// <summary>Retrieve a summary of the given period for the given driver or currently authenticated member.</summary>
+    /// <param name="customerId">Optional, if supplied returns statistics for this iRacing Customer Id. Defaults to the currently authenticated user's Customer Id.</param>
+    /// <param name="seasonYear">Optional, if supplied limits times to the given year. Defaults to the current calendar year.</param>
+    /// <param name="seasonQuarter">Optional, if supplied limits times to a given quarter.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing a <see cref="MemberRecap"/> object.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
+    Task<DataResponse<MemberRecap>> GetMemberRecapAsync(int? customerId = null, int? seasonYear = null, int? seasonQuarter = null, CancellationToken cancellationToken = default);
+
+    /// <summary>Retrieves the current subsession identifiers available to spectate.</summary>
+    /// <param name="eventTypes">Optional, if supplied limits the types of event subsessions to include. Defaults to all.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing a <see cref="MemberRecap"/> object.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
+    Task<DataResponse<SpectatorSubsessionIds>> GetSpectatorSubsessionIdentifiersAsync(Common.EventType[]? eventTypes = null, CancellationToken cancellationToken = default);
 }
