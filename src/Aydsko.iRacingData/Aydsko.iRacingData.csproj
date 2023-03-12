@@ -32,6 +32,7 @@
     <PackageReadmeFile>Package README.md</PackageReadmeFile>
     <PackageReleaseNotes Condition="Exists('$(MSBuildProjectDirectory)/Package Release Notes.txt')">$([System.IO.File]::ReadAllText("$(MSBuildProjectDirectory)/Package Release Notes.txt"))</PackageReleaseNotes>
     <PackageTags>iracing;simracing</PackageTags>
+    <PackageProjectUrl>https://adrianjsclark.github.io/aydsko-iracingdata/</PackageProjectUrl>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(CI)' == 'true' And '$(GITHUB_HEAD_REF)' != ''">
