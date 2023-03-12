@@ -1,0 +1,79 @@
+.sidefilter, .sidetoc, #toc {
+  background-color: #FFFFFF;
+  border-left: #FFFFFF;
+}
+
+.navbar-default, .navbar, .navbar-collapse {
+  border-color: #e7e7e7;
+}
+
+.toc-filter {
+  border: 1px solid #e7e7e7;
+}
+
+.navbar .navbar-nav > .active > a,.navbar .navbar-nav > li > a {
+  color: #000000;
+  background-color: #FFFFFF;
+}
+
+.navbar .navbar-nav > .active > a:focus, .navbar .navbar-nav > .active > a:hover,.navbar .navbar-nav > li > a:hover {
+  color: #9d9d9d;
+  background-color: #FFFFFF;
+}
+
+.grad-bottom {
+  height: 0px;
+}
+
+.footer {
+  background-color: #FFFFFF;
+}
+
+.navbar-brand > img {
+  padding: 10px 15px;
+  height: 50px;
+}
+
+.sidetoc.shiftup {
+  bottom: 0px;
+}
+
+.sidetoc {
+  top: 110px;
+}
+
+.sidefilter {
+  top: 50px;
+}
+
+.icon-bar {
+  background-color: black;
+}
+
+.btn {
+  text-align: left;
+}
+
+.sidenav, .fixed_header, .toc {
+  background-color: #FFFFFF;
+}
+
+.toc > ul {
+  text-align: left;
+}
+
+body {
+  font-size: 16px;
+}
+
+header {
+  background-color: #FFFFFF;
+}
+
+.toc .nav > li {
+  display: block;
+}
+
+.toc li:after {
+  content: "";
+}
