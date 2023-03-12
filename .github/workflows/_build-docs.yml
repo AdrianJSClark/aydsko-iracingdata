@@ -1,0 +1,33 @@
+name: Build Documentation Site
+
+on:
+  workflow_call:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      DOTNET_NOLOGO: true
+      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Avoid pre-populating the NuGet package cache
+
+    steps:
+
+      - name: 'Checkout Code'
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0 # Required for MinVer to work properly
+
+      - name: 'Setup .NET SDK'
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '7.x'
+
+      - run: dotnet tool update -g docfx
+      - run: docfx doc/docfx_project/docfx.json
+
+      - name: 'Upload Site Artifacts'
+        uses: actions/upload-artifact@v2
+        with:
+          name: 'Documentation Site'
+          path: 'doc/docfx_project/_site'
