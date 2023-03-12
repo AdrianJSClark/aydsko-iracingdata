@@ -29,6 +29,21 @@ jobs:
         tarBall: false
         zipBall: false
 
+    - name: 'Expand Documentation Site'
+      shell: pwsh
+      run: Expand-Archive -Path DocumentationSite.zip -DestinationPath ./_site
+
+    - name: 'Upload Site Artifacts'
+      uses: actions/upload-artifact@v2
+      with:
+        name: 'Documentation Site'
+        path: '_site'
+
     - name: 'Upload to NuGet'
       shell: pwsh
       run: dotnet nuget push *.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }}
+
+  deploy:
+    name: Deploy Documentation
+    needs: build
+    uses: ./.github/workflows/_deploy-docs.yml
