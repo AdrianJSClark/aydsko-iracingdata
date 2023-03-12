@@ -47,7 +47,9 @@ public class ExampleService
         this.dataClient = dataClient;
     }
 
-    public async Task<MemberInfo> GetMyInfoAsync(string iRacingUsername, string iRacingPassword, CancellationToken cancellationToken = default)
+    public async Task<MemberInfo> GetMyInfoAsync(string iRacingUsername,
+                                                 string iRacingPassword,
+                                                 CancellationToken cancellationToken = default)
     {
         dataClient.UseUsernameAndPassword(iRacingUsername, iRacingPassword);
 
