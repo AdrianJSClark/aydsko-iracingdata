@@ -55,4 +55,14 @@ During maintenance, the HTTP response code will be 503 as noted in my prior post
 The note field is treated as optional in the API so it may or may not be present on the response. Since we know when we are in maintenance (at least we should!) it was easy to provide additional information.
 
 ================================================================================
+Jason Bryfogle
 
+https://forums.iracing.com/discussion/comment/318845/#Comment_318845
+--------------------------------------------------------------------------------
+
+[Jeff Arthur 5:00 am]:
+> Is there a way to check each lap in a session if that lap was under green or yellow?
+
+We don't keep that in lap data, but you can get the subsession event log (results/event_log) and look for pairs of entries with event_code:6 which mark the start and end of a caution period and the laps those occurred to know which laps were under caution.
+
+================================================================================
