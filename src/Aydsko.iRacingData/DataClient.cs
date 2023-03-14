@@ -1588,15 +1588,12 @@ internal class DataClient : IDataClient
         var infoLink = JsonSerializer.Deserialize(content, LinkResultContext.Default.LinkResult);
         if (infoLink?.Link is null)
         {
-            throw new iRacingDataClientException("Unrecognised result.");
+            throw new iRacingDataClientException("Unrecognized result.");
         }
 
         var data = await httpClient.GetFromJsonAsync(infoLink.Link, jsonTypeInfo, cancellationToken: cancellationToken)
-                                   .ConfigureAwait(false);
-        if (data is null)
-        {
-            throw new iRacingDataClientException("Data not found.");
-        }
+                                   .ConfigureAwait(false)
+                                   ?? throw new iRacingDataClientException("Data not found.");
 
         return (infoLinkResponse.Headers, data, infoLink.Expires);
     }
@@ -1927,12 +1924,9 @@ internal class DataClient : IDataClient
 
         var queryUrl = "https://members-ng.iracing.com/data/time_attack/member_season_results";
 
-        var queryParams = new Dictionary<string, string>
-        {
-            ["ta_comp_season_id"] = competitionSeasonId.ToString(CultureInfo.InvariantCulture),
-        };
-
-        queryUrl = QueryHelpers.AddQueryString(queryUrl, queryParams);
+        var queryParameters = new Dictionary<string, string>();
+        queryParameters.AddParameterIfNotNull("ta_comp_season_id", competitionSeasonId);
+        queryUrl = QueryHelpers.AddQueryString(queryUrl, queryParameters);
 
         (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), TimeAttackMemberSeasonResultArrayContext.Default.TimeAttackMemberSeasonResultArray, cancellationToken).ConfigureAwait(false);
 
