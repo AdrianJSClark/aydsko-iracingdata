@@ -3,6 +3,7 @@
 
 using System.Net;
 using Aydsko.iRacingData.IntegrationTests.Member;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 
 namespace Aydsko.iRacingData.IntegrationTests;
@@ -14,6 +15,7 @@ public class BaseIntegrationFixture : IDisposable
     private CookieContainer _cookieContainer;
     private HttpClientHandler _handler;
     private HttpClient _httpClient;
+    private MemoryCache _memoryCache;
 
     internal DataClient Client { get; private set; }
     protected IConfigurationRoot Configuration => _configuration;
@@ -45,7 +47,9 @@ public class BaseIntegrationFixture : IDisposable
             Password = _configuration["iRacingData:Password"]
         };
 
-        Client = new DataClient(_httpClient, new TestLogger<DataClient>(), options, _cookieContainer);
+        _memoryCache = new MemoryCache(new MemoryCacheOptions());
+
+        Client = new CachingDataClient(_httpClient, new TestLogger<CachingDataClient>(), options, _cookieContainer, _memoryCache);
     }
 
     public void Dispose()
@@ -60,8 +64,12 @@ public class BaseIntegrationFixture : IDisposable
         {
             (_httpClient as IDisposable)?.Dispose();
             _httpClient = null!;
+
             (_handler as IDisposable)?.Dispose();
             _handler = null!;
+
+            (_memoryCache as IDisposable)?.Dispose();
+            _memoryCache = null!;
         }
     }
 }

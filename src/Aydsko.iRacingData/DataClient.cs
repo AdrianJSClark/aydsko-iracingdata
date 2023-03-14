@@ -138,13 +138,12 @@ internal class DataClient : IDataClient
         }
 
         var constantsDivisionsUrl = new Uri("https://members-ng.iracing.com/data/constants/categories");
-        var constantsDivisionsResponse = await httpClient.GetAsync(constantsDivisionsUrl, cancellationToken).ConfigureAwait(false);
+        var constantsDivisionsResponse = await httpClient.GetAsync(constantsDivisionsUrl, cancellationToken)
+                                                         .ConfigureAwait(false);
 
-        var data = await constantsDivisionsResponse.Content.ReadFromJsonAsync(CategoryArrayContext.Default.CategoryArray, cancellationToken).ConfigureAwait(false);
-        if (data is null)
-        {
-            throw new iRacingDataClientException("Data not found.");
-        }
+        var data = await constantsDivisionsResponse.Content.ReadFromJsonAsync(CategoryArrayContext.Default.CategoryArray, cancellationToken)
+                                                           .ConfigureAwait(false)
+                                                           ?? throw new iRacingDataClientException("Data not found.");
 
         return BuildDataResponse(constantsDivisionsResponse.Headers, data, logger)!;
     }
@@ -160,11 +159,9 @@ internal class DataClient : IDataClient
         var constantsDivisionsUrl = new Uri("https://members-ng.iracing.com/data/constants/event_types");
         var constantsDivisionsResponse = await httpClient.GetAsync(constantsDivisionsUrl, cancellationToken).ConfigureAwait(false);
 
-        var data = await constantsDivisionsResponse.Content.ReadFromJsonAsync(EventTypeArrayContext.Default.EventTypeArray, cancellationToken).ConfigureAwait(false);
-        if (data is null)
-        {
-            throw new iRacingDataClientException("Data not found.");
-        }
+        var data = await constantsDivisionsResponse.Content.ReadFromJsonAsync(EventTypeArrayContext.Default.EventTypeArray, cancellationToken)
+                                                           .ConfigureAwait(false)
+                                                           ?? throw new iRacingDataClientException("Data not found.");
 
         return BuildDataResponse(constantsDivisionsResponse.Headers, data, logger)!;
     }
@@ -1570,7 +1567,7 @@ internal class DataClient : IDataClient
 
     private const string RateLimitExceededContent = "Rate limit exceeded";
 
-    protected virtual async Task<(HttpResponseHeaders Headers, TData Data, DateTimeOffset? Expires)> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
+    async protected virtual Task<(HttpResponseHeaders Headers, TData Data, DateTimeOffset? Expires)> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
     {
         var infoLinkResponse = await httpClient.GetAsync(infoLinkUri, cancellationToken).ConfigureAwait(false);
 
@@ -1615,11 +1612,8 @@ internal class DataClient : IDataClient
         }
 
         var data = await response.Content.ReadFromJsonAsync(jsonTypeInfo, cancellationToken: cancellationToken)
-                                         .ConfigureAwait(false);
-        if (data is null)
-        {
-            throw new iRacingDataClientException("Data not found.");
-        }
+                                         .ConfigureAwait(false)
+                                         ?? throw new iRacingDataClientException("Data not found.");
 
         return (response.Headers, data);
     }

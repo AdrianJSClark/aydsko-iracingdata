@@ -7,7 +7,7 @@ namespace Aydsko.iRacingData.UnitTests;
 
 public class TestLogger<T> : ILogger<T>
 {
-    public IDisposable BeginScope<TState>(TState state)
+    public IDisposable? BeginScope<TState>(TState state) where TState : notnull
     {
         return new TestScope();
     }

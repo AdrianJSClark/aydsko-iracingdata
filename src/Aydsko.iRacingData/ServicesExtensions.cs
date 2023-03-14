@@ -3,7 +3,6 @@
 
 using System.Net;
 using System.Reflection;
-using Aydsko.iRacingData.Exceptions;
 using Aydsko.iRacingData.Tracks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
@@ -24,11 +23,29 @@ public static class ServicesExtensions
             throw new ArgumentNullException(nameof(configureOptions));
         }
 
-        services.AddIRacingDataApiInternal(configureOptions);
+        services.AddIRacingDataApiInternal(configureOptions, false);
         return services;
     }
 
-    static internal IHttpClientBuilder AddIRacingDataApiInternal(this IServiceCollection services, Action<iRacingDataClientOptions> configureOptions)
+    public static IServiceCollection AddIRacingDataApiWithCaching(this IServiceCollection services, Action<iRacingDataClientOptions> configureOptions)
+    {
+        if (services is null)
+        {
+            throw new ArgumentNullException(nameof(services));
+        }
+
+        if (configureOptions is null)
+        {
+            throw new ArgumentNullException(nameof(configureOptions));
+        }
+
+        services.AddIRacingDataApiInternal(configureOptions, true);
+        return services;
+    }
+
+    static internal IHttpClientBuilder AddIRacingDataApiInternal(this IServiceCollection services,
+                                                                 Action<iRacingDataClientOptions> configureOptions,
+                                                                 bool includeCaching)
     {
         if (services is null)
         {
@@ -42,22 +59,20 @@ public static class ServicesExtensions
 
         var options = new iRacingDataClientOptions();
         configureOptions(options);
+        services.AddSingleton(options);
 
         var userAgentValue = CreateUserAgentValue(options);
 
-        var httpClientBuilder = services.AddHttpClient<IDataClient, DataClient>((HttpClient httpClient, IServiceProvider provider) => new DataClient(httpClient,
-                                                                                                                                                     provider.GetRequiredService<ILogger<DataClient>>(),
-                                                                                                                                                     options,
-                                                                                                                                                     provider.GetRequiredService<CookieContainer>()))
-                                        .ConfigureHttpClient(httpClient => httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(userAgentValue))
-                                        .ConfigureHttpMessageHandlerBuilder(msgHandlerBuilder =>
-                                        {
-                                            if (msgHandlerBuilder.PrimaryHandler is HttpClientHandler httpClientHandler)
-                                            {
-                                                httpClientHandler.UseCookies = true;
-                                                httpClientHandler.CookieContainer = msgHandlerBuilder.Services.GetRequiredService<CookieContainer>();
-                                            }
-                                        });
+        var httpClientBuilder = (includeCaching ? services.AddHttpClient<IDataClient, CachingDataClient>() : services.AddHttpClient<IDataClient, DataClient>())
+                                .ConfigureHttpClient(httpClient => httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(userAgentValue))
+                                .ConfigureHttpMessageHandlerBuilder(msgHandlerBuilder =>
+                                {
+                                    if (msgHandlerBuilder.PrimaryHandler is HttpClientHandler httpClientHandler)
+                                    {
+                                        httpClientHandler.UseCookies = true;
+                                        httpClientHandler.CookieContainer = msgHandlerBuilder.Services.GetRequiredService<CookieContainer>();
+                                    }
+                                });
 
         return httpClientBuilder;
     }
