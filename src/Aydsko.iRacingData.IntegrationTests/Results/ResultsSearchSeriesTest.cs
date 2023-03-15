@@ -3,7 +3,7 @@
 
 namespace Aydsko.iRacingData.IntegrationTests.Results;
 
-public class ResultsSearchSeriesTest : BaseIntegrationFixture
+internal class ResultsSearchSeriesTest : DataClientIntegrationFixture
 {
     [Test]
     public async Task GivenValidSearchParametersTheCorrectResultIsReturned()
@@ -19,10 +19,13 @@ public class ResultsSearchSeriesTest : BaseIntegrationFixture
 
         var searchResults = await Client.SearchOfficialResultsAsync(searchParameters).ConfigureAwait(false);
 
-        Assert.That(searchResults, Is.Not.Null);
-        Assert.That(searchResults.Data.Header, Is.Not.Null);
-        Assert.That(searchResults.Data.Items, Is.Not.Null.Or.Empty);
-        Assert.That(searchResults.Data.Items, Has.Length.EqualTo(10));
+        Assert.Multiple(() =>
+        {
+            Assert.That(searchResults, Is.Not.Null);
+            Assert.That(searchResults.Data.Header, Is.Not.Null);
+            Assert.That(searchResults.Data.Items, Is.Not.Null.Or.Empty);
+            Assert.That(searchResults.Data.Items, Has.Length.EqualTo(10));
+        });
     }
 
     [Test]
@@ -40,11 +43,14 @@ public class ResultsSearchSeriesTest : BaseIntegrationFixture
 
         var searchResults = await Client.SearchOfficialResultsAsync(searchParameters).ConfigureAwait(false);
 
-        Assert.That(searchResults, Is.Not.Null);
-        Assert.That(searchResults.Data.Header, Is.Not.Null);
-        Assert.That(searchResults.Data.Header.Data.Success, Is.True);
+        Assert.Multiple(() =>
+        {
+            Assert.That(searchResults, Is.Not.Null);
+            Assert.That(searchResults.Data.Header, Is.Not.Null);
+            Assert.That(searchResults.Data.Header.Data.Success, Is.True);
 
-        Assert.That(searchResults.Data.Items, Is.Not.Null);
-        Assert.That(searchResults.Data.Items, Has.Length.EqualTo(0));
+            Assert.That(searchResults.Data.Items, Is.Not.Null);
+            Assert.That(searchResults.Data.Items, Has.Length.EqualTo(0));
+        });
     }
 }

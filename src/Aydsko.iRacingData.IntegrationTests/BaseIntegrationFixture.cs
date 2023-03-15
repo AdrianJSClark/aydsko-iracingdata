@@ -5,23 +5,25 @@ using System.Net;
 using Aydsko.iRacingData.IntegrationTests.Member;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 
 namespace Aydsko.iRacingData.IntegrationTests;
 
 [Category("Integration")]
-public class BaseIntegrationFixture : IDisposable
+public abstract class BaseIntegrationFixture<TClient> : IDisposable
+    where TClient : IDataClient
 {
-    private IConfigurationRoot _configuration;
-    private CookieContainer _cookieContainer;
-    private HttpClientHandler _handler;
-    private HttpClient _httpClient;
-    private MemoryCache _memoryCache;
+    protected IConfigurationRoot _configuration;
+    protected CookieContainer _cookieContainer;
+    protected HttpClientHandler _handler;
+    protected HttpClient _httpClient;
+    protected MemoryCache _memoryCache;
 
-    internal DataClient Client { get; private set; }
+    internal TClient Client { get; set; }
+
     protected IConfigurationRoot Configuration => _configuration;
 
-    [OneTimeSetUp]
-    public void OneTimeSetUp()
+    protected iRacingDataClientOptions BaseSetUp()
     {
         _configuration = new ConfigurationBuilder()
                                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
@@ -39,17 +41,13 @@ public class BaseIntegrationFixture : IDisposable
         };
         _httpClient = new HttpClient(_handler);
 
-        var options = new iRacingDataClientOptions
+        return new iRacingDataClientOptions
         {
             UserAgentProductName = "Aydsko.iRacingData.IntegrationTests",
             UserAgentProductVersion = typeof(MemberInfoTest).Assembly.GetName().Version,
             Username = _configuration["iRacingData:Username"],
             Password = _configuration["iRacingData:Password"]
         };
-
-        _memoryCache = new MemoryCache(new MemoryCacheOptions());
-
-        Client = new CachingDataClient(_httpClient, new TestLogger<CachingDataClient>(), options, _cookieContainer, _memoryCache);
     }
 
     public void Dispose()
