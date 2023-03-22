@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT license.
 
 using System.Net;
-using System.Net.Http.Headers;
 using System.Text.Json.Serialization.Metadata;
 using Microsoft.Extensions.Caching.Memory;
 
@@ -24,27 +23,28 @@ internal class CachingDataClient : DataClient
         this.memoryCache = memoryCache;
     }
 
-    async protected override Task<(HttpResponseHeaders Headers, TData Data, DateTimeOffset? Expires)> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri,
-                                                                                                                                      JsonTypeInfo<TData> jsonTypeInfo,
-                                                                                                                                      CancellationToken cancellationToken)
+    protected override async Task<DataResponse<TData>> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri,
+                                                                                             JsonTypeInfo<TData> jsonTypeInfo,
+                                                                                             CancellationToken cancellationToken)
     {
         var isHit = true;
+
         var result = await memoryCache.GetOrCreateAsync(infoLinkUri, async ce =>
         {
             isHit = false;
             var response = await base.CreateResponseViaInfoLinkAsync(infoLinkUri, jsonTypeInfo, cancellationToken)
                                      .ConfigureAwait(false);
 
-            if (response.Expires is not null)
+            if (response.DataExpires is not null)
             {
-                ce.SetAbsoluteExpiration((DateTimeOffset)response.Expires!);
+                ce.SetAbsoluteExpiration((DateTimeOffset)response.DataExpires!);
             }
 
             return response;
         }).ConfigureAwait(false);
 
-        logger.LogInformation("Cache status for {Url} is {HitStatus}", infoLinkUri, isHit);
+        logger.TraceCacheHitOrMiss(infoLinkUri, isHit);
 
-        return result;
+        return result!;
     }
 }

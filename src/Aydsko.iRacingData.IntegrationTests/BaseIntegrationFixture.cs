@@ -3,9 +3,7 @@
 
 using System.Net;
 using Aydsko.iRacingData.IntegrationTests.Member;
-using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Logging;
 
 namespace Aydsko.iRacingData.IntegrationTests;
 
@@ -13,40 +11,37 @@ namespace Aydsko.iRacingData.IntegrationTests;
 public abstract class BaseIntegrationFixture<TClient> : IDisposable
     where TClient : IDataClient
 {
-    protected IConfigurationRoot _configuration;
-    protected CookieContainer _cookieContainer;
-    protected HttpClientHandler _handler;
-    protected HttpClient _httpClient;
-    protected MemoryCache _memoryCache;
+    protected IConfigurationRoot Configuration { get; set; } = default!;
+    protected CookieContainer CookieContainer { get; set; } = default!;
+    protected HttpClientHandler Handler { get; set; } = default!;
+    protected HttpClient HttpClient { get; set; } = default!;
 
-    internal TClient Client { get; set; }
-
-    protected IConfigurationRoot Configuration => _configuration;
+    internal TClient Client { get; set; } = default!;
 
     protected iRacingDataClientOptions BaseSetUp()
     {
-        _configuration = new ConfigurationBuilder()
+        Configuration = new ConfigurationBuilder()
                                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
                                 .AddJsonFile("appsettings.json", false)
                                 .AddUserSecrets(typeof(MemberInfoTest).Assembly)
                                 .AddEnvironmentVariables("IRACINGDATA_")
                                 .Build();
 
-        _cookieContainer = new CookieContainer();
-        _handler = new HttpClientHandler()
+        CookieContainer = new CookieContainer();
+        Handler = new HttpClientHandler()
         {
-            CookieContainer = _cookieContainer,
+            CookieContainer = CookieContainer,
             UseCookies = true,
             CheckCertificateRevocationList = true
         };
-        _httpClient = new HttpClient(_handler);
+        HttpClient = new HttpClient(Handler);
 
         return new iRacingDataClientOptions
         {
             UserAgentProductName = "Aydsko.iRacingData.IntegrationTests",
             UserAgentProductVersion = typeof(MemberInfoTest).Assembly.GetName().Version,
-            Username = _configuration["iRacingData:Username"],
-            Password = _configuration["iRacingData:Password"]
+            Username = Configuration["iRacingData:Username"],
+            Password = Configuration["iRacingData:Password"]
         };
     }
 
@@ -60,14 +55,11 @@ public abstract class BaseIntegrationFixture<TClient> : IDisposable
     {
         if (disposing)
         {
-            (_httpClient as IDisposable)?.Dispose();
-            _httpClient = null!;
+            (HttpClient as IDisposable)?.Dispose();
+            HttpClient = null!;
 
-            (_handler as IDisposable)?.Dispose();
-            _handler = null!;
-
-            (_memoryCache as IDisposable)?.Dispose();
-            _memoryCache = null!;
+            (Handler as IDisposable)?.Dispose();
+            Handler = null!;
         }
     }
 }

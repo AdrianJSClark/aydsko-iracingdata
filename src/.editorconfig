@@ -87,7 +87,7 @@ dotnet_style_require_accessibility_modifiers = for_non_interface_members:suggest
 #Style - Modifier preferences
 
 #when this rule is set to a list of modifiers, prefer the specified ordering.
-csharp_preferred_modifier_order = public,private,async,static,readonly:suggestion
+#csharp_preferred_modifier_order = public,private,async,static,readonly:suggestion
 
 #Style - Pattern matching
 
@@ -139,6 +139,10 @@ csharp_style_prefer_parameter_null_checking = false:suggestion
 csharp_style_prefer_top_level_statements = true:silent
 csharp_space_around_binary_operators = before_and_after
 csharp_style_prefer_utf8_string_literals = true:suggestion
+csharp_style_prefer_readonly_struct = true:suggestion
+csharp_style_prefer_readonly_struct_member = true:suggestion
+csharp_style_allow_blank_line_after_token_in_conditional_expression_experimental = true:silent
+csharp_style_allow_blank_line_after_token_in_arrow_expression_clause_experimental = true:silent
 
 [*.{cs,vb}]
 dotnet_style_operator_placement_when_wrapping = beginning_of_line

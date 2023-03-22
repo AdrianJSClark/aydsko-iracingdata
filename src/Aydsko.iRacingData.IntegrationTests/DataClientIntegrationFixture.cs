@@ -9,6 +9,6 @@ internal class DataClientIntegrationFixture : BaseIntegrationFixture<DataClient>
     public void OneTimeSetUp()
     {
         var options = BaseSetUp();
-        Client = new DataClient(_httpClient, new TestLogger<DataClient>(), options, _cookieContainer);
+        Client = new DataClient(HttpClient, new TestLogger<DataClient>(), options, CookieContainer);
     }
 }

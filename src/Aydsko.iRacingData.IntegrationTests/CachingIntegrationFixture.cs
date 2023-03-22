@@ -7,13 +7,21 @@ namespace Aydsko.iRacingData.IntegrationTests;
 
 internal class CachingIntegrationFixture : BaseIntegrationFixture<CachingDataClient>
 {
+    protected IMemoryCache MemoryCache { get; private set; } = default!;
+
     [OneTimeSetUp]
     public void OneTimeSetUp()
     {
         var options = BaseSetUp();
 
-        _memoryCache = new MemoryCache(new MemoryCacheOptions());
+        MemoryCache = new MemoryCache(new MemoryCacheOptions());
 
-        Client = new CachingDataClient(_httpClient, new TestLogger<CachingDataClient>(), options, _cookieContainer, _memoryCache);
+        Client = new CachingDataClient(HttpClient, new TestLogger<CachingDataClient>(), options, CookieContainer, MemoryCache);
+    }
+
+    [OneTimeTearDown]
+    public void OneTimeTearDown()
+    {
+        MemoryCache.Dispose();
     }
 }
