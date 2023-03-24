@@ -14,7 +14,7 @@ internal class CachingIntegrationFixture : BaseIntegrationFixture<CachingDataCli
     {
         var options = BaseSetUp();
 
-        MemoryCache = new MemoryCache(new MemoryCacheOptions());
+        MemoryCache = new MemoryCache(new MemoryCacheOptions() { TrackStatistics = true });
 
         Client = new CachingDataClient(HttpClient, new TestLogger<CachingDataClient>(), options, CookieContainer, MemoryCache);
     }

@@ -21,5 +21,12 @@ internal class CachingLookupTests : CachingIntegrationFixture
         Assert.That(clubHistory2.Data, Is.Not.Null);
 
         Assert.That(clubHistory2.Data, Has.Length.EqualTo(42));
+
+        var stats = MemoryCache.GetCurrentStatistics();
+        Assert.Multiple(() =>
+        {
+            Assert.That(stats?.TotalHits, Is.Not.Null.And.EqualTo(1));
+            Assert.That(stats?.TotalMisses, Is.Not.Null.And.EqualTo(1));
+        });
     }
 }
