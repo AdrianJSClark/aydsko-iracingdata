@@ -11,6 +11,26 @@ namespace Aydsko.iRacingData;
 
 public static class ServicesExtensions
 {
+    /// <summary>Add required types for iRacing Data API to the service collection.</summary>
+    /// <param name="services">The service collection to configure.</param>
+    /// <returns>The service collection for further configuration.</returns>
+    /// <exception cref="ArgumentNullException">One of the arguments is <see langword="null"/>.</exception>
+    public static IServiceCollection AddIRacingDataApi(this IServiceCollection services)
+    {
+        if (services is null)
+        {
+            throw new ArgumentNullException(nameof(services));
+        }
+
+        services.AddIRacingDataApiInternal(null, false);
+        return services;
+    }
+
+    /// <summary>Add required types for iRacing Data API to the service collection.</summary>
+    /// <param name="services">The service collection to configure.</param>
+    /// <param name="configureOptions">Action to configure the options for the API client.</param>
+    /// <returns>The service collection for further configuration.</returns>
+    /// <exception cref="ArgumentNullException">One of the arguments is <see langword="null"/>.</exception>
     public static IServiceCollection AddIRacingDataApi(this IServiceCollection services, Action<iRacingDataClientOptions> configureOptions)
     {
         if (services is null)
@@ -27,6 +47,26 @@ public static class ServicesExtensions
         return services;
     }
 
+    /// <summary>Add required types for iRacing Data API with caching enabled to the service collection.</summary>
+    /// <param name="services">The service collection to configure.</param>
+    /// <returns>The service collection for further configuration.</returns>
+    /// <exception cref="ArgumentNullException">One of the arguments is <see langword="null"/>.</exception>
+    public static IServiceCollection AddIRacingDataApiWithCaching(this IServiceCollection services)
+    {
+        if (services is null)
+        {
+            throw new ArgumentNullException(nameof(services));
+        }
+
+        services.AddIRacingDataApiInternal(null, true);
+        return services;
+    }
+
+    /// <summary>Add required types for iRacing Data API with caching enabled to the service collection.</summary>
+    /// <param name="services">The service collection to configure.</param>
+    /// <param name="configureOptions">Action to configure the options for the API client.</param>
+    /// <returns>The service collection for further configuration.</returns>
+    /// <exception cref="ArgumentNullException">One of the arguments is <see langword="null"/>.</exception>
     public static IServiceCollection AddIRacingDataApiWithCaching(this IServiceCollection services, Action<iRacingDataClientOptions> configureOptions)
     {
         if (services is null)
@@ -44,7 +84,7 @@ public static class ServicesExtensions
     }
 
     static internal IHttpClientBuilder AddIRacingDataApiInternal(this IServiceCollection services,
-                                                                 Action<iRacingDataClientOptions> configureOptions,
+                                                                 Action<iRacingDataClientOptions>? configureOptions,
                                                                  bool includeCaching)
     {
         if (services is null)
@@ -52,13 +92,11 @@ public static class ServicesExtensions
             throw new ArgumentNullException(nameof(services));
         }
 
-        configureOptions ??= opt => { };
-
         services.TryAddSingleton(new CookieContainer());
         services.TryAddTransient<TrackScreenshotService>();
 
         var options = new iRacingDataClientOptions();
-        configureOptions(options);
+        configureOptions?.Invoke(options);
         services.AddSingleton(options);
 
         var userAgentValue = CreateUserAgentValue(options);
