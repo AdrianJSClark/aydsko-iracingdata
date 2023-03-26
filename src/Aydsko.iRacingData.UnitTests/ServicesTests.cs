@@ -21,7 +21,7 @@ public class ServicesTests
         {
             options.Username = "test.user@example.com";
             options.Password = "SuperSecretPassword";
-        }).ConfigurePrimaryHttpMessageHandler(services => messageHandler);
+        }, false).ConfigurePrimaryHttpMessageHandler(services => messageHandler);
 
         using var provider = services.BuildServiceProvider();
         using var scope = provider.CreateScope();
@@ -55,7 +55,7 @@ public class ServicesTests
             options.Password = "SuperSecretPassword";
             options.UserAgentProductName = "UserAgentTest";
             options.UserAgentProductVersion = new(1, 0);
-        }).ConfigurePrimaryHttpMessageHandler(services => messageHandler);
+        }, false).ConfigurePrimaryHttpMessageHandler(services => messageHandler);
 
         using var provider = services.BuildServiceProvider();
         using var scope = provider.CreateScope();

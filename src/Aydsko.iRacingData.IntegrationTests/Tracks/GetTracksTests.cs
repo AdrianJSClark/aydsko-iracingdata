@@ -1,8 +1,12 @@
-﻿using Aydsko.iRacingData.Tracks;
+﻿// © 2023 Adrian Clark
+// This file is licensed to you under the MIT license.
+
+using Aydsko.iRacingData.Tracks;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Aydsko.iRacingData.IntegrationTests.Tracks;
 
-public class GetTracksTests : BaseIntegrationFixture
+internal class GetTracksTests : DataClientIntegrationFixture
 {
     private Track[] tracksData;
 

@@ -81,9 +81,9 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var carAssetDetailsUrl = new Uri("https://members-ng.iracing.com/data/car/assets");
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(carAssetDetailsUrl, CarAssetDetailDictionaryContext.Default.IReadOnlyDictionaryStringCarAssetDetail, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/car/assets"),
+                                                    CarAssetDetailDictionaryContext.Default.IReadOnlyDictionaryStringCarAssetDetail,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -94,9 +94,9 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var carInfoUrl = new Uri("https://members-ng.iracing.com/data/car/get");
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(carInfoUrl, CarInfoArrayContext.Default.CarInfoArray, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/car/get"),
+                                                    CarInfoArrayContext.Default.CarInfoArray,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -108,8 +108,7 @@ internal class DataClient : IDataClient
         }
 
         var carClassUrl = new Uri("https://members-ng.iracing.com/data/carclass/get");
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(carClassUrl, CarClassArrayContext.Default.CarClassArray, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(carClassUrl, CarClassArrayContext.Default.CarClassArray, cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -138,13 +137,12 @@ internal class DataClient : IDataClient
         }
 
         var constantsDivisionsUrl = new Uri("https://members-ng.iracing.com/data/constants/categories");
-        var constantsDivisionsResponse = await httpClient.GetAsync(constantsDivisionsUrl, cancellationToken).ConfigureAwait(false);
+        var constantsDivisionsResponse = await httpClient.GetAsync(constantsDivisionsUrl, cancellationToken)
+                                                         .ConfigureAwait(false);
 
-        var data = await constantsDivisionsResponse.Content.ReadFromJsonAsync(CategoryArrayContext.Default.CategoryArray, cancellationToken).ConfigureAwait(false);
-        if (data is null)
-        {
-            throw new iRacingDataClientException("Data not found.");
-        }
+        var data = await constantsDivisionsResponse.Content.ReadFromJsonAsync(CategoryArrayContext.Default.CategoryArray, cancellationToken)
+                                                           .ConfigureAwait(false)
+                                                           ?? throw new iRacingDataClientException("Data not found.");
 
         return BuildDataResponse(constantsDivisionsResponse.Headers, data, logger)!;
     }
@@ -160,11 +158,9 @@ internal class DataClient : IDataClient
         var constantsDivisionsUrl = new Uri("https://members-ng.iracing.com/data/constants/event_types");
         var constantsDivisionsResponse = await httpClient.GetAsync(constantsDivisionsUrl, cancellationToken).ConfigureAwait(false);
 
-        var data = await constantsDivisionsResponse.Content.ReadFromJsonAsync(EventTypeArrayContext.Default.EventTypeArray, cancellationToken).ConfigureAwait(false);
-        if (data is null)
-        {
-            throw new iRacingDataClientException("Data not found.");
-        }
+        var data = await constantsDivisionsResponse.Content.ReadFromJsonAsync(EventTypeArrayContext.Default.EventTypeArray, cancellationToken)
+                                                           .ConfigureAwait(false)
+                                                           ?? throw new iRacingDataClientException("Data not found.");
 
         return BuildDataResponse(constantsDivisionsResponse.Headers, data, logger)!;
     }
@@ -177,18 +173,18 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var queryUrl = "https://members-ng.iracing.com/data/hosted/combined_sessions";
+        var queryParameters = new Dictionary<string, string>();
 
         if (packageId is not null)
         {
-            queryUrl = QueryHelpers.AddQueryString(queryUrl, new Dictionary<string, string>
-            {
-                ["package_id"] = packageId.Value.ToString(CultureInfo.InvariantCulture)
-            });
+            queryParameters.Add("package_id", packageId.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), CombinedSessionsResultContext.Default.CombinedSessionsResult, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        var queryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/hosted/combined_sessions", queryParameters);
+
+        return await CreateResponseViaInfoLinkAsync(new Uri(queryUrl),
+                                                    CombinedSessionsResultContext.Default.CombinedSessionsResult,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -199,10 +195,9 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var queryUrl = "https://members-ng.iracing.com/data/hosted/sessions";
-
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), HostedSessionsResultContext.Default.HostedSessionsResult, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/hosted/sessions"),
+                                                    HostedSessionsResultContext.Default.HostedSessionsResult,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -213,14 +208,17 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var getTrackUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/get", new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["league_id"] = leagueId.ToString(CultureInfo.InvariantCulture),
             ["include_licenses"] = includeLicenses.ToString(),
-        });
+        };
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(getTrackUrl), LeagueContext.Default.League, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        var getLeagueUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/get", queryParameters);
+
+        return await CreateResponseViaInfoLinkAsync(new Uri(getLeagueUrl),
+                                                    LeagueContext.Default.League,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -230,22 +228,20 @@ internal class DataClient : IDataClient
         {
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
-        var queryUrl = "https://members-ng.iracing.com/data/league/get_points_systems";
 
-        var queryParams = new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["league_id"] = leagueId.ToString(CultureInfo.InvariantCulture),
         };
 
-        if (seasonId is int seasonIdValue)
+        if (seasonId is not null)
         {
-            queryParams.Add("season_id", seasonIdValue.ToString(CultureInfo.InvariantCulture));
+            queryParameters.Add("season_id", seasonId.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        queryUrl = QueryHelpers.AddQueryString(queryUrl, queryParams);
+        var queryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/get_points_systems", queryParameters);
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), LeagePointsSystemsContext.Default.LeagePointsSystems, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), LeagePointsSystemsContext.Default.LeagePointsSystems, cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -256,9 +252,9 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var lookupsUrl = new Uri("https://members-ng.iracing.com/data/lookup/get?weather=weather_wind_speed_units&weather=weather_wind_speed_max&weather=weather_wind_speed_min&licenselevels=licenselevels");
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(lookupsUrl, LookupGroupArrayContext.Default.LookupGroupArray, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/lookup/get?weather=weather_wind_speed_units&weather=weather_wind_speed_max&weather=weather_wind_speed_min&licenselevels=licenselevels"),
+                                                    LookupGroupArrayContext.Default.LookupGroupArray,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -269,15 +265,17 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var queryParams = new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["season_year"] = seasonYear.ToString(CultureInfo.InvariantCulture),
             ["season_quarter"] = seasonQuarter.ToString(CultureInfo.InvariantCulture),
         };
 
-        var queryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/lookup/club_history", queryParams);
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), ClubHistoryLookupArrayContext.Default.ClubHistoryLookupArray, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        var queryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/lookup/club_history", queryParameters);
+
+        return await CreateResponseViaInfoLinkAsync(new Uri(queryUrl),
+                                                    ClubHistoryLookupArrayContext.Default.ClubHistoryLookupArray,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -288,19 +286,21 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var queryParams = new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["search_term"] = searchTerm
         };
 
         if (leagueId is not null)
         {
-            queryParams.Add("league_id", leagueId.Value.ToString(CultureInfo.InvariantCulture));
+            queryParameters.Add("league_id", leagueId.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        var queryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/lookup/drivers", queryParams);
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), DriverSearchResultContext.Default.DriverSearchResultArray, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        var queryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/lookup/drivers", queryParameters);
+
+        return await CreateResponseViaInfoLinkAsync(new Uri(queryUrl),
+                                                    DriverSearchResultContext.Default.DriverSearchResultArray,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -311,9 +311,9 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var licenseUrl = new Uri("https://members-ng.iracing.com/data/lookup/licenses");
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(licenseUrl, LicenseLookupArrayContext.Default.LicenseLookupArray, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/lookup/licenses"),
+                                                    LicenseLookupArrayContext.Default.LicenseLookupArray,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -329,14 +329,26 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var driverInfoRequestUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/member/get", new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["cust_ids"] = string.Join(",", customerIds),
             ["include_licenses"] = includeLicenses ? "true" : "false",
-        });
+        };
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(driverInfoRequestUrl), DriverInfoResponseContext.Default.DriverInfoResponse, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data.Drivers, logger, expires);
+        var driverInfoRequestUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/member/get", queryParameters);
+
+        var driverInfoResponse = await CreateResponseViaInfoLinkAsync(new Uri(driverInfoRequestUrl),
+                                                                      DriverInfoResponseContext.Default.DriverInfoResponse,
+                                                                      cancellationToken).ConfigureAwait(false);
+
+        return new DataResponse<DriverInfo[]>
+        {
+            Data = driverInfoResponse.Data.Drivers,
+            DataExpires = driverInfoResponse.DataExpires,
+            RateLimitRemaining = driverInfoResponse.RateLimitRemaining,
+            RateLimitReset = driverInfoResponse.RateLimitReset,
+            TotalRateLimit = driverInfoResponse.TotalRateLimit
+        };
     }
 
     /// <inheritdoc />
@@ -347,18 +359,18 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var queryUrl = "https://members-ng.iracing.com/data/member/awards";
+        var queryParameters = new Dictionary<string, string>();
 
         if (customerId is not null)
         {
-            queryUrl = QueryHelpers.AddQueryString(queryUrl, new Dictionary<string, string>
-            {
-                ["cust_id"] = customerId.Value.ToString(CultureInfo.InvariantCulture),
-            });
+            queryParameters.Add("cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture));
         };
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), MemberAwardArrayContext.Default.MemberAwardArray, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        var queryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/member/awards", queryParameters);
+
+        return await CreateResponseViaInfoLinkAsync(new Uri(queryUrl),
+                                                    MemberAwardArrayContext.Default.MemberAwardArray,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -368,9 +380,10 @@ internal class DataClient : IDataClient
         {
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
-        var memberInfoUrl = new Uri("https://members-ng.iracing.com/data/member/info");
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(memberInfoUrl, MemberInfoContext.Default.MemberInfo, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+
+        return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/member/info"),
+                                                    MemberInfoContext.Default.MemberInfo,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -380,17 +393,18 @@ internal class DataClient : IDataClient
         {
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
+        var queryParameters = new Dictionary<string, string>();
 
-        var memberProfileUrl = "https://members-ng.iracing.com/data/member/profile";
         if (customerId is not null)
         {
-            memberProfileUrl = QueryHelpers.AddQueryString(memberProfileUrl, new Dictionary<string, string>
-            {
-                ["cust_id"] = customerId.Value.ToString(CultureInfo.InvariantCulture),
-            });
+            queryParameters.Add("cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture));
         }
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(memberProfileUrl), MemberProfileContext.Default.MemberProfile, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+
+        var memberProfileUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/member/profile", queryParameters);
+
+        return await CreateResponseViaInfoLinkAsync(new Uri(memberProfileUrl),
+                                                    MemberProfileContext.Default.MemberProfile,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -401,14 +415,17 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var subSessionResultUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/get", new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["subsession_id"] = subSessionId.ToString(CultureInfo.InvariantCulture),
             ["include_licenses"] = includeLicenses ? "true" : "false",
-        });
+        };
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionResultUrl), SubSessionResultContext.Default.SubSessionResult, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        var subSessionResultUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/get", queryParameters);
+
+        return await CreateResponseViaInfoLinkAsync(new Uri(subSessionResultUrl),
+                                                    SubSessionResultContext.Default.SubSessionResult,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -419,28 +436,32 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/lap_chart_data", new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["subsession_id"] = subSessionId.ToString(CultureInfo.InvariantCulture),
             ["simsession_number"] = simSessionNumber.ToString(CultureInfo.InvariantCulture),
-        });
+        };
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SubsessionLapsHeaderContext.Default.SubsessionLapsHeader, cancellationToken).ConfigureAwait(false);
+        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/lap_chart_data", queryParameters);
+
+        var intermediateResponse = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl),
+                                                                        SubsessionLapsHeaderContext.Default.SubsessionLapsHeader,
+                                                                        cancellationToken).ConfigureAwait(false);
 
         var sessionLapsList = new List<SubsessionChartLap>();
 
-        if (data.ChunkInfo.NumberOfChunks > 0)
+        if (intermediateResponse.Data.ChunkInfo.NumberOfChunks > 0)
         {
-            var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
+            var baseChunkUrl = new Uri(intermediateResponse.Data.ChunkInfo.BaseDownloadUrl);
 
-            foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
+            foreach (var (chunkFileName, index) in intermediateResponse.Data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
             {
                 var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
                 var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
                 if (!chunkResponse.IsSuccessStatusCode)
                 {
-                    logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    logger.FailedToRetrieveChunkError(index, intermediateResponse.Data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                     continue;
                 }
 
@@ -454,7 +475,14 @@ internal class DataClient : IDataClient
             }
         }
 
-        return BuildDataResponse<(SubsessionLapsHeader Header, SubsessionChartLap[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger, expires);
+        return new DataResponse<(SubsessionLapsHeader Header, SubsessionChartLap[] Laps)>
+        {
+            Data = (intermediateResponse.Data, sessionLapsList.ToArray()),
+            DataExpires = intermediateResponse.DataExpires,
+            RateLimitRemaining = intermediateResponse.RateLimitRemaining,
+            RateLimitReset = intermediateResponse.RateLimitReset,
+            TotalRateLimit = intermediateResponse.TotalRateLimit
+        };
     }
 
     /// <inheritdoc />
@@ -465,28 +493,32 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/event_log", new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["subsession_id"] = subSessionId.ToString(CultureInfo.InvariantCulture),
             ["simsession_number"] = simSessionNumber.ToString(CultureInfo.InvariantCulture),
-        });
+        };
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SubsessionEventLogHeaderContext.Default.SubsessionEventLogHeader, cancellationToken).ConfigureAwait(false);
+        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/event_log", queryParameters);
+
+        var intermediateResponse = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl),
+                                                                        SubsessionEventLogHeaderContext.Default.SubsessionEventLogHeader,
+                                                                        cancellationToken).ConfigureAwait(false);
 
         var sessionLapsList = new List<SubsessionEventLogItem>();
 
-        if (data.ChunkInfo.NumberOfChunks > 0)
+        if (intermediateResponse.Data.ChunkInfo.NumberOfChunks > 0)
         {
-            var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
+            var baseChunkUrl = new Uri(intermediateResponse.Data.ChunkInfo.BaseDownloadUrl);
 
-            foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
+            foreach (var (chunkFileName, index) in intermediateResponse.Data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
             {
                 var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
                 var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
                 if (!chunkResponse.IsSuccessStatusCode)
                 {
-                    logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    logger.FailedToRetrieveChunkError(index, intermediateResponse.Data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                     continue;
                 }
 
@@ -500,7 +532,14 @@ internal class DataClient : IDataClient
             }
         }
 
-        return BuildDataResponse<(SubsessionEventLogHeader Header, SubsessionEventLogItem[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger, expires);
+        return new DataResponse<(SubsessionEventLogHeader Header, SubsessionEventLogItem[] Laps)>
+        {
+            Data = (intermediateResponse.Data, sessionLapsList.ToArray()),
+            DataExpires = intermediateResponse.DataExpires,
+            RateLimitRemaining = intermediateResponse.RateLimitRemaining,
+            RateLimitReset = intermediateResponse.RateLimitReset,
+            TotalRateLimit = intermediateResponse.TotalRateLimit
+        };
     }
 
     /// <inheritdoc />
@@ -511,9 +550,9 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var seriesUrl = new Uri("https://members-ng.iracing.com/data/series/get");
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(seriesUrl, SeriesDetailArrayContext.Default.SeriesDetailArray, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/series/get"),
+                                                    SeriesDetailArrayContext.Default.SeriesDetailArray,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -524,9 +563,9 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var seriesUrl = new Uri("https://members-ng.iracing.com/data/series/assets");
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(seriesUrl, SeriesAssetReadOnlyDictionaryContext.Default.IReadOnlyDictionaryStringSeriesAsset, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/series/assets"),
+                                                    SeriesAssetReadOnlyDictionaryContext.Default.IReadOnlyDictionaryStringSeriesAsset,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -537,29 +576,33 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/lap_data", new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["subsession_id"] = subSessionId.ToString(CultureInfo.InvariantCulture),
             ["simsession_number"] = simSessionNumber.ToString(CultureInfo.InvariantCulture),
             ["cust_id"] = customerId.ToString(CultureInfo.InvariantCulture),
-        });
+        };
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SubsessionLapsHeaderContext.Default.SubsessionLapsHeader, cancellationToken).ConfigureAwait(false);
+        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/lap_data", queryParameters);
+
+        var intermediateResponse = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl),
+                                                                        SubsessionLapsHeaderContext.Default.SubsessionLapsHeader,
+                                                                        cancellationToken).ConfigureAwait(false);
 
         var sessionLapsList = new List<SubsessionLap>();
 
-        if (data.ChunkInfo.NumberOfChunks > 0)
+        if (intermediateResponse.Data.ChunkInfo.NumberOfChunks > 0)
         {
-            var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
+            var baseChunkUrl = new Uri(intermediateResponse.Data.ChunkInfo.BaseDownloadUrl);
 
-            foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
+            foreach (var (chunkFileName, index) in intermediateResponse.Data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
             {
                 var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
                 var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
                 if (!chunkResponse.IsSuccessStatusCode)
                 {
-                    logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    logger.FailedToRetrieveChunkError(index, intermediateResponse.Data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                     continue;
                 }
 
@@ -573,7 +616,14 @@ internal class DataClient : IDataClient
             }
         }
 
-        return BuildDataResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger, expires);
+        return new DataResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>
+        {
+            Data = (intermediateResponse.Data, sessionLapsList.ToArray()),
+            DataExpires = intermediateResponse.DataExpires,
+            RateLimitRemaining = intermediateResponse.RateLimitRemaining,
+            RateLimitReset = intermediateResponse.RateLimitReset,
+            TotalRateLimit = intermediateResponse.TotalRateLimit
+        };
     }
 
     /// <inheritdoc />
@@ -584,29 +634,33 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/lap_data", new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["subsession_id"] = subSessionId.ToString(CultureInfo.InvariantCulture),
             ["simsession_number"] = simSessionNumber.ToString(CultureInfo.InvariantCulture),
             ["team_id"] = teamId.ToString(CultureInfo.InvariantCulture),
-        });
+        };
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SubsessionLapsHeaderContext.Default.SubsessionLapsHeader, cancellationToken).ConfigureAwait(false);
+        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/lap_data", queryParameters);
+
+        var intermediateResponse = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl),
+                                                                        SubsessionLapsHeaderContext.Default.SubsessionLapsHeader,
+                                                                        cancellationToken).ConfigureAwait(false);
 
         var sessionLapsList = new List<SubsessionLap>();
 
-        if (data.ChunkInfo.NumberOfChunks > 0)
+        if (intermediateResponse.Data.ChunkInfo.NumberOfChunks > 0)
         {
-            var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
+            var baseChunkUrl = new Uri(intermediateResponse.Data.ChunkInfo.BaseDownloadUrl);
 
-            foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
+            foreach (var (chunkFileName, index) in intermediateResponse.Data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
             {
                 var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
                 var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
                 if (!chunkResponse.IsSuccessStatusCode)
                 {
-                    logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    logger.FailedToRetrieveChunkError(index, intermediateResponse.Data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                     continue;
                 }
 
@@ -620,7 +674,14 @@ internal class DataClient : IDataClient
             }
         }
 
-        return BuildDataResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger, expires);
+        return new DataResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>
+        {
+            Data = (intermediateResponse.Data, sessionLapsList.ToArray()),
+            DataExpires = intermediateResponse.DataExpires,
+            RateLimitRemaining = intermediateResponse.RateLimitRemaining,
+            RateLimitReset = intermediateResponse.RateLimitReset,
+            TotalRateLimit = intermediateResponse.TotalRateLimit
+        };
     }
 
     /// <inheritdoc />
@@ -631,13 +692,17 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var memberDivisionUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/member_division", new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["event_type"] = eventType.ToString("D"),
-        });
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(memberDivisionUrl), MemberDivisionContext.Default.MemberDivision, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        };
+
+        var memberDivisionUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/member_division", queryParameters);
+
+        return await CreateResponseViaInfoLinkAsync(new Uri(memberDivisionUrl),
+                                                    MemberDivisionContext.Default.MemberDivision,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -648,8 +713,9 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/stats/member_yearly"), MemberYearlyStatisticsContext.Default.MemberYearlyStatistics, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/stats/member_yearly"),
+                                                    MemberYearlyStatisticsContext.Default.MemberYearlyStatistics,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -662,7 +728,6 @@ internal class DataClient : IDataClient
 
         var parameters = new Dictionary<string, string>
         {
-            //["cust_id"] = customerId.ToString(CultureInfo.InvariantCulture),
             ["category_id"] = categoryId.ToString(CultureInfo.InvariantCulture),
             ["chart_type"] = chartType.ToString("D"),
         };
@@ -674,8 +739,7 @@ internal class DataClient : IDataClient
 
         var memberChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/member/chart_data", parameters);
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(memberChartUrl), MemberChartContext.Default.MemberChart, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri(memberChartUrl), MemberChartContext.Default.MemberChart, cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -686,33 +750,35 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var queryParams = new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["car_id"] = carId.ToString(CultureInfo.InvariantCulture),
             ["track_id"] = trackId.ToString(CultureInfo.InvariantCulture),
         };
 
-        if (seasonYear is int seasonYearValue)
+        if (seasonYear is not null)
         {
-            queryParams.Add("season_year", seasonYearValue.ToString(CultureInfo.InvariantCulture));
+            queryParameters.Add("season_year", seasonYear.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        if (seasonQuarter is int seasonQuarterValue)
+        if (seasonQuarter is not null)
         {
             if (seasonYear is null)
             {
                 throw new ArgumentException($"Must supply a value for \"{nameof(seasonYear)}\" to use \"{nameof(seasonQuarter)}\".", nameof(seasonQuarter));
             }
-            queryParams.Add("season_quarter", seasonQuarterValue.ToString(CultureInfo.InvariantCulture));
+            queryParameters.Add("season_quarter", seasonQuarter.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        var queryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/world_records", queryParams);
+        var queryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/world_records", queryParameters);
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), WorldRecordsHeaderContext.Default.WorldRecordsHeader, cancellationToken).ConfigureAwait(false);
+        var intermediateResponse = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl),
+                                                                        WorldRecordsHeaderContext.Default.WorldRecordsHeader,
+                                                                        cancellationToken).ConfigureAwait(false);
 
         var entries = new List<WorldRecordEntry>();
 
-        if (data.Data.ChunkInfo is ChunkInfo { NumberOfChunks: > 0 } chunkInfo)
+        if (intermediateResponse.Data.Data.ChunkInfo is ChunkInfo { NumberOfChunks: > 0 } chunkInfo)
         {
             var baseChunkUrl = new Uri(chunkInfo.BaseDownloadUrl);
 
@@ -737,7 +803,14 @@ internal class DataClient : IDataClient
             }
         }
 
-        return BuildDataResponse<(WorldRecordsHeader Header, WorldRecordEntry[] Entries)>(headers, (data, entries.ToArray()), logger, expires);
+        return new DataResponse<(WorldRecordsHeader Header, WorldRecordEntry[] Entries)>
+        {
+            Data = (intermediateResponse.Data, entries.ToArray()),
+            DataExpires = intermediateResponse.DataExpires,
+            RateLimitRemaining = intermediateResponse.RateLimitRemaining,
+            RateLimitReset = intermediateResponse.RateLimitReset,
+            TotalRateLimit = intermediateResponse.TotalRateLimit
+        };
     }
 
     /// <inheritdoc />
@@ -748,15 +821,16 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var queryUrl = "https://members-ng.iracing.com/data/team/get";
-
-        queryUrl = QueryHelpers.AddQueryString(queryUrl, new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["team_id"] = teamId.ToString(CultureInfo.InvariantCulture),
-        });
+        };
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), TeamInfoContext.Default.TeamInfo, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        var queryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/team/get", queryParameters);
+
+        return await CreateResponseViaInfoLinkAsync(new Uri(queryUrl),
+                                                    TeamInfoContext.Default.TeamInfo,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -767,7 +841,7 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var queryParams = new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
@@ -775,29 +849,31 @@ internal class DataClient : IDataClient
             ["club_id"] = clubId.ToString(CultureInfo.InvariantCulture),
         };
 
-        if (division is int divisionValue)
+        if (division is not null)
         {
-            queryParams.Add("division", divisionValue.ToString(CultureInfo.InvariantCulture));
+            queryParameters.Add("division", division.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_driver_standings", queryParams);
+        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_driver_standings", queryParameters);
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonDriverStandingsHeaderContext.Default.SeasonDriverStandingsHeader, cancellationToken).ConfigureAwait(false);
+        var intermediateResponse = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl),
+                                                                        SeasonDriverStandingsHeaderContext.Default.SeasonDriverStandingsHeader,
+                                                                        cancellationToken).ConfigureAwait(false);
 
         var sessionLapsList = new List<SeasonDriverStanding>();
 
-        if (data.ChunkInfo.NumberOfChunks > 0)
+        if (intermediateResponse.Data.ChunkInfo is ChunkInfo { NumberOfChunks: > 0 } chunkInfo)
         {
-            var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
+            var baseChunkUrl = new Uri(chunkInfo.BaseDownloadUrl);
 
-            foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
+            foreach (var (chunkFileName, index) in chunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
             {
                 var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
                 var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
                 if (!chunkResponse.IsSuccessStatusCode)
                 {
-                    logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    logger.FailedToRetrieveChunkError(index, chunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                     continue;
                 }
 
@@ -811,7 +887,14 @@ internal class DataClient : IDataClient
             }
         }
 
-        return BuildDataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Laps)>(headers, (data, sessionLapsList.ToArray()), logger, expires);
+        return new DataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Laps)>
+        {
+            Data = (intermediateResponse.Data, sessionLapsList.ToArray()),
+            DataExpires = intermediateResponse.DataExpires,
+            RateLimitRemaining = intermediateResponse.RateLimitRemaining,
+            RateLimitReset = intermediateResponse.RateLimitReset,
+            TotalRateLimit = intermediateResponse.TotalRateLimit
+        };
     }
 
     /// <inheritdoc />
@@ -822,7 +905,7 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var queryParams = new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
@@ -830,29 +913,31 @@ internal class DataClient : IDataClient
             ["club_id"] = clubId.ToString(CultureInfo.InvariantCulture),
         };
 
-        if (division is int divisionValue)
+        if (division is not null)
         {
-            queryParams.Add("division", divisionValue.ToString(CultureInfo.InvariantCulture));
+            queryParameters.Add("division", division.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        var qualifyResultsUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_qualify_results", queryParams);
+        var qualifyResultsUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_qualify_results", queryParameters);
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(qualifyResultsUrl), SeasonQualifyResultsHeaderContext.Default.SeasonQualifyResultsHeader, cancellationToken).ConfigureAwait(false);
+        var intermediateResponse = await CreateResponseViaInfoLinkAsync(new Uri(qualifyResultsUrl),
+                                                                        SeasonQualifyResultsHeaderContext.Default.SeasonQualifyResultsHeader,
+                                                                        cancellationToken).ConfigureAwait(false);
 
         var seasonQualifyResults = new List<SeasonQualifyResult>();
 
-        if (data.ChunkInfo.NumberOfChunks > 0)
+        if (intermediateResponse.Data.ChunkInfo is ChunkInfo { NumberOfChunks: > 0 } chunkInfo)
         {
-            var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
+            var baseChunkUrl = new Uri(chunkInfo.BaseDownloadUrl);
 
-            foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
+            foreach (var (chunkFileName, index) in chunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
             {
                 var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
                 var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
                 if (!chunkResponse.IsSuccessStatusCode)
                 {
-                    logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    logger.FailedToRetrieveChunkError(index, chunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                     continue;
                 }
 
@@ -866,7 +951,14 @@ internal class DataClient : IDataClient
             }
         }
 
-        return BuildDataResponse<(SeasonQualifyResultsHeader Header, SeasonQualifyResult[] Standings)>(headers, (data, seasonQualifyResults.ToArray()), logger, expires);
+        return new DataResponse<(SeasonQualifyResultsHeader Header, SeasonQualifyResult[] Standings)>
+        {
+            Data = (intermediateResponse.Data, seasonQualifyResults.ToArray()),
+            DataExpires = intermediateResponse.DataExpires,
+            RateLimitRemaining = intermediateResponse.RateLimitRemaining,
+            RateLimitReset = intermediateResponse.RateLimitReset,
+            TotalRateLimit = intermediateResponse.TotalRateLimit
+        };
     }
 
     /// <inheritdoc />
@@ -877,7 +969,7 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var resultsStatsSearchParams = new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
@@ -885,29 +977,31 @@ internal class DataClient : IDataClient
             ["club_id"] = clubId.ToString(CultureInfo.InvariantCulture),
         };
 
-        if (division is int divisionValue)
+        if (division is not null)
         {
-            resultsStatsSearchParams.Add("division", divisionValue.ToString(CultureInfo.InvariantCulture));
+            queryParameters.Add("division", division.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_tt_results", resultsStatsSearchParams);
+        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_tt_results", queryParameters);
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonTimeTrialResultsHeaderContext.Default.SeasonTimeTrialResultsHeader, cancellationToken).ConfigureAwait(false);
+        var intermediateResponse = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl),
+                                                                        SeasonTimeTrialResultsHeaderContext.Default.SeasonTimeTrialResultsHeader,
+                                                                        cancellationToken).ConfigureAwait(false);
 
         var seasonTimeTrialResults = new List<SeasonTimeTrialResult>();
 
-        if (data.ChunkInfo.NumberOfChunks > 0)
+        if (intermediateResponse.Data.ChunkInfo is ChunkInfo { NumberOfChunks: > 0 } chunkInfo)
         {
-            var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
+            var baseChunkUrl = new Uri(chunkInfo.BaseDownloadUrl);
 
-            foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
+            foreach (var (chunkFileName, index) in chunkInfo.ChunkFileNames.Select<string, (string fn, int i)>((fn, i) => (fn, i)))
             {
                 var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
                 var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
                 if (!chunkResponse.IsSuccessStatusCode)
                 {
-                    logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    logger.FailedToRetrieveChunkError(index, chunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                     continue;
                 }
 
@@ -921,7 +1015,14 @@ internal class DataClient : IDataClient
             }
         }
 
-        return BuildDataResponse<(SeasonTimeTrialResultsHeader Header, SeasonTimeTrialResult[] Standings)>(headers, (data, seasonTimeTrialResults.ToArray()), logger, expires);
+        return new DataResponse<(SeasonTimeTrialResultsHeader Header, SeasonTimeTrialResult[] Standings)>
+        {
+            Data = (intermediateResponse.Data, seasonTimeTrialResults.ToArray()),
+            DataExpires = intermediateResponse.DataExpires,
+            RateLimitRemaining = intermediateResponse.RateLimitRemaining,
+            RateLimitReset = intermediateResponse.RateLimitReset,
+            TotalRateLimit = intermediateResponse.TotalRateLimit
+        };
     }
 
     /// <inheritdoc />
@@ -932,7 +1033,7 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var resultsStatsSearchParams = new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
@@ -940,28 +1041,30 @@ internal class DataClient : IDataClient
             ["club_id"] = clubId.ToString(CultureInfo.InvariantCulture),
         };
 
-        if (division is int divisionValue)
+        if (division is not null)
         {
-            resultsStatsSearchParams.Add("division", divisionValue.ToString(CultureInfo.InvariantCulture));
+            queryParameters.Add("division", division.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_tt_standings", resultsStatsSearchParams);
+        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_tt_standings", queryParameters);
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonTimeTrialStandingsHeaderContext.Default.SeasonTimeTrialStandingsHeader, cancellationToken).ConfigureAwait(false);
+        var intermediateResponse = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl),
+                                                                        SeasonTimeTrialStandingsHeaderContext.Default.SeasonTimeTrialStandingsHeader,
+                                                                        cancellationToken).ConfigureAwait(false);
 
         var seasonTimeTrialStandings = new List<SeasonTimeTrialStanding>();
 
-        if (data.ChunkInfo.NumberOfChunks > 0)
+        if (intermediateResponse.Data.ChunkInfo is ChunkInfo { NumberOfChunks: > 0 } chunkInfo)
         {
-            var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
-            foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+            var baseChunkUrl = new Uri(chunkInfo.BaseDownloadUrl);
+            foreach (var (chunkFileName, index) in chunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
             {
                 var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
                 var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
                 if (!chunkResponse.IsSuccessStatusCode)
                 {
-                    logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    logger.FailedToRetrieveChunkError(index, chunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                     continue;
                 }
 
@@ -975,7 +1078,14 @@ internal class DataClient : IDataClient
             }
         }
 
-        return BuildDataResponse<(SeasonTimeTrialStandingsHeader Header, SeasonTimeTrialStanding[] Standings)>(headers, (data, seasonTimeTrialStandings.ToArray()), logger, expires);
+        return new DataResponse<(SeasonTimeTrialStandingsHeader Header, SeasonTimeTrialStanding[] Standings)>
+        {
+            Data = (intermediateResponse.Data, seasonTimeTrialStandings.ToArray()),
+            DataExpires = intermediateResponse.DataExpires,
+            RateLimitRemaining = intermediateResponse.RateLimitRemaining,
+            RateLimitReset = intermediateResponse.RateLimitReset,
+            TotalRateLimit = intermediateResponse.TotalRateLimit
+        };
     }
 
     /// <inheritdoc />
@@ -986,29 +1096,33 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_team_standings", new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
             ["race_week_num"] = raceWeekNumber.ToString(CultureInfo.InvariantCulture),
-        });
+        };
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl), SeasonTeamStandingsHeaderContext.Default.SeasonTeamStandingsHeader, cancellationToken).ConfigureAwait(false);
+        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_team_standings", queryParameters);
+
+        var intermediateResponse = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl),
+                                                                        SeasonTeamStandingsHeaderContext.Default.SeasonTeamStandingsHeader,
+                                                                        cancellationToken).ConfigureAwait(false);
 
         var seasonTeamStandings = new List<SeasonTeamStanding>();
 
-        if (data.ChunkInfo.NumberOfChunks > 0)
+        if (intermediateResponse.Data.ChunkInfo is ChunkInfo { NumberOfChunks: > 0 } chunkInfo)
         {
-            var baseChunkUrl = new Uri(data.ChunkInfo.BaseDownloadUrl);
+            var baseChunkUrl = new Uri(chunkInfo.BaseDownloadUrl);
 
-            foreach (var (chunkFileName, index) in data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+            foreach (var (chunkFileName, index) in chunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
             {
                 var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
                 var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
                 if (!chunkResponse.IsSuccessStatusCode)
                 {
-                    logger.FailedToRetrieveChunkError(index, data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    logger.FailedToRetrieveChunkError(index, chunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                     continue;
                 }
 
@@ -1022,7 +1136,14 @@ internal class DataClient : IDataClient
             }
         }
 
-        return BuildDataResponse<(SeasonTeamStandingsHeader Header, SeasonTeamStanding[] Standings)>(headers, (data, seasonTeamStandings.ToArray()), logger, expires);
+        return new DataResponse<(SeasonTeamStandingsHeader Header, SeasonTeamStanding[] Standings)>
+        {
+            Data = (intermediateResponse.Data, seasonTeamStandings.ToArray()),
+            DataExpires = intermediateResponse.DataExpires,
+            RateLimitRemaining = intermediateResponse.RateLimitRemaining,
+            RateLimitReset = intermediateResponse.RateLimitReset,
+            TotalRateLimit = intermediateResponse.TotalRateLimit
+        };
     }
 
     /// <inheritdoc />
@@ -1033,14 +1154,18 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var seasonResultsUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/season_results", new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["event_type"] = eventType.ToString("D"),
             ["race_week_num"] = raceWeekNumber.ToString(CultureInfo.InvariantCulture),
-        });
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(seasonResultsUrl), SeasonResultsContext.Default.SeasonResults, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        };
+
+        var seasonResultsUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/season_results", queryParameters);
+
+        return await CreateResponseViaInfoLinkAsync(new Uri(seasonResultsUrl),
+                                                    SeasonResultsContext.Default.SeasonResults,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1051,13 +1176,16 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var seasonSeriesUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/series/seasons", new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["include_series"] = includeSeries ? "true" : "false",
-        });
+        };
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(seasonSeriesUrl), SeasonSeriesArrayContext.Default.SeasonSeriesArray, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        var seasonSeriesUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/series/seasons", queryParameters);
+
+        return await CreateResponseViaInfoLinkAsync(new Uri(seasonSeriesUrl),
+                                                    SeasonSeriesArrayContext.Default.SeasonSeriesArray,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1068,8 +1196,9 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/series/stats_series"), StatisticsSeriesArrayContext.Default.StatisticsSeriesArray, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/series/stats_series"),
+                                                    StatisticsSeriesArrayContext.Default.StatisticsSeriesArray,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1080,26 +1209,23 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var careerStatisticsUrl = "https://members-ng.iracing.com/data/stats/member_bests";
-        var queryParams = new Dictionary<string, string>();
+        var queryParameters = new Dictionary<string, string>();
 
         if (customerId is not null)
         {
-            queryParams.Add("cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture));
+            queryParameters.Add("cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture));
         }
 
         if (carId is not null)
         {
-            queryParams.Add("car_id", carId.Value.ToString(CultureInfo.InvariantCulture));
+            queryParameters.Add("car_id", carId.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        if (queryParams.Count > 0)
-        {
-            careerStatisticsUrl = QueryHelpers.AddQueryString(careerStatisticsUrl, queryParams);
-        }
+        var careerStatisticsUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/member_bests", queryParameters);
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(careerStatisticsUrl), MemberBestsContext.Default.MemberBests, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri(careerStatisticsUrl),
+                                                    MemberBestsContext.Default.MemberBests,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1110,16 +1236,18 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var careerStatisticsUrl = "https://members-ng.iracing.com/data/stats/member_career";
+        var queryParameters = new Dictionary<string, string>();
+
         if (customerId is not null)
         {
-            careerStatisticsUrl = QueryHelpers.AddQueryString(careerStatisticsUrl, new Dictionary<string, string>
-            {
-                ["cust_id"] = customerId.Value.ToString(CultureInfo.InvariantCulture),
-            });
+            queryParameters.Add("cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture));
         }
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(careerStatisticsUrl), MemberCareerContext.Default.MemberCareer, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+
+        var careerStatisticsUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/member_career", queryParameters);
+
+        return await CreateResponseViaInfoLinkAsync(new Uri(careerStatisticsUrl),
+                                                    MemberCareerContext.Default.MemberCareer,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1130,17 +1258,18 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var memberRecentRacesUrl = "https://members-ng.iracing.com/data/stats/member_recent_races";
+        var queryParameters = new Dictionary<string, string>();
+
         if (customerId is not null)
         {
-            memberRecentRacesUrl = QueryHelpers.AddQueryString(memberRecentRacesUrl, new Dictionary<string, string>
-            {
-                ["cust_id"] = customerId.Value.ToString(CultureInfo.InvariantCulture),
-            });
+            queryParameters.Add("cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(memberRecentRacesUrl), MemberRecentRacesContext.Default.MemberRecentRaces, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        var memberRecentRacesUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/member_recent_races", queryParameters);
+
+        return await CreateResponseViaInfoLinkAsync(new Uri(memberRecentRacesUrl),
+                                                    MemberRecentRacesContext.Default.MemberRecentRaces,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1151,16 +1280,18 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var memberSummaryUrl = "https://members-ng.iracing.com/data/stats/member_summary";
+        var queryParameters = new Dictionary<string, string>();
+
         if (customerId is not null)
         {
-            memberSummaryUrl = QueryHelpers.AddQueryString(memberSummaryUrl, new Dictionary<string, string>
-            {
-                ["cust_id"] = customerId.Value.ToString(CultureInfo.InvariantCulture),
-            });
+            queryParameters.Add("cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture));
         }
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(memberSummaryUrl), MemberSummaryContext.Default.MemberSummary, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+
+        var memberSummaryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/member_summary", queryParameters);
+
+        return await CreateResponseViaInfoLinkAsync(new Uri(memberSummaryUrl),
+                                                    MemberSummaryContext.Default.MemberSummary,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1171,9 +1302,9 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var getTrackUrl = "https://members-ng.iracing.com/data/track/assets";
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(getTrackUrl), TrackAssetsArrayContext.Default.IReadOnlyDictionaryStringTrackAssets, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/track/assets"),
+                                                    TrackAssetsArrayContext.Default.IReadOnlyDictionaryStringTrackAssets,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1184,9 +1315,9 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var getTrackUrl = "https://members-ng.iracing.com/data/track/get";
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(getTrackUrl), TrackArrayContext.Default.TrackArray, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/track/get"),
+                                                    TrackArrayContext.Default.TrackArray,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1226,37 +1357,37 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var queryParams = new Dictionary<string, string>();
-        queryParams.AddParameterIfNotNull(() => searchParameters.StartRangeBegin);
-        queryParams.AddParameterIfNotNull(() => searchParameters.StartRangeEnd);
-        queryParams.AddParameterIfNotNull(() => searchParameters.FinishRangeBegin);
-        queryParams.AddParameterIfNotNull(() => searchParameters.FinishRangeEnd);
-        queryParams.AddParameterIfNotNull(() => searchParameters.ParticipantCustomerId);
-        queryParams.AddParameterIfNotNull(() => searchParameters.HostCustomerId);
-        queryParams.AddParameterIfNotNull(() => searchParameters.SessionName);
-        queryParams.AddParameterIfNotNull(() => searchParameters.LeagueId);
-        queryParams.AddParameterIfNotNull(() => searchParameters.LeagueSeasonId);
-        queryParams.AddParameterIfNotNull(() => searchParameters.CarId);
-        queryParams.AddParameterIfNotNull(() => searchParameters.TrackId);
-        queryParams.AddParameterIfNotNull(() => searchParameters.CategoryIds);
+        var queryParameters = new Dictionary<string, string>();
+        queryParameters.AddParameterIfNotNull(() => searchParameters.StartRangeBegin);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.StartRangeEnd);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.FinishRangeBegin);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.FinishRangeEnd);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.ParticipantCustomerId);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.HostCustomerId);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.SessionName);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.LeagueId);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.LeagueSeasonId);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.CarId);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.TrackId);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.CategoryIds);
 
-        var searchHostedUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/search_hosted", queryParams);
+        var searchHostedUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/search_hosted", queryParameters);
 
         (var headers, var header) = await GetResponseAsync(new Uri(searchHostedUrl), HostedResultsHeaderContext.Default.HostedResultsHeader, cancellationToken).ConfigureAwait(false);
 
         var searchResults = new List<HostedResultItem>();
-        if (header.Data.ChunkInfo.NumberOfChunks > 0)
+        if (header.Data.ChunkInfo is ChunkInfo { NumberOfChunks: > 0 } chunkInfo)
         {
-            var baseChunkUrl = new Uri(header.Data.ChunkInfo.BaseDownloadUrl);
+            var baseChunkUrl = new Uri(chunkInfo.BaseDownloadUrl);
 
-            foreach (var (chunkFileName, index) in header.Data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+            foreach (var (chunkFileName, index) in chunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
             {
                 var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
                 var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
                 if (!chunkResponse.IsSuccessStatusCode)
                 {
-                    logger.FailedToRetrieveChunkError(index, header.Data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    logger.FailedToRetrieveChunkError(index, chunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                     continue;
                 }
 
@@ -1312,36 +1443,36 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var queryParams = new Dictionary<string, string>();
-        queryParams.AddParameterIfNotNull(() => searchParameters.StartRangeBegin);
-        queryParams.AddParameterIfNotNull(() => searchParameters.StartRangeEnd);
-        queryParams.AddParameterIfNotNull(() => searchParameters.FinishRangeBegin);
-        queryParams.AddParameterIfNotNull(() => searchParameters.FinishRangeEnd);
-        queryParams.AddParameterIfNotNull(() => searchParameters.ParticipantCustomerId);
-        queryParams.AddParameterIfNotNull(() => searchParameters.SeriesId);
-        queryParams.AddParameterIfNotNull(() => searchParameters.RaceWeekIndex);
-        queryParams.AddParameterIfNotNull(() => searchParameters.OfficialOnly);
-        queryParams.AddParameterIfNotNull(() => searchParameters.EventTypes);
-        queryParams.AddParameterIfNotNull(() => searchParameters.CategoryIds);
+        var queryParameters = new Dictionary<string, string>();
+        queryParameters.AddParameterIfNotNull(() => searchParameters.StartRangeBegin);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.StartRangeEnd);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.FinishRangeBegin);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.FinishRangeEnd);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.ParticipantCustomerId);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.SeriesId);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.RaceWeekIndex);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.OfficialOnly);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.EventTypes);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.CategoryIds);
 
-        var searchHostedUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/search_series", queryParams);
+        var searchHostedUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/search_series", queryParameters);
 
         (var headers, var header) = await GetResponseAsync(new Uri(searchHostedUrl), OfficialSearchResultHeaderContext.Default.OfficialSearchResultHeader, cancellationToken).ConfigureAwait(false);
 
         var searchResults = new List<OfficialSearchResultItem>();
 
-        if (header.Data.ChunkInfo.NumberOfChunks > 0)
+        if (header.Data.ChunkInfo is ChunkInfo { NumberOfChunks: > 0 } chunkInfo)
         {
-            var baseChunkUrl = new Uri(header.Data.ChunkInfo.BaseDownloadUrl);
+            var baseChunkUrl = new Uri(chunkInfo.BaseDownloadUrl);
 
-            foreach (var (chunkFileName, index) in header.Data.ChunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+            foreach (var (chunkFileName, index) in chunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
             {
                 var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
 
                 var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
                 if (!chunkResponse.IsSuccessStatusCode)
                 {
-                    logger.FailedToRetrieveChunkError(index, header.Data.ChunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    logger.FailedToRetrieveChunkError(index, chunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                     continue;
                 }
 
@@ -1421,9 +1552,9 @@ internal class DataClient : IDataClient
 
         var searchLeagueDirectoryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/directory", queryParameters);
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(searchLeagueDirectoryUrl), LeagueDirectoryResultPageContext.Default.LeagueDirectoryResultPage, cancellationToken).ConfigureAwait(false);
-
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri(searchLeagueDirectoryUrl),
+                                                    LeagueDirectoryResultPageContext.Default.LeagueDirectoryResultPage,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1434,29 +1565,32 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var memberSummaryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/season/list", new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["season_year"] = seasonYear.ToString(CultureInfo.InvariantCulture),
             ["season_quarter"] = seasonQuarter.ToString(CultureInfo.InvariantCulture),
-        });
+        };
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(memberSummaryUrl), ListOfSeasonsContext.Default.ListOfSeasons, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        var memberSummaryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/season/list", queryParameters);
+
+        return await CreateResponseViaInfoLinkAsync(new Uri(memberSummaryUrl),
+                                                    ListOfSeasonsContext.Default.ListOfSeasons,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
-    private Exception? ValidateSearchDateRange(DateTime? rangeBegin, DateTime? rangeEnd, string paramName, string rangeBeginFieldName, string rangeEndFieldName)
+    private Exception? ValidateSearchDateRange(DateTime? rangeBegin, DateTime? rangeEnd, string parameterName, string rangeBeginFieldName, string rangeEndFieldName)
     {
         if (rangeBegin is not null)
         {
             if (rangeBegin.Value > GetDateTimeUtcNow())
             {
-                return new ArgumentOutOfRangeException(paramName, $"Value for \"{rangeBeginFieldName}\" cannot be in the future.");
+                return new ArgumentOutOfRangeException(parameterName, $"Value for \"{rangeBeginFieldName}\" cannot be in the future.");
             }
 
             if (rangeEnd is null
                 && (Math.Abs(GetDateTimeUtcNow().Subtract(rangeBegin.Value).TotalDays) > 90))
             {
-                return new ArgumentOutOfRangeException(paramName, $"Must supply value for \"{rangeEndFieldName}\" if \"{rangeBeginFieldName}\" is more than 90 days in the past.");
+                return new ArgumentOutOfRangeException(parameterName, $"Must supply value for \"{rangeEndFieldName}\" if \"{rangeBeginFieldName}\" is more than 90 days in the past.");
             }
         }
 
@@ -1466,17 +1600,17 @@ internal class DataClient : IDataClient
             {
                 if (rangeBegin >= rangeEnd)
                 {
-                    return new ArgumentOutOfRangeException(paramName, $"Value for \"{rangeBeginFieldName}\" cannot be after \"{rangeEndFieldName}\".");
+                    return new ArgumentOutOfRangeException(parameterName, $"Value for \"{rangeBeginFieldName}\" cannot be after \"{rangeEndFieldName}\".");
                 }
 
                 if (Math.Abs(rangeEnd.Value.Subtract(rangeBegin.Value).TotalDays) > 90)
                 {
-                    return new ArgumentOutOfRangeException(paramName, $"Value for \"{rangeEndFieldName}\" cannot be more than 90 days after \"{rangeBeginFieldName}\".");
+                    return new ArgumentOutOfRangeException(parameterName, $"Value for \"{rangeEndFieldName}\" cannot be more than 90 days after \"{rangeBeginFieldName}\".");
                 }
             }
             else
             {
-                return new ArgumentException($"Must supply value for \"{rangeBeginFieldName}\" if \"{rangeEndFieldName}\" is specified.", paramName);
+                return new ArgumentException($"Must supply value for \"{rangeBeginFieldName}\" if \"{rangeEndFieldName}\" is specified.", parameterName);
             }
         }
 
@@ -1570,7 +1704,7 @@ internal class DataClient : IDataClient
 
     private const string RateLimitExceededContent = "Rate limit exceeded";
 
-    private async Task<(HttpResponseHeaders Headers, TData Data, DateTimeOffset? Expires)> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
+    async protected virtual Task<DataResponse<TData>> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
     {
         var infoLinkResponse = await httpClient.GetAsync(infoLinkUri, cancellationToken).ConfigureAwait(false);
 
@@ -1588,17 +1722,14 @@ internal class DataClient : IDataClient
         var infoLink = JsonSerializer.Deserialize(content, LinkResultContext.Default.LinkResult);
         if (infoLink?.Link is null)
         {
-            throw new iRacingDataClientException("Unrecognised result.");
+            throw new iRacingDataClientException("Unrecognized result.");
         }
 
         var data = await httpClient.GetFromJsonAsync(infoLink.Link, jsonTypeInfo, cancellationToken: cancellationToken)
-                                   .ConfigureAwait(false);
-        if (data is null)
-        {
-            throw new iRacingDataClientException("Data not found.");
-        }
+                                   .ConfigureAwait(false)
+                                   ?? throw new iRacingDataClientException("Data not found.");
 
-        return (infoLinkResponse.Headers, data, infoLink.Expires);
+        return BuildDataResponse(infoLinkResponse.Headers, data, logger, infoLink.Expires);
     }
 
     private async Task<(HttpResponseHeaders Headers, TData Data)> GetResponseAsync<TData>(Uri iRacingUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
@@ -1618,11 +1749,8 @@ internal class DataClient : IDataClient
         }
 
         var data = await response.Content.ReadFromJsonAsync(jsonTypeInfo, cancellationToken: cancellationToken)
-                                         .ConfigureAwait(false);
-        if (data is null)
-        {
-            throw new iRacingDataClientException("Data not found.");
-        }
+                                         .ConfigureAwait(false)
+                                         ?? throw new iRacingDataClientException("Data not found.");
 
         return (response.Headers, data);
     }
@@ -1720,19 +1848,21 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var queryString = new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["include_league"] = includeLeague ? "1" : "0"
         };
 
-        if (customerId?.ToString(CultureInfo.InvariantCulture) is string customerIdValue)
+        if (customerId is not null)
         {
-            queryString.Add("cust_id", customerIdValue);
+            queryParameters.Add("cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        var getMembershipUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/membership", queryString);
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(getMembershipUrl), LeagueMembershipArrayContext.Default.LeagueMembershipArray, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        var getMembershipUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/membership", queryParameters);
+
+        return await CreateResponseViaInfoLinkAsync(new Uri(getMembershipUrl),
+                                                    LeagueMembershipArrayContext.Default.LeagueMembershipArray,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1743,14 +1873,17 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var getLeagueSeasons = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/seasons", new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["league_id"] = leagueId.ToString(CultureInfo.InvariantCulture),
             ["retired"] = includeRetired ? "1" : "0"
-        });
+        };
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(getLeagueSeasons), LeagueSeasonsContext.Default.LeagueSeasons, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        var getLeagueSeasons = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/seasons", queryParameters);
+
+        return await CreateResponseViaInfoLinkAsync(new Uri(getLeagueSeasons),
+                                                    LeagueSeasonsContext.Default.LeagueSeasons,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1761,29 +1894,26 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var raceGuideUrl = "https://members-ng.iracing.com/data/season/race_guide";
+        var queryParameters = new Dictionary<string, string>();
 
-        var queryParams = new Dictionary<string, string>();
         if (from is not null)
         {
             var fromUtc = from.Value.UtcDateTime.ToString("yyyy-MM-dd\\THH:mm\\Z", CultureInfo.InvariantCulture);
-            queryParams.Add("from", fromUtc);
+            queryParameters.Add("from", fromUtc);
         }
 
         if (includeEndAfterFrom is not null)
         {
 #pragma warning disable CA1308 // Normalize strings to uppercase - This value needs to be lowercase for API compatibility.
-            queryParams.Add("include_end_after_from", includeEndAfterFrom.Value.ToString().ToLowerInvariant());
+            queryParameters.Add("include_end_after_from", includeEndAfterFrom.Value.ToString().ToLowerInvariant());
 #pragma warning restore CA1308 // Normalize strings to uppercase
         }
 
-        if (queryParams.Count > 0)
-        {
-            raceGuideUrl = QueryHelpers.AddQueryString(raceGuideUrl, queryParams);
-        }
+        var raceGuideUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/season/race_guide", queryParameters);
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(raceGuideUrl), RaceGuideResultsContext.Default.RaceGuideResults, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri(raceGuideUrl),
+                                                    RaceGuideResultsContext.Default.RaceGuideResults,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1794,10 +1924,9 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var countryUrl = "https://members-ng.iracing.com/data/lookup/countries";
-
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(countryUrl), CountryArrayContext.Default.CountryArray, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/lookup/countries"),
+                                                    CountryArrayContext.Default.CountryArray,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1808,10 +1937,9 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var participationCreditsUrl = "https://members-ng.iracing.com/data/member/participation_credits";
-
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(participationCreditsUrl), ParticipationCreditsArrayContext.Default.ParticipationCreditsArray, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/member/participation_credits"),
+                                                    ParticipationCreditsArrayContext.Default.ParticipationCreditsArray,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1822,15 +1950,18 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var getLeagueSeasonSessions = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/season_sessions", new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["league_id"] = leagueId.ToString(CultureInfo.InvariantCulture),
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["results_only"] = resultsOnly ? "1" : "0"
-        });
+        };
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(getLeagueSeasonSessions), LeagueSeasonSessionsContext.Default.LeagueSeasonSessions, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger, expires);
+        var getLeagueSeasonSessions = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/season_sessions", queryParameters);
+
+        return await CreateResponseViaInfoLinkAsync(new Uri(getLeagueSeasonSessions),
+                                                    LeagueSeasonSessionsContext.Default.LeagueSeasonSessions,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1841,15 +1972,25 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var getPastSeasonsForSeriesUrl = "https://members-ng.iracing.com/data/series/past_seasons";
-
-        getPastSeasonsForSeriesUrl = QueryHelpers.AddQueryString(getPastSeasonsForSeriesUrl, new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["series_id"] = seriesId.ToString(CultureInfo.InvariantCulture),
-        });
+        };
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(getPastSeasonsForSeriesUrl), PastSeriesResultContext.Default.PastSeriesResult, cancellationToken).ConfigureAwait(false);
-        return BuildDataResponse(headers, data.Series, logger, expires);
+        var getPastSeasonsForSeriesUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/series/past_seasons", queryParameters);
+
+        var intermediateResponse = await CreateResponseViaInfoLinkAsync(new Uri(getPastSeasonsForSeriesUrl),
+                                                                        PastSeriesResultContext.Default.PastSeriesResult,
+                                                                        cancellationToken).ConfigureAwait(false);
+
+        return new DataResponse<PastSeriesDetail>
+        {
+            Data = intermediateResponse.Data.Series,
+            DataExpires = intermediateResponse.DataExpires,
+            RateLimitRemaining = intermediateResponse.RateLimitRemaining,
+            RateLimitReset = intermediateResponse.RateLimitReset,
+            TotalRateLimit = intermediateResponse.TotalRateLimit
+        };
     }
 
     /// <inheritdoc />
@@ -1860,9 +2001,7 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var queryUrl = "https://members-ng.iracing.com/data/league/season_standings";
-
-        var queryParams = new Dictionary<string, string>
+        var queryParameters = new Dictionary<string, string>
         {
             ["league_id"] = leagueId.ToString(CultureInfo.InvariantCulture),
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
@@ -1870,19 +2009,19 @@ internal class DataClient : IDataClient
 
         if (carClassId is not null)
         {
-            queryParams.Add("car_class_id", carClassId.Value.ToString(CultureInfo.InvariantCulture));
+            queryParameters.Add("car_class_id", carClassId.Value.ToString(CultureInfo.InvariantCulture));
         }
 
         if (carId is not null)
         {
-            queryParams.Add("car_id", carId.Value.ToString(CultureInfo.InvariantCulture));
+            queryParameters.Add("car_id", carId.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        queryUrl = QueryHelpers.AddQueryString(queryUrl, queryParams);
+        var queryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/league/season_standings", queryParameters);
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), SeasonStandingsContext.Default.SeasonStandings, cancellationToken).ConfigureAwait(false);
-
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri(queryUrl),
+                                                    SeasonStandingsContext.Default.SeasonStandings,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1925,18 +2064,14 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var queryUrl = "https://members-ng.iracing.com/data/time_attack/member_season_results";
+        var queryParameters = new Dictionary<string, string>();
+        queryParameters.AddParameterIfNotNull("ta_comp_season_id", competitionSeasonId);
 
-        var queryParams = new Dictionary<string, string>
-        {
-            ["ta_comp_season_id"] = competitionSeasonId.ToString(CultureInfo.InvariantCulture),
-        };
+        var queryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/time_attack/member_season_results", queryParameters);
 
-        queryUrl = QueryHelpers.AddQueryString(queryUrl, queryParams);
-
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), TimeAttackMemberSeasonResultArrayContext.Default.TimeAttackMemberSeasonResultArray, cancellationToken).ConfigureAwait(false);
-
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri(queryUrl),
+                                                    TimeAttackMemberSeasonResultArrayContext.Default.TimeAttackMemberSeasonResultArray,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1947,17 +2082,16 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var queryUrl = "https://members-ng.iracing.com/data/stats/member_recap";
-
         var queryParameters = new Dictionary<string, string>();
         queryParameters.AddParameterIfNotNull("cust_id", customerId);
         queryParameters.AddParameterIfNotNull("year", seasonYear);
         queryParameters.AddParameterIfNotNull("season", seasonQuarter);
-        queryUrl = QueryHelpers.AddQueryString(queryUrl, queryParameters);
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), MemberRecapContext.Default.MemberRecap, cancellationToken).ConfigureAwait(false);
+        var queryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/member_recap", queryParameters);
 
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri(queryUrl),
+                                                    MemberRecapContext.Default.MemberRecap,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1968,14 +2102,13 @@ internal class DataClient : IDataClient
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
         }
 
-        var queryUrl = "https://members-ng.iracing.com/data/season/spectator_subsessionids";
-
         var queryParameters = new Dictionary<string, string>();
         queryParameters.AddParameterIfNotNull("event_types", eventTypes);
-        queryUrl = QueryHelpers.AddQueryString(queryUrl, queryParameters);
 
-        (var headers, var data, var expires) = await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), SpectatorSubsessionIdsContext.Default.SpectatorSubsessionIds, cancellationToken).ConfigureAwait(false);
+        var queryUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/season/spectator_subsessionids", queryParameters);
 
-        return BuildDataResponse(headers, data, logger, expires);
+        return await CreateResponseViaInfoLinkAsync(new Uri(queryUrl),
+                                                    SpectatorSubsessionIdsContext.Default.SpectatorSubsessionIds,
+                                                    cancellationToken).ConfigureAwait(false);
     }
 }

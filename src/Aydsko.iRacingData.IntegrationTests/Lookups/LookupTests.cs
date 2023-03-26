@@ -3,7 +3,7 @@
 
 namespace Aydsko.iRacingData.IntegrationTests.Lookups;
 
-public class LookupTests : BaseIntegrationFixture
+internal class LookupTests : DataClientIntegrationFixture
 {
     [Test]
     public async Task TestClubHistoryLookupsAsync()

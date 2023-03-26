@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// © 2023 Adrian Clark
+// This file is licensed to you under the MIT license.
 
 namespace Aydsko.iRacingData.IntegrationTests.Results;
-public class ResultsGetTest : BaseIntegrationFixture
+
+internal class ResultsGetTest : DataClientIntegrationFixture
 {
     [Test]
     public async Task GivenAValidSubsessionIdThenAResultIsReturned()

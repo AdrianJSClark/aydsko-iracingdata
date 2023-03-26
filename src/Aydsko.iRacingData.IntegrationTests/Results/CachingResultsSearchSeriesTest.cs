@@ -3,9 +3,9 @@
 
 namespace Aydsko.iRacingData.IntegrationTests.Results;
 
-internal class ResultsSearchSeriesTest : DataClientIntegrationFixture
+internal class CachingResultsSearchSeriesTest : CachingIntegrationFixture
 {
-    [Test]
+    [Test(TestOf = typeof(DataClient)), Ignore("Not implemented yet.")]
     public async Task GivenValidSearchParametersTheCorrectResultIsReturned()
     {
         var searchParameters = new Searches.OfficialSearchParameters
@@ -26,9 +26,26 @@ internal class ResultsSearchSeriesTest : DataClientIntegrationFixture
             Assert.That(searchResults.Data.Items, Is.Not.Null.Or.Empty);
             Assert.That(searchResults.Data.Items, Has.Length.EqualTo(10));
         });
+
+        var searchResults2 = await Client.SearchOfficialResultsAsync(searchParameters).ConfigureAwait(false);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(searchResults2, Is.Not.Null);
+            Assert.That(searchResults2.Data.Header, Is.Not.Null);
+            Assert.That(searchResults2.Data.Items, Is.Not.Null.Or.Empty);
+            Assert.That(searchResults2.Data.Items, Has.Length.EqualTo(10));
+        });
+
+        var stats = MemoryCache.GetCurrentStatistics();
+        Assert.Multiple(() =>
+        {
+            Assert.That(stats?.TotalHits, Is.Not.Null.And.EqualTo(1));
+            Assert.That(stats?.TotalMisses, Is.Not.Null.And.EqualTo(1));
+        });
     }
 
-    [Test]
+    [Test(TestOf = typeof(DataClient)), Ignore("Not implemented yet.")]
     public async Task GivenSearchParametersThatResultInZeroResultsTheCorrectResultIsReturned()
     {
         var searchParameters = new Searches.OfficialSearchParameters
@@ -51,6 +68,25 @@ internal class ResultsSearchSeriesTest : DataClientIntegrationFixture
 
             Assert.That(searchResults.Data.Items, Is.Not.Null);
             Assert.That(searchResults.Data.Items, Has.Length.EqualTo(0));
+        });
+
+        var searchResults2 = await Client.SearchOfficialResultsAsync(searchParameters).ConfigureAwait(false);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(searchResults2, Is.Not.Null);
+            Assert.That(searchResults2.Data.Header, Is.Not.Null);
+            Assert.That(searchResults2.Data.Header.Data.Success, Is.True);
+
+            Assert.That(searchResults2.Data.Items, Is.Not.Null);
+            Assert.That(searchResults2.Data.Items, Has.Length.EqualTo(0));
+        });
+
+        var stats = MemoryCache.GetCurrentStatistics();
+        Assert.Multiple(() =>
+        {
+            Assert.That(stats?.TotalHits, Is.Not.Null.And.EqualTo(1));
+            Assert.That(stats?.TotalMisses, Is.Not.Null.And.EqualTo(1));
         });
     }
 }

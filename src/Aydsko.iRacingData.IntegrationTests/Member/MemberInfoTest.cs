@@ -3,7 +3,7 @@
 
 namespace Aydsko.iRacingData.IntegrationTests.Member;
 
-public class MemberInfoTest : BaseIntegrationFixture
+internal class MemberInfoTest : DataClientIntegrationFixture
 {
     [Test]
     public async Task TestMemberInfoAsync()
