@@ -9,8 +9,8 @@ internal class CachingIntegrationFixture : BaseIntegrationFixture<CachingDataCli
 {
     protected IMemoryCache MemoryCache { get; private set; } = default!;
 
-    [OneTimeSetUp]
-    public void OneTimeSetUp()
+    [SetUp]
+    public void SetUp()
     {
         var options = BaseSetUp();
 
@@ -19,8 +19,8 @@ internal class CachingIntegrationFixture : BaseIntegrationFixture<CachingDataCli
         Client = new CachingDataClient(HttpClient, new TestLogger<CachingDataClient>(), options, CookieContainer, MemoryCache);
     }
 
-    [OneTimeTearDown]
-    public void OneTimeTearDown()
+    [TearDown]
+    public void TearDown()
     {
         MemoryCache.Dispose();
     }
