@@ -25,8 +25,8 @@ internal class CachingMemberInfoTest : CachingIntegrationFixture
         var stats = MemoryCache.GetCurrentStatistics();
         Assert.Multiple(() =>
         {
-            Assert.That(stats?.TotalHits, Is.Not.Null.And.EqualTo(1));
-            Assert.That(stats?.TotalMisses, Is.Not.Null.And.EqualTo(1));
+            Assert.That(stats?.TotalHits, Is.Not.Null.And.EqualTo(1), "TotalHits didn't match.");
+            Assert.That(stats?.TotalMisses, Is.Not.Null.And.EqualTo(1), "TotalMisses didn't match.");
         });
     }
 }
