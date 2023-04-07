@@ -45,4 +45,28 @@ internal class CachingDataClient : DataClient
 
         return result!;
     }
+
+    protected override async Task<DataResponse<(TData, TChunkData[])>> CreateResponseFromChunkedDataAsync<TData, THeaderData, TChunkData>(Uri uri,
+                                                                                                                                          JsonTypeInfo<TData> jsonTypeInfo,
+                                                                                                                                          JsonTypeInfo<TChunkData[]> chunkArrayTypeInfo,
+                                                                                                                                          CancellationToken cancellationToken)
+    {
+        var isHit = true;
+
+        var result = await memoryCache.GetOrCreateAsync(uri, async ce =>
+        {
+            isHit = false;
+            var response = await base.CreateResponseFromChunkedDataAsync<TData, THeaderData, TChunkData>(uri, jsonTypeInfo, chunkArrayTypeInfo, cancellationToken)
+                                     .ConfigureAwait(false);
+
+            var expiry = response.DataExpires ?? DateTime.UtcNow.AddMinutes(30);
+            ce.SetAbsoluteExpiration(expiry);
+
+            return response;
+        }).ConfigureAwait(false);
+
+        logger.TraceCacheHitOrMiss(uri, isHit);
+
+        return result!;
+    }
 }

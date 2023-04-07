@@ -1373,35 +1373,7 @@ internal class DataClient : IDataClient
 
         var searchHostedUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/search_hosted", queryParameters);
 
-        (var headers, var header) = await GetResponseAsync(new Uri(searchHostedUrl), HostedResultsHeaderContext.Default.HostedResultsHeader, cancellationToken).ConfigureAwait(false);
-
-        var searchResults = new List<HostedResultItem>();
-        if (header.Data.ChunkInfo is ChunkInfo { NumberOfChunks: > 0 } chunkInfo)
-        {
-            var baseChunkUrl = new Uri(chunkInfo.BaseDownloadUrl);
-
-            foreach (var (chunkFileName, index) in chunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
-            {
-                var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
-
-                var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
-                if (!chunkResponse.IsSuccessStatusCode)
-                {
-                    logger.FailedToRetrieveChunkError(index, chunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
-                    continue;
-                }
-
-                var chunkData = await chunkResponse.Content.ReadFromJsonAsync(HostedResultItemContext.Default.HostedResultItemArray, cancellationToken).ConfigureAwait(false);
-                if (chunkData is null)
-                {
-                    continue;
-                }
-
-                searchResults.AddRange(chunkData);
-            }
-        }
-
-        return BuildDataResponse<(HostedResultsHeader Header, HostedResultItem[] Results)>(headers, (header, searchResults.ToArray()), logger);
+        return await CreateResponseFromChunkedDataAsync<HostedResultsHeader, HostedResultsHeaderData, HostedResultItem>(new Uri(searchHostedUrl), HostedResultsHeaderContext.Default.HostedResultsHeader, HostedResultItemContext.Default.HostedResultItemArray, cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1457,36 +1429,10 @@ internal class DataClient : IDataClient
 
         var searchHostedUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/search_series", queryParameters);
 
-        (var headers, var header) = await GetResponseAsync(new Uri(searchHostedUrl), OfficialSearchResultHeaderContext.Default.OfficialSearchResultHeader, cancellationToken).ConfigureAwait(false);
-
-        var searchResults = new List<OfficialSearchResultItem>();
-
-        if (header.Data.ChunkInfo is ChunkInfo { NumberOfChunks: > 0 } chunkInfo)
-        {
-            var baseChunkUrl = new Uri(chunkInfo.BaseDownloadUrl);
-
-            foreach (var (chunkFileName, index) in chunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
-            {
-                var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
-
-                var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
-                if (!chunkResponse.IsSuccessStatusCode)
-                {
-                    logger.FailedToRetrieveChunkError(index, chunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
-                    continue;
-                }
-
-                var chunkData = await chunkResponse.Content.ReadFromJsonAsync(OfficialSearchResultItemArrayContext.Default.OfficialSearchResultItemArray, cancellationToken).ConfigureAwait(false);
-                if (chunkData is null)
-                {
-                    continue;
-                }
-
-                searchResults.AddRange(chunkData);
-            }
-        }
-
-        return BuildDataResponse<(OfficialSearchResultHeader Header, OfficialSearchResultItem[] Results)>(headers, (header, searchResults.ToArray()), logger);
+        return await CreateResponseFromChunkedDataAsync<OfficialSearchResultHeader, OfficialSearchResultHeaderData, OfficialSearchResultItem>(new Uri(searchHostedUrl),
+                                                                                                                                              OfficialSearchResultHeaderContext.Default.OfficialSearchResultHeader,
+                                                                                                                                              OfficialSearchResultItemArrayContext.Default.OfficialSearchResultItemArray,
+                                                                                                                                              cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -1618,216 +1564,6 @@ internal class DataClient : IDataClient
     }
 
     private DateTime GetDateTimeUtcNow() => options.CurrentDateTimeSource is null ? DateTime.UtcNow : options.CurrentDateTimeSource().UtcDateTime;
-
-#pragma warning disable CA1308 // Normalize strings to uppercase - this algorithm requires lower case.
-    private async Task LoginInternalAsync(CancellationToken cancellationToken)
-    {
-        if (string.IsNullOrWhiteSpace(options.Username))
-        {
-            throw iRacingClientOptionsValueMissingException.Create(nameof(options.Username));
-        }
-
-        if (string.IsNullOrWhiteSpace(options.Password))
-        {
-            throw iRacingClientOptionsValueMissingException.Create(nameof(options.Password));
-        }
-
-        try
-        {
-            if (options.RestoreCookies is not null
-                && options.RestoreCookies() is CookieCollection savedCookies)
-            {
-                cookieContainer.Add(savedCookies);
-            }
-
-            string? encodedHash = null;
-
-            if (options.PasswordIsEncoded)
-            {
-                encodedHash = options.Password;
-            }
-            else
-            {
-
-                var passwordAndEmail = options.Password + (options.Username?.ToLowerInvariant());
-
-#if NET6_0_OR_GREATER
-                var hashedPasswordAndEmailBytes = SHA256.HashData(Encoding.UTF8.GetBytes(passwordAndEmail));
-#else
-                using var sha256 = SHA256.Create();
-                var hashedPasswordAndEmailBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordAndEmail));
-#endif
-
-                encodedHash = Convert.ToBase64String(hashedPasswordAndEmailBytes);
-            }
-
-            var loginResponse = await httpClient.PostAsJsonAsync("https://members-ng.iracing.com/auth",
-                                                                 new
-                                                                 {
-                                                                     email = options.Username,
-                                                                     password = encodedHash
-                                                                 },
-                                                                 cancellationToken)
-                                                .ConfigureAwait(false);
-
-            if (loginResponse.IsSuccessStatusCode is false)
-            {
-                if (loginResponse.StatusCode == HttpStatusCode.ServiceUnavailable)
-                {
-                    throw new iRacingInMaintenancePeriodException("Maintenance assumed because login returned HTTP Error 503 \"Service Unavailable\".");
-                }
-                throw new iRacingLoginFailedException($"Login failed with HTTP response \"{loginResponse.StatusCode} {loginResponse.ReasonPhrase}\"");
-            }
-
-            var loginResult = await loginResponse.Content.ReadFromJsonAsync(LoginResponseContext.Default.LoginResponse, cancellationToken).ConfigureAwait(false);
-
-            if (loginResult is null || loginResult.Success is false)
-            {
-                var message = loginResult?.Message ?? $"Login failed with HTTP response \"{loginResponse.StatusCode} {loginResponse.ReasonPhrase}\"";
-                throw iRacingLoginFailedException.Create(message, loginResult?.VerificationRequired);
-            }
-
-            IsLoggedIn = true;
-            logger.LoginSuccessful(options.Username!);
-
-            if (options.SaveCookies is Action<CookieCollection> saveCredentials)
-            {
-                saveCredentials(cookieContainer.GetAllCookies());
-            }
-        }
-        catch (Exception ex) when (ex is not iRacingDataClientException)
-        {
-            throw iRacingLoginFailedException.Create(ex);
-        }
-    }
-#pragma warning restore CA1308 // Normalize strings to uppercase
-
-    private const string RateLimitExceededContent = "Rate limit exceeded";
-
-    async protected virtual Task<DataResponse<TData>> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
-    {
-        var infoLinkResponse = await httpClient.GetAsync(infoLinkUri, cancellationToken).ConfigureAwait(false);
-
-#if NET6_0_OR_GREATER
-        var content = await infoLinkResponse.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-#else
-        var content = await infoLinkResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-#endif
-
-        if (!infoLinkResponse.IsSuccessStatusCode || content == RateLimitExceededContent)
-        {
-            HandleUnsuccessfulResponse(infoLinkResponse, content, logger);
-        }
-
-        var infoLink = JsonSerializer.Deserialize(content, LinkResultContext.Default.LinkResult);
-        if (infoLink?.Link is null)
-        {
-            throw new iRacingDataClientException("Unrecognized result.");
-        }
-
-        var data = await httpClient.GetFromJsonAsync(infoLink.Link, jsonTypeInfo, cancellationToken: cancellationToken)
-                                   .ConfigureAwait(false)
-                                   ?? throw new iRacingDataClientException("Data not found.");
-
-        return BuildDataResponse(infoLinkResponse.Headers, data, logger, infoLink.Expires);
-    }
-
-    private async Task<(HttpResponseHeaders Headers, TData Data)> GetResponseAsync<TData>(Uri iRacingUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
-    {
-        var response = await httpClient.GetAsync(iRacingUri, cancellationToken).ConfigureAwait(false);
-
-        // This isn't the most performant way of going here, but annoyingly if you exceed the rate limit it isn't an issue just
-        // the string "Rate limit exceeded" so we need the string to check that.
-#if NET6_0_OR_GREATER
-        var responseContent = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-#else
-        var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
-#endif
-        if (!response.IsSuccessStatusCode || responseContent == RateLimitExceededContent)
-        {
-            HandleUnsuccessfulResponse(response, responseContent, logger);
-        }
-
-        var data = await response.Content.ReadFromJsonAsync(jsonTypeInfo, cancellationToken: cancellationToken)
-                                         .ConfigureAwait(false)
-                                         ?? throw new iRacingDataClientException("Data not found.");
-
-        return (response.Headers, data);
-    }
-
-    private void HandleUnsuccessfulResponse(HttpResponseMessage httpResponse, string content, ILogger logger)
-    {
-        string? errorDescription;
-        Exception? exception;
-
-        if (content == "Rate limit exceeded")
-        {
-            errorDescription = content;
-            exception = iRacingRateLimitExceededException.Create();
-        }
-        else
-        {
-            var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(content);
-            errorDescription = errorResponse?.ErrorDescription;
-
-            exception = errorResponse switch
-            {
-                { ErrorCode: "Site Maintenance" } => new iRacingInMaintenancePeriodException(errorResponse.ErrorDescription ?? "iRacing services are down for maintenance."),
-                { ErrorCode: "Forbidden" } => iRacingForbiddenResponseException.Create(),
-                { ErrorCode: "Unauthorized" } => iRacingUnauthorizedResponseException.Create(),
-                _ => null
-            };
-        }
-
-        if (exception is null)
-        {
-            logger.ErrorResponseUnknown();
-            httpResponse.EnsureSuccessStatusCode();
-        }
-        else
-        {
-            if (exception is iRacingUnauthorizedResponseException)
-            {
-                // Unauthorized might just be our session expired
-                IsLoggedIn = false;
-            }
-
-            logger.ErrorResponse(errorDescription, exception);
-            throw exception;
-        }
-    }
-
-    private static DataResponse<TData> BuildDataResponse<TData>(HttpResponseHeaders headers, TData data, ILogger logger, DateTimeOffset? expires = null)
-    {
-        var response = new DataResponse<TData> { Data = data };
-
-        if (headers.TryGetValues("x-ratelimit-remaining", out var remainingValues)
-            && remainingValues.Any()
-            && int.TryParse(remainingValues.First(), out var remaining))
-        {
-            response.RateLimitRemaining = remaining;
-        }
-
-        if (headers.TryGetValues("x-ratelimit-limit", out var limitValues)
-            && limitValues.Any()
-            && int.TryParse(limitValues.First(), out var limit))
-        {
-            response.TotalRateLimit = limit;
-        }
-
-        if (headers.TryGetValues("x-ratelimit-reset", out var resetValues)
-            && resetValues.Any()
-            && long.TryParse(resetValues.First(), out var resetTimeUnixSeconds))
-        {
-            response.RateLimitReset = DateTimeOffset.FromUnixTimeSeconds(resetTimeUnixSeconds);
-        }
-
-        response.DataExpires = expires;
-
-        logger.RateLimitsUpdated(response.RateLimitRemaining, response.TotalRateLimit, response.RateLimitReset);
-
-        return response;
-    }
 
     /// <inheritdoc />
     public async Task<DataResponse<LeagueMembership[]>> GetLeagueMembershipAsync(bool includeLeague = false, CancellationToken cancellationToken = default)
@@ -2110,5 +1846,244 @@ internal class DataClient : IDataClient
         return await CreateResponseViaInfoLinkAsync(new Uri(queryUrl),
                                                     SpectatorSubsessionIdsContext.Default.SpectatorSubsessionIds,
                                                     cancellationToken).ConfigureAwait(false);
+    }
+
+#pragma warning disable CA1308 // Normalize strings to uppercase - this algorithm requires lower case.
+    private async Task LoginInternalAsync(CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(options.Username))
+        {
+            throw iRacingClientOptionsValueMissingException.Create(nameof(options.Username));
+        }
+
+        if (string.IsNullOrWhiteSpace(options.Password))
+        {
+            throw iRacingClientOptionsValueMissingException.Create(nameof(options.Password));
+        }
+
+        try
+        {
+            if (options.RestoreCookies is not null
+                && options.RestoreCookies() is CookieCollection savedCookies)
+            {
+                cookieContainer.Add(savedCookies);
+            }
+
+            string? encodedHash = null;
+
+            if (options.PasswordIsEncoded)
+            {
+                encodedHash = options.Password;
+            }
+            else
+            {
+
+                var passwordAndEmail = options.Password + (options.Username?.ToLowerInvariant());
+
+#if NET6_0_OR_GREATER
+                var hashedPasswordAndEmailBytes = SHA256.HashData(Encoding.UTF8.GetBytes(passwordAndEmail));
+#else
+                using var sha256 = SHA256.Create();
+                var hashedPasswordAndEmailBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordAndEmail));
+#endif
+
+                encodedHash = Convert.ToBase64String(hashedPasswordAndEmailBytes);
+            }
+
+            var loginResponse = await httpClient.PostAsJsonAsync("https://members-ng.iracing.com/auth",
+                                                                 new
+                                                                 {
+                                                                     email = options.Username,
+                                                                     password = encodedHash
+                                                                 },
+                                                                 cancellationToken)
+                                                .ConfigureAwait(false);
+
+            if (loginResponse.IsSuccessStatusCode is false)
+            {
+                if (loginResponse.StatusCode == HttpStatusCode.ServiceUnavailable)
+                {
+                    throw new iRacingInMaintenancePeriodException("Maintenance assumed because login returned HTTP Error 503 \"Service Unavailable\".");
+                }
+                throw new iRacingLoginFailedException($"Login failed with HTTP response \"{loginResponse.StatusCode} {loginResponse.ReasonPhrase}\"");
+            }
+
+            var loginResult = await loginResponse.Content.ReadFromJsonAsync(LoginResponseContext.Default.LoginResponse, cancellationToken).ConfigureAwait(false);
+
+            if (loginResult is null || loginResult.Success is false)
+            {
+                var message = loginResult?.Message ?? $"Login failed with HTTP response \"{loginResponse.StatusCode} {loginResponse.ReasonPhrase}\"";
+                throw iRacingLoginFailedException.Create(message, loginResult?.VerificationRequired);
+            }
+
+            IsLoggedIn = true;
+            logger.LoginSuccessful(options.Username!);
+
+            if (options.SaveCookies is Action<CookieCollection> saveCredentials)
+            {
+                saveCredentials(cookieContainer.GetAllCookies());
+            }
+        }
+        catch (Exception ex) when (ex is not iRacingDataClientException)
+        {
+            throw iRacingLoginFailedException.Create(ex);
+        }
+    }
+#pragma warning restore CA1308 // Normalize strings to uppercase
+
+    private const string RateLimitExceededContent = "Rate limit exceeded";
+
+    protected async virtual Task<DataResponse<TData>> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
+    {
+        var infoLinkResponse = await httpClient.GetAsync(infoLinkUri, cancellationToken).ConfigureAwait(false);
+
+#if NET6_0_OR_GREATER
+        var content = await infoLinkResponse.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+#else
+        var content = await infoLinkResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+#endif
+
+        if (!infoLinkResponse.IsSuccessStatusCode || content == RateLimitExceededContent)
+        {
+            HandleUnsuccessfulResponse(infoLinkResponse, content, logger);
+        }
+
+        var infoLink = JsonSerializer.Deserialize(content, LinkResultContext.Default.LinkResult);
+        if (infoLink?.Link is null)
+        {
+            throw new iRacingDataClientException("Unrecognized result.");
+        }
+
+        var data = await httpClient.GetFromJsonAsync(infoLink.Link, jsonTypeInfo, cancellationToken: cancellationToken)
+                                   .ConfigureAwait(false)
+                                   ?? throw new iRacingDataClientException("Data not found.");
+
+        return BuildDataResponse(infoLinkResponse.Headers, data, logger, infoLink.Expires);
+    }
+
+    protected async virtual Task<DataResponse<(TData, TChunkData[])>> CreateResponseFromChunkedDataAsync<TData, THeaderData, TChunkData>(Uri uri, JsonTypeInfo<TData> jsonTypeInfo, JsonTypeInfo<TChunkData[]> chunkArrayTypeInfo, CancellationToken cancellationToken)
+        where TData : IChunkInfoResultHeader<THeaderData>
+        where THeaderData : IChunkInfoResultHeaderData
+    {
+        var response = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
+
+        // This isn't the most performant way of going here, but annoyingly if you exceed the rate limit it isn't an issue just
+        // the string "Rate limit exceeded" so we need the string to check that.
+#if NET6_0_OR_GREATER
+        var responseContent = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+#else
+        var responseContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+#endif
+        if (!response.IsSuccessStatusCode || responseContent == RateLimitExceededContent)
+        {
+            HandleUnsuccessfulResponse(response, responseContent, logger);
+        }
+
+        var headerData = await response.Content.ReadFromJsonAsync(jsonTypeInfo, cancellationToken: cancellationToken)
+                                         .ConfigureAwait(false)
+                                         ?? throw new iRacingDataClientException("Data not found.");
+
+        var searchResults = new List<TChunkData>();
+
+        if (headerData.Data.ChunkInfo is ChunkInfo { NumberOfChunks: > 0 } chunkInfo)
+        {
+            var baseChunkUrl = new Uri(chunkInfo.BaseDownloadUrl);
+
+            foreach (var (chunkFileName, index) in chunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+            {
+                var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+
+                var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+                if (!chunkResponse.IsSuccessStatusCode)
+                {
+                    logger.FailedToRetrieveChunkError(index, chunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    continue;
+                }
+
+                var chunkData = await chunkResponse.Content.ReadFromJsonAsync(chunkArrayTypeInfo, cancellationToken).ConfigureAwait(false);
+                if (chunkData is null)
+                {
+                    continue;
+                }
+
+                searchResults.AddRange(chunkData);
+            }
+        }
+
+        return BuildDataResponse<(TData Header, TChunkData[] Results)>(response.Headers, (headerData, searchResults.ToArray()), logger);
+    }
+
+    private void HandleUnsuccessfulResponse(HttpResponseMessage httpResponse, string content, ILogger logger)
+    {
+        string? errorDescription;
+        Exception? exception;
+
+        if (content == "Rate limit exceeded")
+        {
+            errorDescription = content;
+            exception = iRacingRateLimitExceededException.Create();
+        }
+        else
+        {
+            var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(content);
+            errorDescription = errorResponse?.ErrorDescription;
+
+            exception = errorResponse switch
+            {
+                { ErrorCode: "Site Maintenance" } => new iRacingInMaintenancePeriodException(errorResponse.ErrorDescription ?? "iRacing services are down for maintenance."),
+                { ErrorCode: "Forbidden" } => iRacingForbiddenResponseException.Create(),
+                { ErrorCode: "Unauthorized" } => iRacingUnauthorizedResponseException.Create(),
+                _ => null
+            };
+        }
+
+        if (exception is null)
+        {
+            logger.ErrorResponseUnknown();
+            httpResponse.EnsureSuccessStatusCode();
+        }
+        else
+        {
+            if (exception is iRacingUnauthorizedResponseException)
+            {
+                // Unauthorized might just be our session expired
+                IsLoggedIn = false;
+            }
+
+            logger.ErrorResponse(errorDescription, exception);
+            throw exception;
+        }
+    }
+
+    private static DataResponse<TData> BuildDataResponse<TData>(HttpResponseHeaders headers, TData data, ILogger logger, DateTimeOffset? expires = null)
+    {
+        var response = new DataResponse<TData> { Data = data };
+
+        if (headers.TryGetValues("x-ratelimit-remaining", out var remainingValues)
+            && remainingValues.Any()
+            && int.TryParse(remainingValues.First(), out var remaining))
+        {
+            response.RateLimitRemaining = remaining;
+        }
+
+        if (headers.TryGetValues("x-ratelimit-limit", out var limitValues)
+            && limitValues.Any()
+            && int.TryParse(limitValues.First(), out var limit))
+        {
+            response.TotalRateLimit = limit;
+        }
+
+        if (headers.TryGetValues("x-ratelimit-reset", out var resetValues)
+            && resetValues.Any()
+            && long.TryParse(resetValues.First(), out var resetTimeUnixSeconds))
+        {
+            response.RateLimitReset = DateTimeOffset.FromUnixTimeSeconds(resetTimeUnixSeconds);
+        }
+
+        response.DataExpires = expires;
+
+        logger.RateLimitsUpdated(response.RateLimitRemaining, response.TotalRateLimit, response.RateLimitReset);
+
+        return response;
     }
 }

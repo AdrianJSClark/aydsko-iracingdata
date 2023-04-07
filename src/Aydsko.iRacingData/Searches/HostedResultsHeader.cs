@@ -3,7 +3,7 @@
 
 namespace Aydsko.iRacingData.Searches;
 
-public class HostedResultsHeader
+public class HostedResultsHeader : IChunkInfoResultHeader<HostedResultsHeaderData>
 {
     [JsonPropertyName("type")]
     public string Type { get; set; } = default!;
@@ -12,7 +12,7 @@ public class HostedResultsHeader
     public HostedResultsHeaderData Data { get; set; } = default!;
 }
 
-public class HostedResultsHeaderData
+public class HostedResultsHeaderData : IChunkInfoResultHeaderData
 {
     [JsonPropertyName("success")]
     public bool Success { get; set; }
