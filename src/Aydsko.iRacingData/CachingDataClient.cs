@@ -35,10 +35,8 @@ internal class CachingDataClient : DataClient
             var response = await base.CreateResponseViaInfoLinkAsync(infoLinkUri, jsonTypeInfo, cancellationToken)
                                      .ConfigureAwait(false);
 
-            if (response.DataExpires is not null)
-            {
-                ce.SetAbsoluteExpiration((DateTimeOffset)response.DataExpires!);
-            }
+            var expiry = response.DataExpires ?? DateTime.UtcNow.AddMinutes(30);
+            ce.SetAbsoluteExpiration(expiry);
 
             return response;
         }).ConfigureAwait(false);
