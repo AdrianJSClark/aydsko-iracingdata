@@ -29,11 +29,9 @@ jobs:
       - run: docfx doc/docfx_project/docfx.json
         shell: pwsh
 
-      - run: Compress-Archive -Path doc/docfx_project/_site/* -DestinationPath DocumentationSite.zip
-        shell: pwsh
-
       - name: 'Upload Site Artifacts'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: 'Documentation Site'
-          path: 'DocumentationSite.zip'
+          path: 'doc/docfx_project/_site/'
+          if-no-files-found: error
