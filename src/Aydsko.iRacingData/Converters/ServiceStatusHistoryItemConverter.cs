@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace Aydsko.iRacingData.Converters;
 
-public class ServiceStatusHistoryItemArrayConverter : JsonConverter<ServiceStatusHistoryItem[]>
+public sealed class ServiceStatusHistoryItemArrayConverter : JsonConverter<ServiceStatusHistoryItem[]>
 {
     private readonly StatusTimeStampConverter StatusTimeStampConverter = new();
 

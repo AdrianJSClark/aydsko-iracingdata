@@ -3,12 +3,11 @@
 
 using System.Globalization;
 using System.Text.Json;
-using Aydsko.iRacingData.Searches;
 
 namespace Aydsko.iRacingData.Converters;
 
 /// <summary>The iRacing login response contains a property that is sometimes a literal zero (0) character and sometimes a string. This converter handles this to/from a <c>string</c> value.</summary>
-public class StringFromStringOrNumberConverter : JsonConverter<string>
+public sealed class StringFromStringOrNumberConverter : JsonConverter<string>
 {
     public override string? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {

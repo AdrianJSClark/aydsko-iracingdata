@@ -6,7 +6,7 @@ using System.Text.Json;
 
 namespace Aydsko.iRacingData.Converters;
 
-public class DateTimeConverter : JsonConverter<DateTime>
+public sealed class DateTimeConverter : JsonConverter<DateTime>
 {
     public override DateTime Read(ref Utf8JsonReader reader,
                                   Type typeToConvert,

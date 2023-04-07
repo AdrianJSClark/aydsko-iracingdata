@@ -9,7 +9,7 @@ namespace Aydsko.iRacingData.Converters;
 /// The raw iRacing API results use a number type which carries duration values to the ten-thousandth of a second.
 /// So, for example, a lap which was displayed in the iRacing results page as &quot;1:23.456&quot; would be returned as &quot;834560&quot;.
 /// </summary>
-public class TenThousandthSecondDurationConverter : JsonConverter<TimeSpan?>
+public sealed class TenThousandthSecondDurationConverter : JsonConverter<TimeSpan?>
 {
     public override TimeSpan? Read(ref Utf8JsonReader reader,
                                         Type typeToConvert,
