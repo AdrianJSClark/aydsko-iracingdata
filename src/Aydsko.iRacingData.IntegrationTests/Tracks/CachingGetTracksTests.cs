@@ -3,7 +3,7 @@
 
 namespace Aydsko.iRacingData.IntegrationTests.Tracks;
 
-internal class CachingGetTracksTests : CachingIntegrationFixture
+internal sealed class CachingGetTracksTests : CachingIntegrationFixture
 {
     [Test]
     public async Task GetTracksTest()

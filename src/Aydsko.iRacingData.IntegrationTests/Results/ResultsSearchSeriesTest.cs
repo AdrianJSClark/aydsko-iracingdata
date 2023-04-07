@@ -3,7 +3,7 @@
 
 namespace Aydsko.iRacingData.IntegrationTests.Results;
 
-internal class ResultsSearchSeriesTest : DataClientIntegrationFixture
+internal sealed class ResultsSearchSeriesTest : DataClientIntegrationFixture
 {
     [Test]
     public async Task GivenValidSearchParametersTheCorrectResultIsReturned()

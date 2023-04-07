@@ -3,7 +3,7 @@
 
 namespace Aydsko.iRacingData.IntegrationTests.Results;
 
-internal class CachingResultsGetTest : CachingIntegrationFixture
+internal sealed class CachingResultsGetTest : CachingIntegrationFixture
 {
     [Test]
     public async Task GivenAValidSubsessionIdThenAResultIsReturned()
