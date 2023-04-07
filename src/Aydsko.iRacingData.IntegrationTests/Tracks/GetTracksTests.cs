@@ -6,7 +6,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Aydsko.iRacingData.IntegrationTests.Tracks;
 
-internal class GetTracksTests : DataClientIntegrationFixture
+internal sealed class GetTracksTests : DataClientIntegrationFixture
 {
     private Track[] tracksData;
 

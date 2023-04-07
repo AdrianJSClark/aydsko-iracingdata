@@ -3,7 +3,7 @@
 
 namespace Aydsko.iRacingData.Common;
 
-internal class LinkResult
+internal sealed class LinkResult
 {
     [JsonPropertyName("link")]
     public string Link { get; set; } = default!;

@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace Aydsko.iRacingData.Converters;
 
-public class CsvStringConverter : JsonConverter<string[]>
+public sealed class CsvStringConverter : JsonConverter<string[]>
 {
     public override string[]? Read(ref Utf8JsonReader reader,
                                    Type typeToConvert,

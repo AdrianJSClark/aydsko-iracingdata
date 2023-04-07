@@ -38,12 +38,12 @@ public struct TrackCoordinate : IEquatable<TrackCoordinate>
         return true;
     }
 
-    public override bool Equals(object? obj)
+    public override readonly bool Equals(object? obj)
     {
         return (obj is TrackCoordinate coordinate) && Equals(coordinate);
     }
 
-    public override int GetHashCode()
+    public override readonly int GetHashCode()
     {
         return Latitude.GetHashCode() ^ Longitude.GetHashCode();
     }
@@ -58,7 +58,7 @@ public struct TrackCoordinate : IEquatable<TrackCoordinate>
         return !(left == right);
     }
 
-    public bool Equals(TrackCoordinate other)
+    public readonly bool Equals(TrackCoordinate other)
     {
         return (Latitude == other.Latitude) && (Longitude == other.Longitude);
     }

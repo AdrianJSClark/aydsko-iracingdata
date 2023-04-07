@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace Aydsko.iRacingData.Converters;
 
-public class StatusTimeStampConverter : JsonConverter<DateTimeOffset>
+public sealed class StatusTimeStampConverter : JsonConverter<DateTimeOffset>
 {
     private static readonly DateTimeOffset Epoch = new(1970, 1, 1, 0, 0, 0, TimeSpan.Zero);
 

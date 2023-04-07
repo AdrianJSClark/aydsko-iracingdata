@@ -3,7 +3,7 @@
 
 namespace Aydsko.iRacingData.IntegrationTests.Lookups;
 
-internal class CachingLookupTests : CachingIntegrationFixture
+internal sealed class CachingLookupTests : CachingIntegrationFixture
 {
     [Test(TestOf = typeof(DataClient))]
     public async Task TestClubHistoryLookupsAreCachedAsync()

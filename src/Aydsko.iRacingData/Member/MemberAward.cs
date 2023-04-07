@@ -6,7 +6,7 @@ public class MemberAward
     public int MemberAwardId { get; set; }
 
     [JsonPropertyName("cust_id")]
-    public int CustId { get; set; }
+    public int CustomerId { get; set; }
 
     [JsonPropertyName("award_id")]
     public int AwardId { get; set; }

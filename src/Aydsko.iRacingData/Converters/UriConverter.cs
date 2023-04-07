@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace Aydsko.iRacingData.Converters;
 
-public class UriConverter : JsonConverter<Uri>
+public sealed class UriConverter : JsonConverter<Uri>
 {
     public override Uri? Read(ref Utf8JsonReader reader,
                               Type typeToConvert,

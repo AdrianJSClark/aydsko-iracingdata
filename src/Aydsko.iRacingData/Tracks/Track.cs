@@ -120,7 +120,7 @@ public class Track
     [JsonPropertyName("search_filters")]
     public string SearchFilters { get; set; } = default!;
 
-    [JsonPropertyName("site_url"), SuppressMessage("Design", "CA1056:URI-like properties should not be strings", Justification = "Strings are easier to deal with.")]
+    [JsonPropertyName("site_url")]
     public string SiteUrl { get; set; } = default!;
 
     [JsonPropertyName("sku")]

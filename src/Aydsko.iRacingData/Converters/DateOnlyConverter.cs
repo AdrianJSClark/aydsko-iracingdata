@@ -7,7 +7,7 @@ using System.Text.Json;
 namespace Aydsko.iRacingData.Converters;
 
 #if NET6_0_OR_GREATER
-public class DateOnlyConverter : JsonConverter<DateOnly>
+public sealed class DateOnlyConverter : JsonConverter<DateOnly>
 {
     public override DateOnly Read(ref Utf8JsonReader reader,
                                   Type typeToConvert,

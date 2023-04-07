@@ -3,7 +3,7 @@
 
 namespace Aydsko.iRacingData.IntegrationTests.Member;
 
-internal class CachingMemberInfoTest : CachingIntegrationFixture
+internal sealed class CachingMemberInfoTest : CachingIntegrationFixture
 {
     [Test]
     public async Task TestMemberInfoAsync()
