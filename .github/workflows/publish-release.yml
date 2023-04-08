@@ -8,7 +8,7 @@ on:
 jobs:
   build:
     name: 'Publish Package'
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     env:
       DOTNET_NOLOGO: true
@@ -19,7 +19,7 @@ jobs:
     - name: 'Check Tag Value'
       run: echo ${{ github.event.release.tag_name }}
 
-    - uses: robinraju/release-downloader@v1.3
+    - uses: robinraju/release-downloader@v1.7
       name: 'Download Package from Release'
       with:
         repository: 'AdrianJSClark/aydsko-iracingdata'
@@ -34,7 +34,7 @@ jobs:
       run: Expand-Archive -Path DocumentationSite.zip -DestinationPath ./_site
 
     - name: 'Upload Site Artifacts'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: 'Documentation Site'
         path: '_site'
