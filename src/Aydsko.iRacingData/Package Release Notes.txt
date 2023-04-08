@@ -1,4 +1,4 @@
 ﻿Fixes / Changes:
 
- - Cache the results of requests to iRacing. (Issue #165)
- - Fix "CustomerId" properties incorrectly named "CustId" on "MemberAward" and "RecentAwards" classes.
+ - Include Full Bitwise Enum for "SubsessionLap.Flags" (Issue #169)
+ - Original value for the field made available as "SubsessionLap.FlagsRaw"
