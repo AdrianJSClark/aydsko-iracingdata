@@ -1,0 +1,11 @@
+﻿{
+  "headers": {
+    "x-ratelimit-remaining": "99",
+    "x-ratelimit-limit": "100",
+    "x-ratelimit-reset": "1644451200"
+  },
+  "content": {
+    "link": "https://scorpio-assets.s3.amazonaws.com/production/data-server/cache/data-services/league/cust_league_sessions/bcfec173-310c-4d21-bb20-ea019c676113?AWSAccessKeyId=AKIAUO6OO4A3357USLO7&Expires=1680985284&Signature=LzOPNlJW2ERiatDbm1e%2Bw9qCpOQ%3D",
+    "expires": "2023-04-08T20:28:49.471Z"
+  }
+}

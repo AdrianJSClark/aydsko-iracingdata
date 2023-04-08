@@ -1019,6 +1019,22 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
+    public async Task GetCustomerLeagueSessionsAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetCustomerLeagueSessionsAsync)).ConfigureAwait(false);
+
+        var countryResponse = await sut.GetCustomerLeagueSessionsAsync().ConfigureAwait(false);
+
+        Assert.That(countryResponse, Is.Not.Null);
+        Assert.That(countryResponse!.Data, Is.Not.Null);
+
+        Assert.That(countryResponse.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(countryResponse.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(countryResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(countryResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2023, 4, 8, 20, 28, 49, 471, TimeSpan.Zero)));
+    }
+
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetCountriesSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetCountriesSuccessfulAsync)).ConfigureAwait(false);
