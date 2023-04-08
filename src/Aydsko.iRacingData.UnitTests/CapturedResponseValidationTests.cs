@@ -574,7 +574,8 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(lapChartResponse.Data.Laps, Has.Length.EqualTo(417));
         Assert.That(lapChartResponse.Data.Laps, Has.ItemAt(0).Property(nameof(SubsessionChartLap.GroupId)).EqualTo(523780)
                                                    .And.ItemAt(0).Property(nameof(SubsessionChartLap.Name)).EqualTo("Jake Dennis")
-                                                   .And.ItemAt(0).Property(nameof(SubsessionChartLap.LapPosition)).EqualTo(1));
+                                                   .And.ItemAt(0).Property(nameof(SubsessionChartLap.LapPosition)).EqualTo(1)
+                                                   .And.ItemAt(0).Property(nameof(SubsessionLap.Flags)).EqualTo(LapFlags.None));
 
         Assert.That(lapChartResponse.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
@@ -617,7 +618,8 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(lapChartResponse.Data.Laps, Has.Length.EqualTo(16));
         Assert.That(lapChartResponse.Data.Laps, Has.ItemAt(0).Property(nameof(SubsessionLap.GroupId)).EqualTo(341554)
                                                    .And.ItemAt(0).Property(nameof(SubsessionLap.Name)).EqualTo("Adrian Clark")
-                                                   .And.ItemAt(0).Property(nameof(SubsessionLap.Incident)).EqualTo(false));
+                                                   .And.ItemAt(0).Property(nameof(SubsessionLap.Incident)).EqualTo(false)
+                                                   .And.ItemAt(0).Property(nameof(SubsessionLap.Flags)).EqualTo(LapFlags.Invalid | LapFlags.Pitted | LapFlags.Tow));
 
         Assert.That(lapChartResponse.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
@@ -652,7 +654,8 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(lapChartResponse.Data.Laps, Has.Length.EqualTo(500));
         Assert.That(lapChartResponse.Data.Laps, Has.ItemAt(0).Property(nameof(SubsessionLap.GroupId)).EqualTo(-93376)
                                                    .And.ItemAt(0).Property(nameof(SubsessionLap.Name)).EqualTo("Tempest Motorsports Neon")
-                                                   .And.ItemAt(0).Property(nameof(SubsessionLap.Incident)).EqualTo(false));
+                                                   .And.ItemAt(0).Property(nameof(SubsessionLap.Incident)).EqualTo(false)
+                                                   .And.ItemAt(0).Property(nameof(SubsessionLap.Flags)).EqualTo(LapFlags.None));
 
         Assert.That(lapChartResponse.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));

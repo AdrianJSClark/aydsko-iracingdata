@@ -23,7 +23,10 @@ public class SubsessionLap
     public int LapNumber { get; set; }
 
     [JsonPropertyName("flags")]
-    public int Flags { get; set; }
+    public int FlagsRaw { get; set; }
+
+    [JsonIgnore]
+    public LapFlags Flags => (LapFlags)FlagsRaw;
 
     [JsonPropertyName("incident")]
     public bool Incident { get; set; }

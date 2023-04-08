@@ -65,6 +65,13 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Results.SubsessionLap.set_Flags(System.Int32)</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Member.MemberAward.get_CustId</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
@@ -87,6 +94,13 @@
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Member.RecentAwards.set_CustId(System.Int32)</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Results.SubsessionLap.set_Flags(System.Int32)</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
