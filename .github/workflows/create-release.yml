@@ -16,26 +16,33 @@ jobs:
     uses: ./.github/workflows/_build-docs.yml
 
   deploy:
-    name: Create Draft Release with NuGet Packages
+    name: Create Draft Release with NuGet Packages & Documentation Site
     needs:
       - build
       - build-docs
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     env:
       DOTNET_NOLOGO: true
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true # Avoid pre-populating the NuGet package cache
 
     steps:
+      - name: 'Checkout Code'
+        uses: actions/checkout@v2
+
       - name: Download Artifacts
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
 
       - name: Setup .NET SDK
         uses: actions/setup-dotnet@v3
 
+      - run: Compress-Archive -Path "Documentation Site/*" -DestinationPath DocumentationSite.zip
+        shell: pwsh
+
       - name: Create Draft Release
         shell: pwsh
         # Can't just use wildcard in this command due to https://github.com/cli/cli/issues/5099 so use Get-Item
-        run: gh release create --repo "AdrianJSClark/aydsko-iracingdata" --draft --title "${{ github.ref_name }}" --notes-file "Release Notes\Package Release Notes.txt" "release-${{ github.ref_name }}" (Get-Item "NuGet Packages/*.nupkg","Documentation Site/*.zip")
+        run: |
+          gh release create --repo "AdrianJSClark/aydsko-iracingdata" --draft --title "${{ github.ref_name }}" --notes-file "Release Notes/Package Release Notes.txt" "release-${{ github.ref_name }}" (Get-Item "NuGet Packages/*.nupkg","DocumentationSite.zip")
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
