@@ -34,7 +34,7 @@ jobs:
       run: Expand-Archive -Path DocumentationSite.zip -DestinationPath ./_site
 
     - name: 'Upload Site Artifacts'
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: 'Documentation Site'
         path: '_site'

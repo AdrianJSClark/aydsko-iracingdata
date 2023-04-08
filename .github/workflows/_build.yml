@@ -21,11 +21,6 @@ jobs:
       - name: 'Setup .NET SDK'
         uses: actions/setup-dotnet@v1
         with:
-          dotnet-version: '3.1.x'
-
-      - name: 'Setup .NET SDK'
-        uses: actions/setup-dotnet@v1
-        with:
           dotnet-version: '6.x'
 
       - name: 'Build Solution'
@@ -68,13 +63,13 @@ jobs:
         run: Get-ChildItem -Path src\*\bin\Release\* -Recurse -Include *.nupkg | Copy-Item -Container:$false
 
       - name: 'Upload Artifacts'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: NuGet Packages
           path: Aydsko.*.nupkg
 
       - name: 'Upload Release Notes'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: Release Notes
           path: 'src\Aydsko.iRacingData\Package Release Notes.txt'
