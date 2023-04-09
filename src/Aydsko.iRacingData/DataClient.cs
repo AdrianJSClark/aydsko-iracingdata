@@ -245,6 +245,32 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
+    public async Task<DataResponse<CustomerLeagueSessions>> GetCustomerLeagueSessionsAsync(bool mine = false, int? packageId = null, CancellationToken cancellationToken = default)
+    {
+        if (!IsLoggedIn)
+        {
+            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
+        }
+        var queryUrl = "https://members-ng.iracing.com/data/league/cust_league_sessions";
+
+        var queryParams = new Dictionary<string, string>
+        {
+            ["mine"] = mine.ToString(CultureInfo.InvariantCulture),
+        };
+
+        if (packageId is not null)
+        {
+            queryParams.Add("package_id", packageId.Value.ToString(CultureInfo.InvariantCulture));
+        }
+
+        queryUrl = QueryHelpers.AddQueryString(queryUrl, queryParams);
+
+        return await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), 
+                                                    CustomerLeagueSessionsContext.Default.CustomerLeagueSessions, 
+                                                    cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc />
     public async Task<DataResponse<LookupGroup[]>> GetLookupsAsync(CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)

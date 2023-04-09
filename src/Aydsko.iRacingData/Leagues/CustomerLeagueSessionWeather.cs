@@ -1,0 +1,55 @@
+﻿// © 2023 Adrian Clark
+// This file is licensed to you under the MIT license.
+
+namespace Aydsko.iRacingData.Leagues;
+
+public class CustomerLeagueSessionWeather
+{
+    [JsonPropertyName("version")]
+    public int Version { get; set; }
+
+    [JsonPropertyName("type")]
+    public int Type { get; set; }
+
+    [JsonPropertyName("temp_units")]
+    public int TempUnits { get; set; }
+
+    [JsonPropertyName("temp_value")]
+    public int TempValue { get; set; }
+
+    [JsonPropertyName("rel_humidity")]
+    public int RelHumidity { get; set; }
+
+    [JsonPropertyName("fog")]
+    public int Fog { get; set; }
+
+    [JsonPropertyName("wind_dir")]
+    public int WindDir { get; set; }
+
+    [JsonPropertyName("wind_units")]
+    public int WindUnits { get; set; }
+
+    [JsonPropertyName("wind_value")]
+    public int WindValue { get; set; }
+
+    [JsonPropertyName("skies")]
+    public int Skies { get; set; }
+
+    [JsonPropertyName("weather_var_initial")]
+    public int WeatherVarInitial { get; set; }
+
+    [JsonPropertyName("weather_var_ongoing")]
+    public int WeatherVarOngoing { get; set; }
+
+    [JsonPropertyName("time_of_day")]
+    public int TimeOfDay { get; set; }
+
+    [JsonPropertyName("simulated_start_time")]
+    public DateTimeOffset SimulatedStartTime { get; set; } = default!;
+
+    [JsonPropertyName("simulated_time_offset")]
+    public int[] SimulatedTimeOffsets { get; set; } = Array.Empty<int>();
+
+    [JsonPropertyName("simulated_time_multiplier")]
+    public int SimulatedTimeMultiplier { get; set; }
+}
