@@ -1,6 +1,11 @@
-﻿Contributions:
+﻿Fixes / Changes:
 
- - From Dennis Møllegaard Pedersen (https://github.com/dennis):
-    - Add Custom League Sessions (Issue #70, Pull Request #172)
+ - TODO
+
+
+
+Contributions:
+
+ - TODO
 
 Thanks for helping out with pull requests to the library!
