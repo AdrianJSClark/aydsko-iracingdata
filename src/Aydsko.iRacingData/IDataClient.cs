@@ -403,6 +403,25 @@ public interface IDataClient
 
     /// <summary>Retrieve information about the races run during a week in the season.</summary>
     /// <param name="seasonId">Unique identifier for the racing season.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the races in a <see cref="SeasonResults"/> object.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
+    Task<DataResponse<SeasonResults>> GetSeasonResultsAsync(int seasonId, CancellationToken cancellationToken = default);
+
+    /// <summary>Retrieve information about the races run during a week in the season.</summary>
+    /// <param name="seasonId">Unique identifier for the racing season.</param>
+    /// <param name="eventType">The type of events to return.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the races in a <see cref="SeasonResults"/> object.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
+    Task<DataResponse<SeasonResults>> GetSeasonResultsAsync(int seasonId, Common.EventType eventType, CancellationToken cancellationToken = default);
+
+    /// <summary>Retrieve information about the races run during a week in the season.</summary>
+    /// <param name="seasonId">Unique identifier for the racing season.</param>
     /// <param name="eventType">The type of events to return.</param>
     /// <param name="raceWeekNumber">Week number within the given season, starting with 0 for the first week.</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>

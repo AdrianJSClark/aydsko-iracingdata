@@ -1173,7 +1173,24 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
+    public async Task<DataResponse<SeasonResults>> GetSeasonResultsAsync(int seasonId, CancellationToken cancellationToken = default)
+    {
+        return await GetSeasonResultsInternalAsync(seasonId, null, null, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<SeasonResults>> GetSeasonResultsAsync(int seasonId, Common.EventType eventType, CancellationToken cancellationToken = default)
+    {
+        return await GetSeasonResultsInternalAsync(seasonId, eventType, null, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc />
     public async Task<DataResponse<SeasonResults>> GetSeasonResultsAsync(int seasonId, Common.EventType eventType, int raceWeekNumber, CancellationToken cancellationToken = default)
+    {
+        return await GetSeasonResultsInternalAsync(seasonId, eventType, raceWeekNumber, cancellationToken).ConfigureAwait(false);
+    }
+
+    private async Task<DataResponse<SeasonResults>> GetSeasonResultsInternalAsync(int seasonId, Common.EventType? eventType = null, int? raceWeekNumber = null, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
         {
@@ -1182,10 +1199,11 @@ internal class DataClient : IDataClient
 
         var queryParameters = new Dictionary<string, string>
         {
-            ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
-            ["event_type"] = eventType.ToString("D"),
-            ["race_week_num"] = raceWeekNumber.ToString(CultureInfo.InvariantCulture),
+            ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture)
         };
+
+        queryParameters.AddParameterIfNotNull("event_type", eventType);
+        queryParameters.AddParameterIfNotNull("race_week_num", raceWeekNumber);
 
         var seasonResultsUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/season_results", queryParameters);
 
