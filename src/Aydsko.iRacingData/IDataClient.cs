@@ -320,15 +320,15 @@ public interface IDataClient
     /// <summary>Retrieve the driver standings for a season.</summary>
     /// <param name="seasonId">Unique identifier for the racing season.</param>
     /// <param name="carClassId">Car class identifier. See <see cref="GetCarClassesAsync(CancellationToken)" />.</param>
-    /// <param name="raceWeekNumber">Week number within the given season, starting with 0 for the first week.</param>
-    /// <param name="clubId">Club identifier to search. Defaults to "all" (-1).</param>
+    /// <param name="raceWeekIndex">Week within the given season, starting with 0 for the first week. Defaults to "all" if <see langword="null"/>.</param>
+    /// <param name="clubId">Club identifier to search. Defaults to "all".</param>
     /// <param name="division">Division to search. Note that divisions are zero-based. See <see cref="GetDivisionsAsync(CancellationToken)"/>.</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A header with overall series information and an array of standings.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
-    Task<DataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Standings)>> GetSeasonDriverStandingsAsync(int seasonId, int carClassId, int raceWeekNumber, int clubId = -1, int? division = null, CancellationToken cancellationToken = default);
+    Task<DataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Standings)>> GetSeasonDriverStandingsAsync(int seasonId, int carClassId, int? raceWeekIndex = null, int? clubId = null, int? division = null, CancellationToken cancellationToken = default);
 
     /// <summary>Retrieve the qualifying results for a season.</summary>
     /// <param name="seasonId">Unique identifier for the racing season.</param>

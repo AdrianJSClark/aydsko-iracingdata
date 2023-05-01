@@ -860,7 +860,7 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Standings)>> GetSeasonDriverStandingsAsync(int seasonId, int carClassId, int raceWeekNumber, int clubId = -1, int? division = null, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Standings)>> GetSeasonDriverStandingsAsync(int seasonId, int carClassId, int? raceWeekIndex = null, int? clubId = null, int? division = null, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
         {
@@ -871,15 +871,14 @@ internal class DataClient : IDataClient
         {
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
-            ["race_week_num"] = raceWeekNumber.ToString(CultureInfo.InvariantCulture),
-            ["club_id"] = clubId.ToString(CultureInfo.InvariantCulture),
+            ["race_week_num"] = (raceWeekIndex ?? -1).ToString(CultureInfo.InvariantCulture),
+            ["club_id"] = (clubId ?? -1).ToString(CultureInfo.InvariantCulture),
+            ["division"] = (division ?? -1).ToString(CultureInfo.InvariantCulture),
         };
 
-        queryParameters.AddParameterIfNotNull("division", division);
+        var seasonDriverStandingsUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_driver_standings", queryParameters);
 
-        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_driver_standings", queryParameters);
-
-        var intermediateResponse = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl),
+        var intermediateResponse = await CreateResponseViaInfoLinkAsync(new Uri(seasonDriverStandingsUrl),
                                                                         SeasonDriverStandingsHeaderContext.Default.SeasonDriverStandingsHeader,
                                                                         cancellationToken).ConfigureAwait(false);
 
