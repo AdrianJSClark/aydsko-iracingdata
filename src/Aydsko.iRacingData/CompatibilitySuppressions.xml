@@ -156,20 +156,6 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0006</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.IDataClient.GetSeasonResultsAsync(System.Int32,Aydsko.iRacingData.Common.EventType,System.Threading.CancellationToken)</Target>
-    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0006</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.IDataClient.GetSeasonResultsAsync(System.Int32,System.Threading.CancellationToken)</Target>
-    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0006</DiagnosticId>
     <Target>M:Aydsko.iRacingData.IDataClient.GetSpectatorSubsessionIdentifiersAsync(Aydsko.iRacingData.Common.EventType[],System.Threading.CancellationToken)</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>

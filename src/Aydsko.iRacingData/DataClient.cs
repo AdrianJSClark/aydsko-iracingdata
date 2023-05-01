@@ -265,8 +265,8 @@ internal class DataClient : IDataClient
 
         queryUrl = QueryHelpers.AddQueryString(queryUrl, queryParams);
 
-        return await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), 
-                                                    CustomerLeagueSessionsContext.Default.CustomerLeagueSessions, 
+        return await CreateResponseViaInfoLinkAsync(new Uri(queryUrl),
+                                                    CustomerLeagueSessionsContext.Default.CustomerLeagueSessions,
                                                     cancellationToken).ConfigureAwait(false);
     }
 
@@ -875,10 +875,7 @@ internal class DataClient : IDataClient
             ["club_id"] = clubId.ToString(CultureInfo.InvariantCulture),
         };
 
-        if (division is not null)
-        {
-            queryParameters.Add("division", division.Value.ToString(CultureInfo.InvariantCulture));
-        }
+        queryParameters.AddParameterIfNotNull("division", division);
 
         var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_driver_standings", queryParameters);
 
@@ -1173,24 +1170,7 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<SeasonResults>> GetSeasonResultsAsync(int seasonId, CancellationToken cancellationToken = default)
-    {
-        return await GetSeasonResultsInternalAsync(seasonId, null, null, cancellationToken).ConfigureAwait(false);
-    }
-
-    /// <inheritdoc />
-    public async Task<DataResponse<SeasonResults>> GetSeasonResultsAsync(int seasonId, Common.EventType eventType, CancellationToken cancellationToken = default)
-    {
-        return await GetSeasonResultsInternalAsync(seasonId, eventType, null, cancellationToken).ConfigureAwait(false);
-    }
-
-    /// <inheritdoc />
     public async Task<DataResponse<SeasonResults>> GetSeasonResultsAsync(int seasonId, Common.EventType eventType, int raceWeekNumber, CancellationToken cancellationToken = default)
-    {
-        return await GetSeasonResultsInternalAsync(seasonId, eventType, raceWeekNumber, cancellationToken).ConfigureAwait(false);
-    }
-
-    private async Task<DataResponse<SeasonResults>> GetSeasonResultsInternalAsync(int seasonId, Common.EventType? eventType = null, int? raceWeekNumber = null, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
         {
@@ -1367,7 +1347,7 @@ internal class DataClient : IDataClient
     /// <inheritdoc />
     public async Task<DataResponse<(HostedResultsHeader Header, HostedResultItem[] Items)>> SearchHostedResultsAsync(HostedSearchParameters searchParameters, CancellationToken cancellationToken = default)
     {
-#if (NET6_0_OR_GREATER)
+#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(searchParameters);
 #else
         if (searchParameters is null)
@@ -1423,7 +1403,7 @@ internal class DataClient : IDataClient
     /// <inheritdoc />
     public async Task<DataResponse<(OfficialSearchResultHeader Header, OfficialSearchResultItem[] Items)>> SearchOfficialResultsAsync(OfficialSearchParameters searchParameters, CancellationToken cancellationToken = default)
     {
-#if (NET6_0_OR_GREATER)
+#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(searchParameters);
 #else
         if (searchParameters is null)
@@ -1482,7 +1462,7 @@ internal class DataClient : IDataClient
     /// <inheritdoc />
     public async Task<DataResponse<LeagueDirectoryResultPage>> SearchLeagueDirectoryAsync(SearchLeagueDirectoryParameters searchParameters, CancellationToken cancellationToken = default)
     {
-#if (NET6_0_OR_GREATER)
+#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(searchParameters);
 #else
         if (searchParameters is null)
@@ -1607,7 +1587,10 @@ internal class DataClient : IDataClient
         return null;
     }
 
-    private DateTime GetDateTimeUtcNow() => options.CurrentDateTimeSource is null ? DateTime.UtcNow : options.CurrentDateTimeSource().UtcDateTime;
+    private DateTime GetDateTimeUtcNow()
+    {
+        return options.CurrentDateTimeSource is null ? DateTime.UtcNow : options.CurrentDateTimeSource().UtcDateTime;
+    }
 
     /// <inheritdoc />
     public async Task<DataResponse<LeagueMembership[]>> GetLeagueMembershipAsync(bool includeLeague = false, CancellationToken cancellationToken = default)
@@ -1977,7 +1960,7 @@ internal class DataClient : IDataClient
 
     private const string RateLimitExceededContent = "Rate limit exceeded";
 
-    protected async virtual Task<DataResponse<TData>> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
+    protected virtual async Task<DataResponse<TData>> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
     {
         var infoLinkResponse = await httpClient.GetAsync(infoLinkUri, cancellationToken).ConfigureAwait(false);
 
@@ -2005,7 +1988,7 @@ internal class DataClient : IDataClient
         return BuildDataResponse(infoLinkResponse.Headers, data, logger, infoLink.Expires);
     }
 
-    protected async virtual Task<DataResponse<(TData, TChunkData[])>> CreateResponseFromChunkedDataAsync<TData, THeaderData, TChunkData>(Uri uri, JsonTypeInfo<TData> jsonTypeInfo, JsonTypeInfo<TChunkData[]> chunkArrayTypeInfo, CancellationToken cancellationToken)
+    protected virtual async Task<DataResponse<(TData, TChunkData[])>> CreateResponseFromChunkedDataAsync<TData, THeaderData, TChunkData>(Uri uri, JsonTypeInfo<TData> jsonTypeInfo, JsonTypeInfo<TChunkData[]> chunkArrayTypeInfo, CancellationToken cancellationToken)
         where TData : IChunkInfoResultHeader<THeaderData>
         where THeaderData : IChunkInfoResultHeaderData
     {
@@ -2084,7 +2067,7 @@ internal class DataClient : IDataClient
         if (exception is null)
         {
             logger.ErrorResponseUnknown();
-            httpResponse.EnsureSuccessStatusCode();
+            _ = httpResponse.EnsureSuccessStatusCode();
         }
         else
         {
