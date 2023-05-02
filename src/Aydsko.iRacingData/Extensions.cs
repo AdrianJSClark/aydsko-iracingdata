@@ -85,6 +85,7 @@ static internal class Extensions
             Array arrayParam => string.Join(",", GetNonNullValues(arrayParam)),
             IEnumerable<string> enumerableOfString => string.Join(",", enumerableOfString),
             bool boolParam => boolParam.ToString().ToLowerInvariant(),
+            Enum @enum => @enum.ToString("D"),
             _ => Convert.ToString(parameterValue, CultureInfo.InvariantCulture)
         };
 #pragma warning restore CA1308 // Normalize strings to uppercase

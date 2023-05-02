@@ -265,8 +265,8 @@ internal class DataClient : IDataClient
 
         queryUrl = QueryHelpers.AddQueryString(queryUrl, queryParams);
 
-        return await CreateResponseViaInfoLinkAsync(new Uri(queryUrl), 
-                                                    CustomerLeagueSessionsContext.Default.CustomerLeagueSessions, 
+        return await CreateResponseViaInfoLinkAsync(new Uri(queryUrl),
+                                                    CustomerLeagueSessionsContext.Default.CustomerLeagueSessions,
                                                     cancellationToken).ConfigureAwait(false);
     }
 
@@ -860,8 +860,33 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Standings)>> GetSeasonDriverStandingsAsync(int seasonId, int carClassId, int raceWeekNumber, int clubId = -1, int? division = null, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Standings)>> GetSeasonDriverStandingsAsync(int seasonId, int carClassId, int? raceWeekIndex = null, int? clubId = null, int? division = null, CancellationToken cancellationToken = default)
     {
+        if (seasonId < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(seasonId));
+        }
+
+        if (carClassId < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(carClassId));
+        }
+
+        if (raceWeekIndex is not null and < -1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(raceWeekIndex));
+        }
+
+        if (clubId is not null and < -1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(clubId));
+        }
+
+        if (division is not null and < -1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(division));
+        }
+
         if (!IsLoggedIn)
         {
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
@@ -871,18 +896,14 @@ internal class DataClient : IDataClient
         {
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
-            ["race_week_num"] = raceWeekNumber.ToString(CultureInfo.InvariantCulture),
-            ["club_id"] = clubId.ToString(CultureInfo.InvariantCulture),
+            ["race_week_num"] = (raceWeekIndex ?? -1).ToString(CultureInfo.InvariantCulture),
+            ["club_id"] = (clubId ?? -1).ToString(CultureInfo.InvariantCulture),
+            ["division"] = (division ?? -1).ToString(CultureInfo.InvariantCulture),
         };
 
-        if (division is not null)
-        {
-            queryParameters.Add("division", division.Value.ToString(CultureInfo.InvariantCulture));
-        }
+        var seasonDriverStandingsUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_driver_standings", queryParameters);
 
-        var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_driver_standings", queryParameters);
-
-        var intermediateResponse = await CreateResponseViaInfoLinkAsync(new Uri(subSessionLapChartUrl),
+        var intermediateResponse = await CreateResponseViaInfoLinkAsync(new Uri(seasonDriverStandingsUrl),
                                                                         SeasonDriverStandingsHeaderContext.Default.SeasonDriverStandingsHeader,
                                                                         cancellationToken).ConfigureAwait(false);
 
@@ -924,8 +945,33 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<(SeasonQualifyResultsHeader Header, SeasonQualifyResult[] Results)>> GetSeasonQualifyResultsAsync(int seasonId, int carClassId, int raceWeekNumber, int clubId = -1, int? division = null, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<(SeasonQualifyResultsHeader Header, SeasonQualifyResult[] Results)>> GetSeasonQualifyResultsAsync(int seasonId, int carClassId, int? raceWeekIndex = null, int? clubId = null, int? division = null, CancellationToken cancellationToken = default)
     {
+        if (seasonId < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(seasonId));
+        }
+
+        if (carClassId < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(carClassId));
+        }
+
+        if (raceWeekIndex is not null and < -1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(raceWeekIndex));
+        }
+
+        if (clubId is not null and < -1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(clubId));
+        }
+
+        if (division is not null and < -1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(division));
+        }
+
         if (!IsLoggedIn)
         {
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
@@ -935,14 +981,10 @@ internal class DataClient : IDataClient
         {
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
-            ["race_week_num"] = raceWeekNumber.ToString(CultureInfo.InvariantCulture),
-            ["club_id"] = clubId.ToString(CultureInfo.InvariantCulture),
+            ["race_week_num"] = (raceWeekIndex ?? -1).ToString(CultureInfo.InvariantCulture),
+            ["club_id"] = (clubId ?? -1).ToString(CultureInfo.InvariantCulture),
+            ["division"] = (division ?? -1).ToString(CultureInfo.InvariantCulture),
         };
-
-        if (division is not null)
-        {
-            queryParameters.Add("division", division.Value.ToString(CultureInfo.InvariantCulture));
-        }
 
         var qualifyResultsUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_qualify_results", queryParameters);
 
@@ -988,8 +1030,33 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<(SeasonTimeTrialResultsHeader Header, SeasonTimeTrialResult[] Results)>> GetSeasonTimeTrialResultsAsync(int seasonId, int carClassId, int raceWeekNumber, int clubId = -1, int? division = null, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<(SeasonTimeTrialResultsHeader Header, SeasonTimeTrialResult[] Results)>> GetSeasonTimeTrialResultsAsync(int seasonId, int carClassId, int? raceWeekIndex = null, int? clubId = null, int? division = null, CancellationToken cancellationToken = default)
     {
+        if (seasonId < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(seasonId));
+        }
+
+        if (carClassId < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(carClassId));
+        }
+
+        if (raceWeekIndex is not null and < -1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(raceWeekIndex));
+        }
+
+        if (clubId is not null and < -1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(clubId));
+        }
+
+        if (division is not null and < -1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(division));
+        }
+
         if (!IsLoggedIn)
         {
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
@@ -999,14 +1066,10 @@ internal class DataClient : IDataClient
         {
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
-            ["race_week_num"] = raceWeekNumber.ToString(CultureInfo.InvariantCulture),
-            ["club_id"] = clubId.ToString(CultureInfo.InvariantCulture),
+            ["race_week_num"] = (raceWeekIndex ?? -1).ToString(CultureInfo.InvariantCulture),
+            ["club_id"] = (clubId ?? -1).ToString(CultureInfo.InvariantCulture),
+            ["division"] = (division ?? -1).ToString(CultureInfo.InvariantCulture),
         };
-
-        if (division is not null)
-        {
-            queryParameters.Add("division", division.Value.ToString(CultureInfo.InvariantCulture));
-        }
 
         var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_tt_results", queryParameters);
 
@@ -1052,8 +1115,33 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<(SeasonTimeTrialStandingsHeader Header, SeasonTimeTrialStanding[] Standings)>> GetSeasonTimeTrialStandingsAsync(int seasonId, int carClassId, int raceWeekNumber, int clubId = -1, int? division = null, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<(SeasonTimeTrialStandingsHeader Header, SeasonTimeTrialStanding[] Standings)>> GetSeasonTimeTrialStandingsAsync(int seasonId, int carClassId, int? raceWeekIndex = null, int? clubId = null, int? division = null, CancellationToken cancellationToken = default)
     {
+        if (seasonId < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(seasonId));
+        }
+
+        if (carClassId < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(carClassId));
+        }
+
+        if (raceWeekIndex is not null and < -1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(raceWeekIndex));
+        }
+
+        if (clubId is not null and < -1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(clubId));
+        }
+
+        if (division is not null and < -1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(division));
+        }
+
         if (!IsLoggedIn)
         {
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
@@ -1063,14 +1151,10 @@ internal class DataClient : IDataClient
         {
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
-            ["race_week_num"] = raceWeekNumber.ToString(CultureInfo.InvariantCulture),
-            ["club_id"] = clubId.ToString(CultureInfo.InvariantCulture),
+            ["race_week_num"] = (raceWeekIndex ?? -1).ToString(CultureInfo.InvariantCulture),
+            ["club_id"] = (clubId ?? -1).ToString(CultureInfo.InvariantCulture),
+            ["division"] = (division ?? -1).ToString(CultureInfo.InvariantCulture),
         };
-
-        if (division is not null)
-        {
-            queryParameters.Add("division", division.Value.ToString(CultureInfo.InvariantCulture));
-        }
 
         var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_tt_standings", queryParameters);
 
@@ -1115,8 +1199,23 @@ internal class DataClient : IDataClient
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<(SeasonTeamStandingsHeader Header, SeasonTeamStanding[] Standings)>> GetSeasonTeamStandingsAsync(int seasonId, int carClassId, int raceWeekNumber, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<(SeasonTeamStandingsHeader Header, SeasonTeamStanding[] Standings)>> GetSeasonTeamStandingsAsync(int seasonId, int carClassId, int? raceWeekIndex = null, CancellationToken cancellationToken = default)
     {
+        if (seasonId < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(seasonId));
+        }
+
+        if (carClassId < 0)
+        {
+            throw new ArgumentOutOfRangeException(nameof(carClassId));
+        }
+
+        if (raceWeekIndex is not null and < -1)
+        {
+            throw new ArgumentOutOfRangeException(nameof(raceWeekIndex));
+        }
+
         if (!IsLoggedIn)
         {
             await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
@@ -1126,7 +1225,7 @@ internal class DataClient : IDataClient
         {
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
-            ["race_week_num"] = raceWeekNumber.ToString(CultureInfo.InvariantCulture),
+            ["race_week_num"] = (raceWeekIndex ?? -1).ToString(CultureInfo.InvariantCulture),
         };
 
         var subSessionLapChartUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/stats/season_team_standings", queryParameters);
@@ -1182,10 +1281,11 @@ internal class DataClient : IDataClient
 
         var queryParameters = new Dictionary<string, string>
         {
-            ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
-            ["event_type"] = eventType.ToString("D"),
-            ["race_week_num"] = raceWeekNumber.ToString(CultureInfo.InvariantCulture),
+            ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture)
         };
+
+        queryParameters.AddParameterIfNotNull("event_type", eventType);
+        queryParameters.AddParameterIfNotNull("race_week_num", raceWeekNumber);
 
         var seasonResultsUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/season_results", queryParameters);
 
@@ -1349,7 +1449,7 @@ internal class DataClient : IDataClient
     /// <inheritdoc />
     public async Task<DataResponse<(HostedResultsHeader Header, HostedResultItem[] Items)>> SearchHostedResultsAsync(HostedSearchParameters searchParameters, CancellationToken cancellationToken = default)
     {
-#if (NET6_0_OR_GREATER)
+#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(searchParameters);
 #else
         if (searchParameters is null)
@@ -1405,7 +1505,7 @@ internal class DataClient : IDataClient
     /// <inheritdoc />
     public async Task<DataResponse<(OfficialSearchResultHeader Header, OfficialSearchResultItem[] Items)>> SearchOfficialResultsAsync(OfficialSearchParameters searchParameters, CancellationToken cancellationToken = default)
     {
-#if (NET6_0_OR_GREATER)
+#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(searchParameters);
 #else
         if (searchParameters is null)
@@ -1464,7 +1564,7 @@ internal class DataClient : IDataClient
     /// <inheritdoc />
     public async Task<DataResponse<LeagueDirectoryResultPage>> SearchLeagueDirectoryAsync(SearchLeagueDirectoryParameters searchParameters, CancellationToken cancellationToken = default)
     {
-#if (NET6_0_OR_GREATER)
+#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(searchParameters);
 #else
         if (searchParameters is null)
@@ -1589,7 +1689,10 @@ internal class DataClient : IDataClient
         return null;
     }
 
-    private DateTime GetDateTimeUtcNow() => options.CurrentDateTimeSource is null ? DateTime.UtcNow : options.CurrentDateTimeSource().UtcDateTime;
+    private DateTime GetDateTimeUtcNow()
+    {
+        return options.CurrentDateTimeSource is null ? DateTime.UtcNow : options.CurrentDateTimeSource().UtcDateTime;
+    }
 
     /// <inheritdoc />
     public async Task<DataResponse<LeagueMembership[]>> GetLeagueMembershipAsync(bool includeLeague = false, CancellationToken cancellationToken = default)
@@ -1959,7 +2062,7 @@ internal class DataClient : IDataClient
 
     private const string RateLimitExceededContent = "Rate limit exceeded";
 
-    protected async virtual Task<DataResponse<TData>> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
+    protected virtual async Task<DataResponse<TData>> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
     {
         var infoLinkResponse = await httpClient.GetAsync(infoLinkUri, cancellationToken).ConfigureAwait(false);
 
@@ -1987,7 +2090,7 @@ internal class DataClient : IDataClient
         return BuildDataResponse(infoLinkResponse.Headers, data, logger, infoLink.Expires);
     }
 
-    protected async virtual Task<DataResponse<(TData, TChunkData[])>> CreateResponseFromChunkedDataAsync<TData, THeaderData, TChunkData>(Uri uri, JsonTypeInfo<TData> jsonTypeInfo, JsonTypeInfo<TChunkData[]> chunkArrayTypeInfo, CancellationToken cancellationToken)
+    protected virtual async Task<DataResponse<(TData, TChunkData[])>> CreateResponseFromChunkedDataAsync<TData, THeaderData, TChunkData>(Uri uri, JsonTypeInfo<TData> jsonTypeInfo, JsonTypeInfo<TChunkData[]> chunkArrayTypeInfo, CancellationToken cancellationToken)
         where TData : IChunkInfoResultHeader<THeaderData>
         where THeaderData : IChunkInfoResultHeaderData
     {
@@ -2066,7 +2169,7 @@ internal class DataClient : IDataClient
         if (exception is null)
         {
             logger.ErrorResponseUnknown();
-            httpResponse.EnsureSuccessStatusCode();
+            _ = httpResponse.EnsureSuccessStatusCode();
         }
         else
         {
