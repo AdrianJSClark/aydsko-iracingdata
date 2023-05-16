@@ -1,11 +1,3 @@
 ﻿Fixes / Changes:
 
- - Properly Handle Race Week, Division, and Club ID Parameters to Stats API Calls (Issue #174)
-
-Breaking Changes:
-
- - Parameters of the following methods had their nullability, default value, or both changed.
-   - `IDataClient.GetSeasonQualifyResultsAsync(...)`
-   - `IDataClient.GetSeasonTeamStandingsAsync(...)`
-   - `IDataClient.GetSeasonTimeTrialResultsAsync(...)`
-   - `IDataClient.GetSeasonTimeTrialStandingsAsync(...)`
+ - Fixed parameter handling error which omitted some values from a Series Result Search request.

@@ -1542,16 +1542,22 @@ internal class DataClient : IDataClient
         }
 
         var queryParameters = new Dictionary<string, string>();
+
+        // Properties from the SearchParameters basic object
         queryParameters.AddParameterIfNotNull(() => searchParameters.StartRangeBegin);
         queryParameters.AddParameterIfNotNull(() => searchParameters.StartRangeEnd);
         queryParameters.AddParameterIfNotNull(() => searchParameters.FinishRangeBegin);
         queryParameters.AddParameterIfNotNull(() => searchParameters.FinishRangeEnd);
         queryParameters.AddParameterIfNotNull(() => searchParameters.ParticipantCustomerId);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.CategoryIds);
+
+        // Properties from the OfficialSearchParameters object
+        queryParameters.AddParameterIfNotNull(() => searchParameters.SeasonYear);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.SeasonQuarter);
         queryParameters.AddParameterIfNotNull(() => searchParameters.SeriesId);
         queryParameters.AddParameterIfNotNull(() => searchParameters.RaceWeekIndex);
         queryParameters.AddParameterIfNotNull(() => searchParameters.OfficialOnly);
         queryParameters.AddParameterIfNotNull(() => searchParameters.EventTypes);
-        queryParameters.AddParameterIfNotNull(() => searchParameters.CategoryIds);
 
         var searchHostedUrl = QueryHelpers.AddQueryString("https://members-ng.iracing.com/data/results/search_series", queryParameters);
 
