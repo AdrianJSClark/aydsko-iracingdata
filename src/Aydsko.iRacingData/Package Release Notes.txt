@@ -1,3 +1,4 @@
 ﻿Fixes / Changes:
 
  - Fixed parameter handling error which omitted some values from a Series Result Search request.
+ - Support 2023 Season 3 Changes (Issue: #178)

@@ -28,6 +28,11 @@ public class SearchParameters
     [JsonPropertyName("cust_id")]
     public int? ParticipantCustomerId { get; set; }
 
+    /// <summary>Team Id of a team to search for in the sessions.</summary>
+    /// <remarks>Takes priority over <see cref="ParticipantCustomerId"/> if both are provided.</remarks>
+    [JsonPropertyName("team_id")]
+    public int? TeamId { get; set; }
+
     /// <summary>Track categories to include in the search.</summary>
     /// <remarks>Defaults to all.</remarks>
     /// <seealso cref="Constants.Category"/>
