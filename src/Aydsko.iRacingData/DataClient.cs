@@ -1463,9 +1463,9 @@ internal class DataClient : IDataClient
             throw new ArgumentException("Must supply one of \"StartRangeBegin\" or \"FinishRangeBegin\"", nameof(searchParameters));
         }
 
-        if (searchParameters is { ParticipantCustomerId: null, HostCustomerId: null, SessionName: null or { Length: 0 } })
+        if (searchParameters is { ParticipantCustomerId: null, HostCustomerId: null, TeamId: null, SessionName: null or { Length: 0 } })
         {
-            throw new ArgumentException("Must supply one of \"ParticipantCustomerId\", \"HostCustomerId\", or \"SessionName\"", nameof(searchParameters));
+            throw new ArgumentException("Must supply one of \"ParticipantCustomerId\", \"HostCustomerId\", \"TeamId\", or \"SessionName\"", nameof(searchParameters));
         }
 
         if (ValidateSearchDateRange(searchParameters.StartRangeBegin, searchParameters.StartRangeEnd, nameof(searchParameters), nameof(searchParameters.StartRangeBegin), nameof(searchParameters.StartRangeEnd)) is Exception startRangeEx)
@@ -1490,6 +1490,7 @@ internal class DataClient : IDataClient
         queryParameters.AddParameterIfNotNull(() => searchParameters.FinishRangeEnd);
         queryParameters.AddParameterIfNotNull(() => searchParameters.ParticipantCustomerId);
         queryParameters.AddParameterIfNotNull(() => searchParameters.HostCustomerId);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.TeamId);
         queryParameters.AddParameterIfNotNull(() => searchParameters.SessionName);
         queryParameters.AddParameterIfNotNull(() => searchParameters.LeagueId);
         queryParameters.AddParameterIfNotNull(() => searchParameters.LeagueSeasonId);
@@ -1549,6 +1550,7 @@ internal class DataClient : IDataClient
         queryParameters.AddParameterIfNotNull(() => searchParameters.FinishRangeBegin);
         queryParameters.AddParameterIfNotNull(() => searchParameters.FinishRangeEnd);
         queryParameters.AddParameterIfNotNull(() => searchParameters.ParticipantCustomerId);
+        queryParameters.AddParameterIfNotNull(() => searchParameters.TeamId);
         queryParameters.AddParameterIfNotNull(() => searchParameters.CategoryIds);
 
         // Properties from the OfficialSearchParameters object

@@ -530,7 +530,7 @@ public interface IDataClient
     /// Valid searches must be structured as follows:
     /// <list type="bullet">
     /// <item>requires one of: <see cref="SearchParameters.StartRangeBegin"/>, <see cref="SearchParameters.FinishRangeBegin"/></item>
-    /// <item>requires one of: <see cref="SearchParameters.ParticipantCustomerId"/>, <see cref="HostedSearchParameters.HostCustomerId"/>, <see cref="HostedSearchParameters.SessionName"/></item>
+    /// <item>requires one of: <see cref="SearchParameters.ParticipantCustomerId"/>, <see cref="SearchParameters.TeamId"/>, <see cref="HostedSearchParameters.HostCustomerId"/>, <see cref="HostedSearchParameters.SessionName"/></item>
     /// </list>
     /// </para>
     /// </remarks>
