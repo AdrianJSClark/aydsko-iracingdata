@@ -2223,4 +2223,67 @@ internal class DataClient : IDataClient
 
         return response;
     }
+
+    /// <inheritdoc />
+    public IEnumerable<Uri> GetTrackAssetScreenshotUris(Tracks.Track track, TrackAssets trackAssets)
+    {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(track);
+        ArgumentNullException.ThrowIfNull(trackAssets);
+#else
+        if (track is null)
+        {
+            throw new ArgumentNullException(nameof(track));
+        }
+
+        if (trackAssets is null)
+        {
+            throw new ArgumentNullException(nameof(trackAssets));
+        }
+#endif
+
+        if (track.TrackId != trackAssets.TrackId)
+        {
+            throw new ArgumentException("TrackAssets must match the Track to build screenshot URLs.", nameof(trackAssets));
+        }
+
+        if (string.IsNullOrWhiteSpace(trackAssets.TrackMap) || !Uri.TryCreate(trackAssets.TrackMap, UriKind.Absolute, out var trackMapBaseUrl))
+        {
+            throw new ArgumentException("TrackMap property of TrackAssets object must be a valid, absolute URI.", nameof(trackAssets));
+        }
+
+        if (trackAssets.NumberOfSvgImages <= 0)
+        {
+            yield break;
+        }
+
+        var trackScreenshotBaseUrl = new Uri(trackMapBaseUrl, $"/public/track-maps-screenshots/{track.PackageId}_screenshots/");
+
+        for (var i = 1; i <= trackAssets.NumberOfSvgImages; i++)
+        {
+            yield return new Uri(trackScreenshotBaseUrl, $"{i:00}.jpg");
+        }
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<Uri>> GetTrackAssetScreenshotUrisAsync(int trackId, CancellationToken cancellationToken = default)
+    {
+        var tracksResponse = await GetTracksAsync(cancellationToken).ConfigureAwait(false);
+
+        if (tracksResponse?.Data.FirstOrDefault(t => t.TrackId == trackId) is not Tracks.Track track)
+        {
+            throw new ArgumentOutOfRangeException(nameof(trackId), "Track identifier supplied could not be located as a valid track.");
+        }
+
+        var trackAssetResponse = await GetTrackAssetsAsync(cancellationToken).ConfigureAwait(false);
+
+        var trackIdString = trackId.ToString(CultureInfo.InvariantCulture);
+
+        if (!(trackAssetResponse?.Data.TryGetValue(trackIdString, out var trackAssets) ?? false))
+        {
+            throw new ArgumentOutOfRangeException(nameof(trackId), "Track identifier supplied could not be used to locate track assets.");
+        }
+
+        return GetTrackAssetScreenshotUris(track, trackAssets);
+    }
 }

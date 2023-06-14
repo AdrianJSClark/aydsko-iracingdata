@@ -671,4 +671,25 @@ public interface IDataClient
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
     Task<DataResponse<SpectatorSubsessionIds>> GetSpectatorSubsessionIdentifiersAsync(Common.EventType[]? eventTypes = null, CancellationToken cancellationToken = default);
+
+    /// <summary>Build a collection of URIs which resolve to screenshots of the track.</summary>
+    /// <param name="track">The track detail for the circuit you want screenshots for.</param>
+    /// <param name="trackAssets">The related track assets detail for the same circuit as <paramref name="track"/>.</param>
+    /// <returns>A collection of <see cref="Uri"/> objects containing links that will resolve to images of the track or an empty collection.</returns>
+    /// <exception cref="ArgumentNullException">Either <paramref name="track"/> or <paramref name="trackAssets"/> is null.</exception>
+    /// <exception cref="ArgumentException">
+    /// One of these issues will cause this exception:
+    /// <list type="bullet">
+    /// <item><see cref="Tracks.Track.TrackId"/> and <see cref="Tracks.TrackAssets.TrackId"/> properties do not have the same value.</item>
+    /// <item><see cref="Tracks.TrackAssets.TrackMap"/> property is not a valid absolute URI.</item>
+    /// </list>
+    /// </exception>
+    IEnumerable<Uri> GetTrackAssetScreenshotUris(Tracks.Track track, TrackAssets trackAssets);
+
+    /// <summary>Build a collection of URIs which resolve to screenshots of the track.</summary>
+    /// <param name="trackId">The unique identifier of the track for which the screenshot links should be generated.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="Task"/> that resolves to a collection of <see cref="Uri"/> objects containing links to images of the track or an empty collection.</returns>
+    /// <exception cref="ArgumentOutOfRangeException">The <paramref name="trackId"/> value given could not be resolved to a valid track or located in the track assets.</exception>
+    Task<IEnumerable<Uri>> GetTrackAssetScreenshotUrisAsync(int trackId, CancellationToken cancellationToken = default);
 }
