@@ -3,6 +3,7 @@
 namespace Aydsko.iRacingData.Tracks;
 
 /// <summary>Contains logic to build links for the screenshots available of tracks.</summary>
+[Obsolete("Use one of \"GetTrackAssetScreenshotUris\" or \"GetTrackAssetScreenshotUrisAsync\" on \"IDataService\".")]
 public class TrackScreenshotService
 {
     private readonly IDataClient dataClient;

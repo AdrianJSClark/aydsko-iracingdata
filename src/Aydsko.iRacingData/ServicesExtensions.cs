@@ -115,7 +115,9 @@ public static class ServicesExtensions
 #endif
 
         services.TryAddSingleton(new CookieContainer());
+#pragma warning disable CS0618 // Type or member is obsolete
         services.TryAddTransient<TrackScreenshotService>();
+#pragma warning restore CS0618 // Type or member is obsolete
 
         var options = new iRacingDataClientOptions();
         configureOptions.Invoke(options);
