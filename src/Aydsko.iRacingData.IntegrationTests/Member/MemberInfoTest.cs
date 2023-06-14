@@ -13,6 +13,6 @@ internal sealed class MemberInfoTest : DataClientIntegrationFixture
         Assert.That(memberInfo, Is.Not.Null);
         Assert.That(memberInfo.Data, Is.Not.Null);
 
-        Assert.That(memberInfo.Data.Username, Is.EqualTo(Configuration["iRacingData:Username"]));
+        Assert.That(memberInfo.Data.Username, Is.EqualTo(Security.ObfuscateUsernameOrEmail(Configuration["iRacingData:Username"])));
     }
 }

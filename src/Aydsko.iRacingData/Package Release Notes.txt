@@ -3,3 +3,4 @@
  - Fixed parameter handling error which omitted some values from a Series Result Search request.
  - Support 2023 Season 3 Changes (Issue: #178)
  - Move track screen shot URI generation on to "IDataClient" so it is more discoverable. (Issue: #177)
+ - Handle the security based changes from 2023 Season 3 Patch 1.

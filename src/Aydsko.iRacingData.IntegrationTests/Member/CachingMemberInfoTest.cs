@@ -13,14 +13,14 @@ internal sealed class CachingMemberInfoTest : CachingIntegrationFixture
         Assert.That(memberInfo, Is.Not.Null);
         Assert.That(memberInfo.Data, Is.Not.Null);
 
-        Assert.That(memberInfo.Data.Username, Is.EqualTo(Configuration["iRacingData:Username"]));
+        Assert.That(memberInfo.Data.Username, Is.EqualTo(Security.ObfuscateUsernameOrEmail(Configuration["iRacingData:Username"])));
 
         var memberInfo2 = await Client.GetMyInfoAsync().ConfigureAwait(false);
 
         Assert.That(memberInfo2, Is.Not.Null);
         Assert.That(memberInfo2.Data, Is.Not.Null);
 
-        Assert.That(memberInfo2.Data.Username, Is.EqualTo(Configuration["iRacingData:Username"]));
+        Assert.That(memberInfo2.Data.Username, Is.EqualTo(Security.ObfuscateUsernameOrEmail(Configuration["iRacingData:Username"])));
 
         var stats = MemoryCache.GetCurrentStatistics();
         Assert.Multiple(() =>
