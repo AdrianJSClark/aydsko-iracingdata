@@ -3,17 +3,24 @@
 
 namespace Aydsko.iRacingData.Member;
 
+/// <summary>Information about the iRacing member.</summary>
 public class MemberInfo
 {
+    /// <summary>Unique identifier for the member.</summary>
     [JsonPropertyName("cust_id")]
     public int CustomerId { get; set; }
 
+    /// <summary>Member's email address.</summary>
+    /// <remarks>This value is masked for security reasons.</remarks>
     [JsonPropertyName("email")]
     public string Email { get; set; } = default!;
 
+    /// <summary>Unique user name the member uses to log in.</summary>
+    /// <remarks>This value is masked for security reasons.</remarks>
     [JsonPropertyName("username")]
     public string Username { get; set; } = default!;
 
+    /// <summary>The display value used to represent the member on the service.</summary>
     [JsonPropertyName("display_name")]
     public string DisplayName { get; set; } = default!;
 
