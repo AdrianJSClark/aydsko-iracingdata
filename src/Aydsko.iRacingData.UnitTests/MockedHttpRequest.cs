@@ -13,10 +13,14 @@ public class MockedHttpRequest
 
     public MockedHttpRequest(HttpRequestMessage request)
     {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(request);
+#else
         if (request is null)
         {
             throw new ArgumentNullException(nameof(request));
         }
+#endif
 
         Headers = request.Headers.ToArray();
         if (request.Content != null)

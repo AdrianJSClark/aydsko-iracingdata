@@ -50,10 +50,14 @@ public static class JsonConverterTestExtensions
 
     public static byte[] WriteUsingConverter<T>(this T input, JsonConverter<T> converter)
     {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(converter);
+#else
         if (converter is null)
         {
             throw new ArgumentNullException(nameof(converter));
         }
+#endif
 
         using var outputStream = new MemoryStream();
         using (var writer = new Utf8JsonWriter(outputStream))

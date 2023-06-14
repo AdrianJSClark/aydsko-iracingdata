@@ -54,6 +54,10 @@ public sealed class ServiceStatusHistoryItemArrayConverter : JsonConverter<Servi
                                ServiceStatusHistoryItem[] value,
                                JsonSerializerOptions options)
     {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(writer);
+        ArgumentNullException.ThrowIfNull(value);
+#else
         if (writer is null)
         {
             throw new ArgumentNullException(nameof(writer));
@@ -63,6 +67,7 @@ public sealed class ServiceStatusHistoryItemArrayConverter : JsonConverter<Servi
         {
             throw new ArgumentNullException(nameof(value));
         }
+#endif
 
         writer.WriteStartArray();
 
