@@ -25,10 +25,14 @@ public sealed class StatusTimeStampConverter : JsonConverter<DateTimeOffset>
                                DateTimeOffset value,
                                JsonSerializerOptions options)
     {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(writer);
+#else
         if (writer is null)
         {
             throw new ArgumentNullException(nameof(writer));
         }
+#endif
 
         if (value is DateTimeOffset instant)
         {

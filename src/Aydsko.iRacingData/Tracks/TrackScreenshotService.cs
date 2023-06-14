@@ -3,6 +3,7 @@
 namespace Aydsko.iRacingData.Tracks;
 
 /// <summary>Contains logic to build links for the screenshots available of tracks.</summary>
+[Obsolete("Use one of \"GetTrackAssetScreenshotUris\" or \"GetTrackAssetScreenshotUrisAsync\" on \"IDataService\".")]
 public class TrackScreenshotService
 {
     private readonly IDataClient dataClient;
@@ -27,6 +28,10 @@ public class TrackScreenshotService
     /// </exception>
     public static IEnumerable<Uri> GetScreenshotLinks(Track track, TrackAssets trackAssets)
     {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(track);
+        ArgumentNullException.ThrowIfNull(trackAssets);
+#else
         if (track is null)
         {
             throw new ArgumentNullException(nameof(track));
@@ -36,6 +41,7 @@ public class TrackScreenshotService
         {
             throw new ArgumentNullException(nameof(trackAssets));
         }
+#endif
 
         if (track.TrackId != trackAssets.TrackId)
         {
@@ -81,10 +87,14 @@ public class TrackScreenshotService
     /// <exception cref="ArgumentNullException">The <paramref name="track"/> was passed as <see langword="null"/>.</exception>
     public async Task<IEnumerable<Uri>> GetScreenshotLinksAsync(Track track, CancellationToken cancellationToken = default)
     {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(track);
+#else
         if (track is null)
         {
             throw new ArgumentNullException(nameof(track));
         }
+#endif
 
         var trackAssets = await GetTrackAssetsByIdAsync(track.TrackId, cancellationToken).ConfigureAwait(false);
 
@@ -98,10 +108,14 @@ public class TrackScreenshotService
     /// <exception cref="ArgumentNullException">The <paramref name="trackAssets"/> was passed as <see langword="null"/>.</exception>
     public async Task<IEnumerable<Uri>> GetScreenshotLinksAsync(TrackAssets trackAssets, CancellationToken cancellationToken = default)
     {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(trackAssets);
+#else
         if (trackAssets is null)
         {
             throw new ArgumentNullException(nameof(trackAssets));
         }
+#endif
 
         var track = await GetTrackByIdAsync(trackAssets.TrackId, cancellationToken).ConfigureAwait(false);
 

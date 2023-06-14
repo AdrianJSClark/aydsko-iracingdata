@@ -274,6 +274,27 @@
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
+    <DiagnosticId>CP0006</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.IDataClient.GetTrackAssetScreenshotUris(Aydsko.iRacingData.Common.Track,Aydsko.iRacingData.Tracks.TrackAssets)</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0006</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.IDataClient.GetTrackAssetScreenshotUris(Aydsko.iRacingData.Tracks.Track,Aydsko.iRacingData.Tracks.TrackAssets)</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0006</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.IDataClient.GetTrackAssetScreenshotUrisAsync(System.Int32,System.Threading.CancellationToken)</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
     <DiagnosticId>CP0009</DiagnosticId>
     <Target>T:Aydsko.iRacingData.Converters.CsvStringConverter</Target>
     <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>

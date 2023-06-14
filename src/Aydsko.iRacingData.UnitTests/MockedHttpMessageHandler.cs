@@ -23,10 +23,14 @@ public class MockedHttpMessageHandler : HttpMessageHandler
 
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(request);
+#else
         if (request is null)
         {
             throw new ArgumentNullException(nameof(request));
         }
+#endif
 
         cancellationToken.ThrowIfCancellationRequested();
 

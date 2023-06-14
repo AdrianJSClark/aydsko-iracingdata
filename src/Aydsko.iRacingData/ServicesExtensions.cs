@@ -17,12 +17,16 @@ public static class ServicesExtensions
     /// <exception cref="ArgumentNullException">One of the arguments is <see langword="null"/>.</exception>
     public static IServiceCollection AddIRacingDataApi(this IServiceCollection services)
     {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(services);
+#else
         if (services is null)
         {
             throw new ArgumentNullException(nameof(services));
         }
+#endif
 
-        services.AddIRacingDataApiInternal(null, false);
+        services.AddIRacingDataApiInternal((_) => { }, false);
         return services;
     }
 
@@ -33,6 +37,10 @@ public static class ServicesExtensions
     /// <exception cref="ArgumentNullException">One of the arguments is <see langword="null"/>.</exception>
     public static IServiceCollection AddIRacingDataApi(this IServiceCollection services, Action<iRacingDataClientOptions> configureOptions)
     {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(services);
+        ArgumentNullException.ThrowIfNull(configureOptions);
+#else
         if (services is null)
         {
             throw new ArgumentNullException(nameof(services));
@@ -42,6 +50,7 @@ public static class ServicesExtensions
         {
             throw new ArgumentNullException(nameof(configureOptions));
         }
+#endif
 
         services.AddIRacingDataApiInternal(configureOptions, false);
         return services;
@@ -53,12 +62,16 @@ public static class ServicesExtensions
     /// <exception cref="ArgumentNullException">One of the arguments is <see langword="null"/>.</exception>
     public static IServiceCollection AddIRacingDataApiWithCaching(this IServiceCollection services)
     {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(services);
+#else
         if (services is null)
         {
             throw new ArgumentNullException(nameof(services));
         }
+#endif
 
-        services.AddIRacingDataApiInternal(null, true);
+        services.AddIRacingDataApiInternal((_) => { }, true);
         return services;
     }
 
@@ -69,6 +82,10 @@ public static class ServicesExtensions
     /// <exception cref="ArgumentNullException">One of the arguments is <see langword="null"/>.</exception>
     public static IServiceCollection AddIRacingDataApiWithCaching(this IServiceCollection services, Action<iRacingDataClientOptions> configureOptions)
     {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(services);
+        ArgumentNullException.ThrowIfNull(configureOptions);
+#else
         if (services is null)
         {
             throw new ArgumentNullException(nameof(services));
@@ -78,25 +95,32 @@ public static class ServicesExtensions
         {
             throw new ArgumentNullException(nameof(configureOptions));
         }
+#endif
 
         services.AddIRacingDataApiInternal(configureOptions, true);
         return services;
     }
 
     static internal IHttpClientBuilder AddIRacingDataApiInternal(this IServiceCollection services,
-                                                                 Action<iRacingDataClientOptions>? configureOptions,
+                                                                 Action<iRacingDataClientOptions> configureOptions,
                                                                  bool includeCaching)
     {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(services);
+#else
         if (services is null)
         {
             throw new ArgumentNullException(nameof(services));
         }
+#endif
 
         services.TryAddSingleton(new CookieContainer());
+#pragma warning disable CS0618 // Type or member is obsolete
         services.TryAddTransient<TrackScreenshotService>();
+#pragma warning restore CS0618 // Type or member is obsolete
 
         var options = new iRacingDataClientOptions();
-        configureOptions?.Invoke(options);
+        configureOptions.Invoke(options);
         services.AddSingleton(options);
 
         var userAgentValue = CreateUserAgentValue(options);
@@ -117,10 +141,14 @@ public static class ServicesExtensions
 
     private static string CreateUserAgentValue(iRacingDataClientOptions options)
     {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(options);
+#else
         if (options is null)
         {
             throw new ArgumentNullException(nameof(options));
         }
+#endif
 
         if (options.UserAgentProductName is not string userAgentProductName)
         {
