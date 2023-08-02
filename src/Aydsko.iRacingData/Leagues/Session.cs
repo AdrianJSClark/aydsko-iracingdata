@@ -96,7 +96,10 @@ public class Session
     public bool StartZone { get; set; }
 
     [JsonPropertyName("status")]
-    public int Status { get; set; }
+    public int StatusRaw { get; set; }
+
+    [JsonIgnore]
+    public SessionStatus Status { get => (SessionStatus)StatusRaw; set => StatusRaw = (int)value; }
 
     [JsonPropertyName("subsession_id")]
     public int SubSessionId { get; set; }
