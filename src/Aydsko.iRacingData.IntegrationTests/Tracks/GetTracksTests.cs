@@ -10,8 +10,8 @@ internal sealed class GetTracksTests : DataClientIntegrationFixture
 {
     private Track[] tracksData;
 
-    [SetUp]
-    public async Task SetUp()
+    [OneTimeSetUp]
+    public async Task GetTrackDataAsync()
     {
         var tracksResponse = await Client.GetTracksAsync(CancellationToken.None).ConfigureAwait(false);
         tracksData = tracksResponse.Data;

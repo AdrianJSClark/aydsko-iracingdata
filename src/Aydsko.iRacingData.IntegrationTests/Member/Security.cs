@@ -1,8 +1,8 @@
 ﻿namespace Aydsko.iRacingData.IntegrationTests.Member;
 
-internal class Security
+internal static class Security
 {
-    public static string ObfuscateUsernameOrEmail(string input)
+    internal static string ObfuscateUsernameOrEmail(string input)
     {
         var segments = input.Split('@', 2, StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
 

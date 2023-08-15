@@ -6,18 +6,14 @@ using System.Globalization;
 namespace Aydsko.iRacingData.Tracks;
 
 /// <summary>Represents the latitude and longitude of a track.</summary>
-public struct TrackCoordinate : IEquatable<TrackCoordinate>
+public struct TrackCoordinate(double latitude, double longitude) : IEquatable<TrackCoordinate>
 {
-    /// <value>Latitude value.</value>
-    public double Latitude { get; private set; }
-    /// <value>Longitude value.</value>
-    public double Longitude { get; private set; }
+    private static readonly char[] CoordinatePartSeparator = new[] { ',' };
 
-    public TrackCoordinate(double latitude, double longitude)
-    {
-        Latitude = latitude;
-        Longitude = longitude;
-    }
+    /// <value>Latitude value.</value>
+    public double Latitude { get; private set; } = latitude;
+    /// <value>Longitude value.</value>
+    public double Longitude { get; private set; } = longitude;
 
     /// <summary>Attempt to parse the given string into a <see cref="TrackCoordinate"/> object.</summary>
     /// <param name="input">The value to parse.</param>
@@ -26,7 +22,7 @@ public struct TrackCoordinate : IEquatable<TrackCoordinate>
     public static bool TryParse(string? input, out TrackCoordinate? result)
     {
         if (input is null
-            || (input.Split(new[] { ',' }, 2, StringSplitOptions.RemoveEmptyEntries) is not string[] values)
+            || (input.Split(CoordinatePartSeparator, 2, StringSplitOptions.RemoveEmptyEntries) is not string[] values)
             || (!double.TryParse(values[0], NumberStyles.Number, CultureInfo.InvariantCulture, out var lat))
             || (!double.TryParse(values[1], NumberStyles.Number, CultureInfo.InvariantCulture, out var lon)))
         {

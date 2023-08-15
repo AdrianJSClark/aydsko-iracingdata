@@ -1,6 +1,7 @@
 ﻿// © 2023 Adrian Clark
 // This file is licensed to you under the MIT license.
 
+using System.Net.Http;
 using Aydsko.iRacingData.Constants;
 using Aydsko.iRacingData.Exceptions;
 using Aydsko.iRacingData.Leagues;
@@ -14,6 +15,8 @@ namespace Aydsko.iRacingData.UnitTests;
 
 public class CapturedResponseValidationTests : MockedHttpTestBase
 {
+    private static readonly int[] TestCustomerIds = new[] { 123456 };
+
     // NUnit will ensure that "SetUp" runs before each test so these can all be forced to "null".
     private DataClient sut = null!;
 
@@ -208,7 +211,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetDriverInfoWithLicensesSuccessfulAsync)).ConfigureAwait(false);
 
-        var carAssets = await sut.GetDriverInfoAsync(new[] { 123456 }, true).ConfigureAwait(false);
+        var carAssets = await sut.GetDriverInfoAsync(TestCustomerIds, true).ConfigureAwait(false);
 
         Assert.That(carAssets, Is.Not.Null);
         Assert.That(carAssets!.Data, Is.Not.Null);
@@ -228,7 +231,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetDriverInfoWithoutLicensesSuccessfulAsync)).ConfigureAwait(false);
 
-        var carAssets = await sut.GetDriverInfoAsync(new[] { 123456 }, false).ConfigureAwait(false);
+        var carAssets = await sut.GetDriverInfoAsync(TestCustomerIds, false).ConfigureAwait(false);
 
         Assert.That(carAssets, Is.Not.Null);
         Assert.That(carAssets!.Data, Is.Not.Null);

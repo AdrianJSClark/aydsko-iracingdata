@@ -7,22 +7,13 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Aydsko.iRacingData;
 
-internal class CachingDataClient : DataClient
+internal class CachingDataClient(HttpClient httpClient,
+                                 ILogger<CachingDataClient> logger,
+                                 iRacingDataClientOptions options,
+                                 CookieContainer cookieContainer,
+                                 IMemoryCache memoryCache)
+    : DataClient(httpClient, logger, options, cookieContainer)
 {
-    private readonly IMemoryCache memoryCache;
-    private readonly ILogger<CachingDataClient> logger;
-
-    public CachingDataClient(HttpClient httpClient,
-                             ILogger<CachingDataClient> logger,
-                             iRacingDataClientOptions options,
-                             CookieContainer cookieContainer,
-                             IMemoryCache memoryCache)
-        : base(httpClient, logger, options, cookieContainer)
-    {
-        this.logger = logger;
-        this.memoryCache = memoryCache;
-    }
-
     protected override async Task<DataResponse<TData>> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri,
                                                                                              JsonTypeInfo<TData> jsonTypeInfo,
                                                                                              CancellationToken cancellationToken)
