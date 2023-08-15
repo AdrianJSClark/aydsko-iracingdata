@@ -17,6 +17,8 @@ public class MockedHttpMessageHandler : HttpMessageHandler
     public Queue<MockedHttpRequest> RequestContent { get; } = new();
     public Queue<HttpResponseMessage> Responses { get; } = new();
 
+    private static readonly string[] SuccessfulLoginResponse = new[] { "Aydsko.iRacingData.UnitTests.Responses.SuccessfulLogin.json" };
+
     public MockedHttpMessageHandler(CookieContainer cookieContainer)
     {
         this.cookieContainer = cookieContainer;
@@ -67,11 +69,9 @@ public class MockedHttpMessageHandler : HttpMessageHandler
 
     public async Task QueueResponsesAsync(string testName, bool prefixLoginResponse = true)
     {
-        var manifestResourceNames = (prefixLoginResponse
-                                        ? new[] { "Aydsko.iRacingData.UnitTests.Responses.SucessfulLogin.json" }
-                                        : Array.Empty<string>()
-                                    ).Concat(ResourceAssembly.GetManifestResourceNames()
-                                                             .Where(mrn => mrn.StartsWith($"Aydsko.iRacingData.UnitTests.Responses.{testName}", StringComparison.InvariantCultureIgnoreCase)));
+        var manifestResourceNames = (prefixLoginResponse ? SuccessfulLoginResponse : Array.Empty<string>())
+                                    .Concat(ResourceAssembly.GetManifestResourceNames()
+                                                            .Where(mrn => mrn.StartsWith($"Aydsko.iRacingData.UnitTests.Responses.{testName}", StringComparison.InvariantCultureIgnoreCase)));
 
         foreach (var manifestName in manifestResourceNames)
         {
@@ -88,8 +88,8 @@ public class MockedHttpMessageHandler : HttpMessageHandler
             var responseDictionary = responseDocument!.RootElement.EnumerateObject()
                                                                   .ToDictionary(prop => prop.Name, prop => prop.Value);
 
-            if (!responseDictionary.ContainsKey("statuscode")
-                || !Enum.TryParse<HttpStatusCode>(responseDictionary["statuscode"].ToString(), out var statusCode))
+            if (!responseDictionary.TryGetValue("statuscode", out var value)
+                || !Enum.TryParse<HttpStatusCode>(value.ToString(), out var statusCode))
             {
                 statusCode = HttpStatusCode.OK;
             }
@@ -105,14 +105,9 @@ public class MockedHttpMessageHandler : HttpMessageHandler
                                                                        .ToDictionary(prop => prop.Name,
                                                                                      prop =>
                                                                                      {
-                                                                                         if (prop.Value.ValueKind == JsonValueKind.Array)
-                                                                                         {
-                                                                                             return prop.Value.EnumerateArray().Select(e => e.ToString()).ToArray();
-                                                                                         }
-                                                                                         else
-                                                                                         {
-                                                                                             return new[] { prop.Value.GetString() };
-                                                                                         }
+                                                                                         return prop.Value.ValueKind == JsonValueKind.Array
+                                                                                             ? prop.Value.EnumerateArray().Select(e => e.ToString()).ToArray()
+                                                                                             : (new[] { prop.Value.GetString() });
                                                                                      }).ToArray())
             {
                 responseMessage.Headers.Add(header.Key, header.Value);

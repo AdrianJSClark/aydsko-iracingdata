@@ -26,25 +26,13 @@ using Microsoft.AspNetCore.WebUtilities;
 
 namespace Aydsko.iRacingData;
 
-internal class DataClient : IDataClient
+internal class DataClient(HttpClient httpClient,
+                          ILogger<DataClient> logger,
+                          iRacingDataClientOptions options,
+                          CookieContainer cookieContainer)
+    : IDataClient
 {
-    private readonly HttpClient httpClient;
-    private readonly ILogger<DataClient> logger;
-    private readonly iRacingDataClientOptions options;
-    private readonly CookieContainer cookieContainer;
-
     public bool IsLoggedIn { get; private set; }
-
-    public DataClient(HttpClient httpClient,
-                      ILogger<DataClient> logger,
-                      iRacingDataClientOptions options,
-                      CookieContainer cookieContainer)
-    {
-        this.httpClient = httpClient;
-        this.logger = logger;
-        this.options = options;
-        this.cookieContainer = cookieContainer;
-    }
 
     /// <inheritdoc/>
     public void UseUsernameAndPassword(string username, string password, bool passwordIsEncoded)

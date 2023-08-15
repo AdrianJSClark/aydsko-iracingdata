@@ -10,6 +10,7 @@ public class DictionaryExtensionTests
         return parameters.ElementAt(0);
     }
 
+#pragma warning disable CA1861 // Avoid constant arrays as arguments - not worth it for these unit test cases.
     public static IEnumerable<TestCaseData> GetTestCases()
     {
         yield return new TestCaseData("foo").Returns(new KeyValuePair<string, string>("value", "foo"));
@@ -19,4 +20,5 @@ public class DictionaryExtensionTests
         yield return new TestCaseData(true).Returns(new KeyValuePair<string, string>("value", "true"));
         yield return new TestCaseData(Common.EventType.Practice).Returns(new KeyValuePair<string, string>("value", "2"));
     }
+#pragma warning restore CA1861 // Avoid constant arrays as arguments
 }
