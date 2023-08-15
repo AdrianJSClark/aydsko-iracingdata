@@ -1,6 +1,7 @@
 ﻿// © 2023 Adrian Clark
 // This file is licensed to you under the MIT license.
 
+using System.Net.Http;
 using Aydsko.iRacingData.Constants;
 using Aydsko.iRacingData.Exceptions;
 using Aydsko.iRacingData.Leagues;

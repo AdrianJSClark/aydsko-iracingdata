@@ -2,6 +2,7 @@
 // This file is licensed to you under the MIT license.
 
 using System.Net;
+using System.Net.Http;
 
 namespace Aydsko.iRacingData.UnitTests;
 
