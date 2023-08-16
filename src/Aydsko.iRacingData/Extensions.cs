@@ -4,6 +4,7 @@
 using System.Globalization;
 using System.Linq.Expressions;
 using System.Reflection;
+using System.Text;
 
 #if NET6_0_OR_GREATER
 using System.Reflection.Metadata;
@@ -16,31 +17,12 @@ namespace Aydsko.iRacingData;
 
 static internal class Extensions
 {
-    static internal void AddParameterIfNotNull<T>(this IDictionary<string, string> parameters, string parameterName, T parameterValue)
-    {
-#if (NET6_0_OR_GREATER)
-        ArgumentNullException.ThrowIfNull(parameterName);
-#else
-        if (parameterName is null)
-        {
-            throw new ArgumentNullException(nameof(parameterName));
-        }
-#endif  
-        if (string.IsNullOrWhiteSpace(parameterName))
-        {
-            throw new ArgumentException("Parameter name cannot be whitespace.", nameof(parameterName));
-        }
-
-        var parameterStringValue = GetParameterAsStringValue(parameterValue);
-        parameters.Add(parameterName, parameterStringValue ?? string.Empty);
-    }
-
     /// <summary>Add the parameter with the property's <see cref="JsonPropertyNameAttribute.Name"/> as the key and it's value if that value is not null.</summary>
     /// <typeparam name="T">Type of the property.</typeparam>
     /// <param name="parameters">Collection of parameters to add to.</param>
     /// <param name="parameter">An expression which accesses the property.</param>
     /// <exception cref="ArgumentException">The expression couldn't be properly understood by the method.</exception>
-    static internal void AddParameterIfNotNull<T>(this IDictionary<string, string> parameters, Expression<Func<T>> parameter)
+    static internal void AddParameterIfNotNull<T>(this IDictionary<string, object?> parameters, Expression<Func<T>> parameter)
     {
 #if (NET6_0_OR_GREATER)
         ArgumentNullException.ThrowIfNull(parameter);
@@ -70,23 +52,86 @@ static internal class Extensions
         var propNameAttribute = parameterMemberExp.Member.GetCustomAttributes<JsonPropertyNameAttribute>().FirstOrDefault();
         var parameterName = propNameAttribute?.Name ?? parameterMemberExp.Member.Name;
 
-        var parameterStringValue = GetParameterAsStringValue(parameterValue);
-
-        parameters.Add(new(parameterName, parameterStringValue ?? string.Empty));
+        parameters.Add(new(parameterName, parameterValue));
     }
 
-    private static string? GetParameterAsStringValue<T>(T parameterValue)
+    static internal Uri ToUrlWithQuery(this string url, IEnumerable<KeyValuePair<string, object?>> parameters)
+    {
+        var builder = new UriBuilder(url);
+
+        var queryBuilder = new StringBuilder();
+        queryBuilder.Append(builder.Query.TrimStart('?'));
+
+        foreach (var parameter in parameters)
+        {
+            var values = GetParameterAsStringValues(parameter.Value);
+            if (values is { Length: 0 })
+            {
+                continue; // Don't add anything if there aren't any values to include.
+            }
+
+            if (queryBuilder.Length > 0)
+            {
+                _ = queryBuilder.Append('&');
+            }
+
+            _ = queryBuilder.Append(Uri.EscapeDataString(parameter.Key));
+            _ = queryBuilder.Append('=');
+
+            if (values is { Length: 1 })
+            {
+                _ = queryBuilder.Append(Uri.EscapeDataString(values[0]));
+            }
+            else
+            {
+                for (var i = 0; i < values.Length; i++)
+                {
+                    if (i > 0)
+                    {
+                        _ = queryBuilder.Append(',');
+                    }
+                    _ = queryBuilder.Append(Uri.EscapeDataString(values[i]));
+                }
+            }
+        }
+
+        builder.Query = queryBuilder.ToString();
+
+        return builder.Uri;
+    }
+
+    private static string[] GetParameterAsStringValues<T>(T parameterValue)
     {
 #pragma warning disable CA1308 // Normalize strings to uppercase
-        return parameterValue switch
+        switch (parameterValue)
         {
-            string stringParam => stringParam,
-            DateTime dateTimeParam => dateTimeParam.ToString("yyyy-MM-dd\\THH:mm\\Z", CultureInfo.InvariantCulture),
-            Array arrayParam => string.Join(",", GetNonNullValues(arrayParam)),
-            IEnumerable<string> enumerableOfString => string.Join(",", enumerableOfString),
-            bool boolParam => boolParam.ToString().ToLowerInvariant(),
-            Enum @enum => @enum.ToString("D"),
-            _ => Convert.ToString(parameterValue, CultureInfo.InvariantCulture)
+            case string stringParam:
+                return new[] { stringParam };
+
+            case DateTime dateTimeParam:
+                return new[] { dateTimeParam.ToString("yyyy-MM-dd\\THH:mm\\Z", CultureInfo.InvariantCulture) };
+
+            case Array arrayParam:
+                return GetNonNullValues(arrayParam).ToArray();
+
+            case IEnumerable<string> enumerableOfString:
+                return enumerableOfString.ToArray();
+
+            case bool boolParam:
+                return new[] { boolParam.ToString().ToLowerInvariant() };
+
+            case Enum @enum:
+                return new[] { @enum.ToString("D") };
+
+            default:
+                if (Convert.ToString(parameterValue, CultureInfo.InvariantCulture) is string parameterStringValue)
+                {
+                    return new[] { parameterStringValue };
+                }
+                else
+                {
+                    return Array.Empty<string>();
+                }
         };
 #pragma warning restore CA1308 // Normalize strings to uppercase
 
