@@ -184,6 +184,12 @@ public class Result
 
     [JsonPropertyName("car_id")]
     public int CarId { get; set; }
+    
+    [JsonPropertyName("car_class_name")]
+    public string CarClassName { get; set; }
+    
+    [JsonPropertyName("car_class_short_name")]
+    public string CarClassShortName { get; set; }
 
     [JsonPropertyName("aggregate_champ_points")]
     public int AggregateChampionshipPoints { get; set; }
