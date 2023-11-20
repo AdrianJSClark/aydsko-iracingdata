@@ -20,10 +20,16 @@ public class iRacingRateLimitExceededException : iRacingDataClientException
         : base(message)
     { }
 
+#if NET8_0_OR_GREATER
+    [Obsolete("Apply cross-targeting work-around for SYSLIB0051 Diagnostic (https://learn.microsoft.com/en-us/dotnet/fundamentals/syslib-diagnostics/syslib0051)", DiagnosticId = "SYSLIB0051")]
+#endif
     public iRacingRateLimitExceededException(string message, Exception innerException)
         : base(message, innerException)
     { }
 
+#if NET8_0_OR_GREATER
+    [Obsolete("Apply cross-targeting work-around for SYSLIB0051 Diagnostic (https://learn.microsoft.com/en-us/dotnet/fundamentals/syslib-diagnostics/syslib0051)", DiagnosticId = "SYSLIB0051")]
+#endif
     protected iRacingRateLimitExceededException(SerializationInfo serializationInfo, StreamingContext streamingContext)
         : base(serializationInfo, streamingContext)
     { }
