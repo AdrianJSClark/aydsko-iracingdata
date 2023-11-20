@@ -15,7 +15,7 @@ namespace Aydsko.iRacingData.UnitTests;
 
 public class CapturedResponseValidationTests : MockedHttpTestBase
 {
-    private static readonly int[] TestCustomerIds = new[] { 123456 };
+    private static readonly int[] TestCustomerIds = [123456];
 
     // NUnit will ensure that "SetUp" runs before each test so these can all be forced to "null".
     private DataClient sut = null!;
@@ -298,7 +298,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetMemberInfoDuringMaintenanceThrowsAsync), false).ConfigureAwait(false);
 
-        Assert.ThrowsAsync<iRacingInMaintenancePeriodException>(async () =>
+        _ = Assert.ThrowsAsync<iRacingInMaintenancePeriodException>(async () =>
         {
             var myInfo = await sut.GetMyInfoAsync().ConfigureAwait(false);
         });
@@ -635,7 +635,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync("ResponseForbidden", false).ConfigureAwait(false);
 
-        Assert.ThrowsAsync<iRacingForbiddenResponseException>(async () =>
+        _ = Assert.ThrowsAsync<iRacingForbiddenResponseException>(async () =>
         {
             var lapChartResponse = await sut.GetSingleDriverSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
         });
@@ -671,7 +671,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync("ResponseForbidden", false).ConfigureAwait(false);
 
-        Assert.ThrowsAsync<iRacingForbiddenResponseException>(async () =>
+        _ = Assert.ThrowsAsync<iRacingForbiddenResponseException>(async () =>
         {
             var lapChartResponse = await sut.GetTeamSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
         });
@@ -764,7 +764,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync("ResponseForbidden", false).ConfigureAwait(false);
 
-        Assert.ThrowsAsync<iRacingForbiddenResponseException>(async () =>
+        _ = Assert.ThrowsAsync<iRacingForbiddenResponseException>(async () =>
         {
             var lapChartResponse = await sut.GetSubSessionResultAsync(12345, false).ConfigureAwait(false);
         });
@@ -775,7 +775,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync("ResponseUnauthorized", false).ConfigureAwait(false);
 
-        Assert.ThrowsAsync<iRacingUnauthorizedResponseException>(async () =>
+        _ = Assert.ThrowsAsync<iRacingUnauthorizedResponseException>(async () =>
         {
             var lapChartResponse = await sut.GetSubSessionResultAsync(12345, false).ConfigureAwait(false);
         });
@@ -806,7 +806,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync("ResponseForbidden", false).ConfigureAwait(false);
 
-        Assert.ThrowsAsync<iRacingForbiddenResponseException>(async () =>
+        _ = Assert.ThrowsAsync<iRacingForbiddenResponseException>(async () =>
         {
             var lapChartResponse = await sut.GetSubsessionEventLogAsync(12345, 0).ConfigureAwait(false);
         });
@@ -1216,7 +1216,11 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         var response = await sut.GetServiceStatusAsync().ConfigureAwait(false);
 
         Assert.That(response, Is.Not.Null);
+#if NET8_0_OR_GREATER
+        Assert.That(response.Timestamp, Is.EqualTo(new DateTimeOffset(2023, 1, 27, 12, 29, 57, 713, 258, TimeSpan.Zero)));
+#else
         Assert.That(response.Timestamp, Is.EqualTo(new DateTimeOffset(2023, 1, 27, 12, 29, 57, 713, TimeSpan.Zero)));
+#endif
         Assert.That(response.MaintenanceMessages, Has.Length.EqualTo(1));
         Assert.That(response.MaintenanceMessages[0], Is.EqualTo("Downtime has been scheduled for the 2023 Season 1 Patch 3 Hotfix 1 Release on January 27th at 1100 EST / 1600 GMT. Please see Staff Announcements on the iRacing Forums for more details."));
 

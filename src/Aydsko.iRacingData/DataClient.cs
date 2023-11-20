@@ -841,6 +841,10 @@ internal class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Standings)>> GetSeasonDriverStandingsAsync(int seasonId, int carClassId, int? raceWeekIndex = null, int? clubId = null, int? division = null, CancellationToken cancellationToken = default)
     {
+#if NET8_0_OR_GREATER
+        ArgumentOutOfRangeException.ThrowIfNegative(seasonId);
+        ArgumentOutOfRangeException.ThrowIfNegative(carClassId);
+#else
         if (seasonId < 0)
         {
             throw new ArgumentOutOfRangeException(nameof(seasonId));
@@ -850,6 +854,7 @@ internal class DataClient(HttpClient httpClient,
         {
             throw new ArgumentOutOfRangeException(nameof(carClassId));
         }
+#endif
 
         if (raceWeekIndex is not null and < -1)
         {
@@ -926,6 +931,10 @@ internal class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<(SeasonQualifyResultsHeader Header, SeasonQualifyResult[] Results)>> GetSeasonQualifyResultsAsync(int seasonId, int carClassId, int? raceWeekIndex = null, int? clubId = null, int? division = null, CancellationToken cancellationToken = default)
     {
+#if NET8_0_OR_GREATER
+        ArgumentOutOfRangeException.ThrowIfNegative(seasonId);
+        ArgumentOutOfRangeException.ThrowIfNegative(carClassId);
+#else
         if (seasonId < 0)
         {
             throw new ArgumentOutOfRangeException(nameof(seasonId));
@@ -935,6 +944,7 @@ internal class DataClient(HttpClient httpClient,
         {
             throw new ArgumentOutOfRangeException(nameof(carClassId));
         }
+#endif
 
         if (raceWeekIndex is not null and < -1)
         {
@@ -1011,6 +1021,10 @@ internal class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<(SeasonTimeTrialResultsHeader Header, SeasonTimeTrialResult[] Results)>> GetSeasonTimeTrialResultsAsync(int seasonId, int carClassId, int? raceWeekIndex = null, int? clubId = null, int? division = null, CancellationToken cancellationToken = default)
     {
+#if NET8_0_OR_GREATER
+        ArgumentOutOfRangeException.ThrowIfNegative(seasonId);
+        ArgumentOutOfRangeException.ThrowIfNegative(carClassId);
+#else
         if (seasonId < 0)
         {
             throw new ArgumentOutOfRangeException(nameof(seasonId));
@@ -1020,6 +1034,7 @@ internal class DataClient(HttpClient httpClient,
         {
             throw new ArgumentOutOfRangeException(nameof(carClassId));
         }
+#endif
 
         if (raceWeekIndex is not null and < -1)
         {
@@ -1096,6 +1111,10 @@ internal class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<(SeasonTimeTrialStandingsHeader Header, SeasonTimeTrialStanding[] Standings)>> GetSeasonTimeTrialStandingsAsync(int seasonId, int carClassId, int? raceWeekIndex = null, int? clubId = null, int? division = null, CancellationToken cancellationToken = default)
     {
+#if NET8_0_OR_GREATER
+        ArgumentOutOfRangeException.ThrowIfNegative(seasonId);
+        ArgumentOutOfRangeException.ThrowIfNegative(carClassId);
+#else
         if (seasonId < 0)
         {
             throw new ArgumentOutOfRangeException(nameof(seasonId));
@@ -1105,6 +1124,7 @@ internal class DataClient(HttpClient httpClient,
         {
             throw new ArgumentOutOfRangeException(nameof(carClassId));
         }
+#endif
 
         if (raceWeekIndex is not null and < -1)
         {
@@ -1180,6 +1200,10 @@ internal class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<(SeasonTeamStandingsHeader Header, SeasonTeamStanding[] Standings)>> GetSeasonTeamStandingsAsync(int seasonId, int carClassId, int? raceWeekIndex = null, CancellationToken cancellationToken = default)
     {
+#if NET8_0_OR_GREATER
+        ArgumentOutOfRangeException.ThrowIfNegative(seasonId);
+        ArgumentOutOfRangeException.ThrowIfNegative(carClassId);
+#else
         if (seasonId < 0)
         {
             throw new ArgumentOutOfRangeException(nameof(seasonId));
@@ -1189,6 +1213,7 @@ internal class DataClient(HttpClient httpClient,
         {
             throw new ArgumentOutOfRangeException(nameof(carClassId));
         }
+#endif
 
         if (raceWeekIndex is not null and < -1)
         {

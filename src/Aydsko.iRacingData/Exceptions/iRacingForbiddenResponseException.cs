@@ -24,6 +24,9 @@ public class iRacingForbiddenResponseException : iRacingDataClientException
         : base(message, innerException)
     { }
 
+#if NET8_0_OR_GREATER
+    [Obsolete("Apply cross-targeting work-around for SYSLIB0051 Diagnostic (https://learn.microsoft.com/en-us/dotnet/fundamentals/syslib-diagnostics/syslib0051)", DiagnosticId = "SYSLIB0051")]
+#endif
     protected iRacingForbiddenResponseException(SerializationInfo serializationInfo, StreamingContext streamingContext)
         : base(serializationInfo, streamingContext)
     { }

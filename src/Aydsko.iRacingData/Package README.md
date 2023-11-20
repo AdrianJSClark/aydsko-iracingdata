@@ -73,3 +73,20 @@ services.AddIRacingDataApiWithCaching(options =>
 ```
 
 Then simply use the `IDataClient` as before.
+
+# Versioning
+
+Ideally you should always use the latest version of the library that is available. This is because iRacing will sometimes introduce API changes during a release which make the old code incompatible.
+
+This library will use version numbers will be in the format:
+
+    [YY][SS].[R]
+
+Where:
+ - YY = two digit year
+ - SS = the iRacing season the library release was made in as a zero-padded number (i.e. 01, 02, 03, 04)
+ - R  = release number, which increments when changes are made although it may not be sequential
+
+Example:
+
+ - 2303.1 = changes compatible with iRacing 2023 Season 3 or later, and is release 1 during this season

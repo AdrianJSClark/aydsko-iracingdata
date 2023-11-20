@@ -23,6 +23,9 @@ public class iRacingInMaintenancePeriodException : iRacingDataClientException
         HelpLink = "https://status.iracing.com/";
     }
 
+#if NET8_0_OR_GREATER
+    [Obsolete("Apply cross-targeting work-around for SYSLIB0051 Diagnostic (https://learn.microsoft.com/en-us/dotnet/fundamentals/syslib-diagnostics/syslib0051)", DiagnosticId = "SYSLIB0051")]
+#endif
     protected iRacingInMaintenancePeriodException(System.Runtime.Serialization.SerializationInfo info,
                                                   System.Runtime.Serialization.StreamingContext context)
         : base(info, context)
