@@ -43,6 +43,19 @@ public class MemberProfile
 
     [JsonPropertyName("cust_id")]
     public int CustomerId { get; set; }
+
+    /// <summary>Get the Club or Region logo image.</summary>
+    /// <remarks>If the <c>CLUB_REGION_IMG</c> value is available in the <see cref="ProfileFields"/> collection it will be properly formatted into an absolute URL.</remarks>
+    /// <returns>An absolute URL to the image.</returns>
+    public Uri? GetClubRegionImageUrl()
+    {
+        if (ProfileFields.FirstOrDefault(pf => pf.Name == "CLUB_REGION_IMG") is not ProfileField clubRegionImageField || string.IsNullOrWhiteSpace(clubRegionImageField.Value))
+        {
+            return null;
+        }
+
+        return new Uri("https://ir-core-sites.iracing.com/members/" + clubRegionImageField.Value.TrimStart('/'), UriKind.Absolute);
+    }
 }
 
 [JsonSerializable(typeof(MemberProfile)), JsonSourceGenerationOptions(WriteIndented = true)]
