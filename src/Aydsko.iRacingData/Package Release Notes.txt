@@ -10,6 +10,8 @@
    - Dependencies updated
    - .NET 8 targeted build included
 
+ - Check Club Image Paths (Issue: 189)
+
 
 
 Contributions:
