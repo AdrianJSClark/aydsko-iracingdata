@@ -12,7 +12,7 @@
 
  - Check Club Image Paths (Issue: 189)
 
-
+ - Fix "Interval" property on "SubsessionChartLap" so it doesn't throw an exception when driver has been lapped, which is a valid situation.
 
 Contributions:
 
