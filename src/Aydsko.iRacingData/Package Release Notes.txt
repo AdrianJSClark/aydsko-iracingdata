@@ -14,6 +14,11 @@
 
  - Fix "Interval" property on "SubsessionChartLap" so it doesn't throw an exception when driver has been lapped, which is a valid situation.
 
+ - Fix "Implementing SaveCookies and RestoreCookies does not prevent unnecessary logins" (Issue: #186)
+   - If you implement the "SaveCookies" and "RestoreCookies" methods and the cookies are for the correct domain, then the library will not attempt to login again.
+
+
+
 Contributions:
 
  - From Tobias Zürcher (https://github.com/tobiaszuercher):
