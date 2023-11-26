@@ -163,6 +163,7 @@ public class PasswordEncodingTests : MockedHttpTestBase
         var lookups = await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
         Assert.That(restoreCookiesWasCalled, Is.True);
+        Assert.That(saveCookiesWasCalled, Is.False);
         Assert.That(MessageHandler.RequestContent.Count, Is.EqualTo(2));
     }
 
