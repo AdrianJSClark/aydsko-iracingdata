@@ -9,5 +9,8 @@ public class ErrorResponse
     public string? ErrorCode { get; set; }
 
     [JsonPropertyName("note")]
-    public string? ErrorDescription { get; set; }
+    public string? Note { get; set; }
+
+    [JsonPropertyName("message")]
+    public string? Message { get; set; }
 }

@@ -18,6 +18,10 @@ public static class LoggingExtensions
                                                                                                                new EventId(EventIdLoginSuccessful, nameof(LoginSuccessful)),
                                                                                                                "Authenticated successfully as {UserEmail}");
 
+    private static readonly Action<ILogger, string, Exception?> loginCookiesRestored = LoggerMessage.Define<string>(LogLevel.Information,
+                                                                                                                    new EventId(EventIdLoginSuccessful, nameof(LoginSuccessful)),
+                                                                                                                    "Authenticated successfully as {UserEmail} using restored cookies");
+
     private static readonly Action<ILogger, int?, int?, DateTimeOffset?, Exception?> rateLimitsUpdated = LoggerMessage.Define<int?, int?, DateTimeOffset?>(LogLevel.Debug,
                                                                                                                                                            new EventId(EventIdRateLimitsUpdated, nameof(RateLimitsUpdated)),
                                                                                                                                                            "Currently have {RateLimitRemaining} calls left from {RateLimitTotal} resetting at {RateLimitResetInstant}");
@@ -28,7 +32,7 @@ public static class LoggingExtensions
 
     private static readonly Action<ILogger, string?, Exception?> errorResponse = LoggerMessage.Define<string?>(LogLevel.Trace,
                                                                                                                new EventId(EventIdErrorResponseTrace, nameof(ErrorResponse)),
-                                                                                                               "Error response from iRacing API: {ErrorDescription}");
+                                                                                                               "Error response from iRacing API: {Note}");
 
     private static readonly Action<ILogger, int?, int?, HttpStatusCode?, string?, Exception?> failedToRetrieveChunkError = LoggerMessage.Define<int?, int?, HttpStatusCode?, string?>(LogLevel.Error,
                                                                                                                                                                                       new EventId(EventIdFailedToRetrieveChunkError, nameof(FailedToRetrieveChunkError)),
@@ -39,6 +43,11 @@ public static class LoggingExtensions
     public static void LoginSuccessful(this ILogger logger, string userEmail)
     {
         loginSuccessful(logger, userEmail, null);
+    }
+
+    public static void LoginCookiesRestored(this ILogger logger, string userEmail)
+    {
+        loginCookiesRestored(logger, userEmail, null);
     }
 
     public static void RateLimitsUpdated(this ILogger logger, int? rateLimitRemaining, int? rateLimit, DateTimeOffset? rateLimitResetInstant)

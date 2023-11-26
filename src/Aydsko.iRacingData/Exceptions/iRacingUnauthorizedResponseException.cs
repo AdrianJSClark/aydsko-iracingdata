@@ -8,9 +8,9 @@ namespace Aydsko.iRacingData.Exceptions;
 [Serializable]
 public class iRacingUnauthorizedResponseException : iRacingDataClientException
 {
-    public static iRacingUnauthorizedResponseException Create()
+    public static iRacingUnauthorizedResponseException Create(string? message)
     {
-        return new("The iRacing API returned an \"Unauthorized\" response code.");
+        return new($"The iRacing API returned an \"Unauthorized\" response code{(string.IsNullOrEmpty(message)?"":" with message \"" + message + "\"")}.");
     }
 
     public iRacingUnauthorizedResponseException()
