@@ -2013,6 +2013,14 @@ internal class DataClient(HttpClient httpClient,
                 && options.RestoreCookies() is CookieCollection savedCookies)
             {
                 cookieContainer.Add(savedCookies);
+
+                // Assume we're logged in if we have cookies for our target domain
+                if (cookieContainer.GetCookies(new Uri("https://members-ng.iracing.com")).Count > 0)
+                {
+                    IsLoggedIn = true;
+                    logger.LoginCookiesRestored(options.Username!);
+                    return;
+                }
             }
 
             string? encodedHash = null;
@@ -2172,13 +2180,13 @@ internal class DataClient(HttpClient httpClient,
         else
         {
             var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(content);
-            errorDescription = errorResponse?.ErrorDescription;
+            errorDescription = errorResponse?.Note ?? errorResponse?.Message ?? "An error occurred.";
 
             exception = errorResponse switch
             {
-                { ErrorCode: "Site Maintenance" } => new iRacingInMaintenancePeriodException(errorResponse.ErrorDescription ?? "iRacing services are down for maintenance."),
+                { ErrorCode: "Site Maintenance" } => new iRacingInMaintenancePeriodException(errorResponse.Note ?? "iRacing services are down for maintenance."),
                 { ErrorCode: "Forbidden" } => iRacingForbiddenResponseException.Create(),
-                { ErrorCode: "Unauthorized" } => iRacingUnauthorizedResponseException.Create(),
+                { ErrorCode: "Unauthorized" } => iRacingUnauthorizedResponseException.Create(errorResponse.Message),
                 _ => null
             };
         }
@@ -2194,6 +2202,9 @@ internal class DataClient(HttpClient httpClient,
             {
                 // Unauthorized might just be our session expired
                 IsLoggedIn = false;
+
+                // Clear any saved cookies
+                options.SaveCookies?.Invoke([]);
             }
 
             logger.ErrorResponse(errorDescription, exception);

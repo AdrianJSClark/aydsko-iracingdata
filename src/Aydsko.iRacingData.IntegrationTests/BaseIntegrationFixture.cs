@@ -18,7 +18,7 @@ public abstract class BaseIntegrationFixture<TClient> : IDisposable
 
     internal TClient Client { get; set; } = default!;
 
-    protected iRacingDataClientOptions BaseSetUp()
+    protected virtual iRacingDataClientOptions BaseSetUp()
     {
         Configuration = new ConfigurationBuilder()
                                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
