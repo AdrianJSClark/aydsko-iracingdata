@@ -17,6 +17,8 @@
  - Fix "Implementing SaveCookies and RestoreCookies does not prevent unnecessary logins" (Issue: #186)
    - If you implement the "SaveCookies" and "RestoreCookies" methods and the cookies are for the correct domain, then the library will not attempt to login again.
 
+ - "DataClient" class is now "public" so it can be used outside of the library. It is still recommended to resolve the "IDataClient" interface from the DI container in most situations.
+
 
 
 Contributions:
