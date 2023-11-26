@@ -17,6 +17,7 @@ using Aydsko.iRacingData.Tracks;
 
 namespace Aydsko.iRacingData;
 
+/// <summary>Main client to access the iRacing "/data" API endpoints.</summary>
 public interface IDataClient
 {
     /// <summary>Supply the username and password if they weren't supplied through the <see cref="iRacingDataClientOptions"/> object.</summary>

@@ -25,10 +25,16 @@ using Aydsko.iRacingData.Tracks;
 
 namespace Aydsko.iRacingData;
 
-internal class DataClient(HttpClient httpClient,
-                          ILogger<DataClient> logger,
-                          iRacingDataClientOptions options,
-                          CookieContainer cookieContainer)
+/// <summary>Default implementation of the client to access the iRacing "/data" API endpoints.</summary>
+/// <remarks>
+/// Instead of creating an instance of this class directly, it is recommended that you register the library components in the services
+/// collection using <see cref="ServicesExtensions.AddIRacingDataApi(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>
+/// and resolve <see cref="IDataClient"/> service from there.
+/// </remarks>
+public class DataClient(HttpClient httpClient,
+                        ILogger<DataClient> logger,
+                        iRacingDataClientOptions options,
+                        CookieContainer cookieContainer)
     : IDataClient
 {
     public bool IsLoggedIn { get; private set; }
@@ -2167,8 +2173,17 @@ internal class DataClient(HttpClient httpClient,
         return BuildDataResponse<(TData Header, TChunkData[] Results)>(response.Headers, (headerData, searchResults.ToArray()), logger);
     }
 
-    private void HandleUnsuccessfulResponse(HttpResponseMessage httpResponse, string content, ILogger logger)
+    protected virtual void HandleUnsuccessfulResponse(HttpResponseMessage httpResponse, string content, ILogger logger)
     {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(httpResponse);
+#else
+        if (httpResponse is null)
+        {
+            throw new ArgumentNullException(nameof(httpResponse));
+        }
+#endif
+
         string? errorDescription;
         Exception? exception;
 
@@ -2212,8 +2227,17 @@ internal class DataClient(HttpClient httpClient,
         }
     }
 
-    private static DataResponse<TData> BuildDataResponse<TData>(HttpResponseHeaders headers, TData data, ILogger logger, DateTimeOffset? expires = null)
+    protected static DataResponse<TData> BuildDataResponse<TData>(HttpResponseHeaders headers, TData data, ILogger logger, DateTimeOffset? expires = null)
     {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(headers);
+#else
+        if (headers is null)
+        {
+            throw new ArgumentNullException(nameof(headers));
+        }
+#endif
+
         var response = new DataResponse<TData> { Data = data };
 
         if (headers.TryGetValues("x-ratelimit-remaining", out var remainingValues)
