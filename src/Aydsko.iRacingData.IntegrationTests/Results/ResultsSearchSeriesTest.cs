@@ -6,7 +6,7 @@ namespace Aydsko.iRacingData.IntegrationTests.Results;
 internal sealed class ResultsSearchSeriesTest : DataClientIntegrationFixture
 {
     [Test]
-    public async Task GivenValidSearchParametersTheCorrectResultIsReturned()
+    public async Task GivenValidSearchParametersTheCorrectResultIsReturnedAsync()
     {
         var searchParameters = new Searches.OfficialSearchParameters
         {
@@ -29,7 +29,7 @@ internal sealed class ResultsSearchSeriesTest : DataClientIntegrationFixture
     }
 
     [Test]
-    public async Task GivenSearchParametersThatResultInZeroResultsTheCorrectResultIsReturned()
+    public async Task GivenSearchParametersThatResultInZeroResultsTheCorrectResultIsReturnedAsync()
     {
         var searchParameters = new Searches.OfficialSearchParameters
         {

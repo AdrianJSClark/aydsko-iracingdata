@@ -6,7 +6,7 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
     private DataClient? sut = null!;
 
     [SetUp]
-    public async Task SetUp()
+    public async Task SetUpAsync()
     {
         BaseSetUp();
         var dataClient = new DataClient(HttpClient,
@@ -27,7 +27,7 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
     }
 
     [Test]
-    public async Task GivenHungaroringTrackId_ThenGetTrackAssetScreenshotUrisAsyncReturnsCorrectResults()
+    public async Task GivenHungaroringTrackId_ThenGetTrackAssetScreenshotUrisAsyncReturnsCorrectResultsAsync()
     {
         const int hungaroringTrackId = 413;
         var hungaroringResults = await sut!.GetTrackAssetScreenshotUrisAsync(hungaroringTrackId).ConfigureAwait(false);
@@ -50,7 +50,7 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
     }
 
     [Test]
-    public async Task GivenSuzukaTrackId_ThenGetScreenshotsByTrackIdReturnsCorrectResults()
+    public async Task GivenSuzukaTrackId_ThenGetScreenshotsByTrackIdReturnsCorrectResultsAsync()
     {
         const int suzukaTrackId = 168;
         var suzukaResults = await sut!.GetTrackAssetScreenshotUrisAsync(suzukaTrackId).ConfigureAwait(false);
@@ -66,7 +66,7 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
     }
 
     [Test]
-    public async Task GivenHungaroringTrack_ThenGetTrackAssetScreenshotUrisReturnsCorrectResults()
+    public async Task GivenHungaroringTrack_ThenGetTrackAssetScreenshotUrisReturnsCorrectResultsAsync()
     {
         var hungaroringTrack = (await sut!.GetTracksAsync().ConfigureAwait(false)).Data.Single(t => t.TrackId == 413);
         var hungaroringTrackAssets = (await sut.GetTrackAssetsAsync().ConfigureAwait(false)).Data["413"];
@@ -91,7 +91,7 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
     }
 
     [Test]
-    public async Task GivenSuzukaTrack_ThenGetTrackAssetScreenshotUrisReturnsCorrectResults()
+    public async Task GivenSuzukaTrack_ThenGetTrackAssetScreenshotUrisReturnsCorrectResultsAsync()
     {
         var suzukaTrack = (await sut!.GetTracksAsync().ConfigureAwait(false)).Data.Single(t => t.TrackId == 168);
         var suzukaTrackAssets = (await sut.GetTrackAssetsAsync().ConfigureAwait(false)).Data["168"];

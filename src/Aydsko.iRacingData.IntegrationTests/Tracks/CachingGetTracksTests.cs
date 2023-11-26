@@ -6,7 +6,7 @@ namespace Aydsko.iRacingData.IntegrationTests.Tracks;
 internal sealed class CachingGetTracksTests : CachingIntegrationFixture
 {
     [Test]
-    public async Task GetTracksTest()
+    public async Task GetTracksTestAsync()
     {
         var tracksResponse = await Client.GetTracksAsync(CancellationToken.None).ConfigureAwait(false);
         Assert.That(tracksResponse.Data, Is.Not.Null.Or.Empty);

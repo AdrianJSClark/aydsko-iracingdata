@@ -9,7 +9,7 @@ internal sealed class TrackScreenshotServiceTests : MockedHttpTestBase
     private TrackScreenshotService sut = null!;
 
     [SetUp]
-    public async Task SetUp()
+    public async Task SetUpAsync()
     {
         BaseSetUp();
         var dataClient = new DataClient(HttpClient,
@@ -30,7 +30,7 @@ internal sealed class TrackScreenshotServiceTests : MockedHttpTestBase
     }
 
     [Test]
-    public async Task GivenHungaroringTrackId_ThenGetScreenshotsByTrackIdReturnsCorrectResults()
+    public async Task GivenHungaroringTrackId_ThenGetScreenshotsByTrackIdReturnsCorrectResultsAsync()
     {
         const int hungaroringTrackId = 413;
         var hungaroringResults = await sut.GetScreenshotLinksAsync(hungaroringTrackId).ConfigureAwait(false);
@@ -53,7 +53,7 @@ internal sealed class TrackScreenshotServiceTests : MockedHttpTestBase
     }
 
     [Test]
-    public async Task GivenSuzukaTrackId_ThenGetScreenshotsByTrackIdReturnsCorrectResults()
+    public async Task GivenSuzukaTrackId_ThenGetScreenshotsByTrackIdReturnsCorrectResultsAsync()
     {
         const int suzukaTrackId = 168;
         var suzukaResults = await sut.GetScreenshotLinksAsync(suzukaTrackId).ConfigureAwait(false);

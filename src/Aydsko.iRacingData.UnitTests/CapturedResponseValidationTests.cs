@@ -954,7 +954,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetMemberChartDataSuccessfulAsync)).ConfigureAwait(false);
 
-        var memberChartResponse = await sut.GetMemberChartData(341554, 2, Member.MemberChartType.IRating, CancellationToken.None).ConfigureAwait(false);
+        var memberChartResponse = await sut.GetMemberChartDataAsync(341554, 2, Member.MemberChartType.IRating, CancellationToken.None).ConfigureAwait(false);
 
         Assert.That(memberChartResponse, Is.Not.Null);
         Assert.That(memberChartResponse.Data, Is.Not.Null);

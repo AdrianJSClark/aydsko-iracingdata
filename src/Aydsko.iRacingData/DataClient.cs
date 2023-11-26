@@ -733,8 +733,14 @@ public class DataClient(HttpClient httpClient,
                                                     cancellationToken).ConfigureAwait(false);
     }
 
-    /// <inheritdoc />
+    [Obsolete("Use \"GetMemberChartDataAsync\" instead.")]
     public async Task<DataResponse<MemberChart>> GetMemberChartData(int? customerId, int categoryId, MemberChartType chartType, CancellationToken cancellationToken = default)
+    {
+        return await GetMemberChartDataAsync(customerId, categoryId, chartType, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<MemberChart>> GetMemberChartDataAsync(int? customerId, int categoryId, MemberChartType chartType, CancellationToken cancellationToken = default)
     {
         if (!IsLoggedIn)
         {

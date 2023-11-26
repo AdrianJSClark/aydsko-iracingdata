@@ -116,6 +116,13 @@
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
+    <DiagnosticId>CP0006</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.IDataClient.GetMemberChartDataAsync(System.Nullable{System.Int32},System.Int32,Aydsko.iRacingData.Member.MemberChartType,System.Threading.CancellationToken)</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
     <DiagnosticId>CP0008</DiagnosticId>
     <Target>T:Aydsko.iRacingData.Common.EventType</Target>
     <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>

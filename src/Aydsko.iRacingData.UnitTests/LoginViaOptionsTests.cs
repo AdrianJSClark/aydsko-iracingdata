@@ -16,7 +16,7 @@ public class PasswordEncodingTests : MockedHttpTestBase
     }
 
     [TestCaseSource(nameof(GetTestCases))]
-    public async Task ValidateLoginRequestViaOptions(string username, string password, bool passwordIsEncoded, string expectedEncodedPassword)
+    public async Task ValidateLoginRequestViaOptionsAsync(string username, string password, bool passwordIsEncoded, string expectedEncodedPassword)
     {
         var options = new iRacingDataClientOptions
         {
@@ -54,7 +54,7 @@ public class PasswordEncodingTests : MockedHttpTestBase
     }
 
     [TestCaseSource(nameof(GetTestCases))]
-    public async Task ValidateLoginRequestViaMethodWithPasswordIsEncodedParam(string username, string password, bool passwordIsEncoded, string expectedEncodedPassword)
+    public async Task ValidateLoginRequestViaMethodWithPasswordIsEncodedParamAsync(string username, string password, bool passwordIsEncoded, string expectedEncodedPassword)
     {
         var options = new iRacingDataClientOptions
         {
@@ -90,7 +90,7 @@ public class PasswordEncodingTests : MockedHttpTestBase
     }
 
     [TestCaseSource(nameof(GetTestCasesWithUnencodedPasswords))]
-    public async Task ValidateLoginRequestViaMethod(string username, string password, string expectedEncodedPassword)
+    public async Task ValidateLoginRequestViaMethodAsync(string username, string password, string expectedEncodedPassword)
     {
         var options = new iRacingDataClientOptions
         {
@@ -125,7 +125,7 @@ public class PasswordEncodingTests : MockedHttpTestBase
     }
 
     [TestCaseSource(nameof(GetTestCasesWithUnencodedPasswords))]
-    public async Task LoginIsNotCalledIfCookiesAreSuccessfullyRestored(string username, string password, string expectedEncodedPassword)
+    public async Task LoginIsNotCalledIfCookiesAreSuccessfullyRestoredAsync(string username, string password, string expectedEncodedPassword)
     {
         var restoreCookiesWasCalled = false;
         var saveCookiesWasCalled = false;

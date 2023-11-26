@@ -36,7 +36,7 @@ public class CookiePersistenceTests : MockedHttpTestBase
     }
 
     [Test]
-    public async Task GivenOptionsWithASaveActionTheSaveActionIsCalledWithTheCookies()
+    public async Task GivenOptionsWithASaveActionTheSaveActionIsCalledWithTheCookiesAsync()
     {
         CookieCollection? savedCookies = null;
         var options = new iRacingDataClientOptions
@@ -63,7 +63,7 @@ public class CookiePersistenceTests : MockedHttpTestBase
     }
 
     [Test]
-    public async Task GivenOptionsWithARestoreFuncTheFuncIsCalledToGetTheCookies()
+    public async Task GivenOptionsWithARestoreFuncTheFuncIsCalledToGetTheCookiesAsync()
     {
         var savedCookies = new CookieCollection
         {

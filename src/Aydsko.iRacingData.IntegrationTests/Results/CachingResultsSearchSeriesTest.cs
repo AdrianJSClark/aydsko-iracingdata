@@ -6,7 +6,7 @@ namespace Aydsko.iRacingData.IntegrationTests.Results;
 internal sealed class CachingResultsSearchSeriesTest : CachingIntegrationFixture
 {
     [Test(TestOf = typeof(DataClient))]
-    public async Task GivenValidSearchParametersTheCorrectResultIsReturned()
+    public async Task GivenValidSearchParametersTheCorrectResultIsReturnedAsync()
     {
         var searchParameters = new Searches.OfficialSearchParameters
         {
@@ -46,7 +46,7 @@ internal sealed class CachingResultsSearchSeriesTest : CachingIntegrationFixture
     }
 
     [Test(TestOf = typeof(DataClient))]
-    public async Task GivenSearchParametersThatResultInZeroResultsTheCorrectResultIsReturned()
+    public async Task GivenSearchParametersThatResultInZeroResultsTheCorrectResultIsReturnedAsync()
     {
         var searchParameters = new Searches.OfficialSearchParameters
         {
