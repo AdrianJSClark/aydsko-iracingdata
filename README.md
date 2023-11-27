@@ -104,6 +104,6 @@ Before you begin a contribution, please read and ensure you are comfortable with
 To build & develop on the codebase you'll need:
 
  - An active iRacing membership
- - .NET 6 (or later)
+ - .NET 8 (or later)
 
 To get started open and build `src\iRacing Data API.sln`.
