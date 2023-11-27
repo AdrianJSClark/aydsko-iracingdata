@@ -35,8 +35,11 @@ public class DataClient(HttpClient httpClient,
                         ILogger<DataClient> logger,
                         iRacingDataClientOptions options,
                         CookieContainer cookieContainer)
-    : IDataClient
+    : IDataClient, IDisposable
 {
+    private readonly SemaphoreSlim loginSemaphore = new(1, 1);
+    private bool disposedValue;
+
     public bool IsLoggedIn { get; private set; }
 
     /// <inheritdoc/>
@@ -69,10 +72,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<IReadOnlyDictionary<string, CarAssetDetail>>> GetCarAssetDetailsAsync(CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/car/assets"),
                                                     CarAssetDetailDictionaryContext.Default.IReadOnlyDictionaryStringCarAssetDetail,
@@ -82,10 +82,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<Cars.CarInfo[]>> GetCarsAsync(CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/car/get"),
                                                     CarInfoArrayContext.Default.CarInfoArray,
@@ -95,10 +92,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<Common.CarClass[]>> GetCarClassesAsync(CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var carClassUrl = new Uri("https://members-ng.iracing.com/data/carclass/get");
         return await CreateResponseViaInfoLinkAsync(carClassUrl, CarClassArrayContext.Default.CarClassArray, cancellationToken).ConfigureAwait(false);
@@ -107,10 +101,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<Division[]>> GetDivisionsAsync(CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var constantsDivisionsUrl = new Uri("https://members-ng.iracing.com/data/constants/divisions");
         var constantsDivisionsResponse = await httpClient.GetAsync(constantsDivisionsUrl, cancellationToken).ConfigureAwait(false);
@@ -124,10 +115,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<Category[]>> GetCategoriesAsync(CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var constantsDivisionsUrl = new Uri("https://members-ng.iracing.com/data/constants/categories");
         var constantsDivisionsResponse = await httpClient.GetAsync(constantsDivisionsUrl, cancellationToken)
@@ -143,10 +131,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<Constants.EventType[]>> GetEventTypesAsync(CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var constantsDivisionsUrl = new Uri("https://members-ng.iracing.com/data/constants/event_types");
         var constantsDivisionsResponse = await httpClient.GetAsync(constantsDivisionsUrl, cancellationToken).ConfigureAwait(false);
@@ -161,10 +146,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<CombinedSessionsResult>> ListHostedSessionsCombinedAsync(int? packageId = null, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>();
 
@@ -183,10 +165,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<HostedSessionsResult>> ListHostedSessionsAsync(CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/hosted/sessions"),
                                                     HostedSessionsResultContext.Default.HostedSessionsResult,
@@ -196,10 +175,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<League>> GetLeagueAsync(int leagueId, bool includeLicenses = false, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -217,10 +193,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<LeagePointsSystems>> GetLeaguePointsSystemsAsync(int leagueId, int? seasonId = null, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -240,11 +213,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<CustomerLeagueSessions>> GetCustomerLeagueSessionsAsync(bool mine = false, int? packageId = null, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
-        ;
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -262,10 +231,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<LookupGroup[]>> GetLookupsAsync(CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/lookup/get?weather=weather_wind_speed_units&weather=weather_wind_speed_max&weather=weather_wind_speed_min&licenselevels=licenselevels"),
                                                     LookupGroupArrayContext.Default.LookupGroupArray,
@@ -275,10 +241,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<ClubHistoryLookup[]>> GetClubHistoryLookupsAsync(int seasonYear, int seasonQuarter, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -296,10 +259,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<DriverSearchResult[]>> SearchDriversAsync(string searchTerm, int? leagueId = null, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -321,10 +281,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<LicenseLookup[]>> GetLicenseLookupsAsync(CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/lookup/licenses"),
                                                     LicenseLookupArrayContext.Default.LicenseLookupArray,
@@ -339,10 +296,7 @@ public class DataClient(HttpClient httpClient,
             throw new ArgumentOutOfRangeException(nameof(customerIds), "Must supply at least one customer identifier value to query.");
         }
 
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -369,10 +323,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<MemberAward[]>> GetDriverAwardsAsync(int? customerId = null, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>();
 
@@ -391,10 +342,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<MemberInfo>> GetMyInfoAsync(CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/member/info"),
                                                     MemberInfoContext.Default.MemberInfo,
@@ -404,10 +352,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<MemberProfile>> GetMemberProfileAsync(int? customerId = null, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
         var queryParameters = new Dictionary<string, object?>();
 
         if (customerId is not null)
@@ -425,10 +370,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<SubSessionResult>> GetSubSessionResultAsync(int subSessionId, bool includeLicenses, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -446,10 +388,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<(SubsessionLapsHeader Header, SubsessionChartLap[] Laps)>> GetSubSessionLapChartAsync(int subSessionId, int simSessionNumber, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -503,10 +442,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<(SubsessionEventLogHeader Header, SubsessionEventLogItem[] LogItems)>> GetSubsessionEventLogAsync(int subSessionId, int simSessionNumber, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -560,10 +496,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<SeriesDetail[]>> GetSeriesAsync(CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/series/get"),
                                                     SeriesDetailArrayContext.Default.SeriesDetailArray,
@@ -573,10 +506,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<IReadOnlyDictionary<string, SeriesAsset>>> GetSeriesAssetsAsync(CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/series/assets"),
                                                     SeriesAssetReadOnlyDictionaryContext.Default.IReadOnlyDictionaryStringSeriesAsset,
@@ -586,10 +516,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>> GetSingleDriverSubsessionLapsAsync(int subSessionId, int simSessionNumber, int customerId, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -644,10 +571,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>> GetTeamSubsessionLapsAsync(int subSessionId, int simSessionNumber, int teamId, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -702,10 +626,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<MemberDivision>> GetMemberDivisionAsync(int seasonId, Common.EventType eventType, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -723,10 +644,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<MemberYearlyStatistics>> GetMemberYearlyStatisticsAsync(CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/stats/member_yearly"),
                                                     MemberYearlyStatisticsContext.Default.MemberYearlyStatistics,
@@ -742,10 +660,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<MemberChart>> GetMemberChartDataAsync(int? customerId, int categoryId, MemberChartType chartType, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var parameters = new Dictionary<string, object?>
         {
@@ -762,10 +677,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<(WorldRecordsHeader Header, WorldRecordEntry[] Entries)>> GetWorldRecordsAsync(int carId, int trackId, int? seasonYear = null, int? seasonQuarter = null, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -833,10 +745,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<TeamInfo>> GetTeamAsync(int teamId, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -883,10 +792,7 @@ public class DataClient(HttpClient httpClient,
             throw new ArgumentOutOfRangeException(nameof(division));
         }
 
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -973,10 +879,7 @@ public class DataClient(HttpClient httpClient,
             throw new ArgumentOutOfRangeException(nameof(division));
         }
 
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -1063,10 +966,7 @@ public class DataClient(HttpClient httpClient,
             throw new ArgumentOutOfRangeException(nameof(division));
         }
 
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -1153,10 +1053,7 @@ public class DataClient(HttpClient httpClient,
             throw new ArgumentOutOfRangeException(nameof(division));
         }
 
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -1232,10 +1129,7 @@ public class DataClient(HttpClient httpClient,
             throw new ArgumentOutOfRangeException(nameof(raceWeekIndex));
         }
 
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -1290,10 +1184,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<SeasonResults>> GetSeasonResultsAsync(int seasonId, Common.EventType eventType, int raceWeekNumber, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -1312,10 +1203,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<SeasonSeries[]>> GetSeasonsAsync(bool includeSeries, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -1332,10 +1220,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<StatisticsSeries[]>> GetStatisticsSeriesAsync(CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/series/stats_series"),
                                                     StatisticsSeriesArrayContext.Default.StatisticsSeriesArray,
@@ -1345,10 +1230,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<MemberBests>> GetBestLapStatisticsAsync(int? customerId = null, int? carId = null, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>();
 
@@ -1372,10 +1254,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<MemberCareer>> GetCareerStatisticsAsync(int? customerId = null, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>();
 
@@ -1394,10 +1273,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<MemberRecentRaces>> GetMemberRecentRacesAsync(int? customerId = null, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>();
 
@@ -1416,10 +1292,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<MemberSummary>> GetMemberSummaryAsync(int? customerId = null, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>();
 
@@ -1438,10 +1311,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<IReadOnlyDictionary<string, TrackAssets>>> GetTrackAssetsAsync(CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/track/assets"),
                                                     TrackAssetsArrayContext.Default.IReadOnlyDictionaryStringTrackAssets,
@@ -1451,10 +1321,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<Tracks.Track[]>> GetTracksAsync(CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/track/get"),
                                                     TrackArrayContext.Default.TrackArray,
@@ -1493,10 +1360,7 @@ public class DataClient(HttpClient httpClient,
             throw finishRangeEx;
         }
 
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>();
         queryParameters.AddParameterIfNotNull(() => searchParameters.StartRangeBegin);
@@ -1552,10 +1416,7 @@ public class DataClient(HttpClient httpClient,
             throw finishRangeEx;
         }
 
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>();
 
@@ -1596,10 +1457,7 @@ public class DataClient(HttpClient httpClient,
         }
 #endif
 
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>();
         queryParameters.AddParameterIfNotNull(() => searchParameters.Search);
@@ -1655,10 +1513,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<ListOfSeasons>> ListSeasonsAsync(int seasonYear, int seasonQuarter, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -1731,10 +1586,7 @@ public class DataClient(HttpClient httpClient,
 
     private async Task<DataResponse<LeagueMembership[]>> GetLeagueMembershipInternalAsync(int? customerId, bool includeLeague = false, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -1756,10 +1608,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<LeagueSeasons>> GetLeagueSeasonsAsync(int leagueId, bool includeRetired = false, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -1777,10 +1626,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<RaceGuideResults>> GetRaceGuideAsync(DateTimeOffset? from = null, bool? includeEndAfterFrom = null, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>();
 
@@ -1807,10 +1653,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<Country[]>> GetCountriesAsync(CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/lookup/countries"),
                                                     CountryArrayContext.Default.CountryArray,
@@ -1820,10 +1663,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<ParticipationCredits[]>> GetMemberParticipationCreditsAsync(CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/member/participation_credits"),
                                                     ParticipationCreditsArrayContext.Default.ParticipationCreditsArray,
@@ -1833,10 +1673,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<LeagueSeasonSessions>> GetLeagueSeasonSessionsAsync(int leagueId, int seasonId, bool resultsOnly = false, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -1855,10 +1692,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<PastSeriesDetail>> GetPastSeasonsForSeriesAsync(int seriesId, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -1884,10 +1718,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<SeasonStandings>> GetSeasonStandingsAsync(int leagueId, int seasonId, int? carClassId = null, int? carId = null, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -1947,10 +1778,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<TimeAttackMemberSeasonResult[]>> GetTimeAttackMemberSeasonResultsAsync(int competitionSeasonId, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -1967,10 +1795,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<MemberRecap>> GetMemberRecapAsync(int? customerId = null, int? seasonYear = null, int? seasonQuarter = null, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -1989,10 +1814,7 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<SpectatorSubsessionIds>> GetSpectatorSubsessionIdentifiersAsync(Common.EventType[]? eventTypes = null, CancellationToken cancellationToken = default)
     {
-        if (!IsLoggedIn)
-        {
-            await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
-        }
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -2006,7 +1828,29 @@ public class DataClient(HttpClient httpClient,
                                                     cancellationToken).ConfigureAwait(false);
     }
 
-#pragma warning disable CA1308 // Normalize strings to uppercase - this algorithm requires lower case.
+    /// <summary>Will ensure the client is authenticated by checking the <see cref="IsLoggedIn"/> property and executing the login process if required.</summary>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="Task"/> that resolves when the process is complete.</returns>
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Maintainability", "CA1508:Avoid dead conditional code", Justification = "Double-check of the precondition is a common pattern when using a lock and initialisation method.")]
+    protected async Task EnsureLoggedInAsync(CancellationToken cancellationToken)
+    {
+        if (IsLoggedIn is false)
+        {
+            await loginSemaphore.WaitAsync(cancellationToken).ConfigureAwait(false);
+            try
+            {
+                if (IsLoggedIn is false)
+                {
+                    await LoginInternalAsync(cancellationToken).ConfigureAwait(false); 
+                }
+            }
+            finally
+            {
+                loginSemaphore.Release();
+            }
+        }
+    }
+
     private async Task LoginInternalAsync(CancellationToken cancellationToken)
     {
         if (string.IsNullOrWhiteSpace(options.Username))
@@ -2044,7 +1888,9 @@ public class DataClient(HttpClient httpClient,
             else
             {
 
+#pragma warning disable CA1308 // Normalize strings to uppercase - this algorithm requires lower case.
                 var passwordAndEmail = options.Password + (options.Username?.ToLowerInvariant());
+#pragma warning restore CA1308 // Normalize strings to uppercase
 
 #if NET6_0_OR_GREATER
                 var hashedPasswordAndEmailBytes = SHA256.HashData(Encoding.UTF8.GetBytes(passwordAndEmail));
@@ -2095,7 +1941,6 @@ public class DataClient(HttpClient httpClient,
             throw iRacingLoginFailedException.Create(ex);
         }
     }
-#pragma warning restore CA1308 // Normalize strings to uppercase
 
     private const string RateLimitExceededContent = "Rate limit exceeded";
 
@@ -2335,5 +2180,34 @@ public class DataClient(HttpClient httpClient,
         }
 
         return GetTrackAssetScreenshotUris(track, trackAssets);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                loginSemaphore.Dispose();
+            }
+
+            // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+            // TODO: set large fields to null
+            disposedValue = true;
+        }
+    }
+
+    // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+    // ~DataClient()
+    // {
+    //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+    //     Dispose(disposing: false);
+    // }
+
+    public void Dispose()
+    {
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }
