@@ -107,4 +107,13 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
             Assert.That(suzukaResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/114_screenshots/04.jpg")));
         });
     }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            sut?.Dispose();
+        }
+        base.Dispose(disposing);
+    }
 }

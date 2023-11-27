@@ -27,10 +27,10 @@ public class PasswordEncodingTests : MockedHttpTestBase
             SaveCookies = null,
         };
 
-        var sut = new DataClient(HttpClient,
-                                 new TestLogger<DataClient>(),
-                                 options,
-                                 CookieContainer);
+        using var sut = new DataClient(HttpClient,
+                                       new TestLogger<DataClient>(),
+                                       options,
+                                       CookieContainer);
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
         var lookups = await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
@@ -64,10 +64,10 @@ public class PasswordEncodingTests : MockedHttpTestBase
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
 
-        var sut = new DataClient(HttpClient,
-                                 new TestLogger<DataClient>(),
-                                 options,
-                                 CookieContainer);
+        using var sut = new DataClient(HttpClient,
+                                       new TestLogger<DataClient>(),
+                                       options,
+                                       CookieContainer);
 
         sut.UseUsernameAndPassword(username, password, passwordIsEncoded);
 
@@ -100,10 +100,10 @@ public class PasswordEncodingTests : MockedHttpTestBase
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
 
-        var sut = new DataClient(HttpClient,
-                                 new TestLogger<DataClient>(),
-                                 options,
-                                 CookieContainer);
+        using var sut = new DataClient(HttpClient,
+                                       new TestLogger<DataClient>(),
+                                       options,
+                                       CookieContainer);
 
         sut.UseUsernameAndPassword(username, password);
 
@@ -153,10 +153,10 @@ public class PasswordEncodingTests : MockedHttpTestBase
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync), false).ConfigureAwait(false);
 
-        var sut = new DataClient(HttpClient,
-                                 new TestLogger<DataClient>(),
-                                 options,
-                                 CookieContainer);
+        using var sut = new DataClient(HttpClient,
+                                       new TestLogger<DataClient>(),
+                                       options,
+                                       CookieContainer);
 
         sut.UseUsernameAndPassword(username, password);
 

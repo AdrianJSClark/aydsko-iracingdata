@@ -19,6 +19,9 @@
 
  - "DataClient" class is now "public" so it can be used outside of the library. It is still recommended to resolve the "IDataClient" interface from the DI container in most situations.
 
+ - Fix "Auth concurrency issues" (Issue #185)
+   - The library now uses a semaphore to prevent multiple login attempts at the same time on the same instance of the "DataClient" class.
+
 
 
 Contributions:

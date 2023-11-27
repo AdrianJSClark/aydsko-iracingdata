@@ -24,10 +24,10 @@ public class CookiePersistenceTests : MockedHttpTestBase
             Password = "obviously.fake.password.value",
         };
 
-        var sut = new DataClient(HttpClient,
-                                 new TestLogger<DataClient>(),
-                                 options,
-                                 CookieContainer);
+        using var sut = new DataClient(HttpClient,
+                                       new TestLogger<DataClient>(),
+                                       options,
+                                       CookieContainer);
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
         await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
@@ -47,10 +47,10 @@ public class CookiePersistenceTests : MockedHttpTestBase
             Password = "obviously.fake.password.value",
         };
 
-        var sut = new DataClient(HttpClient,
-                                 new TestLogger<DataClient>(),
-                                 options,
-                                 CookieContainer);
+        using var sut = new DataClient(HttpClient,
+                                       new TestLogger<DataClient>(),
+                                       options,
+                                       CookieContainer);
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
         await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
@@ -79,10 +79,10 @@ public class CookiePersistenceTests : MockedHttpTestBase
             SaveCookies = null,
         };
 
-        var sut = new DataClient(HttpClient,
-                                 new TestLogger<DataClient>(),
-                                 options,
-                                 CookieContainer);
+        using var sut = new DataClient(HttpClient,
+                                       new TestLogger<DataClient>(),
+                                       options,
+                                       CookieContainer);
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
         await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);

@@ -1369,4 +1369,13 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
                                       .And.Property(nameof(SpectatorSubsessionIds.Success)).EqualTo(true)
                                       .And.Property(nameof(SpectatorSubsessionIds.SubsessionIdentifiers)).Length.EqualTo(192));
     }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            sut?.Dispose();
+        }
+        base.Dispose(disposing);
+    }
 }
