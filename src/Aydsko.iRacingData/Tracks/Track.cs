@@ -95,8 +95,13 @@ public class Track
     [JsonPropertyName("package_id")]
     public int PackageId { get; set; }
 
+    /// <summary>Speed limit for pit road in miles-per-hour (mph)</summary>
     [JsonPropertyName("pit_road_speed_limit")]
     public int PitRoadSpeedLimit { get; set; }
+
+    /// <summary>Speed limit for pit road in kilometres-per-hour (mph)</summary>
+    [JsonIgnore]
+    public int PitRoadSpeedLimitKph => (int)Math.Round(PitRoadSpeedLimit * 1.609344M);
 
     [JsonPropertyName("price")]
     public decimal Price { get; set; }
