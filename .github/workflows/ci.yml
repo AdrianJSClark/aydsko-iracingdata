@@ -38,7 +38,7 @@ jobs:
             PACKAGE_KEY: ${{ secrets.PACKAGE_UPLOAD }}
 
       - name: Delete Old Packages
-        uses: smartsquaregmbh/delete-old-packages@v0.6.0
+        uses: smartsquaregmbh/delete-old-packages@v0.7.0
         with:
           user: AdrianJSClark
           type: nuget
