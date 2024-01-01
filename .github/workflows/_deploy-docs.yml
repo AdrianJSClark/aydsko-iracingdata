@@ -22,7 +22,7 @@ jobs:
 
     steps:
       - name: Download Documentation Artifacts
-        uses: actions/download-artifact@v3
+        uses: actions/download-artifact@v4
         with:
           name: 'Documentation Site'
           path: '_site'
@@ -31,10 +31,10 @@ jobs:
         uses: actions/configure-pages@v3
 
       - name: Upload GitHub Pages Artifacts
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v2
         with:
           path: '_site'
 
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4

@@ -14,7 +14,7 @@ jobs:
     steps:
 
       - name: 'Checkout Code'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Required for MinVer to work properly
 
@@ -30,7 +30,7 @@ jobs:
         shell: pwsh
 
       - name: 'Upload Site Artifacts'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: 'Documentation Site'
           path: 'doc/docfx_project/_site/'
