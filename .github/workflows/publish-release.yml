@@ -19,7 +19,7 @@ jobs:
     - name: 'Check Tag Value'
       run: echo ${{ github.event.release.tag_name }}
 
-    - uses: robinraju/release-downloader@v1.7
+    - uses: robinraju/release-downloader@v1.8
       name: 'Download Package from Release'
       with:
         repository: 'AdrianJSClark/aydsko-iracingdata'
@@ -34,7 +34,7 @@ jobs:
       run: Expand-Archive -Path DocumentationSite.zip -DestinationPath ./_site
 
     - name: 'Upload Site Artifacts'
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
         name: 'Documentation Site'
         path: '_site'

@@ -14,7 +14,7 @@ jobs:
     steps:
 
       - name: 'Checkout Code'
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0 # Required for MinVer to work properly
 
@@ -63,13 +63,13 @@ jobs:
         run: Get-ChildItem -Path src\*\bin\Release\* -Recurse -Include *.nupkg | Copy-Item -Container:$false
 
       - name: 'Upload Artifacts'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: NuGet Packages
           path: Aydsko.*.nupkg
 
       - name: 'Upload Release Notes'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: Release Notes
           path: 'src\Aydsko.iRacingData\Package Release Notes.txt'
