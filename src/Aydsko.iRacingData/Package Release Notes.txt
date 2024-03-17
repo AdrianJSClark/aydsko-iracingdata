@@ -1,3 +1,5 @@
 ﻿Fixes / Changes:
 
  - New property on "Tracks.Track" called "PitRoadSpeedLimitKph" which returns the pit road speed limit in kilometers per hour.
+ - Property "ProPromotable" on "MemberLicense" has been renamed to "Promotable".
+ - New properties "Sequence" and "CategoryName" on "MemberLicense".

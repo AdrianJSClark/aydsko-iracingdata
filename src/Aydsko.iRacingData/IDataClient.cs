@@ -229,7 +229,7 @@ public interface IDataClient
 
     /// <summary>Information about license levels available in the iRacing system.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
-    /// <returns>A <see cref="DataResponse{TData}"/> containing an array of <see cref="License"/> objects.</returns>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing an array of <see cref="LicenseLookup"/> objects.</returns>
     /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>

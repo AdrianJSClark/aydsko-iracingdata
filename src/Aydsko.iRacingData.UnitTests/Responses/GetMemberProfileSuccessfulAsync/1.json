@@ -1,11 +1,36 @@
 ﻿{
   "headers": {
-    "x-ratelimit-remaining": "99",
-    "x-ratelimit-limit": "100",
-    "x-ratelimit-reset": "1644451200"
+    "Connection": "keep-alive",
+    "Date": "Sun, 17 Mar 2024 11:14:55 GMT",
+    "Set-Cookie": "AWSALB=hstJtq0; Max-Age=3600; Domain=.iracing.com; Path=/; Expires=Sun, 17 Mar 2024 12:14:55 GMT",
+    "X-iRacing-Env": "members",
+    "X-iRacing-Id": "007245d8-fd5d-4cd2-9c76-9d447e53b129",
+    "X-iRacing-ServiceName": "data-server",
+    "X-iRacing-ServiceVersion": "1.25.4",
+    "Content-Security-Policy": "default-src \u0027self\u0027;base-uri \u0027self\u0027;font-src \u0027self\u0027 https: data:;form-action \u0027self\u0027;frame-ancestors \u0027self\u0027;img-src \u0027self\u0027 data:;object-src \u0027none\u0027;script-src \u0027self\u0027;script-src-attr \u0027none\u0027;style-src \u0027self\u0027 https: \u0027unsafe-inline\u0027;upgrade-insecure-requests",
+    "Cross-Origin-Opener-Policy": "same-origin",
+    "Cross-Origin-Resource-Policy": "same-origin",
+    "Origin-Agent-Cluster": "?1",
+    "Referrer-Policy": "no-referrer",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains",
+    "X-Content-Type-Options": "nosniff",
+    "X-DNS-Prefetch-Control": "off",
+    "X-Download-Options": "noopen",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-Permitted-Cross-Domain-Policies": "none",
+    "X-XSS-Protection": "0",
+    "X-RateLimit-Limit": "240",
+    "X-RateLimit-Remaining": "239",
+    "X-RateLimit-Reset": "1710674155",
+    "Cache-Control": "max-age=60",
+    "ETag": "W/\u0022123-\u002BeMsElgrdT9\u002Ba5muwsBfWOvTJt0\u0022",
+    "X-Cache": "Miss from cloudfront",
+    "Via": "1.1 40f9bfc26197d992c4653c9bae274480.cloudfront.net (CloudFront)",
+    "X-Amz-Cf-Pop": "BNE50-P2",
+    "X-Amz-Cf-Id": "0fCzAx_7BYrvn1wXuRSm6OtTA1MC-7Br2KFpKoPTo_cmRAf7tvJWwQ=="
   },
   "content": {
-    "link": "https://scorpio-assets.s3.amazonaws.com/production/data-server/cache/data-services/car/assets/e0a56003-c609-4a0e-a1d2-8fc4dcab92a6?AWSAccessKeyId=AKIAUO6OO4A3357USLO7&Expires=1642767750&Signature=XpwNF2L921Ry%2Frr%2FbATcfi2TyHY%3D",
-    "expires": "2022-08-27T11:23:19.507Z"
+    "link": "https://scorpio-assets.s3.amazonaws.com/production/data-server/cache/data-services/member/profile/7eb7e3ba-8ca0-4881-b4e9-190e87d22ef7?AWSAccessKeyId=AK6O33IA7USO4ALO7&Expires=1710674215&Signature=2top%2B0HV24Ci%2FuccmpnyXMZq2v4%3D",
+    "expires": "2024-03-17T11:29:55.769Z"
   }
 }
