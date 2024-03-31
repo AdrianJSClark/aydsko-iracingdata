@@ -22,4 +22,7 @@ public class SessionResults
 
     [JsonPropertyName("results")]
     public Result[] Results { get; set; } = default!;
+
+    [JsonPropertyName("weather_result")]
+    public SessionResultsWeather WeatherResult { get; set; } = default!;
 }

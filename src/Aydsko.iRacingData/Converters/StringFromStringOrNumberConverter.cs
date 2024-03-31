@@ -21,7 +21,7 @@ public sealed class StringFromStringOrNumberConverter : JsonConverter<string>
 
     public override void Write(Utf8JsonWriter writer, string value, JsonSerializerOptions options)
     {
-#if (NET6_0_OR_GREATER)
+#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(writer);
 #else
         if (writer is null)

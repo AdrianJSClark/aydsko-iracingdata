@@ -1,6 +1,8 @@
 ﻿// © 2023 Adrian Clark
 // This file is licensed to you under the MIT license.
 
+using Aydsko.iRacingData.Constants;
+
 namespace Aydsko.iRacingData.Leagues;
 
 public class CustomerLeagueSessionWeather
@@ -25,6 +27,9 @@ public class CustomerLeagueSessionWeather
 
     [JsonPropertyName("wind_dir")]
     public int WindDir { get; set; }
+
+    [JsonIgnore]
+    public WindDirection WindDirection => (WindDirection)WindDir;
 
     [JsonPropertyName("wind_units")]
     public int WindUnits { get; set; }

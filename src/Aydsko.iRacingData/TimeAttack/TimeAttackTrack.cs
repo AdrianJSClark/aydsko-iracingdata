@@ -1,6 +1,8 @@
 ﻿// © 2023 Adrian Clark
 // This file is licensed to you under the MIT license.
 
+using Aydsko.iRacingData.Constants;
+
 namespace Aydsko.iRacingData.TimeAttack;
 
 public class TimeAttackTrack
@@ -22,6 +24,9 @@ public class TimeAttackTrack
 
     [JsonPropertyName("w_wind_dir")]
     public int WWindDir { get; set; }
+
+    [JsonIgnore]
+    public WindDirection WeatherWindDirection => (WindDirection)WWindDir;
 
     [JsonPropertyName("w_wind_speed")]
     public int WWindSpeed { get; set; }

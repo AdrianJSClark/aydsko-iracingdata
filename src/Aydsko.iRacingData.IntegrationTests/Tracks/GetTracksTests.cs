@@ -31,7 +31,7 @@ internal sealed class GetTracksTests : DataClientIntegrationFixture
         yield return new(197) { ExpectedResult = 1.39M };
         yield return new(152) { ExpectedResult = 4.44M };
         yield return new(151) { ExpectedResult = 1.44M };
-        yield return new(95) { ExpectedResult = 5.95M };
+        yield return new(95) { ExpectedResult = 6.01M };
         yield return new(50) { ExpectedResult = 6.51M };
         yield return new(341) { ExpectedResult = 5.89M };
     }

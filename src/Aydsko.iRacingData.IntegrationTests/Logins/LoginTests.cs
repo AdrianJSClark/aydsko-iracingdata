@@ -24,8 +24,11 @@ internal sealed class LoginTests : BaseIntegrationFixture<DataClient>
     [Test]
     public void TestFailedLoginFromBadCookieRestore()
     {
-        _cookiesToRestore = [new Cookie("test", "test", "/", ".iracing.com")];
-        _cookiesFromSave = [new Cookie("test", "test", "/", "localhost")];
+        _cookiesToRestore = new CookieCollection();
+        _cookiesToRestore.Add(new Cookie("test", "test", "/", ".iracing.com"));
+
+        _cookiesFromSave = new CookieCollection();
+        _cookiesFromSave.Add(new Cookie("test", "test", "/", "localhost"));
 
         Assert.Multiple(() =>
         {

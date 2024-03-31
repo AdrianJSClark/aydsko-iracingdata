@@ -1,6 +1,8 @@
 ﻿// © 2023 Adrian Clark
 // This file is licensed to you under the MIT license.
 
+using Aydsko.iRacingData.Converters;
+
 namespace Aydsko.iRacingData.Results;
 
 public class SubSessionResult
@@ -110,8 +112,8 @@ public class SubSessionResult
     [JsonPropertyName("event_strength_of_field")]
     public int EventStrengthOfField { get; set; }
 
-    [JsonPropertyName("event_average_lap")]
-    public int EventAverageLap { get; set; }
+    [JsonPropertyName("event_average_lap"), JsonConverter(typeof(TenThousandthSecondDurationNotNullConverter))]
+    public TimeSpan EventAverageLap { get; set; }
 
     [JsonPropertyName("event_laps_complete")]
     public int EventLapsComplete { get; set; }
@@ -187,6 +189,9 @@ public class SubSessionResult
 
     [JsonPropertyName("league_season_name")]
     public string? LeagueSeasonName { get; set; } = default!;
+
+    [JsonPropertyName("associated_subsession_ids")]
+    public int[] AssociatedSubSessionIds { get; set; } = default!;
 }
 
 [JsonSerializable(typeof(SubSessionResult)), JsonSourceGenerationOptions(WriteIndented = true)]

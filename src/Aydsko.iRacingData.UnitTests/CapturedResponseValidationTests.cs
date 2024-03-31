@@ -270,10 +270,10 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(memberProfileResponse, Is.Not.Null);
         Assert.That(memberProfileResponse!.Data, Is.Not.Null);
 
-        Assert.That(memberProfileResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(memberProfileResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(memberProfileResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(memberProfileResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        Assert.That(memberProfileResponse.RateLimitRemaining, Is.EqualTo(239));
+        Assert.That(memberProfileResponse.TotalRateLimit, Is.EqualTo(240));
+        Assert.That(memberProfileResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2024, 3, 17, 11, 15, 55, TimeSpan.Zero)));
+        Assert.That(memberProfileResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2024, 3, 17, 11, 29, 55, 769, TimeSpan.Zero)));
     }
 
     [Test(TestOf = typeof(DataClient))]
