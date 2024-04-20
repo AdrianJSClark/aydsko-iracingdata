@@ -813,9 +813,9 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
-    public async Task GetSeasonQualifyResultsSuccesfulAsync()
+    public async Task GetSeasonQualifyResultsSuccessfulAsync()
     {
-        await MessageHandler.QueueResponsesAsync(nameof(GetSeasonQualifyResultsSuccesfulAsync)).ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync(nameof(GetSeasonQualifyResultsSuccessfulAsync)).ConfigureAwait(false);
 
         var lapChartResponse = await sut.GetSeasonQualifyResultsAsync(3587, 71, 0).ConfigureAwait(false);
 
