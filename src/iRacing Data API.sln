@@ -24,7 +24,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 		..\.github\workflows\create-release.yml = ..\.github\workflows\create-release.yml
 		..\.github\workflows\pr.yml = ..\.github\workflows\pr.yml
 		..\.github\workflows\publish-release.yml = ..\.github\workflows\publish-release.yml
-		..\.github\workflows\_build-docs.yml = ..\.github\workflows\_build-docs.yml
 		..\.github\workflows\_build.yml = ..\.github\workflows\_build.yml
 		..\.github\workflows\_deploy-docs.yml = ..\.github\workflows\_deploy-docs.yml
 	EndProjectSection

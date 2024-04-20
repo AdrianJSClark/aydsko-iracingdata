@@ -11,15 +11,10 @@ jobs:
     name: Build & Test
     uses: ./.github/workflows/_build.yml
 
-  build-docs:
-    name: Build Documentation
-    uses: ./.github/workflows/_build-docs.yml
-
   deploy:
     name: Create Draft Release with NuGet Packages & Documentation Site
     needs:
       - build
-      - build-docs
     runs-on: ubuntu-latest
 
     env:
