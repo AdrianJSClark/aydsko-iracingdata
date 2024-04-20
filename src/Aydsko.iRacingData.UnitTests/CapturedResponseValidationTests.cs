@@ -775,12 +775,15 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync("ResponseUnauthorized", false).ConfigureAwait(false);
 
-        _ = Assert.ThrowsAsync<iRacingUnauthorizedResponseException>(async () =>
+        Assert.Multiple(() =>
         {
-            var lapChartResponse = await sut.GetSubSessionResultAsync(12345, false).ConfigureAwait(false);
-        });
+            _ = Assert.ThrowsAsync<iRacingUnauthorizedResponseException>(async () =>
+            {
+                var lapChartResponse = await sut.GetSubSessionResultAsync(12345, false).ConfigureAwait(false);
+            });
 
-        Assert.False(sut.IsLoggedIn);
+            Assert.That(sut.IsLoggedIn, Is.False);
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]

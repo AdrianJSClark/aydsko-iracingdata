@@ -99,7 +99,7 @@ public class CookiePersistenceTests : MockedHttpTestBase
     }
 
     [Test]
-    public async Task GivenACookieContainerWithCookiesAndNoRestoreOrSaveFunctionsThenTheCookiesAreUsed()
+    public async Task GivenACookieContainerWithCookiesAndNoRestoreOrSaveFunctionsThenTheCookiesAreUsedAsync()
     {
         CookieContainer.Add(new Cookie("irsso_members", "one", "/", "members-ng.iracing.com"));
         CookieContainer.Add(new Cookie("authtoken_members", "two", "/", "members-ng.iracing.com"));
