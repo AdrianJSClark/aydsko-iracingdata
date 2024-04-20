@@ -14,7 +14,7 @@
     <Product>Aydsko iRacing Data API</Product>
     <Title>Aydsko iRacing Data API</Title>
     <Description>An access library for querying the iRacing "Data" API.</Description>
-    <Copyright>© 2023 Adrian Clark. "iRacing" is a trademark of iRacing.com Motorsport Simulations, LLC.</Copyright>
+    <Copyright>© 2023-2024 Adrian Clark. "iRacing" is a trademark of iRacing.com Motorsport Simulations, LLC.</Copyright>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
