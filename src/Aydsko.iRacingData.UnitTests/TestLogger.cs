@@ -1,4 +1,4 @@
-﻿// © 2023 Adrian Clark
+﻿// © 2023-2024 Adrian Clark
 // This file is licensed to you under the MIT license.
 
 using Microsoft.Extensions.Logging;
@@ -7,7 +7,7 @@ namespace Aydsko.iRacingData.UnitTests;
 
 public class TestLogger<T> : ILogger<T>
 {
-    public IDisposable BeginScope<TState>(TState state)
+    public IDisposable? BeginScope<TState>(TState state) where TState : notnull
     {
         return new TestScope();
     }

@@ -1,4 +1,4 @@
-﻿// © 2023 Adrian Clark
+﻿// © 2023-2024 Adrian Clark
 // This file is licensed to you under the MIT license.
 
 using System.Net;
@@ -101,7 +101,7 @@ public static class ServicesExtensions
         return services;
     }
 
-    static internal IHttpClientBuilder AddIRacingDataApiInternal(this IServiceCollection services,
+    internal static IHttpClientBuilder AddIRacingDataApiInternal(this IServiceCollection services,
                                                                  Action<iRacingDataClientOptions> configureOptions,
                                                                  bool includeCaching)
     {
@@ -127,13 +127,14 @@ public static class ServicesExtensions
 
         var httpClientBuilder = (includeCaching ? services.AddHttpClient<IDataClient, CachingDataClient>() : services.AddHttpClient<IDataClient, DataClient>())
                                 .ConfigureHttpClient(httpClient => httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(userAgentValue))
-                                .ConfigureHttpMessageHandlerBuilder(msgHandlerBuilder =>
+                                .ConfigurePrimaryHttpMessageHandler(() =>
                                 {
-                                    if (msgHandlerBuilder.PrimaryHandler is HttpClientHandler httpClientHandler)
+                                    var handler = new HttpClientHandler
                                     {
-                                        httpClientHandler.UseCookies = true;
-                                        httpClientHandler.CookieContainer = msgHandlerBuilder.Services.GetRequiredService<CookieContainer>();
-                                    }
+                                        UseCookies = true,
+                                        CookieContainer = services.BuildServiceProvider().GetRequiredService<CookieContainer>()
+                                    };
+                                    return handler;
                                 });
 
         return httpClientBuilder;
