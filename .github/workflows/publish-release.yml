@@ -19,7 +19,7 @@ jobs:
     - name: 'Check Tag Value'
       run: echo ${{ github.event.release.tag_name }}
 
-    - uses: robinraju/release-downloader@v1.8
+    - uses: robinraju/release-downloader@v1.10
       name: 'Download Package from Release'
       with:
         repository: 'AdrianJSClark/aydsko-iracingdata'

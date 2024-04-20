@@ -34,7 +34,7 @@ jobs:
         uses: actions/download-artifact@v4
 
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
 
       - run: Compress-Archive -Path "Documentation Site/*" -DestinationPath DocumentationSite.zip
         shell: pwsh

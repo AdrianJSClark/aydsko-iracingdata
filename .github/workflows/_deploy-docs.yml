@@ -28,10 +28,10 @@ jobs:
           path: '_site'
 
       - name: Setup GitHub Pages
-        uses: actions/configure-pages@v3
+        uses: actions/configure-pages@v5
 
       - name: Upload GitHub Pages Artifacts
-        uses: actions/upload-pages-artifact@v2
+        uses: actions/upload-pages-artifact@v3
         with:
           path: '_site'
 

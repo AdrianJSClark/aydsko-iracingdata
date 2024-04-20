@@ -27,7 +27,7 @@ jobs:
         uses: actions/download-artifact@v4
 
       - name: Setup .NET SDK
-        uses: actions/setup-dotnet@v3
+        uses: actions/setup-dotnet@v4
 
       - name: Push Pre-Release Package to GitHub Packages
         if: (format('{0}', env.PACKAGE_KEY) != '')
@@ -38,7 +38,7 @@ jobs:
             PACKAGE_KEY: ${{ secrets.PACKAGE_UPLOAD }}
 
       - name: Delete Old Packages
-        uses: smartsquaregmbh/delete-old-packages@v0.7.0
+        uses: smartsquaregmbh/delete-old-packages@v0.8.0
         with:
           user: AdrianJSClark
           type: nuget
