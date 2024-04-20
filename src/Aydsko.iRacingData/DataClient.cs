@@ -1869,14 +1869,14 @@ public class DataClient(HttpClient httpClient,
                 && options.RestoreCookies() is CookieCollection savedCookies)
             {
                 cookieContainer.Add(savedCookies);
+            }
 
-                // Assume we're logged in if we have cookies for our target domain
-                if (cookieContainer.GetCookies(new Uri("https://members-ng.iracing.com")).Count > 0)
-                {
-                    IsLoggedIn = true;
-                    logger.LoginCookiesRestored(options.Username!);
-                    return;
-                }
+            // Assume we're logged in if we have cookies for our target domain
+            if (cookieContainer.GetCookies(new Uri("https://members-ng.iracing.com")).Count > 0)
+            {
+                IsLoggedIn = true;
+                logger.LoginCookiesRestored(options.Username!);
+                return;
             }
 
             string? encodedHash = null;

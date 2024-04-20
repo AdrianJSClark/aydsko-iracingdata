@@ -97,4 +97,35 @@ public class CookiePersistenceTests : MockedHttpTestBase
         Assert.That(cookies, Has.One.Property(nameof(Cookie.Name)).EqualTo("irsso_members"));
         Assert.That(cookies, Has.One.Property(nameof(Cookie.Name)).EqualTo("authtoken_members"));
     }
+
+    [Test]
+    public async Task GivenACookieContainerWithCookiesAndNoRestoreOrSaveFunctionsThenTheCookiesAreUsed()
+    {
+        CookieContainer.Add(new Cookie("irsso_members", "one", "/", "members-ng.iracing.com"));
+        CookieContainer.Add(new Cookie("authtoken_members", "two", "/", "members-ng.iracing.com"));
+
+        var options = new iRacingDataClientOptions
+        {
+            Username = "test.user@example.com",
+            Password = "SuperSecretPassword",
+            RestoreCookies = null,
+            SaveCookies = null,
+        };
+
+        using var sut = new DataClient(HttpClient,
+                                       new TestLogger<DataClient>(),
+                                       options,
+                                       CookieContainer);
+
+        await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync), false).ConfigureAwait(false);
+        await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
+
+        Assert.That(sut.IsLoggedIn, Is.True);
+
+        var cookies = CookieContainer.GetAllCookies();
+
+        Assert.That(cookies, Has.Count.EqualTo(2));
+        Assert.That(cookies, Has.One.Property(nameof(Cookie.Name)).EqualTo("irsso_members"));
+        Assert.That(cookies, Has.One.Property(nameof(Cookie.Name)).EqualTo("authtoken_members"));
+    }
 }
