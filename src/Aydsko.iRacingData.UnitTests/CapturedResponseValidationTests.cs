@@ -569,7 +569,6 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         var lapChartResponse = await sut.GetSubSessionLapChartAsync(12345, 0).ConfigureAwait(false);
 
         Assert.That(lapChartResponse, Is.Not.Null);
-        Assert.That(lapChartResponse!.Data, Is.Not.Null);
 
         Assert.That(lapChartResponse.Data.Header, Is.Not.Null);
         Assert.That(lapChartResponse.Data.Header.Success, Is.True);
@@ -594,7 +593,6 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         var seasonDriverStandingsResponse = await sut.GetSeasonDriverStandingsAsync(1234, 9, 0, cancellationToken: CancellationToken.None).ConfigureAwait(false);
 
         Assert.That(seasonDriverStandingsResponse, Is.Not.Null);
-        Assert.That(seasonDriverStandingsResponse!.Data, Is.Not.Null);
 
         Assert.That(seasonDriverStandingsResponse.Data.Header, Is.Not.Null);
         Assert.That(seasonDriverStandingsResponse.Data.Header.Success, Is.True);
@@ -613,7 +611,6 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         var lapChartResponse = await sut.GetSingleDriverSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
 
         Assert.That(lapChartResponse, Is.Not.Null);
-        Assert.That(lapChartResponse!.Data, Is.Not.Null);
 
         Assert.That(lapChartResponse.Data.Header, Is.Not.Null);
         Assert.That(lapChartResponse.Data.Header.Success, Is.True);
@@ -649,7 +646,6 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         var lapChartResponse = await sut.GetTeamSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
 
         Assert.That(lapChartResponse, Is.Not.Null);
-        Assert.That(lapChartResponse!.Data, Is.Not.Null);
 
         Assert.That(lapChartResponse.Data.Header, Is.Not.Null);
         Assert.That(lapChartResponse.Data.Header.Success, Is.True);
@@ -794,7 +790,6 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         var subSessionResultResponse = await sut.GetSubsessionEventLogAsync(12345, 0, CancellationToken.None).ConfigureAwait(false);
 
         Assert.That(subSessionResultResponse, Is.Not.Null);
-        Assert.That(subSessionResultResponse!.Data, Is.Not.Null);
         Assert.That(subSessionResultResponse.Data.Header, Is.Not.Null);
         Assert.That(subSessionResultResponse.Data.LogItems, Is.Not.Null);
 
@@ -823,7 +818,6 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         var lapChartResponse = await sut.GetSeasonQualifyResultsAsync(3587, 71, 0).ConfigureAwait(false);
 
         Assert.That(lapChartResponse, Is.Not.Null);
-        Assert.That(lapChartResponse!.Data, Is.Not.Null);
 
         Assert.That(lapChartResponse.Data.Header, Is.Not.Null);
         Assert.That(lapChartResponse.Data.Header.Success, Is.True);
@@ -844,7 +838,6 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         var timeTrialResponse = await sut.GetSeasonTimeTrialResultsAsync(3587, 71, 0).ConfigureAwait(false);
 
         Assert.That(timeTrialResponse, Is.Not.Null);
-        Assert.That(timeTrialResponse!.Data, Is.Not.Null);
 
         Assert.That(timeTrialResponse.Data.Header, Is.Not.Null);
         Assert.That(timeTrialResponse.Data.Header.Success, Is.True);
@@ -865,7 +858,6 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         var timeTrialResponse = await sut.GetSeasonTimeTrialStandingsAsync(3587, 71, 0, cancellationToken: CancellationToken.None).ConfigureAwait(false);
 
         Assert.That(timeTrialResponse, Is.Not.Null);
-        Assert.That(timeTrialResponse!.Data, Is.Not.Null);
 
         Assert.That(timeTrialResponse.Data.Header, Is.Not.Null);
         Assert.That(timeTrialResponse.Data.Header.Success, Is.True);
@@ -886,7 +878,6 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         var timeTrialResponse = await sut.GetSeasonTeamStandingsAsync(3587, 71, 0, CancellationToken.None).ConfigureAwait(false);
 
         Assert.That(timeTrialResponse, Is.Not.Null);
-        Assert.That(timeTrialResponse!.Data, Is.Not.Null);
 
         Assert.That(timeTrialResponse.Data.Header, Is.Not.Null);
         Assert.That(timeTrialResponse.Data.Header.Success, Is.True);
@@ -912,7 +903,6 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         var searchHostedResponse = await sut.SearchHostedResultsAsync(searchParams, CancellationToken.None).ConfigureAwait(false);
 
         Assert.That(searchHostedResponse, Is.Not.Null);
-        Assert.That(searchHostedResponse!.Data, Is.Not.Null);
 
         Assert.That(searchHostedResponse.Data.Header, Is.Not.Null);
         Assert.That(searchHostedResponse.Data.Header.Data, Is.Not.Null);
@@ -939,7 +929,6 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         var searchHostedResponse = await sut.SearchOfficialResultsAsync(searchParams, CancellationToken.None).ConfigureAwait(false);
 
         Assert.That(searchHostedResponse, Is.Not.Null);
-        Assert.That(searchHostedResponse!.Data, Is.Not.Null);
 
         Assert.That(searchHostedResponse.Data.Header, Is.Not.Null);
         Assert.That(searchHostedResponse.Data.Header.Data, Is.Not.Null);
@@ -1128,7 +1117,6 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         var response = await sut.GetWorldRecordsAsync(145, 341).ConfigureAwait(false);
 
         Assert.That(response, Is.Not.Null);
-        Assert.That(response!.Data, Is.Not.Null);
         Assert.That(response.Data.Header, Is.Not.Null);
         Assert.That(response.Data.Entries, Is.Not.Null);
 
