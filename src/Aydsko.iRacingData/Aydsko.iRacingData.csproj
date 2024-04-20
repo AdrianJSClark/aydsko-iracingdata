@@ -80,7 +80,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="MinVer" Version="4.3.0">
+    <PackageReference Include="MinVer" Version="5.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
@@ -98,7 +98,7 @@
       <IsPreReleaseBuild>true</IsPreReleaseBuild>
       <IsPreReleaseBuild Condition="'$(MinVerPreRelease)' == ''">false</IsPreReleaseBuild>
     </PropertyGroup>
-    <Exec Command="echo &quot;BUILDVERSION=$(MinVerVersion)&quot; >> &quot;$GITHUB_OUTPUT&quot;" IgnoreExitCode="true" />
-    <Exec Command="echo &quot;PRERELEASE=$(IsPreReleaseBuild)&quot; >> &quot;$GITHUB_OUTPUT&quot;" IgnoreExitCode="true" />
+    <Exec Command="echo &quot;BUILDVERSION=$(MinVerVersion)&quot; &gt;&gt; &quot;$GITHUB_OUTPUT&quot;" IgnoreExitCode="true" />
+    <Exec Command="echo &quot;PRERELEASE=$(IsPreReleaseBuild)&quot; &gt;&gt; &quot;$GITHUB_OUTPUT&quot;" IgnoreExitCode="true" />
   </Target>
 </Project>
