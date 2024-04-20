@@ -74,10 +74,12 @@ public class UtcOffsetToTimeSpanArrayConverter : JsonConverter<TimeSpan[]>
         }
 
         writer.WriteStartArray();
+#pragma warning disable CA1062 // Validate arguments of public methods - It is validated above. Not sure why you're complaining, C# compiler.
         foreach (var item in value)
         {
             writer.WriteNumberValue(item.TotalMinutes);
         }
+#pragma warning restore CA1062 // Validate arguments of public methods
         writer.WriteEndArray();
     }
 }

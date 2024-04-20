@@ -28,7 +28,9 @@ public class MockedHttpRequest
         if (request.Content != null)
         {
             var contentStream = new MemoryStream();
+#pragma warning disable VSTHRD002 // Avoid problematic synchronous waits - Low risk, used in testing only.
             request.Content.CopyToAsync(contentStream).GetAwaiter().GetResult();
+#pragma warning restore VSTHRD002 // Avoid problematic synchronous waits
             contentStream.Position = 0;
             ContentStream = contentStream;
         }
