@@ -16,3 +16,4 @@ Fixes / Changes:
  - Weather support!
    - New classes "Results.ResultsWeather" and "Hosted.HostedSessionWeather" to represent weather data.
    - New enum "WindDirection".
+ - Use Cookies from CookieContainer when RestoreCookies is not set (Issue: 200)
