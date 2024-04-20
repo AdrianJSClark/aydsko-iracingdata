@@ -369,9 +369,9 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
-    public async Task GetStatisticsSeriesSuccesfulAsync()
+    public async Task GetStatisticsSeriesSuccessfulAsync()
     {
-        await MessageHandler.QueueResponsesAsync(nameof(GetStatisticsSeriesSuccesfulAsync)).ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync(nameof(GetStatisticsSeriesSuccessfulAsync)).ConfigureAwait(false);
 
         var statsSeriesResponse = await sut.GetStatisticsSeriesAsync(CancellationToken.None).ConfigureAwait(false);
 
