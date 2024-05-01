@@ -23,14 +23,14 @@ public class ResultsWeather : Weather
     public int TrackWater { get; set; }
 
     [JsonPropertyName("precip_time_pct")]
-    public int PrecipitationTimePercentage { get; set; }
+    public decimal PrecipitationTimePercentage { get; set; }
 
     [JsonPropertyName("precip_mm_final_session")]
-    public int PrecipitationMillimetresFinalSession { get; set; }
+    public decimal PrecipitationMillimetresFinalSession { get; set; }
 
     [JsonPropertyName("precip_option")]
-    public int PrecipitationOption { get; set; }
+    public decimal PrecipitationOption { get; set; }
 
     [JsonPropertyName("precip_mm2hr_before_final_session")]
-    public int PrecipitationMillimetres2HoursBeforeFinalSession { get; set; }
+    public decimal PrecipitationMillimetres2HoursBeforeFinalSession { get; set; }
 }
