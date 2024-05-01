@@ -698,6 +698,27 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
+    public async Task GetSubSessionResultWithWeatherSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetSubSessionResultWithWeatherSuccessfulAsync)).ConfigureAwait(false);
+
+        var subSessionResultResponse = await sut.GetSubSessionResultAsync(12345, false, CancellationToken.None).ConfigureAwait(false);
+
+        Assert.That(subSessionResultResponse, Is.Not.Null);
+        Assert.That(subSessionResultResponse!.Data, Is.Not.Null);
+
+        Assert.That(subSessionResultResponse.Data.SeasonId, Is.EqualTo(4780));
+        Assert.That(subSessionResultResponse.Data.SeriesName, Is.EqualTo("Formula B - Super Formula IMSIM Series - Fixed"));
+        Assert.That(subSessionResultResponse.Data.SessionResults, Has.Length.EqualTo(3));
+        Assert.That(subSessionResultResponse.Data.SessionResults, Has.One.Property(nameof(SessionResults.SimSessionName)).EqualTo("RACE"));
+
+        Assert.That(subSessionResultResponse.RateLimitRemaining, Is.EqualTo(239));
+        Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(240));
+        Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2024, 5, 1, 11, 54, 8, TimeSpan.Zero)));
+        Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2024, 5, 1, 12, 8, 8, 231, TimeSpan.Zero)));
+    }
+
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetSubSessionResultForTeamSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSubSessionResultForTeamSuccessfulAsync)).ConfigureAwait(false);

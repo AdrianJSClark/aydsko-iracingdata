@@ -1,19 +1,9 @@
 ﻿BREAKING CHANGES:
 
- - "EventAverageLap" property on "SubSessionResult" has been changed to "TimeSpan" to better represent the data it contains.
- - "ConfigName" property on "Aydsko.iRacingData.Common.Track" has been changed to a nullable string. If the track configuration name is the constant value "N/A" or null, this property will return null.
- - Time offsets converted from being integer minutes to TimeSpan.
-   - "Aydsko.iRacingData.Results.ResultsWeather" class "SimulatedStartUtcOffset" property.
-   - "Aydsko.iRacingData.Hosted.HostedSessionWeather" class "SimulatedTimeOffsets" property.
+ - "Aydsko.iRacingData.Results.SessionResultsWeather" several properties have had their type changed to "decimal" to properly represent the data. (Issue: 202)
 
 
 
 Fixes / Changes:
 
- - New property on "Tracks.Track" called "PitRoadSpeedLimitKph" which returns the pit road speed limit in kilometers per hour.
- - Property "ProPromotable" on "MemberLicense" has been renamed to "Promotable".
- - New properties "Sequence" and "CategoryName" on "MemberLicense".
- - Weather support!
-   - New classes "Results.ResultsWeather" and "Hosted.HostedSessionWeather" to represent weather data.
-   - New enum "WindDirection".
- - Use Cookies from CookieContainer when RestoreCookies is not set (Issue: 200)
+ - New property "AverageLapTime" on "Aydsko.iRacingData.Results.RaceSummary" to give a proper duration representation of the "AverageLap" value.
