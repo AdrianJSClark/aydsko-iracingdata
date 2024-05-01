@@ -1,0 +1,35 @@
+﻿{
+  "headers": {
+    "Connection": "keep-alive",
+    "Date": "Wed, 01 May 2024 11:53:08 GMT",
+    "X-iRacing-Env": "members",
+    "X-iRacing-Id": "a04dcb07-d9a5-439d-90b1-eae5a26e5f41",
+    "X-iRacing-ServiceName": "data-server",
+    "X-iRacing-ServiceVersion": "1.26.2",
+    "Content-Security-Policy": "default-src \u0027self\u0027;base-uri \u0027self\u0027;font-src \u0027self\u0027 https: data:;form-action \u0027self\u0027;frame-ancestors \u0027self\u0027;img-src \u0027self\u0027 data:;object-src \u0027none\u0027;script-src \u0027self\u0027;script-src-attr \u0027none\u0027;style-src \u0027self\u0027 https: \u0027unsafe-inline\u0027;upgrade-insecure-requests",
+    "Cross-Origin-Opener-Policy": "same-origin",
+    "Cross-Origin-Resource-Policy": "same-origin",
+    "Origin-Agent-Cluster": "?1",
+    "Referrer-Policy": "no-referrer",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains",
+    "X-Content-Type-Options": "nosniff",
+    "X-DNS-Prefetch-Control": "off",
+    "X-Download-Options": "noopen",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-Permitted-Cross-Domain-Policies": "none",
+    "X-XSS-Protection": "0",
+    "X-RateLimit-Limit": "240",
+    "X-RateLimit-Remaining": "239",
+    "X-RateLimit-Reset": "1714564448",
+    "Cache-Control": "max-age=60",
+    "ETag": "W/\u0022120-wFFF1JaFzwimRstudcikv3yg2UI\u0022",
+    "X-Cache": "Miss from cloudfront",
+    "Via": "1.1 9a54c271800d46822cc5b0bcfd3c54c4.cloudfront.net (CloudFront)",
+    "X-Amz-Cf-Pop": "BNE50-P2",
+    "X-Amz-Cf-Id": "dRc6VqWQaiUcj8iCPVHnGtaZe8i4rpZbQytW2RwB7Fx09Hke9oMqZg=="
+  },
+  "content": {
+    "link": "https://scorpio-assets.s3.amazonaws.com/production/data-server/cache/data-services/results/get/c7cce508-19d6-4aa2-985e-4461de79cccf?AWSAccessKeyId=AKIAUO6OO4A3357USLO7&Expires=1714564508&Signature=aFkkpBrF%2BFzYM8oP0p2XekO2Y%2FQ%3D",
+    "expires": "2024-05-01T12:08:08.231Z"
+  }
+}
