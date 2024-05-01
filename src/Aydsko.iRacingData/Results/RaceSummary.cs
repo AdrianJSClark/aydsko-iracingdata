@@ -11,6 +11,9 @@ public class RaceSummary
     [JsonPropertyName("average_lap")]
     public int AverageLap { get; set; }
 
+    [JsonIgnore]
+    public TimeSpan AverageLapTime => TimeSpan.FromSeconds(AverageLap / 10000D);
+
     [JsonPropertyName("laps_complete")]
     public int LapsComplete { get; set; }
 
