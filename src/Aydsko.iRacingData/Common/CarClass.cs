@@ -1,8 +1,6 @@
 ﻿// © 2023 Adrian Clark
 // This file is licensed to you under the MIT license.
 
-using Aydsko.iRacingData.CarClasses;
-
 namespace Aydsko.iRacingData.Common;
 
 public class CarClass
@@ -19,6 +17,9 @@ public class CarClass
     [JsonPropertyName("name")]
     public string Name { get; set; } = default!;
 
+    [JsonPropertyName("rain_enabled")]
+    public bool RainEnabled { get; set; }
+    
     [JsonPropertyName("relative_speed")]
     public int RelativeSpeed { get; set; }
 

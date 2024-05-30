@@ -52,6 +52,12 @@ public class CarInfo
     [JsonPropertyName("created")]
     public DateTimeOffset Created { get; set; }
 
+    [JsonPropertyName("first_sale")]
+    public DateTimeOffset FirstSale { get; set; }
+
+    [JsonPropertyName("forum_url")] 
+    public string ForumUrl { get; set; } = default!;
+    
     [JsonPropertyName("free_with_subscription")]
     public bool FreeWithSubscription { get; set; }
 
@@ -60,9 +66,15 @@ public class CarInfo
 
     [JsonPropertyName("has_multiple_dry_tire_types")]
     public bool HasMultipleDryTireTypes { get; set; }
+    
+    [JsonPropertyName("has_rain_capable_tire_types")]
+    public bool HasRainCapableTireTypes { get; set; }
 
     [JsonPropertyName("hp")]
     public int Hp { get; set; }
+    
+    [JsonPropertyName("is_ps_purchasable")]
+    public bool IsPsPurchasable { get; set; }
 
     [JsonPropertyName("max_power_adjust_pct")]
     public int MaxPowerAdjustPct { get; set; }
@@ -81,6 +93,9 @@ public class CarInfo
 
     [JsonPropertyName("price")]
     public float Price { get; set; }
+    
+    [JsonPropertyName("price_display")] 
+    public string PriceDisplay { get; set; } = default!;
 
     [JsonPropertyName("retired")]
     public bool Retired { get; set; }
@@ -102,6 +117,9 @@ public class CarInfo
 
     [JsonPropertyName("site_url"), JsonConverter(typeof(UriConverter))]
     public Uri? SiteUrl { get; set; } = default!;
+    
+    [JsonPropertyName("rain_enabled")] 
+    public bool RainEnabled { get; set; }
 }
 
 [JsonSerializable(typeof(CarInfo[])), JsonSourceGenerationOptions(WriteIndented = true)]

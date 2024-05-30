@@ -33,4 +33,8 @@ public class ResultsWeather : Weather
 
     [JsonPropertyName("precip_mm2hr_before_final_session")]
     public decimal PrecipitationMillimetres2HoursBeforeFinalSession { get; set; }
+    
+    [JsonPropertyName("simulated_time_multiplier")]
+    public int SimulatedTimeMultiplier { get; set; }
+    
 }

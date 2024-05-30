@@ -351,3 +351,6 @@ MigrationBackup/
 
 # Diff Working Files
 *.orig
+
+#Rider
+.idea/

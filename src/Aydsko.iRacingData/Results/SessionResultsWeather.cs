@@ -82,4 +82,12 @@ public class SessionResultsWeather
     /// <summary>Precipitation in millimetres 2 hours before session.</summary>
     [JsonPropertyName("precip_mm2hr_before_session")]
     public decimal PrecipitationMillimetres2HoursBeforeSession { get; set; }
+    
+    /// <summary>Wind units.</summary>
+    [JsonPropertyName("wind_units")]
+    public int WindUnits { get; set; }
+    
+    /// <summary>Simulated start time.</summary>
+    [JsonPropertyName("simulated_start_time")]
+    public DateTime SimulatedStartTime { get; set; }
 }
