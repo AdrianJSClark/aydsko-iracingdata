@@ -53,7 +53,7 @@ public class WeatherForecast
     public decimal PrecipitationAmount { get; set; }
 
     [JsonPropertyName("timestamp")]
-    public DateTimeOffset Timestamp { get; set; }
+    public DateTime Timestamp { get; set; }
 }
 
 [JsonSerializable(typeof(List<WeatherForecast>)), JsonSourceGenerationOptions(WriteIndented = true)]
