@@ -1405,11 +1405,34 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
                 .And.Property(nameof(WeatherForecast.ValidStats)).Not.Default
                 .And.Property(nameof(WeatherForecast.AffectsSession)).Not.Default
                 .And.Property(nameof(WeatherForecast.CloudCover)).Not.Default
-                .And.Property(nameof(WeatherForecast.RelHumidity)).Not.Default
+                .And.Property(nameof(WeatherForecast.RelativeHumidity)).Not.Default
                 .And.Property(nameof(WeatherForecast.WindSpeed)).Not.Default
                 .And.Property(nameof(WeatherForecast.AllowPrecipitation)).Not.Null
                 .And.Property(nameof(WeatherForecast.PrecipitationAmount)).Not.Null
                 .And.Property(nameof(WeatherForecast.Timestamp)).Not.Null);
+
+        var forecast = response.First();
+        Assert.Multiple(() =>
+        {
+            Assert.That(forecast.TimeOffset, Is.EqualTo(TimeSpan.FromMinutes(-385)));
+            Assert.That(forecast.RawAirTemp, Is.EqualTo(7.72m));
+            Assert.That(forecast.PrecipitationChance, Is.EqualTo(100m));
+            Assert.That(forecast.Index, Is.EqualTo(0));
+            Assert.That(forecast.IsSunUp, Is.EqualTo(true));
+            Assert.That(forecast.Pressure, Is.EqualTo(967.1m));
+            Assert.That(forecast.WindDir, Is.EqualTo(239));
+            Assert.That(forecast.WindDirection, Is.EqualTo(WindDirection.SouthWest));
+            Assert.That(forecast.AirTemp, Is.EqualTo(18.63m));
+            Assert.That(forecast.ValidStats, Is.EqualTo(true));
+            Assert.That(forecast.AffectsSession, Is.EqualTo(false));
+            Assert.That(forecast.CloudCover, Is.EqualTo(76.6m));
+            Assert.That(forecast.RelativeHumidity, Is.EqualTo(99.99m));
+            Assert.That(forecast.WindSpeed, Is.EqualTo(6.07m));
+            Assert.That(forecast.AllowPrecipitation, Is.EqualTo(true));
+            Assert.That(forecast.PrecipitationAmount, Is.EqualTo(42));
+            Assert.That(forecast.Timestamp, Is.EqualTo(new DateTime(2024, 04, 13, 12, 0, 0, DateTimeKind.Utc)));
+        });
+
 
     }
 
