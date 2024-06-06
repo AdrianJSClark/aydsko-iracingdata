@@ -11,6 +11,9 @@ public class WeatherForecast
     [JsonPropertyName("time_offset"), JsonConverter(typeof(UtcOffsetToTimeSpanConverter))]
     public TimeSpan TimeOffset { get; set; }
 
+    /// <summary>
+    /// Can be ignored. Uncorrected air temperature. Used by the sim regarding relative and absolute humidity
+    /// </summary>
     [JsonPropertyName("raw_air_temp"), JsonConverter(typeof(TwoDecimalPointsValueConverter))]
     public decimal RawAirTemp { get; set; }
 
@@ -21,7 +24,7 @@ public class WeatherForecast
     public decimal PrecipitationChance { get; set; }
 
     /// <summary>
-    /// Index of the forecast
+    /// Index of the key frame
     /// </summary>
     [JsonPropertyName("index")]
     public int Index { get; set; }
@@ -33,13 +36,13 @@ public class WeatherForecast
     public bool IsSunUp { get; set; }
 
     /// <summary>
-    /// Pressure in hPa
+    /// Atmospheric pressure in hectopascals
     /// </summary>
     [JsonPropertyName("pressure"), JsonConverter(typeof(OneDecimalPointValueConverter))]
     public decimal Pressure { get; set; }
 
     /// <summary>
-    /// Wind direction in degrees
+    /// Wind direction in degrees (0 - 359)
     /// </summary>
     [JsonPropertyName("wind_dir")]
     public int WindDir { get; set; }
@@ -51,11 +54,14 @@ public class WeatherForecast
     public WindDirection WindDirection => ConvertDegreeToDirection(WindDir);
 
     /// <summary>
-    /// Air temperature
+    /// Air temperature in Celcius corrected to be within allowed bounds
     /// </summary>
     [JsonPropertyName("air_temp"), JsonConverter(typeof(TwoDecimalPointsValueConverter))]
     public decimal AirTemp { get; set; }
 
+    /// <summary>
+    /// Can be ignore. Are there are rain statistics available for the period
+    /// </summary>
     [JsonPropertyName("valid_stats")]
     public bool ValidStats { get; set; }
 
@@ -84,15 +90,15 @@ public class WeatherForecast
     public decimal WindSpeed { get; set; }
 
     /// <summary>
-    /// Is precipitation allowed
+    /// Is precipitation allowed to occur during the period
     /// </summary>
     [JsonPropertyName("allow_precip")]
     public bool AllowPrecipitation { get; set; }
     
     /// <summary>
-    /// Precipitation amount in millimeters
+    /// Precipitation amount in millimeters per hour
     /// </summary>
-    [JsonPropertyName("precip_amount")] 
+    [JsonPropertyName("precip_amount"), JsonConverter(typeof(OneDecimalPointValueConverter))] 
     public decimal PrecipitationAmount { get; set; }
 
     /// <summary>

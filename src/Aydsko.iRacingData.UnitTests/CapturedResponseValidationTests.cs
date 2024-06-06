@@ -1429,7 +1429,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(forecast.RelativeHumidity, Is.EqualTo(99.99m));
             Assert.That(forecast.WindSpeed, Is.EqualTo(6.07m));
             Assert.That(forecast.AllowPrecipitation, Is.EqualTo(true));
-            Assert.That(forecast.PrecipitationAmount, Is.EqualTo(42));
+            Assert.That(forecast.PrecipitationAmount, Is.EqualTo(4.2m));
             Assert.That(forecast.Timestamp, Is.EqualTo(new DateTime(2024, 04, 13, 12, 0, 0, DateTimeKind.Utc)));
         });
 
