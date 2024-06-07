@@ -2182,6 +2182,25 @@ public class DataClient(HttpClient httpClient,
         return GetTrackAssetScreenshotUris(track, trackAssets);
     }
 
+    public async Task<IEnumerable<WeatherForecast>> GetWeatherForecastFromUrlAsync(string url,
+        CancellationToken cancellationToken = default)
+    {
+#if NET8_0_OR_GREATER
+        ArgumentException.ThrowIfNullOrEmpty(url, nameof(url));
+#else
+        if (string.IsNullOrEmpty(url))
+        {
+            throw new ArgumentNullException(nameof(url), "URL must be supplied");
+        }
+#endif
+        
+        var data = await httpClient.GetFromJsonAsync(url, WeatherForecastArrayContext.Default.ListWeatherForecast, cancellationToken: cancellationToken)
+                         .ConfigureAwait(false)
+                     ?? throw new iRacingDataClientException("Data not found.");
+
+        return data;
+    }
+
     protected virtual void Dispose(bool disposing)
     {
         if (!disposedValue)

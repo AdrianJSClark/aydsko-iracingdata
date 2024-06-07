@@ -697,4 +697,10 @@ public interface IDataClient
     /// <returns>A <see cref="Task"/> that resolves to a collection of <see cref="Uri"/> objects containing links to images of the track or an empty collection.</returns>
     /// <exception cref="ArgumentOutOfRangeException">The <paramref name="trackId"/> value given could not be resolved to a valid track or located in the track assets.</exception>
     Task<IEnumerable<Uri>> GetTrackAssetScreenshotUrisAsync(int trackId, CancellationToken cancellationToken = default);
+
+    /// <summary>Retrieves the weather forecast for the given track and session time.</summary>
+    /// <param name="url">Url received from the <see cref="Series.Weather.WeatherUrl"/> property of the season's <see cref="Schedule"/>.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A collection of <see cref="WeatherForecast"/> objects detailing the forecasted weather.</returns>
+    Task<IEnumerable<WeatherForecast>> GetWeatherForecastFromUrlAsync(string url, CancellationToken cancellationToken = default);
 }

@@ -22,6 +22,9 @@ public class Weather
     [JsonPropertyName("rel_humidity")]
     public int RelHumidity { get; set; }
 
+    [JsonPropertyName("allow_fog")]
+    public bool AllowFog { get; set; }
+    
     [JsonPropertyName("fog")]
     public int Fog { get; set; }
 
@@ -60,4 +63,16 @@ public class Weather
 
     [JsonPropertyName("simulated_start_utc_time")]
     public DateTimeOffset SimulatedStartUtcTime { get; set; }
+    
+    [JsonPropertyName("precip_option")]
+    public int PrecipOption { get; set; }
+    
+    [JsonPropertyName("weather_url")]
+    public string? WeatherUrl { get; set; }
+    
+    [JsonPropertyName("weather_summary")]
+    public WeatherSummary? WeatherSummary { get; set; }
+    
+    [JsonPropertyName("forecast_options")]
+    public ForecastOptions? ForecastOptions { get; set; }
 }

@@ -12,6 +12,9 @@ public class CarAssetDetail
     [JsonPropertyName("car_id")]
     public int CarId { get; set; }
 
+    [JsonPropertyName("car_rules")] 
+    public CarRule[] CarRules { get; set; } = default!;
+
     [JsonPropertyName("detail_copy")]
     public string DetailCopy { get; set; } = default!;
 

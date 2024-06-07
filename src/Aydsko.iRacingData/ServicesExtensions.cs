@@ -13,9 +13,9 @@ public static class ServicesExtensions
 {
     /// <summary>Add required types for iRacing Data API to the service collection.</summary>
     /// <param name="services">The service collection to configure.</param>
-    /// <returns>The service collection for further configuration.</returns>
+    /// <returns>The http client builder for further configuration.</returns>
     /// <exception cref="ArgumentNullException">One of the arguments is <see langword="null"/>.</exception>
-    public static IServiceCollection AddIRacingDataApi(this IServiceCollection services)
+    public static IHttpClientBuilder AddIRacingDataApi(this IServiceCollection services)
     {
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(services);
@@ -26,16 +26,15 @@ public static class ServicesExtensions
         }
 #endif
 
-        services.AddIRacingDataApiInternal((_) => { }, false);
-        return services;
+        return services.AddIRacingDataApiInternal((_) => { }, false);
     }
 
     /// <summary>Add required types for iRacing Data API to the service collection.</summary>
     /// <param name="services">The service collection to configure.</param>
     /// <param name="configureOptions">Action to configure the options for the API client.</param>
-    /// <returns>The service collection for further configuration.</returns>
+    /// <returns>The http client builder for further configuration.</returns>
     /// <exception cref="ArgumentNullException">One of the arguments is <see langword="null"/>.</exception>
-    public static IServiceCollection AddIRacingDataApi(this IServiceCollection services, Action<iRacingDataClientOptions> configureOptions)
+    public static IHttpClientBuilder AddIRacingDataApi(this IServiceCollection services, Action<iRacingDataClientOptions> configureOptions)
     {
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(services);
@@ -52,15 +51,14 @@ public static class ServicesExtensions
         }
 #endif
 
-        services.AddIRacingDataApiInternal(configureOptions, false);
-        return services;
+        return services.AddIRacingDataApiInternal(configureOptions, false);
     }
 
     /// <summary>Add required types for iRacing Data API with caching enabled to the service collection.</summary>
     /// <param name="services">The service collection to configure.</param>
-    /// <returns>The service collection for further configuration.</returns>
+    /// <returns>The http client builder for further configuration.</returns>
     /// <exception cref="ArgumentNullException">One of the arguments is <see langword="null"/>.</exception>
-    public static IServiceCollection AddIRacingDataApiWithCaching(this IServiceCollection services)
+    public static IHttpClientBuilder AddIRacingDataApiWithCaching(this IServiceCollection services)
     {
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(services);
@@ -71,16 +69,15 @@ public static class ServicesExtensions
         }
 #endif
 
-        services.AddIRacingDataApiInternal((_) => { }, true);
-        return services;
+        return services.AddIRacingDataApiInternal((_) => { }, true);
     }
 
     /// <summary>Add required types for iRacing Data API with caching enabled to the service collection.</summary>
     /// <param name="services">The service collection to configure.</param>
     /// <param name="configureOptions">Action to configure the options for the API client.</param>
-    /// <returns>The service collection for further configuration.</returns>
+    /// <returns>The http client builder for further configuration.</returns>
     /// <exception cref="ArgumentNullException">One of the arguments is <see langword="null"/>.</exception>
-    public static IServiceCollection AddIRacingDataApiWithCaching(this IServiceCollection services, Action<iRacingDataClientOptions> configureOptions)
+    public static IHttpClientBuilder AddIRacingDataApiWithCaching(this IServiceCollection services, Action<iRacingDataClientOptions> configureOptions)
     {
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(services);
@@ -97,8 +94,7 @@ public static class ServicesExtensions
         }
 #endif
 
-        services.AddIRacingDataApiInternal(configureOptions, true);
-        return services;
+        return services.AddIRacingDataApiInternal(configureOptions, true);
     }
 
     internal static IHttpClientBuilder AddIRacingDataApiInternal(this IServiceCollection services,

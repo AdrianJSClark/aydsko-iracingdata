@@ -45,7 +45,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(carAssets, Is.Not.Null);
         Assert.That(carAssets!.Data, Is.Not.Null);
 
-        Assert.That(carAssets.Data, Has.Count.EqualTo(125));
+        Assert.That(carAssets.Data, Has.Count.EqualTo(159));
         Assert.That(carAssets.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(carAssets.TotalRateLimit, Is.EqualTo(100));
         Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
@@ -62,7 +62,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(cars, Is.Not.Null);
         Assert.That(cars!.Data, Is.Not.Null);
 
-        Assert.That(cars.Data, Has.Length.EqualTo(125));
+        Assert.That(cars.Data, Has.Length.EqualTo(159));
         Assert.That(cars.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(cars.TotalRateLimit, Is.EqualTo(100));
         Assert.That(cars.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
@@ -79,7 +79,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(carClasses, Is.Not.Null);
         Assert.That(carClasses!.Data, Is.Not.Null);
 
-        Assert.That(carClasses.Data, Has.Length.EqualTo(161));
+        Assert.That(carClasses.Data, Has.Length.EqualTo(223));
         Assert.That(carClasses.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(carClasses.TotalRateLimit, Is.EqualTo(100));
         Assert.That(carClasses.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
@@ -355,16 +355,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(seasonsAndSeries, Is.Not.Null);
         Assert.That(seasonsAndSeries!.Data, Is.Not.Null);
 
-        Assert.That(seasonsAndSeries.Data, Has.Length.EqualTo(33));
+        Assert.That(seasonsAndSeries.Data, Has.Length.EqualTo(134));
         Assert.That(seasonsAndSeries.RateLimitRemaining, Is.EqualTo(99));
         Assert.That(seasonsAndSeries.TotalRateLimit, Is.EqualTo(100));
         Assert.That(seasonsAndSeries.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
         Assert.That(seasonsAndSeries.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
 
 #if NET6_0_OR_GREATER
-        Assert.That(seasonsAndSeries.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateOnly(2023, 03, 11)));
+        Assert.That(seasonsAndSeries.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateOnly(2024, 04, 09)));
 #else
-        Assert.That(seasonsAndSeries.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateTime(2023, 03, 11)));
+        Assert.That(seasonsAndSeries.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateTime(2024, 04, 09)));
 #endif
     }
 
@@ -1380,6 +1380,60 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(response.Data, Has.Property(nameof(SpectatorSubsessionIds.EventTypes)).EqualTo(new[] { Common.EventType.Qualify, Common.EventType.Practice, Common.EventType.TimeTrial, Common.EventType.Race })
                                       .And.Property(nameof(SpectatorSubsessionIds.Success)).EqualTo(true)
                                       .And.Property(nameof(SpectatorSubsessionIds.SubsessionIdentifiers)).Length.EqualTo(192));
+    }
+    
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetWeatherForecastAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetWeatherForecastAsync),false).ConfigureAwait(false);
+
+        var response = await sut.GetWeatherForecastFromUrlAsync("http://iracing.com").ConfigureAwait(false);
+
+        Assert.That(response, Is.Not.Null);
+        Assert.That(response, Is.Not.Empty);
+        Assert.That(response.Count(), Is.EqualTo(8));
+
+        Assert.That(response,
+            Has.All.Property(nameof(WeatherForecast.TimeOffset)).Not.Zero
+                .And.Property(nameof(WeatherForecast.RawAirTemp)).Not.Zero
+                .And.Property(nameof(WeatherForecast.PrecipitationChance)).Not.Default
+                .And.Property(nameof(WeatherForecast.Index)).Not.Default
+                .And.Property(nameof(WeatherForecast.IsSunUp)).Not.Default
+                .And.Property(nameof(WeatherForecast.Pressure)).Not.Default
+                .And.Property(nameof(WeatherForecast.WindDir)).Not.Default
+                .And.Property(nameof(WeatherForecast.AirTemp)).Not.Default
+                .And.Property(nameof(WeatherForecast.ValidStats)).Not.Default
+                .And.Property(nameof(WeatherForecast.AffectsSession)).Not.Default
+                .And.Property(nameof(WeatherForecast.CloudCover)).Not.Default
+                .And.Property(nameof(WeatherForecast.RelativeHumidity)).Not.Default
+                .And.Property(nameof(WeatherForecast.WindSpeed)).Not.Default
+                .And.Property(nameof(WeatherForecast.AllowPrecipitation)).Not.Null
+                .And.Property(nameof(WeatherForecast.PrecipitationAmount)).Not.Null
+                .And.Property(nameof(WeatherForecast.Timestamp)).Not.Null);
+
+        var forecast = response.First();
+        Assert.Multiple(() =>
+        {
+            Assert.That(forecast.TimeOffset, Is.EqualTo(TimeSpan.FromMinutes(-385)));
+            Assert.That(forecast.RawAirTemp, Is.EqualTo(7.72m));
+            Assert.That(forecast.PrecipitationChance, Is.EqualTo(100m));
+            Assert.That(forecast.Index, Is.EqualTo(0));
+            Assert.That(forecast.IsSunUp, Is.EqualTo(true));
+            Assert.That(forecast.Pressure, Is.EqualTo(967.1m));
+            Assert.That(forecast.WindDir, Is.EqualTo(239));
+            Assert.That(forecast.WindDirection, Is.EqualTo(WindDirection.SouthWest));
+            Assert.That(forecast.AirTemp, Is.EqualTo(18.63m));
+            Assert.That(forecast.ValidStats, Is.EqualTo(true));
+            Assert.That(forecast.AffectsSession, Is.EqualTo(false));
+            Assert.That(forecast.CloudCover, Is.EqualTo(76.6m));
+            Assert.That(forecast.RelativeHumidity, Is.EqualTo(99.99m));
+            Assert.That(forecast.WindSpeed, Is.EqualTo(6.07m));
+            Assert.That(forecast.AllowPrecipitation, Is.EqualTo(true));
+            Assert.That(forecast.PrecipitationAmount, Is.EqualTo(4.2m));
+            Assert.That(forecast.Timestamp, Is.EqualTo(new DateTime(2024, 04, 13, 12, 0, 0, DateTimeKind.Utc)));
+        });
+
+
     }
 
     protected override void Dispose(bool disposing)

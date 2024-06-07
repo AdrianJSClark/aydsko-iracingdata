@@ -169,6 +169,12 @@ public class SeasonSeries
 
     [JsonPropertyName("heat_ses_info")]
     public HeatSessionInfo HeatSesInfo { get; set; } = default!;
+    
+    [JsonPropertyName("hardcore_level")] 
+    public int HardcoreLevel { get; set; }
+
+    [JsonPropertyName("has_supersessions")]
+    public bool HasSuperSessions { get; set; }
 }
 
 [JsonSerializable(typeof(SeasonSeries[])), JsonSourceGenerationOptions(WriteIndented = true)]
