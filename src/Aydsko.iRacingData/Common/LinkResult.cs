@@ -3,7 +3,7 @@
 
 namespace Aydsko.iRacingData.Common;
 
-internal sealed class LinkResult
+public sealed class LinkResult
 {
     [JsonPropertyName("link")]
     public string Link { get; set; } = default!;
@@ -12,5 +12,5 @@ internal sealed class LinkResult
 }
 
 [JsonSerializable(typeof(LinkResult)), JsonSourceGenerationOptions(WriteIndented = true)]
-internal partial class LinkResultContext : JsonSerializerContext
+public partial class LinkResultContext : JsonSerializerContext
 { }

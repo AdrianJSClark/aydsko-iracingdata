@@ -1,9 +1,10 @@
 ﻿BREAKING CHANGES:
 
- - "Aydsko.iRacingData.Results.SessionResultsWeather" several properties have had their type changed to "decimal" to properly represent the data. (Issue: 202)
+ - "Aydsko.iRacingData.Results.SessionResultsWeather" several properties have had their type changed to "decimal" to properly represent the data. (Issue: #202)
 
 
 
 Fixes / Changes:
 
  - New property "AverageLapTime" on "Aydsko.iRacingData.Results.RaceSummary" to give a proper duration representation of the "AverageLap" value.
+ - Support "Driver Stats by Category CSV" Download (Issue: #205)
