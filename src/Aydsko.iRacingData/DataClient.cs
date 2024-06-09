@@ -1828,11 +1828,54 @@ public class DataClient(HttpClient httpClient,
                                                     cancellationToken).ConfigureAwait(false);
     }
 
+    /// <inheritdoc />
+    public async Task<DriverStatisticsCsvFile> GetDriverStatisticsByCategoryCsvAsync(int categoryId, CancellationToken cancellationToken = default)
+    {
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
+
+        var infoLinkUri = categoryId switch
+        {
+            1 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/oval"),
+            2 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/road"),
+            3 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/dirt_oval"),
+            4 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/dirt_road"),
+            5 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/sports_car"),
+            6 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/formula_car"),
+            _ => throw new ArgumentOutOfRangeException(nameof(categoryId), categoryId, "Invalid Category Id value. Must be between 1 and 6 (inclusive)."),
+        };
+
+        var (infoLink, _) = await BuildLinkResultAsync(infoLinkUri, cancellationToken).ConfigureAwait(false);
+
+        var infoLinkUrl = new Uri(infoLink.Link);
+
+        var csvDataResponse = await httpClient.GetAsync(infoLinkUrl, cancellationToken).ConfigureAwait(false);
+
+        if (!csvDataResponse.IsSuccessStatusCode)
+        {
+            throw new iRacingDataClientException($"Failed to retrieve CSV data. HTTP response was \"{csvDataResponse.StatusCode} {csvDataResponse.ReasonPhrase}\"");
+        }
+
+        var fileName = csvDataResponse.Content.Headers.ContentDisposition?.FileName
+                       ?? infoLinkUrl.AbsolutePath.Split('/').LastOrDefault()
+                       ?? $"DriverStatistics_CategoryId_{categoryId}.csv";
+
+#pragma warning disable CA2016 // Forward the 'CancellationToken' parameter to methods - this method doesn't support cancellation
+        var result = new DriverStatisticsCsvFile
+        {
+            CategoryId = categoryId,
+            FileName = fileName,
+            ContentBytes = await csvDataResponse.Content.ReadAsByteArrayAsync().ConfigureAwait(false)
+        };
+#pragma warning restore CA2016 // Forward the 'CancellationToken' parameter to methods
+
+        return result;
+    }
+
     /// <summary>Will ensure the client is authenticated by checking the <see cref="IsLoggedIn"/> property and executing the login process if required.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A <see cref="Task"/> that resolves when the process is complete.</returns>
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Maintainability", "CA1508:Avoid dead conditional code", Justification = "Double-check of the precondition is a common pattern when using a lock and initialisation method.")]
-    protected async Task EnsureLoggedInAsync(CancellationToken cancellationToken)
+    protected internal async Task EnsureLoggedInAsync(CancellationToken cancellationToken)
     {
         if (IsLoggedIn is false)
         {
@@ -1946,30 +1989,13 @@ public class DataClient(HttpClient httpClient,
 
     protected virtual async Task<DataResponse<TData>> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken)
     {
-        var infoLinkResponse = await httpClient.GetAsync(infoLinkUri, cancellationToken).ConfigureAwait(false);
+        var (infoLink, headers) = await BuildLinkResultAsync(infoLinkUri, cancellationToken).ConfigureAwait(false);
 
-#if NET6_0_OR_GREATER
-        var content = await infoLinkResponse.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
-#else
-        var content = await infoLinkResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
-#endif
-
-        if (!infoLinkResponse.IsSuccessStatusCode || content == RateLimitExceededContent)
-        {
-            HandleUnsuccessfulResponse(infoLinkResponse, content, logger);
-        }
-
-        var infoLink = JsonSerializer.Deserialize(content, LinkResultContext.Default.LinkResult);
-        if (infoLink?.Link is null)
-        {
-            throw new iRacingDataClientException("Unrecognized result.");
-        }
-
-        var data = await httpClient.GetFromJsonAsync(infoLink.Link, jsonTypeInfo, cancellationToken: cancellationToken)
+        var data = await httpClient.GetFromJsonAsync(infoLink.Link, jsonTypeInfo, cancellationToken)
                                    .ConfigureAwait(false)
                                    ?? throw new iRacingDataClientException("Data not found.");
 
-        return BuildDataResponse(infoLinkResponse.Headers, data, logger, infoLink.Expires);
+        return BuildDataResponse(headers, data, logger, infoLink.Expires);
     }
 
     protected virtual async Task<DataResponse<(TData, TChunkData[])>> CreateResponseFromChunkedDataAsync<TData, THeaderData, TChunkData>(Uri uri, JsonTypeInfo<TData> jsonTypeInfo, JsonTypeInfo<TChunkData[]> chunkArrayTypeInfo, CancellationToken cancellationToken)
@@ -2022,6 +2048,30 @@ public class DataClient(HttpClient httpClient,
         }
 
         return BuildDataResponse<(TData Header, TChunkData[] Results)>(response.Headers, (headerData, searchResults.ToArray()), logger);
+    }
+
+    protected virtual async Task<(LinkResult, HttpResponseHeaders)> BuildLinkResultAsync(Uri infoLinkUri, CancellationToken cancellationToken)
+    {
+        var infoLinkResponse = await httpClient.GetAsync(infoLinkUri, cancellationToken).ConfigureAwait(false);
+
+#if NET6_0_OR_GREATER
+        var content = await infoLinkResponse.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+#else
+        var content = await infoLinkResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+#endif
+
+        if (!infoLinkResponse.IsSuccessStatusCode || content == RateLimitExceededContent)
+        {
+            HandleUnsuccessfulResponse(infoLinkResponse, content, logger);
+        }
+
+        var infoLink = JsonSerializer.Deserialize(content, LinkResultContext.Default.LinkResult);
+        if (infoLink is null || infoLink.Link is null)
+        {
+            throw new iRacingDataClientException("Unrecognized result.");
+        }
+
+        return (infoLink, infoLinkResponse.Headers);
     }
 
     protected virtual void HandleUnsuccessfulResponse(HttpResponseMessage httpResponse, string content, ILogger logger)

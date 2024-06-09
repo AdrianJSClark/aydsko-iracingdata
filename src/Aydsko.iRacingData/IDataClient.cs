@@ -703,4 +703,11 @@ public interface IDataClient
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A collection of <see cref="WeatherForecast"/> objects detailing the forecasted weather.</returns>
     Task<IEnumerable<WeatherForecast>> GetWeatherForecastFromUrlAsync(string url, CancellationToken cancellationToken = default);
+
+    /// <summary>Retrieve a comma separated value (CSV) file containing driver statistics for the given category.</summary>
+    /// <param name="categoryId">A valid category identifier.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="Task"/> that resolves to the content of the CSV.</returns>
+    /// <seealso cref="Constants.Category"/>
+    Task<DriverStatisticsCsvFile> GetDriverStatisticsByCategoryCsvAsync(int categoryId, CancellationToken cancellationToken = default);
 }
