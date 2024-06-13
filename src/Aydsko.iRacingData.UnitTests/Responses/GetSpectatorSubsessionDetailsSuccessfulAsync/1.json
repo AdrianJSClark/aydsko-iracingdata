@@ -1,0 +1,36 @@
+﻿{
+  "headers": {
+    "Connection": "keep-alive",
+    "Date": "Thu, 13 Jun 2024 12:13:51 GMT",
+    "Set-Cookie": "authtoken_members=%7B%22authtoken%22%3A%7B%22authcode%22%3A%22xh3o4OA4L%2FyDILVnQK%2BAMhIDM8bg706obN5JYBVzOGSFRrZ%2FfPJ6brvDc2D8DVMu3JBIH%26b8hLNksKiKAk4XGVpFawhz0bnqWX%2BoBho40SGRwz%2B%2FyQkeDhLsLEp2GBofdfeDhkcTRTmymqeAS2zU5ONNM1c%2FFM4vosi28GgHCy8D3F1zuCSjhWdP7WK5BcMY4b9SeNBsD%2F3xLW2lX6qt13HOT5qELx9EdNynFvu1aKGd6j5prlk3NiltZ9Ps40%2FFhV7l8yDNTM4SvldhUdjq0BtpGgptjO93k%2F67DOlderMhCrc0PcIpQkVL71ic9ijcNDaZcbmCeRkonsYt0iuzzmgRkvpQ34LNWNlAaviab06WRLD12bOoYYmjpqkj9Y6HDZ9pxJONJOwgrKaGpZ7c82fLadHrOfjID%2BS72I99h2xRpBpqRy9r%22%2C%22email%22%3A%22test%40example.com%22%7D%7D; Max-Age=3600; Domain=.iracing.com; Path=/; Expires=Thu, 13 Jun 2024 13:13:51 GMT",
+    "X-iRacing-Env": "members",
+    "X-iRacing-Id": "bfec62d1-03e5-45ad-bd3c-f034688fe211",
+    "X-iRacing-ServiceName": "data-server",
+    "X-iRacing-ServiceVersion": "1.30.4",
+    "Content-Security-Policy": "default-src \u0027self\u0027;base-uri \u0027self\u0027;font-src \u0027self\u0027 https: data:;form-action \u0027self\u0027;frame-ancestors \u0027self\u0027;img-src \u0027self\u0027 data:;object-src \u0027none\u0027;script-src \u0027self\u0027;script-src-attr \u0027none\u0027;style-src \u0027self\u0027 https: \u0027unsafe-inline\u0027;upgrade-insecure-requests",
+    "Cross-Origin-Opener-Policy": "same-origin",
+    "Cross-Origin-Resource-Policy": "same-origin",
+    "Origin-Agent-Cluster": "?1",
+    "Referrer-Policy": "no-referrer",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains",
+    "X-Content-Type-Options": "nosniff",
+    "X-DNS-Prefetch-Control": "off",
+    "X-Download-Options": "noopen",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-Permitted-Cross-Domain-Policies": "none",
+    "X-XSS-Protection": "0",
+    "X-RateLimit-Limit": "240",
+    "X-RateLimit-Remaining": "239",
+    "X-RateLimit-Reset": "1718280891",
+    "Cache-Control": "max-age=60",
+    "ETag": "W/\u0022136-AJndj3WhGKacJkjihBqH9VcDo3M\u0022",
+    "X-Cache": "Miss from cloudfront",
+    "Via": "1.1 6a1f72d04a06034b6582c0f646c01a26.cloudfront.net (CloudFront)",
+    "X-Amz-Cf-Pop": "BNE50-P2",
+    "X-Amz-Cf-Id": "mrR3xy4D1nmM7Mvbm5iCVQZJbjbPL4GoZii-7PQ3crU7NivARBcDJA=="
+  },
+  "content": {
+    "link": "https://scorpio-assets.s3.amazonaws.com/production/data-server/cache/data-services/season/spectator_subsessionids_detail/f0e074f6-bd4d-4bde-bd9f-69f39ce02bef?AWSAccessKeyId=AKIAUO6OO4A3357USLO7&Expires=1718280951&Signature=ilg9Ar22NIkK8XLGXWDykUW5qwA%3D",
+    "expires": "2024-06-13T12:14:51.185Z"
+  }
+}

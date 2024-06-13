@@ -677,6 +677,16 @@ public interface IDataClient
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
     Task<DataResponse<SpectatorSubsessionIds>> GetSpectatorSubsessionIdentifiersAsync(Common.EventType[]? eventTypes = null, CancellationToken cancellationToken = default);
 
+    /// <summary>Retrieves the current subsession identifiers available to spectate.</summary>
+    /// <param name="eventTypes">Optional, if supplied limits the types of event subsessions to include. Defaults to all.</param>
+    /// <param name="seasonIds">Optional, if supplied limits the seasons to include. Defaults to all.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing a <see cref="MemberRecap"/> object.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
+    Task<DataResponse<SpectatorDetails>> GetSpectatorSubsessionDetailsAsync(Common.EventType[]? eventTypes = null, int[]? seasonIds = null, CancellationToken cancellationToken = default);
+
     /// <summary>Build a collection of URIs which resolve to screenshots of the track.</summary>
     /// <param name="track">The track detail for the circuit you want screenshots for.</param>
     /// <param name="trackAssets">The related track assets detail for the same circuit as <paramref name="track"/>.</param>
