@@ -1,4 +1,4 @@
-﻿// © 2023 Adrian Clark
+﻿// © 2023-2024 Adrian Clark
 // This file is licensed to you under the MIT license.
 
 using System.Net.Http;
@@ -1380,6 +1380,21 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(response.Data, Has.Property(nameof(SpectatorSubsessionIds.EventTypes)).EqualTo(new[] { Common.EventType.Qualify, Common.EventType.Practice, Common.EventType.TimeTrial, Common.EventType.Race })
                                       .And.Property(nameof(SpectatorSubsessionIds.Success)).EqualTo(true)
                                       .And.Property(nameof(SpectatorSubsessionIds.SubsessionIdentifiers)).Length.EqualTo(192));
+    }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetSpectatorSubsessionDetailsSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetSpectatorSubsessionDetailsSuccessfulAsync)).ConfigureAwait(false);
+
+        var response = await sut.GetSpectatorSubsessionDetailsAsync().ConfigureAwait(false);
+
+        Assert.That(response, Is.Not.Null);
+        Assert.That(response.Data, Is.Not.Null);
+
+        Assert.That(response.Data, Has.Property(nameof(SpectatorDetails.EventTypes)).EqualTo(new[] { Common.EventType.TimeTrial, Common.EventType.Qualify, Common.EventType.Practice, Common.EventType.Race })
+                                      .And.Property(nameof(SpectatorDetails.Success)).EqualTo(true)
+                                      .And.Property(nameof(SpectatorDetails.Subsessions)).Length.EqualTo(300));
     }
 
     [Test(TestOf = typeof(DataClient))]

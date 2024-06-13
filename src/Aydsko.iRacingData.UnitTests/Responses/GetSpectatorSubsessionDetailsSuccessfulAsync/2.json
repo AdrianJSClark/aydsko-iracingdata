@@ -1,0 +1,2559 @@
+﻿{
+  "headers": {
+    "x-amz-id-2": "imfnE/XghcNAA7OVZQAOApcnwF2hZfjhww4iJG3PmBsPFRtyvg0MrYVn2Ys86EMec0mF0pgqgL\u002Bcjh\u002BevmtuMw==",
+    "x-amz-request-id": "2FW6HDQW4WNWNNEN",
+    "Date": "Thu, 13 Jun 2024 12:13:53 GMT",
+    "x-amz-expiration": "expiry-date=\u0022Sat, 15 Jun 2024 00:00:00 GMT\u0022, rule-id=\u0022production data-server cache expiry\u0022",
+    "ETag": "\u00221978bde609462388a530ad7b25b4744c\u0022",
+    "x-amz-server-side-encryption": "AES256",
+    "Cache-Control": "max-age=60",
+    "Accept-Ranges": "bytes",
+    "Server": "AmazonS3"
+  },
+  "content": {
+    "success": true,
+    "season_ids": [
+      4866,
+      4867,
+      4868,
+      4869,
+      4870,
+      4871,
+      4872,
+      4874,
+      4875,
+      4876,
+      4877,
+      4878,
+      4879,
+      4880,
+      4881,
+      4882,
+      4883,
+      4884,
+      4885,
+      4886,
+      4887,
+      4888,
+      4889,
+      4890,
+      4891,
+      4892,
+      4893,
+      4894,
+      4895,
+      4896,
+      4897,
+      4898,
+      4899,
+      4900,
+      4901,
+      4902,
+      4903,
+      4904,
+      4905,
+      4906,
+      4907,
+      4908,
+      4909,
+      4910,
+      4911,
+      4912,
+      4913,
+      4914,
+      4915,
+      4916,
+      4917,
+      4918,
+      4919,
+      4920,
+      4921,
+      4922,
+      4923,
+      4924,
+      4925,
+      4926,
+      4927,
+      4928,
+      4929,
+      4930,
+      4931,
+      4932,
+      4933,
+      4934,
+      4935,
+      4936,
+      4937,
+      4938,
+      4939,
+      4940,
+      4941,
+      4942,
+      4943,
+      4944,
+      4945,
+      4946,
+      4947,
+      4948,
+      4949,
+      4950,
+      4951,
+      4952,
+      4953,
+      4954,
+      4699,
+      4955,
+      4956,
+      4957,
+      4701,
+      4702,
+      4958,
+      4703,
+      4959,
+      4960,
+      4961,
+      4962,
+      4963,
+      4964,
+      4965,
+      4966,
+      4967,
+      4968,
+      4969,
+      4970,
+      4971,
+      4972,
+      4973,
+      4974,
+      4975,
+      4976,
+      4977,
+      4978,
+      4979,
+      4980,
+      4981,
+      4982,
+      4983,
+      4984,
+      4985,
+      4986,
+      4987,
+      4991,
+      4993,
+      5020,
+      4828,
+      4829,
+      4831,
+      4861,
+      4862
+    ],
+    "event_types": [
+      4,
+      3,
+      2,
+      5
+    ],
+    "subsessions": [
+      {
+        "subsession_id": 69418441,
+        "session_id": 240783671,
+        "season_id": 4866,
+        "start_time": "2024-06-13T11:11:04Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418449,
+        "session_id": 240783794,
+        "season_id": 4866,
+        "start_time": "2024-06-13T11:12:46Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418495,
+        "session_id": 240783940,
+        "season_id": 4866,
+        "start_time": "2024-06-13T11:15:47Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418504,
+        "session_id": 240784064,
+        "season_id": 4866,
+        "start_time": "2024-06-13T11:16:27Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418897,
+        "session_id": 240785829,
+        "season_id": 4866,
+        "start_time": "2024-06-13T11:40:29Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418904,
+        "session_id": 240785952,
+        "season_id": 4866,
+        "start_time": "2024-06-13T11:42:10Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418965,
+        "session_id": 240786236,
+        "season_id": 4866,
+        "start_time": "2024-06-13T11:46:50Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419031,
+        "session_id": 240786991,
+        "season_id": 4866,
+        "start_time": "2024-06-13T11:58:30Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419043,
+        "session_id": 240782843,
+        "season_id": 4866,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419044,
+        "session_id": 240782843,
+        "season_id": 4866,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419045,
+        "session_id": 240782843,
+        "season_id": 4866,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419046,
+        "session_id": 240782843,
+        "season_id": 4866,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419047,
+        "session_id": 240782843,
+        "season_id": 4866,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419048,
+        "session_id": 240782843,
+        "season_id": 4866,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419049,
+        "session_id": 240782843,
+        "season_id": 4866,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419050,
+        "session_id": 240782843,
+        "season_id": 4866,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419051,
+        "session_id": 240782843,
+        "season_id": 4866,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419052,
+        "session_id": 240782843,
+        "season_id": 4866,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419053,
+        "session_id": 240782843,
+        "season_id": 4866,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419054,
+        "session_id": 240782843,
+        "season_id": 4866,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419177,
+        "session_id": 240783426,
+        "season_id": 4866,
+        "start_time": "2024-06-13T12:08:00Z",
+        "race_week_num": 0,
+        "event_type": 4
+      },
+      {
+        "subsession_id": 69418245,
+        "session_id": 240782448,
+        "season_id": 4867,
+        "start_time": "2024-06-13T10:52:11Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418334,
+        "session_id": 240783108,
+        "season_id": 4867,
+        "start_time": "2024-06-13T11:02:12Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418450,
+        "session_id": 240783795,
+        "season_id": 4867,
+        "start_time": "2024-06-13T11:12:46Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418995,
+        "session_id": 240786609,
+        "season_id": 4867,
+        "start_time": "2024-06-13T11:52:20Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419087,
+        "session_id": 240787148,
+        "season_id": 4867,
+        "start_time": "2024-06-13T12:01:31Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418498,
+        "session_id": 240784058,
+        "season_id": 4868,
+        "start_time": "2024-06-13T11:16:27Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418804,
+        "session_id": 240785393,
+        "season_id": 4868,
+        "start_time": "2024-06-13T11:35:38Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419055,
+        "session_id": 240782846,
+        "season_id": 4868,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418620,
+        "session_id": 240784752,
+        "season_id": 4869,
+        "start_time": "2024-06-13T11:26:52Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418888,
+        "session_id": 240785706,
+        "season_id": 4869,
+        "start_time": "2024-06-13T11:39:52Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418923,
+        "session_id": 240786086,
+        "season_id": 4869,
+        "start_time": "2024-06-13T11:44:21Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419024,
+        "session_id": 240786868,
+        "season_id": 4869,
+        "start_time": "2024-06-13T11:57:18Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418960,
+        "session_id": 240781959,
+        "season_id": 4869,
+        "start_time": "2024-06-13T11:46:00Z",
+        "race_week_num": 0,
+        "event_type": 4
+      },
+      {
+        "subsession_id": 69418067,
+        "session_id": 240781368,
+        "season_id": 4870,
+        "start_time": "2024-06-13T10:36:21Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418568,
+        "session_id": 240784472,
+        "season_id": 4870,
+        "start_time": "2024-06-13T11:22:42Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418828,
+        "session_id": 240785531,
+        "season_id": 4870,
+        "start_time": "2024-06-13T11:36:16Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419163,
+        "session_id": 240787562,
+        "season_id": 4870,
+        "start_time": "2024-06-13T12:07:03Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418931,
+        "session_id": 240781929,
+        "season_id": 4870,
+        "start_time": "2024-06-13T11:45:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418932,
+        "session_id": 240781929,
+        "season_id": 4870,
+        "start_time": "2024-06-13T11:45:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418933,
+        "session_id": 240781929,
+        "season_id": 4870,
+        "start_time": "2024-06-13T11:45:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419195,
+        "session_id": 240783557,
+        "season_id": 4870,
+        "start_time": "2024-06-13T12:10:00Z",
+        "race_week_num": 0,
+        "event_type": 4
+      },
+      {
+        "subsession_id": 69417737,
+        "session_id": 240779899,
+        "season_id": 4871,
+        "start_time": "2024-06-13T10:17:24Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418505,
+        "session_id": 240784065,
+        "season_id": 4871,
+        "start_time": "2024-06-13T11:16:27Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418687,
+        "session_id": 240785047,
+        "season_id": 4871,
+        "start_time": "2024-06-13T11:30:37Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418035,
+        "session_id": 240781222,
+        "season_id": 4872,
+        "start_time": "2024-06-13T10:35:06Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418209,
+        "session_id": 240781952,
+        "season_id": 4872,
+        "start_time": "2024-06-13T10:46:00Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418822,
+        "session_id": 240785525,
+        "season_id": 4872,
+        "start_time": "2024-06-13T11:36:15Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418959,
+        "session_id": 240786231,
+        "season_id": 4872,
+        "start_time": "2024-06-13T11:46:13Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69417910,
+        "session_id": 240780870,
+        "season_id": 4876,
+        "start_time": "2024-06-13T10:30:38Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418693,
+        "session_id": 240785053,
+        "season_id": 4876,
+        "start_time": "2024-06-13T11:31:12Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419196,
+        "session_id": 240783562,
+        "season_id": 4876,
+        "start_time": "2024-06-13T12:10:00Z",
+        "race_week_num": 0,
+        "event_type": 4
+      },
+      {
+        "subsession_id": 69419114,
+        "session_id": 240787287,
+        "season_id": 4877,
+        "start_time": "2024-06-13T12:03:21Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418664,
+        "session_id": 240780749,
+        "season_id": 4877,
+        "start_time": "2024-06-13T11:30:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419178,
+        "session_id": 240783436,
+        "season_id": 4877,
+        "start_time": "2024-06-13T12:08:00Z",
+        "race_week_num": 0,
+        "event_type": 4
+      },
+      {
+        "subsession_id": 69418538,
+        "session_id": 240784330,
+        "season_id": 4878,
+        "start_time": "2024-06-13T11:20:04Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418597,
+        "session_id": 240784613,
+        "season_id": 4878,
+        "start_time": "2024-06-13T11:25:04Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418714,
+        "session_id": 240785187,
+        "season_id": 4878,
+        "start_time": "2024-06-13T11:32:26Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418499,
+        "session_id": 240784059,
+        "season_id": 4879,
+        "start_time": "2024-06-13T11:16:27Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418506,
+        "session_id": 240784066,
+        "season_id": 4879,
+        "start_time": "2024-06-13T11:16:27Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418934,
+        "session_id": 240781931,
+        "season_id": 4879,
+        "start_time": "2024-06-13T11:45:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69417742,
+        "session_id": 240779904,
+        "season_id": 4880,
+        "start_time": "2024-06-13T10:17:24Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418446,
+        "session_id": 240783792,
+        "season_id": 4880,
+        "start_time": "2024-06-13T11:12:08Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418524,
+        "session_id": 240784200,
+        "season_id": 4880,
+        "start_time": "2024-06-13T11:18:19Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418528,
+        "session_id": 240784204,
+        "season_id": 4880,
+        "start_time": "2024-06-13T11:18:54Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419145,
+        "session_id": 240787430,
+        "season_id": 4880,
+        "start_time": "2024-06-13T12:05:13Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418556,
+        "session_id": 240784345,
+        "season_id": 4881,
+        "start_time": "2024-06-13T11:21:52Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418598,
+        "session_id": 240784614,
+        "season_id": 4881,
+        "start_time": "2024-06-13T11:25:04Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418928,
+        "session_id": 240786091,
+        "season_id": 4881,
+        "start_time": "2024-06-13T11:44:23Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418665,
+        "session_id": 240780754,
+        "season_id": 4881,
+        "start_time": "2024-06-13T11:30:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418666,
+        "session_id": 240780754,
+        "season_id": 4881,
+        "start_time": "2024-06-13T11:30:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418667,
+        "session_id": 240780754,
+        "season_id": 4881,
+        "start_time": "2024-06-13T11:30:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419205,
+        "session_id": 240783689,
+        "season_id": 4881,
+        "start_time": "2024-06-13T12:12:00Z",
+        "race_week_num": 0,
+        "event_type": 4
+      },
+      {
+        "subsession_id": 69418507,
+        "session_id": 240784067,
+        "season_id": 4882,
+        "start_time": "2024-06-13T11:16:27Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418632,
+        "session_id": 240784764,
+        "season_id": 4882,
+        "start_time": "2024-06-13T11:28:05Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419165,
+        "session_id": 240787564,
+        "season_id": 4882,
+        "start_time": "2024-06-13T12:07:03Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418763,
+        "session_id": 240785236,
+        "season_id": 4884,
+        "start_time": "2024-06-13T11:33:46Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418917,
+        "session_id": 240785965,
+        "season_id": 4884,
+        "start_time": "2024-06-13T11:43:45Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418242,
+        "session_id": 240782329,
+        "season_id": 4887,
+        "start_time": "2024-06-13T10:51:35Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418325,
+        "session_id": 240782983,
+        "season_id": 4887,
+        "start_time": "2024-06-13T11:01:37Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418552,
+        "session_id": 240784341,
+        "season_id": 4887,
+        "start_time": "2024-06-13T11:21:18Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418560,
+        "session_id": 240784349,
+        "season_id": 4887,
+        "start_time": "2024-06-13T11:21:52Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418992,
+        "session_id": 240786492,
+        "season_id": 4887,
+        "start_time": "2024-06-13T11:51:41Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419088,
+        "session_id": 240787149,
+        "season_id": 4887,
+        "start_time": "2024-06-13T12:01:31Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419125,
+        "session_id": 240783157,
+        "season_id": 4887,
+        "start_time": "2024-06-13T12:04:00Z",
+        "race_week_num": 0,
+        "event_type": 4
+      },
+      {
+        "subsession_id": 69417953,
+        "session_id": 240781025,
+        "season_id": 4888,
+        "start_time": "2024-06-13T10:32:35Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418743,
+        "session_id": 240785216,
+        "season_id": 4888,
+        "start_time": "2024-06-13T11:33:08Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418753,
+        "session_id": 240785226,
+        "season_id": 4888,
+        "start_time": "2024-06-13T11:33:09Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418469,
+        "session_id": 240779740,
+        "season_id": 4888,
+        "start_time": "2024-06-13T11:15:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69417932,
+        "session_id": 240780892,
+        "season_id": 4889,
+        "start_time": "2024-06-13T10:31:54Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418696,
+        "session_id": 240785056,
+        "season_id": 4889,
+        "start_time": "2024-06-13T11:31:12Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418054,
+        "session_id": 240781241,
+        "season_id": 4890,
+        "start_time": "2024-06-13T10:35:43Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418254,
+        "session_id": 240782572,
+        "season_id": 4890,
+        "start_time": "2024-06-13T10:54:05Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418814,
+        "session_id": 240785403,
+        "season_id": 4890,
+        "start_time": "2024-06-13T11:35:38Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418861,
+        "session_id": 240785679,
+        "season_id": 4890,
+        "start_time": "2024-06-13T11:38:38Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418935,
+        "session_id": 240781933,
+        "season_id": 4890,
+        "start_time": "2024-06-13T11:45:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418936,
+        "session_id": 240781933,
+        "season_id": 4890,
+        "start_time": "2024-06-13T11:45:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69417779,
+        "session_id": 240780168,
+        "season_id": 4891,
+        "start_time": "2024-06-13T10:21:07Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418291,
+        "session_id": 240782837,
+        "season_id": 4891,
+        "start_time": "2024-06-13T10:59:57Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418605,
+        "session_id": 240784621,
+        "season_id": 4891,
+        "start_time": "2024-06-13T11:25:41Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418609,
+        "session_id": 240784625,
+        "season_id": 4891,
+        "start_time": "2024-06-13T11:25:41Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418652,
+        "session_id": 240784896,
+        "season_id": 4891,
+        "start_time": "2024-06-13T11:29:18Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419084,
+        "session_id": 240787145,
+        "season_id": 4891,
+        "start_time": "2024-06-13T12:00:17Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418520,
+        "session_id": 240784196,
+        "season_id": 4892,
+        "start_time": "2024-06-13T11:18:17Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418635,
+        "session_id": 240784767,
+        "season_id": 4892,
+        "start_time": "2024-06-13T11:28:05Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418937,
+        "session_id": 240781934,
+        "season_id": 4892,
+        "start_time": "2024-06-13T11:45:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69417795,
+        "session_id": 240780297,
+        "season_id": 4893,
+        "start_time": "2024-06-13T10:22:14Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418529,
+        "session_id": 240784205,
+        "season_id": 4893,
+        "start_time": "2024-06-13T11:18:54Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418563,
+        "session_id": 240784352,
+        "season_id": 4893,
+        "start_time": "2024-06-13T11:21:52Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418721,
+        "session_id": 240785194,
+        "season_id": 4893,
+        "start_time": "2024-06-13T11:32:27Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418079,
+        "session_id": 240781380,
+        "season_id": 4894,
+        "start_time": "2024-06-13T10:36:58Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418249,
+        "session_id": 240782451,
+        "season_id": 4894,
+        "start_time": "2024-06-13T10:53:27Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418270,
+        "session_id": 240782701,
+        "season_id": 4894,
+        "start_time": "2024-06-13T10:56:59Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418572,
+        "session_id": 240784476,
+        "season_id": 4894,
+        "start_time": "2024-06-13T11:22:42Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418914,
+        "session_id": 240785962,
+        "season_id": 4894,
+        "start_time": "2024-06-13T11:43:44Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419000,
+        "session_id": 240786614,
+        "season_id": 4894,
+        "start_time": "2024-06-13T11:53:28Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419002,
+        "session_id": 240786616,
+        "season_id": 4894,
+        "start_time": "2024-06-13T11:53:29Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419056,
+        "session_id": 240782870,
+        "season_id": 4894,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419057,
+        "session_id": 240782870,
+        "season_id": 4894,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419058,
+        "session_id": 240782870,
+        "season_id": 4894,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418280,
+        "session_id": 240782826,
+        "season_id": 4895,
+        "start_time": "2024-06-13T10:58:46Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418370,
+        "session_id": 240783256,
+        "season_id": 4895,
+        "start_time": "2024-06-13T11:04:33Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418418,
+        "session_id": 240783416,
+        "season_id": 4895,
+        "start_time": "2024-06-13T11:07:31Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419029,
+        "session_id": 240786989,
+        "season_id": 4895,
+        "start_time": "2024-06-13T11:58:30Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419166,
+        "session_id": 240787565,
+        "season_id": 4895,
+        "start_time": "2024-06-13T12:07:04Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418095,
+        "session_id": 240781512,
+        "season_id": 4896,
+        "start_time": "2024-06-13T10:38:05Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418735,
+        "session_id": 240785208,
+        "season_id": 4896,
+        "start_time": "2024-06-13T11:33:08Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418868,
+        "session_id": 240785686,
+        "season_id": 4896,
+        "start_time": "2024-06-13T11:38:40Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419008,
+        "session_id": 240782485,
+        "season_id": 4896,
+        "start_time": "2024-06-13T11:54:00Z",
+        "race_week_num": 0,
+        "event_type": 4
+      },
+      {
+        "subsession_id": 69419126,
+        "session_id": 240783165,
+        "season_id": 4896,
+        "start_time": "2024-06-13T12:04:00Z",
+        "race_week_num": 0,
+        "event_type": 4
+      },
+      {
+        "subsession_id": 69418255,
+        "session_id": 240782573,
+        "season_id": 4898,
+        "start_time": "2024-06-13T10:54:05Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418610,
+        "session_id": 240784626,
+        "season_id": 4898,
+        "start_time": "2024-06-13T11:25:41Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419059,
+        "session_id": 240782874,
+        "season_id": 4898,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419060,
+        "session_id": 240782874,
+        "season_id": 4898,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418036,
+        "session_id": 240781223,
+        "season_id": 4899,
+        "start_time": "2024-06-13T10:35:06Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418806,
+        "session_id": 240785395,
+        "season_id": 4899,
+        "start_time": "2024-06-13T11:35:38Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419159,
+        "session_id": 240787558,
+        "season_id": 4899,
+        "start_time": "2024-06-13T12:06:27Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69417883,
+        "session_id": 240780728,
+        "season_id": 4900,
+        "start_time": "2024-06-13T10:29:58Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418128,
+        "session_id": 240781542,
+        "season_id": 4900,
+        "start_time": "2024-06-13T10:39:52Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418364,
+        "session_id": 240783135,
+        "season_id": 4900,
+        "start_time": "2024-06-13T11:04:00Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418376,
+        "session_id": 240783262,
+        "season_id": 4900,
+        "start_time": "2024-06-13T11:04:33Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418606,
+        "session_id": 240784622,
+        "season_id": 4900,
+        "start_time": "2024-06-13T11:25:41Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418659,
+        "session_id": 240784903,
+        "season_id": 4900,
+        "start_time": "2024-06-13T11:29:56Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418853,
+        "session_id": 240785556,
+        "season_id": 4900,
+        "start_time": "2024-06-13T11:38:02Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419137,
+        "session_id": 240787422,
+        "season_id": 4900,
+        "start_time": "2024-06-13T12:04:36Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418129,
+        "session_id": 240781543,
+        "season_id": 4901,
+        "start_time": "2024-06-13T10:39:52Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418682,
+        "session_id": 240785042,
+        "season_id": 4901,
+        "start_time": "2024-06-13T11:30:34Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418846,
+        "session_id": 240785549,
+        "season_id": 4901,
+        "start_time": "2024-06-13T11:37:27Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418889,
+        "session_id": 240785707,
+        "season_id": 4901,
+        "start_time": "2024-06-13T11:39:52Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419184,
+        "session_id": 240787697,
+        "season_id": 4901,
+        "start_time": "2024-06-13T12:08:18Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418938,
+        "session_id": 240781935,
+        "season_id": 4901,
+        "start_time": "2024-06-13T11:45:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418939,
+        "session_id": 240781935,
+        "season_id": 4901,
+        "start_time": "2024-06-13T11:45:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418829,
+        "session_id": 240785532,
+        "season_id": 4902,
+        "start_time": "2024-06-13T11:36:16Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419160,
+        "session_id": 240787559,
+        "season_id": 4902,
+        "start_time": "2024-06-13T12:06:27Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418940,
+        "session_id": 240781936,
+        "season_id": 4902,
+        "start_time": "2024-06-13T11:45:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419019,
+        "session_id": 240782614,
+        "season_id": 4902,
+        "start_time": "2024-06-13T11:56:00Z",
+        "race_week_num": 0,
+        "event_type": 4
+      },
+      {
+        "subsession_id": 69418764,
+        "session_id": 240785237,
+        "season_id": 4903,
+        "start_time": "2024-06-13T11:33:46Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418817,
+        "session_id": 240785520,
+        "season_id": 4903,
+        "start_time": "2024-06-13T11:36:15Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418830,
+        "session_id": 240785533,
+        "season_id": 4903,
+        "start_time": "2024-06-13T11:36:16Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419124,
+        "session_id": 240787297,
+        "season_id": 4903,
+        "start_time": "2024-06-13T12:03:58Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418808,
+        "session_id": 240785397,
+        "season_id": 4904,
+        "start_time": "2024-06-13T11:35:38Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419061,
+        "session_id": 240782880,
+        "season_id": 4904,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418105,
+        "session_id": 240781519,
+        "season_id": 4905,
+        "start_time": "2024-06-13T10:38:42Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418461,
+        "session_id": 240783934,
+        "season_id": 4905,
+        "start_time": "2024-06-13T11:15:10Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418532,
+        "session_id": 240784208,
+        "season_id": 4905,
+        "start_time": "2024-06-13T11:19:31Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418869,
+        "session_id": 240785687,
+        "season_id": 4905,
+        "start_time": "2024-06-13T11:38:40Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418946,
+        "session_id": 240781937,
+        "season_id": 4905,
+        "start_time": "2024-06-13T11:45:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418947,
+        "session_id": 240781937,
+        "season_id": 4905,
+        "start_time": "2024-06-13T11:45:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418948,
+        "session_id": 240781937,
+        "season_id": 4905,
+        "start_time": "2024-06-13T11:45:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418809,
+        "session_id": 240785398,
+        "season_id": 4906,
+        "start_time": "2024-06-13T11:35:38Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418838,
+        "session_id": 240785541,
+        "season_id": 4906,
+        "start_time": "2024-06-13T11:36:53Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419167,
+        "session_id": 240787566,
+        "season_id": 4906,
+        "start_time": "2024-06-13T12:07:04Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419062,
+        "session_id": 240782882,
+        "season_id": 4906,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 4
+      },
+      {
+        "subsession_id": 69418949,
+        "session_id": 240781938,
+        "season_id": 4907,
+        "start_time": "2024-06-13T11:45:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418950,
+        "session_id": 240781938,
+        "season_id": 4907,
+        "start_time": "2024-06-13T11:45:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418440,
+        "session_id": 240783670,
+        "season_id": 4908,
+        "start_time": "2024-06-13T11:11:04Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418539,
+        "session_id": 240784331,
+        "season_id": 4908,
+        "start_time": "2024-06-13T11:20:04Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418570,
+        "session_id": 240784474,
+        "season_id": 4908,
+        "start_time": "2024-06-13T11:22:42Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418766,
+        "session_id": 240785239,
+        "season_id": 4909,
+        "start_time": "2024-06-13T11:33:46Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419169,
+        "session_id": 240787568,
+        "season_id": 4910,
+        "start_time": "2024-06-13T12:07:40Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418265,
+        "session_id": 240782580,
+        "season_id": 4911,
+        "start_time": "2024-06-13T10:55:48Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418377,
+        "session_id": 240783263,
+        "season_id": 4911,
+        "start_time": "2024-06-13T11:04:33Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418977,
+        "session_id": 240782123,
+        "season_id": 4911,
+        "start_time": "2024-06-13T11:48:00Z",
+        "race_week_num": 0,
+        "event_type": 4
+      },
+      {
+        "subsession_id": 69418557,
+        "session_id": 240784346,
+        "season_id": 4912,
+        "start_time": "2024-06-13T11:21:52Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418647,
+        "session_id": 240784891,
+        "season_id": 4912,
+        "start_time": "2024-06-13T11:28:43Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418561,
+        "session_id": 240784350,
+        "season_id": 4913,
+        "start_time": "2024-06-13T11:21:52Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419040,
+        "session_id": 240787000,
+        "season_id": 4913,
+        "start_time": "2024-06-13T11:59:45Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69417761,
+        "session_id": 240780036,
+        "season_id": 4914,
+        "start_time": "2024-06-13T10:19:59Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418327,
+        "session_id": 240782985,
+        "season_id": 4914,
+        "start_time": "2024-06-13T11:01:37Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418337,
+        "session_id": 240783111,
+        "season_id": 4914,
+        "start_time": "2024-06-13T11:02:12Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418547,
+        "session_id": 240784336,
+        "season_id": 4914,
+        "start_time": "2024-06-13T11:20:40Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418636,
+        "session_id": 240784768,
+        "season_id": 4915,
+        "start_time": "2024-06-13T11:28:05Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418657,
+        "session_id": 240784901,
+        "season_id": 4915,
+        "start_time": "2024-06-13T11:29:56Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418767,
+        "session_id": 240785240,
+        "season_id": 4915,
+        "start_time": "2024-06-13T11:33:46Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419127,
+        "session_id": 240783182,
+        "season_id": 4915,
+        "start_time": "2024-06-13T12:04:00Z",
+        "race_week_num": 0,
+        "event_type": 4
+      },
+      {
+        "subsession_id": 69417819,
+        "session_id": 240780434,
+        "season_id": 4916,
+        "start_time": "2024-06-13T10:24:32Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69417832,
+        "session_id": 240780447,
+        "season_id": 4916,
+        "start_time": "2024-06-13T10:25:09Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418599,
+        "session_id": 240784615,
+        "season_id": 4916,
+        "start_time": "2024-06-13T11:25:04Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418602,
+        "session_id": 240784618,
+        "season_id": 4916,
+        "start_time": "2024-06-13T11:25:04Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418881,
+        "session_id": 240785699,
+        "season_id": 4916,
+        "start_time": "2024-06-13T11:39:52Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418951,
+        "session_id": 240781939,
+        "season_id": 4916,
+        "start_time": "2024-06-13T11:45:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418952,
+        "session_id": 240781939,
+        "season_id": 4916,
+        "start_time": "2024-06-13T11:45:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418953,
+        "session_id": 240781939,
+        "season_id": 4916,
+        "start_time": "2024-06-13T11:45:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69417989,
+        "session_id": 240781061,
+        "season_id": 4918,
+        "start_time": "2024-06-13T10:33:14Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418702,
+        "session_id": 240785062,
+        "season_id": 4918,
+        "start_time": "2024-06-13T11:31:49Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69417937,
+        "session_id": 240780897,
+        "season_id": 4919,
+        "start_time": "2024-06-13T10:31:54Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418281,
+        "session_id": 240782827,
+        "season_id": 4920,
+        "start_time": "2024-06-13T10:58:46Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418519,
+        "session_id": 240784079,
+        "season_id": 4920,
+        "start_time": "2024-06-13T11:17:42Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418746,
+        "session_id": 240785219,
+        "season_id": 4920,
+        "start_time": "2024-06-13T11:33:08Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419180,
+        "session_id": 240787693,
+        "season_id": 4920,
+        "start_time": "2024-06-13T12:08:17Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419197,
+        "session_id": 240783602,
+        "season_id": 4920,
+        "start_time": "2024-06-13T12:10:00Z",
+        "race_week_num": 0,
+        "event_type": 4
+      },
+      {
+        "subsession_id": 69419152,
+        "session_id": 240783330,
+        "season_id": 4921,
+        "start_time": "2024-06-13T12:06:00Z",
+        "race_week_num": 0,
+        "event_type": 4
+      },
+      {
+        "subsession_id": 69418847,
+        "session_id": 240785550,
+        "season_id": 4922,
+        "start_time": "2024-06-13T11:37:27Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418385,
+        "session_id": 240783271,
+        "season_id": 4923,
+        "start_time": "2024-06-13T11:05:45Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418442,
+        "session_id": 240783672,
+        "season_id": 4923,
+        "start_time": "2024-06-13T11:11:04Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418593,
+        "session_id": 240784609,
+        "season_id": 4924,
+        "start_time": "2024-06-13T11:24:28Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418875,
+        "session_id": 240785693,
+        "season_id": 4925,
+        "start_time": "2024-06-13T11:39:18Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418272,
+        "session_id": 240782703,
+        "season_id": 4927,
+        "start_time": "2024-06-13T10:56:59Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419022,
+        "session_id": 240786866,
+        "season_id": 4927,
+        "start_time": "2024-06-13T11:56:42Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419063,
+        "session_id": 240782906,
+        "season_id": 4927,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419064,
+        "session_id": 240782906,
+        "season_id": 4927,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419065,
+        "session_id": 240782906,
+        "season_id": 4927,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418511,
+        "session_id": 240784071,
+        "season_id": 4928,
+        "start_time": "2024-06-13T11:17:04Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418550,
+        "session_id": 240784339,
+        "season_id": 4928,
+        "start_time": "2024-06-13T11:21:15Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419153,
+        "session_id": 240783336,
+        "season_id": 4930,
+        "start_time": "2024-06-13T12:06:00Z",
+        "race_week_num": 0,
+        "event_type": 4
+      },
+      {
+        "subsession_id": 69418966,
+        "session_id": 240786237,
+        "season_id": 4931,
+        "start_time": "2024-06-13T11:46:51Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418972,
+        "session_id": 240786359,
+        "season_id": 4931,
+        "start_time": "2024-06-13T11:48:07Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419066,
+        "session_id": 240782909,
+        "season_id": 4931,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419067,
+        "session_id": 240782909,
+        "season_id": 4931,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419068,
+        "session_id": 240782909,
+        "season_id": 4931,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419069,
+        "session_id": 240782909,
+        "season_id": 4931,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419070,
+        "session_id": 240782909,
+        "season_id": 4931,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418961,
+        "session_id": 240786232,
+        "season_id": 4932,
+        "start_time": "2024-06-13T11:46:50Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418553,
+        "session_id": 240784342,
+        "season_id": 4934,
+        "start_time": "2024-06-13T11:21:18Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418622,
+        "session_id": 240784754,
+        "season_id": 4934,
+        "start_time": "2024-06-13T11:27:26Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418955,
+        "session_id": 240781941,
+        "season_id": 4934,
+        "start_time": "2024-06-13T11:45:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418492,
+        "session_id": 240783937,
+        "season_id": 4935,
+        "start_time": "2024-06-13T11:15:46Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418892,
+        "session_id": 240785824,
+        "season_id": 4937,
+        "start_time": "2024-06-13T11:40:29Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419071,
+        "session_id": 240782916,
+        "season_id": 4937,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418577,
+        "session_id": 240784481,
+        "season_id": 4938,
+        "start_time": "2024-06-13T11:23:20Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418777,
+        "session_id": 240785366,
+        "season_id": 4938,
+        "start_time": "2024-06-13T11:34:23Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419072,
+        "session_id": 240782918,
+        "season_id": 4938,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419206,
+        "session_id": 240783739,
+        "season_id": 4938,
+        "start_time": "2024-06-13T12:12:00Z",
+        "race_week_num": 0,
+        "event_type": 4
+      },
+      {
+        "subsession_id": 69418564,
+        "session_id": 240784353,
+        "season_id": 4939,
+        "start_time": "2024-06-13T11:21:52Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418724,
+        "session_id": 240785197,
+        "season_id": 4939,
+        "start_time": "2024-06-13T11:32:27Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419128,
+        "session_id": 240783203,
+        "season_id": 4939,
+        "start_time": "2024-06-13T12:04:00Z",
+        "race_week_num": 0,
+        "event_type": 4
+      },
+      {
+        "subsession_id": 69418379,
+        "session_id": 240783265,
+        "season_id": 4940,
+        "start_time": "2024-06-13T11:05:08Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418882,
+        "session_id": 240785700,
+        "season_id": 4942,
+        "start_time": "2024-06-13T11:39:52Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419075,
+        "session_id": 240782925,
+        "season_id": 4942,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418287,
+        "session_id": 240782833,
+        "season_id": 4945,
+        "start_time": "2024-06-13T10:59:57Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418534,
+        "session_id": 240784210,
+        "season_id": 4945,
+        "start_time": "2024-06-13T11:19:31Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418578,
+        "session_id": 240784482,
+        "season_id": 4945,
+        "start_time": "2024-06-13T11:23:20Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418535,
+        "session_id": 240784211,
+        "season_id": 4946,
+        "start_time": "2024-06-13T11:19:31Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418536,
+        "session_id": 240784328,
+        "season_id": 4946,
+        "start_time": "2024-06-13T11:20:04Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418644,
+        "session_id": 240784888,
+        "season_id": 4946,
+        "start_time": "2024-06-13T11:28:43Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418645,
+        "session_id": 240784889,
+        "season_id": 4947,
+        "start_time": "2024-06-13T11:28:43Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418698,
+        "session_id": 240785058,
+        "season_id": 4948,
+        "start_time": "2024-06-13T11:31:12Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418574,
+        "session_id": 240784478,
+        "season_id": 4949,
+        "start_time": "2024-06-13T11:23:18Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418558,
+        "session_id": 240784347,
+        "season_id": 4950,
+        "start_time": "2024-06-13T11:21:52Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418537,
+        "session_id": 240784329,
+        "season_id": 4951,
+        "start_time": "2024-06-13T11:20:04Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418512,
+        "session_id": 240784072,
+        "season_id": 4952,
+        "start_time": "2024-06-13T11:17:04Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418834,
+        "session_id": 240785537,
+        "season_id": 4952,
+        "start_time": "2024-06-13T11:36:53Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418984,
+        "session_id": 240786369,
+        "season_id": 4952,
+        "start_time": "2024-06-13T11:49:55Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419076,
+        "session_id": 240782936,
+        "season_id": 4952,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418421,
+        "session_id": 240783419,
+        "season_id": 4953,
+        "start_time": "2024-06-13T11:08:04Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418579,
+        "session_id": 240784483,
+        "season_id": 4953,
+        "start_time": "2024-06-13T11:23:20Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418584,
+        "session_id": 240784488,
+        "season_id": 4953,
+        "start_time": "2024-06-13T11:23:54Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418649,
+        "session_id": 240784893,
+        "season_id": 4953,
+        "start_time": "2024-06-13T11:28:43Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419021,
+        "session_id": 240786865,
+        "season_id": 4954,
+        "start_time": "2024-06-13T11:56:41Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419077,
+        "session_id": 240782939,
+        "season_id": 4954,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69419198,
+        "session_id": 240783633,
+        "season_id": 4954,
+        "start_time": "2024-06-13T12:10:00Z",
+        "race_week_num": 0,
+        "event_type": 4
+      },
+      {
+        "subsession_id": 69418455,
+        "session_id": 240783800,
+        "season_id": 4955,
+        "start_time": "2024-06-13T11:13:58Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418618,
+        "session_id": 240784750,
+        "season_id": 4955,
+        "start_time": "2024-06-13T11:26:52Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418656,
+        "session_id": 240784900,
+        "season_id": 4955,
+        "start_time": "2024-06-13T11:29:18Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419104,
+        "session_id": 240783075,
+        "season_id": 4955,
+        "start_time": "2024-06-13T12:02:00Z",
+        "race_week_num": 0,
+        "event_type": 4
+      },
+      {
+        "subsession_id": 69418607,
+        "session_id": 240784623,
+        "season_id": 4956,
+        "start_time": "2024-06-13T11:25:41Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418750,
+        "session_id": 240785223,
+        "season_id": 4956,
+        "start_time": "2024-06-13T11:33:08Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418218,
+        "session_id": 240782073,
+        "season_id": 4701,
+        "start_time": "2024-06-13T10:47:10Z",
+        "race_week_num": 17,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418725,
+        "session_id": 240785198,
+        "season_id": 4701,
+        "start_time": "2024-06-13T11:32:27Z",
+        "race_week_num": 17,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419042,
+        "session_id": 240782840,
+        "season_id": 4701,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 17,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418566,
+        "session_id": 240784470,
+        "season_id": 4959,
+        "start_time": "2024-06-13T11:22:41Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418717,
+        "session_id": 240785190,
+        "season_id": 4960,
+        "start_time": "2024-06-13T11:32:26Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418785,
+        "session_id": 240785374,
+        "season_id": 4960,
+        "start_time": "2024-06-13T11:34:23Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418886,
+        "session_id": 240785704,
+        "season_id": 4961,
+        "start_time": "2024-06-13T11:39:52Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419080,
+        "session_id": 240782949,
+        "season_id": 4961,
+        "start_time": "2024-06-13T12:00:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418289,
+        "session_id": 240782835,
+        "season_id": 4963,
+        "start_time": "2024-06-13T10:59:57Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69363885,
+        "session_id": 240531422,
+        "season_id": 4966,
+        "start_time": "2024-06-11T00:45:00Z",
+        "race_week_num": 0,
+        "event_type": 5
+      },
+      {
+        "subsession_id": 69418445,
+        "session_id": 240783791,
+        "season_id": 4967,
+        "start_time": "2024-06-13T11:12:08Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418718,
+        "session_id": 240785191,
+        "season_id": 4976,
+        "start_time": "2024-06-13T11:32:27Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418848,
+        "session_id": 240785551,
+        "season_id": 4979,
+        "start_time": "2024-06-13T11:37:27Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418857,
+        "session_id": 240785560,
+        "season_id": 4979,
+        "start_time": "2024-06-13T11:38:02Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418880,
+        "session_id": 240785698,
+        "season_id": 4979,
+        "start_time": "2024-06-13T11:39:18Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418988,
+        "session_id": 240786488,
+        "season_id": 4983,
+        "start_time": "2024-06-13T11:51:05Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418980,
+        "session_id": 240786365,
+        "season_id": 4986,
+        "start_time": "2024-06-13T11:48:47Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418150,
+        "session_id": 240781793,
+        "season_id": 5020,
+        "start_time": "2024-06-13T10:42:54Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418238,
+        "session_id": 240782325,
+        "season_id": 5020,
+        "start_time": "2024-06-13T10:50:59Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418252,
+        "session_id": 240782454,
+        "season_id": 5020,
+        "start_time": "2024-06-13T10:53:28Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69418908,
+        "session_id": 240785956,
+        "season_id": 5020,
+        "start_time": "2024-06-13T11:42:45Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419001,
+        "session_id": 240786615,
+        "season_id": 5020,
+        "start_time": "2024-06-13T11:53:29Z",
+        "race_week_num": 0,
+        "event_type": 2
+      },
+      {
+        "subsession_id": 69419004,
+        "session_id": 240786734,
+        "season_id": 5020,
+        "start_time": "2024-06-13T11:54:18Z",
+        "race_week_num": 0,
+        "event_type": 2
+      }
+    ]
+  }
+}

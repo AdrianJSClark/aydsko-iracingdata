@@ -1829,6 +1829,24 @@ public class DataClient(HttpClient httpClient,
     }
 
     /// <inheritdoc />
+    public async Task<DataResponse<SpectatorDetails>> GetSpectatorSubsessionDetailsAsync(Common.EventType[]? eventTypes = null, int[]? seasonIds = null, CancellationToken cancellationToken = default)
+    {
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
+
+        var queryParameters = new Dictionary<string, object?>
+        {
+            ["event_types"] = eventTypes,
+            ["season_ids"] = seasonIds,
+        };
+
+        var queryUrl = "https://members-ng.iracing.com/data/season/spectator_subsessionids_detail".ToUrlWithQuery(queryParameters);
+
+        return await CreateResponseViaInfoLinkAsync(queryUrl,
+                                                    SpectatorDetailsContext.Default.SpectatorDetails,
+                                                    cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc />
     public async Task<DriverStatisticsCsvFile> GetDriverStatisticsByCategoryCsvAsync(int categoryId, CancellationToken cancellationToken = default)
     {
         await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
