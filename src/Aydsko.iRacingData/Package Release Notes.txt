@@ -1,6 +1,16 @@
 ﻿BREAKING CHANGES:
 
  - "Aydsko.iRacingData.Results.SessionResultsWeather" several properties have had their type changed to "decimal" to properly represent the data. (Issue: #202)
+ - "AddIRacingDataApi" method now returns "IHttpClientBuilder"
+
+
+Contributions:
+
+ - From Łukasz Zborek (https://github.com/lukaszzborek):
+    - Change "AddIRacingDataApi" to return "IHttpClientBuilder" (Issue #175)
+    - Implement weather forecast and missing weather properties (Pull Request #207)
+
+Thanks for helping out with pull requests to the library!
 
 
 
