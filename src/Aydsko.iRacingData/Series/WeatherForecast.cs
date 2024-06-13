@@ -3,6 +3,12 @@ using Aydsko.iRacingData.Converters;
 
 namespace Aydsko.iRacingData.Series;
 
+/// <summary>Contains a point-in-time weather forecast.</summary>
+/// <remarks>
+/// These results are a condensed forecast, compared to the hourly
+/// forecast available within the session inside the simulator.
+/// </remarks>
+/// <seealso href="https://forums.iracing.com/discussion/comment/541516#Comment_541516"/>
 public class WeatherForecast
 {
     /// <summary>
@@ -15,7 +21,7 @@ public class WeatherForecast
     /// Can be ignored. Uncorrected air temperature. Used by the sim regarding relative and absolute humidity
     /// </summary>
     [JsonPropertyName("raw_air_temp"), JsonConverter(typeof(TwoDecimalPointsValueConverter))]
-    public decimal RawAirTemp { get; set; }
+    public decimal RawAirTemperature { get; set; }
 
     /// <summary>
     /// Precipitation chance in percentage
@@ -45,68 +51,49 @@ public class WeatherForecast
     /// Wind direction in degrees (0 - 359)
     /// </summary>
     [JsonPropertyName("wind_dir")]
-    public int WindDir { get; set; }
-    
-    /// <summary>
-    /// Rounded wind direction
-    /// </summary>
+    public int WindDirectionDegrees { get; set; }
+
+    /// <summary>Approximate wind direction.</summary>
+    /// <seealso cref="Constants.WindDirection" />
     [JsonIgnore]
-    public WindDirection WindDirection => ConvertDegreeToDirection(WindDir);
+    public WindDirection WindDirection => ConvertDegreeToDirection(WindDirectionDegrees);
 
-    /// <summary>
-    /// Air temperature in Celcius corrected to be within allowed bounds
-    /// </summary>
+    /// <summary>Air temperature in degrees Celsius corrected to be within allowed bounds.</summary>
     [JsonPropertyName("air_temp"), JsonConverter(typeof(TwoDecimalPointsValueConverter))]
-    public decimal AirTemp { get; set; }
+    public decimal AirTemperature { get; set; }
 
-    /// <summary>
-    /// Can be ignore. Are there are rain statistics available for the period
-    /// </summary>
+    /// <summary>Can be ignored. Indicates if there are rain statistics available for the period.</summary>
     [JsonPropertyName("valid_stats")]
-    public bool ValidStats { get; set; }
+    public bool ValidStatistics { get; set; }
 
-    /// <summary>
-    /// Is the session affected by the weather
-    /// </summary>
+    /// <summary>Indicates if a session is expected to be running at some point during the period this forecast covers.</summary>
     [JsonPropertyName("affects_session")]
     public bool AffectsSession { get; set; }
 
-    /// <summary>
-    /// Cloud cover in percentage
-    /// </summary>
+    /// <summary>The percentage of the sky with cloud cover.</summary>
     [JsonPropertyName("cloud_cover"), JsonConverter(typeof(OneDecimalPointValueConverter))]
-    public decimal CloudCover { get; set; }
+    public decimal CloudCoverPercentage { get; set; }
 
-    /// <summary>
-    /// Relative humidity in percentage
-    /// </summary>
+    /// <summary>Relative humidity percentage.</summary>
     [JsonPropertyName("rel_humidity"), JsonConverter(typeof(TwoDecimalPointsValueConverter))]
     public decimal RelativeHumidity { get; set; }
 
-    /// <summary>
-    /// Wind speed (in meters per second)
-    /// </summary>
+    /// <summary>Wind speed (in meters per second)</summary>
     [JsonPropertyName("wind_speed"), JsonConverter(typeof(TwoDecimalPointsValueConverter))]
     public decimal WindSpeed { get; set; }
 
-    /// <summary>
-    /// Is precipitation allowed to occur during the period
-    /// </summary>
+    /// <summary>Indicates if precipitation is allowed to occur during the period.</summary>
     [JsonPropertyName("allow_precip")]
     public bool AllowPrecipitation { get; set; }
-    
-    /// <summary>
-    /// Precipitation amount in millimeters per hour
-    /// </summary>
-    [JsonPropertyName("precip_amount"), JsonConverter(typeof(OneDecimalPointValueConverter))] 
+
+    /// <summary>Precipitation rate in millimeters per hour.</summary>
+    [JsonPropertyName("precip_amount"), JsonConverter(typeof(OneDecimalPointValueConverter))]
     public decimal PrecipitationAmount { get; set; }
 
-    /// <summary>
-    /// Date and time of the forecast
-    /// </summary>
+    /// <summary>The instant this forecast block begins in track local time.</summary>
     [JsonPropertyName("timestamp")]
     public DateTime Timestamp { get; set; }
-    
+
     private static WindDirection ConvertDegreeToDirection(int degree)
     {
         return (WindDirection)(int)Math.Round(((double)degree % 360) / 45);
@@ -116,5 +103,4 @@ public class WeatherForecast
 [JsonSerializable(typeof(List<WeatherForecast>)), JsonSourceGenerationOptions(WriteIndented = true)]
 internal partial class WeatherForecastArrayContext : JsonSerializerContext
 {
-   
 }
