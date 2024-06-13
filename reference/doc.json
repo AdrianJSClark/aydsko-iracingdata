@@ -35,6 +35,32 @@
       "expirationSeconds": 900
     }
   },
+  "driver_stats_by_category": {
+    "oval": {
+      "link": "https://members-ng.iracing.com/data/driver_stats_by_category/oval",
+      "expirationSeconds": 900
+    },
+    "sports_car": {
+      "link": "https://members-ng.iracing.com/data/driver_stats_by_category/sports_car",
+      "expirationSeconds": 900
+    },
+    "formula_car": {
+      "link": "https://members-ng.iracing.com/data/driver_stats_by_category/formula_car",
+      "expirationSeconds": 900
+    },
+    "road": {
+      "link": "https://members-ng.iracing.com/data/driver_stats_by_category/road",
+      "expirationSeconds": 900
+    },
+    "dirt_oval": {
+      "link": "https://members-ng.iracing.com/data/driver_stats_by_category/dirt_oval",
+      "expirationSeconds": 900
+    },
+    "dirt_road": {
+      "link": "https://members-ng.iracing.com/data/driver_stats_by_category/dirt_road",
+      "expirationSeconds": 900
+    }
+  },
   "hosted": {
     "combined_sessions": {
       "link": "https://members-ng.iracing.com/data/hosted/combined_sessions",
@@ -159,6 +185,20 @@
         },
         "include_league": {
           "type": "boolean"
+        }
+      },
+      "expirationSeconds": 900
+    },
+    "roster": {
+      "link": "https://members-ng.iracing.com/data/league/roster",
+      "parameters": {
+        "league_id": {
+          "type": "number",
+          "required": true
+        },
+        "include_licenses": {
+          "type": "boolean",
+          "note": "For faster responses, only request when necessary."
         }
       },
       "expirationSeconds": 900
@@ -568,6 +608,20 @@
         "event_types": {
           "type": "numbers",
           "note": "Types of events to include in the search. Defaults to all. ?event_types=2,3,4,5"
+        }
+      },
+      "expirationSeconds": 60
+    },
+    "spectator_subsessionids_detail": {
+      "link": "https://members-ng.iracing.com/data/season/spectator_subsessionids_detail",
+      "parameters": {
+        "event_types": {
+          "type": "numbers",
+          "note": "Types of events to include in the search. Defaults to all. ?event_types=2,3,4,5"
+        },
+        "season_ids": {
+          "type": "numbers",
+          "note": "Seasons to include in the search. Defaults to all. ?season_ids=513,937"
         }
       },
       "expirationSeconds": 60
