@@ -4,6 +4,7 @@
  - "AddIRacingDataApi" method now returns "IHttpClientBuilder"
 
 
+
 Contributions:
 
  - From Łukasz Zborek (https://github.com/lukaszzborek):
@@ -18,3 +19,5 @@ Fixes / Changes:
 
  - New property "AverageLapTime" on "Aydsko.iRacingData.Results.RaceSummary" to give a proper duration representation of the "AverageLap" value.
  - Support "Driver Stats by Category CSV" Download (Issue: #205)
+ - Implement "Spectator Subsession Ids Detail" Endpoint (Issue: #206)
+
