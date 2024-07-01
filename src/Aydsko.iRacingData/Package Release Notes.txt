@@ -1,15 +1,13 @@
 ﻿BREAKING CHANGES:
 
- - "Aydsko.iRacingData.Results.SessionResultsWeather" several properties have had their type changed to "decimal" to properly represent the data. (Issue: #202)
- - "AddIRacingDataApi" method now returns "IHttpClientBuilder"
+ - 
 
 
 
 Contributions:
 
- - From Łukasz Zborek (https://github.com/lukaszzborek):
-    - Change "AddIRacingDataApi" to return "IHttpClientBuilder" (Issue #175)
-    - Implement weather forecast and missing weather properties (Pull Request #207)
+ - From 
+    - 
 
 Thanks for helping out with pull requests to the library!
 
@@ -17,7 +15,5 @@ Thanks for helping out with pull requests to the library!
 
 Fixes / Changes:
 
- - New property "AverageLapTime" on "Aydsko.iRacingData.Results.RaceSummary" to give a proper duration representation of the "AverageLap" value.
- - Support "Driver Stats by Category CSV" Download (Issue: #205)
- - Implement "Spectator Subsession Ids Detail" Endpoint (Issue: #206)
+ - 
 
