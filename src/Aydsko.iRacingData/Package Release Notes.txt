@@ -1,6 +1,8 @@
 ﻿BREAKING CHANGES:
 
- - 
+ - "RecentEvents" type:
+   - Properly interpret "BestLapTime" as "TimeSpan" similar to other times
+   - "PercentRank" is now a "decimal" type instead of "int"
 
 
 
@@ -15,5 +17,5 @@ Thanks for helping out with pull requests to the library!
 
 Fixes / Changes:
 
- - 
+ - Incorrect datatype for RecentEvents.PercentRank field (Issue: #210)
 

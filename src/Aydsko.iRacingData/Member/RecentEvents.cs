@@ -1,6 +1,8 @@
 ﻿// © 2023 Adrian Clark
 // This file is licensed to you under the MIT license.
 
+using Aydsko.iRacingData.Converters;
+
 namespace Aydsko.iRacingData.Member;
 
 public class RecentEvents
@@ -29,11 +31,11 @@ public class RecentEvents
     [JsonPropertyName("finish_position")]
     public int FinishPosition { get; set; }
 
-    [JsonPropertyName("best_lap_time")]
-    public int BestLapTime { get; set; }
+    [JsonPropertyName("best_lap_time"), JsonConverter(typeof(TenThousandthSecondDurationConverter))]
+    public TimeSpan? BestLapTime { get; set; }
 
     [JsonPropertyName("percent_rank")]
-    public int PercentRank { get; set; }
+    public decimal PercentRank { get; set; }
 
     [JsonPropertyName("car_id")]
     public int CarId { get; set; }

@@ -267,13 +267,25 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var memberProfileResponse = await sut.GetMemberProfileAsync().ConfigureAwait(false);
 
-        Assert.That(memberProfileResponse, Is.Not.Null);
-        Assert.That(memberProfileResponse!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(memberProfileResponse, Is.Not.Null);
+            Assert.That(memberProfileResponse!.Data, Is.Not.Null);
 
-        Assert.That(memberProfileResponse.RateLimitRemaining, Is.EqualTo(239));
-        Assert.That(memberProfileResponse.TotalRateLimit, Is.EqualTo(240));
-        Assert.That(memberProfileResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2024, 3, 17, 11, 15, 55, TimeSpan.Zero)));
-        Assert.That(memberProfileResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2024, 3, 17, 11, 29, 55, 769, TimeSpan.Zero)));
+            Assert.That(memberProfileResponse.Data.CustomerId, Is.EqualTo(341554));
+            Assert.That(memberProfileResponse.Data.RecentEvents, Has.Length.EqualTo(5));
+
+            var sampleEvent = memberProfileResponse.Data.RecentEvents.FirstOrDefault(re => re.SubsessionId == 67375848);
+            Assert.That(sampleEvent, Is.Not.Null);
+            Assert.That(sampleEvent!.EventType, Is.EqualTo("RACE"));
+            Assert.That(sampleEvent.PercentRank, Is.EqualTo(0.8369153));
+            Assert.That(sampleEvent.BestLapTime, Is.EqualTo(TimeSpan.FromSeconds(76.8907)));
+
+            Assert.That(memberProfileResponse.RateLimitRemaining, Is.EqualTo(239));
+            Assert.That(memberProfileResponse.TotalRateLimit, Is.EqualTo(240));
+            Assert.That(memberProfileResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2024, 3, 17, 11, 15, 55, TimeSpan.Zero)));
+            Assert.That(memberProfileResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2024, 3, 17, 11, 29, 55, 769, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
