@@ -191,6 +191,9 @@ public class Result
     [JsonPropertyName("car_class_short_name")]
     public string CarClassShortName { get; set; } = default!;
 
+    [JsonPropertyName("car_name")]
+    public string CarName { get; set; } = default!;
+
     [JsonPropertyName("aggregate_champ_points")]
     public int AggregateChampionshipPoints { get; set; }
 

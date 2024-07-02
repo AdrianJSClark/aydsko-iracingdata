@@ -14,9 +14,12 @@ public class ResultsCarClasses
     [JsonPropertyName("name")]
     public string Name { get; set; } = default!;
 
-    [JsonPropertyName("relative_speed")]
-    public int RelativeSpeed { get; set; }
-
     [JsonPropertyName("short_name")]
     public string ShortName { get; set; } = default!;
+
+    [JsonPropertyName("strength_of_field")]
+    public int StrengthOfField { get; set; }
+
+    [JsonPropertyName("num_entries")]
+    public int NumberOfEntries { get; set; }
 }

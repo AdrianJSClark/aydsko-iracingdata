@@ -40,9 +40,6 @@ public class Schedule
     public DateTime StartDate { get; set; } = default!;
 #endif
 
-    [JsonPropertyName("simulated_time_multiplier")]
-    public int SimulatedTimeMultiplier { get; set; }
-
     [JsonPropertyName("race_lap_limit")]
     public int? RaceLapLimit { get; set; }
 

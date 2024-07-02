@@ -58,12 +58,6 @@ public class Weather
     [JsonPropertyName("simulated_time_offsets")]
     public int[] SimulatedTimeOffsets { get; set; } = Array.Empty<int>();
 
-    [JsonPropertyName("simulated_time_multiplier")]
-    public int SimulatedTimeMultiplier { get; set; }
-
-    [JsonPropertyName("simulated_start_utc_time")]
-    public DateTimeOffset SimulatedStartUtcTime { get; set; }
-
     [JsonPropertyName("precip_option")]
     public int PrecipitationOption { get; set; }
 
