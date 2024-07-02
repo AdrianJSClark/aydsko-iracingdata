@@ -692,21 +692,46 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var subSessionResultResponse = await sut.GetSubSessionResultAsync(12345, false, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(subSessionResultResponse, Is.Not.Null);
-        Assert.That(subSessionResultResponse!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(subSessionResultResponse, Is.Not.Null);
+            Assert.That(subSessionResultResponse!.Data, Is.Not.Null);
 
-        Assert.That(subSessionResultResponse.Data.SeasonId, Is.EqualTo(3620));
-        Assert.That(subSessionResultResponse.Data.SeriesName, Is.EqualTo("Global Fanatec Challenge"));
-        Assert.That(subSessionResultResponse.Data.SessionResults, Has.Length.EqualTo(2));
-        Assert.That(subSessionResultResponse.Data.SessionResults, Has.One.Property(nameof(SessionResults.SimSessionName)).EqualTo("RACE"));
+            var subSessionResult = subSessionResultResponse.Data;
+            Assert.That(subSessionResult.SeasonId, Is.EqualTo(3620));
+            Assert.That(subSessionResult.SeriesName, Is.EqualTo("Global Fanatec Challenge"));
+            Assert.That(subSessionResult.SessionResults, Has.Length.EqualTo(2));
+            Assert.That(subSessionResult.SessionResults, Has.One.Property(nameof(SessionResults.SimSessionName)).EqualTo("RACE"));
+            Assert.That(subSessionResult.NumberOfDrivers, Is.EqualTo(19));
+            Assert.That(subSessionResult.EventAverageLap, Is.EqualTo(TimeSpan.FromSeconds(407.8532)));
+            Assert.That(subSessionResult.EventBestLapTime, Is.EqualTo(TimeSpan.FromSeconds(408.2271)));
 
-        var raceResults = subSessionResultResponse.Data.SessionResults.Single(r => r.SimSessionName == "RACE");
-        Assert.That(raceResults.Results, Has.All.Property(nameof(Result.DriverResults)).Null); // Single-driver events don't have driver results.
+            var raceResults = subSessionResult.SessionResults.Single(r => r.SimSessionName == "RACE");
+            Assert.That(raceResults.Results, Has.All.Property(nameof(Result.DriverResults)).Null); // Single-driver events don't have driver results.
+            
+            var sampleDriver = raceResults.Results.FirstOrDefault(r => r.Position == 0);
+            Assert.That(sampleDriver, Is.Not.Null);
+            Assert.That(sampleDriver!.CarClassName, Is.EqualTo("Cadillac CTS-VR"));
+            Assert.That(sampleDriver.CarClassShortName, Is.EqualTo("Cadillac CTS-VR"));
+            Assert.That(sampleDriver.CarName, Is.EqualTo("Cadillac CTS-V Racecar"));
+            Assert.That(sampleDriver.DivisionName, Is.EqualTo("Division 1"));
 
-        Assert.That(subSessionResultResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(subSessionResult.Weather, Is.Not.Null);
+
+            var weather = subSessionResult.Weather;
+            Assert.That(weather.SimulatedStart, Is.EqualTo(new DateTime(2022, 04, 02, 18, 25, 00)));
+            Assert.That(weather.AllowFog, Is.EqualTo(false));
+            Assert.That(weather.PrecipitationOption, Is.EqualTo(0));
+
+            Assert.That(subSessionResult.SessionSplits, Has.Length.EqualTo(2));
+            Assert.That(subSessionResult.SessionSplits, Contains.Item(new SessionSplit { SubSessionId = 45243121, EventStrengthOfField = 1683 }));
+            Assert.That(subSessionResult.SessionSplits, Contains.Item(new SessionSplit { SubSessionId = 45243122, EventStrengthOfField = 1143 }));
+
+            Assert.That(subSessionResultResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
