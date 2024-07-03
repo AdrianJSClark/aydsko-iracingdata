@@ -24,10 +24,6 @@ public class SessionResultsWeather
     public decimal MaximumCloudCoverPercentage { get; set; }
 
     /// <summary>Temperature units used in these values.</summary>
-    /// <remarks>
-    /// Maps to one of the <c>weather_wind_speed_units</c> lookup values retrieved
-    /// from the <see cref="IDataClient.GetLookupsAsync(CancellationToken)"/> call.
-    /// </remarks>
     [JsonPropertyName("temp_units")]
     public int TemperatureUnits { get; set; }
 
@@ -84,6 +80,10 @@ public class SessionResultsWeather
     public decimal PrecipitationMillimetres2HoursBeforeSession { get; set; }
 
     /// <summary>Wind units.</summary>
+    /// <remarks>
+    /// Maps to one of the <c>weather_wind_speed_units</c> lookup values retrieved
+    /// from the <see cref="IDataClient.GetLookupsAsync(CancellationToken)"/> call.
+    /// </remarks>
     [JsonPropertyName("wind_units")]
     public int WindUnits { get; set; }
 

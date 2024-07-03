@@ -32,6 +32,11 @@ public class WeatherSummary
     [JsonPropertyName("wind_low")]
     public decimal WindLow { get; set; }
 
+    /// <summary>Wind units.</summary>
+    /// <remarks>
+    /// Maps to one of the <c>weather_wind_speed_units</c> lookup values retrieved
+    /// from the <see cref="IDataClient.GetLookupsAsync(CancellationToken)"/> call.
+    /// </remarks>
     [JsonPropertyName("wind_units")]
     public int WindUnits { get; set; }
 }
