@@ -2105,11 +2105,18 @@ public class DataClient(HttpClient httpClient,
 
         string? errorDescription;
         Exception? exception;
+        content = content?.Trim() ?? string.Empty;
 
+#pragma warning disable CA1867 // Use char overload - not available in .NET Standard 2.0
         if (content == "Rate limit exceeded")
         {
             errorDescription = content;
             exception = iRacingRateLimitExceededException.Create();
+        }
+        else if (content.StartsWith("<", StringComparison.OrdinalIgnoreCase))
+        {
+            exception = iRacingUnknownResponseException.Create(httpResponse.StatusCode, content);
+            errorDescription = exception.Message;
         }
         else
         {
@@ -2124,6 +2131,7 @@ public class DataClient(HttpClient httpClient,
                 _ => null
             };
         }
+#pragma warning restore CA1867 // Use char overload
 
         if (exception is null)
         {

@@ -3,6 +3,7 @@
 
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
@@ -94,10 +95,16 @@ public class MockedHttpMessageHandler : HttpMessageHandler
                 statusCode = HttpStatusCode.OK;
             }
 
+            var contentType = "text/json";
+            if (responseDictionary.TryGetValue("contentType", out var contentTypeElement))
+            {
+                contentType = contentTypeElement.ToString();
+            }
+
 #pragma warning disable CA2000 // Dispose objects before losing scope - These responses are intentionally created to be returned later. This is OK in a test helper.
             var responseMessage = new HttpResponseMessage(statusCode)
             {
-                Content = new StringContent(responseDictionary["content"].ToString(), Encoding.UTF8, "text/json")
+                Content = new StringContent(responseDictionary["content"].ToString(), Encoding.UTF8, contentType)
             };
 #pragma warning restore CA2000 // Dispose objects before losing scope
 
