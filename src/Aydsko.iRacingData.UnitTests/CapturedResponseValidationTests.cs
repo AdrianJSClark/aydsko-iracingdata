@@ -1,6 +1,7 @@
 ﻿// © 2023-2024 Adrian Clark
 // This file is licensed to you under the MIT license.
 
+using System.Net;
 using System.Net.Http;
 using Aydsko.iRacingData.Constants;
 using Aydsko.iRacingData.Exceptions;
@@ -1487,6 +1488,25 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(forecast.PrecipitationAmount, Is.EqualTo(4.2m));
             Assert.That(forecast.Timestamp, Is.EqualTo(new DateTime(2024, 04, 13, 12, 0, 0, DateTimeKind.Utc)));
         });
+    }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetMemberProfileFailsWithGatewayTimeoutAsync()
+    {
+        await MessageHandler.QueueResponsesAsync("ResponseUnknown504", true).ConfigureAwait(false);
+
+        Assert.That(async () => await sut.GetMemberProfileAsync(341554).ConfigureAwait(false),
+                    Throws.InstanceOf<iRacingUnknownResponseException>()
+                          .And.Property(nameof(iRacingUnknownResponseException.ResponseHttpStatusCode)).EqualTo(HttpStatusCode.GatewayTimeout));
+    }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetMemberProfileFailsOnLoginWithGatewayTimeoutAsync()
+    {
+        await MessageHandler.QueueResponsesAsync("ResponseUnknown504", false).ConfigureAwait(false);
+
+        Assert.That(async () => await sut.GetMemberProfileAsync(341554).ConfigureAwait(false),
+                    Throws.InstanceOf<iRacingLoginFailedException>());
     }
 
     protected override void Dispose(bool disposing)

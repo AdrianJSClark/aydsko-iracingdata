@@ -1,32 +1,9 @@
 ﻿BREAKING CHANGES:
 
- - "RecentEvents" type:
-   - Properly interpret "BestLapTime" as "TimeSpan" similar to other times
-   - "PercentRank" is now a "decimal" type instead of "int"
-
- - "ResultsWeather" type:
-   - Removed "SimulatedStartUtcTime" and "SimulatedStartUtcOffset" fields
-   - Changed data type of "SimulatedStartTime" field to "DateTime"
-
- - "Results.CarsInClass" type:
-   - Removed "PackageId" field
-
- - "Results.ResultsCarClasses" type:
-   - Removed "RelativeSpeed" field
-
- - "Schedule" type:
-   - Removed "SimulatedTimeMultiplier" field
-
- - "Series.Weather" type:
-   - Removed "SimulatedStartUtcTime" field
+ - 
 
 
 
 Fixes / Changes:
 
- - Incorrect datatype for RecentEvents.PercentRank field (Issue: #210)
-
- - 2024 Season 3 Patch 2 Field Changes (Results & Series Seasons) (Issue: #211)
-   - "SubSessionResult" type additional fields "NumberOfDrivers", "EventBestLapTime", "SessionSplits"
-   - "Result" type additional field "CarName"
-   - "Results.ResultsCarClasses" type new fields "StrengthOfField" and "NumberOfEntries"
+ - 504 response can't be deserialized to ErrorResponse (Issue #214)
