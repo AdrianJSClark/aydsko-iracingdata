@@ -121,6 +121,34 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Results.CarsInClass.get_PackageId</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Results.CarsInClass.set_PackageId(System.Int32)</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Results.ResultsCarClasses.get_RelativeSpeed</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Results.ResultsCarClasses.set_RelativeSpeed(System.Int32)</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Results.ResultsWeather.get_SimulatedStart</Target>
     <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
@@ -156,7 +184,35 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.Schedule.get_SimulatedTimeMultiplier</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.Schedule.set_SimulatedTimeMultiplier(System.Int32)</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Series.Weather.get_RelHumidity</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.Weather.get_SimulatedStartUtcTime</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.Weather.get_SimulatedTimeMultiplier</Target>
     <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
@@ -192,6 +248,20 @@
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Series.Weather.set_RelHumidity(System.Int32)</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.Weather.set_SimulatedStartUtcTime(System.DateTimeOffset)</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.Weather.set_SimulatedTimeMultiplier(System.Int32)</Target>
     <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
@@ -345,6 +415,34 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Results.CarsInClass.get_PackageId</Target>
+    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Results.CarsInClass.set_PackageId(System.Int32)</Target>
+    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Results.ResultsCarClasses.get_RelativeSpeed</Target>
+    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Results.ResultsCarClasses.set_RelativeSpeed(System.Int32)</Target>
+    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Results.ResultsWeather.get_SimulatedStart</Target>
     <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
@@ -380,7 +478,35 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.Schedule.get_SimulatedTimeMultiplier</Target>
+    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.Schedule.set_SimulatedTimeMultiplier(System.Int32)</Target>
+    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Series.Weather.get_RelHumidity</Target>
+    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.Weather.get_SimulatedStartUtcTime</Target>
+    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.Weather.get_SimulatedTimeMultiplier</Target>
     <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
@@ -416,6 +542,20 @@
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Series.Weather.set_RelHumidity(System.Int32)</Target>
+    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.Weather.set_SimulatedStartUtcTime(System.DateTimeOffset)</Target>
+    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.Weather.set_SimulatedTimeMultiplier(System.Int32)</Target>
     <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
@@ -635,6 +775,34 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Results.CarsInClass.get_PackageId</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Results.CarsInClass.set_PackageId(System.Int32)</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Results.ResultsCarClasses.get_RelativeSpeed</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Results.ResultsCarClasses.set_RelativeSpeed(System.Int32)</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Results.ResultsWeather.get_SimulatedStart</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
@@ -670,7 +838,35 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.Schedule.get_SimulatedTimeMultiplier</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.Schedule.set_SimulatedTimeMultiplier(System.Int32)</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Series.Weather.get_RelHumidity</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.Weather.get_SimulatedStartUtcTime</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.Weather.get_SimulatedTimeMultiplier</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
@@ -706,6 +902,20 @@
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Series.Weather.set_RelHumidity(System.Int32)</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.Weather.set_SimulatedStartUtcTime(System.DateTimeOffset)</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.Weather.set_SimulatedTimeMultiplier(System.Int32)</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
