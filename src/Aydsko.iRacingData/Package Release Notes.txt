@@ -7,3 +7,4 @@
 Fixes / Changes:
 
  - 504 response can't be deserialized to ErrorResponse (Issue #214)
+ - Include pre-built URL values for logo and images on the "CarAssetDetail" class

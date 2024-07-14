@@ -43,14 +43,25 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var carAssets = await sut.GetCarAssetDetailsAsync().ConfigureAwait(false);
 
-        Assert.That(carAssets, Is.Not.Null);
-        Assert.That(carAssets!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(carAssets, Is.Not.Null);
+            Assert.That(carAssets!.Data, Is.Not.Null);
 
-        Assert.That(carAssets.Data, Has.Count.EqualTo(159));
-        Assert.That(carAssets.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(carAssets.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(carAssets.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(carAssets.Data, Has.Count.EqualTo(159));
+
+            Assert.That(carAssets.Data, Contains.Key("161"));
+            var mercedesAmgW13 = carAssets.Data["161"];
+            Assert.That(mercedesAmgW13.CarId, Is.EqualTo(161));
+            Assert.That(mercedesAmgW13.LogoUri, Is.EqualTo(new Uri("https://images-static.iracing.com/img/logos/partners/mercedes-logo.png")));
+            Assert.That(mercedesAmgW13.LargeImageUri, Is.EqualTo(new Uri("https://images-static.iracing.com/img/cars/mercedesw13/mercedesw13-large.jpg")));
+            Assert.That(mercedesAmgW13.SmallImageUri, Is.EqualTo(new Uri("https://images-static.iracing.com/img/cars/mercedesw13/mercedesw13-small.jpg")));
+
+            Assert.That(carAssets.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(carAssets.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(carAssets.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]

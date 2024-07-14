@@ -7,7 +7,7 @@ namespace Aydsko.iRacingData.Cars;
 
 public class CarAssetDetail
 {
-    public const string ImagePathBase = "https://images-static.iracing.com/";
+    public const string ImagePathBase = "https://images-static.iracing.com";
 
     [JsonPropertyName("car_id")]
     public int CarId { get; set; }
@@ -42,11 +42,20 @@ public class CarAssetDetail
     [JsonPropertyName("large_image")]
     public string LargeImage { get; set; } = default!;
 
+    [JsonIgnore]
+    public Uri LargeImageUri => new(string.Join("/", [ImagePathBase.Trim('/'), Folder.Trim('/'), LargeImage.Trim('/')]));
+
     [JsonPropertyName("logo")]
     public string Logo { get; set; } = default!;
 
+    [JsonIgnore]
+    public Uri LogoUri => new(string.Join("/", [ImagePathBase.Trim('/'), Logo.Trim('/')]));
+
     [JsonPropertyName("small_image")]
     public string SmallImage { get; set; } = default!;
+
+    [JsonIgnore]
+    public Uri SmallImageUri => new(string.Join("/", [ImagePathBase.Trim('/'), Folder.Trim('/'), SmallImage.Trim('/')]));
 
     [JsonPropertyName("sponsor_logo")]
     public object? SponsorLogo { get; set; }
