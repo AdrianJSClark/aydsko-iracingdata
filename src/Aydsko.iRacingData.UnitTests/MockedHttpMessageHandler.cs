@@ -70,57 +70,62 @@ public class MockedHttpMessageHandler : HttpMessageHandler
 
     public async Task QueueResponsesAsync(string testName, bool prefixLoginResponse = true)
     {
-        var manifestResourceNames = (prefixLoginResponse ? SuccessfulLoginResponse : Array.Empty<string>())
+        var manifestResourceNames = (prefixLoginResponse ? SuccessfulLoginResponse : [])
                                     .Concat(ResourceAssembly.GetManifestResourceNames()
                                                             .Where(mrn => mrn.StartsWith($"Aydsko.iRacingData.UnitTests.Responses.{testName}", StringComparison.InvariantCultureIgnoreCase)));
 
         foreach (var manifestName in manifestResourceNames)
         {
-            var resourceStream = ResourceAssembly.GetManifestResourceStream(manifestName)
-                ?? throw ResourceNotFoundException.ForManifestResourceName(manifestName);
+            await QueueResponseFromManifestResourceAsync(manifestName).ConfigureAwait(false);
+        }
+    }
 
-            var responseDocument = await JsonSerializer.DeserializeAsync<JsonDocument>(resourceStream).ConfigureAwait(false);
+    public async Task QueueResponseFromManifestResourceAsync(string manifestName)
+    {
+        var resourceStream = ResourceAssembly.GetManifestResourceStream(manifestName)
+            ?? throw ResourceNotFoundException.ForManifestResourceName(manifestName);
 
-            if (responseDocument is null)
-            {
-                continue;
-            }
+        var responseDocument = await JsonSerializer.DeserializeAsync<JsonDocument>(resourceStream).ConfigureAwait(false);
 
-            var responseDictionary = responseDocument!.RootElement.EnumerateObject()
-                                                                  .ToDictionary(prop => prop.Name, prop => prop.Value);
+        if (responseDocument is null)
+        {
+            return;
+        }
 
-            if (!responseDictionary.TryGetValue("statuscode", out var value)
-                || !Enum.TryParse<HttpStatusCode>(value.ToString(), out var statusCode))
-            {
-                statusCode = HttpStatusCode.OK;
-            }
+        var responseDictionary = responseDocument!.RootElement.EnumerateObject()
+                                                              .ToDictionary(prop => prop.Name, prop => prop.Value);
 
-            var contentType = "text/json";
-            if (responseDictionary.TryGetValue("contentType", out var contentTypeElement))
-            {
-                contentType = contentTypeElement.ToString();
-            }
+        if (!responseDictionary.TryGetValue("statuscode", out var value)
+            || !Enum.TryParse<HttpStatusCode>(value.ToString(), out var statusCode))
+        {
+            statusCode = HttpStatusCode.OK;
+        }
+
+        var contentType = "text/json";
+        if (responseDictionary.TryGetValue("contentType", out var contentTypeElement))
+        {
+            contentType = contentTypeElement.ToString();
+        }
 
 #pragma warning disable CA2000 // Dispose objects before losing scope - These responses are intentionally created to be returned later. This is OK in a test helper.
-            var responseMessage = new HttpResponseMessage(statusCode)
-            {
-                Content = new StringContent(responseDictionary["content"].ToString(), Encoding.UTF8, contentType)
-            };
+        var responseMessage = new HttpResponseMessage(statusCode)
+        {
+            Content = new StringContent(responseDictionary["content"].ToString(), Encoding.UTF8, contentType)
+        };
 #pragma warning restore CA2000 // Dispose objects before losing scope
 
-            foreach (var header in responseDictionary["headers"].EnumerateObject()
-                                                                       .ToDictionary(prop => prop.Name,
-                                                                                     prop =>
-                                                                                     {
-                                                                                         return prop.Value.ValueKind == JsonValueKind.Array
-                                                                                             ? prop.Value.EnumerateArray().Select(e => e.ToString()).ToArray()
-                                                                                             : (new[] { prop.Value.GetString() });
-                                                                                     }).ToArray())
-            {
-                responseMessage.Headers.Add(header.Key, header.Value);
-            }
-
-            Responses.Enqueue(responseMessage);
+        foreach (var header in responseDictionary["headers"].EnumerateObject()
+                                                                   .ToDictionary(prop => prop.Name,
+                                                                                 prop =>
+                                                                                 {
+                                                                                     return prop.Value.ValueKind == JsonValueKind.Array
+                                                                                         ? prop.Value.EnumerateArray().Select(e => e.ToString()).ToArray()
+                                                                                         : (new[] { prop.Value.GetString() });
+                                                                                 }).ToArray())
+        {
+            responseMessage.Headers.Add(header.Key, header.Value);
         }
+
+        Responses.Enqueue(responseMessage);
     }
 }

@@ -1520,6 +1520,44 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
                     Throws.InstanceOf<iRacingLoginFailedException>());
     }
 
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetLookupWithExpiredAuthWorksAsync()
+    {
+        var responseResourceNames = new string[] {
+            "Aydsko.iRacingData.UnitTests.Responses.SuccessfulLogin.json",
+            "Aydsko.iRacingData.UnitTests.Responses.GetLookupWithExpiredAuthWorksAsync.1.json",
+            "Aydsko.iRacingData.UnitTests.Responses.GetLookupWithExpiredAuthWorksAsync.2.json",
+            "Aydsko.iRacingData.UnitTests.Responses.GetLookupWithExpiredAuthWorksAsync.3.json",
+            "Aydsko.iRacingData.UnitTests.Responses.SuccessfulLogin.json",
+            "Aydsko.iRacingData.UnitTests.Responses.GetLookupWithExpiredAuthWorksAsync.4.json",
+            "Aydsko.iRacingData.UnitTests.Responses.GetLookupWithExpiredAuthWorksAsync.5.json"
+        };
+
+        foreach (var resourceName in responseResourceNames)
+        {
+            await MessageHandler.QueueResponseFromManifestResourceAsync(resourceName).ConfigureAwait(false);
+        }
+
+        var lookupGroups = await sut.GetLookupsAsync().ConfigureAwait(false);
+        Assert.ThrowsAsync<iRacingUnauthorizedResponseException>(async () => await sut.GetLookupsAsync().ConfigureAwait(false));
+        var lookupGroups2 = await sut.GetLookupsAsync().ConfigureAwait(false);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(lookupGroups, Is.Not.Null);
+            Assert.That(lookupGroups!.Data, Is.Not.Null);
+
+            Assert.That(lookupGroups.Data, Has.Length.EqualTo(2));
+
+            Assert.That(lookupGroups2, Is.Not.Null);
+            Assert.That(lookupGroups2!.Data, Is.Not.Null);
+
+            Assert.That(lookupGroups2.Data, Has.Length.EqualTo(2));
+
+            // TODO: Check that the second authentication call was actually made.
+        });
+    }
+
     protected override void Dispose(bool disposing)
     {
         if (disposing)

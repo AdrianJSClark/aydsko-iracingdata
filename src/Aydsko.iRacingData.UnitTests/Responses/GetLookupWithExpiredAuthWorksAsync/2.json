@@ -1,0 +1,223 @@
+{
+    "headers": {},
+    "content": [
+        {
+            "lookups": [
+                {
+                    "lookup_type": "licenselevels",
+                    "lookup_values": [
+                        {
+                            "value": "1",
+                            "name": "Rookie (1.0)",
+                            "description": "fc0706",
+                            "seq": 1
+                        },
+                        {
+                            "value": "2",
+                            "name": "Rookie (2.0)",
+                            "description": "fc0706",
+                            "seq": 2
+                        },
+                        {
+                            "value": "3",
+                            "name": "Rookie (3.0)",
+                            "description": "fc0706",
+                            "seq": 3
+                        },
+                        {
+                            "value": "4",
+                            "name": "Rookie (4.0)",
+                            "description": "fc0706",
+                            "seq": 4
+                        },
+                        {
+                            "value": "5",
+                            "name": "Class D (1.0)",
+                            "description": "fc8a27",
+                            "seq": 5
+                        },
+                        {
+                            "value": "6",
+                            "name": "Class D (2.0)",
+                            "description": "fc8a27",
+                            "seq": 6
+                        },
+                        {
+                            "value": "7",
+                            "name": "Class D (3.0)",
+                            "description": "fc8a27",
+                            "seq": 7
+                        },
+                        {
+                            "value": "8",
+                            "name": "Class D (4.0)",
+                            "description": "fc8a27",
+                            "seq": 8
+                        },
+                        {
+                            "value": "9",
+                            "name": "Class C (1.0)",
+                            "description": "feec04",
+                            "seq": 9
+                        },
+                        {
+                            "value": "10",
+                            "name": "Class C (2.0)",
+                            "description": "feec04",
+                            "seq": 10
+                        },
+                        {
+                            "value": "11",
+                            "name": "Class C (3.0)",
+                            "description": "feec04",
+                            "seq": 11
+                        },
+                        {
+                            "value": "12",
+                            "name": "Class C (4.0)",
+                            "description": "feec04",
+                            "seq": 12
+                        },
+                        {
+                            "value": "13",
+                            "name": "Class B (1.0)",
+                            "description": "00c702",
+                            "seq": 13
+                        },
+                        {
+                            "value": "14",
+                            "name": "Class B (2.0)",
+                            "description": "00c702",
+                            "seq": 14
+                        },
+                        {
+                            "value": "15",
+                            "name": "Class B (3.0)",
+                            "description": "00c702",
+                            "seq": 15
+                        },
+                        {
+                            "value": "16",
+                            "name": "Class B (4.0)",
+                            "description": "00c702",
+                            "seq": 16
+                        },
+                        {
+                            "value": "17",
+                            "name": "Class A (1.0)",
+                            "description": "0153db",
+                            "seq": 17
+                        },
+                        {
+                            "value": "18",
+                            "name": "Class A (2.0)",
+                            "description": "0153db",
+                            "seq": 18
+                        },
+                        {
+                            "value": "19",
+                            "name": "Class A (3.0)",
+                            "description": "0153db",
+                            "seq": 19
+                        },
+                        {
+                            "value": "20",
+                            "name": "Class A (4.0)",
+                            "description": "0153db",
+                            "seq": 20
+                        },
+                        {
+                            "value": "21",
+                            "name": "Pro (1.0)",
+                            "description": "000000",
+                            "seq": 21
+                        },
+                        {
+                            "value": "22",
+                            "name": "Pro (2.0)",
+                            "description": "000000",
+                            "seq": 22
+                        },
+                        {
+                            "value": "23",
+                            "name": "Pro (3.0)",
+                            "description": "000000",
+                            "seq": 23
+                        },
+                        {
+                            "value": "24",
+                            "name": "Pro (4.0)",
+                            "description": "000000",
+                            "seq": 24
+                        },
+                        {
+                            "value": "25",
+                            "name": "Pro/WC (1.0)",
+                            "description": "000000",
+                            "seq": 25
+                        },
+                        {
+                            "value": "26",
+                            "name": "Pro/WC (2.0)",
+                            "description": "000000",
+                            "seq": 26
+                        },
+                        {
+                            "value": "27",
+                            "name": "Pro/WC (3.0)",
+                            "description": "000000",
+                            "seq": 27
+                        },
+                        {
+                            "value": "28",
+                            "name": "Pro/WC (4.0)",
+                            "description": "000000",
+                            "seq": 28
+                        }
+                    ]
+                }
+            ],
+            "tag": "licenselevels"
+        },
+        {
+            "lookups": [
+                {
+                    "lookup_type": "weather_wind_speed_max",
+                    "lookup_values": [
+                        {
+                            "value": "30",
+                            "description": "Session weather max wind speed",
+                            "seq": 30
+                        }
+                    ]
+                },
+                {
+                    "lookup_type": "weather_wind_speed_min",
+                    "lookup_values": [
+                        {
+                            "value": "1",
+                            "description": "Session weather min wind speed",
+                            "seq": 0
+                        }
+                    ]
+                },
+                {
+                    "lookup_type": "weather_wind_speed_units",
+                    "lookup_values": [
+                        {
+                            "value": "0",
+                            "name": "MPH",
+                            "description": "weather wind speed unit"
+                        },
+                        {
+                            "value": "1",
+                            "name": "KPH",
+                            "description": "weather wind speed unit"
+                        }
+                    ]
+                }
+            ],
+            "tag": "weather"
+        }
+    ]
+}
