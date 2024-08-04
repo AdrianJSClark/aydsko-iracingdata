@@ -28,29 +28,32 @@ public class PasswordEncodingTests : MockedHttpTestBase
         };
 
         using var sut = new DataClient(HttpClient,
-            new TestLogger<DataClient>(),
-            options,
-            CookieContainer);
+                                       new TestLogger<DataClient>(),
+                                       options,
+                                       CookieContainer);
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
         var lookups = await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(MessageHandler.RequestContent, Has.Count.GreaterThanOrEqualTo(1));
+        await Assert.MultipleAsync(async () =>
+        {
+            Assert.That(MessageHandler.RequestContent, Has.Count.GreaterThanOrEqualTo(1));
 
-        var request = MessageHandler.RequestContent.Dequeue();
-        Assert.That(request, Is.Not.Null);
+            var request = MessageHandler.RequestContent.Dequeue();
+            Assert.That(request, Is.Not.Null);
 
-        Assert.That(request.ContentStream, Is.Not.Null.Or.Empty);
+            Assert.That(request.ContentStream, Is.Not.Null.Or.Empty);
 
-        var loginDto = await JsonSerializer.DeserializeAsync<TestLoginDto>(request.ContentStream).ConfigureAwait(false);
-        Assert.That(loginDto, Is.Not.Null);
+            var loginDto = await JsonSerializer.DeserializeAsync<TestLoginDto>(request.ContentStream).ConfigureAwait(false);
+            Assert.That(loginDto, Is.Not.Null);
 
-        Assert.That(loginDto!.Email, Is.EqualTo(username));
-        Assert.That(loginDto!.Password, Is.EqualTo(expectedEncodedPassword));
+            Assert.That(loginDto!.Email, Is.EqualTo(username));
+            Assert.That(loginDto!.Password, Is.EqualTo(expectedEncodedPassword));
 
-        Assert.That(sut.IsLoggedIn, Is.True);
-        Assert.That(lookups, Is.Not.Null);
-        Assert.That(lookups.Data, Is.Not.Null.Or.Empty);
+            Assert.That(sut.IsLoggedIn, Is.True);
+            Assert.That(lookups, Is.Not.Null);
+            Assert.That(lookups.Data, Is.Not.Null.Or.Empty);
+        }).ConfigureAwait(false);
     }
 
     [TestCaseSource(nameof(GetTestCases))]
@@ -61,28 +64,31 @@ public class PasswordEncodingTests : MockedHttpTestBase
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
 
         using var sut = new DataClient(HttpClient,
-            new TestLogger<DataClient>(),
-            options,
-            CookieContainer);
+                                       new TestLogger<DataClient>(),
+                                       options,
+                                       CookieContainer);
 
         sut.UseUsernameAndPassword(username, password, passwordIsEncoded);
 
         var lookups = await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
         var request = MessageHandler.RequestContent.Peek();
-        Assert.That(request, Is.Not.Null);
 
-        Assert.That(request.ContentStream, Is.Not.Null.Or.Empty);
+        await Assert.MultipleAsync(async () =>
+        {
+            Assert.That(request, Is.Not.Null);
+            Assert.That(request.ContentStream, Is.Not.Null.Or.Empty);
 
-        var loginDto = await JsonSerializer.DeserializeAsync<TestLoginDto>(request.ContentStream).ConfigureAwait(false);
-        Assert.That(loginDto, Is.Not.Null);
+            var loginDto = await JsonSerializer.DeserializeAsync<TestLoginDto>(request.ContentStream).ConfigureAwait(false);
+            Assert.That(loginDto, Is.Not.Null);
 
-        Assert.That(loginDto!.Email, Is.EqualTo(username));
-        Assert.That(loginDto!.Password, Is.EqualTo(expectedEncodedPassword));
+            Assert.That(loginDto!.Email, Is.EqualTo(username));
+            Assert.That(loginDto!.Password, Is.EqualTo(expectedEncodedPassword));
 
-        Assert.That(sut.IsLoggedIn, Is.True);
-        Assert.That(lookups, Is.Not.Null);
-        Assert.That(lookups.Data, Is.Not.Null.Or.Empty);
+            Assert.That(sut.IsLoggedIn, Is.True);
+            Assert.That(lookups, Is.Not.Null);
+            Assert.That(lookups.Data, Is.Not.Null.Or.Empty);
+        }).ConfigureAwait(false);
     }
 
     [TestCaseSource(nameof(GetTestCasesWithUnencodedPasswords))]
@@ -93,27 +99,31 @@ public class PasswordEncodingTests : MockedHttpTestBase
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
 
         using var sut = new DataClient(HttpClient,
-            new TestLogger<DataClient>(),
-            options,
-            CookieContainer);
+                                       new TestLogger<DataClient>(),
+                                       options,
+                                       CookieContainer);
 
         sut.UseUsernameAndPassword(username, password);
 
         var lookups = await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
         var request = MessageHandler.RequestContent.Dequeue();
-        Assert.That(request, Is.Not.Null);
-        Assert.That(request.ContentStream, Is.Not.Null.Or.Empty);
 
-        var loginDto = await JsonSerializer.DeserializeAsync<TestLoginDto>(request.ContentStream).ConfigureAwait(false);
-        Assert.That(loginDto, Is.Not.Null);
+        await Assert.MultipleAsync(async () =>
+        {
+            Assert.That(request, Is.Not.Null);
+            Assert.That(request.ContentStream, Is.Not.Null.Or.Empty);
 
-        Assert.That(loginDto!.Email, Is.EqualTo(username));
-        Assert.That(loginDto!.Password, Is.EqualTo(expectedEncodedPassword));
+            var loginDto = await JsonSerializer.DeserializeAsync<TestLoginDto>(request.ContentStream).ConfigureAwait(false);
+            Assert.That(loginDto, Is.Not.Null);
 
-        Assert.That(sut.IsLoggedIn, Is.True);
-        Assert.That(lookups, Is.Not.Null);
-        Assert.That(lookups.Data, Is.Not.Null.Or.Empty);
+            Assert.That(loginDto!.Email, Is.EqualTo(username));
+            Assert.That(loginDto!.Password, Is.EqualTo(expectedEncodedPassword));
+
+            Assert.That(sut.IsLoggedIn, Is.True);
+            Assert.That(lookups, Is.Not.Null);
+            Assert.That(lookups.Data, Is.Not.Null.Or.Empty);
+        }).ConfigureAwait(false);
     }
 
     [TestCaseSource(nameof(GetTestCasesWithUnencodedPasswords))]
@@ -146,17 +156,20 @@ public class PasswordEncodingTests : MockedHttpTestBase
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync), false).ConfigureAwait(false);
 
         using var sut = new DataClient(HttpClient,
-            new TestLogger<DataClient>(),
-            options,
-            CookieContainer);
+                                       new TestLogger<DataClient>(),
+                                       options,
+                                       CookieContainer);
 
         sut.UseUsernameAndPassword(username, password);
 
         var lookups = await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(restoreCookiesWasCalled, Is.True);
-        Assert.That(saveCookiesWasCalled, Is.False);
-        Assert.That(MessageHandler.RequestContent.Count, Is.EqualTo(2));
+        Assert.Multiple(() =>
+        {
+            Assert.That(restoreCookiesWasCalled, Is.True);
+            Assert.That(saveCookiesWasCalled, Is.False);
+            Assert.That(MessageHandler.RequestContent, Has.Count.EqualTo(2));
+        });
     }
 
     [TestCaseSource(nameof(GetTestCasesWithUnencodedPasswords))]
@@ -198,35 +211,38 @@ public class PasswordEncodingTests : MockedHttpTestBase
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
 
         using var sut = new DataClient(HttpClient,
-            new TestLogger<DataClient>(),
-            options,
-            CookieContainer);
+                                       new TestLogger<DataClient>(),
+                                       options,
+                                       CookieContainer);
 
         sut.UseUsernameAndPassword(username, password);
 
         var lookups = await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
         var request = MessageHandler.RequestContent.Dequeue();
-        Assert.That(request, Is.Not.Null);
-        Assert.That(request.ContentStream, Is.Not.Null.Or.Empty);
 
-        var loginDto = await JsonSerializer.DeserializeAsync<TestLoginDto>(request.ContentStream).ConfigureAwait(false);
-        Assert.That(loginDto, Is.Not.Null);
+        await Assert.MultipleAsync(async () =>
+        {
+            Assert.That(request, Is.Not.Null);
+            Assert.That(request.ContentStream, Is.Not.Null.Or.Empty);
 
-        Assert.That(loginDto!.Email, Is.EqualTo(username));
-        Assert.That(loginDto!.Password, Is.EqualTo(expectedEncodedPassword));
+            var loginDto = await JsonSerializer.DeserializeAsync<TestLoginDto>(request.ContentStream).ConfigureAwait(false);
+            Assert.That(loginDto, Is.Not.Null);
 
-        Assert.That(sut.IsLoggedIn, Is.True);
-        Assert.That(lookups, Is.Not.Null);
-        Assert.That(lookups.Data, Is.Not.Null.Or.Empty);
+            Assert.That(loginDto!.Email, Is.EqualTo(username));
+            Assert.That(loginDto!.Password, Is.EqualTo(expectedEncodedPassword));
 
-        Assert.That(restoreCookiesWasCalled, Is.True);
-        Assert.That(saveCookiesWasCalled, Is.True);
-        Assert.That(MessageHandler.RequestContent.Count, Is.EqualTo(2));
+            Assert.That(sut.IsLoggedIn, Is.True);
+            Assert.That(lookups, Is.Not.Null);
+            Assert.That(lookups.Data, Is.Not.Null.Or.Empty);
+
+            Assert.That(restoreCookiesWasCalled, Is.True);
+            Assert.That(saveCookiesWasCalled, Is.True);
+            Assert.That(MessageHandler.RequestContent, Has.Count.EqualTo(2));
+        }).ConfigureAwait(false);
     }
 
-    #pragma warning disable CA1024 // Use properties where appropriate - NUnit's API requires these to be methods.
-    public static IEnumerable<TestCaseData> GetTestCases()
+    private static IEnumerable<TestCaseData> GetTestCases()
     {
         yield return new("test.user@example.com", "SuperSecretPassword", false, "nXmEFCdpHheD1R3XBVkm6VQavR7ZLbW7SRmzo/MfFso=");
         yield return new("CLunky@iracing.Com", "MyPassWord", false, "xGKecAR27ALXNuMLsGaG0v5Q9pSs2tZTZRKNgmHMg+Q=");
@@ -235,12 +251,11 @@ public class PasswordEncodingTests : MockedHttpTestBase
         yield return new("CLunky@iracing.Com", "xGKecAR27ALXNuMLsGaG0v5Q9pSs2tZTZRKNgmHMg+Q=", true, "xGKecAR27ALXNuMLsGaG0v5Q9pSs2tZTZRKNgmHMg+Q=");
     }
 
-    public static IEnumerable<TestCaseData> GetTestCasesWithUnencodedPasswords()
+    private static IEnumerable<TestCaseData> GetTestCasesWithUnencodedPasswords()
     {
         yield return new("test.user@example.com", "SuperSecretPassword", "nXmEFCdpHheD1R3XBVkm6VQavR7ZLbW7SRmzo/MfFso=");
         yield return new("CLunky@iracing.Com", "MyPassWord", "xGKecAR27ALXNuMLsGaG0v5Q9pSs2tZTZRKNgmHMg+Q=");
     }
-    #pragma warning restore CA1024 // Use properties where appropriate
 
     private sealed class TestLoginDto
     {

@@ -1933,8 +1933,7 @@ public class DataClient(HttpClient httpClient,
             }
 
             var cookies = cookieContainer.GetCookies(new Uri("https://members-ng.iracing.com"));
-            var authenticated = cookies["authtoken_members"] is { Expired: false };
-            if (authenticated)
+            if (cookies["authtoken_members"] is { Expired: false })
             {
                 IsLoggedIn = true;
                 logger.LoginCookiesRestored(options.Username!);
@@ -2036,8 +2035,8 @@ public class DataClient(HttpClient httpClient,
         }
 
         var headerData = await response.Content.ReadFromJsonAsync(jsonTypeInfo, cancellationToken: cancellationToken)
-                                         .ConfigureAwait(false)
-                                         ?? throw new iRacingDataClientException("Data not found.");
+                                               .ConfigureAwait(false)
+                         ?? throw new iRacingDataClientException("Data not found.");
 
         var searchResults = new List<TChunkData>();
 
@@ -2259,8 +2258,7 @@ public class DataClient(HttpClient httpClient,
         return GetTrackAssetScreenshotUris(track, trackAssets);
     }
 
-    public async Task<IEnumerable<WeatherForecast>> GetWeatherForecastFromUrlAsync(string url,
-        CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<WeatherForecast>> GetWeatherForecastFromUrlAsync(string url, CancellationToken cancellationToken = default)
     {
 #if NET8_0_OR_GREATER
         ArgumentException.ThrowIfNullOrEmpty(url, nameof(url));
@@ -2272,8 +2270,8 @@ public class DataClient(HttpClient httpClient,
 #endif
 
         var data = await httpClient.GetFromJsonAsync(url, WeatherForecastArrayContext.Default.ListWeatherForecast, cancellationToken: cancellationToken)
-                         .ConfigureAwait(false)
-                     ?? throw new iRacingDataClientException("Data not found.");
+                                   .ConfigureAwait(false)
+                   ?? throw new iRacingDataClientException("Data not found.");
 
         return data;
     }
