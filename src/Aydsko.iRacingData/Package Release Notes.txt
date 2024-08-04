@@ -1,6 +1,7 @@
-﻿BREAKING CHANGES:
+﻿Contributions:
 
- - 
+ - From Kevin O'Neill (https://github.com/kevinoneill):
+    - Library Considers Itself "Logged In" Despite Authentication Exception (Issue #213)
 
 
 
