@@ -1933,9 +1933,8 @@ public class DataClient(HttpClient httpClient,
             }
 
             var cookies = cookieContainer.GetCookies(new Uri("https://members-ng.iracing.com"));
-            var active = cookies.Cast<Cookie>().Any(cookie => !cookie.Expired);
-            // Assume we're logged in if we have any active cookies for our target domain
-            if (active)
+            var authenticated = cookies["authtoken_members"] is { Expired: false };
+            if (authenticated)
             {
                 IsLoggedIn = true;
                 logger.LoginCookiesRestored(options.Username!);
