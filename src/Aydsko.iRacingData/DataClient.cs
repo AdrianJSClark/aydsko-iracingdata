@@ -1902,7 +1902,7 @@ public class DataClient(HttpClient httpClient,
             {
                 if (IsLoggedIn is false)
                 {
-                    await LoginInternalAsync(cancellationToken).ConfigureAwait(false); 
+                    await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
                 }
             }
             finally
@@ -1932,8 +1932,9 @@ public class DataClient(HttpClient httpClient,
                 cookieContainer.Add(savedCookies);
             }
 
-            // Assume we're logged in if we have cookies for our target domain
-            if (cookieContainer.GetCookies(new Uri("https://members-ng.iracing.com")).Count > 0)
+            var cookies = cookieContainer.GetCookies(new Uri("https://members-ng.iracing.com"));
+            var authenticated = cookies["authtoken_members"] is { Expired: false };
+            if (authenticated)
             {
                 IsLoggedIn = true;
                 logger.LoginCookiesRestored(options.Username!);
@@ -2269,7 +2270,7 @@ public class DataClient(HttpClient httpClient,
             throw new ArgumentNullException(nameof(url), "URL must be supplied");
         }
 #endif
-        
+
         var data = await httpClient.GetFromJsonAsync(url, WeatherForecastArrayContext.Default.ListWeatherForecast, cancellationToken: cancellationToken)
                          .ConfigureAwait(false)
                      ?? throw new iRacingDataClientException("Data not found.");
