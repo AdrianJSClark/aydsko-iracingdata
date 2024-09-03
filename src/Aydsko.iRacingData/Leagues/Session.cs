@@ -21,7 +21,7 @@ public class Session
     public bool DoNotPaintCars { get; set; }
 
     [JsonPropertyName("driver_changes")]
-    public bool  DriverChanges { get; set; }
+    public bool DriverChanges { get; set; }
 
     [JsonPropertyName("entry_count")]
     public int EntryCount { get; set; }

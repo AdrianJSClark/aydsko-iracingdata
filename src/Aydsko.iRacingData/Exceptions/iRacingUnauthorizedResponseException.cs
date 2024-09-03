@@ -10,7 +10,7 @@ public class iRacingUnauthorizedResponseException : iRacingDataClientException
 {
     public static iRacingUnauthorizedResponseException Create(string? message)
     {
-        return new($"The iRacing API returned an \"Unauthorized\" response code{(string.IsNullOrEmpty(message)?"":" with message \"" + message + "\"")}.");
+        return new($"The iRacing API returned an \"Unauthorized\" response code{(string.IsNullOrEmpty(message) ? "" : " with message \"" + message + "\"")}.");
     }
 
     public iRacingUnauthorizedResponseException()

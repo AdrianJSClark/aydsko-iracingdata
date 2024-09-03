@@ -6,8 +6,8 @@ namespace Aydsko.iRacingData.Leagues;
 public class SeasonStandingsDriverStandings
 {
     [JsonPropertyName("rownum")]
-    public int RowNumber{ get; set; }
-    
+    public int RowNumber { get; set; }
+
     [JsonPropertyName("position")]
     public int Position { get; set; }
 

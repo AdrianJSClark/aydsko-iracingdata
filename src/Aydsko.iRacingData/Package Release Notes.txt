@@ -1,3 +1,9 @@
-﻿Fixes / Changes:
+﻿BREAKING CHANGES:
+
+- "LeagePointsSystems" class has been renamed to "LeaguePointsSystem"
+
+
+
+Fixes / Changes:
 
  - Error when use function ListHostedSessionsCombinedAsync and ListHostedSessionsAsync (Issue #219)

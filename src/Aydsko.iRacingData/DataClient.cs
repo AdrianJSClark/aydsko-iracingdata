@@ -191,7 +191,7 @@ public class DataClient(HttpClient httpClient,
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<LeagePointsSystems>> GetLeaguePointsSystemsAsync(int leagueId, int? seasonId = null, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<LeaguePointsSystems>> GetLeaguePointsSystemsAsync(int leagueId, int? seasonId = null, CancellationToken cancellationToken = default)
     {
         await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
@@ -207,7 +207,7 @@ public class DataClient(HttpClient httpClient,
 
         var queryUrl = "https://members-ng.iracing.com/data/league/get_points_systems".ToUrlWithQuery(queryParameters);
 
-        return await CreateResponseViaInfoLinkAsync(queryUrl, LeagePointsSystemsContext.Default.LeagePointsSystems, cancellationToken).ConfigureAwait(false);
+        return await CreateResponseViaInfoLinkAsync(queryUrl, LeaguePointsSystemsContext.Default.LeaguePointsSystems, cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />

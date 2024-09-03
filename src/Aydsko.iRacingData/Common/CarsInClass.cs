@@ -13,7 +13,7 @@ public class CarsInClass
 
     [JsonPropertyName("rain_enabled")]
     public bool RainEnabled { get; set; }
-    
+
     [JsonPropertyName("retired")]
     public bool Retired { get; set; }
 }
