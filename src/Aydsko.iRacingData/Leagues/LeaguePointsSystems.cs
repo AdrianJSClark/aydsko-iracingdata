@@ -3,7 +3,7 @@
 
 namespace Aydsko.iRacingData.Leagues;
 
-public class LeagePointsSystems
+public class LeaguePointsSystems
 {
     [JsonPropertyName("subscribed")]
     public bool Subscribed { get; set; }
@@ -18,6 +18,6 @@ public class LeagePointsSystems
     public int LeagueId { get; set; }
 }
 
-[JsonSerializable(typeof(LeagePointsSystems)), JsonSourceGenerationOptions(WriteIndented = true)]
-internal partial class LeagePointsSystemsContext : JsonSerializerContext
+[JsonSerializable(typeof(LeaguePointsSystems)), JsonSourceGenerationOptions(WriteIndented = true)]
+internal partial class LeaguePointsSystemsContext : JsonSerializerContext
 { }
