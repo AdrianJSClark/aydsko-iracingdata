@@ -15,14 +15,14 @@ using System.Net;
 
 namespace Aydsko.iRacingData;
 
-static internal class Extensions
+internal static class Extensions
 {
     /// <summary>Add the parameter with the property's <see cref="JsonPropertyNameAttribute.Name"/> as the key and it's value if that value is not null.</summary>
     /// <typeparam name="T">Type of the property.</typeparam>
     /// <param name="parameters">Collection of parameters to add to.</param>
     /// <param name="parameter">An expression which accesses the property.</param>
     /// <exception cref="ArgumentException">The expression couldn't be properly understood by the method.</exception>
-    static internal void AddParameterIfNotNull<T>(this IDictionary<string, object?> parameters, Expression<Func<T>> parameter)
+    internal static void AddParameterIfNotNull<T>(this IDictionary<string, object?> parameters, Expression<Func<T>> parameter)
     {
 #if (NET6_0_OR_GREATER)
         ArgumentNullException.ThrowIfNull(parameter);
@@ -55,7 +55,7 @@ static internal class Extensions
         parameters.Add(new(parameterName, parameterValue));
     }
 
-    static internal Uri ToUrlWithQuery(this string url, IEnumerable<KeyValuePair<string, object?>> parameters)
+    internal static Uri ToUrlWithQuery(this string url, IEnumerable<KeyValuePair<string, object?>> parameters)
     {
         var builder = new UriBuilder(url);
 
@@ -152,7 +152,7 @@ static internal class Extensions
 
 #if (NET6_0_OR_GREATER == false)
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "<Pending>")]
-    static internal CookieCollection GetAllCookies(this CookieContainer container)
+    internal static CookieCollection GetAllCookies(this CookieContainer container)
     {
         var result = new CookieCollection();
 
