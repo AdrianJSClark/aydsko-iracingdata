@@ -29,14 +29,21 @@ public class UtcOffsetToTimeSpanArrayConverterTests
         return UTF8.GetString(result);
     }
 
-    public static IEnumerable<TestCaseData> ReadValueTestCases() => Examples().ToReadValueTestCases();
-    public static IEnumerable<TestCaseData> WriteValueTestCases() => Examples().ToWriteValueTestCases();
+    public static IEnumerable<TestCaseData> ReadValueTestCases()
+    {
+        return Examples().ToReadValueTestCases();
+    }
+
+    public static IEnumerable<TestCaseData> WriteValueTestCases()
+    {
+        return Examples().ToWriteValueTestCases();
+    }
 
     private static IEnumerable<(byte[] JsonBytes, TimeSpan[] Value, string Name)> Examples()
     {
         yield return (@"{""value"":[0,0]}"u8.ToArray(), [TimeSpan.Zero, TimeSpan.Zero], "Value [0,0] returns [TimeSpan.Zero,TimeSpan.Zero]");
         yield return (@"{""value"":[-240]}"u8.ToArray(), [TimeSpan.FromHours(-4)], "Value [-240] returns [TimeSpan.FromHours(-4)]");
-        yield return (@"{""value"":[240,0]}"u8.ToArray(), [TimeSpan.FromHours(4),TimeSpan.Zero], "Value [240,0] returns [TimeSpan.FromHours(4),TimeSpan.Zero]");
+        yield return (@"{""value"":[240,0]}"u8.ToArray(), [TimeSpan.FromHours(4), TimeSpan.Zero], "Value [240,0] returns [TimeSpan.FromHours(4),TimeSpan.Zero]");
         yield return (@"{""value"":[630]}"u8.ToArray(), [TimeSpan.FromHours(10.5)], "Value [630] returns [TimeSpan.FromHours(10.5)]");
     }
 }

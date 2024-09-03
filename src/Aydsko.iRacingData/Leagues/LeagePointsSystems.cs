@@ -7,10 +7,10 @@ public class LeagePointsSystems
 {
     [JsonPropertyName("subscribed")]
     public bool Subscribed { get; set; }
-    
+
     [JsonPropertyName("success")]
     public bool Success { get; set; }
-    
+
     [JsonPropertyName("points_systems")]
     public PointsSystem[] PointsSystems { get; set; } = default!;
 

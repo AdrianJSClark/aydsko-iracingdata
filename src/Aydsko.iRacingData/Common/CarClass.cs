@@ -19,7 +19,7 @@ public class CarClass
 
     [JsonPropertyName("rain_enabled")]
     public bool RainEnabled { get; set; }
-    
+
     [JsonPropertyName("relative_speed")]
     public int RelativeSpeed { get; set; }
 

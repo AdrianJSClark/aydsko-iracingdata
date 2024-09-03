@@ -480,7 +480,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(async () =>
         {
             var badRequestResult = await sut.GetSeasonResultsAsync(0, Common.EventType.Race, 0, CancellationToken.None).ConfigureAwait(false);
-        }, Throws.Exception.InstanceOf(typeof(HttpRequestException)).And.Message.Contains("400 (Bad Request)"));
+        }, Throws.Exception.InstanceOf<HttpRequestException>().And.Message.Contains("400 (Bad Request)"));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -720,7 +720,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
             var raceResults = subSessionResult.SessionResults.Single(r => r.SimSessionName == "RACE");
             Assert.That(raceResults.Results, Has.All.Property(nameof(Result.DriverResults)).Null); // Single-driver events don't have driver results.
-            
+
             var sampleDriver = raceResults.Results.FirstOrDefault(r => r.Position == 0);
             Assert.That(sampleDriver, Is.Not.Null);
             Assert.That(sampleDriver!.CarClassName, Is.EqualTo("Cadillac CTS-VR"));
@@ -1539,7 +1539,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         }
 
         var lookupGroups = await sut.GetLookupsAsync().ConfigureAwait(false);
-        Assert.ThrowsAsync<iRacingUnauthorizedResponseException>(async () => await sut.GetLookupsAsync().ConfigureAwait(false));
+        _ = Assert.ThrowsAsync<iRacingUnauthorizedResponseException>(async () => await sut.GetLookupsAsync().ConfigureAwait(false));
         var lookupGroups2 = await sut.GetLookupsAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>

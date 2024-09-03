@@ -12,7 +12,7 @@ public class CarAssetDetail
     [JsonPropertyName("car_id")]
     public int CarId { get; set; }
 
-    [JsonPropertyName("car_rules")] 
+    [JsonPropertyName("car_rules")]
     public CarRule[] CarRules { get; set; } = default!;
 
     [JsonPropertyName("detail_copy")]

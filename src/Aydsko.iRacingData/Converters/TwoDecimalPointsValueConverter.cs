@@ -9,12 +9,7 @@ public class TwoDecimalPointsValueConverter : JsonConverter<decimal>
 {
     public override decimal Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
-        if (reader.TryGetInt32(out var intValue))
-        {
-            return intValue / 100m;
-        }
-
-        return default;
+        return reader.TryGetInt32(out var intValue) ? intValue / 100m : default;
     }
 
     public override void Write(Utf8JsonWriter writer, decimal value, JsonSerializerOptions options)
@@ -27,7 +22,7 @@ public class TwoDecimalPointsValueConverter : JsonConverter<decimal>
             throw new ArgumentNullException(nameof(writer));
         }
 #endif
-        
+
         writer.WriteNumberValue(value * 100);
     }
 }

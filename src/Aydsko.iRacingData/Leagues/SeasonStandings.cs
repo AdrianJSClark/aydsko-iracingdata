@@ -12,7 +12,7 @@ public class SeasonStandings
     public bool Success { get; set; }
 
     [JsonPropertyName("season_id")]
-    public int SeasonId{ get; set; }
+    public int SeasonId { get; set; }
 
     [JsonPropertyName("car_id")]
     public int CarId { get; set; }

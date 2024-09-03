@@ -9,13 +9,15 @@ internal class TrackConfigNameNaConverter : JsonConverter<string?>
 {
     public override string? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
+#pragma warning disable IDE0072 // Add missing cases - Correct behaviour is already the default case
         var value = reader.TokenType switch
         {
             JsonTokenType.String => reader.GetString(),
             _ => null
         };
+#pragma warning restore IDE0072 // Add missing cases
 
-        return string.IsNullOrWhiteSpace(value) ||  string.Equals(value, "N/A", StringComparison.OrdinalIgnoreCase) ? null : value;
+        return string.IsNullOrWhiteSpace(value) || string.Equals(value, "N/A", StringComparison.OrdinalIgnoreCase) ? null : value;
     }
 
     public override void Write(Utf8JsonWriter writer, string? value, JsonSerializerOptions options)
