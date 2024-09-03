@@ -11,14 +11,17 @@ public class Car
     [JsonPropertyName("car_class_id")]
     public int CarClassId { get; set; }
 
+    [Obsolete("Use \"MaxPercentFuelFill\" property instead.")]
+    public int MaxPctFuelFill { get => (int)MaxPercentFuelFill; set => MaxPercentFuelFill = value; }
+
     [JsonPropertyName("max_pct_fuel_fill")]
-    public int MaxPctFuelFill { get; set; }
+    public decimal MaxPercentFuelFill { get; set; }
 
     [JsonPropertyName("weight_penalty_kg")]
     public int WeightPenaltyKg { get; set; }
 
     [JsonPropertyName("power_adjust_pct")]
-    public int PowerAdjustPercent { get; set; }
+    public decimal PowerAdjustPercent { get; set; }
 
     [JsonPropertyName("max_dry_tire_sets")]
     public int MaxDryTireSets { get; set; }

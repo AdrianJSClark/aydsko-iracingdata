@@ -9,14 +9,14 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Cars.CarAssetDetail.get_SponsorLogo</Target>
+    <Target>M:Aydsko.iRacingData.Hosted.Car.get_PowerAdjustPercent</Target>
     <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Cars.CarAssetDetail.get_SponsorLogo</Target>
+    <Target>M:Aydsko.iRacingData.Hosted.Car.get_PowerAdjustPercent</Target>
     <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
@@ -89,7 +89,7 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Cars.CarAssetDetail.get_SponsorLogo</Target>
+    <Target>M:Aydsko.iRacingData.Hosted.Car.get_PowerAdjustPercent</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
