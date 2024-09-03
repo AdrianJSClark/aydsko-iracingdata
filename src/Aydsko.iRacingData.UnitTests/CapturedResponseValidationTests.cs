@@ -1558,6 +1558,38 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         });
     }
 
+    [Test(TestOf = typeof(DataClient))]
+    public async Task ListHostedSessionsSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(ListHostedSessionsSuccessfulAsync)).ConfigureAwait(false);
+
+        var response = await sut.ListHostedSessionsAsync().ConfigureAwait(false);
+
+        Assert.That(response, Is.Not.Null);
+        Assert.That(response!.Data, Is.Not.Null);
+
+        Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(response.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+    }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task ListHostedSessionsCombinedSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(ListHostedSessionsCombinedSuccessfulAsync)).ConfigureAwait(false);
+
+        var response = await sut.ListHostedSessionsCombinedAsync().ConfigureAwait(false);
+
+        Assert.That(response, Is.Not.Null);
+        Assert.That(response!.Data, Is.Not.Null);
+
+        Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
+        Assert.That(response.TotalRateLimit, Is.EqualTo(100));
+        Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+    }
+
     protected override void Dispose(bool disposing)
     {
         if (disposing)

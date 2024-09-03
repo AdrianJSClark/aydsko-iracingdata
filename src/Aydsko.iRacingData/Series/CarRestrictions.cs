@@ -23,6 +23,9 @@ public class CarRestrictions
     [JsonPropertyName("max_dry_tire_sets")]
     public int MaxDryTireSets { get; set; }
 
+    [Obsolete("Use \"QualifyingSetupId\" property instead.")]
+    public int QualSetupId { get => QualifyingSetupId; set => QualifyingSetupId = value; }
+
     [JsonPropertyName("qual_setup_id")]
-    public int QualSetupId { get; set; }
+    public int QualifyingSetupId { get; set; }
 }

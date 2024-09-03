@@ -1,11 +1,3 @@
-﻿Contributions:
+﻿Fixes / Changes:
 
- - From Kevin O'Neill (https://github.com/kevinoneill):
-    - Library Considers Itself "Logged In" Despite Authentication Exception (Issue #213)
-
-
-
-Fixes / Changes:
-
- - 504 response can't be deserialized to ErrorResponse (Issue #214)
- - Include pre-built URL values on the "CarAssetDetail" class
+ - Error when use function ListHostedSessionsCombinedAsync and ListHostedSessionsAsync (Issue #219)
