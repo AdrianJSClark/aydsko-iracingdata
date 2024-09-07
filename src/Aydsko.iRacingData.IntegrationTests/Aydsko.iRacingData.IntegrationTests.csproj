@@ -14,7 +14,7 @@
     <PackageReference Include="Microsoft.Extensions.Caching.Memory" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="8.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.UserSecrets" Version="8.0.0" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.0" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.11.1" />
     <PackageReference Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.11.20">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -29,6 +29,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="System.Text.Json" Version="8.0.4" />
   </ItemGroup>
 
   <ItemGroup>
