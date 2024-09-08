@@ -1,9 +1,5 @@
-﻿BREAKING CHANGES:
+Contributions:
+- From Łukasz Zborek (https://github.com/lukaszzborek)
+  - Change precipitation chance to decimal (Pull Request #222)
 
-- "LeagePointsSystems" class has been renamed to "LeaguePointsSystem"
-
-
-
-Fixes / Changes:
-
- - Error when use function ListHostedSessionsCombinedAsync and ListHostedSessionsAsync (Issue #219)
+Thanks for helping out with pull requests to the library!
