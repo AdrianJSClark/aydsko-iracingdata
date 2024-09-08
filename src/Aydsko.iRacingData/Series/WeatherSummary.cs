@@ -9,7 +9,7 @@ public class WeatherSummary
     public string? MaxPrecipitationRateDesc { get; set; }
 
     [JsonPropertyName("precip_chance")]
-    public int PrecipitationChance { get; set; }
+    public decimal PrecipitationChance { get; set; }
 
     [JsonPropertyName("skies_high")]
     public int SkiesHigh { get; set; }
