@@ -58,6 +58,27 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Stats.SeasonDriverStanding.get_AverageFieldSize</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Stats.SeasonDriverStanding.get_AverageFinishPosition</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Stats.SeasonDriverStanding.get_AverageStartPosition</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.DataClient.GetLeaguePointsSystemsAsync(System.Int32,System.Nullable{System.Int32},System.Threading.CancellationToken)</Target>
     <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
@@ -80,6 +101,27 @@
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Series.WeatherSummary.get_PrecipitationChance</Target>
+    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Stats.SeasonDriverStanding.get_AverageFieldSize</Target>
+    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Stats.SeasonDriverStanding.get_AverageFinishPosition</Target>
+    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Stats.SeasonDriverStanding.get_AverageStartPosition</Target>
     <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
@@ -174,6 +216,27 @@
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Series.WeatherSummary.get_PrecipitationChance</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Stats.SeasonDriverStanding.get_AverageFieldSize</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Stats.SeasonDriverStanding.get_AverageFinishPosition</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Stats.SeasonDriverStanding.get_AverageStartPosition</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>

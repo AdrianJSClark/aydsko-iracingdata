@@ -45,13 +45,13 @@ public class SeasonDriverStanding
     public int Poles { get; set; }
 
     [JsonPropertyName("avg_start_position")]
-    public int AverageStartPosition { get; set; }
+    public decimal AverageStartPosition { get; set; }
 
     [JsonPropertyName("avg_finish_position")]
-    public int AverageFinishPosition { get; set; }
+    public decimal AverageFinishPosition { get; set; }
 
     [JsonPropertyName("avg_field_size")]
-    public int AverageFieldSize { get; set; }
+    public decimal AverageFieldSize { get; set; }
 
     [JsonPropertyName("laps")]
     public int Laps { get; set; }

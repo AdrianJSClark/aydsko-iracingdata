@@ -1,11 +1,36 @@
 ﻿{
-  "headers": {
-    "x-ratelimit-remaining": "99",
-    "x-ratelimit-limit": "100",
-    "x-ratelimit-reset": "1644451200"
-  },
-  "content": {
-    "link": "https://scorpio-assets.s3.amazonaws.com/production/data-server/cache/data-services/stats/member_division/0018ddd2-a9e3-4755-bf38-85b2426851fb?AWSAccessKeyId=AKIAUO6OO4A3357USLO7&Expires=1642767749&Signature=M4K60q92NbjCdV3zqe9I5fAcObw%3D",
-    "expires": "2022-08-27T11:23:19.507Z"
-  }
+    "headers": {
+  "Connection": "keep-alive",
+  "Date": "Sun, 29 Sep 2024 02:19:40 GMT",
+  "ETag": "W/\u0022217-d3NH0V5bLW3kwn4Pz5ayIbBJr0g\u0022",
+  "Set-Cookie": "AWSALB=CME; Expires=Sun, 06 Oct 2024 02:19:40 GMT; Path=/",
+  "X-iRacing-Env": "members",
+  "X-iRacing-Id": "eab62380-2ebb-42d5-a5e1-06d0445f9898",
+  "X-iRacing-ServiceName": "data-server",
+  "X-iRacing-ServiceVersion": "2.0.2",
+  "Content-Security-Policy": "default-src \u0027self\u0027;base-uri \u0027self\u0027;font-src \u0027self\u0027 https: data:;form-action \u0027self\u0027;frame-ancestors \u0027self\u0027;img-src \u0027self\u0027 data:;object-src \u0027none\u0027;script-src \u0027self\u0027;script-src-attr \u0027none\u0027;style-src \u0027self\u0027 https: \u0027unsafe-inline\u0027;upgrade-insecure-requests",
+  "Cross-Origin-Opener-Policy": "same-origin",
+  "Cross-Origin-Resource-Policy": "same-origin",
+  "Origin-Agent-Cluster": "?1",
+  "Referrer-Policy": "no-referrer",
+  "Strict-Transport-Security": "max-age=15552000; includeSubDomains",
+  "X-Content-Type-Options": "nosniff",
+  "X-DNS-Prefetch-Control": "off",
+  "X-Download-Options": "noopen",
+  "X-Frame-Options": "SAMEORIGIN",
+  "X-Permitted-Cross-Domain-Policies": "none",
+  "X-XSS-Protection": "0",
+  "X-RateLimit-Limit": "240",
+  "X-RateLimit-Remaining": "239",
+  "X-RateLimit-Reset": "1727576440",
+  "Cache-Control": "max-age=60",
+  "X-Cache": "Miss from cloudfront",
+  "Via": "1.1 40f9bfc26197d992c4653c9bae274480.cloudfront.net (CloudFront)",
+  "X-Amz-Cf-Pop": "BNE50-P2",
+  "X-Amz-Cf-Id": "6tIowSSwMh7c0iAgFi_c104qA847M9XZWI6HEBfEswoPvhtFk5Da5Q=="
+},
+	"content": {
+  "link": "https://scorpio-assets.s3.us-east-1.amazonaws.com/production/data-server/cache/data-services/stats/season_driver_standings/e5d3519d-f2e8-45e0-b338-15acd79d9438?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAUO6OO4A3357USLO7%2F20240929%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20240929T021940Z&X-Amz-Expires=120&X-Amz-Signature=a4f94404f2966a26829385ff9cc514af70a56161b07fadaee4ac0d6d7bc0671a&X-Amz-SignedHeaders=host&x-id=GetObject",
+  "expires": "2024-09-29T02:32:29.935Z"
+}
 }
