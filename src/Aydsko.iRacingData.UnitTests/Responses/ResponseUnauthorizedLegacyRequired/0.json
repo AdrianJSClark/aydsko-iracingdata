@@ -1,0 +1,8 @@
+{
+  "statuscode": 401,
+  "headers": { },
+  "content": {
+    "error": "access_denied",
+    "error_description": "legacy authorization refused"
+  }
+}

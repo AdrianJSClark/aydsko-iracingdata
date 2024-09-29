@@ -959,6 +959,27 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
+    public async Task GetSubSessionResultUnauthorizedDueToLegacyAuthenticationSettingThrowsErrorsAsync()
+    {
+        await MessageHandler.QueueResponsesAsync("ResponseUnauthorizedLegacyRequired", false).ConfigureAwait(false);
+
+        Assert.Multiple(() =>
+        {
+            var loginFailedException = Assert.ThrowsAsync<iRacingLoginFailedException>(async () =>
+            {
+                var lapChartResponse = await sut.GetSubSessionResultAsync(12345, false).ConfigureAwait(false);
+            });
+
+            if (loginFailedException != null)
+            {
+                Assert.That(loginFailedException.LegacyAuthenticationRequired, Is.True);
+            }
+
+            Assert.That(sut.IsLoggedIn, Is.False);
+        });
+    }
+
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetSubsessionEventLogSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSubsessionEventLogSuccessfulAsync)).ConfigureAwait(false);

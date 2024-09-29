@@ -1982,6 +1982,23 @@ public class DataClient(HttpClient httpClient,
                 {
                     throw new iRacingInMaintenancePeriodException("Maintenance assumed because login returned HTTP Error 503 \"Service Unavailable\".");
                 }
+                else if (loginResponse.StatusCode == HttpStatusCode.Unauthorized)
+                {
+#if NET6_0_OR_GREATER
+                    var content = await loginResponse.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+#else
+                    var content = await loginResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+#endif
+                    var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(content);
+
+                    if (errorResponse is not null && errorResponse.ErrorCode == "access_denied")
+                    {
+                        var errorDescription = errorResponse.ErrorDescription ?? errorResponse.Note ?? errorResponse.Message ?? string.Empty;
+                        throw iRacingLoginFailedException.Create($"Access was denied with message \"{errorDescription}\"",
+                                                                 false,
+                                                                 errorDescription.Equals("legacy authorization refused", StringComparison.OrdinalIgnoreCase));
+                    }
+                }
                 throw new iRacingLoginFailedException($"Login failed with HTTP response \"{loginResponse.StatusCode} {loginResponse.ReasonPhrase}\"");
             }
 
@@ -2125,13 +2142,13 @@ public class DataClient(HttpClient httpClient,
         else
         {
             var errorResponse = JsonSerializer.Deserialize<ErrorResponse>(content);
-            errorDescription = errorResponse?.Note ?? errorResponse?.Message ?? "An error occurred.";
+            errorDescription = errorResponse?.Note ?? errorResponse?.Message ?? errorResponse?.ErrorDescription ?? "An error occurred.";
 
             exception = errorResponse switch
             {
                 { ErrorCode: "Site Maintenance" } => new iRacingInMaintenancePeriodException(errorResponse.Note ?? "iRacing services are down for maintenance."),
                 { ErrorCode: "Forbidden" } => iRacingForbiddenResponseException.Create(),
-                { ErrorCode: "Unauthorized" } => iRacingUnauthorizedResponseException.Create(errorResponse.Message),
+                { ErrorCode: "Unauthorized" } or { ErrorCode: "access_denied" } => iRacingUnauthorizedResponseException.Create(errorResponse.Message),
                 _ => null
             };
         }
