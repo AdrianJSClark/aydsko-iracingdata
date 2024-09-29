@@ -8,15 +8,18 @@ namespace Aydsko.iRacingData.Exceptions;
 [Serializable]
 public class iRacingLoginFailedException : iRacingDataClientException
 {
+    /// <summary>Indicates the account requires the user to authenticate via a browser to complete a CAPTCHA or contact iRacing Support.</summary>
     public bool? VerificationRequired { get; private set; }
+    /// <summary>If set to <see langword="true"/> the user account must be configured for &quot;Legacy Authentication&quot; to bypass multi-factor authentication.</summary>
+    public bool? LegacyAuthenticationRequired { get; private set; }
 
-    public static iRacingLoginFailedException Create(string? message, bool? verificationRequired = null)
+    public static iRacingLoginFailedException Create(string? message, bool? verificationRequired = null, bool? legacyAuthenticationRequired = null)
     {
         var exceptionMessage = message ?? "Login to iRacing failed.";
 
-        return verificationRequired is null
+        return verificationRequired is null && legacyAuthenticationRequired is null
             ? new iRacingLoginFailedException(exceptionMessage)
-            : new iRacingLoginFailedException(exceptionMessage, verificationRequired.Value);
+            : new iRacingLoginFailedException(exceptionMessage, verificationRequired ?? false, legacyAuthenticationRequired ?? false);
     }
 
     public static iRacingLoginFailedException Create(Exception ex)
@@ -34,6 +37,13 @@ public class iRacingLoginFailedException : iRacingDataClientException
         : base(message)
     {
         VerificationRequired = verificationRequired;
+    }
+
+    public iRacingLoginFailedException(string message, bool verificationRequired, bool legacyAuthenticationRequired)
+        : base(message)
+    {
+        VerificationRequired = verificationRequired;
+        LegacyAuthenticationRequired = legacyAuthenticationRequired;
     }
 
     public iRacingLoginFailedException(string message, Exception inner)

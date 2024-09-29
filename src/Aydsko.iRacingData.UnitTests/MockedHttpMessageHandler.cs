@@ -2,8 +2,10 @@
 // This file is licensed to you under the MIT license.
 
 using System.Net;
+#if !NET6_0_OR_GREATER
 using System.Net.Http;
 using System.Net.Http.Json;
+#endif
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
@@ -67,7 +69,7 @@ internal sealed class MockedHttpMessageHandler(CookieContainer cookieContainer)
     {
         var manifestResourceNames = (prefixLoginResponse ? SuccessfulLoginResponse : [])
                                     .Concat(ResourceAssembly.GetManifestResourceNames()
-                                                            .Where(mrn => mrn.StartsWith($"Aydsko.iRacingData.UnitTests.Responses.{testName}", StringComparison.InvariantCultureIgnoreCase)));
+                                                            .Where(mrn => mrn.StartsWith($"Aydsko.iRacingData.UnitTests.Responses.{testName}.", StringComparison.InvariantCultureIgnoreCase)));
 
         foreach (var manifestName in manifestResourceNames)
         {

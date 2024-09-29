@@ -3,3 +3,14 @@ Fixes / Changes:
 - Season Driver Standings Deserialization Failure (Issue #224)
     Fixed an issue where the "SeasonDriverStandings" deserialization would fail
     due to the "avg_start_position" property containing non-integer data.
+
+- Support "Legacy Authentication" Setting Failure Response (Issue #223)
+    Added support for the "Legacy Authentication" setting in the iRacing
+    account settings. This setting will be required to login to the
+    "/data API" after iRacing enables multi-factor authentication (aka "2FA").
+
+    If the setting is not enabled, an "iRacingLoginFailedException" will be
+    thrown when attempting to login with the new "LegacyAuthenticationRequired"
+    property set to "true" and the following message:
+
+    Access was denied with message \"legacy authorization refused"
