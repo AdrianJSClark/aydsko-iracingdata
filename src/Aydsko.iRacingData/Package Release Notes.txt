@@ -1,5 +1,5 @@
-Contributions:
-- From Łukasz Zborek (https://github.com/lukaszzborek)
-  - Change precipitation chance to decimal (Pull Request #222)
+Fixes / Changes:
 
-Thanks for helping out with pull requests to the library!
+- Season Driver Standings Deserialization Failure (Issue #224)
+    Fixed an issue where the "SeasonDriverStandings" deserialization would fail
+    due to the "avg_start_position" property containing non-integer data.
