@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT license.
 
 using Aydsko.iRacingData.Tracks;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace Aydsko.iRacingData.IntegrationTests.Tracks;
 

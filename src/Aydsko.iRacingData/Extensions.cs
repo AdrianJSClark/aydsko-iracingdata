@@ -7,7 +7,7 @@ using System.Reflection;
 using System.Text;
 
 #if NET6_0_OR_GREATER
-using System.Reflection.Metadata;
+//using System.Reflection.Metadata;
 #else
 using System.Collections;
 using System.Net;
@@ -24,7 +24,7 @@ internal static class Extensions
     /// <exception cref="ArgumentException">The expression couldn't be properly understood by the method.</exception>
     internal static void AddParameterIfNotNull<T>(this IDictionary<string, object?> parameters, Expression<Func<T>> parameter)
     {
-#if (NET6_0_OR_GREATER)
+#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(parameter);
 #else
         if (parameter is null)
@@ -60,7 +60,7 @@ internal static class Extensions
         var builder = new UriBuilder(url);
 
         var queryBuilder = new StringBuilder();
-        queryBuilder.Append(builder.Query.TrimStart('?'));
+        _ = queryBuilder.Append(builder.Query.TrimStart('?'));
 
         foreach (var parameter in parameters)
         {
@@ -150,7 +150,7 @@ internal static class Extensions
         }
     }
 
-#if (NET6_0_OR_GREATER == false)
+#if NET6_0_OR_GREATER == false
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1304:Specify CultureInfo", Justification = "<Pending>")]
     internal static CookieCollection GetAllCookies(this CookieContainer container)
     {
@@ -165,13 +165,12 @@ internal static class Extensions
         foreach (string key in table.Keys)
         {
             var item = table[key];
-            var items = item.GetType().InvokeMember("m_list",
+
+            if (item.GetType().InvokeMember("m_list",
                                                     BindingFlags.NonPublic | BindingFlags.GetField | BindingFlags.Instance,
                                                     null,
                                                     item,
-                                                    null) as SortedList;
-
-            if (items is null)
+                                                    null) is not SortedList items)
             {
                 break;
             }

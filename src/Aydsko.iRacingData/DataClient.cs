@@ -1487,6 +1487,8 @@ public class DataClient(HttpClient httpClient,
                 case SearchLeagueOrderByField.RosterCount:
                     queryParameters["sort"] = "rostercount";
                     break;
+                default:
+                    break;
             }
         }
 
@@ -1499,6 +1501,8 @@ public class DataClient(HttpClient httpClient,
                     break;
                 case ResultOrderDirection.Descending:
                     queryParameters["order"] = "desc";
+                    break;
+                default:
                     break;
             }
         }
@@ -1895,19 +1899,19 @@ public class DataClient(HttpClient httpClient,
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Maintainability", "CA1508:Avoid dead conditional code", Justification = "Double-check of the precondition is a common pattern when using a lock and initialisation method.")]
     protected internal async Task EnsureLoggedInAsync(CancellationToken cancellationToken)
     {
-        if (IsLoggedIn is false)
+        if (!IsLoggedIn)
         {
             await loginSemaphore.WaitAsync(cancellationToken).ConfigureAwait(false);
             try
             {
-                if (IsLoggedIn is false)
+                if (!IsLoggedIn)
                 {
                     await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
                 }
             }
             finally
             {
-                loginSemaphore.Release();
+                _ = loginSemaphore.Release();
             }
         }
     }
@@ -1972,7 +1976,7 @@ public class DataClient(HttpClient httpClient,
                                                                  cancellationToken)
                                                 .ConfigureAwait(false);
 
-            if (loginResponse.IsSuccessStatusCode is false)
+            if (!loginResponse.IsSuccessStatusCode)
             {
                 if (loginResponse.StatusCode == HttpStatusCode.ServiceUnavailable)
                 {
@@ -1983,7 +1987,7 @@ public class DataClient(HttpClient httpClient,
 
             var loginResult = await loginResponse.Content.ReadFromJsonAsync(LoginResponseContext.Default.LoginResponse, cancellationToken).ConfigureAwait(false);
 
-            if (loginResult is null || loginResult.Success is false)
+            if (loginResult is null || !loginResult.Success)
             {
                 var message = loginResult?.Message ?? $"Login failed with HTTP response \"{loginResponse.StatusCode} {loginResponse.ReasonPhrase}\"";
                 throw iRacingLoginFailedException.Create(message, loginResult?.VerificationRequired);

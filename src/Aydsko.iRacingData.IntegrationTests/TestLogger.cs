@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Aydsko.iRacingData.IntegrationTests;
 
-public class TestLogger<TCategoryName> : ILogger<TCategoryName>
+internal sealed class TestLogger<TCategoryName> : ILogger<TCategoryName>
 {
     public IDisposable? BeginScope<TState>(TState state) where TState : notnull
     {
@@ -24,7 +24,7 @@ public class TestLogger<TCategoryName> : ILogger<TCategoryName>
     }
 }
 
-public class TestLoggerFactory : ILoggerFactory
+internal sealed class TestLoggerFactory : ILoggerFactory
 {
     public void AddProvider(ILoggerProvider provider)
     {
@@ -38,11 +38,6 @@ public class TestLoggerFactory : ILoggerFactory
 
     public void Dispose()
     {
-        Dispose(true);
         GC.SuppressFinalize(this);
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
     }
 }

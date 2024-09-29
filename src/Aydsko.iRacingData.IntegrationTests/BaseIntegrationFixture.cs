@@ -8,7 +8,7 @@ using Microsoft.Extensions.Configuration;
 namespace Aydsko.iRacingData.IntegrationTests;
 
 [Category("Integration")]
-public abstract class BaseIntegrationFixture<TClient> : IDisposable
+internal abstract class BaseIntegrationFixture<TClient> : IDisposable
     where TClient : IDataClient
 {
     protected IConfigurationRoot Configuration { get; set; } = default!;

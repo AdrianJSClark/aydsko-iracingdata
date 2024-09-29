@@ -7,7 +7,7 @@ using System.Text.Json.Serialization;
 
 namespace Aydsko.iRacingData.UnitTests;
 
-public class PasswordEncodingTests : MockedHttpTestBase
+internal sealed class PasswordEncodingTests : MockedHttpTestBase
 {
     [SetUp]
     public void SetUp()

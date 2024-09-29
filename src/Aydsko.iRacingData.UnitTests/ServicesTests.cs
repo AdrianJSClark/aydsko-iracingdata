@@ -6,7 +6,7 @@ using System.Net;
 
 namespace Aydsko.iRacingData.UnitTests;
 
-public class ServicesTests
+internal sealed class ServicesTests
 {
     [Test]
     public async Task LoginAndUserAgentDefaultWorksWhenResolvedFromServicesAsync()
@@ -16,8 +16,8 @@ public class ServicesTests
         await messageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
 
         var services = new ServiceCollection();
-        services.AddSingleton(cookieContainer);
-        services.AddIRacingDataApiInternal(options =>
+        _ = services.AddSingleton(cookieContainer);
+        _ = services.AddIRacingDataApiInternal(options =>
         {
             options.Username = "test.user@example.com";
             options.Password = "SuperSecretPassword";
@@ -48,8 +48,8 @@ public class ServicesTests
         await messageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
 
         var services = new ServiceCollection();
-        services.AddSingleton(cookieContainer);
-        services.AddIRacingDataApiInternal(options =>
+        _ = services.AddSingleton(cookieContainer);
+        _ = services.AddIRacingDataApiInternal(options =>
         {
             options.Username = "test.user@example.com";
             options.Password = "SuperSecretPassword";

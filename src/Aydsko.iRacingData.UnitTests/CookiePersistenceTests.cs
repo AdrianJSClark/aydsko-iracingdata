@@ -5,7 +5,7 @@ using System.Net;
 
 namespace Aydsko.iRacingData.UnitTests;
 
-public class CookiePersistenceTests : MockedHttpTestBase
+internal sealed class CookiePersistenceTests : MockedHttpTestBase
 {
     [SetUp]
     public void SetUp()

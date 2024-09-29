@@ -4,7 +4,7 @@ using static System.Text.Encoding;
 
 namespace Aydsko.iRacingData.UnitTests.Converters;
 
-public class UtcOffsetToTimeSpanArrayConverterTests
+internal sealed class UtcOffsetToTimeSpanArrayConverterTests
 {
     private UtcOffsetToTimeSpanArrayConverter _sut = null!;
 
@@ -29,12 +29,12 @@ public class UtcOffsetToTimeSpanArrayConverterTests
         return UTF8.GetString(result);
     }
 
-    public static IEnumerable<TestCaseData> ReadValueTestCases()
+    private static IEnumerable<TestCaseData> ReadValueTestCases()
     {
         return Examples().ToReadValueTestCases();
     }
 
-    public static IEnumerable<TestCaseData> WriteValueTestCases()
+    private static IEnumerable<TestCaseData> WriteValueTestCases()
     {
         return Examples().ToWriteValueTestCases();
     }

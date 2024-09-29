@@ -7,7 +7,7 @@ using static System.Text.Encoding;
 
 namespace Aydsko.iRacingData.UnitTests.Converters;
 
-public class StatusTimeStampConverterTests
+internal sealed class StatusTimeStampConverterTests
 {
     private StatusTimeStampConverter _sut = null!;
 
@@ -32,8 +32,15 @@ public class StatusTimeStampConverterTests
         return UTF8.GetString(result);
     }
 
-    public static IEnumerable<TestCaseData> ReadValueTestCases() => Examples().ToReadValueTestCases();
-    public static IEnumerable<TestCaseData> WriteValueTestCases() => Examples().ToWriteValueTestCases();
+    private static IEnumerable<TestCaseData> ReadValueTestCases()
+    {
+        return Examples().ToReadValueTestCases();
+    }
+
+    private static IEnumerable<TestCaseData> WriteValueTestCases()
+    {
+        return Examples().ToWriteValueTestCases();
+    }
 
     private static IEnumerable<(byte[] JsonBytes, DateTimeOffset? Value, string Name)> Examples()
     {

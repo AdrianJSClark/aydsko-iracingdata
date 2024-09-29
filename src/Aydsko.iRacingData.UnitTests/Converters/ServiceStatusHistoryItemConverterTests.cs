@@ -7,7 +7,7 @@ using static System.Text.Encoding;
 
 namespace Aydsko.iRacingData.UnitTests.Converters;
 
-public class ServiceStatusHistoryItemArrayConverterConverterTests
+internal sealed class ServiceStatusHistoryItemArrayConverterConverterTests
 {
     private readonly ServiceStatusHistoryItemArrayConverter _sut;
 
@@ -30,8 +30,15 @@ public class ServiceStatusHistoryItemArrayConverterConverterTests
         return UTF8.GetString(result);
     }
 
-    public static IEnumerable<TestCaseData> ReadValueTestCases() => Examples().ToReadValueTestCases();
-    public static IEnumerable<TestCaseData> WriteValueTestCases() => Examples().ToWriteValueTestCases();
+    private static IEnumerable<TestCaseData> ReadValueTestCases()
+    {
+        return Examples().ToReadValueTestCases();
+    }
+
+    private static IEnumerable<TestCaseData> WriteValueTestCases()
+    {
+        return Examples().ToWriteValueTestCases();
+    }
 
     private static IEnumerable<(byte[] JsonBytes, ServiceStatusHistoryItem[]? Value, string Name)> Examples()
     {

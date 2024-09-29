@@ -6,11 +6,13 @@ public class UtcOffsetToTimeSpanConverter : JsonConverter<TimeSpan>
 {
     public override TimeSpan Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
+#pragma warning disable IDE0072 // Add missing cases - The default case is valid for these.
         var value = reader.TokenType switch
         {
             JsonTokenType.Number => reader.GetInt32(),
             _ => (int?)null,
         };
+#pragma warning restore IDE0072 // Add missing cases
 
         if (value is null)
         {

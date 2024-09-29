@@ -6,7 +6,7 @@ using System.Net.Http;
 
 namespace Aydsko.iRacingData.UnitTests;
 
-public class MockedHttpTestBase : IDisposable
+internal class MockedHttpTestBase : IDisposable
 {
     protected CookieContainer CookieContainer { get; set; } = null!;
     protected MockedHttpMessageHandler MessageHandler { get; set; } = null!;

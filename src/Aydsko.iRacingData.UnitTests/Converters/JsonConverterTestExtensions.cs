@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace Aydsko.iRacingData.UnitTests.Converters;
 
-public static class JsonConverterTestExtensions
+internal static class JsonConverterTestExtensions
 {
     private const string InvalidJsonObjectInputFormatMessage = "Expected input to be in the format \"{\"value\":\"(INPUT TO BE TESTED)\"}\" or \"{\"value\":(INPUT TO BE TESTED)}\" where (INPUT TO BE TESTED) was replaced with the value to be tested.";
 

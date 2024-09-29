@@ -5,6 +5,7 @@ using System.Runtime.Serialization;
 
 namespace Aydsko.iRacingData.UnitTests;
 
+#pragma warning disable CA1515 // Consider making public types internal - exceptions shouldn't be internal
 [Serializable]
 public class ResourceNotFoundException : Exception
 {
@@ -35,3 +36,4 @@ public class ResourceNotFoundException : Exception
         return new ResourceNotFoundException($"Failed to locate resource with name \"{manifestResourceName}\".");
     }
 }
+#pragma warning restore CA1515 // Consider making public types internal

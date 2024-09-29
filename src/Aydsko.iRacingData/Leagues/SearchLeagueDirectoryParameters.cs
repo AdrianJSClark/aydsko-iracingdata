@@ -7,7 +7,7 @@ public class SearchLeagueDirectoryParameters
     public string? Search { get; set; }
 
     [JsonPropertyName("tag")]
-    public IList<string> Tag { get; } = new List<string>();
+    public IList<string> Tag { get; } = [];
 
     /// <summary>If <see langword="true"/> include only leagues for which customer is a member.</summary>
     [JsonPropertyName("restrict_to_member")]

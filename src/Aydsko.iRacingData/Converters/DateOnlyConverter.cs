@@ -1,12 +1,12 @@
 ﻿// © 2023 Adrian Clark
 // This file is licensed to you under the MIT license.
 
+#if NET6_0_OR_GREATER
 using System.Globalization;
 using System.Text.Json;
 
 namespace Aydsko.iRacingData.Converters;
 
-#if NET6_0_OR_GREATER
 public sealed class DateOnlyConverter : JsonConverter<DateOnly>
 {
     public override DateOnly Read(ref Utf8JsonReader reader,
@@ -28,14 +28,7 @@ public sealed class DateOnlyConverter : JsonConverter<DateOnly>
                                DateOnly value,
                                JsonSerializerOptions options)
     {
-#if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(writer);
-#else
-        if (writer is null)
-        {
-            throw new ArgumentNullException(nameof(writer));
-        }
-#endif
 
         writer.WriteStringValue(value.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture));
     }

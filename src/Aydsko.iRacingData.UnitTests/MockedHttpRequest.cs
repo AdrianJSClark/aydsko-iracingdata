@@ -1,11 +1,9 @@
 ﻿// © 2023 Adrian Clark
 // This file is licensed to you under the MIT license.
 
-using System.Net.Http;
-
 namespace Aydsko.iRacingData.UnitTests;
 
-public class MockedHttpRequest
+internal sealed class MockedHttpRequest
 {
 #pragma warning disable CA1819 // Properties should not return arrays - For a test project helper this is fine.
     public KeyValuePair<string, IEnumerable<string>>[] Headers { get; private set; }
@@ -13,7 +11,7 @@ public class MockedHttpRequest
 
     public Stream ContentStream { get; private set; }
 
-    public MockedHttpRequest(HttpRequestMessage request)
+    public MockedHttpRequest(System.Net.Http.HttpRequestMessage request)
     {
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(request);

@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT license.
 
 using System.Net;
-using System.Net.Http;
 using Aydsko.iRacingData.Constants;
 using Aydsko.iRacingData.Exceptions;
 using Aydsko.iRacingData.Leagues;
@@ -14,7 +13,7 @@ using Aydsko.iRacingData.TimeAttack;
 
 namespace Aydsko.iRacingData.UnitTests;
 
-public class CapturedResponseValidationTests : MockedHttpTestBase
+internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 {
     private static readonly int[] TestCustomerIds = [123456];
 
@@ -72,13 +71,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         var cars = await sut.GetCarsAsync().ConfigureAwait(false);
 
         Assert.That(cars, Is.Not.Null);
-        Assert.That(cars!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(cars!.Data, Is.Not.Null);
 
-        Assert.That(cars.Data, Has.Length.EqualTo(159));
-        Assert.That(cars.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(cars.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(cars.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(cars.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(cars.Data, Has.Length.EqualTo(159));
+            Assert.That(cars.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(cars.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(cars.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(cars.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -89,13 +91,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         var carClasses = await sut.GetCarClassesAsync().ConfigureAwait(false);
 
         Assert.That(carClasses, Is.Not.Null);
-        Assert.That(carClasses!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(carClasses!.Data, Is.Not.Null);
 
-        Assert.That(carClasses.Data, Has.Length.EqualTo(223));
-        Assert.That(carClasses.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(carClasses.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(carClasses.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(carClasses.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(carClasses.Data, Has.Length.EqualTo(223));
+            Assert.That(carClasses.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(carClasses.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(carClasses.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(carClasses.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -106,15 +111,21 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         var divisionsResponse = await sut.GetDivisionsAsync().ConfigureAwait(false);
 
         Assert.That(divisionsResponse, Is.Not.Null);
-        Assert.That(divisionsResponse!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(divisionsResponse!.Data, Is.Not.Null);
 
-        Assert.That(divisionsResponse.Data, Has.Length.EqualTo(12));
-        Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("ALL")
-                                                   .And.Property(nameof(Division.Value)).EqualTo(-1));
+            Assert.That(divisionsResponse.Data, Has.Length.EqualTo(12));
+        });
+        Assert.Multiple(() =>
+        {
+            Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("ALL")
+                                                           .And.Property(nameof(Division.Value)).EqualTo(-1));
 
-        Assert.That(divisionsResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(divisionsResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(divisionsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(divisionsResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(divisionsResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(divisionsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -125,21 +136,27 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         var divisionsResponse = await sut.GetCategoriesAsync().ConfigureAwait(false);
 
         Assert.That(divisionsResponse, Is.Not.Null);
-        Assert.That(divisionsResponse!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(divisionsResponse!.Data, Is.Not.Null);
 
-        Assert.That(divisionsResponse.Data, Has.Length.EqualTo(4));
+            Assert.That(divisionsResponse.Data, Has.Length.EqualTo(4));
+        });
         Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Oval")
                                                    .And.Property(nameof(Division.Value)).EqualTo(1));
         Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Road")
                                                    .And.Property(nameof(Division.Value)).EqualTo(2));
         Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Dirt oval")
                                                    .And.Property(nameof(Division.Value)).EqualTo(3));
-        Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Dirt road")
-                                                   .And.Property(nameof(Division.Value)).EqualTo(4));
+        Assert.Multiple(() =>
+        {
+            Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Dirt road")
+                                                           .And.Property(nameof(Division.Value)).EqualTo(4));
 
-        Assert.That(divisionsResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(divisionsResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(divisionsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(divisionsResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(divisionsResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(divisionsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -149,22 +166,25 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var divisionsResponse = await sut.GetEventTypesAsync().ConfigureAwait(false);
 
-        Assert.That(divisionsResponse, Is.Not.Null);
-        Assert.That(divisionsResponse!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(divisionsResponse, Is.Not.Null);
+            Assert.That(divisionsResponse!.Data, Is.Not.Null);
 
-        Assert.That(divisionsResponse.Data, Has.Length.EqualTo(4));
-        Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Practice")
-                                                   .And.Property(nameof(Division.Value)).EqualTo(2));
-        Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Qualify")
-                                                   .And.Property(nameof(Division.Value)).EqualTo(3));
-        Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Time Trial")
-                                                   .And.Property(nameof(Division.Value)).EqualTo(4));
-        Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Race")
-                                                   .And.Property(nameof(Division.Value)).EqualTo(5));
+            Assert.That(divisionsResponse.Data, Has.Length.EqualTo(4));
+            Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Practice")
+                                                       .And.Property(nameof(Division.Value)).EqualTo(2));
+            Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Qualify")
+                                                       .And.Property(nameof(Division.Value)).EqualTo(3));
+            Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Time Trial")
+                                                       .And.Property(nameof(Division.Value)).EqualTo(4));
+            Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Race")
+                                                       .And.Property(nameof(Division.Value)).EqualTo(5));
 
-        Assert.That(divisionsResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(divisionsResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(divisionsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(divisionsResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(divisionsResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(divisionsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -174,14 +194,17 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var lookupGroups = await sut.GetLookupsAsync().ConfigureAwait(false);
 
-        Assert.That(lookupGroups, Is.Not.Null);
-        Assert.That(lookupGroups!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(lookupGroups, Is.Not.Null);
+            Assert.That(lookupGroups!.Data, Is.Not.Null);
 
-        Assert.That(lookupGroups.Data, Has.Length.EqualTo(2));
-        Assert.That(lookupGroups.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(lookupGroups.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(lookupGroups.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(lookupGroups.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(lookupGroups.Data, Has.Length.EqualTo(2));
+            Assert.That(lookupGroups.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(lookupGroups.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(lookupGroups.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(lookupGroups.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -191,14 +214,17 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var carAssets = await sut.GetLicenseLookupsAsync().ConfigureAwait(false);
 
-        Assert.That(carAssets, Is.Not.Null);
-        Assert.That(carAssets!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(carAssets, Is.Not.Null);
+            Assert.That(carAssets!.Data, Is.Not.Null);
 
-        Assert.That(carAssets.Data, Has.Length.EqualTo(7));
-        Assert.That(carAssets.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(carAssets.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(carAssets.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(carAssets.Data, Has.Length.EqualTo(7));
+            Assert.That(carAssets.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(carAssets.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(carAssets.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -208,14 +234,17 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var clubHistoryLookups = await sut.GetClubHistoryLookupsAsync(2022, 1).ConfigureAwait(false);
 
-        Assert.That(clubHistoryLookups, Is.Not.Null);
-        Assert.That(clubHistoryLookups!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(clubHistoryLookups, Is.Not.Null);
+            Assert.That(clubHistoryLookups!.Data, Is.Not.Null);
 
-        Assert.That(clubHistoryLookups.Data, Has.Length.EqualTo(42));
-        Assert.That(clubHistoryLookups.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(clubHistoryLookups.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(clubHistoryLookups.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(clubHistoryLookups.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(clubHistoryLookups.Data, Has.Length.EqualTo(42));
+            Assert.That(clubHistoryLookups.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(clubHistoryLookups.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(clubHistoryLookups.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(clubHistoryLookups.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -225,17 +254,20 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var carAssets = await sut.GetDriverInfoAsync(TestCustomerIds, true).ConfigureAwait(false);
 
-        Assert.That(carAssets, Is.Not.Null);
-        Assert.That(carAssets!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(carAssets, Is.Not.Null);
+            Assert.That(carAssets!.Data, Is.Not.Null);
 
-        Assert.That(carAssets.Data, Has.Length.EqualTo(1));
-        Assert.That(carAssets.Data[0].Licenses, Is.Not.Null);
-        Assert.That(carAssets.Data[0].Licenses, Has.Length.EqualTo(4));
+            Assert.That(carAssets.Data, Has.Length.EqualTo(1));
+            Assert.That(carAssets.Data[0].Licenses, Is.Not.Null);
+            Assert.That(carAssets.Data[0].Licenses, Has.Length.EqualTo(4));
 
-        Assert.That(carAssets.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(carAssets.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(carAssets.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(carAssets.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(carAssets.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(carAssets.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -245,15 +277,18 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var carAssets = await sut.GetDriverInfoAsync(TestCustomerIds, false).ConfigureAwait(false);
 
-        Assert.That(carAssets, Is.Not.Null);
-        Assert.That(carAssets!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(carAssets, Is.Not.Null);
+            Assert.That(carAssets!.Data, Is.Not.Null);
 
-        Assert.That(carAssets.Data, Has.Length.EqualTo(1));
-        Assert.That(carAssets.Data[0].Licenses, Is.Null);
-        Assert.That(carAssets.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(carAssets.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(carAssets.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(carAssets.Data, Has.Length.EqualTo(1));
+            Assert.That(carAssets.Data[0].Licenses, Is.Null);
+            Assert.That(carAssets.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(carAssets.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(carAssets.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -263,13 +298,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var myInfo = await sut.GetMyInfoAsync().ConfigureAwait(false);
 
-        Assert.That(myInfo, Is.Not.Null);
-        Assert.That(myInfo!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(myInfo, Is.Not.Null);
+            Assert.That(myInfo!.Data, Is.Not.Null);
 
-        Assert.That(myInfo.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(myInfo.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(myInfo.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(myInfo.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(myInfo.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(myInfo.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(myInfo.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(myInfo.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -308,13 +346,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         var memberProfileResponse = await sut.SearchDriversAsync("123456").ConfigureAwait(false);
 
         Assert.That(memberProfileResponse, Is.Not.Null);
-        Assert.That(memberProfileResponse!.Data, Is.Not.Null);
-        Assert.That(memberProfileResponse.Data, Has.Length.EqualTo(1));
+        Assert.Multiple(() =>
+        {
+            Assert.That(memberProfileResponse!.Data, Is.Not.Null);
+            Assert.That(memberProfileResponse.Data, Has.Length.EqualTo(1));
 
-        Assert.That(memberProfileResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(memberProfileResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(memberProfileResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(memberProfileResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(memberProfileResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(memberProfileResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(memberProfileResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(memberProfileResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -335,15 +376,18 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var tracks = await sut.GetTracksAsync().ConfigureAwait(false);
 
-        Assert.That(tracks, Is.Not.Null);
-        Assert.That(tracks!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(tracks, Is.Not.Null);
+            Assert.That(tracks!.Data, Is.Not.Null);
 
-        Assert.That(tracks.Data, Has.Length.EqualTo(332));
+            Assert.That(tracks.Data, Has.Length.EqualTo(332));
 
-        Assert.That(tracks.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(tracks.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(tracks.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(tracks.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(tracks.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(tracks.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(tracks.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(tracks.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -353,20 +397,23 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var seasons = await sut.GetSeasonsAsync(false).ConfigureAwait(false);
 
-        Assert.That(seasons, Is.Not.Null);
-        Assert.That(seasons!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(seasons, Is.Not.Null);
+            Assert.That(seasons!.Data, Is.Not.Null);
 
-        Assert.That(seasons.Data, Has.Length.EqualTo(96));
-        Assert.That(seasons.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(seasons.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(seasons.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(seasons.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(seasons.Data, Has.Length.EqualTo(96));
+            Assert.That(seasons.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(seasons.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(seasons.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(seasons.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
 
 #if NET6_0_OR_GREATER
-        Assert.That(seasons.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateOnly(2022, 02, 15)));
+            Assert.That(seasons.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateOnly(2022, 02, 15)));
 #else
-        Assert.That(seasons.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateTime(2022, 02, 15)));
+            Assert.That(seasons.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateTime(2022, 02, 15)));
 #endif
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -376,14 +423,17 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var seasonsAndSeries = await sut.GetSeasonsAsync(true).ConfigureAwait(false);
 
-        Assert.That(seasonsAndSeries, Is.Not.Null);
-        Assert.That(seasonsAndSeries!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(seasonsAndSeries, Is.Not.Null);
+            Assert.That(seasonsAndSeries!.Data, Is.Not.Null);
 
-        Assert.That(seasonsAndSeries.Data, Has.Length.EqualTo(134));
-        Assert.That(seasonsAndSeries.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(seasonsAndSeries.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(seasonsAndSeries.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(seasonsAndSeries.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(seasonsAndSeries.Data, Has.Length.EqualTo(134));
+            Assert.That(seasonsAndSeries.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(seasonsAndSeries.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(seasonsAndSeries.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(seasonsAndSeries.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
 
 #if NET6_0_OR_GREATER
         Assert.That(seasonsAndSeries.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateOnly(2024, 04, 09)));
@@ -399,12 +449,15 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var statsSeriesResponse = await sut.GetStatisticsSeriesAsync(CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(statsSeriesResponse, Is.Not.Null);
-        Assert.That(statsSeriesResponse!.Data, Is.Not.Null);
-        Assert.That(statsSeriesResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(statsSeriesResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(statsSeriesResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(statsSeriesResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        Assert.Multiple(() =>
+        {
+            Assert.That(statsSeriesResponse, Is.Not.Null);
+            Assert.That(statsSeriesResponse!.Data, Is.Not.Null);
+            Assert.That(statsSeriesResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(statsSeriesResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(statsSeriesResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(statsSeriesResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -414,13 +467,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var seriesResponse = await sut.GetSeriesAsync(CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(seriesResponse, Is.Not.Null);
-        Assert.That(seriesResponse!.Data, Is.Not.Null);
-        Assert.That(seriesResponse!.Data, Has.Length.EqualTo(37));
-        Assert.That(seriesResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(seriesResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(seriesResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(seriesResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        Assert.Multiple(() =>
+        {
+            Assert.That(seriesResponse, Is.Not.Null);
+            Assert.That(seriesResponse!.Data, Is.Not.Null);
+            Assert.That(seriesResponse!.Data, Has.Length.EqualTo(37));
+            Assert.That(seriesResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(seriesResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(seriesResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(seriesResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -430,13 +486,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var seriesResponse = await sut.GetSeriesAssetsAsync(CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(seriesResponse, Is.Not.Null);
-        Assert.That(seriesResponse!.Data, Is.Not.Null);
-        Assert.That(seriesResponse!.Data, Has.Count.EqualTo(37));
-        Assert.That(seriesResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(seriesResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(seriesResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(seriesResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        Assert.Multiple(() =>
+        {
+            Assert.That(seriesResponse, Is.Not.Null);
+            Assert.That(seriesResponse!.Data, Is.Not.Null);
+            Assert.That(seriesResponse!.Data, Has.Count.EqualTo(37));
+            Assert.That(seriesResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(seriesResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(seriesResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(seriesResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -446,30 +505,36 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var trackAssets = await sut.GetTrackAssetsAsync().ConfigureAwait(false);
 
-        Assert.That(trackAssets, Is.Not.Null);
-        Assert.That(trackAssets!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(trackAssets, Is.Not.Null);
+            Assert.That(trackAssets!.Data, Is.Not.Null);
 
-        Assert.That(trackAssets.Data, Has.Count.EqualTo(340));
-        Assert.That(trackAssets.Data.ContainsKey("1"), Is.True);
+            Assert.That(trackAssets.Data, Has.Count.EqualTo(340));
+            Assert.That(trackAssets.Data.ContainsKey("1"), Is.True);
+        });
 
         var limeRockPark = trackAssets.Data["1"];
 
-        Assert.That(limeRockPark, Is.Not.Null);
-        Assert.That(limeRockPark.Coordinates, Is.EqualTo("41.9282105,-73.3839642"));
-        Assert.That(limeRockPark.TrackMap, Is.EqualTo("https://dqfp1ltauszrc.cloudfront.net/public/track-maps/tracks_limerock/1-limerock-full/"));
-        Assert.That(limeRockPark.TrackMapLayers, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(limeRockPark, Is.Not.Null);
+            Assert.That(limeRockPark.Coordinates, Is.EqualTo("41.9282105,-73.3839642"));
+            Assert.That(limeRockPark.TrackMap, Is.EqualTo("https://dqfp1ltauszrc.cloudfront.net/public/track-maps/tracks_limerock/1-limerock-full/"));
 
-        Assert.That(limeRockPark.TrackMapLayers.Background, Is.EqualTo("background.svg"));
-        Assert.That(limeRockPark.TrackMapLayers.Inactive, Is.EqualTo("inactive.svg"));
-        Assert.That(limeRockPark.TrackMapLayers.Active, Is.EqualTo("active.svg"));
-        Assert.That(limeRockPark.TrackMapLayers.PitRoad, Is.EqualTo("pitroad.svg"));
-        Assert.That(limeRockPark.TrackMapLayers.StartFinish, Is.EqualTo("start-finish.svg"));
-        Assert.That(limeRockPark.TrackMapLayers.Turns, Is.EqualTo("turns.svg"));
+            Assert.That(limeRockPark.TrackMapLayers, Is.Not.Null);
+            Assert.That(limeRockPark.TrackMapLayers.Background, Is.EqualTo("background.svg"));
+            Assert.That(limeRockPark.TrackMapLayers.Inactive, Is.EqualTo("inactive.svg"));
+            Assert.That(limeRockPark.TrackMapLayers.Active, Is.EqualTo("active.svg"));
+            Assert.That(limeRockPark.TrackMapLayers.PitRoad, Is.EqualTo("pitroad.svg"));
+            Assert.That(limeRockPark.TrackMapLayers.StartFinish, Is.EqualTo("start-finish.svg"));
+            Assert.That(limeRockPark.TrackMapLayers.Turns, Is.EqualTo("turns.svg"));
 
-        Assert.That(trackAssets.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(trackAssets.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(trackAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(trackAssets.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(trackAssets.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(trackAssets.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(trackAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(trackAssets.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -480,7 +545,7 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         Assert.That(async () =>
         {
             var badRequestResult = await sut.GetSeasonResultsAsync(0, Common.EventType.Race, 0, CancellationToken.None).ConfigureAwait(false);
-        }, Throws.Exception.InstanceOf<HttpRequestException>().And.Message.Contains("400 (Bad Request)"));
+        }, Throws.Exception.InstanceOf<System.Net.Http.HttpRequestException>().And.Message.Contains("400 (Bad Request)"));
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -490,15 +555,18 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var memberStats = await sut.GetMemberYearlyStatisticsAsync().ConfigureAwait(false);
 
-        Assert.That(memberStats, Is.Not.Null);
-        Assert.That(memberStats!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(memberStats, Is.Not.Null);
+            Assert.That(memberStats!.Data, Is.Not.Null);
 
-        Assert.That(memberStats.Data.Statistics, Has.Length.EqualTo(2));
-        Assert.That(memberStats.Data.CustomerId, Is.EqualTo(123456));
-        Assert.That(memberStats.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(memberStats.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(memberStats.Data.Statistics, Has.Length.EqualTo(2));
+            Assert.That(memberStats.Data.CustomerId, Is.EqualTo(123456));
+            Assert.That(memberStats.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(memberStats.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -508,15 +576,18 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var memberStats = await sut.GetMemberRecentRacesAsync().ConfigureAwait(false);
 
-        Assert.That(memberStats, Is.Not.Null);
-        Assert.That(memberStats!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(memberStats, Is.Not.Null);
+            Assert.That(memberStats!.Data, Is.Not.Null);
 
-        Assert.That(memberStats.Data.Races, Has.Length.EqualTo(10));
-        Assert.That(memberStats.Data.CustomerId, Is.EqualTo(123456));
-        Assert.That(memberStats.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(memberStats.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(memberStats.Data.Races, Has.Length.EqualTo(10));
+            Assert.That(memberStats.Data.CustomerId, Is.EqualTo(123456));
+            Assert.That(memberStats.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(memberStats.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -526,15 +597,18 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var memberSummaryResponse = await sut.GetMemberSummaryAsync().ConfigureAwait(false);
 
-        Assert.That(memberSummaryResponse, Is.Not.Null);
-        Assert.That(memberSummaryResponse!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(memberSummaryResponse, Is.Not.Null);
+            Assert.That(memberSummaryResponse!.Data, Is.Not.Null);
 
-        //Assert.That(memberSummaryResponse.Data.Races, Has.Length.EqualTo(10));
-        Assert.That(memberSummaryResponse.Data.CustomerId, Is.EqualTo(123456));
-        Assert.That(memberSummaryResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(memberSummaryResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(memberSummaryResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(memberSummaryResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            //Assert.That(memberSummaryResponse.Data.Races, Has.Length.EqualTo(10));
+            Assert.That(memberSummaryResponse.Data.CustomerId, Is.EqualTo(123456));
+            Assert.That(memberSummaryResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(memberSummaryResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(memberSummaryResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(memberSummaryResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -544,13 +618,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var memberDivisionResponse = await sut.GetMemberDivisionAsync(1234, Common.EventType.Race, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(memberDivisionResponse, Is.Not.Null);
-        Assert.That(memberDivisionResponse.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(memberDivisionResponse, Is.Not.Null);
+            Assert.That(memberDivisionResponse.Data, Is.Not.Null);
 
-        Assert.That(memberDivisionResponse.Data.Success, Is.True);
-        Assert.That(memberDivisionResponse.Data.SeasonId, Is.EqualTo(1234));
-        Assert.That(memberDivisionResponse.Data.EventType, Is.EqualTo(Common.EventType.Race));
-        Assert.That(memberDivisionResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(memberDivisionResponse.Data.Success, Is.True);
+            Assert.That(memberDivisionResponse.Data.SeasonId, Is.EqualTo(1234));
+            Assert.That(memberDivisionResponse.Data.EventType, Is.EqualTo(Common.EventType.Race));
+            Assert.That(memberDivisionResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -560,13 +637,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var memberStats = await sut.GetLeagueAsync(123, true).ConfigureAwait(false);
 
-        Assert.That(memberStats, Is.Not.Null);
-        Assert.That(memberStats!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(memberStats, Is.Not.Null);
+            Assert.That(memberStats!.Data, Is.Not.Null);
 
-        Assert.That(memberStats.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(memberStats.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(memberStats.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(memberStats.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -576,13 +656,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var memberStats = await sut.GetLeagueAsync(123, false).ConfigureAwait(false);
 
-        Assert.That(memberStats, Is.Not.Null);
-        Assert.That(memberStats!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(memberStats, Is.Not.Null);
+            Assert.That(memberStats!.Data, Is.Not.Null);
 
-        Assert.That(memberStats.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(memberStats.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(memberStats.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(memberStats.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -592,21 +675,25 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var lapChartResponse = await sut.GetSubSessionLapChartAsync(12345, 0).ConfigureAwait(false);
 
-        Assert.That(lapChartResponse, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(lapChartResponse, Is.Not.Null);
 
-        Assert.That(lapChartResponse.Data.Header, Is.Not.Null);
-        Assert.That(lapChartResponse.Data.Header.Success, Is.True);
-        Assert.That(lapChartResponse.Data.Header.SessionInfo, Is.Not.Null);
-        Assert.That(lapChartResponse.Data.Laps, Has.Length.EqualTo(417));
-        Assert.That(lapChartResponse.Data.Laps, Has.ItemAt(0).Property(nameof(SubsessionChartLap.GroupId)).EqualTo(523780)
-                                                   .And.ItemAt(0).Property(nameof(SubsessionChartLap.Name)).EqualTo("Jake Dennis")
-                                                   .And.ItemAt(0).Property(nameof(SubsessionChartLap.LapPosition)).EqualTo(1)
-                                                   .And.ItemAt(0).Property(nameof(SubsessionLap.Flags)).EqualTo(LapFlags.None));
+            Assert.That(lapChartResponse.Data.Header, Is.Not.Null);
+            Assert.That(lapChartResponse.Data.Header.Success, Is.True);
+            Assert.That(lapChartResponse.Data.Header.SessionInfo, Is.Not.Null);
+            Assert.That(lapChartResponse.Data.Laps, Has.Length.EqualTo(417));
 
-        Assert.That(lapChartResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(lapChartResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(lapChartResponse.Data.Laps, Has.ItemAt(0).Property(nameof(SubsessionChartLap.GroupId)).EqualTo(523780)
+                                                           .And.ItemAt(0).Property(nameof(SubsessionChartLap.Name)).EqualTo("Jake Dennis")
+                                                           .And.ItemAt(0).Property(nameof(SubsessionChartLap.LapPosition)).EqualTo(1)
+                                                           .And.ItemAt(0).Property(nameof(SubsessionLap.Flags)).EqualTo(LapFlags.None));
+
+            Assert.That(lapChartResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(lapChartResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -616,15 +703,18 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var seasonDriverStandingsResponse = await sut.GetSeasonDriverStandingsAsync(1234, 9, 0, cancellationToken: CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(seasonDriverStandingsResponse, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(seasonDriverStandingsResponse, Is.Not.Null);
 
-        Assert.That(seasonDriverStandingsResponse.Data.Header, Is.Not.Null);
-        Assert.That(seasonDriverStandingsResponse.Data.Header.Success, Is.True);
+            Assert.That(seasonDriverStandingsResponse.Data.Header, Is.Not.Null);
+            Assert.That(seasonDriverStandingsResponse.Data.Header.Success, Is.True);
 
-        Assert.That(seasonDriverStandingsResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(seasonDriverStandingsResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(seasonDriverStandingsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(seasonDriverStandingsResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(seasonDriverStandingsResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(seasonDriverStandingsResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(seasonDriverStandingsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(seasonDriverStandingsResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -634,21 +724,25 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var lapChartResponse = await sut.GetSingleDriverSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
 
-        Assert.That(lapChartResponse, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(lapChartResponse, Is.Not.Null);
 
-        Assert.That(lapChartResponse.Data.Header, Is.Not.Null);
-        Assert.That(lapChartResponse.Data.Header.Success, Is.True);
-        Assert.That(lapChartResponse.Data.Header.SessionInfo, Is.Not.Null);
-        Assert.That(lapChartResponse.Data.Laps, Has.Length.EqualTo(16));
-        Assert.That(lapChartResponse.Data.Laps, Has.ItemAt(0).Property(nameof(SubsessionLap.GroupId)).EqualTo(341554)
-                                                   .And.ItemAt(0).Property(nameof(SubsessionLap.Name)).EqualTo("Adrian Clark")
-                                                   .And.ItemAt(0).Property(nameof(SubsessionLap.Incident)).EqualTo(false)
-                                                   .And.ItemAt(0).Property(nameof(SubsessionLap.Flags)).EqualTo(LapFlags.Invalid | LapFlags.Pitted | LapFlags.Tow));
+            Assert.That(lapChartResponse.Data.Header, Is.Not.Null);
+            Assert.That(lapChartResponse.Data.Header.Success, Is.True);
+            Assert.That(lapChartResponse.Data.Header.SessionInfo, Is.Not.Null);
+            Assert.That(lapChartResponse.Data.Laps, Has.Length.EqualTo(16));
 
-        Assert.That(lapChartResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(lapChartResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(lapChartResponse.Data.Laps, Has.ItemAt(0).Property(nameof(SubsessionLap.GroupId)).EqualTo(341554)
+                                                           .And.ItemAt(0).Property(nameof(SubsessionLap.Name)).EqualTo("Adrian Clark")
+                                                           .And.ItemAt(0).Property(nameof(SubsessionLap.Incident)).EqualTo(false)
+                                                           .And.ItemAt(0).Property(nameof(SubsessionLap.Flags)).EqualTo(LapFlags.Invalid | LapFlags.Pitted | LapFlags.Tow));
+
+            Assert.That(lapChartResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(lapChartResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -669,21 +763,24 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var lapChartResponse = await sut.GetTeamSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
 
-        Assert.That(lapChartResponse, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(lapChartResponse, Is.Not.Null);
 
-        Assert.That(lapChartResponse.Data.Header, Is.Not.Null);
-        Assert.That(lapChartResponse.Data.Header.Success, Is.True);
-        Assert.That(lapChartResponse.Data.Header.SessionInfo, Is.Not.Null);
-        Assert.That(lapChartResponse.Data.Laps, Has.Length.EqualTo(500));
-        Assert.That(lapChartResponse.Data.Laps, Has.ItemAt(0).Property(nameof(SubsessionLap.GroupId)).EqualTo(-93376)
-                                                   .And.ItemAt(0).Property(nameof(SubsessionLap.Name)).EqualTo("Tempest Motorsports Neon")
-                                                   .And.ItemAt(0).Property(nameof(SubsessionLap.Incident)).EqualTo(false)
-                                                   .And.ItemAt(0).Property(nameof(SubsessionLap.Flags)).EqualTo(LapFlags.None));
+            Assert.That(lapChartResponse.Data.Header, Is.Not.Null);
+            Assert.That(lapChartResponse.Data.Header.Success, Is.True);
+            Assert.That(lapChartResponse.Data.Header.SessionInfo, Is.Not.Null);
+            Assert.That(lapChartResponse.Data.Laps, Has.Length.EqualTo(500));
+            Assert.That(lapChartResponse.Data.Laps, Has.ItemAt(0).Property(nameof(SubsessionLap.GroupId)).EqualTo(-93376)
+                                                           .And.ItemAt(0).Property(nameof(SubsessionLap.Name)).EqualTo("Tempest Motorsports Neon")
+                                                           .And.ItemAt(0).Property(nameof(SubsessionLap.Incident)).EqualTo(false)
+                                                           .And.ItemAt(0).Property(nameof(SubsessionLap.Flags)).EqualTo(LapFlags.None));
 
-        Assert.That(lapChartResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(lapChartResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(lapChartResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(lapChartResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -753,18 +850,21 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var subSessionResultResponse = await sut.GetSubSessionResultAsync(12345, false, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(subSessionResultResponse, Is.Not.Null);
-        Assert.That(subSessionResultResponse!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(subSessionResultResponse, Is.Not.Null);
+            Assert.That(subSessionResultResponse!.Data, Is.Not.Null);
 
-        Assert.That(subSessionResultResponse.Data.SeasonId, Is.EqualTo(4780));
-        Assert.That(subSessionResultResponse.Data.SeriesName, Is.EqualTo("Formula B - Super Formula IMSIM Series - Fixed"));
-        Assert.That(subSessionResultResponse.Data.SessionResults, Has.Length.EqualTo(3));
-        Assert.That(subSessionResultResponse.Data.SessionResults, Has.One.Property(nameof(SessionResults.SimSessionName)).EqualTo("RACE"));
+            Assert.That(subSessionResultResponse.Data.SeasonId, Is.EqualTo(4780));
+            Assert.That(subSessionResultResponse.Data.SeriesName, Is.EqualTo("Formula B - Super Formula IMSIM Series - Fixed"));
+            Assert.That(subSessionResultResponse.Data.SessionResults, Has.Length.EqualTo(3));
+            Assert.That(subSessionResultResponse.Data.SessionResults, Has.One.Property(nameof(SessionResults.SimSessionName)).EqualTo("RACE"));
 
-        Assert.That(subSessionResultResponse.RateLimitRemaining, Is.EqualTo(239));
-        Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(240));
-        Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2024, 5, 1, 11, 54, 8, TimeSpan.Zero)));
-        Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2024, 5, 1, 12, 8, 8, 231, TimeSpan.Zero)));
+            Assert.That(subSessionResultResponse.RateLimitRemaining, Is.EqualTo(239));
+            Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(240));
+            Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2024, 5, 1, 11, 54, 8, TimeSpan.Zero)));
+            Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2024, 5, 1, 12, 8, 8, 231, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -774,29 +874,32 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var subSessionResultResponse = await sut.GetSubSessionResultAsync(12345, false, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(subSessionResultResponse, Is.Not.Null);
-        Assert.That(subSessionResultResponse!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(subSessionResultResponse, Is.Not.Null);
+            Assert.That(subSessionResultResponse!.Data, Is.Not.Null);
 
-        Assert.That(subSessionResultResponse.Data.SeasonId, Is.EqualTo(3720));
-        Assert.That(subSessionResultResponse.Data.SeriesName, Is.EqualTo("Nurburgring Endurance Championship"));
-        Assert.That(subSessionResultResponse.Data.SessionResults, Has.Length.EqualTo(3));
-        Assert.That(subSessionResultResponse.Data.SessionResults, Has.One.Property(nameof(SessionResults.SimSessionName)).EqualTo("RACE"));
+            Assert.That(subSessionResultResponse.Data.SeasonId, Is.EqualTo(3720));
+            Assert.That(subSessionResultResponse.Data.SeriesName, Is.EqualTo("Nurburgring Endurance Championship"));
+            Assert.That(subSessionResultResponse.Data.SessionResults, Has.Length.EqualTo(3));
+            Assert.That(subSessionResultResponse.Data.SessionResults, Has.One.Property(nameof(SessionResults.SimSessionName)).EqualTo("RACE"));
 
-        var raceResults = subSessionResultResponse.Data.SessionResults.Single(r => r.SimSessionName == "RACE");
-        Assert.That(raceResults.Results, Has.All.Property(nameof(Result.DriverResults)).Not.Null); // Team events should have driver results.
+            var raceResults = subSessionResultResponse.Data.SessionResults.Single(r => r.SimSessionName == "RACE");
+            Assert.That(raceResults.Results, Has.All.Property(nameof(Result.DriverResults)).Not.Null); // Team events should have driver results.
 
-        var nollerRacing = raceResults.Results.SingleOrDefault(r => r.TeamId == -208016);
-        Assert.That(nollerRacing?.DriverResults, Is.Empty.And.Not.Null);
+            var nollerRacing = raceResults.Results.SingleOrDefault(r => r.TeamId == -208016);
+            Assert.That(nollerRacing?.DriverResults, Is.Empty.And.Not.Null);
 
-        var racingSociety = raceResults.Results.SingleOrDefault(r => r.TeamId == -261181);
-        Assert.That(racingSociety?.DriverResults, Has.Length.EqualTo(2));
-        Assert.That(racingSociety?.DriverResults, Has.One.Property(nameof(DriverResult.CustomerId)).EqualTo(696075));
-        Assert.That(racingSociety?.DriverResults, Has.One.Property(nameof(DriverResult.CustomerId)).EqualTo(669671));
+            var racingSociety = raceResults.Results.SingleOrDefault(r => r.TeamId == -261181);
+            Assert.That(racingSociety?.DriverResults, Has.Length.EqualTo(2));
+            Assert.That(racingSociety?.DriverResults, Has.One.Property(nameof(DriverResult.CustomerId)).EqualTo(696075));
+            Assert.That(racingSociety?.DriverResults, Has.One.Property(nameof(DriverResult.CustomerId)).EqualTo(669671));
 
-        Assert.That(subSessionResultResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(subSessionResultResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -806,23 +909,26 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var subSessionResultResponse = await sut.GetSubSessionResultAsync(12345, false, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(subSessionResultResponse, Is.Not.Null);
-        Assert.That(subSessionResultResponse!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(subSessionResultResponse, Is.Not.Null);
+            Assert.That(subSessionResultResponse!.Data, Is.Not.Null);
 
-        Assert.That(subSessionResultResponse.Data.SeasonId, Is.EqualTo(0));
-        Assert.That(subSessionResultResponse.Data.SeriesName, Is.EqualTo("Hosted iRacing"));
-        Assert.That(subSessionResultResponse.Data.SessionResults, Has.Length.EqualTo(3));
-        Assert.That(subSessionResultResponse.Data.SessionResults, Has.One.Property(nameof(SessionResults.SimSessionName)).EqualTo("RACE"));
+            Assert.That(subSessionResultResponse.Data.SeasonId, Is.EqualTo(0));
+            Assert.That(subSessionResultResponse.Data.SeriesName, Is.EqualTo("Hosted iRacing"));
+            Assert.That(subSessionResultResponse.Data.SessionResults, Has.Length.EqualTo(3));
+            Assert.That(subSessionResultResponse.Data.SessionResults, Has.One.Property(nameof(SessionResults.SimSessionName)).EqualTo("RACE"));
 
-        Assert.That(subSessionResultResponse.Data.LeagueId, Is.EqualTo(5453));
-        Assert.That(subSessionResultResponse.Data.LeagueName, Is.EqualTo("Snail Speed Racing - GT3 League"));
-        Assert.That(subSessionResultResponse.Data.LeagueSeasonName, Is.EqualTo("2022-S2"));
-        Assert.That(subSessionResultResponse.Data.HostId, Is.EqualTo(411093));
+            Assert.That(subSessionResultResponse.Data.LeagueId, Is.EqualTo(5453));
+            Assert.That(subSessionResultResponse.Data.LeagueName, Is.EqualTo("Snail Speed Racing - GT3 League"));
+            Assert.That(subSessionResultResponse.Data.LeagueSeasonName, Is.EqualTo("2022-S2"));
+            Assert.That(subSessionResultResponse.Data.HostId, Is.EqualTo(411093));
 
-        Assert.That(subSessionResultResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(subSessionResultResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -859,14 +965,17 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var subSessionResultResponse = await sut.GetSubsessionEventLogAsync(12345, 0, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(subSessionResultResponse, Is.Not.Null);
-        Assert.That(subSessionResultResponse.Data.Header, Is.Not.Null);
-        Assert.That(subSessionResultResponse.Data.LogItems, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(subSessionResultResponse, Is.Not.Null);
+            Assert.That(subSessionResultResponse.Data.Header, Is.Not.Null);
+            Assert.That(subSessionResultResponse.Data.LogItems, Is.Not.Null);
 
-        Assert.That(subSessionResultResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(subSessionResultResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -887,17 +996,20 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var lapChartResponse = await sut.GetSeasonQualifyResultsAsync(3587, 71, 0).ConfigureAwait(false);
 
-        Assert.That(lapChartResponse, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(lapChartResponse, Is.Not.Null);
 
-        Assert.That(lapChartResponse.Data.Header, Is.Not.Null);
-        Assert.That(lapChartResponse.Data.Header.Success, Is.True);
-        Assert.That(lapChartResponse.Data.Header.ChunkInfo, Is.Not.Null);
-        Assert.That(lapChartResponse.Data.Results, Has.Length.EqualTo(3078));
+            Assert.That(lapChartResponse.Data.Header, Is.Not.Null);
+            Assert.That(lapChartResponse.Data.Header.Success, Is.True);
+            Assert.That(lapChartResponse.Data.Header.ChunkInfo, Is.Not.Null);
+            Assert.That(lapChartResponse.Data.Results, Has.Length.EqualTo(3078));
 
-        Assert.That(lapChartResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(lapChartResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(lapChartResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(lapChartResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -907,17 +1019,20 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var timeTrialResponse = await sut.GetSeasonTimeTrialResultsAsync(3587, 71, 0).ConfigureAwait(false);
 
-        Assert.That(timeTrialResponse, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(timeTrialResponse, Is.Not.Null);
 
-        Assert.That(timeTrialResponse.Data.Header, Is.Not.Null);
-        Assert.That(timeTrialResponse.Data.Header.Success, Is.True);
-        Assert.That(timeTrialResponse.Data.Header.ChunkInfo, Is.Not.Null);
-        Assert.That(timeTrialResponse.Data.Results, Has.Length.EqualTo(60));
+            Assert.That(timeTrialResponse.Data.Header, Is.Not.Null);
+            Assert.That(timeTrialResponse.Data.Header.Success, Is.True);
+            Assert.That(timeTrialResponse.Data.Header.ChunkInfo, Is.Not.Null);
+            Assert.That(timeTrialResponse.Data.Results, Has.Length.EqualTo(60));
 
-        Assert.That(timeTrialResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(timeTrialResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(timeTrialResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(timeTrialResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(timeTrialResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(timeTrialResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(timeTrialResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(timeTrialResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -927,17 +1042,20 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var timeTrialResponse = await sut.GetSeasonTimeTrialStandingsAsync(3587, 71, 0, cancellationToken: CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(timeTrialResponse, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(timeTrialResponse, Is.Not.Null);
 
-        Assert.That(timeTrialResponse.Data.Header, Is.Not.Null);
-        Assert.That(timeTrialResponse.Data.Header.Success, Is.True);
-        Assert.That(timeTrialResponse.Data.Header.ChunkInfo, Is.Not.Null);
-        Assert.That(timeTrialResponse.Data.Standings, Has.Length.EqualTo(60));
+            Assert.That(timeTrialResponse.Data.Header, Is.Not.Null);
+            Assert.That(timeTrialResponse.Data.Header.Success, Is.True);
+            Assert.That(timeTrialResponse.Data.Header.ChunkInfo, Is.Not.Null);
+            Assert.That(timeTrialResponse.Data.Standings, Has.Length.EqualTo(60));
 
-        Assert.That(timeTrialResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(timeTrialResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(timeTrialResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(timeTrialResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(timeTrialResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(timeTrialResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(timeTrialResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(timeTrialResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -947,17 +1065,20 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var timeTrialResponse = await sut.GetSeasonTeamStandingsAsync(3587, 71, 0, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(timeTrialResponse, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(timeTrialResponse, Is.Not.Null);
 
-        Assert.That(timeTrialResponse.Data.Header, Is.Not.Null);
-        Assert.That(timeTrialResponse.Data.Header.Success, Is.True);
-        Assert.That(timeTrialResponse.Data.Header.ChunkInfo, Is.Not.Null);
-        Assert.That(timeTrialResponse.Data.Standings, Has.Length.EqualTo(192));
+            Assert.That(timeTrialResponse.Data.Header, Is.Not.Null);
+            Assert.That(timeTrialResponse.Data.Header.Success, Is.True);
+            Assert.That(timeTrialResponse.Data.Header.ChunkInfo, Is.Not.Null);
+            Assert.That(timeTrialResponse.Data.Standings, Has.Length.EqualTo(192));
 
-        Assert.That(timeTrialResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(timeTrialResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(timeTrialResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(timeTrialResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(timeTrialResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(timeTrialResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(timeTrialResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(timeTrialResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -972,17 +1093,20 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         };
         var searchHostedResponse = await sut.SearchHostedResultsAsync(searchParams, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(searchHostedResponse, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(searchHostedResponse, Is.Not.Null);
 
-        Assert.That(searchHostedResponse.Data.Header, Is.Not.Null);
-        Assert.That(searchHostedResponse.Data.Header.Data, Is.Not.Null);
-        Assert.That(searchHostedResponse.Data.Header.Data.Success, Is.True);
-        Assert.That(searchHostedResponse.Data.Header.Data.ChunkInfo, Is.Not.Null);
-        Assert.That(searchHostedResponse.Data.Items, Has.Length.EqualTo(53));
+            Assert.That(searchHostedResponse.Data.Header, Is.Not.Null);
+            Assert.That(searchHostedResponse.Data.Header.Data, Is.Not.Null);
+            Assert.That(searchHostedResponse.Data.Header.Data.Success, Is.True);
+            Assert.That(searchHostedResponse.Data.Header.Data.ChunkInfo, Is.Not.Null);
+            Assert.That(searchHostedResponse.Data.Items, Has.Length.EqualTo(53));
 
-        Assert.That(searchHostedResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(searchHostedResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(searchHostedResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(searchHostedResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(searchHostedResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(searchHostedResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -998,17 +1122,20 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         };
         var searchHostedResponse = await sut.SearchOfficialResultsAsync(searchParams, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(searchHostedResponse, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(searchHostedResponse, Is.Not.Null);
 
-        Assert.That(searchHostedResponse.Data.Header, Is.Not.Null);
-        Assert.That(searchHostedResponse.Data.Header.Data, Is.Not.Null);
-        Assert.That(searchHostedResponse.Data.Header.Data.Success, Is.True);
-        Assert.That(searchHostedResponse.Data.Header.Data.ChunkInfo, Is.Not.Null);
-        Assert.That(searchHostedResponse.Data.Items, Has.Length.EqualTo(333));
+            Assert.That(searchHostedResponse.Data.Header, Is.Not.Null);
+            Assert.That(searchHostedResponse.Data.Header.Data, Is.Not.Null);
+            Assert.That(searchHostedResponse.Data.Header.Data.Success, Is.True);
+            Assert.That(searchHostedResponse.Data.Header.Data.ChunkInfo, Is.Not.Null);
+            Assert.That(searchHostedResponse.Data.Items, Has.Length.EqualTo(333));
 
-        Assert.That(searchHostedResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(searchHostedResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(searchHostedResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(searchHostedResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(searchHostedResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(searchHostedResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1018,13 +1145,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var memberChartResponse = await sut.GetMemberChartDataAsync(341554, 2, Member.MemberChartType.IRating, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(memberChartResponse, Is.Not.Null);
-        Assert.That(memberChartResponse.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(memberChartResponse, Is.Not.Null);
+            Assert.That(memberChartResponse.Data, Is.Not.Null);
 
-        Assert.That(memberChartResponse.Data.Success, Is.True);
-        Assert.That(memberChartResponse.Data.Points, Has.Length.EqualTo(104));
-        Assert.That(memberChartResponse.Data.ChartType, Is.EqualTo(Member.MemberChartType.IRating));
-        Assert.That(memberChartResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(memberChartResponse.Data.Success, Is.True);
+            Assert.That(memberChartResponse.Data.Points, Has.Length.EqualTo(104));
+            Assert.That(memberChartResponse.Data.ChartType, Is.EqualTo(Member.MemberChartType.IRating));
+            Assert.That(memberChartResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1035,15 +1165,18 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
         var searchParams = new SearchLeagueDirectoryParameters();
         var leagueDirectoryResponse = await sut.SearchLeagueDirectoryAsync(searchParams, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(leagueDirectoryResponse, Is.Not.Null);
-        Assert.That(leagueDirectoryResponse.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(leagueDirectoryResponse, Is.Not.Null);
+            Assert.That(leagueDirectoryResponse.Data, Is.Not.Null);
 
-        Assert.That(leagueDirectoryResponse.Data.Success, Is.True);
+            Assert.That(leagueDirectoryResponse.Data.Success, Is.True);
 
-        Assert.That(leagueDirectoryResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(leagueDirectoryResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(leagueDirectoryResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(leagueDirectoryResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(leagueDirectoryResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(leagueDirectoryResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(leagueDirectoryResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(leagueDirectoryResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1053,18 +1186,21 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var listSeasonsResponse = await sut.ListSeasonsAsync(2022, 1, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(listSeasonsResponse, Is.Not.Null);
-        Assert.That(listSeasonsResponse.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(listSeasonsResponse, Is.Not.Null);
+            Assert.That(listSeasonsResponse.Data, Is.Not.Null);
 
-        Assert.That(listSeasonsResponse.Data, Has.Property(nameof(ListOfSeasons.SeasonYear)).EqualTo(2022));
-        Assert.That(listSeasonsResponse.Data, Has.Property(nameof(ListOfSeasons.SeasonQuarter)).EqualTo(1));
-        Assert.That(listSeasonsResponse.Data, Has.Property(nameof(ListOfSeasons.Seasons)).Not.Null.Or.Empty);
-        Assert.That(listSeasonsResponse.Data.Seasons, Has.Length.EqualTo(126));
+            Assert.That(listSeasonsResponse.Data, Has.Property(nameof(ListOfSeasons.SeasonYear)).EqualTo(2022));
+            Assert.That(listSeasonsResponse.Data, Has.Property(nameof(ListOfSeasons.SeasonQuarter)).EqualTo(1));
+            Assert.That(listSeasonsResponse.Data, Has.Property(nameof(ListOfSeasons.Seasons)).Not.Null.Or.Empty);
+            Assert.That(listSeasonsResponse.Data.Seasons, Has.Length.EqualTo(126));
 
-        Assert.That(listSeasonsResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(listSeasonsResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(listSeasonsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(listSeasonsResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(listSeasonsResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(listSeasonsResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(listSeasonsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(listSeasonsResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1074,13 +1210,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var raceGuideResponse = await sut.GetRaceGuideAsync().ConfigureAwait(false);
 
-        Assert.That(raceGuideResponse, Is.Not.Null);
-        Assert.That(raceGuideResponse!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(raceGuideResponse, Is.Not.Null);
+            Assert.That(raceGuideResponse!.Data, Is.Not.Null);
 
-        Assert.That(raceGuideResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(raceGuideResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(raceGuideResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(raceGuideResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(raceGuideResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(raceGuideResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(raceGuideResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(raceGuideResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1090,13 +1229,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var countryResponse = await sut.GetCustomerLeagueSessionsAsync().ConfigureAwait(false);
 
-        Assert.That(countryResponse, Is.Not.Null);
-        Assert.That(countryResponse!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(countryResponse, Is.Not.Null);
+            Assert.That(countryResponse!.Data, Is.Not.Null);
 
-        Assert.That(countryResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(countryResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(countryResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(countryResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2023, 4, 8, 20, 28, 49, 471, TimeSpan.Zero)));
+            Assert.That(countryResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(countryResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(countryResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(countryResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2023, 4, 8, 20, 28, 49, 471, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1106,13 +1248,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var countryResponse = await sut.GetCountriesAsync().ConfigureAwait(false);
 
-        Assert.That(countryResponse, Is.Not.Null);
-        Assert.That(countryResponse!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(countryResponse, Is.Not.Null);
+            Assert.That(countryResponse!.Data, Is.Not.Null);
 
-        Assert.That(countryResponse.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(countryResponse.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(countryResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(countryResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(countryResponse.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(countryResponse.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(countryResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(countryResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1122,13 +1267,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await sut.GetDriverAwardsAsync().ConfigureAwait(false);
 
-        Assert.That(response, Is.Not.Null);
-        Assert.That(response!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response!.Data, Is.Not.Null);
 
-        Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(response.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(response.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1138,13 +1286,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await sut.GetBestLapStatisticsAsync().ConfigureAwait(false);
 
-        Assert.That(response, Is.Not.Null);
-        Assert.That(response!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response!.Data, Is.Not.Null);
 
-        Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(response.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(response.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1154,13 +1305,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await sut.ListHostedSessionsCombinedAsync().ConfigureAwait(false);
 
-        Assert.That(response, Is.Not.Null);
-        Assert.That(response!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response!.Data, Is.Not.Null);
 
-        Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(response.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(response.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1170,13 +1324,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await sut.ListHostedSessionsAsync().ConfigureAwait(false);
 
-        Assert.That(response, Is.Not.Null);
-        Assert.That(response!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response!.Data, Is.Not.Null);
 
-        Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(response.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(response.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1186,14 +1343,17 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await sut.GetWorldRecordsAsync(145, 341).ConfigureAwait(false);
 
-        Assert.That(response, Is.Not.Null);
-        Assert.That(response.Data.Header, Is.Not.Null);
-        Assert.That(response.Data.Entries, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response.Data.Header, Is.Not.Null);
+            Assert.That(response.Data.Entries, Is.Not.Null);
 
-        Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(response.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(response.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1203,13 +1363,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await sut.GetTeamAsync(259167).ConfigureAwait(false);
 
-        Assert.That(response, Is.Not.Null);
-        Assert.That(response!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response!.Data, Is.Not.Null);
 
-        Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(response.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(response.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1219,13 +1382,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await sut.GetLeaguePointsSystemsAsync(259167).ConfigureAwait(false);
 
-        Assert.That(response, Is.Not.Null);
-        Assert.That(response!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response!.Data, Is.Not.Null);
 
-        Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(response.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(response.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1235,14 +1401,17 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await sut.GetMemberParticipationCreditsAsync().ConfigureAwait(false);
 
-        Assert.That(response, Is.Not.Null);
-        Assert.That(response!.Data, Is.Not.Null);
-        Assert.That(response.Data, Has.Length.EqualTo(3));
+        Assert.Multiple(() =>
+        {
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response!.Data, Is.Not.Null);
+            Assert.That(response.Data, Has.Length.EqualTo(3));
 
-        Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(response.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(response.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1252,21 +1421,24 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await sut.GetPastSeasonsForSeriesAsync(260).ConfigureAwait(false);
 
-        Assert.That(response, Is.Not.Null);
-        Assert.That(response!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response!.Data, Is.Not.Null);
 
-        Assert.That(response.Data.SeriesName, Is.EqualTo("Formula A - Grand Prix Series"));
-        Assert.That(response.Data.SearchFilters, Is.EqualTo("openwheel,road"));
-        Assert.That(response.Data.FixedSetup, Is.False);
-        Assert.That(response.Data.Logo, Is.EqualTo("formulaagrandprixseries-logo.png"));
-        Assert.That(response.Data.LogoUri, Is.EqualTo(new Uri("https://images-static.iracing.com/img/logos/series/formulaagrandprixseries-logo.png")));
+            Assert.That(response.Data.SeriesName, Is.EqualTo("Formula A - Grand Prix Series"));
+            Assert.That(response.Data.SearchFilters, Is.EqualTo("openwheel,road"));
+            Assert.That(response.Data.FixedSetup, Is.False);
+            Assert.That(response.Data.Logo, Is.EqualTo("formulaagrandprixseries-logo.png"));
+            Assert.That(response.Data.LogoUri, Is.EqualTo(new Uri("https://images-static.iracing.com/img/logos/series/formulaagrandprixseries-logo.png")));
 
-        Assert.That(response.Data.Seasons, Has.Length.EqualTo(29));
+            Assert.That(response.Data.Seasons, Has.Length.EqualTo(29));
 
-        Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(response.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(response.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1276,73 +1448,75 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await sut.GetServiceStatusAsync().ConfigureAwait(false);
 
-        Assert.That(response, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(response, Is.Not.Null);
 #if NET8_0_OR_GREATER
-        Assert.That(response.Timestamp, Is.EqualTo(new DateTimeOffset(2023, 1, 27, 12, 29, 57, 713, 258, TimeSpan.Zero)));
+            Assert.That(response.Timestamp, Is.EqualTo(new DateTimeOffset(2023, 1, 27, 12, 29, 57, 713, 258, TimeSpan.Zero)));
 #else
-        Assert.That(response.Timestamp, Is.EqualTo(new DateTimeOffset(2023, 1, 27, 12, 29, 57, 713, TimeSpan.Zero)));
+            Assert.That(response.Timestamp, Is.EqualTo(new DateTimeOffset(2023, 1, 27, 12, 29, 57, 713, TimeSpan.Zero)));
 #endif
-        Assert.That(response.MaintenanceMessages, Has.Length.EqualTo(1));
-        Assert.That(response.MaintenanceMessages[0], Is.EqualTo("Downtime has been scheduled for the 2023 Season 1 Patch 3 Hotfix 1 Release on January 27th at 1100 EST / 1600 GMT. Please see Staff Announcements on the iRacing Forums for more details."));
+            Assert.That(response.MaintenanceMessages, Has.Length.EqualTo(1));
+            Assert.That(response.MaintenanceMessages[0], Is.EqualTo("Downtime has been scheduled for the 2023 Season 1 Patch 3 Hotfix 1 Release on January 27th at 1100 EST / 1600 GMT. Please see Staff Announcements on the iRacing Forums for more details."));
 
-        Assert.That(response.Tests, Is.Not.Null);
+            Assert.That(response.Tests, Is.Not.Null);
 
-        Assert.That(response.Tests.ConfigurationFlags, Is.Not.Null);
+            Assert.That(response.Tests.ConfigurationFlags, Is.Not.Null);
 
-        Assert.That(response.Tests.ConfigurationFlags.iRacingUIinMaintenanceMode, Is.Not.Null);
-        Assert.That(response.Tests.ConfigurationFlags.iRacingUIinMaintenanceMode.Description, Is.EqualTo("Result is a 0 or a 1. 0 means BetaUI is NOT in maintenance mode."));
-        Assert.That(response.Tests.ConfigurationFlags.iRacingUIinMaintenanceMode.Result, Is.Not.Null.And.Length.EqualTo(241));
-        Assert.That(response.Tests.ConfigurationFlags.iRacingUIinMaintenanceMode.SummaryLabel, Is.EqualTo("No"));
-        Assert.That(response.Tests.ConfigurationFlags.iRacingUIinMaintenanceMode.SummaryLevel, Is.EqualTo(0));
+            Assert.That(response.Tests.ConfigurationFlags.iRacingUIinMaintenanceMode, Is.Not.Null);
+            Assert.That(response.Tests.ConfigurationFlags.iRacingUIinMaintenanceMode.Description, Is.EqualTo("Result is a 0 or a 1. 0 means BetaUI is NOT in maintenance mode."));
+            Assert.That(response.Tests.ConfigurationFlags.iRacingUIinMaintenanceMode.Result, Is.Not.Null.And.Length.EqualTo(241));
+            Assert.That(response.Tests.ConfigurationFlags.iRacingUIinMaintenanceMode.SummaryLabel, Is.EqualTo("No"));
+            Assert.That(response.Tests.ConfigurationFlags.iRacingUIinMaintenanceMode.SummaryLevel, Is.EqualTo(0));
 
-        Assert.That(response.Tests.ConfigurationFlags.TestDriveAvailable, Is.Not.Null);
-        Assert.That(response.Tests.ConfigurationFlags.TestDriveAvailable.Description, Is.EqualTo("Result is a 0 or a 1. 0 means TestDrive is disabled."));
-        Assert.That(response.Tests.ConfigurationFlags.TestDriveAvailable.Result, Is.Not.Null.And.Length.EqualTo(241));
-        Assert.That(response.Tests.ConfigurationFlags.TestDriveAvailable.SummaryLabel, Is.EqualTo("Yes"));
-        Assert.That(response.Tests.ConfigurationFlags.TestDriveAvailable.SummaryLevel, Is.EqualTo(2));
+            Assert.That(response.Tests.ConfigurationFlags.TestDriveAvailable, Is.Not.Null);
+            Assert.That(response.Tests.ConfigurationFlags.TestDriveAvailable.Description, Is.EqualTo("Result is a 0 or a 1. 0 means TestDrive is disabled."));
+            Assert.That(response.Tests.ConfigurationFlags.TestDriveAvailable.Result, Is.Not.Null.And.Length.EqualTo(241));
+            Assert.That(response.Tests.ConfigurationFlags.TestDriveAvailable.SummaryLabel, Is.EqualTo("Yes"));
+            Assert.That(response.Tests.ConfigurationFlags.TestDriveAvailable.SummaryLevel, Is.EqualTo(2));
 
-        Assert.That(response.Tests.ConfigurationFlags.ClassicMemberSiteInMaintenanceMode, Is.Not.Null);
-        Assert.That(response.Tests.ConfigurationFlags.ClassicMemberSiteInMaintenanceMode.Description, Is.EqualTo("Result is a 0 or a 1. 0 means the classic website is NOT in maintenance mode."));
-        Assert.That(response.Tests.ConfigurationFlags.ClassicMemberSiteInMaintenanceMode.Result, Is.Not.Null.And.Length.EqualTo(241));
-        Assert.That(response.Tests.ConfigurationFlags.ClassicMemberSiteInMaintenanceMode.SummaryLabel, Is.EqualTo("No"));
-        Assert.That(response.Tests.ConfigurationFlags.ClassicMemberSiteInMaintenanceMode.SummaryLevel, Is.EqualTo(0));
+            Assert.That(response.Tests.ConfigurationFlags.ClassicMemberSiteInMaintenanceMode, Is.Not.Null);
+            Assert.That(response.Tests.ConfigurationFlags.ClassicMemberSiteInMaintenanceMode.Description, Is.EqualTo("Result is a 0 or a 1. 0 means the classic website is NOT in maintenance mode."));
+            Assert.That(response.Tests.ConfigurationFlags.ClassicMemberSiteInMaintenanceMode.Result, Is.Not.Null.And.Length.EqualTo(241));
+            Assert.That(response.Tests.ConfigurationFlags.ClassicMemberSiteInMaintenanceMode.SummaryLabel, Is.EqualTo("No"));
+            Assert.That(response.Tests.ConfigurationFlags.ClassicMemberSiteInMaintenanceMode.SummaryLevel, Is.EqualTo(0));
 
-        Assert.That(response.Tests.Websites, Is.Not.Null);
-        Assert.That(response.Tests.Websites.PublicSiteWwwiRacingCom, Is.Not.Null);
-        Assert.That(response.Tests.Websites.PublicSiteWwwiRacingCom.Description, Is.EqualTo("Result is a 0 or a 1. 0 means the website returned something other than HTTP/200 or has the wrong content."));
-        Assert.That(response.Tests.Websites.PublicSiteWwwiRacingCom.Result, Is.Not.Null.And.Length.EqualTo(241));
-        Assert.That(response.Tests.Websites.PublicSiteWwwiRacingCom.SummaryLabel, Is.EqualTo("Okay"));
-        Assert.That(response.Tests.Websites.PublicSiteWwwiRacingCom.SummaryLevel, Is.EqualTo(2));
+            Assert.That(response.Tests.Websites, Is.Not.Null);
+            Assert.That(response.Tests.Websites.PublicSiteWwwiRacingCom, Is.Not.Null);
+            Assert.That(response.Tests.Websites.PublicSiteWwwiRacingCom.Description, Is.EqualTo("Result is a 0 or a 1. 0 means the website returned something other than HTTP/200 or has the wrong content."));
+            Assert.That(response.Tests.Websites.PublicSiteWwwiRacingCom.Result, Is.Not.Null.And.Length.EqualTo(241));
+            Assert.That(response.Tests.Websites.PublicSiteWwwiRacingCom.SummaryLabel, Is.EqualTo("Okay"));
+            Assert.That(response.Tests.Websites.PublicSiteWwwiRacingCom.SummaryLevel, Is.EqualTo(2));
 
-        Assert.That(response.Tests.Websites.Forums, Is.Not.Null);
-        Assert.That(response.Tests.Websites.Forums.Description, Is.EqualTo("Result is a 0 or 1. 0 means high response error rates."));
-        Assert.That(response.Tests.Websites.Forums.Result, Is.Not.Null.And.Length.EqualTo(241));
-        Assert.That(response.Tests.Websites.Forums.SummaryLabel, Is.EqualTo("Okay"));
-        Assert.That(response.Tests.Websites.Forums.SummaryLevel, Is.EqualTo(2));
+            Assert.That(response.Tests.Websites.Forums, Is.Not.Null);
+            Assert.That(response.Tests.Websites.Forums.Description, Is.EqualTo("Result is a 0 or 1. 0 means high response error rates."));
+            Assert.That(response.Tests.Websites.Forums.Result, Is.Not.Null.And.Length.EqualTo(241));
+            Assert.That(response.Tests.Websites.Forums.SummaryLabel, Is.EqualTo("Okay"));
+            Assert.That(response.Tests.Websites.Forums.SummaryLevel, Is.EqualTo(2));
 
-        Assert.That(response.Tests.Websites.Downloads, Is.Not.Null);
-        Assert.That(response.Tests.Websites.Downloads.Description, Is.EqualTo("Result is a 0 or a 1. 0 means the website returned something other than HTTP/200 or has the wrong content."));
-        Assert.That(response.Tests.Websites.Downloads.Result, Is.Not.Null.And.Length.EqualTo(241));
-        Assert.That(response.Tests.Websites.Downloads.SummaryLabel, Is.EqualTo("Okay"));
-        Assert.That(response.Tests.Websites.Downloads.SummaryLevel, Is.EqualTo(2));
+            Assert.That(response.Tests.Websites.Downloads, Is.Not.Null);
+            Assert.That(response.Tests.Websites.Downloads.Description, Is.EqualTo("Result is a 0 or a 1. 0 means the website returned something other than HTTP/200 or has the wrong content."));
+            Assert.That(response.Tests.Websites.Downloads.Result, Is.Not.Null.And.Length.EqualTo(241));
+            Assert.That(response.Tests.Websites.Downloads.SummaryLabel, Is.EqualTo("Okay"));
+            Assert.That(response.Tests.Websites.Downloads.SummaryLevel, Is.EqualTo(2));
 
-        Assert.That(response.Tests.Websites.LegacyForums, Is.Not.Null);
-        Assert.That(response.Tests.Websites.LegacyForums.Description, Is.EqualTo("Result is a 0 or 1. 0 means high response error rates."));
-        Assert.That(response.Tests.Websites.LegacyForums.Result, Is.Not.Null.And.Length.EqualTo(241));
-        Assert.That(response.Tests.Websites.LegacyForums.SummaryLabel, Is.EqualTo("Okay"));
-        Assert.That(response.Tests.Websites.LegacyForums.SummaryLevel, Is.EqualTo(2));
+            Assert.That(response.Tests.Websites.LegacyForums, Is.Not.Null);
+            Assert.That(response.Tests.Websites.LegacyForums.Description, Is.EqualTo("Result is a 0 or 1. 0 means high response error rates."));
+            Assert.That(response.Tests.Websites.LegacyForums.Result, Is.Not.Null.And.Length.EqualTo(241));
+            Assert.That(response.Tests.Websites.LegacyForums.SummaryLabel, Is.EqualTo("Okay"));
+            Assert.That(response.Tests.Websites.LegacyForums.SummaryLevel, Is.EqualTo(2));
 
-        Assert.That(response.Tests.RaceServerNetwork, Is.Not.Null);
+            Assert.That(response.Tests.RaceServerNetwork, Is.Not.Null);
+            Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivitySydney.Description, Is.EqualTo("Result is a 0 or a 1. 0 means the farm is experiencing connectivity issues."));
+            Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivitySydney.Result, Is.Not.Null.And.Length.EqualTo(241));
+            Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivitySydney.SummaryLabel, Is.EqualTo("Okay"));
+            Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivitySydney.SummaryLevel, Is.EqualTo(2));
 
-        Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivitySydney.Description, Is.EqualTo("Result is a 0 or a 1. 0 means the farm is experiencing connectivity issues."));
-        Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivitySydney.Result, Is.Not.Null.And.Length.EqualTo(241));
-        Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivitySydney.SummaryLabel, Is.EqualTo("Okay"));
-        Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivitySydney.SummaryLevel, Is.EqualTo(2));
-
-        Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivityUSWestCoast.Description, Is.EqualTo("Result is a 0 or a 1. 0 means the farm is experiencing connectivity issues."));
-        Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivityUSWestCoast.Result, Is.Not.Null.And.Length.EqualTo(241));
-        Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivityUSWestCoast.SummaryLabel, Is.EqualTo("Okay"));
-        Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivityUSWestCoast.SummaryLevel, Is.EqualTo(2));
+            Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivityUSWestCoast.Description, Is.EqualTo("Result is a 0 or a 1. 0 means the farm is experiencing connectivity issues."));
+            Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivityUSWestCoast.Result, Is.Not.Null.And.Length.EqualTo(241));
+            Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivityUSWestCoast.SummaryLabel, Is.EqualTo("Okay"));
+            Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivityUSWestCoast.SummaryLevel, Is.EqualTo(2));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1357,15 +1531,18 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var competition1001 = response.SingleOrDefault(c => c.CompetitionId == 1001);
 
-        Assert.That(competition1001, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(competition1001, Is.Not.Null);
 
 #if NET6_0_OR_GREATER
-        Assert.That(competition1001!.StartDate, Is.EqualTo(new DateOnly(2022, 12, 13)));
-        Assert.That(competition1001.EndDate, Is.EqualTo(new DateOnly(2023, 3, 5)));
+            Assert.That(competition1001!.StartDate, Is.EqualTo(new DateOnly(2022, 12, 13)));
+            Assert.That(competition1001.EndDate, Is.EqualTo(new DateOnly(2023, 3, 5)));
 #else
-        Assert.That(competition1001.StartDate, Is.EqualTo(new DateTime(2022, 12, 13)));
-        Assert.That(competition1001.EndDate, Is.EqualTo(new DateTime(2023, 3, 5)));
+            Assert.That(competition1001.StartDate, Is.EqualTo(new DateTime(2022, 12, 13)));
+            Assert.That(competition1001.EndDate, Is.EqualTo(new DateTime(2023, 3, 5)));
 #endif
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1476,11 +1653,8 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
                     .And.Property(nameof(WeatherForecast.AllowPrecipitation)).Not.Null
                     .And.Property(nameof(WeatherForecast.PrecipitationAmount)).Not.Null
                     .And.Property(nameof(WeatherForecast.Timestamp)).Not.Null);
-        });
 
-        var forecast = response.First();
-        Assert.Multiple(() =>
-        {
+            var forecast = response.First();
             Assert.That(forecast.TimeOffset, Is.EqualTo(TimeSpan.FromMinutes(-385)));
             Assert.That(forecast.RawAirTemperature, Is.EqualTo(7.72m));
             Assert.That(forecast.PrecipitationChance, Is.EqualTo(100m));
@@ -1565,13 +1739,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await sut.ListHostedSessionsAsync().ConfigureAwait(false);
 
-        Assert.That(response, Is.Not.Null);
-        Assert.That(response!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response!.Data, Is.Not.Null);
 
-        Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(response.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(response.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1581,13 +1758,16 @@ public class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await sut.ListHostedSessionsCombinedAsync().ConfigureAwait(false);
 
-        Assert.That(response, Is.Not.Null);
-        Assert.That(response!.Data, Is.Not.Null);
+        Assert.Multiple(() =>
+        {
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response!.Data, Is.Not.Null);
 
-        Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
-        Assert.That(response.TotalRateLimit, Is.EqualTo(100));
-        Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(response.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
     }
 
     protected override void Dispose(bool disposing)

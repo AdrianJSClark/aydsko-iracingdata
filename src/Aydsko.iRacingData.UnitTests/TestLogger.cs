@@ -5,7 +5,7 @@ using Microsoft.Extensions.Logging;
 
 namespace Aydsko.iRacingData.UnitTests;
 
-public class TestLogger<T> : ILogger<T>
+internal sealed class TestLogger<T> : ILogger<T>
 {
     public IDisposable? BeginScope<TState>(TState state) where TState : notnull
     {
@@ -50,7 +50,7 @@ public class TestLogger<T> : ILogger<T>
     }
 }
 
-public sealed class TestScope : IDisposable
+internal sealed class TestScope : IDisposable
 {
     public void Dispose()
     {

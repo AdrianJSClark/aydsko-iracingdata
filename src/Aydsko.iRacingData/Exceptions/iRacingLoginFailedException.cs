@@ -1,11 +1,9 @@
 ﻿// © 2023 Adrian Clark
 // This file is licensed to you under the MIT license.
 
-using System;
 using System.Runtime.Serialization;
 
 namespace Aydsko.iRacingData.Exceptions;
-
 
 [Serializable]
 public class iRacingLoginFailedException : iRacingDataClientException

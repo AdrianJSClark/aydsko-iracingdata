@@ -7,7 +7,7 @@ using static System.Text.Encoding;
 
 namespace Aydsko.iRacingData.UnitTests.Converters;
 
-public class TrackConfigNameNaConverterTests
+internal sealed class TrackConfigNameNaConverterTests
 {
     private TrackConfigNameNaConverter _sut = null!;
 
@@ -32,8 +32,15 @@ public class TrackConfigNameNaConverterTests
         return UTF8.GetString(result);
     }
 
-    public static IEnumerable<TestCaseData> ReadValueTestCases() => ReadExamples().ToReadValueTestCases();
-    public static IEnumerable<TestCaseData> WriteValueTestCases() => WriteExamples().ToWriteValueTestCases();
+    private static IEnumerable<TestCaseData> ReadValueTestCases()
+    {
+        return ReadExamples().ToReadValueTestCases();
+    }
+
+    private static IEnumerable<TestCaseData> WriteValueTestCases()
+    {
+        return WriteExamples().ToWriteValueTestCases();
+    }
 
     private static IEnumerable<(byte[] JsonBytes, string? Value, string Name)> ReadExamples()
     {

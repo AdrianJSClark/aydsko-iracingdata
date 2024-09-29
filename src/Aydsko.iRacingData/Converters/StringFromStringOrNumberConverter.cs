@@ -11,12 +11,14 @@ public sealed class StringFromStringOrNumberConverter : JsonConverter<string>
 {
     public override string? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
     {
+#pragma warning disable IDE0072 // Add missing cases - The default case is valid for these.
         return reader.TokenType switch
         {
             JsonTokenType.String => reader.GetString(),
             JsonTokenType.Number => reader.GetInt32().ToString(CultureInfo.InvariantCulture),
             _ => null
         };
+#pragma warning restore IDE0072 // Add missing cases
     }
 
     public override void Write(Utf8JsonWriter writer, string value, JsonSerializerOptions options)

@@ -10,20 +10,15 @@ using System.Text.Json;
 
 namespace Aydsko.iRacingData.UnitTests;
 
-public class MockedHttpMessageHandler : HttpMessageHandler
+internal sealed class MockedHttpMessageHandler(CookieContainer cookieContainer)
+    : HttpMessageHandler
 {
     private readonly Assembly ResourceAssembly = typeof(MockedHttpMessageHandler).Assembly;
-    private readonly CookieContainer cookieContainer;
 
     public Queue<MockedHttpRequest> RequestContent { get; } = new();
     public Queue<HttpResponseMessage> Responses { get; } = new();
 
-    private static readonly string[] SuccessfulLoginResponse = new[] { "Aydsko.iRacingData.UnitTests.Responses.SuccessfulLogin.json" };
-
-    public MockedHttpMessageHandler(CookieContainer cookieContainer)
-    {
-        this.cookieContainer = cookieContainer;
-    }
+    private static readonly string[] SuccessfulLoginResponse = ["Aydsko.iRacingData.UnitTests.Responses.SuccessfulLogin.json"];
 
     protected override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
     {
