@@ -1,24 +1,37 @@
-{
-  "headers": {},
-  "content": {
-    "success": true,
-    "season_id": 3656,
-    "season_name": "Grand Prix Series - 2022 Season 2",
-    "season_short_name": "2022 Season 2",
-    "series_id": 260,
-    "series_name": "Grand Prix Series",
-    "car_class_id": 3185,
-    "race_week_num": 0,
-    "chunk_info": {
-      "chunk_size": 500,
-      "num_chunks": 2,
-      "rows": 647,
-      "base_download_url": "https://dqfp1ltauszrc.cloudfront.net/public/standings/season/3656/season-driver/3185/0/",
-      "chunk_file_names": [
-        "c1abec864bf6fb301a10b2cc05d33bcbc78b1a4b32bf8b97ca975450f93c0b12.json",
-        "c1ab788269a48ee1c78926d46b1b18eb1d7e6be9505a5f50a2f06e4899a3be23.json"
-      ]
-    },
-    "last_updated": "2022-04-02T11:34:30.81764Z"
-  }
+﻿{
+    "headers": {
+  "x-amz-id-2": "VfCaUIRP7rRSJ9pzze3QOaFQPvlBuadCAg82ViJjcBFvRoYgbUslP92X3lcOwNO/v8RqdBd7\u002BKc=",
+  "x-amz-request-id": "7JP53B1XXX010TX9",
+  "Date": "Sun, 29 Sep 2024 02:19:42 GMT",
+  "x-amz-expiration": "expiry-date=\u0022Tue, 01 Oct 2024 00:00:00 GMT\u0022, rule-id=\u0022production data-server cache expiry\u0022",
+  "ETag": "\u002251c219f766bd8f5cc6306733a55fe5cd\u0022",
+  "x-amz-server-side-encryption": "AES256",
+  "Cache-Control": "max-age=60",
+  "Accept-Ranges": "bytes",
+  "Server": "AmazonS3"
+},
+	"content": {
+  "success": true,
+  "season_id": 4183,
+  "season_name": "Formula A - Grand Prix Series - Fixed - 2023 Season 2",
+  "season_short_name": "2023 Season 2 - Fixed",
+  "series_id": 484,
+  "series_name": "Formula A - Grand Prix Series - Fixed",
+  "car_class_id": 4013,
+  "race_week_num": -1,
+  "division": 1,
+  "club_id": -1,
+  "customer_rank": 45,
+  "chunk_info": {
+    "chunk_size": 500,
+    "num_chunks": 1,
+    "rows": 211,
+    "base_download_url": "https://scorpio-assets.s3.amazonaws.com/members/messaging-services/long_lived/standings/season-driver/season/4183/4013/all/filters/1/all/",
+    "chunk_file_names": [
+      "f055a78f229bcb1006262f9f2b0aaffb862cf961e5201211dca4d2c52f3163ed.json?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240929T021729Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=AKIAUO6OO4A3357USLO7%2F20240929%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=36439ce0eb66d65b25c0fe1fff9d5a2429e4609a7cb10250669ec40b24b9a241"
+    ]
+  },
+  "last_updated": "2024-09-29T02:17:29.771205029Z",
+  "csv_url": "https://scorpio-assets.s3.amazonaws.com/members/messaging-services/long_lived/standings/season-driver/season/4183/4013/all/filters/1/all/export.csv?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20240929T021729Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=AKIAUO6OO4A3357USLO7%2F20240929%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=66965c7a705df66460460324a86f45ad57fab48c1581310da656042d4a3ad845"
+}
 }

@@ -710,10 +710,10 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(seasonDriverStandingsResponse.Data.Header, Is.Not.Null);
             Assert.That(seasonDriverStandingsResponse.Data.Header.Success, Is.True);
 
-            Assert.That(seasonDriverStandingsResponse.RateLimitRemaining, Is.EqualTo(99));
-            Assert.That(seasonDriverStandingsResponse.TotalRateLimit, Is.EqualTo(100));
-            Assert.That(seasonDriverStandingsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-            Assert.That(seasonDriverStandingsResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(seasonDriverStandingsResponse.RateLimitRemaining, Is.EqualTo(239));
+            Assert.That(seasonDriverStandingsResponse.TotalRateLimit, Is.EqualTo(240));
+            Assert.That(seasonDriverStandingsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2024, 9, 29, 2, 20, 40, TimeSpan.Zero)));
+            Assert.That(seasonDriverStandingsResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2024, 9, 29, 2, 32, 29, 935, TimeSpan.Zero)));
         });
     }
 
