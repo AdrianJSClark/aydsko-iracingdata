@@ -824,6 +824,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(sampleDriver.CarClassShortName, Is.EqualTo("Cadillac CTS-VR"));
             Assert.That(sampleDriver.CarName, Is.EqualTo("Cadillac CTS-V Racecar"));
             Assert.That(sampleDriver.DivisionName, Is.EqualTo("Division 1"));
+            Assert.That(sampleDriver.CountryCode, Is.EqualTo("AU"));
 
             Assert.That(subSessionResult.Weather, Is.Not.Null);
 
@@ -836,10 +837,10 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(subSessionResult.SessionSplits, Contains.Item(new SessionSplit { SubSessionId = 45243121, EventStrengthOfField = 1683 }));
             Assert.That(subSessionResult.SessionSplits, Contains.Item(new SessionSplit { SubSessionId = 45243122, EventStrengthOfField = 1143 }));
 
-            Assert.That(subSessionResultResponse.RateLimitRemaining, Is.EqualTo(99));
-            Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(100));
-            Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-            Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(subSessionResultResponse.RateLimitRemaining, Is.EqualTo(239));
+            Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(240));
+            Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2024, 10, 10, 13, 50, 14, TimeSpan.Zero)));
+            Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2024, 10, 10, 14, 4, 15, 56, TimeSpan.Zero)));
         });
     }
 
@@ -892,13 +893,21 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
             var racingSociety = raceResults.Results.SingleOrDefault(r => r.TeamId == -261181);
             Assert.That(racingSociety?.DriverResults, Has.Length.EqualTo(2));
-            Assert.That(racingSociety?.DriverResults, Has.One.Property(nameof(DriverResult.CustomerId)).EqualTo(696075));
-            Assert.That(racingSociety?.DriverResults, Has.One.Property(nameof(DriverResult.CustomerId)).EqualTo(669671));
 
-            Assert.That(subSessionResultResponse.RateLimitRemaining, Is.EqualTo(99));
-            Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(100));
-            Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-            Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            var sampleDriverResult = racingSociety?.DriverResults?.FirstOrDefault(d => d.CustomerId == 696075);
+            Assert.That(sampleDriverResult, Is.Not.Null);
+            Assert.That(sampleDriverResult!.DisplayName, Is.EqualTo("Fabian Albrecht"));
+            Assert.That(sampleDriverResult!.CountryCode, Is.EqualTo("DE"));
+
+            var sampleDriverResult2 = racingSociety?.DriverResults?.FirstOrDefault(d => d.CustomerId == 669671);
+            Assert.That(sampleDriverResult2, Is.Not.Null);
+            Assert.That(sampleDriverResult2!.DisplayName, Is.EqualTo("Mike Honda"));
+            Assert.That(sampleDriverResult2!.CountryCode, Is.EqualTo("DE"));
+
+            Assert.That(subSessionResultResponse.RateLimitRemaining, Is.EqualTo(239));
+            Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(240));
+            Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2024, 10, 10, 12, 26, 11, TimeSpan.Zero)));
+            Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2024, 10, 10, 12, 40, 12, 320, TimeSpan.Zero)));
         });
     }
 

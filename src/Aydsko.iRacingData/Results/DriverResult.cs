@@ -202,5 +202,8 @@ public class DriverResult
     [JsonPropertyName("ai")]
     public bool AI { get; set; }
 
+    [JsonPropertyName("country_code")]
+    public string? CountryCode { get; set; } = default!;
+
     private string DebuggerDisplay => $"{CustomerId} \"{DisplayName}\"{(AI ? " (AI)" : "")} Team {TeamId} Q{StartingPosition} to P{Position}";
 }
