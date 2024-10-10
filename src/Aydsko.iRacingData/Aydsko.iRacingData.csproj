@@ -71,7 +71,7 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Caching.Abstractions" Version="8.0.0" />
-    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="8.0.1" />
     <PackageReference Include="Microsoft.SourceLink.GitHub" Version="8.0.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -84,8 +84,8 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="System.Text.Json" Version="8.0.4" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
-    <PackageReference Include="System.Net.Http.Json" Version="8.0.0" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
+    <PackageReference Include="System.Text.Json" Version="8.0.5" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
+    <PackageReference Include="System.Net.Http.Json" Version="8.0.1" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
   </ItemGroup>
 
   <ItemGroup>
