@@ -40,7 +40,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <InternalsVisibleTo Include="Aydsko.iRacingData.IntegrationTests" />
     <InternalsVisibleTo Include="Aydsko.iRacingData.UnitTests" />
+    <InternalsVisibleTo Include="LINQPadQuery" />
     <AssemblyAttribute Include="System.Diagnostics.CodeAnalysis.SuppressMessageAttribute">
       <_Parameter1>Style</_Parameter1>
       <_Parameter2>IDE1006:Naming Styles</_Parameter2>
@@ -65,8 +67,6 @@
       <_Parameter4>Scope = "module"</_Parameter4>
       <_Parameter4_IsLiteral>true</_Parameter4_IsLiteral>
     </AssemblyAttribute>
-    <InternalsVisibleTo Include="LINQPadQuery" />
-    <InternalsVisibleTo Include="Aydsko.iRacingData.IntegrationTests" />
   </ItemGroup>
 
   <ItemGroup>

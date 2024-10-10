@@ -215,6 +215,9 @@ public class Result
     [JsonPropertyName("ai")]
     public bool AI { get; set; }
 
+    [JsonPropertyName("country_code")]
+    public string? CountryCode { get; set; } = default!;
+
     [JsonPropertyName("driver_results")]
     public DriverResult[]? DriverResults { get; set; }
 
