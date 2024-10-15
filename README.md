@@ -14,7 +14,7 @@ iRacing has announced that they will be requiring multi-factor authentication (M
 
 In the immediate future, use of the Data API will be supported by enabling "Legacy Authentication" in your iRacing account settings. iRacing will advise next steps for the authentication of applications for the Data API later on.
 
-To continue to use this library you **must** enable "Legacy Authentication" in your iRacing account settings when that feature becomes available.
+To continue to use this library you **must** [enable "Legacy Authentication" in your iRacing account settings](https://support.iracing.com/support/solutions/articles/31000173894-enabling-or-disabling-legacy-read-only-authentication) before attempting to authenticate. Please **do not** enable this setting unless you require it, as it may reduce the security on your iRacing account.
 
 ## Getting Started
 
