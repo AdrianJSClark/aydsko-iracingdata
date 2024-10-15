@@ -2007,7 +2007,7 @@ public class DataClient(HttpClient httpClient,
             if (loginResult is null || !loginResult.Success)
             {
                 var message = loginResult?.Message ?? $"Login failed with HTTP response \"{loginResponse.StatusCode} {loginResponse.ReasonPhrase}\"";
-                throw iRacingLoginFailedException.Create(message, loginResult?.VerificationRequired);
+                throw iRacingLoginFailedException.Create(message, loginResult?.VerificationRequired, string.Equals(loginResult?.Message, "Legacy authorization refused.", StringComparison.OrdinalIgnoreCase));
             }
 
             IsLoggedIn = true;
