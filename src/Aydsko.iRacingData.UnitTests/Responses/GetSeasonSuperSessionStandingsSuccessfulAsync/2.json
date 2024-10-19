@@ -1,0 +1,38 @@
+﻿{
+  "statusCode": 200,
+  "headers": {
+    "x-amz-id-2": "TiC2jV7ae2oNnch/KZd21HAFFiKclPfLzHLFPBVKBQBbAm2GIBkTk6QQUsHYBwhptASJW\u002Br3ZD0=",
+    "x-amz-request-id": "RDWSQ5DRB50E18H9",
+    "Date": "Sat, 19 Oct 2024 04:13:35 GMT",
+    "x-amz-expiration": "expiry-date=\u0022Mon, 21 Oct 2024 00:00:00 GMT\u0022, rule-id=\u0022production data-server cache expiry\u0022",
+    "ETag": "\u002206d58eac6d0d7e93fa072391ddde5639\u0022",
+    "x-amz-server-side-encryption": "AES256",
+    "Cache-Control": "max-age=60",
+    "Accept-Ranges": "bytes",
+    "Server": "AmazonS3"
+  },
+  "content": {
+    "success": true,
+    "season_id": 4696,
+    "season_name": "2023 iRacing Chili Bowl Sim-Motion Nationals",
+    "season_short_name": "2023 iRacing Chili Bowl Nationals",
+    "series_id": 426,
+    "series_name": "iRacing Chili Bowl Sim-Motion Nationals",
+    "car_class_id": 104,
+    "race_week_num": -1,
+    "division": -1,
+    "club_id": -1,
+    "customer_rank": -1,
+    "chunk_info": {
+      "chunk_size": 500,
+      "num_chunks": 1,
+      "rows": 115,
+      "base_download_url": "https://scorpio-assets.s3.amazonaws.com/members/messaging-services/long_lived/standings/season-ss/season/4696/104/all/",
+      "chunk_file_names": [
+        "e189cc1411896d644163520d11128bbf24e11b87835a5f97349a9899dce3b1c5.json?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20241019T041241Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=AKIAUO6OO4A3357USLO7%2F20241019%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=b1f9c6f11185537e28e885d80dab87d0dc15622ab2ac36e9d795cc91f1863bdc"
+      ]
+    },
+    "last_updated": "2024-10-19T04:12:41.782623786Z",
+    "csv_url": "https://scorpio-assets.s3.amazonaws.com/members/messaging-services/long_lived/standings/season-ss/season/4696/104/all/export.csv?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20241019T041241Z&X-Amz-SignedHeaders=host&X-Amz-Expires=3600&X-Amz-Credential=AKIAUO6OO4A3357USLO7%2F20241019%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Signature=8af2549b393869b39bf0500633045c269653a3d69477ff1ebd6c32867356a438"
+  }
+}

@@ -720,4 +720,14 @@ public interface IDataClient
     /// <returns>A <see cref="Task"/> that resolves to the content of the CSV.</returns>
     /// <seealso cref="Constants.Category"/>
     Task<DriverStatisticsCsvFile> GetDriverStatisticsByCategoryCsvAsync(int categoryId, CancellationToken cancellationToken = default);
+
+    /// <summary>Retrieve the Super Session standings for a given season.</summary>
+    /// <param name="seasonId">Unique identifier for the racing season.</param>
+    /// <param name="carClassId">Car class identifier. See <see cref="GetCarClassesAsync(CancellationToken)" />.</param>
+    /// <param name="clubId">Club identifier to search. Defaults to "all" if <see langword="null"/>.</param>
+    /// <param name="division">Division to search. Note that divisions are zero-based. See <see cref="GetDivisionsAsync(CancellationToken)"/>. Defaults to "all" if <see langword="null"/>.</param>
+    /// <param name="raceWeekIndex">Week within the given season, starting with 0 for the first week. Defaults to "all" if <see langword="null"/>.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the season's super session results as a <see cref="SeasonSuperSessionResultsHeader"/> object.</returns>
+    Task<DataResponse<(SeasonSuperSessionResultsHeader Header, SeasonSuperSessionResultItem[] Results)>> GetSeasonSuperSessionStandingsAsync(int seasonId, int carClassId, int? clubId = null, int? division = null, int? raceWeekIndex = null, CancellationToken cancellationToken = default);
 }
