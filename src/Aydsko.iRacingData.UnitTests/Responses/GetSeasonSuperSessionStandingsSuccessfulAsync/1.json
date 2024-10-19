@@ -1,0 +1,36 @@
+﻿{
+  "statusCode": 200,
+  "headers": {
+    "Connection": "keep-alive",
+    "Date": "Sat, 19 Oct 2024 04:12:41 GMT",
+    "ETag": "W/\u002221d-PyoG9skJQ1c73S6dN399q1vPRiQ\u0022",
+    "X-iRacing-Env": "members",
+    "X-iRacing-Id": "beae1c25-5e91-4c15-b72d-d0eaba5bec03",
+    "X-iRacing-ServiceName": "data-server",
+    "X-iRacing-ServiceVersion": "2.0.2",
+    "Content-Security-Policy": "default-src \u0027self\u0027;base-uri \u0027self\u0027;font-src \u0027self\u0027 https: data:;form-action \u0027self\u0027;frame-ancestors \u0027self\u0027;img-src \u0027self\u0027 data:;object-src \u0027none\u0027;script-src \u0027self\u0027;script-src-attr \u0027none\u0027;style-src \u0027self\u0027 https: \u0027unsafe-inline\u0027;upgrade-insecure-requests",
+    "Cross-Origin-Opener-Policy": "same-origin",
+    "Cross-Origin-Resource-Policy": "same-origin",
+    "Origin-Agent-Cluster": "?1",
+    "Referrer-Policy": "no-referrer",
+    "Strict-Transport-Security": "max-age=15552000; includeSubDomains",
+    "X-Content-Type-Options": "nosniff",
+    "X-DNS-Prefetch-Control": "off",
+    "X-Download-Options": "noopen",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-Permitted-Cross-Domain-Policies": "none",
+    "X-XSS-Protection": "0",
+    "X-RateLimit-Limit": "240",
+    "X-RateLimit-Remaining": "239",
+    "X-RateLimit-Reset": "1729311221",
+    "Cache-Control": "max-age=60",
+    "X-Cache": "Miss from cloudfront",
+    "Via": "1.1 dd1d2e3b83832c7de2ffdce9535ce208.cloudfront.net (CloudFront)",
+    "X-Amz-Cf-Pop": "BNE50-P2",
+    "X-Amz-Cf-Id": "4knToaeZBjeDQHDvz1LPAG3ozAhkJpdqo2ajRH7d72HwkI_ee1GmyQ=="
+  },
+  "content": {
+    "link": "https://scorpio-assets.s3.us-east-1.amazonaws.com/production/data-server/cache/data-services/stats/season_supersession_standings/3bbbcdbe-7e21-4946-9878-ad307cb34e56?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Content-Sha256=UNSIGNED-PAYLOAD&X-Amz-Credential=AKIAUO6OO4A3357USLO7%2F20241019%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20241019T041241Z&X-Amz-Expires=120&X-Amz-Signature=6d7ba56091ebf8e947803657f584aa94287cc161ad7e7bf26711e21f6aff5ffe&X-Amz-SignedHeaders=host&x-id=GetObject",
+    "expires": "2024-10-19T04:27:41.913Z"
+  }
+}

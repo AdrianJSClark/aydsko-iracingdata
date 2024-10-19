@@ -1,6 +1,7 @@
 ﻿// © 2023-2024 Adrian Clark
 // This file is licensed to you under the MIT license.
 
+using System.Globalization;
 using System.Net;
 using Aydsko.iRacingData.Constants;
 using Aydsko.iRacingData.Exceptions;
@@ -1797,6 +1798,41 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(response.TotalRateLimit, Is.EqualTo(100));
             Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
+    }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetSeasonSuperSessionStandingsSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetSeasonSuperSessionStandingsSuccessfulAsync)).ConfigureAwait(false);
+
+        var response = await sut.GetSeasonSuperSessionStandingsAsync(1, 1).ConfigureAwait(false);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response!.Data.Header, Is.Not.Null);
+            Assert.That(response!.Data.Results, Is.Not.Null.And.Not.Empty);
+
+            var header = response.Data.Header;
+
+            Assert.That(header.SeriesName, Is.EqualTo("iRacing Chili Bowl Sim-Motion Nationals"));
+            Assert.That(header.SeasonName, Is.EqualTo("2023 iRacing Chili Bowl Sim-Motion Nationals"));
+            Assert.That(header.LastUpdated, Is.EqualTo(DateTimeOffset.ParseExact("2024-10-19T04:12:41.7826237Z", "yyyy-MM-ddTHH:mm:ss.fffffffZ", CultureInfo.InvariantCulture)));
+
+            var results = response.Data.Results;
+
+            Assert.That(results, Has.Length.EqualTo(header.ChunkInfo.Rows));
+
+            var exampleResult = results.SingleOrDefault(r => r.Rank == 10);
+            Assert.That(exampleResult, Is.Not.Null);
+            Assert.That(exampleResult!.CustomerId, Is.EqualTo(511237));
+            Assert.That(exampleResult.DisplayName, Is.EqualTo("Colt Currie"));
+
+            Assert.That(response.RateLimitRemaining, Is.EqualTo(239));
+            Assert.That(response.TotalRateLimit, Is.EqualTo(240));
+            Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2024, 10, 19, 04, 13, 41, TimeSpan.Zero)));
+            Assert.That(response.DataExpires, Is.Null);
         });
     }
 

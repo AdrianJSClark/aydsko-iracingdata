@@ -1748,6 +1748,45 @@ public class DataClient(HttpClient httpClient,
     }
 
     /// <inheritdoc />
+    public async Task<DataResponse<(SeasonSuperSessionResultsHeader Header, SeasonSuperSessionResultItem[] Results)>> GetSeasonSuperSessionStandingsAsync(int seasonId,
+                                                                                                                                                          int carClassId,
+                                                                                                                                                          int? clubId = null,
+                                                                                                                                                          int? division = null,
+                                                                                                                                                          int? raceWeekIndex = null,
+                                                                                                                                                          CancellationToken cancellationToken = default)
+    {
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
+
+        var queryParameters = new Dictionary<string, object?>
+        {
+            ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
+            ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
+        };
+
+        if (clubId is not null)
+        {
+            queryParameters.Add("club_id", clubId.Value.ToString(CultureInfo.InvariantCulture));
+        }
+
+        if (division is not null)
+        {
+            queryParameters.Add("division", division.Value.ToString(CultureInfo.InvariantCulture));
+        }
+
+        if (raceWeekIndex is not null)
+        {
+            queryParameters.Add("race_week_num", raceWeekIndex.Value.ToString(CultureInfo.InvariantCulture));
+        }
+
+        var queryUrl = "https://members-ng.iracing.com/data/stats/season_supersession_standings".ToUrlWithQuery(queryParameters);
+
+        return await CreateResponseViaInfoLinkToChunkInfoAsync(queryUrl,
+                                                      SeasonSuperSessionResultsHeaderContext.Default.SeasonSuperSessionResultsHeader,
+                                                      SeasonSuperSessionResultItemArrayContext.Default.SeasonSuperSessionResultItemArray,
+                                                      cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc />
     public async Task<StatusResult> GetServiceStatusAsync(CancellationToken cancellationToken = default)
     {
         var data = (await httpClient.GetFromJsonAsync("https://status.iracing.com/status.json",
@@ -2087,6 +2126,44 @@ public class DataClient(HttpClient httpClient,
         }
 
         return BuildDataResponse<(TData Header, TChunkData[] Results)>(response.Headers, (headerData, searchResults.ToArray()), logger);
+    }
+
+    protected virtual async Task<DataResponse<(TData, TChunkData[])>> CreateResponseViaInfoLinkToChunkInfoAsync<TData, TChunkData>(Uri infoLinkUri, JsonTypeInfo<TData> jsonTypeInfo, JsonTypeInfo<TChunkData[]> chunkArrayTypeInfo, CancellationToken cancellationToken)
+        where TData : IChunkInfoResultHeaderData
+    {
+        var (infoLink, headers) = await BuildLinkResultAsync(infoLinkUri, cancellationToken).ConfigureAwait(false);
+
+        var headerData = (await httpClient.GetFromJsonAsync(infoLink.Link, jsonTypeInfo, cancellationToken).ConfigureAwait(false))
+                         ?? throw new iRacingDataClientException("Data not found.");
+
+        var searchResults = new List<TChunkData>();
+
+        if (headerData.ChunkInfo is ChunkInfo { NumberOfChunks: > 0 } chunkInfo)
+        {
+            var baseChunkUrl = new Uri(chunkInfo.BaseDownloadUrl);
+
+            foreach (var (chunkFileName, index) in chunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
+            {
+                var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+
+                var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
+                if (!chunkResponse.IsSuccessStatusCode)
+                {
+                    logger.FailedToRetrieveChunkError(index, chunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                    continue;
+                }
+
+                var chunkData = await chunkResponse.Content.ReadFromJsonAsync(chunkArrayTypeInfo, cancellationToken).ConfigureAwait(false);
+                if (chunkData is null)
+                {
+                    continue;
+                }
+
+                searchResults.AddRange(chunkData);
+            }
+        }
+
+        return BuildDataResponse<(TData Header, TChunkData[] Results)>(headers, (headerData, searchResults.ToArray()), logger);
     }
 
     protected virtual async Task<(LinkResult, HttpResponseHeaders)> BuildLinkResultAsync(Uri infoLinkUri, CancellationToken cancellationToken)
