@@ -8,25 +8,28 @@ internal sealed class CachingMemberInfoTest : CachingIntegrationFixture
     [Test]
     public async Task TestMemberInfoAsync()
     {
-        var iRacingUsername = Configuration["iRacingData:Username"] ?? throw new InvalidOperationException("iRacing Username not found in configuration.");
+        if (Configuration["iRacingData:CustomerId"] is not string customerIdValue || !int.TryParse(customerIdValue, out var iRacingCustomerId))
+        {
+            throw new InvalidOperationException("iRacing Customer Id value not found in configuration.");
+        }
 
         var memberInfo = await Client.GetMyInfoAsync().ConfigureAwait(false);
-
-        Assert.That(memberInfo, Is.Not.Null);
-        Assert.That(memberInfo.Data, Is.Not.Null);
-
-        Assert.That(memberInfo.Data.Username, Is.EqualTo(Security.ObfuscateUsernameOrEmail(iRacingUsername)));
-
         var memberInfo2 = await Client.GetMyInfoAsync().ConfigureAwait(false);
 
-        Assert.That(memberInfo2, Is.Not.Null);
-        Assert.That(memberInfo2.Data, Is.Not.Null);
-
-        Assert.That(memberInfo2.Data.Username, Is.EqualTo(Security.ObfuscateUsernameOrEmail(iRacingUsername)));
-
         var stats = MemoryCache.GetCurrentStatistics();
+
         Assert.Multiple(() =>
         {
+            Assert.That(memberInfo, Is.Not.Null);
+            Assert.That(memberInfo.Data, Is.Not.Null);
+
+            Assert.That(memberInfo.Data.CustomerId, Is.EqualTo(iRacingCustomerId));
+
+            Assert.That(memberInfo2, Is.Not.Null);
+            Assert.That(memberInfo2.Data, Is.Not.Null);
+
+            Assert.That(memberInfo2.Data.CustomerId, Is.EqualTo(iRacingCustomerId));
+
             Assert.That(stats?.TotalHits, Is.Not.Null.And.EqualTo(1), "TotalHits didn't match.");
             Assert.That(stats?.TotalMisses, Is.Not.Null.And.EqualTo(1), "TotalMisses didn't match.");
         });
