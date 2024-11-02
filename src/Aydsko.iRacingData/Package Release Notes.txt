@@ -5,3 +5,8 @@ iRacing has enabled two-factor authentication by default. To continue to use thi
 Fixes / Changes:
 
 - Add "/data/stats/season_supersession_standings" Endpoint (Issue: #22)
+
+- Unauthorized Responses Do Not Retry And Calls Continue To Fail (Issue: #231)
+  - Implemented a retry mechanism for 401 Unauthorized responses
+  - If a request fails with a 401 Unauthorized response, the library will attempt to re-authenticate and retry the request 2 more times
+  - If the request continues to fail after 3 attempts, the library will throw an "iRacingUnauthorizedResponseException"
