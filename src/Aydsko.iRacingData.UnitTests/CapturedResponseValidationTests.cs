@@ -1662,7 +1662,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetWeatherForecastAsync), false).ConfigureAwait(false);
 
-        var response = await sut.GetWeatherForecastFromUrlAsync("http://iracing.com").ConfigureAwait(false);
+        var response = await sut.GetWeatherForecastFromUrlAsync(new Uri("http://example.com")).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {

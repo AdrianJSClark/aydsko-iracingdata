@@ -3,142 +3,9 @@
 <Suppressions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Suppression>
     <DiagnosticId>CP0001</DiagnosticId>
-    <Target>T:Aydsko.iRacingData.Leagues.LeagePointsSystems</Target>
-    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0001</DiagnosticId>
-    <Target>T:Aydsko.iRacingData.Leagues.LeagePointsSystems</Target>
-    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0001</DiagnosticId>
     <Target>T:Aydsko.iRacingData.Converters.DateOnlyConverter</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0001</DiagnosticId>
-    <Target>T:Aydsko.iRacingData.Leagues.LeagePointsSystems</Target>
-    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.DataClient.GetLeaguePointsSystemsAsync(System.Int32,System.Nullable{System.Int32},System.Threading.CancellationToken)</Target>
-    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Exceptions.iRacingLoginFailedException.Create(System.String,System.Nullable{System.Boolean})</Target>
-    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Hosted.Car.get_PowerAdjustPercent</Target>
-    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.IDataClient.GetLeaguePointsSystemsAsync(System.Int32,System.Nullable{System.Int32},System.Threading.CancellationToken)</Target>
-    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Series.WeatherSummary.get_PrecipitationChance</Target>
-    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Stats.SeasonDriverStanding.get_AverageFieldSize</Target>
-    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Stats.SeasonDriverStanding.get_AverageFinishPosition</Target>
-    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Stats.SeasonDriverStanding.get_AverageStartPosition</Target>
-    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.DataClient.GetLeaguePointsSystemsAsync(System.Int32,System.Nullable{System.Int32},System.Threading.CancellationToken)</Target>
-    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Exceptions.iRacingLoginFailedException.Create(System.String,System.Nullable{System.Boolean})</Target>
-    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Hosted.Car.get_PowerAdjustPercent</Target>
-    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.IDataClient.GetLeaguePointsSystemsAsync(System.Int32,System.Nullable{System.Int32},System.Threading.CancellationToken)</Target>
-    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Series.WeatherSummary.get_PrecipitationChance</Target>
-    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Stats.SeasonDriverStanding.get_AverageFieldSize</Target>
-    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Stats.SeasonDriverStanding.get_AverageFinishPosition</Target>
-    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Stats.SeasonDriverStanding.get_AverageStartPosition</Target>
-    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
@@ -207,69 +74,6 @@
     <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
   </Suppression>
   <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.DataClient.GetLeaguePointsSystemsAsync(System.Int32,System.Nullable{System.Int32},System.Threading.CancellationToken)</Target>
-    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Exceptions.iRacingLoginFailedException.Create(System.String,System.Nullable{System.Boolean})</Target>
-    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Hosted.Car.get_PowerAdjustPercent</Target>
-    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.IDataClient.GetLeaguePointsSystemsAsync(System.Int32,System.Nullable{System.Int32},System.Threading.CancellationToken)</Target>
-    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Series.WeatherSummary.get_PrecipitationChance</Target>
-    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Stats.SeasonDriverStanding.get_AverageFieldSize</Target>
-    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Stats.SeasonDriverStanding.get_AverageFinishPosition</Target>
-    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Stats.SeasonDriverStanding.get_AverageStartPosition</Target>
-    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0006</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.IDataClient.GetLeaguePointsSystemsAsync(System.Int32,System.Nullable{System.Int32},System.Threading.CancellationToken)</Target>
-    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
     <DiagnosticId>CP0006</DiagnosticId>
     <Target>M:Aydsko.iRacingData.IDataClient.GetSeasonSuperSessionStandingsAsync(System.Int32,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)</Target>
     <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
@@ -278,14 +82,21 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0006</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.IDataClient.GetLeaguePointsSystemsAsync(System.Int32,System.Nullable{System.Int32},System.Threading.CancellationToken)</Target>
+    <Target>M:Aydsko.iRacingData.IDataClient.GetWeatherForecastFromUrlAsync(System.Uri,System.Threading.CancellationToken)</Target>
+    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0006</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.IDataClient.GetSeasonSuperSessionStandingsAsync(System.Int32,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0006</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.IDataClient.GetSeasonSuperSessionStandingsAsync(System.Int32,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)</Target>
+    <Target>M:Aydsko.iRacingData.IDataClient.GetWeatherForecastFromUrlAsync(System.Uri,System.Threading.CancellationToken)</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>

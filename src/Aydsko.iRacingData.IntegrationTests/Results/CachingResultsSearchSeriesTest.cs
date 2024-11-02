@@ -12,7 +12,7 @@ internal sealed class CachingResultsSearchSeriesTest : CachingIntegrationFixture
         {
             StartRangeBegin = new DateTime(2022, 6, 1, 0, 0, 0),
             StartRangeEnd = new DateTime(2022, 6, 30, 23, 59, 59, 999),
-            EventTypes = new[] { 5 },
+            EventTypes = [5],
             OfficialOnly = true,
             ParticipantCustomerId = 341554
         };
@@ -52,10 +52,10 @@ internal sealed class CachingResultsSearchSeriesTest : CachingIntegrationFixture
         {
             StartRangeBegin = new DateTime(2022, 6, 1, 0, 0, 0),
             StartRangeEnd = new DateTime(2022, 6, 30, 23, 59, 59, 999),
-            EventTypes = new[] { 5 },
+            EventTypes = [5],
             OfficialOnly = true,
             ParticipantCustomerId = 341554,
-            CategoryIds = new[] { 1 }
+            CategoryIds = [1]
         };
 
         var searchResults = await Client.SearchOfficialResultsAsync(searchParameters).ConfigureAwait(false);

@@ -714,6 +714,12 @@ public interface IDataClient
     /// <returns>A collection of <see cref="WeatherForecast"/> objects detailing the forecasted weather.</returns>
     Task<IEnumerable<WeatherForecast>> GetWeatherForecastFromUrlAsync(string url, CancellationToken cancellationToken = default);
 
+    /// <summary>Retrieves the weather forecast for the given track and session time.</summary>
+    /// <param name="url">Url received from the <see cref="Series.Weather.WeatherUrl"/> property of the season's <see cref="Schedule"/>.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A collection of <see cref="WeatherForecast"/> objects detailing the forecasted weather.</returns>
+    Task<IEnumerable<WeatherForecast>> GetWeatherForecastFromUrlAsync(Uri url, CancellationToken cancellationToken = default);
+
     /// <summary>Retrieve a comma separated value (CSV) file containing driver statistics for the given category.</summary>
     /// <param name="categoryId">A valid category identifier.</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>

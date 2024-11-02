@@ -7,7 +7,7 @@ namespace Aydsko.iRacingData.IntegrationTests.Tracks;
 
 internal sealed class GetTracksTests : DataClientIntegrationFixture
 {
-    private Track[] tracksData;
+    private Track[] tracksData = default!;
 
     [OneTimeSetUp]
     public async Task GetTrackDataAsync()

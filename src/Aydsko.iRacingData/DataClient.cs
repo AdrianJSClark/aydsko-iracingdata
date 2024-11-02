@@ -1,7 +1,6 @@
 ﻿// © 2023-2024 Adrian Clark
 // This file is licensed to you under the MIT license.
 
-using System;
 using System.Globalization;
 using System.Net;
 using System.Net.Http.Headers;
@@ -1594,7 +1593,9 @@ public class DataClient(HttpClient httpClient,
 
         if (includeEndAfterFrom is not null)
         {
+#pragma warning disable CA1308 // Normalize strings to uppercase - iRacing API requires lowercase
             queryParameters.Add("include_end_after_from", includeEndAfterFrom.Value.ToString().ToLowerInvariant());
+#pragma warning restore CA1308 // Normalize strings to uppercase
         }
 
         var raceGuideUrl = "https://members-ng.iracing.com/data/season/race_guide".ToUrlWithQuery(queryParameters);
@@ -1935,7 +1936,9 @@ public class DataClient(HttpClient httpClient,
             }
             else
             {
+#pragma warning disable CA1308 // Normalize strings to uppercase - iRacing API requires lowercase
                 var passwordAndEmail = options.Password + (options.Username?.ToLowerInvariant());
+#pragma warning restore CA1308 // Normalize strings to uppercase
 
 #if NET6_0_OR_GREATER
                 var hashedPasswordAndEmailBytes = SHA256.HashData(Encoding.UTF8.GetBytes(passwordAndEmail));
@@ -2348,6 +2351,7 @@ public class DataClient(HttpClient httpClient,
             : GetTrackAssetScreenshotUris(track, trackAssets);
     }
 
+    /// <inheritdoc />
     public async Task<IEnumerable<WeatherForecast>> GetWeatherForecastFromUrlAsync(string url, CancellationToken cancellationToken = default)
     {
 #if NET8_0_OR_GREATER
@@ -2359,6 +2363,12 @@ public class DataClient(HttpClient httpClient,
         }
 #endif
 
+        return await GetWeatherForecastFromUrlAsync(new Uri(url), cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc />
+    public async Task<IEnumerable<WeatherForecast>> GetWeatherForecastFromUrlAsync(Uri url, CancellationToken cancellationToken = default)
+    {
         var data = await httpClient.GetFromJsonAsync(url, WeatherForecastArrayContext.Default.ListWeatherForecast, cancellationToken: cancellationToken)
                                    .ConfigureAwait(false)
                    ?? throw new iRacingDataClientException("Data not found.");
