@@ -955,6 +955,9 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     [Test(TestOf = typeof(DataClient))]
     public async Task GetSubSessionResultUnauthorizedThrowsErrorsAsync()
     {
+        // We queue this 3 times because we now have a retry mechanism in place.
+        await MessageHandler.QueueResponsesAsync("ResponseUnauthorized", false).ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync("ResponseUnauthorized", false).ConfigureAwait(false);
         await MessageHandler.QueueResponsesAsync("ResponseUnauthorized", false).ConfigureAwait(false);
 
         Assert.Multiple(() =>
@@ -1730,9 +1733,9 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         var responseResourceNames = new string[] {
             "Aydsko.iRacingData.UnitTests.Responses.SuccessfulLogin.json",
-            "Aydsko.iRacingData.UnitTests.Responses.GetLookupWithExpiredAuthWorksAsync.1.json",
-            "Aydsko.iRacingData.UnitTests.Responses.GetLookupWithExpiredAuthWorksAsync.2.json",
-            "Aydsko.iRacingData.UnitTests.Responses.GetLookupWithExpiredAuthWorksAsync.3.json",
+            "Aydsko.iRacingData.UnitTests.Responses.GetLookupWithExpiredAuthWorksAsync.1.json", // Link to result
+            "Aydsko.iRacingData.UnitTests.Responses.GetLookupWithExpiredAuthWorksAsync.2.json", // Result
+            "Aydsko.iRacingData.UnitTests.Responses.GetLookupWithExpiredAuthWorksAsync.3.json", // Unauthorised
             "Aydsko.iRacingData.UnitTests.Responses.SuccessfulLogin.json",
             "Aydsko.iRacingData.UnitTests.Responses.GetLookupWithExpiredAuthWorksAsync.4.json",
             "Aydsko.iRacingData.UnitTests.Responses.GetLookupWithExpiredAuthWorksAsync.5.json"
@@ -1744,7 +1747,6 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
         }
 
         var lookupGroups = await sut.GetLookupsAsync().ConfigureAwait(false);
-        _ = Assert.ThrowsAsync<iRacingUnauthorizedResponseException>(async () => await sut.GetLookupsAsync().ConfigureAwait(false));
         var lookupGroups2 = await sut.GetLookupsAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>

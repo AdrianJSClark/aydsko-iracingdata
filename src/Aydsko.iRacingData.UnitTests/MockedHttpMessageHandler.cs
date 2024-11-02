@@ -4,7 +4,6 @@
 using System.Net;
 #if !NET6_0_OR_GREATER
 using System.Net.Http;
-using System.Net.Http.Json;
 #endif
 using System.Reflection;
 using System.Text;
