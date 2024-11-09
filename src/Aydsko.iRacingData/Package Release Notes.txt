@@ -10,3 +10,8 @@ Fixes / Changes:
   - Implemented a retry mechanism for 401 Unauthorized responses
   - If a request fails with a 401 Unauthorized response, the library will attempt to re-authenticate and retry the request 2 more times
   - If the request continues to fail after 3 attempts, the library will throw an "iRacingUnauthorizedResponseException"
+
+- Included .NET Diagnostics "Activity" for API Calls
+  - All API calls are now wrapped in a .NET Diagnostics "Activity" to provide more detailed information in the logs
+  - This will allow you to see the duration of the API call, the endpoint that was called, and the status code of the response
+  - See "Distributed Tracing" on Microsoft Learn for more information: https://learn.microsoft.com/en-au/dotnet/core/diagnostics/distributed-tracing
