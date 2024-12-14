@@ -8,6 +8,14 @@ This library allows access via .NET to the iRacing "Data API". These APIs allow 
 
 [![Nuget](https://img.shields.io/nuget/dt/Aydsko.iRacingData?color=004880&label=NuGet&logo=NuGet)](https://www.nuget.org/packages/Aydsko.iRacingData)
 
+## ⚠ Multi-Factor Authentication Requirement
+
+iRacing has announced that they now require multi-factor authentication (MFA) for all users by default. This will affect the ability to use the iRacing Data API by logging in with a username or password.
+
+In the immediate future, use of the Data API will be supported by enabling "Legacy Authentication" in your iRacing account settings. iRacing will advise next steps for the authentication of applications for the Data API later on.
+
+To continue to use this library you **must** [enable "Legacy Authentication" in your iRacing account settings](https://support.iracing.com/support/solutions/articles/31000173894-enabling-or-disabling-legacy-read-only-authentication) before attempting to authenticate. Please **do not** enable this setting unless you require it, as it may reduce the security on your iRacing account.
+
 ## Getting Started
 
 **1. Install the Aydsko iRacing Data API library.**
@@ -87,6 +95,6 @@ Before you begin a contribution, please read and ensure you are comfortable with
 To build & develop on the codebase you'll need:
 
  - An active [iRacing membership](https://www.iracing.com/membership/)
- - [.NET 6 (or later)](https://dot.net)
+ - [.NET 8 (or later)](https://dot.net)
 
 To get started, clone [`AdrianJSClark/aydsko-iracingdata`](https://github.com/AdrianJSClark/aydsko-iracingdata) then open and build `src\iRacing Data API.sln`.
