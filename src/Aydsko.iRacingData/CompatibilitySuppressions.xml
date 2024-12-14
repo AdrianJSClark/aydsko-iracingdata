@@ -4,155 +4,248 @@
   <Suppression>
     <DiagnosticId>CP0001</DiagnosticId>
     <Target>T:Aydsko.iRacingData.Converters.DateOnlyConverter</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0001</DiagnosticId>
+    <Target>T:Aydsko.iRacingData.Converters.DateOnlyConverter</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Member.MemberChartDataPoint.get_Day</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.RaceTimeDescriptors.get_StartDate</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.Schedule.get_StartDate</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Stats.WorldRecordEntry.get_PracticeDate</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Stats.WorldRecordEntry.get_QualifyDate</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Stats.WorldRecordEntry.get_RaceDate</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Stats.WorldRecordEntry.get_TimeTrialDate</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.TimeAttack.TimeAttackSeason.get_EndDate</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.TimeAttack.TimeAttackSeason.get_StartDate</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Tracks.Track.get_Closes</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Tracks.Track.get_Opens</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Member.MemberChartDataPoint.get_Day</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Series.RaceTimeDescriptors.get_StartDate</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Series.Schedule.get_StartDate</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Stats.WorldRecordEntry.get_PracticeDate</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Stats.WorldRecordEntry.get_QualifyDate</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Stats.WorldRecordEntry.get_RaceDate</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Stats.WorldRecordEntry.get_TimeTrialDate</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.TimeAttack.TimeAttackSeason.get_EndDate</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.TimeAttack.TimeAttackSeason.get_StartDate</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Tracks.Track.get_Closes</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Tracks.Track.get_Opens</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0006</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.IDataClient.GetSeasonSuperSessionStandingsAsync(System.Int32,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)</Target>
-    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
-    <DiagnosticId>CP0006</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.IDataClient.GetWeatherForecastFromUrlAsync(System.Uri,System.Threading.CancellationToken)</Target>
-    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0006</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.IDataClient.GetSeasonSuperSessionStandingsAsync(System.Int32,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)</Target>
-    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <DiagnosticId>CP0008</DiagnosticId>
+    <Target>T:Aydsko.iRacingData.Common.EventType</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
-    <DiagnosticId>CP0006</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.IDataClient.GetWeatherForecastFromUrlAsync(System.Uri,System.Threading.CancellationToken)</Target>
-    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <DiagnosticId>CP0008</DiagnosticId>
+    <Target>T:Aydsko.iRacingData.Common.ResultOrderDirection</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0008</DiagnosticId>
+    <Target>T:Aydsko.iRacingData.Constants.WindDirection</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0008</DiagnosticId>
+    <Target>T:Aydsko.iRacingData.Leagues.SearchLeagueOrderByField</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0008</DiagnosticId>
+    <Target>T:Aydsko.iRacingData.Leagues.SessionStatus</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0008</DiagnosticId>
+    <Target>T:Aydsko.iRacingData.Member.MemberChartType</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0008</DiagnosticId>
+    <Target>T:Aydsko.iRacingData.Results.LapFlags</Target>
+    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0008</DiagnosticId>
     <Target>T:Aydsko.iRacingData.Common.EventType</Target>
-    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0008</DiagnosticId>
-    <Target>T:Aydsko.iRacingData.Common.LinkResultContext</Target>
-    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0008</DiagnosticId>
     <Target>T:Aydsko.iRacingData.Common.ResultOrderDirection</Target>
-    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0008</DiagnosticId>
     <Target>T:Aydsko.iRacingData.Constants.WindDirection</Target>
-    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0008</DiagnosticId>
     <Target>T:Aydsko.iRacingData.Leagues.SearchLeagueOrderByField</Target>
-    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0008</DiagnosticId>
     <Target>T:Aydsko.iRacingData.Leagues.SessionStatus</Target>
-    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0008</DiagnosticId>
     <Target>T:Aydsko.iRacingData.Member.MemberChartType</Target>
-    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0008</DiagnosticId>
     <Target>T:Aydsko.iRacingData.Results.LapFlags</Target>
-    <Left>lib/net6.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0008</DiagnosticId>
-    <Target>T:Aydsko.iRacingData.Common.LinkResultContext</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net6.0/Aydsko.iRacingData.dll</Right>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
   </Suppression>
 </Suppressions>
