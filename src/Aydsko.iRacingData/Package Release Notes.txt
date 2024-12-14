@@ -1,17 +1,5 @@
-BREAKING CHANGES:
-
+NOTE:
 iRacing has enabled two-factor authentication by default. To continue to use this library you must enable "Legacy Authentication" in your iRacing account settings before attempting to authenticate. Please do not enable this setting unless you require it, as it may reduce the security on your iRacing account.
 
-Fixes / Changes:
-
-- Add "/data/stats/season_supersession_standings" Endpoint (Issue: #22)
-
-- Unauthorized Responses Do Not Retry And Calls Continue To Fail (Issue: #231)
-  - Implemented a retry mechanism for 401 Unauthorized responses
-  - If a request fails with a 401 Unauthorized response, the library will attempt to re-authenticate and retry the request 2 more times
-  - If the request continues to fail after 3 attempts, the library will throw an "iRacingUnauthorizedResponseException"
-
-- Included .NET Diagnostics "Activity" for API Calls
-  - All API calls are now wrapped in a .NET Diagnostics "Activity" to provide more detailed information in the logs
-  - This will allow you to see the duration of the API call, the endpoint that was called, and the status code of the response
-  - See "Distributed Tracing" on Microsoft Learn for more information: https://learn.microsoft.com/en-au/dotnet/core/diagnostics/distributed-tracing
+BREAKING CHANGES:
+- Removed .NET 6 support as it is now unsupported by Microsoft. (https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core)
