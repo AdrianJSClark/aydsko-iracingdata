@@ -396,10 +396,11 @@ public class DataClient(HttpClient httpClient,
         };
 
         var queryUrl = "https://members-ng.iracing.com/data/member/awards".ToUrlWithQuery(queryParameters);
+        var (memberAwardsResponse, headers) = await GetResponseWithHeadersFromJsonAsync(queryUrl, MemberAwardResultContext.Default.MemberAwardResult, cancellationToken).ConfigureAwait(false);
 
-        return await CreateResponseViaInfoLinkAsync(queryUrl,
-                                                    MemberAwardArrayContext.Default.MemberAwardArray,
-                                                    cancellationToken).ConfigureAwait(false);
+        var awardDetails = await GetResponseFromJsonAsync(new Uri(memberAwardsResponse.DataUrl), MemberAwardArrayContext.Default.MemberAwardArray, cancellationToken).ConfigureAwait(false);
+
+        return BuildDataResponse(headers, awardDetails, logger);
     }
 
     /// <inheritdoc />
@@ -2417,6 +2418,79 @@ public class DataClient(HttpClient httpClient,
                 _ = System.Diagnostics.Activity.Current?.AddEvent(new("Retrying unauthorized response", tags: new([new("AttemptCount", attempts)])));
                 logger.RetryingUnauthorizedResponse(unAuthEx, infoLinkUri, attempts, 2);
                 goto RetryResponseViaInfoLinkToChunkInfo;
+            }
+            throw;
+        }
+    }
+
+    protected virtual async Task<(TResult Result, HttpResponseHeaders Headers)> GetResponseWithHeadersFromJsonAsync<TResult>(Uri uri, JsonTypeInfo<TResult> jsonTypeInfo, CancellationToken cancellationToken)
+        where TResult : class
+    {
+        var attempts = 0;
+
+    RetryResponseWithHeadersFromJson:
+        try
+        {
+            await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
+
+            var response = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
+
+#if NET6_0_OR_GREATER
+            var content = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+#else
+            var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+#endif
+
+            if (!response.IsSuccessStatusCode || content == RateLimitExceededContent)
+            {
+                HandleUnsuccessfulResponse(response, content, logger);
+            }
+
+            var result = JsonSerializer.Deserialize(content, jsonTypeInfo)
+                         ?? throw new iRacingDataClientException("Unrecognized result.");
+
+            _ = System.Diagnostics.Activity.Current?.AddEvent(new ActivityEvent("Data Retrieved"));
+
+            return (result, response.Headers);
+        }
+        catch (iRacingUnauthorizedResponseException unAuthEx)
+        {
+            attempts++;
+            if (attempts <= 2)
+            {
+                _ = System.Diagnostics.Activity.Current?.AddEvent(new("Retrying unauthorized response", tags: new([new("AttemptCount", attempts)])));
+                logger.RetryingUnauthorizedResponse(unAuthEx, uri, attempts, 2);
+                goto RetryResponseWithHeadersFromJson;
+            }
+            throw;
+        }
+    }
+
+    protected virtual async Task<TResult> GetResponseFromJsonAsync<TResult>(Uri uri, JsonTypeInfo<TResult> jsonTypeInfo, CancellationToken cancellationToken)
+        where TResult : class
+    {
+        var attempts = 0;
+
+    RetryResponseFromJson:
+        try
+        {
+            await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
+
+            var response = await httpClient.GetFromJsonAsync(uri, jsonTypeInfo, cancellationToken).ConfigureAwait(false)
+                           ?? throw new iRacingDataClientException("Data not found.");
+
+            _ = System.Diagnostics.Activity.Current?.AddEvent(new ActivityEvent("Data Retrieved"));
+
+            return response;
+        }
+        catch (iRacingUnauthorizedResponseException unAuthEx)
+        {
+            attempts++;
+            if (attempts <= 2)
+            {
+                _ = System.Diagnostics.Activity.Current?.AddEvent(new("Retrying unauthorized response", tags: new([new("AttemptCount", attempts)])));
+                logger.RetryingUnauthorizedResponse(unAuthEx, uri, attempts, 2);
+                goto RetryResponseFromJson;
             }
             throw;
         }
