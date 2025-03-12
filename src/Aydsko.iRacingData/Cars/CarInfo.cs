@@ -5,23 +5,30 @@ using Aydsko.iRacingData.Converters;
 
 namespace Aydsko.iRacingData.Cars;
 
+/// <summary>Contains information about a vehicle.</summary>
 public class CarInfo
 {
+    /// <summary>Indicates if the vehicle is available for AI racing.</summary>
     [JsonPropertyName("ai_enabled")]
     public bool AiEnabled { get; set; }
 
+    /// <summary>Indicates that the vehicle allows custom colors for the car number in the iRacing Paint Shop.</summary>
     [JsonPropertyName("allow_number_colors")]
     public bool AllowNumberColors { get; set; }
 
+    /// <summary>Indicates that the vehicle allows a custom font for the car number in the iRacing Paint Shop.</summary>
     [JsonPropertyName("allow_number_font")]
     public bool AllowNumberFont { get; set; }
 
+    /// <summary>Indicates that the vehicle allows a main sponsor in the iRacing Paint Shop.</summary>
     [JsonPropertyName("allow_sponsor1")]
     public bool AllowSponsor1 { get; set; }
 
+    /// <summary>Indicates that the vehicle allows a secondary sponsor in the iRacing Paint Shop.</summary>
     [JsonPropertyName("allow_sponsor2")]
     public bool AllowSponsor2 { get; set; }
 
+    /// <summary>Indicates that the vehicle allows a custom color for the wheels in the iRacing Paint Shop.</summary>
     [JsonPropertyName("allow_wheel_color")]
     public bool AllowWheelColor { get; set; }
 
@@ -31,12 +38,15 @@ public class CarInfo
     [JsonPropertyName("car_dirpath")]
     public string CarDirectoryPath { get; set; } = default!;
 
+    /// <summary>Unique identifier for the vehicle.</summary>
     [JsonPropertyName("car_id")]
     public int CarId { get; set; }
 
+    /// <summary>Full display name for the vehicle.</summary>
     [JsonPropertyName("car_name")]
     public string CarName { get; set; } = default!;
 
+    /// <summary>Abbreviated name for the vehicle.</summary>
     [JsonPropertyName("car_name_abbreviated")]
     public string CarNameAbbreviated { get; set; } = default!;
 

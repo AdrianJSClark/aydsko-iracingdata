@@ -5,25 +5,33 @@ using Aydsko.iRacingData.Converters;
 
 namespace Aydsko.iRacingData.Cars;
 
+/// <summary>Images and additional details about a particular vehicle.</summary>
 public class CarAssetDetail
 {
     public const string ImagePathBase = "https://images-static.iracing.com";
 
+    /// <summary>Unique identifier of the vehicle.</summary>
     [JsonPropertyName("car_id")]
     public int CarId { get; set; }
 
+    /// <summary>A collection of additional rules related to this vehicle.</summary>
     [JsonPropertyName("car_rules")]
     public CarRule[] CarRules { get; set; } = default!;
 
+    /// <summary>Text description of the vehicle.</summary>
+    /// <remarks>Content may be in HTML format.</remarks>
     [JsonPropertyName("detail_copy")]
     public string DetailCopy { get; set; } = default!;
 
     [JsonPropertyName("detail_screen_shot_images"), JsonConverter(typeof(CsvStringConverter))]
     public string[] DetailScreenShotImages { get; set; } = default!;
 
+    /// <summary>Technical specifications of the vehicle.</summary>
+    /// <remarks>Content may be in HTML format.</remarks>
     [JsonPropertyName("detail_techspecs_copy")]
     public string DetailTechSpecsCopy { get; set; } = default!;
 
+    /// <summary>Relative path of the vehicle folder within <see cref="ImagePathBase"/> for the images.</summary>
     [JsonPropertyName("folder")]
     public string Folder { get; set; } = default!;
 
