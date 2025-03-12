@@ -181,7 +181,7 @@
       "parameters": {
         "cust_id": {
           "type": "number",
-          "note": "If different from the authenticated member, the following resrictions apply: - Caller cannot be on requested customer's block list or an empty list will result; - Requested customer cannot have their online activity prefrence set to hidden or an empty list will result; - Only leagues for which the requested customer is an admin and the league roster is not private are returned."
+          "note": "If different from the authenticated member, the following restrictions apply: - Caller cannot be on requested customer's block list or an empty list will result; - Requested customer cannot have their online activity preference set to hidden or an empty list will result; - Only leagues for which the requested customer is an admin and the league roster is not private are returned."
         },
         "include_league": {
           "type": "boolean"
@@ -309,6 +309,20 @@
         "cust_id": {
           "type": "number",
           "note": "Defaults to the authenticated member."
+        }
+      },
+      "expirationSeconds": 900
+    },
+    "award_instances": {
+      "link": "https://members-ng.iracing.com/data/member/award_instances",
+      "parameters": {
+        "cust_id": {
+          "type": "number",
+          "note": "Defaults to the authenticated member."
+        },
+        "award_id": {
+          "type": "number",
+          "required": true
         }
       },
       "expirationSeconds": 900
