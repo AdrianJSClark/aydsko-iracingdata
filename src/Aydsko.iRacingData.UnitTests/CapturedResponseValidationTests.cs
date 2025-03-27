@@ -1315,6 +1315,27 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
+    public async Task GetDriverAwardInstanceSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetDriverAwardInstanceSuccessfulAsync)).ConfigureAwait(false);
+
+        var response = await sut.GetDriverAwardInstanceAsync(0).ConfigureAwait(false);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response!.Data, Is.Not.Null);
+            Assert.That(response.Data.AwardId, Is.EqualTo(1451));
+            Assert.That(response.Data.Awards, Has.Length.EqualTo(1));
+
+            Assert.That(response.RateLimitRemaining, Is.EqualTo(239));
+            Assert.That(response.TotalRateLimit, Is.EqualTo(240));
+            Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2025, 3, 12, 14, 32, 0, TimeSpan.Zero)));
+            Assert.That(response.DataExpires, Is.Null);
+        });
+    }
+
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetBestLapStatisticsSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetBestLapStatisticsSuccessfulAsync)).ConfigureAwait(false);

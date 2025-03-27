@@ -1,4 +1,9 @@
-﻿namespace Aydsko.iRacingData.Member;
+﻿// © 2023-2025 Adrian Clark
+// This file is licensed to you under the MIT license.
+
+using Aydsko.iRacingData.Converters;
+
+namespace Aydsko.iRacingData.Member;
 
 public class MemberAward
 {
@@ -50,11 +55,21 @@ public class MemberAward
     [JsonPropertyName("achievement")]
     public bool Achievement { get; set; }
 
-    [JsonPropertyName("award_date")]
-    public string AwardDate { get; set; } = default!;
+#if NET6_0_OR_GREATER
+    [JsonPropertyName("award_date"), JsonConverter(typeof(DateOnlyConverter))]
+    public DateOnly AwardDate { get; set; } = default!;
+#else
+    [JsonPropertyName("award_date"), JsonConverter(typeof(DateTimeConverter))]
+    public DateTime AwardDate { get; set; } = default!;
+#endif
 
-    [JsonPropertyName("display_date")]
-    public string DisplayDate { get; set; } = default!;
+#if NET6_0_OR_GREATER
+    [JsonPropertyName("display_date"), JsonConverter(typeof(DateOnlyConverter))]
+    public DateOnly DisplayDate { get; set; } = default!;
+#else
+    [JsonPropertyName("display_date"), JsonConverter(typeof(DateTimeConverter))]
+    public DateTime DisplayDate { get; set; } = default!;
+#endif
 
     [JsonPropertyName("subsession_id")]
     public int SubsessionId { get; set; }

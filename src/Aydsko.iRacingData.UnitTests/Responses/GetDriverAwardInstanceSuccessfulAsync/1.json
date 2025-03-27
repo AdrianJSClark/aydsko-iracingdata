@@ -1,0 +1,41 @@
+﻿{
+  "statusCode": 200,
+  "headers": {
+    "Connection": "keep-alive",
+    "Date": "Wed, 12 Mar 2025 14:31:01 GMT",
+    "ETag": "W/\u00221ed-\u002BDCRRvJKbIMFlTOUF1bmZHvyy8M\u0022",
+    "X-iRacing-Env": "members",
+    "X-iRacing-Id": "7752b8bc-77eb-4c26-82d1-5117f5adf411",
+    "X-iRacing-ServiceName": "data-server",
+    "X-iRacing-ServiceVersion": "2.1.6",
+    "Content-Security-Policy": "default-src \u0027self\u0027;base-uri \u0027self\u0027;font-src \u0027self\u0027 https: data:;form-action \u0027self\u0027;frame-ancestors \u0027self\u0027;img-src \u0027self\u0027 data:;object-src \u0027none\u0027;script-src \u0027self\u0027;script-src-attr \u0027none\u0027;style-src \u0027self\u0027 https: \u0027unsafe-inline\u0027;upgrade-insecure-requests",
+    "Cross-Origin-Opener-Policy": "same-origin",
+    "Cross-Origin-Resource-Policy": "same-origin",
+    "Origin-Agent-Cluster": "?1",
+    "Referrer-Policy": "no-referrer",
+    "Strict-Transport-Security": "max-age=31536000; includeSubDomains",
+    "X-Content-Type-Options": "nosniff",
+    "X-DNS-Prefetch-Control": "off",
+    "X-Download-Options": "noopen",
+    "X-Frame-Options": "SAMEORIGIN",
+    "X-Permitted-Cross-Domain-Policies": "none",
+    "X-XSS-Protection": "0",
+    "X-RateLimit-Limit": "240",
+    "X-RateLimit-Remaining": "239",
+    "X-RateLimit-Reset": "1741789920",
+    "Cache-Control": "max-age=60",
+    "X-Cache": "Miss from cloudfront",
+    "Via": "1.1 7d77d49a4da1d6a67090cf03af780f1e.cloudfront.net (CloudFront)",
+    "X-Amz-Cf-Pop": "BNE50-P2",
+    "X-Amz-Cf-Id": "e67-19drZV-cXeG6fdFtCqmXNPHhIX3V_uYp-BE9ITCHbSpgAXHwwA=="
+  },
+  "content": {
+    "type": "member_awards",
+    "data": {
+      "success": true,
+      "cust_id": 341554,
+      "award_count": 185
+    },
+    "data_url": "https://scorpio-assets.s3.amazonaws.com/members/messaging-services/short_lived/awards/341554.json?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Date=20250312T143101Z&X-Amz-SignedHeaders=host&X-Amz-Credential=AKIAUO6OO4A3WX3RTXUZ%2F20250312%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Expires=60&X-Amz-Signature=564e8ac4d7c06a9399985c408123d7af5b5a73cdff7cbcb5eaff7f8cb4eeeba1"
+  }
+}

@@ -1,4 +1,4 @@
-﻿// © 2023 Adrian Clark
+﻿// © 2023-2025 Adrian Clark
 // This file is licensed to you under the MIT license.
 
 using System.Globalization;
