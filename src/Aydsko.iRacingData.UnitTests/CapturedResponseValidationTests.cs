@@ -603,7 +603,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(memberSummaryResponse, Is.Not.Null);
             Assert.That(memberSummaryResponse!.Data, Is.Not.Null);
 
-            //Assert.That(memberSummaryResponse.Data.Races, Has.Length.EqualTo(10));
+            //Assert.That(memberSummaryResponse.MemberAwardResultData.Races, Has.Length.EqualTo(10));
             Assert.That(memberSummaryResponse.Data.CustomerId, Is.EqualTo(123456));
             Assert.That(memberSummaryResponse.RateLimitRemaining, Is.EqualTo(99));
             Assert.That(memberSummaryResponse.TotalRateLimit, Is.EqualTo(100));
@@ -1305,11 +1305,33 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
         {
             Assert.That(response, Is.Not.Null);
             Assert.That(response!.Data, Is.Not.Null);
+            Assert.That(response.Data, Has.Length.EqualTo(185));
 
-            Assert.That(response.RateLimitRemaining, Is.EqualTo(99));
-            Assert.That(response.TotalRateLimit, Is.EqualTo(100));
-            Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-            Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+            Assert.That(response.RateLimitRemaining, Is.EqualTo(239));
+            Assert.That(response.TotalRateLimit, Is.EqualTo(240));
+            Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2025, 3, 12, 14, 32, 0, TimeSpan.Zero)));
+            Assert.That(response.DataExpires, Is.Null);
+        });
+    }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetDriverAwardInstanceSuccessfulAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetDriverAwardInstanceSuccessfulAsync)).ConfigureAwait(false);
+
+        var response = await sut.GetDriverAwardInstanceAsync(0).ConfigureAwait(false);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(response, Is.Not.Null);
+            Assert.That(response!.Data, Is.Not.Null);
+            Assert.That(response.Data.AwardId, Is.EqualTo(1451));
+            Assert.That(response.Data.Awards, Has.Length.EqualTo(1));
+
+            Assert.That(response.RateLimitRemaining, Is.EqualTo(239));
+            Assert.That(response.TotalRateLimit, Is.EqualTo(240));
+            Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2025, 3, 12, 14, 32, 0, TimeSpan.Zero)));
+            Assert.That(response.DataExpires, Is.Null);
         });
     }
 

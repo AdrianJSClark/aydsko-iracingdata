@@ -1,4 +1,4 @@
-﻿// © 2023-2024 Adrian Clark
+﻿// © 2023-2025 Adrian Clark
 // This file is licensed to you under the MIT license.
 
 using System.Diagnostics;
@@ -396,10 +396,25 @@ public class DataClient(HttpClient httpClient,
         };
 
         var queryUrl = "https://members-ng.iracing.com/data/member/awards".ToUrlWithQuery(queryParameters);
+        var (memberAwardsResponse, headers) = await GetResponseWithHeadersFromJsonAsync(queryUrl, MemberAwardResultContext.Default.MemberAwardResult, cancellationToken).ConfigureAwait(false);
 
-        return await CreateResponseViaInfoLinkAsync(queryUrl,
-                                                    MemberAwardArrayContext.Default.MemberAwardArray,
-                                                    cancellationToken).ConfigureAwait(false);
+        var awardDetails = await GetResponseFromJsonAsync(new Uri(memberAwardsResponse.DataUrl), MemberAwardArrayContext.Default.MemberAwardArray, cancellationToken).ConfigureAwait(false);
+
+        return BuildDataResponse(headers, awardDetails, logger);
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<MemberAwardInstance>> GetDriverAwardInstanceAsync(int awardId, CancellationToken cancellationToken = default)
+    {
+        using var activity = activitySource.StartActivity("Get Driver Award Instance")?.AddTag("AwardId", awardId);
+
+        var queryParameters = new Dictionary<string, object?>()
+        {
+            ["award_id"] = awardId,
+        };
+
+        var queryUrl = "https://members-ng.iracing.com/data/member/award_instances".ToUrlWithQuery(queryParameters);
+        return await CreateResponseViaDataUrlAsync(queryUrl, MemberAwardInstanceContext.Default.MemberAwardInstance, cancellationToken).ConfigureAwait(false);
     }
 
     /// <inheritdoc />
@@ -2286,6 +2301,46 @@ public class DataClient(HttpClient httpClient,
         }
     }
 
+    protected virtual async Task<DataResponse<TData>> CreateResponseViaDataUrlAsync<TData>(Uri dataUrlUri,
+                                                                                           JsonTypeInfo<TData> jsonTypeInfo,
+                                                                                           CancellationToken cancellationToken)
+    {
+        var attempts = 0;
+
+    RetryResponseViaInfoLink:
+        try
+        {
+            await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
+
+            var (dataUrlResult, headers) = await BuildIntermediateResultAsync(dataUrlUri, DataUrlResultContext.Default.DataUrlResult, cancellationToken).ConfigureAwait(false);
+
+            if (dataUrlResult is null || string.IsNullOrWhiteSpace(dataUrlResult.DataUrl))
+            {
+                throw new iRacingDataClientException("Unrecognized result.");
+            }
+
+            _ = System.Diagnostics.Activity.Current?.AddEvent(new ActivityEvent("Data URL Link Retrieved"));
+
+            var data = await httpClient.GetFromJsonAsync(dataUrlResult.DataUrl, jsonTypeInfo, cancellationToken)
+                                       .ConfigureAwait(false)
+                                       ?? throw new iRacingDataClientException("Data not found.");
+            _ = System.Diagnostics.Activity.Current?.AddEvent(new ActivityEvent("Data Retrieved"));
+
+            return BuildDataResponse(headers, data, logger);
+        }
+        catch (iRacingUnauthorizedResponseException unAuthenticatedEx)
+        {
+            attempts++;
+            if (attempts <= 2)
+            {
+                _ = System.Diagnostics.Activity.Current?.AddEvent(new("Retrying unauthorized response", tags: new([new("AttemptCount", attempts)])));
+                logger.RetryingUnauthorizedResponse(unAuthenticatedEx, dataUrlUri, attempts, 2);
+                goto RetryResponseViaInfoLink;
+            }
+            throw;
+        }
+    }
+
     protected virtual async Task<DataResponse<(TData, TChunkData[])>> CreateResponseFromChunkedDataAsync<TData, THeaderData, TChunkData>(Uri uri, JsonTypeInfo<TData> jsonTypeInfo, JsonTypeInfo<TChunkData[]> chunkArrayTypeInfo, CancellationToken cancellationToken)
         where TData : IChunkInfoResultHeader<THeaderData>
         where THeaderData : IChunkInfoResultHeaderData
@@ -2422,25 +2477,108 @@ public class DataClient(HttpClient httpClient,
         }
     }
 
-    protected virtual async Task<(LinkResult, HttpResponseHeaders)> BuildLinkResultAsync(Uri infoLinkUri, CancellationToken cancellationToken)
+    protected virtual async Task<(TResult Result, HttpResponseHeaders Headers)> GetResponseWithHeadersFromJsonAsync<TResult>(Uri uri, JsonTypeInfo<TResult> jsonTypeInfo, CancellationToken cancellationToken)
+        where TResult : class
     {
-        var infoLinkResponse = await httpClient.GetAsync(infoLinkUri, cancellationToken).ConfigureAwait(false);
+        var attempts = 0;
+
+    RetryResponseWithHeadersFromJson:
+        try
+        {
+            await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
+
+            var response = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
 
 #if NET6_0_OR_GREATER
-        var content = await infoLinkResponse.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+            var content = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
 #else
-        var content = await infoLinkResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
 #endif
 
-        if (!infoLinkResponse.IsSuccessStatusCode || content == RateLimitExceededContent)
+            if (!response.IsSuccessStatusCode || content == RateLimitExceededContent)
+            {
+                HandleUnsuccessfulResponse(response, content, logger);
+            }
+
+            var result = JsonSerializer.Deserialize(content, jsonTypeInfo)
+                         ?? throw new iRacingDataClientException("Unrecognized result.");
+
+            _ = System.Diagnostics.Activity.Current?.AddEvent(new ActivityEvent("Data Retrieved"));
+
+            return (result, response.Headers);
+        }
+        catch (iRacingUnauthorizedResponseException unAuthEx)
         {
-            HandleUnsuccessfulResponse(infoLinkResponse, content, logger);
+            attempts++;
+            if (attempts <= 2)
+            {
+                _ = System.Diagnostics.Activity.Current?.AddEvent(new("Retrying unauthorized response", tags: new([new("AttemptCount", attempts)])));
+                logger.RetryingUnauthorizedResponse(unAuthEx, uri, attempts, 2);
+                goto RetryResponseWithHeadersFromJson;
+            }
+            throw;
+        }
+    }
+
+    protected virtual async Task<TResult> GetResponseFromJsonAsync<TResult>(Uri uri, JsonTypeInfo<TResult> jsonTypeInfo, CancellationToken cancellationToken)
+        where TResult : class
+    {
+        var attempts = 0;
+
+    RetryResponseFromJson:
+        try
+        {
+            await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
+
+            var response = await httpClient.GetFromJsonAsync(uri, jsonTypeInfo, cancellationToken).ConfigureAwait(false)
+                           ?? throw new iRacingDataClientException("Data not found.");
+
+            _ = System.Diagnostics.Activity.Current?.AddEvent(new ActivityEvent("Data Retrieved"));
+
+            return response;
+        }
+        catch (iRacingUnauthorizedResponseException unAuthEx)
+        {
+            attempts++;
+            if (attempts <= 2)
+            {
+                _ = System.Diagnostics.Activity.Current?.AddEvent(new("Retrying unauthorized response", tags: new([new("AttemptCount", attempts)])));
+                logger.RetryingUnauthorizedResponse(unAuthEx, uri, attempts, 2);
+                goto RetryResponseFromJson;
+            }
+            throw;
+        }
+    }
+
+    protected virtual async Task<(LinkResult, HttpResponseHeaders)> BuildLinkResultAsync(Uri infoLinkUri, CancellationToken cancellationToken)
+    {
+        var (linkResult, headers) = await BuildIntermediateResultAsync(infoLinkUri, LinkResultContext.Default.LinkResult, cancellationToken).ConfigureAwait(false);
+
+        if (linkResult is null || linkResult.Link is null)
+        {
+            throw new iRacingDataClientException("Unrecognized result.");
         }
 
-        var infoLink = JsonSerializer.Deserialize(content, LinkResultContext.Default.LinkResult);
-        return infoLink is null || infoLink.Link is null
-            ? throw new iRacingDataClientException("Unrecognized result.")
-            : ((LinkResult, HttpResponseHeaders))(infoLink, infoLinkResponse.Headers);
+        return (linkResult, headers);
+    }
+
+    protected virtual async Task<(TResult?, HttpResponseHeaders)> BuildIntermediateResultAsync<TResult>(Uri intermediateUri, JsonTypeInfo<TResult> jsonTypeInfo, CancellationToken cancellationToken)
+    {
+        var intermediateResponse = await httpClient.GetAsync(intermediateUri, cancellationToken).ConfigureAwait(false);
+
+#if NET6_0_OR_GREATER
+        var content = await intermediateResponse.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+#else
+        var content = await intermediateResponse.Content.ReadAsStringAsync().ConfigureAwait(false);
+#endif
+
+        if (!intermediateResponse.IsSuccessStatusCode || content == RateLimitExceededContent)
+        {
+            HandleUnsuccessfulResponse(intermediateResponse, content, logger);
+        }
+
+        var result = JsonSerializer.Deserialize(content, jsonTypeInfo);
+        return (result, intermediateResponse.Headers);
     }
 
     protected virtual void HandleUnsuccessfulResponse(HttpResponseMessage httpResponse, string content, ILogger logger)

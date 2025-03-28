@@ -1,0 +1,43 @@
+{
+  "statusCode": 200,
+  "headers": {
+    "x-amz-id-2": "AuShDkRZryohG0RTqC2dRcJ/a6VdRui7vOqRJC1FusAPN/swpEFcR\u002BsrZ3ympsCP7N2gJ0D4s\u002BEOM\u002BApz8ppoyUgY4BXqiJ3OxjXgeUZIrM=",
+    "x-amz-request-id": "FZ2EQGVMZS0KRZ12",
+    "Date": "Wed, 12 Mar 2025 14:31:03 GMT",
+    "x-amz-expiration": "expiry-date=\u0022Fri, 14 Mar 2025 00:00:00 GMT\u0022, rule-id=\u0022members messaging-services short-lived cache expiry\u0022",
+    "ETag": "\u0022b37fc80d70155adab6d6bc0a75b98ba1\u0022",
+    "x-amz-server-side-encryption": "AES256",
+    "Cache-Control": "no-cache",
+    "Accept-Ranges": "bytes",
+    "Server": "AmazonS3"
+  },
+  "content": {
+    "cust_id": 341554,
+    "award_id": 1451,
+    "achievement": false,
+    "award_count": 1,
+    "awards": [
+      {
+        "member_award_id": 41346100,
+        "award_id": 1451,
+        "achievement": false,
+        "award_count": 1,
+        "award_date": "2024-03-24",
+        "award_order": 1,
+        "awarded_description": "2024-03-24, Formula A - Grand Prix Tour",
+        "display_date": "2024-03-24",
+        "subsession_id": 67586147,
+        "viewed": true
+      }
+    ],
+    "description": "Awarded for your first official race win in a Formula Car Road series.  This award may not be earned while participating in a team event.",
+    "group_name": "First Formula Car Road Series Race Win",
+    "has_pdf": true,
+    "icon_background_color": "#a2a2a2",
+    "icon_url_large": "/member_images/award_templates/icons/certificate_blue_128.jpg",
+    "icon_url_small": "/member_images/award_templates/icons/certificate_blue_64.jpg",
+    "icon_url_unawarded": "/member_images/award_templates/icons/certificate_bw_64.jpg",
+    "name": "First Win Formula Car Road Course",
+    "weight": 0
+  }
+}
