@@ -10,7 +10,7 @@ This library allows access via .NET to the iRacing "Data API". These APIs allow 
 
 ## ⚠ Multi-Factor Authentication Requirement
 
-iRacing has announced that they now require multi-factor authentication (MFA) for all users by default. This will affect the ability to use the iRacing Data API by logging in with a username or password.
+iRacing now require multi-factor authentication (MFA) for all users by default. This will affect the ability to use the iRacing Data API by logging in with a username or password.
 
 In the immediate future, use of the Data API will be supported by enabling "Legacy Authentication" in your iRacing account settings. iRacing will advise next steps for the authentication of applications for the Data API later on.
 
