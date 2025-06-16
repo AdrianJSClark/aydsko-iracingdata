@@ -299,26 +299,6 @@ public class DataClient(HttpClient httpClient,
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<ClubHistoryLookup[]>> GetClubHistoryLookupsAsync(int seasonYear, int seasonQuarter, CancellationToken cancellationToken = default)
-    {
-        using var activity = activitySource.StartActivity("Get Club History Lookups")
-                                           ?.AddTag("SeasonYear", seasonYear)
-                                           ?.AddTag("SeasonQuarter", seasonQuarter);
-
-        var queryParameters = new Dictionary<string, object?>
-        {
-            ["season_year"] = seasonYear,
-            ["season_quarter"] = seasonQuarter,
-        };
-
-        var queryUrl = "https://members-ng.iracing.com/data/lookup/club_history".ToUrlWithQuery(queryParameters);
-
-        return await CreateResponseViaInfoLinkAsync(queryUrl,
-                                                    ClubHistoryLookupArrayContext.Default.ClubHistoryLookupArray,
-                                                    cancellationToken).ConfigureAwait(false);
-    }
-
-    /// <inheritdoc />
     public async Task<DataResponse<DriverSearchResult[]>> SearchDriversAsync(string searchTerm, int? leagueId = null, CancellationToken cancellationToken = default)
     {
         using var activity = activitySource.StartActivity("Search Drivers")
@@ -876,7 +856,11 @@ public class DataClient(HttpClient httpClient,
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Standings)>> GetSeasonDriverStandingsAsync(int seasonId, int carClassId, int? raceWeekIndex = null, int? clubId = null, int? division = null, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<(SeasonDriverStandingsHeader Header, SeasonDriverStanding[] Standings)>> GetSeasonDriverStandingsAsync(int seasonId,
+                                                                                                                                          int carClassId,
+                                                                                                                                          int? raceWeekIndex = null,
+                                                                                                                                          int? division = null,
+                                                                                                                                          CancellationToken cancellationToken = default)
     {
         using var activity = activitySource.StartActivity("Get Season Driver Standings")
                                            ?.AddTag("SeasonId", seasonId)
@@ -902,11 +886,6 @@ public class DataClient(HttpClient httpClient,
             throw new ArgumentOutOfRangeException(nameof(raceWeekIndex));
         }
 
-        if (clubId is not null and < -1)
-        {
-            throw new ArgumentOutOfRangeException(nameof(clubId));
-        }
-
         if (division is not null and < -1)
         {
             throw new ArgumentOutOfRangeException(nameof(division));
@@ -917,7 +896,6 @@ public class DataClient(HttpClient httpClient,
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
             ["race_week_num"] = (raceWeekIndex ?? -1).ToString(CultureInfo.InvariantCulture),
-            ["club_id"] = (clubId ?? -1).ToString(CultureInfo.InvariantCulture),
             ["division"] = (division ?? -1).ToString(CultureInfo.InvariantCulture),
         };
 
@@ -969,7 +947,11 @@ public class DataClient(HttpClient httpClient,
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<(SeasonQualifyResultsHeader Header, SeasonQualifyResult[] Results)>> GetSeasonQualifyResultsAsync(int seasonId, int carClassId, int? raceWeekIndex = null, int? clubId = null, int? division = null, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<(SeasonQualifyResultsHeader Header, SeasonQualifyResult[] Results)>> GetSeasonQualifyResultsAsync(int seasonId,
+                                                                                                                                     int carClassId,
+                                                                                                                                     int? raceWeekIndex = null,
+                                                                                                                                     int? division = null,
+                                                                                                                                     CancellationToken cancellationToken = default)
     {
         using var activity = activitySource.StartActivity("Get Season Qualify Results")
                                            ?.AddTag("SeasonId", seasonId)
@@ -995,11 +977,6 @@ public class DataClient(HttpClient httpClient,
             throw new ArgumentOutOfRangeException(nameof(raceWeekIndex));
         }
 
-        if (clubId is not null and < -1)
-        {
-            throw new ArgumentOutOfRangeException(nameof(clubId));
-        }
-
         if (division is not null and < -1)
         {
             throw new ArgumentOutOfRangeException(nameof(division));
@@ -1010,7 +987,6 @@ public class DataClient(HttpClient httpClient,
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
             ["race_week_num"] = (raceWeekIndex ?? -1).ToString(CultureInfo.InvariantCulture),
-            ["club_id"] = (clubId ?? -1).ToString(CultureInfo.InvariantCulture),
             ["division"] = (division ?? -1).ToString(CultureInfo.InvariantCulture),
         };
 
@@ -1062,7 +1038,11 @@ public class DataClient(HttpClient httpClient,
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<(SeasonTimeTrialResultsHeader Header, SeasonTimeTrialResult[] Results)>> GetSeasonTimeTrialResultsAsync(int seasonId, int carClassId, int? raceWeekIndex = null, int? clubId = null, int? division = null, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<(SeasonTimeTrialResultsHeader Header, SeasonTimeTrialResult[] Results)>> GetSeasonTimeTrialResultsAsync(int seasonId,
+                                                                                                                                           int carClassId,
+                                                                                                                                           int? raceWeekIndex = null,
+                                                                                                                                           int? division = null,
+                                                                                                                                           CancellationToken cancellationToken = default)
     {
         using var activity = activitySource.StartActivity("Get Season Time Trial Results")
                                            ?.AddTag("SeasonId", seasonId)
@@ -1088,11 +1068,6 @@ public class DataClient(HttpClient httpClient,
             throw new ArgumentOutOfRangeException(nameof(raceWeekIndex));
         }
 
-        if (clubId is not null and < -1)
-        {
-            throw new ArgumentOutOfRangeException(nameof(clubId));
-        }
-
         if (division is not null and < -1)
         {
             throw new ArgumentOutOfRangeException(nameof(division));
@@ -1103,7 +1078,6 @@ public class DataClient(HttpClient httpClient,
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
             ["race_week_num"] = (raceWeekIndex ?? -1).ToString(CultureInfo.InvariantCulture),
-            ["club_id"] = (clubId ?? -1).ToString(CultureInfo.InvariantCulture),
             ["division"] = (division ?? -1).ToString(CultureInfo.InvariantCulture),
         };
 
@@ -1158,7 +1132,6 @@ public class DataClient(HttpClient httpClient,
     public async Task<DataResponse<(SeasonTimeTrialStandingsHeader Header, SeasonTimeTrialStanding[] Standings)>> GetSeasonTimeTrialStandingsAsync(int seasonId,
                                                                                                                                                    int carClassId,
                                                                                                                                                    int? raceWeekIndex = null,
-                                                                                                                                                   int? clubId = null,
                                                                                                                                                    int? division = null,
                                                                                                                                                    CancellationToken cancellationToken = default)
     {
@@ -1186,11 +1159,6 @@ public class DataClient(HttpClient httpClient,
             throw new ArgumentOutOfRangeException(nameof(raceWeekIndex));
         }
 
-        if (clubId is not null and < -1)
-        {
-            throw new ArgumentOutOfRangeException(nameof(clubId));
-        }
-
         if (division is not null and < -1)
         {
             throw new ArgumentOutOfRangeException(nameof(division));
@@ -1201,7 +1169,6 @@ public class DataClient(HttpClient httpClient,
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
             ["race_week_num"] = (raceWeekIndex ?? -1).ToString(CultureInfo.InvariantCulture),
-            ["club_id"] = (clubId ?? -1).ToString(CultureInfo.InvariantCulture),
             ["division"] = (division ?? -1).ToString(CultureInfo.InvariantCulture),
         };
 
@@ -1923,7 +1890,6 @@ public class DataClient(HttpClient httpClient,
     /// <inheritdoc />
     public async Task<DataResponse<(SeasonSuperSessionResultsHeader Header, SeasonSuperSessionResultItem[] Results)>> GetSeasonSuperSessionStandingsAsync(int seasonId,
                                                                                                                                                           int carClassId,
-                                                                                                                                                          int? clubId = null,
                                                                                                                                                           int? division = null,
                                                                                                                                                           int? raceWeekIndex = null,
                                                                                                                                                           CancellationToken cancellationToken = default)
@@ -1937,11 +1903,6 @@ public class DataClient(HttpClient httpClient,
             ["season_id"] = seasonId.ToString(CultureInfo.InvariantCulture),
             ["car_class_id"] = carClassId.ToString(CultureInfo.InvariantCulture),
         };
-
-        if (clubId is not null)
-        {
-            queryParameters.Add("club_id", clubId.Value.ToString(CultureInfo.InvariantCulture));
-        }
 
         if (division is not null)
         {

@@ -13,12 +13,6 @@ public class WorldRecordEntry
     [JsonPropertyName("display_name")]
     public string DisplayName { get; set; } = default!;
 
-    [JsonPropertyName("club_id")]
-    public int ClubId { get; set; }
-
-    [JsonPropertyName("club_name")]
-    public string ClubName { get; set; } = default!;
-
     [JsonPropertyName("car_id")]
     public int CarId { get; set; }
 

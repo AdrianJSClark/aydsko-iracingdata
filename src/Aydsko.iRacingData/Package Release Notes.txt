@@ -1,9 +1,7 @@
 NOTE:
 iRacing has enabled two-factor authentication by default. To continue to use this library you must enable "Legacy Authentication" in your iRacing account settings before attempting to authenticate. Please do not enable this setting unless you require it, as it may reduce the security on your iRacing account.
 
-FIXES:
-- Implement Driver Award Instance (Issue #234)
-- Resolve Awards Endpoint Parsing Issue - The result for the "Awards" endpoint seems to have changed. Update our code to handle that.
+BREAKING CHANGES:
+- All references to iRacing Clubs have been removed. iRacing no longer supports Clubs (see: https://forums.iracing.com/discussion/77912/disbanding-of-clubs-and-raising-of-flags)
 
-BREAKING CHANGES (as at version 2501.0.0):
-- Removed .NET 6 support as it is now unsupported by Microsoft. (https://dotnet.microsoft.com/en-us/platform/support/policy/dotnet-core)
+FIXES:

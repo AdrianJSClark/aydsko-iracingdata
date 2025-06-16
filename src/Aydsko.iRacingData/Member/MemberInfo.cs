@@ -48,12 +48,6 @@ public class MemberInfo
     [JsonPropertyName("flags")]
     public int Flags { get; set; }
 
-    [JsonPropertyName("club_id")]
-    public int ClubId { get; set; }
-
-    [JsonPropertyName("club_name")]
-    public string ClubName { get; set; } = default!;
-
     [JsonPropertyName("connection_type")]
     public string ConnectionType { get; set; } = default!;
 

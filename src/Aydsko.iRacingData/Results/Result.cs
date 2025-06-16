@@ -97,15 +97,6 @@ public class Result
     [JsonPropertyName("car_class_id")]
     public int CarClassId { get; set; }
 
-    [JsonPropertyName("club_id")]
-    public int ClubId { get; set; }
-
-    [JsonPropertyName("club_name")]
-    public string ClubName { get; set; } = default!;
-
-    [JsonPropertyName("club_shortname")]
-    public string? ClubShortname { get; set; } = default!;
-
     [JsonPropertyName("division")]
     public int Division { get; set; }
 

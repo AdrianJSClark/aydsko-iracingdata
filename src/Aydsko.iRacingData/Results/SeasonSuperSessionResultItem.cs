@@ -22,12 +22,6 @@ public class SeasonSuperSessionResultItem
     [JsonPropertyName("country")]
     public string Country { get; set; }
 
-    [JsonPropertyName("club_id")]
-    public int ClubId { get; set; }
-
-    [JsonPropertyName("club_name")]
-    public string ClubName { get; set; }
-
     [JsonPropertyName("license")]
     public License License { get; set; }
 
