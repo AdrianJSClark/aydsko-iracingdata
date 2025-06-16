@@ -258,21 +258,6 @@
     }
   },
   "lookup": {
-    "club_history": {
-      "link": "https://members-ng.iracing.com/data/lookup/club_history",
-      "note": "Returns an earlier history if requested quarter does not have a club history.",
-      "parameters": {
-        "season_year": {
-          "type": "number",
-          "required": true
-        },
-        "season_quarter": {
-          "type": "number",
-          "required": true
-        }
-      },
-      "expirationSeconds": 900
-    },
     "countries": {
       "link": "https://members-ng.iracing.com/data/lookup/countries",
       "expirationSeconds": 900
@@ -290,6 +275,11 @@
           "note": "Narrow the search to the roster of the given league."
         }
       },
+      "expirationSeconds": 900
+    },
+    "flairs": {
+      "link": "https://members-ng.iracing.com/data/lookup/flairs",
+      "note": "Icons are from https://github.com/lipis/flag-icons/",
       "expirationSeconds": 900
     },
     "get": {
@@ -669,6 +659,39 @@
       "parameters": {
         "include_series": {
           "type": "boolean"
+        },
+        "season_year": {
+          "type": "number",
+          "note": "To look up past seasons use both a season_year and season_quarter.  Without both, the active seasons are returned."
+        },
+        "season_quarter": {
+          "type": "number",
+          "note": "To look up past seasons use both a season_year and season_quarter.  Without both, the active seasons are returned."
+        }
+      },
+      "expirationSeconds": 900
+    },
+    "season_list": {
+      "link": "https://members-ng.iracing.com/data/series/season_list",
+      "parameters": {
+        "include_series": {
+          "type": "boolean"
+        },
+        "season_year": {
+          "type": "number"
+        },
+        "season_quarter": {
+          "type": "number"
+        }
+      },
+      "expirationSeconds": 900
+    },
+    "season_schedule": {
+      "link": "https://members-ng.iracing.com/data/series/season_schedule",
+      "parameters": {
+        "season_id": {
+          "type": "number",
+          "required": true
         }
       },
       "expirationSeconds": 900
@@ -779,10 +802,6 @@
           "type": "number",
           "required": true
         },
-        "club_id": {
-          "type": "number",
-          "note": "Defaults to all (-1)."
-        },
         "division": {
           "type": "number",
           "note": "Divisions are 0-based: 0 is Division 1, 10 is Rookie. See /data/constants/divisons for more information. Defaults to all."
@@ -804,10 +823,6 @@
         "car_class_id": {
           "type": "number",
           "required": true
-        },
-        "club_id": {
-          "type": "number",
-          "note": "Defaults to all (-1)."
         },
         "division": {
           "type": "number",
@@ -849,10 +864,6 @@
           "type": "number",
           "required": true
         },
-        "club_id": {
-          "type": "number",
-          "note": "Defaults to all (-1)."
-        },
         "division": {
           "type": "number",
           "note": "Divisions are 0-based: 0 is Division 1, 10 is Rookie. See /data/constants/divisons for more information. Defaults to all."
@@ -880,10 +891,6 @@
           "required": true,
           "note": "The first race week of a season is 0."
         },
-        "club_id": {
-          "type": "number",
-          "note": "Defaults to all (-1)."
-        },
         "division": {
           "type": "number",
           "note": "Divisions are 0-based: 0 is Division 1, 10 is Rookie. See /data/constants/divisons for more information. Defaults to all."
@@ -906,10 +913,6 @@
           "type": "number",
           "required": true,
           "note": "The first race week of a season is 0."
-        },
-        "club_id": {
-          "type": "number",
-          "note": "Defaults to all (-1)."
         },
         "division": {
           "type": "number",
