@@ -6,28 +6,26 @@ namespace Aydsko.iRacingData.UnitTests;
 internal sealed class TrackScreenshotServiceTests : MockedHttpTestBase
 {
     // NUnit will ensure that "SetUp" runs before each test so these can all be forced to "null".
-    private DataClient dataClient = null!;
     private TrackScreenshotService sut = null!;
 
     [SetUp]
     public async Task SetUpAsync()
     {
-        BaseSetUp();
-        dataClient = new DataClient(HttpClient,
-                                    new TestLogger<DataClient>(),
-                                    new iRacingDataClientOptions()
-                                    {
-                                        Username = "test.user@example.com",
-                                        Password = "SuperSecretPassword",
-                                        CurrentDateTimeSource = () => new DateTimeOffset(2022, 04, 05, 0, 0, 0, TimeSpan.Zero)
-                                    },
-                                    new System.Net.CookieContainer());
+        testDataClient = new DataClient(HttpClient,
+                                        new TestLogger<DataClient>(),
+                                        new iRacingDataClientOptions()
+                                        {
+                                            Username = "test.user@example.com",
+                                            Password = "SuperSecretPassword",
+                                            CurrentDateTimeSource = () => new DateTimeOffset(2022, 04, 05, 0, 0, 0, TimeSpan.Zero)
+                                        },
+                                        new System.Net.CookieContainer());
 
         // Make use of our captured responses.
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTracksSuccessfulAsync)).ConfigureAwait(false);
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTrackAssetsSuccessfulAsync), false).ConfigureAwait(false);
 
-        sut = new TrackScreenshotService(dataClient);
+        sut = new TrackScreenshotService(testDataClient);
     }
 
     [Test]
@@ -73,7 +71,6 @@ internal sealed class TrackScreenshotServiceTests : MockedHttpTestBase
     {
         if (disposing)
         {
-            dataClient?.Dispose();
         }
         base.Dispose(disposing);
     }

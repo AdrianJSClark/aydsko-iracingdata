@@ -1,4 +1,4 @@
-﻿// © 2023 Adrian Clark
+﻿// © 2023-2025 Adrian Clark
 // This file is licensed to you under the MIT license.
 
 using System.Net;
@@ -7,12 +7,6 @@ namespace Aydsko.iRacingData.UnitTests;
 
 internal sealed class CookiePersistenceTests : MockedHttpTestBase
 {
-    [SetUp]
-    public void SetUp()
-    {
-        BaseSetUp();
-    }
-
     [Test]
     public async Task GivenOptionsWithNullDelegateValuesWhenAMethodIsCalledThenItWillSucceedAsync()
     {
