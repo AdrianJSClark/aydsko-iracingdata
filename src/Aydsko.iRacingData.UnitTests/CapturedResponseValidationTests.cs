@@ -602,6 +602,9 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
         {
             Assert.That(memberStats, Is.Not.Null);
             Assert.That(memberStats!.Data, Is.Not.Null);
+            Assert.That(memberStats.Data.LeagueName, Is.EqualTo("Missed Apex iRacing"));
+            Assert.That(memberStats.Data.Roster, Has.Length.EqualTo(60));
+            Assert.That(memberStats.Data.RosterCount, Is.EqualTo(60));
 
             Assert.That(memberStats.RateLimitRemaining, Is.EqualTo(99));
             Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
@@ -1213,6 +1216,28 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(raceGuideResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(raceGuideResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(raceGuideResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
+    }
+
+    [Test(TestOf = typeof(DataClient))]
+    public async Task GetLeagueSeasonsAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetLeagueSeasonsAsync)).ConfigureAwait(false);
+
+        var leagueSeasons = await testDataClient.GetLeagueSeasonsAsync(123456).ConfigureAwait(false);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(leagueSeasons, Is.Not.Null);
+            Assert.That(leagueSeasons!.Data, Is.Not.Null);
+            Assert.That(leagueSeasons.Data.Success, Is.True);
+            Assert.That(leagueSeasons.Data.LeagueId, Is.EqualTo(10651));
+            Assert.That(leagueSeasons.Data.Seasons, Has.Length.EqualTo(2));
+
+            Assert.That(leagueSeasons.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(leagueSeasons.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(leagueSeasons.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(leagueSeasons.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
         });
     }
 

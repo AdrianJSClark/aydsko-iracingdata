@@ -58,6 +58,32 @@ public class League
 
     [JsonPropertyName("roster")]
     public RosterMember[] Roster { get; set; } = null!;
+
+    [JsonPropertyName("is_owner")]
+    public bool IsOwner { get; set; }
+
+    [JsonPropertyName("is_admin")]
+    public bool IsAdmin { get; set; }
+
+    // TODO: Work out what shape these properties are.
+    //[JsonPropertyName("league_applications")]
+    //public object[]? LeagueApplications { get; set; }
+    //
+    //[JsonPropertyName("pending_requests")]
+    //public object[]? PendingRequests { get; set; }
+
+    [JsonPropertyName("is_member")]
+    public bool IsMember { get; set; }
+
+    [JsonPropertyName("is_applicant")]
+    public bool IsApplicant { get; set; }
+
+    [JsonPropertyName("is_invite")]
+    public bool IsInvite { get; set; }
+
+    [JsonPropertyName("is_ignored")]
+    public bool IsIgnored { get; set; }
+
 }
 
 [JsonSerializable(typeof(League)), JsonSourceGenerationOptions(WriteIndented = true)]

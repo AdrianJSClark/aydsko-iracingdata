@@ -34,4 +34,7 @@ public class RosterMember
 
     [JsonPropertyName("nick_name")]
     public string? NickName { get; set; }
+
+    [JsonPropertyName("licenses")]
+    public LeagueLicense[] Licenses { get; set; } = [];
 }
