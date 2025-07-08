@@ -6,7 +6,7 @@ using System.Net.Http;
 
 namespace Aydsko.iRacingData.UnitTests;
 
-internal class MockedHttpTestBase : IDisposable
+internal abstract class MockedHttpTestBase : IDisposable
 {
     protected static readonly int[] TestCustomerIds = [123456];
 

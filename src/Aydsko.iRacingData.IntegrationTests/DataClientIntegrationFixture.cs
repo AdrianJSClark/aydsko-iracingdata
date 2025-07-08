@@ -3,7 +3,7 @@
 
 namespace Aydsko.iRacingData.IntegrationTests;
 
-internal class DataClientIntegrationFixture : BaseIntegrationFixture<DataClient>
+internal abstract class DataClientIntegrationFixture : BaseIntegrationFixture<DataClient>
 {
     [OneTimeSetUp]
     public void OneTimeSetUp()
