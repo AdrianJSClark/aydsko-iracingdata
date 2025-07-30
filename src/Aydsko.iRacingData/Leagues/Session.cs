@@ -6,10 +6,13 @@ namespace Aydsko.iRacingData.Leagues;
 public class Session
 {
     [JsonPropertyName("cars")]
-    public SessionCar[] Cars { get; set; } = Array.Empty<SessionCar>();
+    public SessionCar[] Cars { get; set; } = [];
 
     [JsonPropertyName("consec_cautions_single_file")]
-    public bool ConsecCautionsSingleFile { get; set; }
+    public bool ConsecutiveCautionsSingleFile { get; set; }
+
+    [JsonIgnore, Obsolete("Use \"ConsecutiveCautionsSingleFile\" instead.")]
+    public bool ConsecCautionsSingleFile { get => ConsecutiveCautionsSingleFile; set => ConsecutiveCautionsSingleFile = value; }
 
     [JsonPropertyName("damage_model")]
     public int DamageModel { get; set; }
@@ -90,7 +93,10 @@ public class Session
     public bool ShortParadeLap { get; set; }
 
     [JsonPropertyName("start_on_qual_tire")]
-    public bool StartOnQualTire { get; set; }
+    public bool StartOnQualifyingTire { get; set; }
+
+    [JsonIgnore, Obsolete("Use \"StartOnQualifyingTire\" instead.")]
+    public bool StartOnQualTire { get => StartOnQualifyingTire; set => StartOnQualifyingTire = value; }
 
     [JsonPropertyName("start_zone")]
     public bool StartZone { get; set; }
@@ -123,11 +129,14 @@ public class Session
     public TrackState TrackState { get; set; } = default!;
 
     [JsonPropertyName("weather")]
-    public Weather Weather { get; set; } = default!;
+    public LeagueSessionWeather Weather { get; set; } = default!;
 
     [JsonPropertyName("winner_id")]
     public int WinnerId { get; set; }
 
     [JsonPropertyName("winner_name")]
     public string WinnerName { get; set; } = default!;
+
+    [JsonPropertyName("heat_ses_info")]
+    public HeatSessionInformation? HeatSessionInformation { get; set; }
 }
