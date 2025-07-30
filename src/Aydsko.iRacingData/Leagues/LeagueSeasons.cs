@@ -9,7 +9,7 @@ public class LeagueSeasons
     public bool Subscribed { get; set; }
 
     [JsonPropertyName("seasons")]
-    public Season[] Seasons { get; set; } = Array.Empty<Season>();
+    public Season[] Seasons { get; set; } = [];
 
     [JsonPropertyName("success")]
     public bool Success { get; set; }

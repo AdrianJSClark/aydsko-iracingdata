@@ -32,6 +32,9 @@ public class League
     [JsonPropertyName("recruiting")]
     public bool Recruiting { get; set; }
 
+    [JsonPropertyName("rules")]
+    public string Rules { get; set; } = default!;
+
     [JsonPropertyName("private_wall")]
     public bool PrivateWall { get; set; }
 
@@ -83,7 +86,6 @@ public class League
 
     [JsonPropertyName("is_ignored")]
     public bool IsIgnored { get; set; }
-
 }
 
 [JsonSerializable(typeof(League)), JsonSourceGenerationOptions(WriteIndented = true)]
