@@ -1,7 +1,5 @@
-NOTE:
-iRacing has enabled two-factor authentication by default. To continue to use this library you must enable "Legacy Authentication" in your iRacing account settings before attempting to authenticate. Please do not enable this setting unless you require it, as it may reduce the security on your iRacing account.
-
 BREAKING CHANGES:
 - All references to iRacing Clubs have been removed. iRacing no longer supports Clubs (see: https://forums.iracing.com/discussion/77912/disbanding-of-clubs-and-raising-of-flags)
 
 FIXES:
+- Update League, League Season, and League Session calls. Including weather for League Sessions. (Issue #237)
