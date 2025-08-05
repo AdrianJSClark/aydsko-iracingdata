@@ -60,19 +60,35 @@ public class TrackAssets
 
     /// <summary>Logo image for the track.</summary>
     /// <remarks>
-    /// <para>Needs to be combined with the <see cref="ImagePathBase"/>  to build a full URL.</para>
+    /// <para>Needs to be combined with the <see cref="ImagePathBase"/> to build a full URL.</para>
     /// <para>Pre-built URL available in the <see cref="LogoUrl"/> property.</para>
     /// </remarks>
-    [JsonPropertyName("logo")]
+    [JsonPropertyName("logo"), Obsolete("This value may not be accurate. For working values consult the \"Track.TrackLogoUrlLight\" and \"Track.TrackLogoUrlDark\" properties. See https://forums.iracing.com/discussion/comment/662703#Comment_662703 for details.")]
     public string? Logo { get; set; }
 
     /// <summary>URL to a logo image for the track.</summary>
     /// <remarks>Pre-built URL of the value in the <see cref="Logo"/> property.</remarks>
-    [JsonIgnore]
+    [JsonIgnore, Obsolete("This value may not be accurate. For working values consult the \"Track.TrackLogoUrlLight\" and \"Track.TrackLogoUrlDark\" properties. See https://forums.iracing.com/discussion/comment/662703#Comment_662703 for details.")]
     public Uri LogoUrl => new(new(ImagePathBase), Logo);
 
     [JsonPropertyName("north")]
     public string? North { get; set; }
+
+    /// <summary>North orientation of the track in degrees.</summary>
+    /// <remarks>0° is pointing to the left of the map, 90° straight up.</remarks>
+    [JsonIgnore]
+    public decimal? NorthDegrees
+    {
+        get
+        {
+            var numericValue = North?.Replace("deg", string.Empty);
+            if (numericValue is null || !decimal.TryParse(numericValue, out var result))
+            {
+                return null;
+            }
+            return result;
+        }
+    }
 
     /// <summary>Total number of screenshot images available.</summary>
     [JsonPropertyName("num_svg_images")]
