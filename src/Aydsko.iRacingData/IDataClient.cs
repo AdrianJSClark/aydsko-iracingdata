@@ -1,4 +1,4 @@
-﻿// © 2025 Adrian Clark
+﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
 using Aydsko.iRacingData.Cars;
@@ -251,6 +251,14 @@ public interface IDataClient
     /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
     Task<DataResponse<LookupGroup[]>> GetLookupsAsync(CancellationToken cancellationToken = default);
+
+    /// <summary>Information about the driver flair, or country flag, items available in the system.</summary>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing a <see cref="FlairLookupResponse"/> object.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
+    Task<DataResponse<FlairLookupResponse>> GetFlairsAsync(CancellationToken cancellationToken = default);
 
     /// <summary>Search for one or more drivers.</summary>
     /// <param name="searchTerm">A customer id or partial name to search on.</param>

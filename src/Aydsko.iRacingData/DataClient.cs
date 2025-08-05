@@ -1,4 +1,4 @@
-﻿// © 2023-2025 Adrian Clark
+﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
 using System.Diagnostics;
@@ -332,6 +332,16 @@ public class DataClient(HttpClient httpClient,
     }
 
     /// <inheritdoc />
+    public async Task<DataResponse<FlairLookupResponse>> GetFlairsAsync(CancellationToken cancellationToken = default)
+    {
+        using var activity = activitySource.StartActivity("Get Flairs");
+
+        return await CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/lookup/flairs"),
+                                                    FlairLookupResponseContext.Default.FlairLookupResponse,
+                                                    cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc />
     public async Task<DataResponse<DriverInfo[]>> GetDriverInfoAsync(int[] customerIds, bool includeLicenses, CancellationToken cancellationToken = default)
     {
         using var activity = activitySource.StartActivity("Get Driver Info")?.AddTag("CustomerIds", customerIds);
@@ -373,7 +383,7 @@ public class DataClient(HttpClient httpClient,
         if (customerId is not null)
         {
             queryParameters.Add("cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture));
-        };
+        }
 
         var queryUrl = "https://members-ng.iracing.com/data/member/awards".ToUrlWithQuery(queryParameters);
         var (memberAwardsResponse, headers) = await GetResponseWithHeadersFromJsonAsync(queryUrl, MemberAwardResultContext.Default.MemberAwardResult, cancellationToken).ConfigureAwait(false);
@@ -2515,12 +2525,9 @@ public class DataClient(HttpClient httpClient,
     {
         var (linkResult, headers) = await BuildIntermediateResultAsync(infoLinkUri, LinkResultContext.Default.LinkResult, cancellationToken).ConfigureAwait(false);
 
-        if (linkResult is null || linkResult.Link is null)
-        {
-            throw new iRacingDataClientException("Unrecognized result.");
-        }
-
-        return (linkResult, headers);
+        return linkResult is null || linkResult.Link is null
+            ? throw new iRacingDataClientException("Unrecognized result.")
+            : ((LinkResult, HttpResponseHeaders))(linkResult, headers);
     }
 
     protected virtual async Task<(TResult?, HttpResponseHeaders)> BuildIntermediateResultAsync<TResult>(Uri intermediateUri, JsonTypeInfo<TResult> jsonTypeInfo, CancellationToken cancellationToken)

@@ -3,3 +3,4 @@ BREAKING CHANGES:
 
 FIXES:
 - Update League, League Season, and League Session calls. Including weather for League Sessions. (Issue #237)
+- Implement the "/data/lookup/flairs" endpoint to retrieve available flair, or driver flags. (Issue #238)
