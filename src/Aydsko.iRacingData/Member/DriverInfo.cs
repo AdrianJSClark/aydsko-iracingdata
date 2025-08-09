@@ -20,12 +20,6 @@ public class DriverInfo
     [JsonPropertyName("member_since")]
     public string MemberSince { get; set; } = default!;
 
-    [JsonPropertyName("club_id")]
-    public int ClubId { get; set; }
-
-    [JsonPropertyName("club_name")]
-    public string ClubName { get; set; } = default!;
-
     [JsonPropertyName("ai")]
     public bool AI { get; set; }
 

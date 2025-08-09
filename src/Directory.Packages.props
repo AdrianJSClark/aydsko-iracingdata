@@ -1,0 +1,27 @@
+<Project>
+
+  <PropertyGroup>
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+    <CentralPackageTransitivePinningEnabled>true</CentralPackageTransitivePinningEnabled>
+    <NoWarn>$(NoWarn);NU1507</NoWarn>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageVersion Include="coverlet.collector" Version="6.0.4" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.Abstractions" Version="[8.0.0,)" />
+    <PackageVersion Include="Microsoft.Extensions.Caching.Memory" Version="[8.0.1,)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.EnvironmentVariables" Version="[8.0.0,)" />
+    <PackageVersion Include="Microsoft.Extensions.Configuration.UserSecrets" Version="[8.0.0,)" />
+    <PackageVersion Include="Microsoft.Extensions.Http" Version="[8.0.0,)" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageVersion Include="Microsoft.SourceLink.GitHub" Version="[8.0.0,)" />
+    <PackageVersion Include="Microsoft.VisualStudio.Threading.Analyzers" Version="17.14.15" />
+    <PackageVersion Include="MinVer" Version="6.0.0" />
+    <PackageVersion Include="NUnit" Version="4.3.2" />
+    <PackageVersion Include="NUnit.Analyzers" Version="4.9.2" />
+    <PackageVersion Include="NUnit3TestAdapter" Version="5.0.0" />
+    <PackageVersion Include="System.Text.Json" Version="[8.0.5,)" />
+    <PackageVersion Include="System.Net.Http.Json" Version="[8.0.0,)" />
+  </ItemGroup>
+
+</Project>

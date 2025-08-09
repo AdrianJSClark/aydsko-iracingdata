@@ -6,21 +6,21 @@ namespace Aydsko.iRacingData.IntegrationTests.Lookups;
 internal sealed class CachingLookupTests : CachingIntegrationFixture
 {
     [Test(TestOf = typeof(DataClient))]
-    public async Task TestClubHistoryLookupsAreCachedAsync()
+    public async Task TestLicenseLookupsAreCachedAsync()
     {
-        var clubHistory = await Client.GetClubHistoryLookupsAsync(2022, 1).ConfigureAwait(false);
+        var license = await Client.GetLicenseLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(clubHistory, Is.Not.Null);
-        Assert.That(clubHistory.Data, Is.Not.Null);
+        Assert.That(license, Is.Not.Null);
+        Assert.That(license.Data, Is.Not.Null);
 
-        Assert.That(clubHistory.Data, Has.Length.EqualTo(42));
+        Assert.That(license.Data, Has.Length.EqualTo(7));
 
-        var clubHistory2 = await Client.GetClubHistoryLookupsAsync(2022, 1).ConfigureAwait(false);
+        var license2 = await Client.GetLicenseLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(clubHistory2, Is.Not.Null);
-        Assert.That(clubHistory2.Data, Is.Not.Null);
+        Assert.That(license2, Is.Not.Null);
+        Assert.That(license2.Data, Is.Not.Null);
 
-        Assert.That(clubHistory2.Data, Has.Length.EqualTo(42));
+        Assert.That(license2.Data, Has.Length.EqualTo(7));
 
         var stats = MemoryCache.GetCurrentStatistics();
         Assert.Multiple(() =>

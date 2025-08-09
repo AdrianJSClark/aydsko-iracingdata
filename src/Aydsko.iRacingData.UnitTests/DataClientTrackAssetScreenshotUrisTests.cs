@@ -2,13 +2,9 @@
 
 internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBase
 {
-    // NUnit will ensure that "SetUp" runs before each test so these can all be forced to "null".
-    private DataClient? sut = null!;
-
     [SetUp]
     public async Task SetUpAsync()
     {
-        BaseSetUp();
         var dataClient = new DataClient(HttpClient,
                                         new TestLogger<DataClient>(),
                                         new iRacingDataClientOptions()
@@ -23,14 +19,14 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTracksSuccessfulAsync)).ConfigureAwait(false);
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTrackAssetsSuccessfulAsync), false).ConfigureAwait(false);
 
-        sut = dataClient;
+        testDataClient = dataClient;
     }
 
     [Test]
     public async Task GivenHungaroringTrackId_ThenGetTrackAssetScreenshotUrisAsyncReturnsCorrectResultsAsync()
     {
         const int hungaroringTrackId = 413;
-        var hungaroringResults = await sut!.GetTrackAssetScreenshotUrisAsync(hungaroringTrackId).ConfigureAwait(false);
+        var hungaroringResults = await testDataClient!.GetTrackAssetScreenshotUrisAsync(hungaroringTrackId).ConfigureAwait(false);
 
         Assert.That(hungaroringResults?.Count(), Is.EqualTo(11));
         Assert.Multiple(() =>
@@ -53,7 +49,7 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
     public async Task GivenSuzukaTrackId_ThenGetScreenshotsByTrackIdReturnsCorrectResultsAsync()
     {
         const int suzukaTrackId = 168;
-        var suzukaResults = await sut!.GetTrackAssetScreenshotUrisAsync(suzukaTrackId).ConfigureAwait(false);
+        var suzukaResults = await testDataClient!.GetTrackAssetScreenshotUrisAsync(suzukaTrackId).ConfigureAwait(false);
 
         Assert.That(suzukaResults?.Count(), Is.EqualTo(4));
         Assert.Multiple(() =>
@@ -68,10 +64,10 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
     [Test]
     public async Task GivenHungaroringTrack_ThenGetTrackAssetScreenshotUrisReturnsCorrectResultsAsync()
     {
-        var hungaroringTrack = (await sut!.GetTracksAsync().ConfigureAwait(false)).Data.Single(t => t.TrackId == 413);
-        var hungaroringTrackAssets = (await sut.GetTrackAssetsAsync().ConfigureAwait(false)).Data["413"];
+        var hungaroringTrack = (await testDataClient!.GetTracksAsync().ConfigureAwait(false)).Data.Single(t => t.TrackId == 413);
+        var hungaroringTrackAssets = (await testDataClient.GetTrackAssetsAsync().ConfigureAwait(false)).Data["413"];
 
-        var hungaroringResults = sut.GetTrackAssetScreenshotUris(hungaroringTrack, hungaroringTrackAssets);
+        var hungaroringResults = testDataClient.GetTrackAssetScreenshotUris(hungaroringTrack, hungaroringTrackAssets);
 
         Assert.That(hungaroringResults?.Count(), Is.EqualTo(11));
         Assert.Multiple(() =>
@@ -93,10 +89,10 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
     [Test]
     public async Task GivenSuzukaTrack_ThenGetTrackAssetScreenshotUrisReturnsCorrectResultsAsync()
     {
-        var suzukaTrack = (await sut!.GetTracksAsync().ConfigureAwait(false)).Data.Single(t => t.TrackId == 168);
-        var suzukaTrackAssets = (await sut.GetTrackAssetsAsync().ConfigureAwait(false)).Data["168"];
+        var suzukaTrack = (await testDataClient!.GetTracksAsync().ConfigureAwait(false)).Data.Single(t => t.TrackId == 168);
+        var suzukaTrackAssets = (await testDataClient.GetTrackAssetsAsync().ConfigureAwait(false)).Data["168"];
 
-        var suzukaResults = sut.GetTrackAssetScreenshotUris(suzukaTrack, suzukaTrackAssets);
+        var suzukaResults = testDataClient.GetTrackAssetScreenshotUris(suzukaTrack, suzukaTrackAssets);
 
         Assert.That(suzukaResults?.Count(), Is.EqualTo(4));
         Assert.Multiple(() =>
@@ -112,7 +108,7 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
     {
         if (disposing)
         {
-            sut?.Dispose();
+            testDataClient?.Dispose();
         }
         base.Dispose(disposing);
     }

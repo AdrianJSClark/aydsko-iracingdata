@@ -30,13 +30,13 @@ public class Season
     public int NoDropsOnOrAfterRaceNum { get; set; }
 
     [JsonPropertyName("points_cars")]
-    public Car[] PointsCars { get; set; } = Array.Empty<Car>();
+    public Car[] PointsCars { get; set; } = [];
 
     [JsonPropertyName("driver_points_car_classes")]
-    public CarClass[] DriverPointsCarClasses { get; set; } = Array.Empty<CarClass>();
+    public CarClass[] DriverPointsCarClasses { get; set; } = [];
 
     [JsonPropertyName("team_points_car_classes")]
-    public CarClass[] TeamPointsCarClasses { get; set; } = Array.Empty<CarClass>();
+    public CarClass[] TeamPointsCarClasses { get; set; } = [];
 
     [JsonPropertyName("points_system_name")]
     public string PointsSystemName { get; set; } = default!;

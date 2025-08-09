@@ -16,32 +16,12 @@ namespace Aydsko.iRacingData.UnitTests;
 
 internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 {
-    private static readonly int[] TestCustomerIds = [123456];
-
-    // NUnit will ensure that "SetUp" runs before each test so these can all be forced to "null".
-    private DataClient sut = null!;
-
-    [SetUp]
-    public void SetUp()
-    {
-        BaseSetUp();
-        sut = new DataClient(HttpClient,
-                             new TestLogger<DataClient>(),
-                             new iRacingDataClientOptions()
-                             {
-                                 Username = "test.user@example.com",
-                                 Password = "SuperSecretPassword",
-                                 CurrentDateTimeSource = () => new DateTimeOffset(2022, 04, 05, 0, 0, 0, TimeSpan.Zero)
-                             },
-                             new System.Net.CookieContainer());
-    }
-
     [Test(TestOf = typeof(DataClient))]
     public async Task GetCarAssetDetailsSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetCarAssetDetailsSuccessfulAsync)).ConfigureAwait(false);
 
-        var carAssets = await sut.GetCarAssetDetailsAsync().ConfigureAwait(false);
+        var carAssets = await testDataClient.GetCarAssetDetailsAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -69,7 +49,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetCarsSuccessfulAsync)).ConfigureAwait(false);
 
-        var cars = await sut.GetCarsAsync().ConfigureAwait(false);
+        var cars = await testDataClient.GetCarsAsync().ConfigureAwait(false);
 
         Assert.That(cars, Is.Not.Null);
         Assert.Multiple(() =>
@@ -89,7 +69,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetCarClassesSuccessfulAsync)).ConfigureAwait(false);
 
-        var carClasses = await sut.GetCarClassesAsync().ConfigureAwait(false);
+        var carClasses = await testDataClient.GetCarClassesAsync().ConfigureAwait(false);
 
         Assert.That(carClasses, Is.Not.Null);
         Assert.Multiple(() =>
@@ -109,7 +89,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetDivisionsSuccessfulAsync)).ConfigureAwait(false);
 
-        var divisionsResponse = await sut.GetDivisionsAsync().ConfigureAwait(false);
+        var divisionsResponse = await testDataClient.GetDivisionsAsync().ConfigureAwait(false);
 
         Assert.That(divisionsResponse, Is.Not.Null);
         Assert.Multiple(() =>
@@ -134,7 +114,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetCategoriesSuccessfulAsync)).ConfigureAwait(false);
 
-        var divisionsResponse = await sut.GetCategoriesAsync().ConfigureAwait(false);
+        var divisionsResponse = await testDataClient.GetCategoriesAsync().ConfigureAwait(false);
 
         Assert.That(divisionsResponse, Is.Not.Null);
         Assert.Multiple(() =>
@@ -165,7 +145,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetEventTypesSuccessfulAsync)).ConfigureAwait(false);
 
-        var divisionsResponse = await sut.GetEventTypesAsync().ConfigureAwait(false);
+        var divisionsResponse = await testDataClient.GetEventTypesAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -193,7 +173,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetLookupsSuccessfulAsync)).ConfigureAwait(false);
 
-        var lookupGroups = await sut.GetLookupsAsync().ConfigureAwait(false);
+        var lookupGroups = await testDataClient.GetLookupsAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -213,7 +193,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetLicenseLookupsSuccessfulAsync)).ConfigureAwait(false);
 
-        var carAssets = await sut.GetLicenseLookupsAsync().ConfigureAwait(false);
+        var carAssets = await testDataClient.GetLicenseLookupsAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -229,31 +209,11 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
-    public async Task GetClubHistoryLookupsSuccessfulAsync()
-    {
-        await MessageHandler.QueueResponsesAsync(nameof(GetClubHistoryLookupsSuccessfulAsync)).ConfigureAwait(false);
-
-        var clubHistoryLookups = await sut.GetClubHistoryLookupsAsync(2022, 1).ConfigureAwait(false);
-
-        Assert.Multiple(() =>
-        {
-            Assert.That(clubHistoryLookups, Is.Not.Null);
-            Assert.That(clubHistoryLookups!.Data, Is.Not.Null);
-
-            Assert.That(clubHistoryLookups.Data, Has.Length.EqualTo(42));
-            Assert.That(clubHistoryLookups.RateLimitRemaining, Is.EqualTo(99));
-            Assert.That(clubHistoryLookups.TotalRateLimit, Is.EqualTo(100));
-            Assert.That(clubHistoryLookups.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-            Assert.That(clubHistoryLookups.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
-    }
-
-    [Test(TestOf = typeof(DataClient))]
     public async Task GetDriverInfoWithLicensesSuccessfulAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetDriverInfoWithLicensesSuccessfulAsync)).ConfigureAwait(false);
 
-        var carAssets = await sut.GetDriverInfoAsync(TestCustomerIds, true).ConfigureAwait(false);
+        var carAssets = await testDataClient.GetDriverInfoAsync(TestCustomerIds, true).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -276,7 +236,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetDriverInfoWithoutLicensesSuccessfulAsync)).ConfigureAwait(false);
 
-        var carAssets = await sut.GetDriverInfoAsync(TestCustomerIds, false).ConfigureAwait(false);
+        var carAssets = await testDataClient.GetDriverInfoAsync(TestCustomerIds, false).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -297,7 +257,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetMemberInfoSucceedsAsync)).ConfigureAwait(false);
 
-        var myInfo = await sut.GetMyInfoAsync().ConfigureAwait(false);
+        var myInfo = await testDataClient.GetMyInfoAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -316,7 +276,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetMemberProfileSuccessfulAsync)).ConfigureAwait(false);
 
-        var memberProfileResponse = await sut.GetMemberProfileAsync().ConfigureAwait(false);
+        var memberProfileResponse = await testDataClient.GetMemberProfileAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -344,7 +304,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(SearchDriversSuccessfulAsync)).ConfigureAwait(false);
 
-        var memberProfileResponse = await sut.SearchDriversAsync("123456").ConfigureAwait(false);
+        var memberProfileResponse = await testDataClient.SearchDriversAsync("123456").ConfigureAwait(false);
 
         Assert.That(memberProfileResponse, Is.Not.Null);
         Assert.Multiple(() =>
@@ -366,7 +326,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         _ = Assert.ThrowsAsync<iRacingInMaintenancePeriodException>(async () =>
         {
-            var myInfo = await sut.GetMyInfoAsync().ConfigureAwait(false);
+            var myInfo = await testDataClient.GetMyInfoAsync().ConfigureAwait(false);
         });
     }
 
@@ -375,7 +335,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetTracksSuccessfulAsync)).ConfigureAwait(false);
 
-        var tracks = await sut.GetTracksAsync().ConfigureAwait(false);
+        var tracks = await testDataClient.GetTracksAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -396,7 +356,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSeasonsWithoutSeriesSuccessfulAsync)).ConfigureAwait(false);
 
-        var seasons = await sut.GetSeasonsAsync(false).ConfigureAwait(false);
+        var seasons = await testDataClient.GetSeasonsAsync(false).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -422,7 +382,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSeasonsWithSeriesSuccessfulAsync)).ConfigureAwait(false);
 
-        var seasonsAndSeries = await sut.GetSeasonsAsync(true).ConfigureAwait(false);
+        var seasonsAndSeries = await testDataClient.GetSeasonsAsync(true).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -448,7 +408,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetStatisticsSeriesSuccessfulAsync)).ConfigureAwait(false);
 
-        var statsSeriesResponse = await sut.GetStatisticsSeriesAsync(CancellationToken.None).ConfigureAwait(false);
+        var statsSeriesResponse = await testDataClient.GetStatisticsSeriesAsync(CancellationToken.None).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -466,7 +426,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSeriesSuccessfulAsync)).ConfigureAwait(false);
 
-        var seriesResponse = await sut.GetSeriesAsync(CancellationToken.None).ConfigureAwait(false);
+        var seriesResponse = await testDataClient.GetSeriesAsync(CancellationToken.None).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -485,7 +445,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSeriesAssetsSuccessfulAsync)).ConfigureAwait(false);
 
-        var seriesResponse = await sut.GetSeriesAssetsAsync(CancellationToken.None).ConfigureAwait(false);
+        var seriesResponse = await testDataClient.GetSeriesAssetsAsync(CancellationToken.None).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -504,7 +464,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetTrackAssetsSuccessfulAsync)).ConfigureAwait(false);
 
-        var trackAssets = await sut.GetTrackAssetsAsync().ConfigureAwait(false);
+        var trackAssets = await testDataClient.GetTrackAssetsAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -545,7 +505,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         Assert.That(async () =>
         {
-            var badRequestResult = await sut.GetSeasonResultsAsync(0, Common.EventType.Race, 0, CancellationToken.None).ConfigureAwait(false);
+            var badRequestResult = await testDataClient.GetSeasonResultsAsync(0, Common.EventType.Race, 0, CancellationToken.None).ConfigureAwait(false);
         }, Throws.Exception.InstanceOf<System.Net.Http.HttpRequestException>().And.Message.Contains("400 (Bad Request)"));
     }
 
@@ -554,7 +514,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetMemberYearlyStatisticsSuccessfulAsync)).ConfigureAwait(false);
 
-        var memberStats = await sut.GetMemberYearlyStatisticsAsync().ConfigureAwait(false);
+        var memberStats = await testDataClient.GetMemberYearlyStatisticsAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -575,7 +535,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetMemberRecentRacesSucceedsAsync)).ConfigureAwait(false);
 
-        var memberStats = await sut.GetMemberRecentRacesAsync().ConfigureAwait(false);
+        var memberStats = await testDataClient.GetMemberRecentRacesAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -596,7 +556,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetMemberSummarySuccessfulAsync)).ConfigureAwait(false);
 
-        var memberSummaryResponse = await sut.GetMemberSummaryAsync().ConfigureAwait(false);
+        var memberSummaryResponse = await testDataClient.GetMemberSummaryAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -617,7 +577,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetMemberDivisionSuccessfulAsync)).ConfigureAwait(false);
 
-        var memberDivisionResponse = await sut.GetMemberDivisionAsync(1234, Common.EventType.Race, CancellationToken.None).ConfigureAwait(false);
+        var memberDivisionResponse = await testDataClient.GetMemberDivisionAsync(1234, Common.EventType.Race, CancellationToken.None).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -636,12 +596,15 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetLeagueWithLicensesSucceedsAsync)).ConfigureAwait(false);
 
-        var memberStats = await sut.GetLeagueAsync(123, true).ConfigureAwait(false);
+        var memberStats = await testDataClient.GetLeagueAsync(123, true).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
             Assert.That(memberStats, Is.Not.Null);
             Assert.That(memberStats!.Data, Is.Not.Null);
+            Assert.That(memberStats.Data.LeagueName, Is.EqualTo("Missed Apex iRacing"));
+            Assert.That(memberStats.Data.Roster, Has.Length.EqualTo(60));
+            Assert.That(memberStats.Data.RosterCount, Is.EqualTo(60));
 
             Assert.That(memberStats.RateLimitRemaining, Is.EqualTo(99));
             Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
@@ -655,7 +618,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetLeagueWithoutLicensesSucceedsAsync)).ConfigureAwait(false);
 
-        var memberStats = await sut.GetLeagueAsync(123, false).ConfigureAwait(false);
+        var memberStats = await testDataClient.GetLeagueAsync(123, false).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -674,7 +637,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSubSessionLapChartSuccessfulAsync)).ConfigureAwait(false);
 
-        var lapChartResponse = await sut.GetSubSessionLapChartAsync(12345, 0).ConfigureAwait(false);
+        var lapChartResponse = await testDataClient.GetSubSessionLapChartAsync(12345, 0).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -702,7 +665,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSeasonDriverStandingsSuccessfulAsync)).ConfigureAwait(false);
 
-        var seasonDriverStandingsResponse = await sut.GetSeasonDriverStandingsAsync(1234, 9, 0, cancellationToken: CancellationToken.None).ConfigureAwait(false);
+        var seasonDriverStandingsResponse = await testDataClient.GetSeasonDriverStandingsAsync(1234, 9, 0, cancellationToken: CancellationToken.None).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -723,7 +686,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSingleDriverSubsessionLapsSuccessfulAsync)).ConfigureAwait(false);
 
-        var lapChartResponse = await sut.GetSingleDriverSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
+        var lapChartResponse = await testDataClient.GetSingleDriverSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -753,7 +716,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         _ = Assert.ThrowsAsync<iRacingForbiddenResponseException>(async () =>
         {
-            var lapChartResponse = await sut.GetSingleDriverSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
+            var lapChartResponse = await testDataClient.GetSingleDriverSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
         });
     }
 
@@ -762,7 +725,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetTeamSubsessionLapsSuccessfulAsync)).ConfigureAwait(false);
 
-        var lapChartResponse = await sut.GetTeamSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
+        var lapChartResponse = await testDataClient.GetTeamSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -791,7 +754,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         _ = Assert.ThrowsAsync<iRacingForbiddenResponseException>(async () =>
         {
-            var lapChartResponse = await sut.GetTeamSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
+            var lapChartResponse = await testDataClient.GetTeamSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
         });
     }
 
@@ -800,7 +763,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSubSessionResultSuccessfulAsync)).ConfigureAwait(false);
 
-        var subSessionResultResponse = await sut.GetSubSessionResultAsync(12345, false, CancellationToken.None).ConfigureAwait(false);
+        var subSessionResultResponse = await testDataClient.GetSubSessionResultAsync(12345, false, CancellationToken.None).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -850,7 +813,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSubSessionResultWithWeatherSuccessfulAsync)).ConfigureAwait(false);
 
-        var subSessionResultResponse = await sut.GetSubSessionResultAsync(12345, false, CancellationToken.None).ConfigureAwait(false);
+        var subSessionResultResponse = await testDataClient.GetSubSessionResultAsync(12345, false, CancellationToken.None).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -874,7 +837,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSubSessionResultForTeamSuccessfulAsync)).ConfigureAwait(false);
 
-        var subSessionResultResponse = await sut.GetSubSessionResultAsync(12345, false, CancellationToken.None).ConfigureAwait(false);
+        var subSessionResultResponse = await testDataClient.GetSubSessionResultAsync(12345, false, CancellationToken.None).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -917,7 +880,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSubSessionResultForLeagueSuccessfulAsync)).ConfigureAwait(false);
 
-        var subSessionResultResponse = await sut.GetSubSessionResultAsync(12345, false, CancellationToken.None).ConfigureAwait(false);
+        var subSessionResultResponse = await testDataClient.GetSubSessionResultAsync(12345, false, CancellationToken.None).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -948,7 +911,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         _ = Assert.ThrowsAsync<iRacingForbiddenResponseException>(async () =>
         {
-            var lapChartResponse = await sut.GetSubSessionResultAsync(12345, false).ConfigureAwait(false);
+            var lapChartResponse = await testDataClient.GetSubSessionResultAsync(12345, false).ConfigureAwait(false);
         });
     }
 
@@ -964,10 +927,10 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
         {
             _ = Assert.ThrowsAsync<iRacingUnauthorizedResponseException>(async () =>
             {
-                var lapChartResponse = await sut.GetSubSessionResultAsync(12345, false).ConfigureAwait(false);
+                var lapChartResponse = await testDataClient.GetSubSessionResultAsync(12345, false).ConfigureAwait(false);
             });
 
-            Assert.That(sut.IsLoggedIn, Is.False);
+            Assert.That(testDataClient.IsLoggedIn, Is.False);
         });
     }
 
@@ -980,7 +943,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
         {
             var loginFailedException = Assert.ThrowsAsync<iRacingLoginFailedException>(async () =>
             {
-                var lapChartResponse = await sut.GetSubSessionResultAsync(12345, false).ConfigureAwait(false);
+                var lapChartResponse = await testDataClient.GetSubSessionResultAsync(12345, false).ConfigureAwait(false);
             });
 
             if (loginFailedException != null)
@@ -988,7 +951,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
                 Assert.That(loginFailedException.LegacyAuthenticationRequired, Is.True);
             }
 
-            Assert.That(sut.IsLoggedIn, Is.False);
+            Assert.That(testDataClient.IsLoggedIn, Is.False);
         });
     }
 
@@ -997,7 +960,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSubsessionEventLogSuccessfulAsync)).ConfigureAwait(false);
 
-        var subSessionResultResponse = await sut.GetSubsessionEventLogAsync(12345, 0, CancellationToken.None).ConfigureAwait(false);
+        var subSessionResultResponse = await testDataClient.GetSubsessionEventLogAsync(12345, 0, CancellationToken.None).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1019,7 +982,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         _ = Assert.ThrowsAsync<iRacingForbiddenResponseException>(async () =>
         {
-            var lapChartResponse = await sut.GetSubsessionEventLogAsync(12345, 0).ConfigureAwait(false);
+            var lapChartResponse = await testDataClient.GetSubsessionEventLogAsync(12345, 0).ConfigureAwait(false);
         });
     }
 
@@ -1028,7 +991,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSeasonQualifyResultsSuccessfulAsync)).ConfigureAwait(false);
 
-        var lapChartResponse = await sut.GetSeasonQualifyResultsAsync(3587, 71, 0).ConfigureAwait(false);
+        var lapChartResponse = await testDataClient.GetSeasonQualifyResultsAsync(3587, 71, 0).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1051,7 +1014,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSeasonTimeTrialResultsSuccessfulAsync)).ConfigureAwait(false);
 
-        var timeTrialResponse = await sut.GetSeasonTimeTrialResultsAsync(3587, 71, 0).ConfigureAwait(false);
+        var timeTrialResponse = await testDataClient.GetSeasonTimeTrialResultsAsync(3587, 71, 0).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1074,7 +1037,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSeasonTimeTrialStandingsSuccessfulAsync)).ConfigureAwait(false);
 
-        var timeTrialResponse = await sut.GetSeasonTimeTrialStandingsAsync(3587, 71, 0, cancellationToken: CancellationToken.None).ConfigureAwait(false);
+        var timeTrialResponse = await testDataClient.GetSeasonTimeTrialStandingsAsync(3587, 71, 0, cancellationToken: CancellationToken.None).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1097,7 +1060,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSeasonTeamStandingsSuccessfulAsync)).ConfigureAwait(false);
 
-        var timeTrialResponse = await sut.GetSeasonTeamStandingsAsync(3587, 71, 0, CancellationToken.None).ConfigureAwait(false);
+        var timeTrialResponse = await testDataClient.GetSeasonTeamStandingsAsync(3587, 71, 0, CancellationToken.None).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1125,7 +1088,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             StartRangeBegin = new(2022, 03, 30),
             SessionName = "Missed Apex"
         };
-        var searchHostedResponse = await sut.SearchHostedResultsAsync(searchParams, CancellationToken.None).ConfigureAwait(false);
+        var searchHostedResponse = await testDataClient.SearchHostedResultsAsync(searchParams, CancellationToken.None).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1154,7 +1117,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             SeasonQuarter = 3,
             SeriesId = 260
         };
-        var searchHostedResponse = await sut.SearchOfficialResultsAsync(searchParams, CancellationToken.None).ConfigureAwait(false);
+        var searchHostedResponse = await testDataClient.SearchOfficialResultsAsync(searchParams, CancellationToken.None).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1177,7 +1140,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetMemberChartDataSuccessfulAsync)).ConfigureAwait(false);
 
-        var memberChartResponse = await sut.GetMemberChartDataAsync(341554, 2, Member.MemberChartType.IRating, CancellationToken.None).ConfigureAwait(false);
+        var memberChartResponse = await testDataClient.GetMemberChartDataAsync(341554, 2, Member.MemberChartType.IRating, CancellationToken.None).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1197,7 +1160,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
         await MessageHandler.QueueResponsesAsync(nameof(SearchLeagueDirectorySuccessfulAsync)).ConfigureAwait(false);
 
         var searchParams = new SearchLeagueDirectoryParameters();
-        var leagueDirectoryResponse = await sut.SearchLeagueDirectoryAsync(searchParams, CancellationToken.None).ConfigureAwait(false);
+        var leagueDirectoryResponse = await testDataClient.SearchLeagueDirectoryAsync(searchParams, CancellationToken.None).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1218,7 +1181,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(ListSeasonsSuccessfulAsync)).ConfigureAwait(false);
 
-        var listSeasonsResponse = await sut.ListSeasonsAsync(2022, 1, CancellationToken.None).ConfigureAwait(false);
+        var listSeasonsResponse = await testDataClient.ListSeasonsAsync(2022, 1, CancellationToken.None).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1242,7 +1205,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetRaceGuideSuccessfulAsync)).ConfigureAwait(false);
 
-        var raceGuideResponse = await sut.GetRaceGuideAsync().ConfigureAwait(false);
+        var raceGuideResponse = await testDataClient.GetRaceGuideAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1257,11 +1220,33 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
+    public async Task GetLeagueSeasonsAsync()
+    {
+        await MessageHandler.QueueResponsesAsync(nameof(GetLeagueSeasonsAsync)).ConfigureAwait(false);
+
+        var leagueSeasons = await testDataClient.GetLeagueSeasonsAsync(123456).ConfigureAwait(false);
+
+        Assert.Multiple(() =>
+        {
+            Assert.That(leagueSeasons, Is.Not.Null);
+            Assert.That(leagueSeasons!.Data, Is.Not.Null);
+            Assert.That(leagueSeasons.Data.Success, Is.True);
+            Assert.That(leagueSeasons.Data.LeagueId, Is.EqualTo(10651));
+            Assert.That(leagueSeasons.Data.Seasons, Has.Length.EqualTo(2));
+
+            Assert.That(leagueSeasons.RateLimitRemaining, Is.EqualTo(99));
+            Assert.That(leagueSeasons.TotalRateLimit, Is.EqualTo(100));
+            Assert.That(leagueSeasons.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
+            Assert.That(leagueSeasons.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
+        });
+    }
+
+    [Test(TestOf = typeof(DataClient))]
     public async Task GetCustomerLeagueSessionsAsync()
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetCustomerLeagueSessionsAsync)).ConfigureAwait(false);
 
-        var countryResponse = await sut.GetCustomerLeagueSessionsAsync().ConfigureAwait(false);
+        var countryResponse = await testDataClient.GetCustomerLeagueSessionsAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1280,7 +1265,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetCountriesSuccessfulAsync)).ConfigureAwait(false);
 
-        var countryResponse = await sut.GetCountriesAsync().ConfigureAwait(false);
+        var countryResponse = await testDataClient.GetCountriesAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1299,7 +1284,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetDriverAwardsSuccessfulAsync)).ConfigureAwait(false);
 
-        var response = await sut.GetDriverAwardsAsync().ConfigureAwait(false);
+        var response = await testDataClient.GetDriverAwardsAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1319,7 +1304,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetDriverAwardInstanceSuccessfulAsync)).ConfigureAwait(false);
 
-        var response = await sut.GetDriverAwardInstanceAsync(0).ConfigureAwait(false);
+        var response = await testDataClient.GetDriverAwardInstanceAsync(0).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1340,7 +1325,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetBestLapStatisticsSuccessfulAsync)).ConfigureAwait(false);
 
-        var response = await sut.GetBestLapStatisticsAsync().ConfigureAwait(false);
+        var response = await testDataClient.GetBestLapStatisticsAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1359,7 +1344,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetHostedSessionsCombinedSuccessfulAsync)).ConfigureAwait(false);
 
-        var response = await sut.ListHostedSessionsCombinedAsync().ConfigureAwait(false);
+        var response = await testDataClient.ListHostedSessionsCombinedAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1378,7 +1363,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetHostedSessionsSuccessfulAsync)).ConfigureAwait(false);
 
-        var response = await sut.ListHostedSessionsAsync().ConfigureAwait(false);
+        var response = await testDataClient.ListHostedSessionsAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1397,7 +1382,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetWorldRecordStatisticsSuccessfulAsync)).ConfigureAwait(false);
 
-        var response = await sut.GetWorldRecordsAsync(145, 341).ConfigureAwait(false);
+        var response = await testDataClient.GetWorldRecordsAsync(145, 341).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1417,7 +1402,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetTeamSuccessfulAsync)).ConfigureAwait(false);
 
-        var response = await sut.GetTeamAsync(259167).ConfigureAwait(false);
+        var response = await testDataClient.GetTeamAsync(259167).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1436,7 +1421,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetLeaguePointsSystemsSuccessfulAsync)).ConfigureAwait(false);
 
-        var response = await sut.GetLeaguePointsSystemsAsync(259167).ConfigureAwait(false);
+        var response = await testDataClient.GetLeaguePointsSystemsAsync(259167).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1455,7 +1440,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetMemberParticipationCreditsSucceedsAsync)).ConfigureAwait(false);
 
-        var response = await sut.GetMemberParticipationCreditsAsync().ConfigureAwait(false);
+        var response = await testDataClient.GetMemberParticipationCreditsAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1475,7 +1460,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetPastSeasonsForSeriesSuccessfulAsync)).ConfigureAwait(false);
 
-        var response = await sut.GetPastSeasonsForSeriesAsync(260).ConfigureAwait(false);
+        var response = await testDataClient.GetPastSeasonsForSeriesAsync(260).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1502,7 +1487,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetServiceStatusSuccessfulAsync), false).ConfigureAwait(false);
 
-        var response = await sut.GetServiceStatusAsync().ConfigureAwait(false);
+        var response = await testDataClient.GetServiceStatusAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1580,7 +1565,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetTimeAttackSeriesSuccessfulAsync), false).ConfigureAwait(false);
 
-        var response = await sut.GetTimeAttackSeasonsAsync().ConfigureAwait(false);
+        var response = await testDataClient.GetTimeAttackSeasonsAsync().ConfigureAwait(false);
 
         Assert.That(response, Is.Not.Null);
         Assert.That(response, Has.Length.EqualTo(51));
@@ -1606,7 +1591,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetTimeAttackMemberSeasonResultsSuccessfulAsync)).ConfigureAwait(false);
 
-        var response = await sut.GetTimeAttackMemberSeasonResultsAsync(3212).ConfigureAwait(false);
+        var response = await testDataClient.GetTimeAttackMemberSeasonResultsAsync(3212).ConfigureAwait(false);
 
         Assert.That(response, Is.Not.Null);
         Assert.That(response.Data, Is.Not.Null);
@@ -1631,7 +1616,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetMemberRecapSuccessfulAsync)).ConfigureAwait(false);
 
-        var response = await sut.GetMemberRecapAsync().ConfigureAwait(false);
+        var response = await testDataClient.GetMemberRecapAsync().ConfigureAwait(false);
 
         Assert.That(response, Is.Not.Null);
         Assert.That(response.Data, Is.Not.Null);
@@ -1654,7 +1639,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSpectatorSubsessionIdentifiersAsync)).ConfigureAwait(false);
 
-        var response = await sut.GetSpectatorSubsessionIdentifiersAsync().ConfigureAwait(false);
+        var response = await testDataClient.GetSpectatorSubsessionIdentifiersAsync().ConfigureAwait(false);
 
         Assert.That(response, Is.Not.Null);
         Assert.That(response.Data, Is.Not.Null);
@@ -1669,7 +1654,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSpectatorSubsessionDetailsSuccessfulAsync)).ConfigureAwait(false);
 
-        var response = await sut.GetSpectatorSubsessionDetailsAsync().ConfigureAwait(false);
+        var response = await testDataClient.GetSpectatorSubsessionDetailsAsync().ConfigureAwait(false);
 
         Assert.That(response, Is.Not.Null);
         Assert.That(response.Data, Is.Not.Null);
@@ -1684,7 +1669,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetWeatherForecastAsync), false).ConfigureAwait(false);
 
-        var response = await sut.GetWeatherForecastFromUrlAsync(new Uri("http://example.com")).ConfigureAwait(false);
+        var response = await testDataClient.GetWeatherForecastFromUrlAsync(new Uri("http://example.com")).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1736,7 +1721,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync("ResponseUnknown504", true).ConfigureAwait(false);
 
-        Assert.That(async () => await sut.GetMemberProfileAsync(341554).ConfigureAwait(false),
+        Assert.That(async () => await testDataClient.GetMemberProfileAsync(341554).ConfigureAwait(false),
                     Throws.InstanceOf<iRacingUnknownResponseException>()
                           .And.Property(nameof(iRacingUnknownResponseException.ResponseHttpStatusCode)).EqualTo(HttpStatusCode.GatewayTimeout));
     }
@@ -1746,7 +1731,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync("ResponseUnknown504", false).ConfigureAwait(false);
 
-        Assert.That(async () => await sut.GetMemberProfileAsync(341554).ConfigureAwait(false),
+        Assert.That(async () => await testDataClient.GetMemberProfileAsync(341554).ConfigureAwait(false),
                     Throws.InstanceOf<iRacingLoginFailedException>());
     }
 
@@ -1768,8 +1753,8 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             await MessageHandler.QueueResponseFromManifestResourceAsync(resourceName).ConfigureAwait(false);
         }
 
-        var lookupGroups = await sut.GetLookupsAsync().ConfigureAwait(false);
-        var lookupGroups2 = await sut.GetLookupsAsync().ConfigureAwait(false);
+        var lookupGroups = await testDataClient.GetLookupsAsync().ConfigureAwait(false);
+        var lookupGroups2 = await testDataClient.GetLookupsAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1792,7 +1777,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(ListHostedSessionsSuccessfulAsync)).ConfigureAwait(false);
 
-        var response = await sut.ListHostedSessionsAsync().ConfigureAwait(false);
+        var response = await testDataClient.ListHostedSessionsAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1811,7 +1796,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(ListHostedSessionsCombinedSuccessfulAsync)).ConfigureAwait(false);
 
-        var response = await sut.ListHostedSessionsCombinedAsync().ConfigureAwait(false);
+        var response = await testDataClient.ListHostedSessionsCombinedAsync().ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1830,7 +1815,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetSeasonSuperSessionStandingsSuccessfulAsync)).ConfigureAwait(false);
 
-        var response = await sut.GetSeasonSuperSessionStandingsAsync(1, 1).ConfigureAwait(false);
+        var response = await testDataClient.GetSeasonSuperSessionStandingsAsync(1, 1).ConfigureAwait(false);
 
         Assert.Multiple(() =>
         {
@@ -1864,7 +1849,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         if (disposing)
         {
-            sut?.Dispose();
+            testDataClient?.Dispose();
         }
         base.Dispose(disposing);
     }

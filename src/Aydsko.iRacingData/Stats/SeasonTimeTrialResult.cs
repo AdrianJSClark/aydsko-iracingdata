@@ -19,12 +19,6 @@ public class SeasonTimeTrialResult
     [JsonPropertyName("division")]
     public int Division { get; set; }
 
-    [JsonPropertyName("club_id")]
-    public int ClubId { get; set; }
-
-    [JsonPropertyName("club_name")]
-    public string ClubName { get; set; } = null!;
-
     [JsonPropertyName("license")]
     public License License { get; set; } = null!;
 

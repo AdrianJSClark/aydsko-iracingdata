@@ -1,154 +1,32 @@
-{
-  "headers": {},
+﻿{
+  "statusCode": 200,
+  "headers": {
+    "x-amz-id-2": "UOOGvOPMqwExJBmQcGCYuku8tlFcnWIDGX8seYuqygTXhTkytYqrLNVtqlNizO500Df/ROO6LTg=",
+    "x-amz-request-id": "PM2H01B76XF96X3J",
+    "Date": "Tue, 24 Jun 2025 14:58:15 GMT",
+    "x-amz-expiration": "expiry-date=\u0022Thu, 26 Jun 2025 00:00:00 GMT\u0022, rule-id=\u0022production data-server cache expiry\u0022",
+    "ETag": "\u0022eaaab33e2166646e443c64d952fb683f\u0022",
+    "x-amz-server-side-encryption": "AES256",
+    "Cache-Control": "max-age=60",
+    "Accept-Ranges": "bytes",
+    "Server": "AmazonS3"
+  },
   "content": {
     "subscribed": false,
     "seasons": [
       {
-        "league_id": 5453,
-        "season_id": 84447,
-        "points_system_id": 8,
-        "season_name": "2022-S4",
+        "league_id": 10651,
+        "season_id": 121033,
+        "points_system_id": 1,
+        "season_name": "Season 9",
         "active": true,
-        "hidden": false,
-        "num_drops": 4,
-        "no_drops_on_or_after_race_num": -1,
-        "points_cars": [
-          {
-            "car_id": 73,
-            "car_name": "Audi R8 LMS GT3",
-            "team_car": false
-          },
-          {
-            "car_id": 132,
-            "car_name": "BMW M4 GT3",
-            "team_car": false
-          },
-          {
-            "car_id": 144,
-            "car_name": "Ferrari 488 GT3 Evo 2020",
-            "team_car": false
-          },
-          {
-            "car_id": 133,
-            "car_name": "Lamborghini Huracán GT3 EVO",
-            "team_car": false
-          },
-          {
-            "car_id": 43,
-            "car_name": "McLaren MP4-12C GT3",
-            "team_car": false
-          },
-          {
-            "car_id": 156,
-            "car_name": "Mercedes-AMG GT3 2020",
-            "team_car": false
-          },
-          {
-            "car_id": 137,
-            "car_name": "Porsche 911 GT3 R",
-            "team_car": false
-          }
-        ],
-        "driver_points_car_classes": [
-          {
-            "car_class_id": 0,
-            "name": "All Car Classes",
-            "cars_in_class": [
-              {
-                "car_id": 0,
-                "car_name": "All Cars"
-              },
-              {
-                "car_id": 144,
-                "car_name": "Ferrari 488 GT3 Evo 2020"
-              },
-              {
-                "car_id": 132,
-                "car_name": "BMW M4 GT3"
-              },
-              {
-                "car_id": 133,
-                "car_name": "Lamborghini Huracán GT3 EVO"
-              },
-              {
-                "car_id": 73,
-                "car_name": "Audi R8 LMS GT3"
-              },
-              {
-                "car_id": 137,
-                "car_name": "Porsche 911 GT3 R"
-              },
-              {
-                "car_id": 43,
-                "car_name": "McLaren MP4-12C GT3"
-              },
-              {
-                "car_id": 156,
-                "car_name": "Mercedes-AMG GT3 2020"
-              }
-            ]
-          }
-        ],
-        "team_points_car_classes": [
-          {
-            "car_class_id": 0,
-            "name": "All Car Classes",
-            "cars_in_class": [
-              {
-                "car_id": 0,
-                "car_name": "All Cars"
-              },
-              {
-                "car_id": 144,
-                "car_name": "Ferrari 488 GT3 Evo 2020"
-              },
-              {
-                "car_id": 132,
-                "car_name": "BMW M4 GT3"
-              },
-              {
-                "car_id": 137,
-                "car_name": "Porsche 911 GT3 R"
-              },
-              {
-                "car_id": 156,
-                "car_name": "Mercedes-AMG GT3 2020"
-              }
-            ]
-          }
-        ],
-        "points_system_name": "Club Racing",
-        "points_system_desc": "1st through 20th earn points. "
-      },
-      {
-        "league_id": 5453,
-        "season_id": 59765,
-        "points_system_id": 4,
-        "season_name": "2020-S1 (Exhibition races)",
-        "active": false,
         "hidden": false,
         "num_drops": 0,
         "no_drops_on_or_after_race_num": -1,
         "points_cars": [
           {
-            "car_id": 43,
-            "car_name": "McLaren MP4-12C GT3",
-            "team_car": false
-          },
-          {
-            "car_id": 55,
-            "car_name": "[Legacy] BMW Z4 GT3",
-            "team_car": false
-          },
-          {
-            "car_id": 94,
-            "car_name": "[Legacy] Ferrari 488 GT3",
-            "team_car": false
-          },
-          {
-            "car_id": 72,
-            "car_name": "[Legacy] Mercedes-AMG GT3",
-            "team_car": false
+            "car_id": 106,
+            "car_name": "Dallara F3"
           }
         ],
         "driver_points_car_classes": [
@@ -161,20 +39,8 @@
                 "car_name": "All Cars"
               },
               {
-                "car_id": 55,
-                "car_name": "[Legacy] BMW Z4 GT3"
-              },
-              {
-                "car_id": 72,
-                "car_name": "[Legacy] Mercedes-AMG GT3"
-              },
-              {
-                "car_id": 43,
-                "car_name": "McLaren MP4-12C GT3"
-              },
-              {
-                "car_id": 94,
-                "car_name": "[Legacy] Ferrari 488 GT3"
+                "car_id": 106,
+                "car_name": "Dallara F3"
               }
             ]
           }
@@ -191,12 +57,58 @@
             ]
           }
         ],
-        "points_system_name": "Grand Prix",
-        "points_system_desc": "Positions 1 through 10 awarded 25, 18, 15, 12, 10, 8, 6, 4, 2, and 1 points.  Remaining positions awarded 0 points."
+        "points_system_name": "None",
+        "points_system_desc": "No points will be awarded.  The league administrator will assign points at a later date."
+      },
+      {
+        "league_id": 10651,
+        "season_id": 121214,
+        "points_system_id": 11038,
+        "season_name": "Season 9 Ovals",
+        "active": true,
+        "hidden": false,
+        "num_drops": 0,
+        "no_drops_on_or_after_race_num": -1,
+        "points_cars": [
+          {
+            "car_id": 191,
+            "car_name": "Mini Stock"
+          }
+        ],
+        "driver_points_car_classes": [
+          {
+            "car_class_id": 0,
+            "name": "All Car Classes",
+            "cars_in_class": [
+              {
+                "car_id": 191,
+                "car_name": "Mini Stock"
+              },
+              {
+                "car_id": 0,
+                "car_name": "All Cars"
+              }
+            ]
+          }
+        ],
+        "team_points_car_classes": [
+          {
+            "car_class_id": 0,
+            "name": "All Car Classes",
+            "cars_in_class": [
+              {
+                "car_id": 0,
+                "car_name": "All Cars"
+              }
+            ]
+          }
+        ],
+        "points_system_name": "Missed Apex iRacing Scoring ",
+        "points_system_desc": "The Whatley method"
       }
     ],
     "success": true,
-    "retired": true,
-    "league_id": 5453
+    "retired": false,
+    "league_id": 10651
   }
 }

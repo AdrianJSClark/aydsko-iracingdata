@@ -163,10 +163,16 @@ public class Track
     public string TrackName { get; set; } = default!;
 
     [JsonPropertyName("track_types")]
-    public TrackTypes[] TrackTypes { get; set; } = Array.Empty<TrackTypes>();
+    public TrackTypes[] TrackTypes { get; set; } = [];
 
     [JsonPropertyName("banking")]
     public string Banking { get; set; } = default!;
+
+    [JsonIgnore]
+    public string TrackLogoUrlLight => $"{TrackAssets.ImagePathBase}img/logos/tracks/{PackageId}__light.png";
+
+    [JsonIgnore]
+    public string TrackLogoUrlDark => $"{TrackAssets.ImagePathBase}img/logos/tracks/{PackageId}__dark.png";
 }
 
 [JsonSerializable(typeof(Track[])), JsonSourceGenerationOptions(WriteIndented = true)]

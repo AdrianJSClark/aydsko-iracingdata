@@ -5,7 +5,7 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Aydsko.iRacingData.IntegrationTests;
 
-internal class CachingIntegrationFixture : BaseIntegrationFixture<CachingDataClient>
+internal abstract class CachingIntegrationFixture : BaseIntegrationFixture<CachingDataClient>
 {
     protected IMemoryCache MemoryCache { get; private set; } = default!;
 
