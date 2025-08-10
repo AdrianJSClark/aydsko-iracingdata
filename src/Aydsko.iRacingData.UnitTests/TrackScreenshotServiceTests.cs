@@ -1,4 +1,7 @@
-﻿using Aydsko.iRacingData.Tracks;
+﻿// © Adrian Clark - Aydsko.iRacingData
+// This file is licensed to you under the MIT license.
+
+using Aydsko.iRacingData.Tracks;
 
 namespace Aydsko.iRacingData.UnitTests;
 
@@ -11,15 +14,14 @@ internal sealed class TrackScreenshotServiceTests : MockedHttpTestBase
     [SetUp]
     public async Task SetUpAsync()
     {
-        testDataClient = new DataClient(HttpClient,
-                                        new TestLogger<DataClient>(),
-                                        new iRacingDataClientOptions()
-                                        {
-                                            Username = "test.user@example.com",
-                                            Password = "SuperSecretPassword",
-                                            CurrentDateTimeSource = () => new DateTimeOffset(2022, 04, 05, 0, 0, 0, TimeSpan.Zero)
-                                        },
-                                        new System.Net.CookieContainer());
+        var options = new iRacingDataClientOptions()
+        {
+            Username = "test.user@example.com",
+            Password = "SuperSecretPassword",
+            CurrentDateTimeSource = () => new DateTimeOffset(2022, 04, 05, 0, 0, 0, TimeSpan.Zero)
+        };
+        apiClient = new LegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
+        testDataClient = new DataClient(apiClient, options);
 
         // Make use of our captured responses.
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTracksSuccessfulAsync)).ConfigureAwait(false);

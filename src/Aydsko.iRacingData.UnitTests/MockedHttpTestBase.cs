@@ -1,4 +1,4 @@
-﻿// © 2023-2025 Adrian Clark
+﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
 using System.Net;
@@ -16,6 +16,7 @@ internal abstract class MockedHttpTestBase : IDisposable
     private bool disposedValue;
 
     // NUnit will ensure that "SetUp" runs before each test so these can all be forced to "null".
+    protected LegacyUsernamePasswordApiClient apiClient = null!;
     protected DataClient testDataClient = null!;
 
     [SetUp]
@@ -25,15 +26,14 @@ internal abstract class MockedHttpTestBase : IDisposable
         MessageHandler = new MockedHttpMessageHandler(CookieContainer);
         HttpClient = new HttpClient(MessageHandler);
 
-        testDataClient = new DataClient(HttpClient,
-                                        new TestLogger<DataClient>(),
-                                        new iRacingDataClientOptions()
-                                        {
-                                            Username = "test.user@example.com",
-                                            Password = "SuperSecretPassword",
-                                            CurrentDateTimeSource = () => new DateTimeOffset(2022, 04, 05, 0, 0, 0, TimeSpan.Zero)
-                                        },
-                                        new System.Net.CookieContainer());
+        var options = new iRacingDataClientOptions()
+        {
+            Username = "test.user@example.com",
+            Password = "SuperSecretPassword",
+            CurrentDateTimeSource = () => new DateTimeOffset(2022, 04, 05, 0, 0, 0, TimeSpan.Zero)
+        };
+        apiClient = new LegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
+        testDataClient = new DataClient(apiClient, options);
     }
 
     protected virtual void Dispose(bool disposing)
@@ -44,7 +44,7 @@ internal abstract class MockedHttpTestBase : IDisposable
             {
                 MessageHandler?.Dispose();
                 HttpClient?.Dispose();
-                testDataClient?.Dispose();
+                apiClient?.Dispose();
             }
 
             // TODO: free unmanaged resources (unmanaged objects) and override finalizer

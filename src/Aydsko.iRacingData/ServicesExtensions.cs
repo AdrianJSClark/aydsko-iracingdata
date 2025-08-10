@@ -1,4 +1,4 @@
-﻿// © 2023-2024 Adrian Clark
+﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
 using System.Net;
@@ -110,7 +110,6 @@ public static class ServicesExtensions
         }
 #endif
 
-        services.TryAddSingleton(new CookieContainer());
 #pragma warning disable CS0618 // Type or member is obsolete
         services.TryAddTransient<TrackScreenshotService>();
 #pragma warning restore CS0618 // Type or member is obsolete
@@ -121,17 +120,26 @@ public static class ServicesExtensions
 
         var userAgentValue = CreateUserAgentValue(options);
 
-        var httpClientBuilder = (includeCaching ? services.AddHttpClient<IDataClient, CachingDataClient>() : services.AddHttpClient<IDataClient, DataClient>())
-                                .ConfigureHttpClient(httpClient => httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(userAgentValue))
-                                .ConfigurePrimaryHttpMessageHandler(() =>
-                                {
-                                    var handler = new HttpClientHandler
-                                    {
-                                        UseCookies = true,
-                                        CookieContainer = services.BuildServiceProvider().GetRequiredService<CookieContainer>()
-                                    };
-                                    return handler;
-                                });
+        if (includeCaching)
+        {
+            throw new NotImplementedException("Caching is not yet re-implemented.");
+        }
+
+        //var httpClientBuilder = (includeCaching ? services.AddHttpClient<IDataClient, CachingDataClient>() : services.AddHttpClient<IDataClient, DataClient>())
+
+        services.AddTransient<IDataClient, DataClient>();
+        services.TryAddSingleton<CookieContainer>();
+        var httpClientBuilder = services.AddHttpClient<LegacyUsernamePasswordApiClient>()
+                                        .ConfigureHttpClient(httpClient => httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(userAgentValue))
+                                        .ConfigurePrimaryHttpMessageHandler(() =>
+                                        {
+                                            var handler = new HttpClientHandler
+                                            {
+                                                UseCookies = true,
+                                                CookieContainer = services.BuildServiceProvider().GetRequiredService<CookieContainer>()
+                                            };
+                                            return handler;
+                                        });
 
         return httpClientBuilder;
     }

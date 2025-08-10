@@ -4,7 +4,7 @@
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Aydsko.iRacingData.IntegrationTests;
-
+/*
 internal abstract class CachingIntegrationFixture : BaseIntegrationFixture<CachingDataClient>
 {
     protected IMemoryCache MemoryCache { get; private set; } = default!;
@@ -25,3 +25,4 @@ internal abstract class CachingIntegrationFixture : BaseIntegrationFixture<Cachi
         MemoryCache.Dispose();
     }
 }
+*/

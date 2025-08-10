@@ -1,4 +1,4 @@
-﻿// © 2023-2024 Adrian Clark
+﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
 using System.Globalization;
@@ -930,7 +930,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
                 var lapChartResponse = await testDataClient.GetSubSessionResultAsync(12345, false).ConfigureAwait(false);
             });
 
-            Assert.That(testDataClient.IsLoggedIn, Is.False);
+            Assert.That(apiClient.IsLoggedIn, Is.False);
         });
     }
 
@@ -951,7 +951,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
                 Assert.That(loginFailedException.LegacyAuthenticationRequired, Is.True);
             }
 
-            Assert.That(testDataClient.IsLoggedIn, Is.False);
+            Assert.That(apiClient.IsLoggedIn, Is.False);
         });
     }
 
@@ -1487,9 +1487,10 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetServiceStatusSuccessfulAsync), false).ConfigureAwait(false);
 
-        var response = await testDataClient.GetServiceStatusAsync().ConfigureAwait(false);
+        var response = await testDataClient.GetServiceStatusAsync()
+                                           .ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(response, Is.Not.Null);
 #if NET8_0_OR_GREATER
@@ -1557,7 +1558,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivityUSWestCoast.Result, Is.Not.Null.And.Length.EqualTo(241));
             Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivityUSWestCoast.SummaryLabel, Is.EqualTo("Okay"));
             Assert.That(response.Tests.RaceServerNetwork.RaceServerConnectivityUSWestCoast.SummaryLevel, Is.EqualTo(2));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1565,7 +1566,8 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         await MessageHandler.QueueResponsesAsync(nameof(GetTimeAttackSeriesSuccessfulAsync), false).ConfigureAwait(false);
 
-        var response = await testDataClient.GetTimeAttackSeasonsAsync().ConfigureAwait(false);
+        var response = await testDataClient.GetTimeAttackSeasonsAsync()
+                                           .ConfigureAwait(false);
 
         Assert.That(response, Is.Not.Null);
         Assert.That(response, Has.Length.EqualTo(51));
@@ -1736,7 +1738,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
-    public async Task GetLookupWithExpiredAuthWorksAsync()
+    public async Task GetLookupWithExpiredAuthenticationWorksAsync()
     {
         var responseResourceNames = new string[] {
             "Aydsko.iRacingData.UnitTests.Responses.SuccessfulLogin.json",
@@ -1756,7 +1758,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
         var lookupGroups = await testDataClient.GetLookupsAsync().ConfigureAwait(false);
         var lookupGroups2 = await testDataClient.GetLookupsAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(lookupGroups, Is.Not.Null);
             Assert.That(lookupGroups!.Data, Is.Not.Null);
@@ -1769,7 +1771,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(lookupGroups2.Data, Has.Length.EqualTo(2));
 
             // TODO: Check that the second authentication call was actually made.
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1841,7 +1843,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(response.RateLimitRemaining, Is.EqualTo(239));
             Assert.That(response.TotalRateLimit, Is.EqualTo(240));
             Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2024, 10, 19, 04, 13, 41, TimeSpan.Zero)));
-            Assert.That(response.DataExpires, Is.Null);
+            Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2024, 10, 19, 04, 27, 41, 913, TimeSpan.Zero)));
         });
     }
 
@@ -1849,7 +1851,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     {
         if (disposing)
         {
-            testDataClient?.Dispose();
+            apiClient?.Dispose();
         }
         base.Dispose(disposing);
     }

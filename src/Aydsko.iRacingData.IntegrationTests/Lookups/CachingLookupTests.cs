@@ -2,7 +2,7 @@
 // This file is licensed to you under the MIT license.
 
 namespace Aydsko.iRacingData.IntegrationTests.Lookups;
-
+/*
 internal sealed class CachingLookupTests : CachingIntegrationFixture
 {
     [Test(TestOf = typeof(DataClient))]
@@ -30,3 +30,4 @@ internal sealed class CachingLookupTests : CachingIntegrationFixture
         });
     }
 }
+*/

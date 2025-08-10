@@ -1,25 +1,32 @@
-﻿namespace Aydsko.iRacingData.UnitTests;
+﻿// © Adrian Clark - Aydsko.iRacingData
+// This file is licensed to you under the MIT license.
+
+namespace Aydsko.iRacingData.UnitTests;
 
 internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBase
 {
     [SetUp]
     public async Task SetUpAsync()
     {
-        var dataClient = new DataClient(HttpClient,
-                                        new TestLogger<DataClient>(),
-                                        new iRacingDataClientOptions()
-                                        {
-                                            Username = "test.user@example.com",
-                                            Password = "SuperSecretPassword",
-                                            CurrentDateTimeSource = () => new DateTimeOffset(2022, 04, 05, 0, 0, 0, TimeSpan.Zero)
-                                        },
-                                        new System.Net.CookieContainer());
+        var options = new iRacingDataClientOptions()
+        {
+            Username = "test.user@example.com",
+            Password = "SuperSecretPassword",
+            CurrentDateTimeSource = () => new DateTimeOffset(2022, 04, 05, 0, 0, 0, TimeSpan.Zero)
+        };
+
+        var client = new LegacyUsernamePasswordApiClient(HttpClient,
+                                                         options,
+                                                         CookieContainer,
+                                                         new TestLogger<LegacyUsernamePasswordApiClient>());
+        var sut = new DataClient(client, options);
 
         // Make use of our captured responses.
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTracksSuccessfulAsync)).ConfigureAwait(false);
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTrackAssetsSuccessfulAsync), false).ConfigureAwait(false);
 
-        testDataClient = dataClient;
+        apiClient = client;
+        testDataClient = sut;
     }
 
     [Test]
@@ -29,7 +36,8 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
         var hungaroringResults = await testDataClient!.GetTrackAssetScreenshotUrisAsync(hungaroringTrackId).ConfigureAwait(false);
 
         Assert.That(hungaroringResults?.Count(), Is.EqualTo(11));
-        Assert.Multiple(() =>
+
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(hungaroringResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/370_screenshots/01.jpg")));
             Assert.That(hungaroringResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/370_screenshots/02.jpg")));
@@ -42,7 +50,7 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
             Assert.That(hungaroringResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/370_screenshots/09.jpg")));
             Assert.That(hungaroringResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/370_screenshots/10.jpg")));
             Assert.That(hungaroringResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/370_screenshots/11.jpg")));
-        });
+        }
     }
 
     [Test]
@@ -52,13 +60,14 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
         var suzukaResults = await testDataClient!.GetTrackAssetScreenshotUrisAsync(suzukaTrackId).ConfigureAwait(false);
 
         Assert.That(suzukaResults?.Count(), Is.EqualTo(4));
-        Assert.Multiple(() =>
+
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(suzukaResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/114_screenshots/01.jpg")));
             Assert.That(suzukaResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/114_screenshots/02.jpg")));
             Assert.That(suzukaResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/114_screenshots/03.jpg")));
             Assert.That(suzukaResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/114_screenshots/04.jpg")));
-        });
+        }
     }
 
     [Test]
@@ -70,7 +79,8 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
         var hungaroringResults = testDataClient.GetTrackAssetScreenshotUris(hungaroringTrack, hungaroringTrackAssets);
 
         Assert.That(hungaroringResults?.Count(), Is.EqualTo(11));
-        Assert.Multiple(() =>
+
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(hungaroringResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/370_screenshots/01.jpg")));
             Assert.That(hungaroringResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/370_screenshots/02.jpg")));
@@ -83,7 +93,7 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
             Assert.That(hungaroringResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/370_screenshots/09.jpg")));
             Assert.That(hungaroringResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/370_screenshots/10.jpg")));
             Assert.That(hungaroringResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/370_screenshots/11.jpg")));
-        });
+        }
     }
 
     [Test]
@@ -95,20 +105,21 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
         var suzukaResults = testDataClient.GetTrackAssetScreenshotUris(suzukaTrack, suzukaTrackAssets);
 
         Assert.That(suzukaResults?.Count(), Is.EqualTo(4));
-        Assert.Multiple(() =>
+
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(suzukaResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/114_screenshots/01.jpg")));
             Assert.That(suzukaResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/114_screenshots/02.jpg")));
             Assert.That(suzukaResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/114_screenshots/03.jpg")));
             Assert.That(suzukaResults, Contains.Item(new Uri("https://dqfp1ltauszrc.cloudfront.net/public/track-maps-screenshots/114_screenshots/04.jpg")));
-        });
+        }
     }
 
     protected override void Dispose(bool disposing)
     {
         if (disposing)
         {
-            testDataClient?.Dispose();
+            apiClient?.Dispose();
         }
         base.Dispose(disposing);
     }

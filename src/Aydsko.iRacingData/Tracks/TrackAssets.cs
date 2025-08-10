@@ -81,7 +81,11 @@ public class TrackAssets
     {
         get
         {
+#if NET6_0_OR_GREATER
+            var numericValue = North?.Replace("deg", string.Empty, StringComparison.OrdinalIgnoreCase);
+#else
             var numericValue = North?.Replace("deg", string.Empty);
+#endif
             if (numericValue is null || !decimal.TryParse(numericValue, out var result))
             {
                 return null;

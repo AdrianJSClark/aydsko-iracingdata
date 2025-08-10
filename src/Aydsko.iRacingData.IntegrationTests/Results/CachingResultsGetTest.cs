@@ -2,7 +2,7 @@
 // This file is licensed to you under the MIT license.
 
 namespace Aydsko.iRacingData.IntegrationTests.Results;
-
+/*
 internal sealed class CachingResultsGetTest : CachingIntegrationFixture
 {
     [Test]
@@ -32,3 +32,4 @@ internal sealed class CachingResultsGetTest : CachingIntegrationFixture
         });
     }
 }
+*/

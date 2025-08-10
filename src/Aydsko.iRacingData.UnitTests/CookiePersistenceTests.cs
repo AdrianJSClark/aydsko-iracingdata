@@ -1,4 +1,4 @@
-﻿// © 2023-2025 Adrian Clark
+﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
 using System.Net;
@@ -18,15 +18,13 @@ internal sealed class CookiePersistenceTests : MockedHttpTestBase
             Password = "obviously.fake.password.value",
         };
 
-        using var sut = new DataClient(HttpClient,
-                                       new TestLogger<DataClient>(),
-                                       options,
-                                       CookieContainer);
+        using var client = new LegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
+        var sut = new DataClient(client, options);
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
         await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(sut.IsLoggedIn, Is.True);
+        Assert.That(client.IsLoggedIn, Is.True);
     }
 
     [Test]
@@ -41,15 +39,13 @@ internal sealed class CookiePersistenceTests : MockedHttpTestBase
             Password = "obviously.fake.password.value",
         };
 
-        using var sut = new DataClient(HttpClient,
-                                       new TestLogger<DataClient>(),
-                                       options,
-                                       CookieContainer);
+        using var client = new LegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
+        var sut = new DataClient(client, options);
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
         await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(sut.IsLoggedIn, Is.True);
+        Assert.That(client.IsLoggedIn, Is.True);
         Assert.That(savedCookies, Is.Not.Null);
         Assert.That(savedCookies, Has.Count.EqualTo(2));
         Assert.That(savedCookies, Has.One.Property(nameof(Cookie.Name)).EqualTo("irsso_members"));
@@ -73,52 +69,19 @@ internal sealed class CookiePersistenceTests : MockedHttpTestBase
             SaveCookies = null,
         };
 
-        using var sut = new DataClient(HttpClient,
-                                       new TestLogger<DataClient>(),
-                                       options,
-                                       CookieContainer);
+        using var client = new LegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
+        var sut = new DataClient(client, options);
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
         await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
-        Assert.That(sut.IsLoggedIn, Is.True);
+        Assert.That(client.IsLoggedIn, Is.True);
 
         var cookies = CookieContainer.GetAllCookies();
 
         Assert.That(cookies, Has.Count.EqualTo(4));
         Assert.That(cookies, Has.One.Property(nameof(Cookie.Name)).EqualTo("first"));
         Assert.That(cookies, Has.One.Property(nameof(Cookie.Name)).EqualTo("second"));
-        Assert.That(cookies, Has.One.Property(nameof(Cookie.Name)).EqualTo("irsso_members"));
-        Assert.That(cookies, Has.One.Property(nameof(Cookie.Name)).EqualTo("authtoken_members"));
-    }
-
-    [Test]
-    public async Task GivenACookieContainerWithCookiesAndNoRestoreOrSaveFunctionsThenTheCookiesAreUsedAsync()
-    {
-        CookieContainer.Add(new Cookie("irsso_members", "one", "/", "members-ng.iracing.com"));
-        CookieContainer.Add(new Cookie("authtoken_members", "two", "/", "members-ng.iracing.com"));
-
-        var options = new iRacingDataClientOptions
-        {
-            Username = "test.user@example.com",
-            Password = "SuperSecretPassword",
-            RestoreCookies = null,
-            SaveCookies = null,
-        };
-
-        using var sut = new DataClient(HttpClient,
-                                       new TestLogger<DataClient>(),
-                                       options,
-                                       CookieContainer);
-
-        await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync), false).ConfigureAwait(false);
-        await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
-
-        Assert.That(sut.IsLoggedIn, Is.True);
-
-        var cookies = CookieContainer.GetAllCookies();
-
-        Assert.That(cookies, Has.Count.EqualTo(2));
         Assert.That(cookies, Has.One.Property(nameof(Cookie.Name)).EqualTo("irsso_members"));
         Assert.That(cookies, Has.One.Property(nameof(Cookie.Name)).EqualTo("authtoken_members"));
     }

@@ -6,7 +6,7 @@ using System.Text.Json.Serialization.Metadata;
 using Microsoft.Extensions.Caching.Memory;
 
 namespace Aydsko.iRacingData;
-
+/*
 internal class CachingDataClient(HttpClient httpClient,
                                  ILogger<CachingDataClient> logger,
                                  iRacingDataClientOptions options,
@@ -61,3 +61,4 @@ internal class CachingDataClient(HttpClient httpClient,
         return result!;
     }
 }
+*/
