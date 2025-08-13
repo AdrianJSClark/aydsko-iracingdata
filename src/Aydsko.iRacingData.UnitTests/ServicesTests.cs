@@ -30,7 +30,7 @@ internal sealed class ServicesTests
 
         var lookups = await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
-        //Assert.That(testDataClient.IsLoggedIn, Is.True);
+        //Assert.That(testDataClient.isLoggedIn, Is.True);
         Assert.That(lookups, Is.Not.Null);
         Assert.That(lookups.Data, Is.Not.Null.Or.Empty);
 

@@ -22,7 +22,7 @@ public class LegacyUsernamePasswordApiClient(HttpClient httpClient,
     private readonly SemaphoreSlim loginSemaphore = new(1, 1);
     private bool disposedValue;
 
-    public bool IsLoggedIn { get; private set; }
+    protected bool isLoggedIn;
 
     [Obsolete("Configure via the \"AddIRacingDataApi\" extension method on the IServiceCollection which allows you to configure the \"iRacingDataClientOptions\".")]
     public void UseUsernameAndPassword(string username, string password, bool passwordIsEncoded)
@@ -42,12 +42,12 @@ public class LegacyUsernamePasswordApiClient(HttpClient httpClient,
         options.PasswordIsEncoded = passwordIsEncoded;
 
         // If the username & password has been updated likely the authentication needs to run again.
-        IsLoggedIn = false;
+        isLoggedIn = false;
     }
 
-    public async Task<DataResponse<TData>> CreateResponseAsync<TData>(Uri uri,
-                                                                      JsonTypeInfo<TData> jsonTypeInfo,
-                                                                      CancellationToken cancellationToken)
+    public async Task<DataResponse<TData>> GetDataResponseAsync<TData>(Uri uri,
+                                                                       JsonTypeInfo<TData> jsonTypeInfo,
+                                                                       CancellationToken cancellationToken)
         where TData : class
     {
         var (data, headers) = await GetResponseWithHeadersFromJsonAsync(uri, jsonTypeInfo, cancellationToken)
@@ -64,19 +64,6 @@ public class LegacyUsernamePasswordApiClient(HttpClient httpClient,
                                 .ConfigureAwait(false);
         return data;
     }
-
-    public async Task<DataResponse<TData>> CreateResponseViaInfoLinkAsync<TData>(Uri infoLinkUri,
-                                                                                 JsonTypeInfo<TData> jsonTypeInfo,
-                                                                                 CancellationToken cancellationToken)
-    {
-        var response = await CreateResponseViaIntermediateResultAsync(infoLinkUri,
-                                                                      LinkResultContext.Default.LinkResult,
-                                                                      infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
-                                                                      jsonTypeInfo,
-                                                                      cancellationToken).ConfigureAwait(false);
-        return response;
-    }
-
 
     public async Task<DataResponse<TData>> CreateResponseViaIntermediateResultAsync<TIntermediate, TData>(Uri intermediateUri,
                                                                                                           JsonTypeInfo<TIntermediate> intermediateJsonTypeInfo,
@@ -131,142 +118,12 @@ public class LegacyUsernamePasswordApiClient(HttpClient httpClient,
         }
     }
 
-    public async Task<DataResponse<TData>> CreateResponseViaDataUrlAsync<TData>(Uri dataUrlUri,
-                                                                                JsonTypeInfo<TData> jsonTypeInfo,
-                                                                                CancellationToken cancellationToken)
-    {
-        var attempts = 0;
-
-    RetryResponseViaInfoLink:
-        try
-        {
-            await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
-
-            var (dataUrlResult, headers) = await BuildIntermediateResultAsync(dataUrlUri,
-                                                                              DataUrlResultContext.Default.DataUrlResult,
-                                                                              cancellationToken)
-                                                 .ConfigureAwait(false);
-
-            if (dataUrlResult is null || string.IsNullOrWhiteSpace(dataUrlResult.DataUrl))
-            {
-                throw new iRacingDataClientException("Unrecognized result.");
-            }
-
-            _ = Activity.Current?.AddEvent(new ActivityEvent("Data URL Link Retrieved"));
-
-            var data = await httpClient.GetFromJsonAsync(dataUrlResult.DataUrl, jsonTypeInfo, cancellationToken)
-                                       .ConfigureAwait(false)
-                                       ?? throw new iRacingDataClientException("Data not found.");
-            _ = Activity.Current?.AddEvent(new ActivityEvent("Data Retrieved"));
-
-            return BuildDataResponse(headers, data, logger);
-        }
-        catch (iRacingUnauthorizedResponseException unAuthorizedEx)
-        {
-            attempts++;
-            if (attempts <= 2)
-            {
-                _ = Activity.Current?.AddEvent(new("Retrying unauthorized response", tags: new([new("AttemptCount", attempts)])));
-                logger.RetryingUnauthorizedResponse(unAuthorizedEx, dataUrlUri, attempts, 2);
-                goto RetryResponseViaInfoLink;
-            }
-            throw;
-        }
-    }
-
-    public async Task<DataResponse<(THeader, TChunkData[])>> CreateResponseFromChunkedDataAsync<THeader, TChunkData>(Uri uri,
-                                                                                                                     JsonTypeInfo<THeader> jsonTypeInfo,
-                                                                                                                     Func<THeader, IChunkInfo> getChunkDownloadDetail,
-                                                                                                                     JsonTypeInfo<TChunkData[]> chunkArrayTypeInfo,
-                                                                                                                     CancellationToken cancellationToken)
-    {
-#pragma warning disable CA1510
-        if (getChunkDownloadDetail is null)
-        {
-            throw new ArgumentNullException(nameof(getChunkDownloadDetail));
-        }
-#pragma warning restore CA1510
-
-        var attempts = 0;
-
-    RetryResponseFromChunkedData:
-        try
-        {
-            await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
-
-            var response = await httpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
-
-            // This isn't the most performant way of going here, but annoyingly if you exceed the rate limit it isn't an issue just
-            // the string "Rate limit exceeded" so we need the string to check that.
-#if NET6_0_OR_GREATER
-            var responseContent = await response.Content.ReadAsStringAsync(cancellationToken)
-                                                        .ConfigureAwait(false);
-#else
-            var responseContent = await response.Content.ReadAsStringAsync()
-                                                        .ConfigureAwait(false);
-#endif
-            if (!response.IsSuccessStatusCode || responseContent == RateLimitExceededContent)
-            {
-                HandleUnsuccessfulResponse(response, responseContent, logger);
-            }
-
-            var headerData = await response.Content.ReadFromJsonAsync(jsonTypeInfo, cancellationToken: cancellationToken)
-                                                   .ConfigureAwait(false)
-                             ?? throw new iRacingDataClientException("Data not found.");
-
-            var chunkInfo = getChunkDownloadDetail(headerData);
-
-            var searchResults = new List<TChunkData>();
-
-            _ = Activity.Current?.AddTag("NumberOfResultChunks", chunkInfo.NumberOfChunks);
-
-            if (chunkInfo.NumberOfChunks > 0)
-            {
-                var baseChunkUrl = new Uri(chunkInfo.BaseDownloadUrl);
-
-                foreach (var (chunkFileName, index) in chunkInfo.ChunkFileNames.Select((fn, i) => (fn, i)))
-                {
-                    _ = Activity.Current?.AddEvent(new("Start downloading chunk", tags: new([new("ChunkIndex", index)])));
-
-                    var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
-
-                    var chunkResponse = await httpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
-                    if (!chunkResponse.IsSuccessStatusCode)
-                    {
-                        logger.FailedToRetrieveChunkError(index, chunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
-                        continue;
-                    }
-
-                    var chunkData = await chunkResponse.Content.ReadFromJsonAsync(chunkArrayTypeInfo, cancellationToken).ConfigureAwait(false);
-                    if (chunkData is null)
-                    {
-                        continue;
-                    }
-
-                    searchResults.AddRange(chunkData);
-                }
-            }
-
-            return BuildDataResponse<(THeader Header, TChunkData[] Results)>(response.Headers, (headerData, searchResults.ToArray()), logger);
-        }
-        catch (iRacingUnauthorizedResponseException unAuthorizedEx)
-        {
-            attempts++;
-            if (attempts <= 2)
-            {
-                _ = Activity.Current?.AddEvent(new("Retrying unauthorized response", tags: new([new("AttemptCount", attempts)])));
-                logger.RetryingUnauthorizedResponse(unAuthorizedEx, uri, attempts, 2);
-                goto RetryResponseFromChunkedData;
-            }
-            throw;
-        }
-    }
-
-    public async Task<DataResponse<(THeader, TChunkData[])>> CreateResponseViaInfoLinkToChunkInfoAsync<THeader, TChunkData>(Uri infoLinkUri,
-                                                                                                                            JsonTypeInfo<THeader> jsonTypeInfo,
-                                                                                                                            Func<THeader, IChunkInfo> getChunkDownloadDetail,
-                                                                                                                            JsonTypeInfo<TChunkData[]> chunkArrayTypeInfo,
-                                                                                                                            CancellationToken cancellationToken)
+    public async Task<DataResponse<(THeader, TChunkData[])>> CreateResponseFromChunksAsync<THeader, TChunkData>(Uri uri,
+                                                                                                                bool isViaInfoLink,
+                                                                                                                JsonTypeInfo<THeader> jsonTypeInfo,
+                                                                                                                Func<THeader, IChunkInfo> getChunkDownloadDetail,
+                                                                                                                JsonTypeInfo<TChunkData[]> chunkArrayTypeInfo,
+                                                                                                                CancellationToken cancellationToken = default)
     {
 #pragma warning disable CA1510
         if (getChunkDownloadDetail is null)
@@ -282,18 +139,54 @@ public class LegacyUsernamePasswordApiClient(HttpClient httpClient,
         {
             await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
-            var (infoLink, headers) = await BuildIntermediateResultAsync(infoLinkUri,
-                                                                         LinkResultContext.Default.LinkResult,
-                                                                         cancellationToken)
-                                            .ConfigureAwait(false);
+            Uri link;
+            HttpResponseHeaders? headers = null;
+            DateTimeOffset? expires = null;
 
-            if (infoLink?.Link is null)
+            if (isViaInfoLink)
             {
-                throw new iRacingDataClientException("Unrecognized result.");
+                var (infoLink, infoLinkHeaders) = await BuildIntermediateResultAsync(uri,
+                                                                             LinkResultContext.Default.LinkResult,
+                                                                             cancellationToken)
+                                                .ConfigureAwait(false);
+
+                if (infoLink?.Link is null)
+                {
+                    throw new iRacingDataClientException("Unrecognized result.");
+                }
+
+                link = new Uri(infoLink.Link);
+                headers = infoLinkHeaders;
+                expires = infoLink.Expires;
+            }
+            else
+            {
+                link = uri;
             }
 
-            var headerData = await httpClient.GetFromJsonAsync(infoLink?.Link, jsonTypeInfo, cancellationToken)
-                                             .ConfigureAwait(false)
+            var response = await httpClient.GetAsync(link, cancellationToken)
+                                           .ConfigureAwait(false);
+
+            if (!isViaInfoLink)
+            {
+                headers = response.Headers;
+            }
+
+            // This isn't the most performant way of going here, but annoyingly if you exceed the rate limit it isn't an error just
+            // the string "Rate limit exceeded" so we need the string to check that.
+#if NET6_0_OR_GREATER
+            var responseContent = await response.Content.ReadAsStringAsync(cancellationToken)
+                                                        .ConfigureAwait(false);
+#else
+            var responseContent = await response.Content.ReadAsStringAsync()
+                                                        .ConfigureAwait(false);
+#endif
+            if (!response.IsSuccessStatusCode || responseContent == RateLimitExceededContent)
+            {
+                HandleUnsuccessfulResponse(response, responseContent, logger);
+            }
+
+            var headerData = JsonSerializer.Deserialize(responseContent, jsonTypeInfo)
                              ?? throw new iRacingDataClientException("Data not found.");
 
             var chunkInfo = getChunkDownloadDetail(headerData);
@@ -329,7 +222,7 @@ public class LegacyUsernamePasswordApiClient(HttpClient httpClient,
                 }
             }
 
-            return BuildDataResponse<(THeader Header, TChunkData[] Results)>(headers, (headerData, searchResults.ToArray()), logger, infoLink?.Expires);
+            return BuildDataResponse<(THeader Header, TChunkData[] Results)>(headers!, (headerData, searchResults.ToArray()), logger, expires);
         }
         catch (iRacingUnauthorizedResponseException unAuthorizedEx)
         {
@@ -337,7 +230,7 @@ public class LegacyUsernamePasswordApiClient(HttpClient httpClient,
             if (attempts <= 2)
             {
                 _ = Activity.Current?.AddEvent(new("Retrying unauthorized response", tags: new([new("AttemptCount", attempts)])));
-                logger.RetryingUnauthorizedResponse(unAuthorizedEx, infoLinkUri, attempts, 2);
+                logger.RetryingUnauthorizedResponse(unAuthorizedEx, uri, attempts, 2);
                 goto RetryResponseViaInfoLinkToChunkInfo;
             }
             throw;
@@ -393,47 +286,17 @@ public class LegacyUsernamePasswordApiClient(HttpClient httpClient,
         }
     }
 
-    protected virtual async Task<TResult> GetResponseFromJsonAsync<TResult>(Uri uri, JsonTypeInfo<TResult> jsonTypeInfo, CancellationToken cancellationToken)
-        where TResult : class
-    {
-        var attempts = 0;
-
-    RetryResponseFromJson:
-        try
-        {
-            await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
-
-            var response = await httpClient.GetFromJsonAsync(uri, jsonTypeInfo, cancellationToken).ConfigureAwait(false)
-                           ?? throw new iRacingDataClientException("Data not found.");
-
-            _ = Activity.Current?.AddEvent(new ActivityEvent("Data Retrieved"));
-
-            return response;
-        }
-        catch (iRacingUnauthorizedResponseException unAuthorizedEx)
-        {
-            attempts++;
-            if (attempts <= 2)
-            {
-                _ = Activity.Current?.AddEvent(new("Retrying unauthorized response", tags: new([new("AttemptCount", attempts)])));
-                logger.RetryingUnauthorizedResponse(unAuthorizedEx, uri, attempts, 2);
-                goto RetryResponseFromJson;
-            }
-            throw;
-        }
-    }
-
-    /// <summary>Will ensure the client is authenticated by checking the <see cref="IsLoggedIn"/> property and executing the login process if required.</summary>
+    /// <summary>Will ensure the client is authenticated by checking the <see cref="isLoggedIn"/> property and executing the login process if required.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A <see cref="Task"/> that resolves when the process is complete.</returns>
     protected internal async Task EnsureLoggedInAsync(CancellationToken cancellationToken)
     {
-        if (!IsLoggedIn)
+        if (!isLoggedIn)
         {
             await loginSemaphore.WaitAsync(cancellationToken).ConfigureAwait(false);
             try
             {
-                if (!IsLoggedIn)
+                if (!isLoggedIn)
                 {
                     await LoginInternalAsync(cancellationToken).ConfigureAwait(false);
                 }
@@ -470,7 +333,7 @@ public class LegacyUsernamePasswordApiClient(HttpClient httpClient,
             var cookies = cookieContainer.GetCookies(new Uri("https://members-ng.iracing.com"));
             if (cookies["authtoken_members"] is { Expired: false })
             {
-                IsLoggedIn = true;
+                isLoggedIn = true;
                 logger.LoginCookiesRestored(options.Username!);
                 return;
             }
@@ -540,7 +403,7 @@ public class LegacyUsernamePasswordApiClient(HttpClient httpClient,
                 throw iRacingLoginFailedException.Create(message, loginResult?.VerificationRequired, string.Equals(loginResult?.Message, "Legacy authorization refused.", StringComparison.OrdinalIgnoreCase));
             }
 
-            IsLoggedIn = true;
+            isLoggedIn = true;
             logger.LoginSuccessful(options.Username!);
 
             if (options.SaveCookies is Action<CookieCollection> saveCredentials)
@@ -647,7 +510,7 @@ public class LegacyUsernamePasswordApiClient(HttpClient httpClient,
             if (exception is iRacingUnauthorizedResponseException)
             {
                 // Unauthorized might just be our session expired
-                IsLoggedIn = false;
+                isLoggedIn = false;
 
                 // Clear any externally saved cookies
                 options.SaveCookies?.Invoke([]);

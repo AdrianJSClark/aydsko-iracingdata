@@ -20,12 +20,17 @@ internal sealed class TrackScreenshotServiceTests : MockedHttpTestBase
             Password = "SuperSecretPassword",
             CurrentDateTimeSource = () => new DateTimeOffset(2022, 04, 05, 0, 0, 0, TimeSpan.Zero)
         };
-        apiClient = new LegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
+        apiClient = new TestLegacyUsernamePasswordApiClient(HttpClient,
+                                                            options,
+                                                            CookieContainer,
+                                                            new TestLogger<LegacyUsernamePasswordApiClient>());
         testDataClient = new DataClient(apiClient, options);
 
         // Make use of our captured responses.
-        await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTracksSuccessfulAsync)).ConfigureAwait(false);
-        await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTrackAssetsSuccessfulAsync), false).ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTracksSuccessfulAsync))
+                            .ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTrackAssetsSuccessfulAsync), false)
+                            .ConfigureAwait(false);
 
         sut = new TrackScreenshotService(testDataClient);
     }

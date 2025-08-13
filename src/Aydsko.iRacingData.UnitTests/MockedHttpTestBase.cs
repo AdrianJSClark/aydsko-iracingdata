@@ -16,7 +16,7 @@ internal abstract class MockedHttpTestBase : IDisposable
     private bool disposedValue;
 
     // NUnit will ensure that "SetUp" runs before each test so these can all be forced to "null".
-    protected LegacyUsernamePasswordApiClient apiClient = null!;
+    protected TestLegacyUsernamePasswordApiClient apiClient = null!;
     protected DataClient testDataClient = null!;
 
     [SetUp]
@@ -32,7 +32,10 @@ internal abstract class MockedHttpTestBase : IDisposable
             Password = "SuperSecretPassword",
             CurrentDateTimeSource = () => new DateTimeOffset(2022, 04, 05, 0, 0, 0, TimeSpan.Zero)
         };
-        apiClient = new LegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
+        apiClient = new TestLegacyUsernamePasswordApiClient(HttpClient,
+                                                            options,
+                                                            CookieContainer,
+                                                            new TestLogger<LegacyUsernamePasswordApiClient>());
         testDataClient = new DataClient(apiClient, options);
     }
 

@@ -47,10 +47,15 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
     {
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Car Asset Details");
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/car/assets"),
-                                                              CarAssetDetailDictionaryContext.Default.IReadOnlyDictionaryStringCarAssetDetail,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var carAssetDetailsUrl = new Uri("https://members-ng.iracing.com/data/car/assets");
+
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(carAssetDetailsUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                CarAssetDetailDictionaryContext.Default.IReadOnlyDictionaryStringCarAssetDetail,
+                                                                                cancellationToken).ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -58,10 +63,16 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
     {
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Cars");
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/car/get"),
-                                                              CarInfoArrayContext.Default.CarInfoArray,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var infoLinkUri = new Uri("https://members-ng.iracing.com/data/car/get");
+
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(infoLinkUri,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                CarInfoArrayContext.Default.CarInfoArray,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -70,10 +81,15 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Car Classes");
 
         var carClassUrl = new Uri("https://members-ng.iracing.com/data/carclass/get");
-        return await apiClient.CreateResponseViaInfoLinkAsync(carClassUrl,
-                                                              CarClassArrayContext.Default.CarClassArray,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(carClassUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                CarClassArrayContext.Default.CarClassArray,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -82,7 +98,7 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Divisions");
 
         var constantsDivisionsUrl = new Uri("https://members-ng.iracing.com/data/constants/divisions");
-        return await apiClient.CreateResponseAsync(constantsDivisionsUrl,
+        return await apiClient.GetDataResponseAsync(constantsDivisionsUrl,
                                                    DivisionArrayContext.Default.DivisionArray,
                                                    cancellationToken)
                               .ConfigureAwait(false);
@@ -94,7 +110,7 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Categories");
 
         var constantsCategoriesUrl = new Uri("https://members-ng.iracing.com/data/constants/categories");
-        return await apiClient.CreateResponseAsync(constantsCategoriesUrl,
+        return await apiClient.GetDataResponseAsync(constantsCategoriesUrl,
                                                    CategoryArrayContext.Default.CategoryArray,
                                                    cancellationToken)
                               .ConfigureAwait(false);
@@ -107,7 +123,7 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var constantsEventTypesUrl = new Uri("https://members-ng.iracing.com/data/constants/event_types");
 
-        return await apiClient.CreateResponseAsync(constantsEventTypesUrl,
+        return await apiClient.GetDataResponseAsync(constantsEventTypesUrl,
                                                    EventTypeArrayContext.Default.EventTypeArray,
                                                    cancellationToken)
                               .ConfigureAwait(false);
@@ -127,9 +143,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var queryUrl = "https://members-ng.iracing.com/data/hosted/combined_sessions".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(queryUrl,
-                                                    CombinedSessionsResultContext.Default.CombinedSessionsResult,
-                                                    cancellationToken).ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                CombinedSessionsResultContext.Default.CombinedSessionsResult,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -137,9 +158,16 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
     {
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("List Hosted Sessions");
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/hosted/sessions"),
-                                                    HostedSessionsResultContext.Default.HostedSessionsResult,
-                                                    cancellationToken).ConfigureAwait(false);
+        var infoLinkUri = new Uri("https://members-ng.iracing.com/data/hosted/sessions");
+
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(infoLinkUri,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                HostedSessionsResultContext.Default.HostedSessionsResult,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -155,9 +183,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var getLeagueUrl = "https://members-ng.iracing.com/data/league/get".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(getLeagueUrl,
-                                                    LeagueContext.Default.League,
-                                                    cancellationToken).ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(getLeagueUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                LeagueContext.Default.League,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -177,10 +210,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var queryUrl = "https://members-ng.iracing.com/data/league/get_points_systems".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(queryUrl,
-                                                              LeaguePointsSystemsContext.Default.LeaguePointsSystems,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                LeaguePointsSystemsContext.Default.LeaguePointsSystems,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -196,10 +233,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var queryUrl = "https://members-ng.iracing.com/data/league/cust_league_sessions".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(queryUrl,
-                                                              CustomerLeagueSessionsContext.Default.CustomerLeagueSessions,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                CustomerLeagueSessionsContext.Default.CustomerLeagueSessions,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -209,10 +250,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var lookupsUrl = new Uri("https://members-ng.iracing.com/data/lookup/get?weather=weather_wind_speed_units&weather=weather_wind_speed_max&weather=weather_wind_speed_min&licenselevels=licenselevels");
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(lookupsUrl,
-                                                              LookupGroupArrayContext.Default.LookupGroupArray,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(lookupsUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                LookupGroupArrayContext.Default.LookupGroupArray,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -233,10 +278,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var queryUrl = "https://members-ng.iracing.com/data/lookup/drivers".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(queryUrl,
-                                                              DriverSearchResultContext.Default.DriverSearchResultArray,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                DriverSearchResultContext.Default.DriverSearchResultArray,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -244,10 +293,15 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
     {
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get License Lookups");
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/lookup/licenses"),
-                                                              LicenseLookupArrayContext.Default.LicenseLookupArray,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var infoLinkUri = new Uri("https://members-ng.iracing.com/data/lookup/licenses");
+
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(infoLinkUri,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                LicenseLookupArrayContext.Default.LicenseLookupArray,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+        return response;
     }
 
     /// <inheritdoc />
@@ -255,10 +309,15 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
     {
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Flairs");
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/lookup/flairs"),
+        var infoLinkUri = new Uri("https://members-ng.iracing.com/data/lookup/flairs");
+
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(infoLinkUri,
+                                                              LinkResultContext.Default.LinkResult,
+                                                              infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
                                                               FlairLookupResponseContext.Default.FlairLookupResponse,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+                                                              cancellationToken).ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -280,9 +339,11 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var driverInfoRequestUrl = "https://members-ng.iracing.com/data/member/get".ToUrlWithQuery(queryParameters);
 
-        var driverInfoResponse = await apiClient.CreateResponseViaInfoLinkAsync(driverInfoRequestUrl,
-                                                                                DriverInfoResponseContext.Default.DriverInfoResponse,
-                                                                                cancellationToken)
+        var driverInfoResponse = await apiClient.CreateResponseViaIntermediateResultAsync(driverInfoRequestUrl,
+                                                                                          LinkResultContext.Default.LinkResult,
+                                                                                          infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                          DriverInfoResponseContext.Default.DriverInfoResponse,
+                                                                                          cancellationToken)
                                                 .ConfigureAwait(false);
 
         return new DataResponse<DriverInfo[]>
@@ -332,10 +393,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var queryUrl = "https://members-ng.iracing.com/data/member/award_instances".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaDataUrlAsync(queryUrl,
-                                                             MemberAwardInstanceContext.Default.MemberAwardInstance,
-                                                             cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
+                                                                                DataUrlResultContext.Default.DataUrlResult,
+                                                                                dataUrlResult => (new Uri(dataUrlResult.DataUrl), null),
+                                                                                MemberAwardInstanceContext.Default.MemberAwardInstance,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -345,10 +410,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var memberInfoUrl = new Uri("https://members-ng.iracing.com/data/member/info");
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(memberInfoUrl,
-                                                              MemberInfoContext.Default.MemberInfo,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(memberInfoUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                MemberInfoContext.Default.MemberInfo,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -366,10 +435,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var memberProfileUrl = "https://members-ng.iracing.com/data/member/profile".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(memberProfileUrl,
-                                                              MemberProfileContext.Default.MemberProfile,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(memberProfileUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                MemberProfileContext.Default.MemberProfile,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -386,10 +459,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var subSessionResultUrl = "https://members-ng.iracing.com/data/results/get".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(subSessionResultUrl,
-                                                              SubSessionResultContext.Default.SubSessionResult,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(subSessionResultUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                SubSessionResultContext.Default.SubSessionResult,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -409,7 +486,8 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var subSessionLapChartUrl = "https://members-ng.iracing.com/data/results/lap_chart_data".ToUrlWithQuery(queryParameters);
 
-        var results = await apiClient.CreateResponseViaInfoLinkToChunkInfoAsync(subSessionLapChartUrl,
+        var results = await apiClient.CreateResponseFromChunksAsync(subSessionLapChartUrl,
+                                                                                true,
                                                                                 SubsessionLapsHeaderContext.Default.SubsessionLapsHeader,
                                                                                 intermediateResult => intermediateResult.ChunkInfo,
                                                                                 SubsessionChartLapArrayContext.Default.SubsessionChartLapArray,
@@ -435,7 +513,8 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var subSessionLapChartUrl = "https://members-ng.iracing.com/data/results/event_log".ToUrlWithQuery(queryParameters);
 
-        var results = await apiClient.CreateResponseViaInfoLinkToChunkInfoAsync(subSessionLapChartUrl,
+        var results = await apiClient.CreateResponseFromChunksAsync(subSessionLapChartUrl,
+                                                                                true,
                                                                                 SubsessionEventLogHeaderContext.Default.SubsessionEventLogHeader,
                                                                                 intermediateResult => intermediateResult.ChunkInfo,
                                                                                 SubsessionEventLogItemArrayContext.Default.SubsessionEventLogItemArray,
@@ -451,10 +530,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var seriesDetailUrl = new Uri("https://members-ng.iracing.com/data/series/get");
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(seriesDetailUrl,
-                                                              SeriesDetailArrayContext.Default.SeriesDetailArray,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(seriesDetailUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                SeriesDetailArrayContext.Default.SeriesDetailArray,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -462,10 +545,16 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
     {
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Series Assets");
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/series/assets"),
-                                                              SeriesAssetReadOnlyDictionaryContext.Default.IReadOnlyDictionaryStringSeriesAsset,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var infoLinkUri = new Uri("https://members-ng.iracing.com/data/series/assets");
+
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(infoLinkUri,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                SeriesAssetReadOnlyDictionaryContext.Default.IReadOnlyDictionaryStringSeriesAsset,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -485,7 +574,8 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var subSessionLapChartUrl = "https://members-ng.iracing.com/data/results/lap_data".ToUrlWithQuery(queryParameters);
 
-        var results = await apiClient.CreateResponseViaInfoLinkToChunkInfoAsync(subSessionLapChartUrl,
+        var results = await apiClient.CreateResponseFromChunksAsync(subSessionLapChartUrl,
+                                                                                true,
                                                                                 SubsessionLapsHeaderContext.Default.SubsessionLapsHeader,
                                                                                 intermediateResult => intermediateResult.ChunkInfo,
                                                                                 SubsessionLapArrayContext.Default.SubsessionLapArray,
@@ -511,7 +601,8 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var subSessionLapChartUrl = "https://members-ng.iracing.com/data/results/lap_data".ToUrlWithQuery(queryParameters);
 
-        var results = await apiClient.CreateResponseViaInfoLinkToChunkInfoAsync(subSessionLapChartUrl,
+        var results = await apiClient.CreateResponseFromChunksAsync(subSessionLapChartUrl,
+                                                                                true,
                                                                                 SubsessionLapsHeaderContext.Default.SubsessionLapsHeader,
                                                                                 intermediateResult => intermediateResult.ChunkInfo,
                                                                                 SubsessionLapArrayContext.Default.SubsessionLapArray,
@@ -535,10 +626,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var memberDivisionUrl = "https://members-ng.iracing.com/data/stats/member_division".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(memberDivisionUrl,
-                                                              MemberDivisionContext.Default.MemberDivision,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(memberDivisionUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                MemberDivisionContext.Default.MemberDivision,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -546,16 +641,16 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
     {
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Member Yearly Statistics");
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/stats/member_yearly"),
-                                                              MemberYearlyStatisticsContext.Default.MemberYearlyStatistics,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
-    }
+        var infoLinkUri = new Uri("https://members-ng.iracing.com/data/stats/member_yearly");
 
-    [Obsolete("Use \"GetMemberChartDataAsync\" instead.")]
-    public async Task<DataResponse<MemberChart>> GetMemberChartData(int? customerId, int categoryId, MemberChartType chartType, CancellationToken cancellationToken = default)
-    {
-        return await GetMemberChartDataAsync(customerId, categoryId, chartType, cancellationToken).ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(infoLinkUri,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                MemberYearlyStatisticsContext.Default.MemberYearlyStatistics,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -575,10 +670,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var memberChartUrl = "https://members-ng.iracing.com/data/member/chart_data".ToUrlWithQuery(parameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(memberChartUrl,
-                                                              MemberChartContext.Default.MemberChart,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(memberChartUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                MemberChartContext.Default.MemberChart,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -616,7 +715,8 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var queryUrl = "https://members-ng.iracing.com/data/stats/world_records".ToUrlWithQuery(queryParameters);
 
-        var result = await apiClient.CreateResponseViaInfoLinkToChunkInfoAsync(queryUrl,
+        var result = await apiClient.CreateResponseFromChunksAsync(queryUrl,
+                                                                               true,
                                                                                WorldRecordsHeaderContext.Default.WorldRecordsHeader,
                                                                                header => header.Data.ChunkInfo,
                                                                                WorldRecordEntryArrayContext.Default.WorldRecordEntryArray,
@@ -638,10 +738,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var queryUrl = "https://members-ng.iracing.com/data/team/get".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(queryUrl,
-                                                              TeamInfoContext.Default.TeamInfo,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                TeamInfoContext.Default.TeamInfo,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -690,7 +794,8 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var seasonDriverStandingsUrl = "https://members-ng.iracing.com/data/stats/season_driver_standings".ToUrlWithQuery(queryParameters);
 
-        var results = await apiClient.CreateResponseViaInfoLinkToChunkInfoAsync(seasonDriverStandingsUrl,
+        var results = await apiClient.CreateResponseFromChunksAsync(seasonDriverStandingsUrl,
+                                                                                true,
                                                                                 SeasonDriverStandingsHeaderContext.Default.SeasonDriverStandingsHeader,
                                                                                 header => header.ChunkInfo,
                                                                                 SeasonDriverStandingArrayContext.Default.SeasonDriverStandingArray,
@@ -745,7 +850,8 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var qualifyResultsUrl = "https://members-ng.iracing.com/data/stats/season_qualify_results".ToUrlWithQuery(queryParameters);
 
-        var results = await apiClient.CreateResponseViaInfoLinkToChunkInfoAsync(qualifyResultsUrl,
+        var results = await apiClient.CreateResponseFromChunksAsync(qualifyResultsUrl,
+                                                                                true,
                                                                                 SeasonQualifyResultsHeaderContext.Default.SeasonQualifyResultsHeader,
                                                                                 header => header.ChunkInfo,
                                                                                 SeasonQualifyResultArrayContext.Default.SeasonQualifyResultArray,
@@ -800,7 +906,8 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var subSessionLapChartUrl = "https://members-ng.iracing.com/data/stats/season_tt_results".ToUrlWithQuery(queryParameters);
 
-        var response = await apiClient.CreateResponseViaInfoLinkToChunkInfoAsync(subSessionLapChartUrl,
+        var response = await apiClient.CreateResponseFromChunksAsync(subSessionLapChartUrl,
+                                                                                 true,
                                                                                  SeasonTimeTrialResultsHeaderContext.Default.SeasonTimeTrialResultsHeader,
                                                                                  header => header.ChunkInfo,
                                                                                  SeasonTimeTrialResultArrayContext.Default.SeasonTimeTrialResultArray,
@@ -855,7 +962,8 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var subSessionLapChartUrl = "https://members-ng.iracing.com/data/stats/season_tt_standings".ToUrlWithQuery(queryParameters);
 
-        var response = await apiClient.CreateResponseViaInfoLinkToChunkInfoAsync(subSessionLapChartUrl,
+        var response = await apiClient.CreateResponseFromChunksAsync(subSessionLapChartUrl,
+                                                                                 true,
                                                                                  SeasonTimeTrialStandingsHeaderContext.Default.SeasonTimeTrialStandingsHeader,
                                                                                  header => header.ChunkInfo,
                                                                                  SeasonTimeTrialStandingArrayContext.Default.SeasonTimeTrialStandingArray,
@@ -903,7 +1011,8 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var subSessionLapChartUrl = "https://members-ng.iracing.com/data/stats/season_team_standings".ToUrlWithQuery(queryParameters);
 
-        var results = await apiClient.CreateResponseViaInfoLinkToChunkInfoAsync(subSessionLapChartUrl,
+        var results = await apiClient.CreateResponseFromChunksAsync(subSessionLapChartUrl,
+                                                                                true,
                                                                                 SeasonTeamStandingsHeaderContext.Default.SeasonTeamStandingsHeader,
                                                                                 header => header.ChunkInfo,
                                                                                 SeasonTeamStandingArrayContext.Default.SeasonTeamStandingArray,
@@ -929,10 +1038,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var seasonResultsUrl = "https://members-ng.iracing.com/data/results/season_results".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(seasonResultsUrl,
-                                                              SeasonResultsContext.Default.SeasonResults,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(seasonResultsUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                SeasonResultsContext.Default.SeasonResults,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -947,10 +1060,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var seasonSeriesUrl = "https://members-ng.iracing.com/data/series/seasons".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(seasonSeriesUrl,
-                                                              SeasonSeriesArrayContext.Default.SeasonSeriesArray,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(seasonSeriesUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                SeasonSeriesArrayContext.Default.SeasonSeriesArray,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -958,10 +1075,15 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
     {
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Statistics Series");
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/series/stats_series"),
+        var statsSeriesUrl = new Uri("https://members-ng.iracing.com/data/series/stats_series");
+
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(statsSeriesUrl,
+                                                              LinkResultContext.Default.LinkResult,
+                                                              infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
                                                               StatisticsSeriesArrayContext.Default.StatisticsSeriesArray,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+                                                              cancellationToken).ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -987,10 +1109,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var careerStatisticsUrl = "https://members-ng.iracing.com/data/stats/member_bests".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(careerStatisticsUrl,
-                                                              MemberBestsContext.Default.MemberBests,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(careerStatisticsUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                MemberBestsContext.Default.MemberBests,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -1008,10 +1134,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var careerStatisticsUrl = "https://members-ng.iracing.com/data/stats/member_career".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(careerStatisticsUrl,
-                                                              MemberCareerContext.Default.MemberCareer,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(careerStatisticsUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                MemberCareerContext.Default.MemberCareer,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -1029,10 +1159,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var memberRecentRacesUrl = "https://members-ng.iracing.com/data/stats/member_recent_races".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(memberRecentRacesUrl,
-                                                              MemberRecentRacesContext.Default.MemberRecentRaces,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(memberRecentRacesUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                MemberRecentRacesContext.Default.MemberRecentRaces,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -1050,10 +1184,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var memberSummaryUrl = "https://members-ng.iracing.com/data/stats/member_summary".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(memberSummaryUrl,
-                                                              MemberSummaryContext.Default.MemberSummary,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(memberSummaryUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                MemberSummaryContext.Default.MemberSummary,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -1061,10 +1199,16 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
     {
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Track Assets");
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/track/assets"),
-                                                              TrackAssetsArrayContext.Default.IReadOnlyDictionaryStringTrackAssets,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var trackAssetsUrl = new Uri("https://members-ng.iracing.com/data/track/assets");
+
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(trackAssetsUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                TrackAssetsArrayContext.Default.IReadOnlyDictionaryStringTrackAssets,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -1072,10 +1216,16 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
     {
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Tracks");
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/track/get"),
-                                                              TrackArrayContext.Default.TrackArray,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var infoLinkUri = new Uri("https://members-ng.iracing.com/data/track/get");
+
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(infoLinkUri,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                TrackArrayContext.Default.TrackArray,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -1137,7 +1287,8 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var searchHostedUrl = "https://members-ng.iracing.com/data/results/search_hosted".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseFromChunkedDataAsync(searchHostedUrl,
+        return await apiClient.CreateResponseFromChunksAsync(searchHostedUrl,
+                                                                  false,
                                                                   HostedResultsHeaderContext.Default.HostedResultsHeader,
                                                                   header => header.Data.ChunkInfo,
                                                                   HostedResultItemContext.Default.HostedResultItemArray,
@@ -1202,7 +1353,8 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var searchHostedUrl = "https://members-ng.iracing.com/data/results/search_series".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseFromChunkedDataAsync(searchHostedUrl,
+        return await apiClient.CreateResponseFromChunksAsync(searchHostedUrl,
+                                                                  false,
                                                                   OfficialSearchResultHeaderContext.Default.OfficialSearchResultHeader,
                                                                   header => header.Data.ChunkInfo,
                                                                   OfficialSearchResultItemArrayContext.Default.OfficialSearchResultItemArray,
@@ -1274,10 +1426,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var searchLeagueDirectoryUrl = "https://members-ng.iracing.com/data/league/directory".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(searchLeagueDirectoryUrl,
-                                                              LeagueDirectoryResultPageContext.Default.LeagueDirectoryResultPage,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(searchLeagueDirectoryUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                LeagueDirectoryResultPageContext.Default.LeagueDirectoryResultPage,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -1295,10 +1451,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var memberSummaryUrl = "https://members-ng.iracing.com/data/season/list".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(memberSummaryUrl,
-                                                              ListOfSeasonsContext.Default.ListOfSeasons,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(memberSummaryUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                ListOfSeasonsContext.Default.ListOfSeasons,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     private Exception? ValidateSearchDateRange(DateTime? rangeBegin,
@@ -1380,9 +1540,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var getMembershipUrl = "https://members-ng.iracing.com/data/league/membership".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(getMembershipUrl,
-                                                    LeagueMembershipArrayContext.Default.LeagueMembershipArray,
-                                                    cancellationToken).ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(getMembershipUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                LeagueMembershipArrayContext.Default.LeagueMembershipArray,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -1399,9 +1564,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var getLeagueSeasons = "https://members-ng.iracing.com/data/league/seasons".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(getLeagueSeasons,
-                                                    LeagueSeasonsContext.Default.LeagueSeasons,
-                                                    cancellationToken).ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(getLeagueSeasons,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                LeagueSeasonsContext.Default.LeagueSeasons,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -1426,9 +1596,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var raceGuideUrl = "https://members-ng.iracing.com/data/season/race_guide".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(raceGuideUrl,
-                                                    RaceGuideResultsContext.Default.RaceGuideResults,
-                                                    cancellationToken).ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(raceGuideUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                RaceGuideResultsContext.Default.RaceGuideResults,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -1436,9 +1611,16 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
     {
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Countries");
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/lookup/countries"),
-                                                    CountryArrayContext.Default.CountryArray,
-                                                    cancellationToken).ConfigureAwait(false);
+        var infoLinkUri = new Uri("https://members-ng.iracing.com/data/lookup/countries");
+
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(infoLinkUri,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                CountryArrayContext.Default.CountryArray,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -1446,13 +1628,23 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
     {
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Member Participation Credits");
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(new Uri("https://members-ng.iracing.com/data/member/participation_credits"),
-                                                    ParticipationCreditsArrayContext.Default.ParticipationCreditsArray,
-                                                    cancellationToken).ConfigureAwait(false);
+        var infoLinkUri = new Uri("https://members-ng.iracing.com/data/member/participation_credits");
+
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(infoLinkUri,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                ParticipationCreditsArrayContext.Default.ParticipationCreditsArray,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<LeagueSeasonSessions>> GetLeagueSeasonSessionsAsync(int leagueId, int seasonId, bool resultsOnly = false, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<LeagueSeasonSessions>> GetLeagueSeasonSessionsAsync(int leagueId,
+                                                                                       int seasonId,
+                                                                                       bool resultsOnly = false,
+                                                                                       CancellationToken cancellationToken = default)
     {
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get League Season Sessions")
                                            ?.AddTag("LeagueId", leagueId)
@@ -1467,9 +1659,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var getLeagueSeasonSessions = "https://members-ng.iracing.com/data/league/season_sessions".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(getLeagueSeasonSessions,
-                                                    LeagueSeasonSessionsContext.Default.LeagueSeasonSessions,
-                                                    cancellationToken).ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(getLeagueSeasonSessions,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                LeagueSeasonSessionsContext.Default.LeagueSeasonSessions,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -1485,9 +1682,12 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var getPastSeasonsForSeriesUrl = "https://members-ng.iracing.com/data/series/past_seasons".ToUrlWithQuery(queryParameters);
 
-        var intermediateResponse = await apiClient.CreateResponseViaInfoLinkAsync(getPastSeasonsForSeriesUrl,
-                                                                        PastSeriesResultContext.Default.PastSeriesResult,
-                                                                        cancellationToken).ConfigureAwait(false);
+        var intermediateResponse = await apiClient.CreateResponseViaIntermediateResultAsync(getPastSeasonsForSeriesUrl,
+                                                                                            LinkResultContext.Default.LinkResult,
+                                                                                            infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                            PastSeriesResultContext.Default.PastSeriesResult,
+                                                                                            cancellationToken)
+                                                  .ConfigureAwait(false);
 
         return new DataResponse<PastSeriesDetail>
         {
@@ -1500,7 +1700,11 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<SeasonStandings>> GetSeasonStandingsAsync(int leagueId, int seasonId, int? carClassId = null, int? carId = null, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<SeasonStandings>> GetSeasonStandingsAsync(int leagueId,
+                                                                             int seasonId,
+                                                                             int? carClassId = null,
+                                                                             int? carId = null,
+                                                                             CancellationToken cancellationToken = default)
     {
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get League Season Standings")
                                            ?.AddTag("LeagueId", leagueId)
@@ -1524,9 +1728,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var queryUrl = "https://members-ng.iracing.com/data/league/season_standings".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(queryUrl,
-                                                    SeasonStandingsContext.Default.SeasonStandings,
-                                                    cancellationToken).ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                SeasonStandingsContext.Default.SeasonStandings,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -1558,7 +1767,8 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var queryUrl = "https://members-ng.iracing.com/data/stats/season_supersession_standings".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkToChunkInfoAsync(queryUrl,
+        return await apiClient.CreateResponseFromChunksAsync(queryUrl,
+                                                                         true,
                                                                          SeasonSuperSessionResultsHeaderContext.Default.SeasonSuperSessionResultsHeader,
                                                                          header => header.ChunkInfo,
                                                                          SeasonSuperSessionResultItemArrayContext.Default.SeasonSuperSessionResultItemArray,
@@ -1615,14 +1825,21 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var queryUrl = "https://members-ng.iracing.com/data/time_attack/member_season_results".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(queryUrl,
-                                                              TimeAttackMemberSeasonResultArrayContext.Default.TimeAttackMemberSeasonResultArray,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                TimeAttackMemberSeasonResultArrayContext.Default.TimeAttackMemberSeasonResultArray,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
-    public async Task<DataResponse<MemberRecap>> GetMemberRecapAsync(int? customerId = null, int? seasonYear = null, int? seasonQuarter = null, CancellationToken cancellationToken = default)
+    public async Task<DataResponse<MemberRecap>> GetMemberRecapAsync(int? customerId = null,
+                                                                     int? seasonYear = null,
+                                                                     int? seasonQuarter = null,
+                                                                     CancellationToken cancellationToken = default)
     {
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Member Recap")
                                ?.AddTag("CustomerId", customerId)
@@ -1638,10 +1855,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var queryUrl = "https://members-ng.iracing.com/data/stats/member_recap".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(queryUrl,
-                                                              MemberRecapContext.Default.MemberRecap,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                MemberRecapContext.Default.MemberRecap,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -1656,10 +1877,14 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var queryUrl = "https://members-ng.iracing.com/data/season/spectator_subsessionids".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(queryUrl,
-                                                              SpectatorSubsessionIdsContext.Default.SpectatorSubsessionIds,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                SpectatorSubsessionIdsContext.Default.SpectatorSubsessionIds,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
@@ -1677,73 +1902,77 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
 
         var queryUrl = "https://members-ng.iracing.com/data/season/spectator_subsessionids_detail".ToUrlWithQuery(queryParameters);
 
-        return await apiClient.CreateResponseViaInfoLinkAsync(queryUrl,
-                                                              SpectatorDetailsContext.Default.SpectatorDetails,
-                                                              cancellationToken)
-                              .ConfigureAwait(false);
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                SpectatorDetailsContext.Default.SpectatorDetails,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
     }
 
     /// <inheritdoc />
     public Task<DriverStatisticsCsvFile> GetDriverStatisticsByCategoryCsvAsync(int categoryId, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException("TO DO");
-//        using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Driver Statistics By Category CSV")
-//                                ?.AddTag("CategoryId", categoryId);
+        //        using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Driver Statistics By Category CSV")
+        //                                ?.AddTag("CategoryId", categoryId);
 
-//        var attempts = 0;
-//        var statsUrl = categoryId switch
-//        {
-//            1 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/oval"),
-//            2 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/road"),
-//            3 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/dirt_oval"),
-//            4 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/dirt_road"),
-//            5 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/sports_car"),
-//            6 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/formula_car"),
-//            _ => throw new ArgumentOutOfRangeException(nameof(categoryId), categoryId, "Invalid Category Id value. Must be between 1 and 6 (inclusive)."),
-//        };
+        //        var attempts = 0;
+        //        var statsUrl = categoryId switch
+        //        {
+        //            1 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/oval"),
+        //            2 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/road"),
+        //            3 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/dirt_oval"),
+        //            4 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/dirt_road"),
+        //            5 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/sports_car"),
+        //            6 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/formula_car"),
+        //            _ => throw new ArgumentOutOfRangeException(nameof(categoryId), categoryId, "Invalid Category Id value. Must be between 1 and 6 (inclusive)."),
+        //        };
 
-//    RetryCsvDriverStatistics:
-//        try
-//        {
-//            await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
+        //    RetryCsvDriverStatistics:
+        //        try
+        //        {
+        //            await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
-//            var (infoLink, _) = await BuildLinkResultAsync(statsUrl, cancellationToken).ConfigureAwait(false);
+        //            var (infoLink, _) = await BuildLinkResultAsync(statsUrl, cancellationToken).ConfigureAwait(false);
 
-//            var infoLinkUrl = new Uri(infoLink.Link);
+        //            var infoLinkUrl = new Uri(infoLink.Link);
 
-//            var csvDataResponse = await httpClient.GetAsync(infoLinkUrl, cancellationToken).ConfigureAwait(false);
+        //            var csvDataResponse = await httpClient.GetAsync(infoLinkUrl, cancellationToken).ConfigureAwait(false);
 
-//            if (!csvDataResponse.IsSuccessStatusCode)
-//            {
-//                throw new iRacingDataClientException($"Failed to retrieve CSV data. HTTP response was \"{csvDataResponse.StatusCode} {csvDataResponse.ReasonPhrase}\"");
-//            }
+        //            if (!csvDataResponse.IsSuccessStatusCode)
+        //            {
+        //                throw new iRacingDataClientException($"Failed to retrieve CSV data. HTTP response was \"{csvDataResponse.StatusCode} {csvDataResponse.ReasonPhrase}\"");
+        //            }
 
-//            var fileName = csvDataResponse.Content.Headers.ContentDisposition?.FileName
-//                           ?? infoLinkUrl.AbsolutePath.Split('/').LastOrDefault()
-//                           ?? $"DriverStatistics_CategoryId_{categoryId}.csv";
-//            var result = new DriverStatisticsCsvFile
-//            {
-//                CategoryId = categoryId,
-//                FileName = fileName,
-//#if NET6_0_OR_GREATER
-//                ContentBytes = await csvDataResponse.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false)
-//#else
-//                ContentBytes = await csvDataResponse.Content.ReadAsByteArrayAsync().ConfigureAwait(false)
-//#endif
-//            };
-//            return result;
-//        }
-//        catch (iRacingUnauthorizedResponseException unAuthEx)
-//        {
-//            attempts++;
-//            if (attempts < 2)
-//            {
-//                _ = activity?.AddEvent(new("Retrying unauthorized response", tags: new([new("AttemptCount", attempts)])));
-//                logger.RetryingUnauthorizedResponse(unAuthEx, statsUrl, attempts, 2);
-//                goto RetryCsvDriverStatistics;
-//            }
-//            throw;
-//        }
+        //            var fileName = csvDataResponse.Content.Headers.ContentDisposition?.FileName
+        //                           ?? infoLinkUrl.AbsolutePath.Split('/').LastOrDefault()
+        //                           ?? $"DriverStatistics_CategoryId_{categoryId}.csv";
+        //            var result = new DriverStatisticsCsvFile
+        //            {
+        //                CategoryId = categoryId,
+        //                FileName = fileName,
+        //#if NET6_0_OR_GREATER
+        //                ContentBytes = await csvDataResponse.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false)
+        //#else
+        //                ContentBytes = await csvDataResponse.Content.ReadAsByteArrayAsync().ConfigureAwait(false)
+        //#endif
+        //            };
+        //            return result;
+        //        }
+        //        catch (iRacingUnauthorizedResponseException unAuthEx)
+        //        {
+        //            attempts++;
+        //            if (attempts < 2)
+        //            {
+        //                _ = activity?.AddEvent(new("Retrying unauthorized response", tags: new([new("AttemptCount", attempts)])));
+        //                logger.RetryingUnauthorizedResponse(unAuthEx, statsUrl, attempts, 2);
+        //                goto RetryCsvDriverStatistics;
+        //            }
+        //            throw;
+        //        }
     }
 
     /// <inheritdoc />
@@ -1837,5 +2066,10 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
                    ?? throw new iRacingDataClientException("Data not found.");
 
         return data;
+    }
+
+    public Task<DataResponse<MemberChart>> GetMemberChartData(int? customerId, int categoryId, MemberChartType chartType, CancellationToken cancellationToken = default)
+    {
+        throw new NotImplementedException();
     }
 }

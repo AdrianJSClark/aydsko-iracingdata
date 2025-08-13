@@ -131,12 +131,12 @@ public static class ServicesExtensions
         services.TryAddSingleton<CookieContainer>();
         var httpClientBuilder = services.AddHttpClient<LegacyUsernamePasswordApiClient>()
                                         .ConfigureHttpClient(httpClient => httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(userAgentValue))
-                                        .ConfigurePrimaryHttpMessageHandler(() =>
+                                        .ConfigurePrimaryHttpMessageHandler(sp =>
                                         {
                                             var handler = new HttpClientHandler
                                             {
                                                 UseCookies = true,
-                                                CookieContainer = services.BuildServiceProvider().GetRequiredService<CookieContainer>()
+                                                CookieContainer = sp.GetRequiredService<CookieContainer>()
                                             };
                                             return handler;
                                         });

@@ -21,7 +21,7 @@ internal sealed class PasswordEncodingTests : MockedHttpTestBase
             SaveCookies = null,
         };
 
-        using var client = new LegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
+        using var client = new TestLegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
         var sut = new DataClient(client, options);
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
@@ -56,7 +56,7 @@ internal sealed class PasswordEncodingTests : MockedHttpTestBase
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
 
-        using var client = new LegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
+        using var client = new TestLegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
         var sut = new DataClient(client, options);
 
         sut.UseUsernameAndPassword(username, password, passwordIsEncoded);
@@ -90,7 +90,7 @@ internal sealed class PasswordEncodingTests : MockedHttpTestBase
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
 
-        using var client = new LegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
+        using var client = new TestLegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
         var sut = new DataClient(client, options);
 
         sut.UseUsernameAndPassword(username, password);
@@ -200,7 +200,7 @@ internal sealed class PasswordEncodingTests : MockedHttpTestBase
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
 
-        using var client = new LegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
+        using var client = new TestLegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
         var sut = new DataClient(client, options);
 
         sut.UseUsernameAndPassword(username, password);

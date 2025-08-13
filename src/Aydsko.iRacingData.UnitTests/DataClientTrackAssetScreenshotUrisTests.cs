@@ -15,15 +15,17 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
             CurrentDateTimeSource = () => new DateTimeOffset(2022, 04, 05, 0, 0, 0, TimeSpan.Zero)
         };
 
-        var client = new LegacyUsernamePasswordApiClient(HttpClient,
-                                                         options,
-                                                         CookieContainer,
-                                                         new TestLogger<LegacyUsernamePasswordApiClient>());
+        var client = new TestLegacyUsernamePasswordApiClient(HttpClient,
+                                                             options,
+                                                             CookieContainer,
+                                                             new TestLogger<LegacyUsernamePasswordApiClient>());
         var sut = new DataClient(client, options);
 
         // Make use of our captured responses.
-        await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTracksSuccessfulAsync)).ConfigureAwait(false);
-        await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTrackAssetsSuccessfulAsync), false).ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTracksSuccessfulAsync))
+                            .ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTrackAssetsSuccessfulAsync), false)
+                            .ConfigureAwait(false);
 
         apiClient = client;
         testDataClient = sut;
