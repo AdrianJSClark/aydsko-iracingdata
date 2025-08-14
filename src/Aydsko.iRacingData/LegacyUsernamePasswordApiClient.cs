@@ -103,18 +103,7 @@ public class LegacyUsernamePasswordApiClient(HttpClient httpClient,
             }
             else
             {
-#pragma warning disable CA1308 // Normalize strings to uppercase - iRacing API requires lowercase
-                var passwordAndEmail = Options.Password + (Options.Username?.ToLowerInvariant());
-#pragma warning restore CA1308 // Normalize strings to uppercase
-
-#if NET6_0_OR_GREATER
-                var hashedPasswordAndEmailBytes = SHA256.HashData(Encoding.UTF8.GetBytes(passwordAndEmail));
-#else
-                using var sha256 = SHA256.Create();
-                var hashedPasswordAndEmailBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordAndEmail));
-#endif
-
-                encodedHash = Convert.ToBase64String(hashedPasswordAndEmailBytes);
+                encodedHash = EncodePassword(Options.Username!, Options.Password!);
             }
 
             var loginResponse = await HttpClient.PostAsJsonAsync("https://members-ng.iracing.com/auth",

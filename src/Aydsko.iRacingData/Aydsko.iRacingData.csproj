@@ -80,6 +80,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="System.Diagnostics.DiagnosticSource" />
     <PackageReference Include="System.Text.Json" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
     <PackageReference Include="System.Net.Http.Json" Condition="'$(TargetFramework)' == 'netstandard2.0'" />
   </ItemGroup>

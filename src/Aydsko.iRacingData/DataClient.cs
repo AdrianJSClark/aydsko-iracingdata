@@ -24,7 +24,7 @@ namespace Aydsko.iRacingData;
 /// collection using <see cref="ServicesExtensions.AddIRacingDataApi(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>
 /// and resolve <see cref="IDataClient"/> service from there.
 /// </remarks>
-public class DataClient(LegacyUsernamePasswordApiClient apiClient,
+public class DataClient(ApiClientBase apiClient,
                         iRacingDataClientOptions options)
     : IDataClient
 {
@@ -32,14 +32,18 @@ public class DataClient(LegacyUsernamePasswordApiClient apiClient,
     [Obsolete("Configure via the \"AddIRacingDataApi\" extension method on the IServiceCollection which allows you to configure the \"iRacingDataClientOptions\".")]
     public void UseUsernameAndPassword(string username, string password, bool passwordIsEncoded)
     {
-        apiClient.UseUsernameAndPassword(username, password, passwordIsEncoded);
+        if (apiClient is LegacyUsernamePasswordApiClient legacyUsernamePasswordApiClient)
+        {
+            legacyUsernamePasswordApiClient.UseUsernameAndPassword(username, password, passwordIsEncoded);
+        }
+        throw new InvalidOperationException("Must be using the \"LegacyUsernamePasswordApiClient\" to use this method.");
     }
 
     /// <inheritdoc/>
     [Obsolete("Configure via the \"AddIRacingDataApi\" extension method on the IServiceCollection which allows you to configure the \"iRacingDataClientOptions\".")]
     public void UseUsernameAndPassword(string username, string password)
     {
-        apiClient.UseUsernameAndPassword(username, password, false);
+        UseUsernameAndPassword(username, password, false);
     }
 
     /// <inheritdoc />

@@ -5,6 +5,8 @@ using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
+using System.Security.Cryptography;
+using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization.Metadata;
 using Aydsko.iRacingData.Exceptions;
@@ -22,8 +24,9 @@ public abstract class ApiClientBase(HttpClient httpClient,
 
     protected HttpClient HttpClient { get; } = httpClient;
     protected iRacingDataClientOptions Options { get; } = options;
+    protected ILogger<ApiClientBase> Logger { get; } = logger;
 
-    protected static DataResponse<TData> BuildDataResponse<TData>(HttpResponseHeaders headers, TData data, ILogger logger, DateTimeOffset? expires = null)
+    protected DataResponse<TData> BuildDataResponse<TData>(HttpResponseHeaders headers, TData data, DateTimeOffset? expires = null)
     {
 #if NET6_0_OR_GREATER
         ArgumentNullException.ThrowIfNull(headers);
@@ -59,7 +62,7 @@ public abstract class ApiClientBase(HttpClient httpClient,
 
         response.DataExpires = expires;
 
-        logger.RateLimitsUpdated(response.RateLimitRemaining, response.TotalRateLimit, response.RateLimitReset);
+        Logger.RateLimitsUpdated(response.RateLimitRemaining, response.TotalRateLimit, response.RateLimitReset);
 
         return response;
     }
@@ -129,7 +132,7 @@ public abstract class ApiClientBase(HttpClient httpClient,
 #endif
             if (!response.IsSuccessStatusCode || responseContent == RateLimitExceededContent)
             {
-                HandleUnsuccessfulResponse(response, responseContent, logger);
+                HandleUnsuccessfulResponse(response, responseContent, Logger);
             }
 
             var headerData = JsonSerializer.Deserialize(responseContent, jsonTypeInfo)
@@ -154,7 +157,7 @@ public abstract class ApiClientBase(HttpClient httpClient,
                     var chunkResponse = await HttpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
                     if (!chunkResponse.IsSuccessStatusCode)
                     {
-                        logger.FailedToRetrieveChunkError(index, chunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
+                        Logger.FailedToRetrieveChunkError(index, chunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                         continue;
                     }
 
@@ -168,7 +171,7 @@ public abstract class ApiClientBase(HttpClient httpClient,
                 }
             }
 
-            return BuildDataResponse<(THeader Header, TChunkData[] Results)>(headers!, (headerData, searchResults.ToArray()), logger, expires);
+            return BuildDataResponse<(THeader Header, TChunkData[] Results)>(headers!, (headerData, searchResults.ToArray()), expires);
         }
         catch (iRacingUnauthorizedResponseException unAuthorizedEx)
         {
@@ -176,7 +179,7 @@ public abstract class ApiClientBase(HttpClient httpClient,
             if (attempts <= 2)
             {
                 _ = Activity.Current?.AddEvent(new("Retrying unauthorized response", tags: new([new("AttemptCount", attempts)])));
-                logger.RetryingUnauthorizedResponse(unAuthorizedEx, uri, attempts, 2);
+                Logger.RetryingUnauthorizedResponse(unAuthorizedEx, uri, attempts, 2);
                 goto RetryResponseViaInfoLinkToChunkInfo;
             }
             throw;
@@ -204,8 +207,8 @@ public abstract class ApiClientBase(HttpClient httpClient,
             await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
 
             var (finalLinkDto, headers) = await BuildIntermediateResultAsync(intermediateUri,
-                                                                           intermediateJsonTypeInfo,
-                                                                           cancellationToken)
+                                                                             intermediateJsonTypeInfo,
+                                                                             cancellationToken)
                                                 .ConfigureAwait(false);
             if (finalLinkDto is null)
             {
@@ -221,7 +224,7 @@ public abstract class ApiClientBase(HttpClient httpClient,
                                        ?? throw new iRacingDataClientException("Data not found.");
             _ = Activity.Current?.AddEvent(new ActivityEvent("Data Retrieved"));
 
-            return BuildDataResponse(headers, data, logger, expires);
+            return BuildDataResponse(headers, data, expires);
         }
         catch (iRacingUnauthorizedResponseException unAuthorizedEx)
         {
@@ -229,7 +232,7 @@ public abstract class ApiClientBase(HttpClient httpClient,
             if (attempts <= 2)
             {
                 _ = Activity.Current?.AddEvent(new("Retrying unauthorized response", tags: new([new("AttemptCount", attempts)])));
-                logger.RetryingUnauthorizedResponse(unAuthorizedEx, intermediateUri, attempts, 2);
+                Logger.RetryingUnauthorizedResponse(unAuthorizedEx, intermediateUri, attempts, 2);
                 goto RetryResponseViaInfoLink;
             }
             throw;
@@ -257,7 +260,7 @@ public abstract class ApiClientBase(HttpClient httpClient,
     {
         var (data, headers) = await GetResponseWithHeadersFromJsonAsync(uri, jsonTypeInfo, cancellationToken)
                                         .ConfigureAwait(false);
-        return BuildDataResponse(headers, data, logger);
+        return BuildDataResponse(headers, data);
     }
 
     public async Task<TData> GetUnauthenticatedResponseAsync<TData>(Uri uri,
@@ -287,7 +290,7 @@ public abstract class ApiClientBase(HttpClient httpClient,
 
         if (!intermediateResponse.IsSuccessStatusCode || content == RateLimitExceededContent)
         {
-            HandleUnsuccessfulResponse(intermediateResponse, content, logger);
+            HandleUnsuccessfulResponse(intermediateResponse, content, Logger);
         }
 
         var result = JsonSerializer.Deserialize(content, jsonTypeInfo);
@@ -335,7 +338,7 @@ public abstract class ApiClientBase(HttpClient httpClient,
 
             if (!response.IsSuccessStatusCode || content == RateLimitExceededContent)
             {
-                HandleUnsuccessfulResponse(response, content, logger);
+                HandleUnsuccessfulResponse(response, content, Logger);
             }
 
             var result = JsonSerializer.Deserialize(content, jsonTypeInfo)
@@ -351,7 +354,7 @@ public abstract class ApiClientBase(HttpClient httpClient,
             if (attempts <= 2)
             {
                 _ = Activity.Current?.AddEvent(new("Retrying unauthorized response", tags: new([new("AttemptCount", attempts)])));
-                logger.RetryingUnauthorizedResponse(unAuthorizedEx, uri, attempts, 2);
+                Logger.RetryingUnauthorizedResponse(unAuthorizedEx, uri, attempts, 2);
                 goto RetryResponseWithHeadersFromJson;
             }
             throw;
@@ -419,4 +422,21 @@ public abstract class ApiClientBase(HttpClient httpClient,
 
     protected internal abstract Task EnsureLoggedInAsync(CancellationToken cancellationToken);
     protected internal abstract void ClearLoggedInState();
+
+    protected static string EncodePassword(string username, string password)
+    {
+#pragma warning disable CA1308 // Normalize strings to uppercase - iRacing API requires lowercase
+        var passwordAndEmail = password + (username?.ToLowerInvariant());
+#pragma warning restore CA1308 // Normalize strings to uppercase
+
+#if NET6_0_OR_GREATER
+                var hashedPasswordAndEmailBytes = SHA256.HashData(Encoding.UTF8.GetBytes(passwordAndEmail));
+#else
+        using var sha256 = SHA256.Create();
+        var hashedPasswordAndEmailBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordAndEmail));
+#endif
+
+        var encodedHash = Convert.ToBase64String(hashedPasswordAndEmailBytes);
+        return encodedHash;
+    }
 }
