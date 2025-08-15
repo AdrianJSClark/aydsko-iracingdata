@@ -19,7 +19,7 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
                                                              options,
                                                              CookieContainer,
                                                              new TestLogger<LegacyUsernamePasswordApiClient>());
-        var sut = new DataClient(client, options);
+        var sut = new DataClient(client, options, new TestLogger<DataClient>());
 
         // Make use of our captured responses.
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTracksSuccessfulAsync))

@@ -36,7 +36,7 @@ internal abstract class MockedHttpTestBase : IDisposable
                                                             options,
                                                             CookieContainer,
                                                             new TestLogger<LegacyUsernamePasswordApiClient>());
-        testDataClient = new DataClient(apiClient, options);
+        testDataClient = new DataClient(apiClient, options, new TestLogger<DataClient>());
     }
 
     protected virtual void Dispose(bool disposing)

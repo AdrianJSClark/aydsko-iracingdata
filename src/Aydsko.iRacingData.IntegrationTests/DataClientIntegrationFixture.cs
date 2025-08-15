@@ -11,8 +11,9 @@ internal abstract class DataClientIntegrationFixture : BaseIntegrationFixture<Da
     public void OneTimeSetUp()
     {
         var options = BaseSetUp();
+
         _legacyApiClient = new(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
-        Client = new DataClient(_legacyApiClient, options);
+        Client = new DataClient(_legacyApiClient, options, new TestLogger<DataClient>());
     }
 
     protected override void Dispose(bool disposing)
