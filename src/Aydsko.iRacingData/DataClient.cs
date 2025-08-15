@@ -25,7 +25,8 @@ namespace Aydsko.iRacingData;
 /// and resolve <see cref="IDataClient"/> service from there.
 /// </remarks>
 public class DataClient(ApiClientBase apiClient,
-                        iRacingDataClientOptions options)
+                        iRacingDataClientOptions options,
+                        ILogger<DataClient> logger)
     : IDataClient
 {
     /// <inheritdoc/>
@@ -49,6 +50,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<IReadOnlyDictionary<string, CarAssetDetail>>> GetCarAssetDetailsAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Car Asset Details");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Car Asset Details");
 
         var carAssetDetailsUrl = new Uri("https://members-ng.iracing.com/data/car/assets");
@@ -65,6 +67,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<Cars.CarInfo[]>> GetCarsAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Cars");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Cars");
 
         var infoLinkUri = new Uri("https://members-ng.iracing.com/data/car/get");
@@ -82,6 +85,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<Common.CarClass[]>> GetCarClassesAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Car Classes");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Car Classes");
 
         var carClassUrl = new Uri("https://members-ng.iracing.com/data/carclass/get");
@@ -99,6 +103,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<Division[]>> GetDivisionsAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Divisions");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Divisions");
 
         var constantsDivisionsUrl = new Uri("https://members-ng.iracing.com/data/constants/divisions");
@@ -111,6 +116,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<Category[]>> GetCategoriesAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Categories");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Categories");
 
         var constantsCategoriesUrl = new Uri("https://members-ng.iracing.com/data/constants/categories");
@@ -123,6 +129,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<Constants.EventType[]>> GetEventTypesAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Event Types");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Event Types");
 
         var constantsEventTypesUrl = new Uri("https://members-ng.iracing.com/data/constants/event_types");
@@ -136,6 +143,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<CombinedSessionsResult>> ListHostedSessionsCombinedAsync(int? packageId = null, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("List Hosted Sessions Combined");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("List Hosted Sessions Combined");
 
         var queryParameters = new Dictionary<string, object?>();
@@ -160,6 +168,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<HostedSessionsResult>> ListHostedSessionsAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("List Hosted Sessions");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("List Hosted Sessions");
 
         var infoLinkUri = new Uri("https://members-ng.iracing.com/data/hosted/sessions");
@@ -177,6 +186,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<League>> GetLeagueAsync(int leagueId, bool includeLicenses = false, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get League {LeagueId}", leagueId);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get League")?.AddTag("LeagueId", leagueId);
 
         var queryParameters = new Dictionary<string, object?>
@@ -200,6 +210,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<LeaguePointsSystems>> GetLeaguePointsSystemsAsync(int leagueId, int? seasonId = null, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get League Points Systems for {LeagueId} and {SeasonId}", leagueId, seasonId);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get League Points Systems")?.AddTag("LeagueId", leagueId);
 
         var queryParameters = new Dictionary<string, object?>
@@ -227,6 +238,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<CustomerLeagueSessions>> GetCustomerLeagueSessionsAsync(bool mine = false, int? packageId = null, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Customer League Sessions");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Customer League Sessions");
 
         var queryParameters = new Dictionary<string, object?>
@@ -250,6 +262,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<LookupGroup[]>> GetLookupsAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Lookups");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Lookups");
 
         var lookupsUrl = new Uri("https://members-ng.iracing.com/data/lookup/get?weather=weather_wind_speed_units&weather=weather_wind_speed_max&weather=weather_wind_speed_min&licenselevels=licenselevels");
@@ -267,8 +280,10 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<DriverSearchResult[]>> SearchDriversAsync(string searchTerm, int? leagueId = null, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Search Drivers for {SearchTerm} in League {LeagueId}", searchTerm, leagueId);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Search Drivers")
-                                ?.AddTag("SearchTerm", searchTerm);
+                                ?.AddTag("SearchTerm", searchTerm)
+                                ?.AddTag("LeagueId", leagueId);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -295,6 +310,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<LicenseLookup[]>> GetLicenseLookupsAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get License Lookups");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get License Lookups");
 
         var infoLinkUri = new Uri("https://members-ng.iracing.com/data/lookup/licenses");
@@ -311,6 +327,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<FlairLookupResponse>> GetFlairsAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Flairs");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Flairs");
 
         var infoLinkUri = new Uri("https://members-ng.iracing.com/data/lookup/flairs");
@@ -327,8 +344,10 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<DriverInfo[]>> GetDriverInfoAsync(int[] customerIds, bool includeLicenses, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Driver Info for Customers {CustomerIds} {IncludeLicenses}", customerIds, includeLicenses);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Driver Info")
-                                ?.AddTag("CustomerIds", customerIds);
+                                ?.AddTag("CustomerIds", customerIds)
+                                ?.AddTag("IncludeLicenses", includeLicenses);
 
         if (customerIds is not { Length: > 0 })
         {
@@ -363,6 +382,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<MemberAward[]>> GetDriverAwardsAsync(int? customerId = null, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Driver Awards for Customer {CustomerId}", customerId);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Driver Awards")
                                 ?.AddTag("CustomerId", customerId);
 
@@ -387,6 +407,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<MemberAwardInstance>> GetDriverAwardInstanceAsync(int awardId, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Driver Award Instance for {AwardId}", awardId);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Driver Award Instance")
                                 ?.AddTag("AwardId", awardId);
 
@@ -410,6 +431,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<Member.MemberInfo>> GetMyInfoAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get My Info");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get My Info");
 
         var memberInfoUrl = new Uri("https://members-ng.iracing.com/data/member/info");
@@ -427,6 +449,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<MemberProfile>> GetMemberProfileAsync(int? customerId = null, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Member Profile for {CustomerId}", customerId);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Member Profile")
                                 ?.AddTag("CustomerId", customerId);
 
@@ -452,8 +475,10 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<SubSessionResult>> GetSubSessionResultAsync(int subSessionId, bool includeLicenses, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get SubSession Result for {SubSessionId} {IncludeLicenses}", subSessionId, includeLicenses);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get SubSession Result")
-                                ?.AddTag("SubSessionId", subSessionId);
+                                ?.AddTag("SubSessionId", subSessionId)
+                                ?.AddTag("IncludeLicenses", includeLicenses);
 
         var queryParameters = new Dictionary<string, object?>
         {
@@ -478,6 +503,7 @@ public class DataClient(ApiClientBase apiClient,
                                                                                                                          int simSessionNumber,
                                                                                                                          CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get SubSession Lap Chart for {SubSessionId} session {SimSessionNumber}", subSessionId, simSessionNumber);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get SubSession Lap Chart")
                                 ?.AddTag("SubSessionId", subSessionId)
                                 ?.AddTag("SimSessionNumber", simSessionNumber);
@@ -505,6 +531,7 @@ public class DataClient(ApiClientBase apiClient,
                                                                                                                                      int simSessionNumber,
                                                                                                                                      CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Subsession Event Log for {SubSessionId} session {SimSessionNumber}", subSessionId, simSessionNumber);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Subsession Event Log")
                                ?.AddTag("SubSessionId", subSessionId)
                                ?.AddTag("SimSessionNumber", simSessionNumber);
@@ -530,6 +557,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<SeriesDetail[]>> GetSeriesAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Series");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Series");
 
         var seriesDetailUrl = new Uri("https://members-ng.iracing.com/data/series/get");
@@ -547,6 +575,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<IReadOnlyDictionary<string, SeriesAsset>>> GetSeriesAssetsAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Series Assets");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Series Assets");
 
         var infoLinkUri = new Uri("https://members-ng.iracing.com/data/series/assets");
@@ -564,6 +593,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>> GetSingleDriverSubsessionLapsAsync(int subSessionId, int simSessionNumber, int customerId, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Single Driver Subsession Laps for {CustomerId} driving in {SubSessionId} session {SimSessionNumber}", customerId, subSessionId, simSessionNumber);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Single Driver Subsession Laps")
                                            ?.AddTag("SubSessionId", subSessionId)
                                            ?.AddTag("SimSessionNumber", simSessionNumber)
@@ -591,6 +621,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<(SubsessionLapsHeader Header, SubsessionLap[] Laps)>> GetTeamSubsessionLapsAsync(int subSessionId, int simSessionNumber, int teamId, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Team Subsession Laps for {TeamId} driving in {SubSessionId} session {SimSessionNumber}", teamId, subSessionId, simSessionNumber);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Team Subsession Laps")
                                            ?.AddTag("SubSessionId", subSessionId)
                                            ?.AddTag("SimSessionNumber", simSessionNumber)
@@ -618,6 +649,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<MemberDivision>> GetMemberDivisionAsync(int seasonId, Common.EventType eventType, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Member Division for {SeasonId} in {EventType}", seasonId, eventType);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Member Division")
                                            ?.AddTag("SeasonId", seasonId)
                                            ?.AddTag("EventType", eventType);
@@ -643,6 +675,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<MemberYearlyStatistics>> GetMemberYearlyStatisticsAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Member Yearly Statistics");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Member Yearly Statistics");
 
         var infoLinkUri = new Uri("https://members-ng.iracing.com/data/stats/member_yearly");
@@ -660,6 +693,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<MemberChart>> GetMemberChartDataAsync(int? customerId, int categoryId, MemberChartType chartType, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Member Chart Data for {CustomerId} in {CategoryId} of type {ChartType}", customerId, categoryId, chartType);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Member Chart Data")
                                 ?.AddTag("CustomerId", customerId)
                                 ?.AddTag("CategoryId", categoryId)
@@ -691,6 +725,7 @@ public class DataClient(ApiClientBase apiClient,
                                                                                                                   int? seasonQuarter = null,
                                                                                                                   CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get World Records for car {CarId} on track {TrackId} season {SeasonYear} {SeasonQuarter}", carId, trackId, seasonYear, seasonQuarter);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get World Records")
                                ?.AddTag("CarId", carId)
                                ?.AddTag("TrackId", trackId)
@@ -732,6 +767,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<TeamInfo>> GetTeamAsync(int teamId, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Team {TeamId}", teamId);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Team")
                                 ?.AddTag("TeamId", teamId);
 
@@ -759,9 +795,12 @@ public class DataClient(ApiClientBase apiClient,
                                                                                                                                           int? division = null,
                                                                                                                                           CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Season Driver Standings for {SeasonId} car class {CarClassId} {RaceWeekIndex} {Division}", seasonId, carClassId, raceWeekIndex, division);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Season Driver Standings")
                                ?.AddTag("SeasonId", seasonId)
-                               ?.AddTag("CarClassId", carClassId);
+                               ?.AddTag("CarClassId", carClassId)
+                               ?.AddTag("RaceWeekIndex", raceWeekIndex)
+                               ?.AddTag("Division", division);
 
 #if NET8_0_OR_GREATER
         ArgumentOutOfRangeException.ThrowIfNegative(seasonId);
@@ -815,9 +854,12 @@ public class DataClient(ApiClientBase apiClient,
                                                                                                                                      int? division = null,
                                                                                                                                      CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Season Qualify Results for {SeasonId} car class {CarClassId} {RaceWeekIndex} {Division}", seasonId, carClassId, raceWeekIndex, division);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Season Qualify Results")
-                                           ?.AddTag("SeasonId", seasonId)
-                                           ?.AddTag("CarClassId", carClassId);
+                               ?.AddTag("SeasonId", seasonId)
+                               ?.AddTag("CarClassId", carClassId)
+                               ?.AddTag("RaceWeekIndex", raceWeekIndex)
+                               ?.AddTag("Division", division);
 
 #if NET8_0_OR_GREATER
         ArgumentOutOfRangeException.ThrowIfNegative(seasonId);
@@ -871,9 +913,12 @@ public class DataClient(ApiClientBase apiClient,
                                                                                                                                            int? division = null,
                                                                                                                                            CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Season Time Trial Results for {SeasonId} car class {CarClassId} {RaceWeekIndex} {Division}", seasonId, carClassId, raceWeekIndex, division);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Season Time Trial Results")
                                ?.AddTag("SeasonId", seasonId)
-                               ?.AddTag("CarClassId", carClassId);
+                               ?.AddTag("CarClassId", carClassId)
+                               ?.AddTag("RaceWeekIndex", raceWeekIndex)
+                               ?.AddTag("Division", division);
 
 #if NET8_0_OR_GREATER
         ArgumentOutOfRangeException.ThrowIfNegative(seasonId);
@@ -927,9 +972,12 @@ public class DataClient(ApiClientBase apiClient,
                                                                                                                                                    int? division = null,
                                                                                                                                                    CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Season Time Trial Standings for {SeasonId} car class {CarClassId} {RaceWeekIndex} {Division}", seasonId, carClassId, raceWeekIndex, division);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Season Time Trial Standings")
                                ?.AddTag("SeasonId", seasonId)
-                               ?.AddTag("CarClassId", carClassId);
+                               ?.AddTag("CarClassId", carClassId)
+                               ?.AddTag("RaceWeekIndex", raceWeekIndex)
+                               ?.AddTag("Division", division);
 
 #if NET8_0_OR_GREATER
         ArgumentOutOfRangeException.ThrowIfNegative(seasonId);
@@ -967,11 +1015,11 @@ public class DataClient(ApiClientBase apiClient,
         var subSessionLapChartUrl = "https://members-ng.iracing.com/data/stats/season_tt_standings".ToUrlWithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseFromChunksAsync(subSessionLapChartUrl,
-                                                                                 true,
-                                                                                 SeasonTimeTrialStandingsHeaderContext.Default.SeasonTimeTrialStandingsHeader,
-                                                                                 header => header.ChunkInfo,
-                                                                                 SeasonTimeTrialStandingArrayContext.Default.SeasonTimeTrialStandingArray,
-                                                                                 cancellationToken)
+                                                                     true,
+                                                                     SeasonTimeTrialStandingsHeaderContext.Default.SeasonTimeTrialStandingsHeader,
+                                                                     header => header.ChunkInfo,
+                                                                     SeasonTimeTrialStandingArrayContext.Default.SeasonTimeTrialStandingArray,
+                                                                     cancellationToken)
                                       .ConfigureAwait(false);
         return response;
     }
@@ -982,9 +1030,11 @@ public class DataClient(ApiClientBase apiClient,
                                                                                                                                     int? raceWeekIndex = null,
                                                                                                                                     CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Season Team Standings for {SeasonId} car class {CarClassId} {RaceWeekIndex}", seasonId, carClassId, raceWeekIndex);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Season Team Standings")
                                ?.AddTag("SeasonId", seasonId)
-                               ?.AddTag("CarClassId", carClassId);
+                               ?.AddTag("CarClassId", carClassId)
+                               ?.AddTag("RaceWeekIndex", raceWeekIndex);
 
 #if NET8_0_OR_GREATER
         ArgumentOutOfRangeException.ThrowIfNegative(seasonId);
@@ -1028,6 +1078,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<SeasonResults>> GetSeasonResultsAsync(int seasonId, Common.EventType eventType, int raceWeekNumber, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Season Results for {SeasonId} in {EventType} for week {RaceWeekNumber}", seasonId, eventType, raceWeekNumber);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Season Results")
                                ?.AddTag("SeasonId", seasonId)
                                ?.AddTag("EventType", eventType)
@@ -1055,6 +1106,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<SeasonSeries[]>> GetSeasonsAsync(bool includeSeries, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Seasons");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Seasons");
 
         var queryParameters = new Dictionary<string, object?>
@@ -1077,6 +1129,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<StatisticsSeries[]>> GetStatisticsSeriesAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Statistics Series");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Statistics Series");
 
         var statsSeriesUrl = new Uri("https://members-ng.iracing.com/data/series/stats_series");
@@ -1095,6 +1148,7 @@ public class DataClient(ApiClientBase apiClient,
                                                                            int? carId = null,
                                                                            CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Best Lap Statistics for {CustomerId} in {CarId}", customerId, carId);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Best Lap Statistics")
                                ?.AddTag("CustomerId", customerId)
                                ?.AddTag("CarId", carId);
@@ -1126,6 +1180,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<MemberCareer>> GetCareerStatisticsAsync(int? customerId = null, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Career Statistics for {CustomerId}", customerId);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Career Statistics")
                                 ?.AddTag("CustomerId", customerId);
 
@@ -1151,6 +1206,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<MemberRecentRaces>> GetMemberRecentRacesAsync(int? customerId = null, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Member Recent Races for {CustomerId}", customerId);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Member Recent Races")
                                 ?.AddTag("CustomerId", customerId);
 
@@ -1176,6 +1232,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<MemberSummary>> GetMemberSummaryAsync(int? customerId = null, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Member Summary for {CustomerId}", customerId);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Member Summary")
                                 ?.AddTag("CustomerId", customerId);
 
@@ -1201,6 +1258,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<IReadOnlyDictionary<string, TrackAssets>>> GetTrackAssetsAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Track Assets");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Track Assets");
 
         var trackAssetsUrl = new Uri("https://members-ng.iracing.com/data/track/assets");
@@ -1218,6 +1276,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<Tracks.Track[]>> GetTracksAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Tracks");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Tracks");
 
         var infoLinkUri = new Uri("https://members-ng.iracing.com/data/track/get");
@@ -1235,6 +1294,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<(HostedResultsHeader Header, HostedResultItem[] Items)>> SearchHostedResultsAsync(HostedSearchParameters searchParameters, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Search Hosted Results");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Search Hosted Results");
 
 #if NET6_0_OR_GREATER
@@ -1303,6 +1363,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<(OfficialSearchResultHeader Header, OfficialSearchResultItem[] Items)>> SearchOfficialResultsAsync(OfficialSearchParameters searchParameters, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Search Official Results");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Search Official Results");
 
 #if NET6_0_OR_GREATER
@@ -1369,6 +1430,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<LeagueDirectoryResultPage>> SearchLeagueDirectoryAsync(SearchLeagueDirectoryParameters searchParameters, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Search League Directory");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Search League Directory");
 
 #if NET6_0_OR_GREATER
@@ -1443,6 +1505,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<ListOfSeasons>> ListSeasonsAsync(int seasonYear, int seasonQuarter, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("List Seasons for {SeasonYear} {SeasonQuarter}", seasonYear, seasonQuarter);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("List Seasons")
                                ?.AddTag("SeasonYear", seasonYear)
                                ?.AddTag("SeasonQuarter", seasonQuarter);
@@ -1516,6 +1579,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<LeagueMembership[]>> GetLeagueMembershipAsync(bool includeLeague = false, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get League Membership");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get League Membership");
 
         return await GetLeagueMembershipInternalAsync(null, includeLeague, cancellationToken).ConfigureAwait(false);
@@ -1524,6 +1588,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<LeagueMembership[]>> GetLeagueMembershipAsync(int customerId, bool includeLeague = false, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get League Membership for {CustomerId}", customerId);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get League Membership")
                                            ?.AddTag("CustomerId", customerId);
 
@@ -1557,6 +1622,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<LeagueSeasons>> GetLeagueSeasonsAsync(int leagueId, bool includeRetired = false, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get League Seasons for {LeagueId}", leagueId);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get League Seasons")
                                            ?.AddTag("LeagueId", leagueId);
 
@@ -1581,6 +1647,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<RaceGuideResults>> GetRaceGuideAsync(DateTimeOffset? from = null, bool? includeEndAfterFrom = null, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Race Guide");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Race Guide");
 
         var queryParameters = new Dictionary<string, object?>();
@@ -1613,6 +1680,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<Country[]>> GetCountriesAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Countries");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Countries");
 
         var infoLinkUri = new Uri("https://members-ng.iracing.com/data/lookup/countries");
@@ -1630,6 +1698,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<ParticipationCredits[]>> GetMemberParticipationCreditsAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Member Participation Credits");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Member Participation Credits");
 
         var infoLinkUri = new Uri("https://members-ng.iracing.com/data/member/participation_credits");
@@ -1650,6 +1719,7 @@ public class DataClient(ApiClientBase apiClient,
                                                                                        bool resultsOnly = false,
                                                                                        CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get League Season Sessions for {LeagueId} {SeasonId}", leagueId, seasonId);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get League Season Sessions")
                                            ?.AddTag("LeagueId", leagueId)
                                            ?.AddTag("SeasonId", seasonId);
@@ -1676,6 +1746,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<PastSeriesDetail>> GetPastSeasonsForSeriesAsync(int seriesId, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Past Seasons For Series {SeriesId}", seriesId);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Past Seasons For Series")
                                            ?.AddTag("SeriesId", seriesId);
 
@@ -1710,6 +1781,7 @@ public class DataClient(ApiClientBase apiClient,
                                                                              int? carId = null,
                                                                              CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get League Season Standings for {LeagueId} {SeasonId}", leagueId, seasonId);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get League Season Standings")
                                            ?.AddTag("LeagueId", leagueId)
                                            ?.AddTag("SeasonId", seasonId);
@@ -1749,6 +1821,7 @@ public class DataClient(ApiClientBase apiClient,
                                                                                                                                                           int? raceWeekIndex = null,
                                                                                                                                                           CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Season Super Session Standings for {SeasonId} {CarClassId}", seasonId, carClassId);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Season Super Session Standings")
                                ?.AddTag("SeasonId", seasonId)
                                ?.AddTag("CarClassId", carClassId);
@@ -1783,6 +1856,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<StatusResult> GetServiceStatusAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Service Status");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Service Status");
 
         var data = await apiClient.GetUnauthenticatedResponseAsync(new Uri("https://status.iracing.com/status.json"),
@@ -1797,6 +1871,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<TimeAttackSeason[]> GetTimeAttackSeasonsAsync(CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Time Attack Seasons");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Time Attack Seasons");
 
         // A "magic" sequence of URLs from Nicholas Bailey: https://forums.iracing.com/discussion/comment/302454/#Comment_302454
@@ -1819,6 +1894,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<TimeAttackMemberSeasonResult[]>> GetTimeAttackMemberSeasonResultsAsync(int competitionSeasonId, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Time Attack Member Season Results for {CompetitionSeasonId}", competitionSeasonId);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Time Attack Member Season Results")
                                 ?.AddTag("CompetitionSeasonId", competitionSeasonId);
 
@@ -1845,6 +1921,7 @@ public class DataClient(ApiClientBase apiClient,
                                                                      int? seasonQuarter = null,
                                                                      CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Member Recap for {CustomerId} {SeasonYear} {SeasonQuarter}", customerId, seasonYear, seasonQuarter);
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Member Recap")
                                ?.AddTag("CustomerId", customerId)
                                ?.AddTag("SeasonYear", seasonYear)
@@ -1872,6 +1949,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<SpectatorSubsessionIds>> GetSpectatorSubsessionIdentifiersAsync(Common.EventType[]? eventTypes = null, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Spectator Subsession Identifiers");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Spectator Subsession Identifiers");
 
         var queryParameters = new Dictionary<string, object?>
@@ -1896,6 +1974,7 @@ public class DataClient(ApiClientBase apiClient,
                                                                                          int[]? seasonIds = null,
                                                                                          CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Spectator Subsession Details");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Spectator Subsession Details");
 
         var queryParameters = new Dictionary<string, object?>
@@ -1920,6 +1999,7 @@ public class DataClient(ApiClientBase apiClient,
     public Task<DriverStatisticsCsvFile> GetDriverStatisticsByCategoryCsvAsync(int categoryId, CancellationToken cancellationToken = default)
     {
         throw new NotImplementedException("TO DO");
+        //        logger.LogDebug("Get Driver Statistics By Category CSV);
         //        using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Driver Statistics By Category CSV")
         //                                ?.AddTag("CategoryId", categoryId);
 
@@ -1982,6 +2062,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public IEnumerable<Uri> GetTrackAssetScreenshotUris(Tracks.Track track, TrackAssets trackAssets)
     {
+        logger.LogDebug("Get Track Asset Screenshot URIs");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Track Asset Screenshot URIs");
 
 #if NET6_0_OR_GREATER
@@ -2025,6 +2106,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<IEnumerable<Uri>> GetTrackAssetScreenshotUrisAsync(int trackId, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Track Asset Screenshot URIs for Track ID");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Track Asset Screenshot URIs for Track ID");
 
         var tracksResponse = await GetTracksAsync(cancellationToken).ConfigureAwait(false);
@@ -2061,6 +2143,7 @@ public class DataClient(ApiClientBase apiClient,
     /// <inheritdoc />
     public async Task<IEnumerable<WeatherForecast>> GetWeatherForecastFromUrlAsync(Uri url, CancellationToken cancellationToken = default)
     {
+        logger.LogDebug("Get Weather Forecast From URL");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Weather Forecast From URL");
 
         var data = await apiClient.GetUnauthenticatedResponseAsync(url,
