@@ -28,7 +28,8 @@ internal sealed class ServicesTests
 
         var sut = scope.ServiceProvider.GetRequiredService<IDataClient>();
 
-        var lookups = await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
+        var lookups = await sut.GetLookupsAsync(CancellationToken.None)
+                               .ConfigureAwait(false);
 
         //Assert.That(testDataClient.isLoggedIn, Is.True);
         Assert.That(lookups, Is.Not.Null);

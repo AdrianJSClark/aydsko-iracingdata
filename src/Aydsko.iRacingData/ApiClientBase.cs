@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT license.
 
 using System.Diagnostics;
-using System.Net;
 using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Security.Cryptography;
@@ -13,7 +12,7 @@ using Aydsko.iRacingData.Exceptions;
 
 namespace Aydsko.iRacingData;
 
-public abstract class ApiClientBase(HttpClient httpClient,
+public class ApiClientBase(IAuthenticatingHttpClient httpClient,
                                     iRacingDataClientOptions options,
                                     ILogger<ApiClientBase> logger)
     : IDisposable
@@ -22,7 +21,7 @@ public abstract class ApiClientBase(HttpClient httpClient,
 
     private bool disposedValue;
 
-    protected HttpClient HttpClient { get; } = httpClient;
+    protected IAuthenticatingHttpClient HttpClient { get; } = httpClient;
     protected iRacingDataClientOptions Options { get; } = options;
     protected ILogger<ApiClientBase> Logger { get; } = logger;
 
@@ -84,10 +83,11 @@ public abstract class ApiClientBase(HttpClient httpClient,
         var attempts = 0;
 
     RetryResponseViaInfoLinkToChunkInfo:
+
+        HttpResponseMessage? responseMessage = null;
+
         try
         {
-            await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
-
             Uri link;
             HttpResponseHeaders? headers = null;
             DateTimeOffset? expires = null;
@@ -95,9 +95,9 @@ public abstract class ApiClientBase(HttpClient httpClient,
             if (isViaInfoLink)
             {
                 var (infoLink, infoLinkHeaders) = await BuildIntermediateResultAsync(uri,
-                                                                             LinkResultContext.Default.LinkResult,
-                                                                             cancellationToken)
-                                                .ConfigureAwait(false);
+                                                                                     LinkResultContext.Default.LinkResult,
+                                                                                     cancellationToken)
+                                                        .ConfigureAwait(false);
 
                 if (infoLink?.Link is null)
                 {
@@ -107,32 +107,31 @@ public abstract class ApiClientBase(HttpClient httpClient,
                 link = new Uri(infoLink.Link);
                 headers = infoLinkHeaders;
                 expires = infoLink.Expires;
+
+                using var linkRequest = new HttpRequestMessage(HttpMethod.Get, link);
+                responseMessage = await HttpClient.SendAsync(linkRequest, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
+                                                  .ConfigureAwait(false);
             }
             else
             {
-                link = uri;
-            }
-
-            var response = await HttpClient.GetAsync(link, cancellationToken)
-                                           .ConfigureAwait(false);
-
-            if (!isViaInfoLink)
-            {
-                headers = response.Headers;
+                using var nonLinkRequest = new HttpRequestMessage(HttpMethod.Get, uri);
+                responseMessage = await HttpClient.SendAuthenticatedRequestAsync(nonLinkRequest, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
+                                                  .ConfigureAwait(false);
+                headers = responseMessage.Headers;
             }
 
             // This isn't the most performant way of going here, but annoyingly if you exceed the rate limit it isn't an error just
             // the string "Rate limit exceeded" so we need the string to check that.
 #if NET6_0_OR_GREATER
-            var responseContent = await response.Content.ReadAsStringAsync(cancellationToken)
-                                                        .ConfigureAwait(false);
+            var responseContent = await responseMessage.Content.ReadAsStringAsync(cancellationToken)
+                                                               .ConfigureAwait(false);
 #else
-            var responseContent = await response.Content.ReadAsStringAsync()
-                                                        .ConfigureAwait(false);
+            var responseContent = await responseMessage.Content.ReadAsStringAsync()
+                                                               .ConfigureAwait(false);
 #endif
-            if (!response.IsSuccessStatusCode || responseContent == RateLimitExceededContent)
+            if (!responseMessage.IsSuccessStatusCode || responseContent == RateLimitExceededContent)
             {
-                HandleUnsuccessfulResponse(response, responseContent, Logger);
+                HandleUnsuccessfulResponse(responseMessage, responseContent, Logger);
             }
 
             var headerData = JsonSerializer.Deserialize(responseContent, jsonTypeInfo)
@@ -152,16 +151,18 @@ public abstract class ApiClientBase(HttpClient httpClient,
                 {
                     _ = Activity.Current?.AddEvent(new("Start downloading chunk", tags: new([new("ChunkIndex", index)])));
 
-                    var chunkUrl = new Uri(baseChunkUrl, chunkFileName);
+                    using var getChunkRequest = new HttpRequestMessage(HttpMethod.Get, new Uri(baseChunkUrl, chunkFileName));
+                    var chunkResponse = await HttpClient.SendAsync(getChunkRequest, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
+                                                        .ConfigureAwait(false);
 
-                    var chunkResponse = await HttpClient.GetAsync(chunkUrl, cancellationToken).ConfigureAwait(false);
                     if (!chunkResponse.IsSuccessStatusCode)
                     {
                         Logger.FailedToRetrieveChunkError(index, chunkInfo.NumberOfChunks, chunkResponse.StatusCode, chunkResponse.ReasonPhrase);
                         continue;
                     }
 
-                    var chunkData = await chunkResponse.Content.ReadFromJsonAsync(chunkArrayTypeInfo, cancellationToken).ConfigureAwait(false);
+                    var chunkData = await chunkResponse.Content.ReadFromJsonAsync(chunkArrayTypeInfo, cancellationToken)
+                                                               .ConfigureAwait(false);
                     if (chunkData is null)
                     {
                         continue;
@@ -184,6 +185,10 @@ public abstract class ApiClientBase(HttpClient httpClient,
             }
             throw;
         }
+        finally
+        {
+            responseMessage?.Dispose();
+        }
     }
 
     public async Task<DataResponse<TData>> CreateResponseViaIntermediateResultAsync<TIntermediate, TData>(Uri intermediateUri,
@@ -204,8 +209,6 @@ public abstract class ApiClientBase(HttpClient httpClient,
     RetryResponseViaInfoLink:
         try
         {
-            await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
-
             var (finalLinkDto, headers) = await BuildIntermediateResultAsync(intermediateUri,
                                                                              intermediateJsonTypeInfo,
                                                                              cancellationToken)
@@ -219,9 +222,16 @@ public abstract class ApiClientBase(HttpClient httpClient,
 
             _ = Activity.Current?.AddEvent(new ActivityEvent("Result Link Retrieved"));
 
-            var data = await HttpClient.GetFromJsonAsync(finalLinkUri, jsonTypeInfo, cancellationToken)
-                                       .ConfigureAwait(false)
-                                       ?? throw new iRacingDataClientException("Data not found.");
+            using var finalLinkRequest = new HttpRequestMessage(HttpMethod.Get, finalLinkUri);
+            var response = await HttpClient.SendAsync(finalLinkRequest, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
+                                           .ConfigureAwait(false);
+
+            _ = response.EnsureSuccessStatusCode();
+
+            var data = await response.Content.ReadFromJsonAsync(jsonTypeInfo, cancellationToken)
+                                             .ConfigureAwait(false)
+                       ?? throw new iRacingDataClientException("Data not found.");
+
             _ = Activity.Current?.AddEvent(new ActivityEvent("Data Retrieved"));
 
             return BuildDataResponse(headers, data, expires);
@@ -277,7 +287,8 @@ public abstract class ApiClientBase(HttpClient httpClient,
                                                                                                         JsonTypeInfo<TResult> jsonTypeInfo,
                                                                                                         CancellationToken cancellationToken)
     {
-        var intermediateResponse = await HttpClient.GetAsync(intermediateUri, cancellationToken)
+        using var intermediateRequest = new HttpRequestMessage(HttpMethod.Get, intermediateUri);
+        var intermediateResponse = await HttpClient.SendAuthenticatedRequestAsync(intermediateRequest, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
                                                    .ConfigureAwait(false);
 
 #if NET6_0_OR_GREATER
@@ -323,20 +334,35 @@ public abstract class ApiClientBase(HttpClient httpClient,
     RetryResponseWithHeadersFromJson:
         try
         {
-            if (!skipAuthentication)
+
+            using var request = new HttpRequestMessage(HttpMethod.Get, uri);
+
+            HttpResponseMessage? response;
+            if (skipAuthentication)
             {
-                await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
+                response = await HttpClient.SendAsync(request,
+                                                      HttpCompletionOption.ResponseHeadersRead,
+                                                      cancellationToken)
+                                           .ConfigureAwait(false);
+            }
+            else
+            {
+                response = await HttpClient.SendAuthenticatedRequestAsync(request,
+                                                                          HttpCompletionOption.ResponseHeadersRead,
+                                                                          cancellationToken)
+                                           .ConfigureAwait(false);
             }
 
-            var response = await HttpClient.GetAsync(uri, cancellationToken).ConfigureAwait(false);
-
 #if NET6_0_OR_GREATER
-            var content = await response.Content.ReadAsStringAsync(cancellationToken).ConfigureAwait(false);
+            var content = await response.Content.ReadAsStringAsync(cancellationToken)
+                                                .ConfigureAwait(false);
 #else
-            var content = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+            var content = await response.Content.ReadAsStringAsync()
+                                                .ConfigureAwait(false);
 #endif
 
-            if (!response.IsSuccessStatusCode || content == RateLimitExceededContent)
+            if (!response.IsSuccessStatusCode
+                || content == RateLimitExceededContent)
             {
                 HandleUnsuccessfulResponse(response, content, Logger);
             }
@@ -412,7 +438,7 @@ public abstract class ApiClientBase(HttpClient httpClient,
         {
             if (exception is iRacingUnauthorizedResponseException)
             {
-                ClearLoggedInState();
+                HttpClient.ClearLoggedInState();
             }
 
             logger.ErrorResponse(errorDescription, exception);
@@ -420,17 +446,14 @@ public abstract class ApiClientBase(HttpClient httpClient,
         }
     }
 
-    protected internal abstract Task EnsureLoggedInAsync(CancellationToken cancellationToken);
-    protected internal abstract void ClearLoggedInState();
-
-    protected static string EncodePassword(string username, string password)
+    protected internal static string EncodePassword(string username, string password)
     {
 #pragma warning disable CA1308 // Normalize strings to uppercase - iRacing API requires lowercase
         var passwordAndEmail = password + (username?.ToLowerInvariant());
 #pragma warning restore CA1308 // Normalize strings to uppercase
 
 #if NET6_0_OR_GREATER
-                var hashedPasswordAndEmailBytes = SHA256.HashData(Encoding.UTF8.GetBytes(passwordAndEmail));
+        var hashedPasswordAndEmailBytes = SHA256.HashData(Encoding.UTF8.GetBytes(passwordAndEmail));
 #else
         using var sha256 = SHA256.Create();
         var hashedPasswordAndEmailBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(passwordAndEmail));

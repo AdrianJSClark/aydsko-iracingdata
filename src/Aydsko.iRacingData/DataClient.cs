@@ -33,10 +33,10 @@ public class DataClient(ApiClientBase apiClient,
     [Obsolete("Configure via the \"AddIRacingDataApi\" extension method on the IServiceCollection which allows you to configure the \"iRacingDataClientOptions\".")]
     public void UseUsernameAndPassword(string username, string password, bool passwordIsEncoded)
     {
-        if (apiClient is LegacyUsernamePasswordApiClient legacyUsernamePasswordApiClient)
-        {
-            legacyUsernamePasswordApiClient.UseUsernameAndPassword(username, password, passwordIsEncoded);
-        }
+        //if (apiClient is LegacyUsernamePasswordApiClient legacyUsernamePasswordApiClient)
+        //{
+        //    legacyUsernamePasswordApiClient.UseUsernameAndPassword(username, password, passwordIsEncoded);
+        //}
         throw new InvalidOperationException("Must be using the \"LegacyUsernamePasswordApiClient\" to use this method.");
     }
 
@@ -1352,11 +1352,11 @@ public class DataClient(ApiClientBase apiClient,
         var searchHostedUrl = "https://members-ng.iracing.com/data/results/search_hosted".ToUrlWithQuery(queryParameters);
 
         return await apiClient.CreateResponseFromChunksAsync(searchHostedUrl,
-                                                                  false,
-                                                                  HostedResultsHeaderContext.Default.HostedResultsHeader,
-                                                                  header => header.Data.ChunkInfo,
-                                                                  HostedResultItemContext.Default.HostedResultItemArray,
-                                                                  cancellationToken)
+                                                             false,
+                                                             HostedResultsHeaderContext.Default.HostedResultsHeader,
+                                                             header => header.Data.ChunkInfo,
+                                                             HostedResultItemContext.Default.HostedResultItemArray,
+                                                             cancellationToken)
                               .ConfigureAwait(false);
     }
 

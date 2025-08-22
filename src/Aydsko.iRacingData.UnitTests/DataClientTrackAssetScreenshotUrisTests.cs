@@ -3,7 +3,8 @@
 
 namespace Aydsko.iRacingData.UnitTests;
 
-internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBase
+internal sealed class DataClientTrackAssetScreenshotUrisTests
+    : MockedHttpTestBase
 {
     [SetUp]
     public async Task SetUpAsync()
@@ -19,7 +20,8 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
                                                              options,
                                                              CookieContainer,
                                                              new TestLogger<LegacyUsernamePasswordApiClient>());
-        var sut = new DataClient(client, options, new TestLogger<DataClient>());
+        var apiClientInstance = new ApiClientBase(client, options, new TestLogger<ApiClientBase>());
+        var sut = new DataClient(apiClientInstance, options, new TestLogger<DataClient>());
 
         // Make use of our captured responses.
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTracksSuccessfulAsync))
@@ -28,6 +30,7 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests : MockedHttpTestBa
                             .ConfigureAwait(false);
 
         apiClient = client;
+        apiClientBase = apiClientInstance;
         testDataClient = sut;
     }
 

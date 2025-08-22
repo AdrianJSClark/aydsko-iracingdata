@@ -48,4 +48,18 @@ public class iRacingDataClientOptions
     /// <summary>If <see langword="true" /> indicates the <see cref="ClientSecret"/> property value is already encoded ready for submission to the iRacing API.</summary>
     /// <seealso href="https://oauth.iracing.com/oauth2/book/token_endpoint.html#client-secret-and-user-password-masking" />
     public bool ClientSecretIsEncoded { get; set; }
+
+    /// <summary>The base URL for the iRacing "/data" API. All calls will be made relative to this.</summary>
+    /// <remarks>
+    /// <para>This should not be changed unless you are sure you need an alternate endpoint.</para>
+    /// <para>This will default to <c>https://members-ng.iracing.com</c>.</para>
+    /// </remarks>
+    public string ApiBaseUrl { get; set; } = "https://members-ng.iracing.com";
+
+    /// <summary>The base URL for the iRacing Auth Service. All OAuth calls will be made relative to this.</summary>
+    /// <remarks>
+    /// <para>This should not be changed unless you are sure you need an alternate endpoint.</para>
+    /// <para>This will default to <c>https://oauth.iracing.com</c>.</para>
+    /// </remarks>
+    public string AuthServiceBaseUrl { get; set; } = "https://oauth.iracing.com";
 }

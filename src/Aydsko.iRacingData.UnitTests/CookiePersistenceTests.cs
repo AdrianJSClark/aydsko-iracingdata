@@ -19,7 +19,8 @@ internal sealed class CookiePersistenceTests : MockedHttpTestBase
         };
 
         using var client = new TestLegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
-        var sut = new DataClient(client, options, new TestLogger<DataClient>());
+        using var apiClient = new ApiClientBase(client, options, new TestLogger<ApiClientBase>());
+        var sut = new DataClient(apiClient, options, new TestLogger<DataClient>());
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
         await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
@@ -40,7 +41,8 @@ internal sealed class CookiePersistenceTests : MockedHttpTestBase
         };
 
         using var client = new TestLegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
-        var sut = new DataClient(client, options, new TestLogger<DataClient>());
+        using var apiClient = new ApiClientBase(client, options, new TestLogger<ApiClientBase>());
+        var sut = new DataClient(apiClient, options, new TestLogger<DataClient>());
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
         await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
@@ -70,7 +72,8 @@ internal sealed class CookiePersistenceTests : MockedHttpTestBase
         };
 
         using var client = new TestLegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
-        var sut = new DataClient(client, options, new TestLogger<DataClient>());
+        using var apiClient = new ApiClientBase(client, options, new TestLogger<ApiClientBase>());
+        var sut = new DataClient(apiClient, options, new TestLogger<DataClient>());
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
         await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);

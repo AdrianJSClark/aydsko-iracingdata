@@ -3,8 +3,6 @@
 
 using System.Net;
 using System.Net.Http.Json;
-using System.Security.Cryptography;
-using System.Text;
 using System.Text.Json;
 using Aydsko.iRacingData.Exceptions;
 
@@ -14,11 +12,12 @@ public class LegacyUsernamePasswordApiClient(HttpClient httpClient,
                                              iRacingDataClientOptions options,
                                              CookieContainer cookieContainer,
                                              ILogger<LegacyUsernamePasswordApiClient> logger)
-    : ApiClientBase(httpClient, options, logger)
+    : IAuthenticatingHttpClient, IDisposable
 {
     private readonly SemaphoreSlim loginSemaphore = new(1, 1);
 #pragma warning disable CA1051 // Do not declare visible instance fields - Declared visible for testing purposes.
     protected bool isLoggedIn;
+    private bool disposedValue;
 #pragma warning restore CA1051 // Do not declare visible instance fields
 
     [Obsolete("Configure via the \"AddIRacingDataApi\" extension method on the IServiceCollection which allows you to configure the \"iRacingDataClientOptions\".")]
@@ -34,9 +33,9 @@ public class LegacyUsernamePasswordApiClient(HttpClient httpClient,
             throw iRacingClientOptionsValueMissingException.Create(nameof(password));
         }
 
-        Options.Username = username;
-        Options.Password = password;
-        Options.PasswordIsEncoded = passwordIsEncoded;
+        options.Username = username;
+        options.Password = password;
+        options.PasswordIsEncoded = passwordIsEncoded;
 
         // If the username & password has been updated likely the authentication needs to run again.
         isLoggedIn = false;
@@ -45,7 +44,7 @@ public class LegacyUsernamePasswordApiClient(HttpClient httpClient,
     /// <summary>Will ensure the client is authenticated by checking the <see cref="isLoggedIn"/> property and executing the login process if required.</summary>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A <see cref="Task"/> that resolves when the process is complete.</returns>
-    protected internal override async Task EnsureLoggedInAsync(CancellationToken cancellationToken)
+    protected internal async Task EnsureLoggedInAsync(CancellationToken cancellationToken)
     {
         if (!isLoggedIn)
         {
@@ -69,20 +68,20 @@ public class LegacyUsernamePasswordApiClient(HttpClient httpClient,
     {
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Login");
 
-        if (string.IsNullOrWhiteSpace(Options.Username))
+        if (string.IsNullOrWhiteSpace(options.Username))
         {
-            throw iRacingClientOptionsValueMissingException.Create(nameof(Options.Username));
+            throw iRacingClientOptionsValueMissingException.Create(nameof(options.Username));
         }
 
-        if (string.IsNullOrWhiteSpace(Options.Password))
+        if (string.IsNullOrWhiteSpace(options.Password))
         {
-            throw iRacingClientOptionsValueMissingException.Create(nameof(Options.Password));
+            throw iRacingClientOptionsValueMissingException.Create(nameof(options.Password));
         }
 
         try
         {
-            if (Options.RestoreCookies is not null
-                && Options.RestoreCookies() is CookieCollection savedCookies)
+            if (options.RestoreCookies is not null
+                && options.RestoreCookies() is CookieCollection savedCookies)
             {
                 cookieContainer.Add(savedCookies);
             }
@@ -91,25 +90,15 @@ public class LegacyUsernamePasswordApiClient(HttpClient httpClient,
             if (cookies["authtoken_members"] is { Expired: false })
             {
                 isLoggedIn = true;
-                logger.LoginCookiesRestored(Options.Username!);
+                logger.LoginCookiesRestored(options.Username!);
                 return;
             }
 
-            string? encodedHash = null;
-
-            if (Options.PasswordIsEncoded)
-            {
-                encodedHash = Options.Password;
-            }
-            else
-            {
-                encodedHash = EncodePassword(Options.Username!, Options.Password!);
-            }
-
-            var loginResponse = await HttpClient.PostAsJsonAsync("https://members-ng.iracing.com/auth",
+            var encodedHash = options.PasswordIsEncoded ? options.Password : ApiClientBase.EncodePassword(options.Username!, options.Password!);
+            var loginResponse = await httpClient.PostAsJsonAsync("https://members-ng.iracing.com/auth",
                                                                  new
                                                                  {
-                                                                     email = Options.Username,
+                                                                     email = options.Username,
                                                                      password = encodedHash
                                                                  },
                                                                  cancellationToken)
@@ -150,9 +139,9 @@ public class LegacyUsernamePasswordApiClient(HttpClient httpClient,
             }
 
             isLoggedIn = true;
-            logger.LoginSuccessful(Options.Username!);
+            logger.LoginSuccessful(options.Username!);
 
-            if (Options.SaveCookies is Action<CookieCollection> saveCredentials)
+            if (options.SaveCookies is Action<CookieCollection> saveCredentials)
             {
                 saveCredentials(cookieContainer.GetAllCookies());
             }
@@ -163,24 +152,61 @@ public class LegacyUsernamePasswordApiClient(HttpClient httpClient,
         }
     }
 
-    protected internal override void ClearLoggedInState()
+    public void ClearLoggedInState()
     {
         // Unauthorized might just be our session expired
         isLoggedIn = false;
 
         // Clear any externally saved cookies
-        Options.SaveCookies?.Invoke([]);
+        options.SaveCookies?.Invoke([]);
 
         // Reset the cookie container so we can re-login
         cookieContainer = new CookieContainer();
     }
 
-    protected override void Dispose(bool disposing)
+    public async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request,
+                                                     HttpCompletionOption completionOption = HttpCompletionOption.ResponseContentRead,
+                                                     CancellationToken cancellationToken = default)
     {
-        if (disposing)
+        var response = await httpClient.SendAsync(request, completionOption, cancellationToken)
+                                       .ConfigureAwait(false);
+        return response;
+    }
+
+    public async Task<HttpResponseMessage> SendAuthenticatedRequestAsync(HttpRequestMessage request,
+                                                                         HttpCompletionOption completionOption = HttpCompletionOption.ResponseContentRead,
+                                                                         CancellationToken cancellationToken = default)
+    {
+        await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
+        return await SendAsync(request, completionOption, cancellationToken).ConfigureAwait(false);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!disposedValue)
         {
-            loginSemaphore.Dispose();
+            if (disposing)
+            {
+                loginSemaphore.Dispose();
+            }
+
+            // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+            // TODO: set large fields to null
+            disposedValue = true;
         }
-        base.Dispose(disposing);
+    }
+
+    // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+    // ~LegacyUsernamePasswordApiClient()
+    // {
+    //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+    //     Dispose(disposing: false);
+    // }
+
+    public void Dispose()
+    {
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

@@ -6,7 +6,8 @@ using System.Net.Http;
 
 namespace Aydsko.iRacingData.UnitTests;
 
-internal abstract class MockedHttpTestBase : IDisposable
+internal abstract class MockedHttpTestBase
+    : IDisposable
 {
     protected static readonly int[] TestCustomerIds = [123456];
 
@@ -17,6 +18,7 @@ internal abstract class MockedHttpTestBase : IDisposable
 
     // NUnit will ensure that "SetUp" runs before each test so these can all be forced to "null".
     protected TestLegacyUsernamePasswordApiClient apiClient = null!;
+    protected ApiClientBase apiClientBase = null!;
     protected DataClient testDataClient = null!;
 
     [SetUp]
@@ -36,7 +38,8 @@ internal abstract class MockedHttpTestBase : IDisposable
                                                             options,
                                                             CookieContainer,
                                                             new TestLogger<LegacyUsernamePasswordApiClient>());
-        testDataClient = new DataClient(apiClient, options, new TestLogger<DataClient>());
+        apiClientBase = new ApiClientBase(apiClient, options, new TestLogger<ApiClientBase>());
+        testDataClient = new DataClient(apiClientBase, options, new TestLogger<DataClient>());
     }
 
     protected virtual void Dispose(bool disposing)
@@ -48,6 +51,7 @@ internal abstract class MockedHttpTestBase : IDisposable
                 MessageHandler?.Dispose();
                 HttpClient?.Dispose();
                 apiClient?.Dispose();
+                apiClientBase?.Dispose();
             }
 
             // TODO: free unmanaged resources (unmanaged objects) and override finalizer

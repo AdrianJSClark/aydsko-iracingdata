@@ -6,6 +6,7 @@ namespace Aydsko.iRacingData.IntegrationTests;
 internal abstract class DataClientIntegrationFixture : BaseIntegrationFixture<DataClient>
 {
     private LegacyUsernamePasswordApiClient? _legacyApiClient;
+    private ApiClientBase? _apiClientBase;
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
@@ -13,7 +14,8 @@ internal abstract class DataClientIntegrationFixture : BaseIntegrationFixture<Da
         var options = BaseSetUp();
 
         _legacyApiClient = new(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
-        Client = new DataClient(_legacyApiClient, options, new TestLogger<DataClient>());
+        _apiClientBase = new(_legacyApiClient, options, new TestLogger<ApiClientBase>());
+        Client = new DataClient(_apiClientBase, options, new TestLogger<DataClient>());
     }
 
     protected override void Dispose(bool disposing)
@@ -21,6 +23,7 @@ internal abstract class DataClientIntegrationFixture : BaseIntegrationFixture<Da
         if (disposing)
         {
             _legacyApiClient?.Dispose();
+            _apiClientBase?.Dispose();
         }
         base.Dispose(disposing);
     }

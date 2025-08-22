@@ -123,28 +123,28 @@ public static class ServicesExtensions
 
         //var httpClientBuilder = (includeCaching ? services.AddHttpClient<IDataClient, CachingDataClient>() : services.AddHttpClient<IDataClient, DataClient>())
 
+        services.AddTransient<ApiClientBase>();
         services.AddTransient<IDataClient, DataClient>();
 
         IHttpClientBuilder httpClientBuilder;
 
         if (!string.IsNullOrWhiteSpace(options.ClientId) && !string.IsNullOrWhiteSpace(options.ClientSecret))
         {
-            httpClientBuilder = services.AddHttpClient<ApiClientBase, PasswordLimitedGrantApiClient>()
-                                        .ConfigurePrimaryHttpMessageHandler(() => new DomainDependentAuthorizationHeaderDelegatingHandler("iracing.com", new HttpClientHandler()));
+            httpClientBuilder = services.AddHttpClient<IAuthenticatingHttpClient, OAuthPasswordLimitedAuthenticatingHttpClient>();
         }
         else
         {
             services.TryAddSingleton<CookieContainer>();
-            httpClientBuilder = services.AddHttpClient<LegacyUsernamePasswordApiClient>()
-                                .ConfigurePrimaryHttpMessageHandler(sp =>
-                                {
-                                    var handler = new HttpClientHandler
-                                    {
-                                        UseCookies = true,
-                                        CookieContainer = sp.GetRequiredService<CookieContainer>()
-                                    };
-                                    return handler;
-                                });
+            httpClientBuilder = services.AddHttpClient<IAuthenticatingHttpClient, LegacyUsernamePasswordApiClient>()
+                                        .ConfigurePrimaryHttpMessageHandler(sp =>
+                                        {
+                                            var handler = new HttpClientHandler
+                                            {
+                                                UseCookies = true,
+                                                CookieContainer = sp.GetRequiredService<CookieContainer>()
+                                            };
+                                            return handler;
+                                        });
         }
 
         httpClientBuilder.ConfigureHttpClient(httpClient => httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(userAgentValue));
