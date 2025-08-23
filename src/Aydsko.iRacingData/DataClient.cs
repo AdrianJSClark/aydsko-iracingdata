@@ -33,11 +33,7 @@ public class DataClient(ApiClientBase apiClient,
     [Obsolete("Configure via the \"AddIRacingDataApi\" extension method on the IServiceCollection which allows you to configure the \"iRacingDataClientOptions\".")]
     public void UseUsernameAndPassword(string username, string password, bool passwordIsEncoded)
     {
-        //if (apiClient is LegacyUsernamePasswordApiClient legacyUsernamePasswordApiClient)
-        //{
-        //    legacyUsernamePasswordApiClient.UseUsernameAndPassword(username, password, passwordIsEncoded);
-        //}
-        throw new InvalidOperationException("Must be using the \"LegacyUsernamePasswordApiClient\" to use this method.");
+        apiClient.UseUsernameAndPassword(username, password, passwordIsEncoded);
     }
 
     /// <inheritdoc/>
@@ -1996,67 +1992,52 @@ public class DataClient(ApiClientBase apiClient,
     }
 
     /// <inheritdoc />
-    public Task<DriverStatisticsCsvFile> GetDriverStatisticsByCategoryCsvAsync(int categoryId, CancellationToken cancellationToken = default)
+    public async Task<DriverStatisticsCsvFile> GetDriverStatisticsByCategoryCsvAsync(int categoryId, CancellationToken cancellationToken = default)
     {
-        throw new NotImplementedException("TO DO");
-        //        logger.LogDebug("Get Driver Statistics By Category CSV);
-        //        using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Driver Statistics By Category CSV")
-        //                                ?.AddTag("CategoryId", categoryId);
+        logger.LogDebug("Get Driver Statistics By Category CSV");
+        using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Driver Statistics By Category CSV")
+                                ?.AddTag("CategoryId", categoryId);
 
-        //        var attempts = 0;
-        //        var statsUrl = categoryId switch
-        //        {
-        //            1 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/oval"),
-        //            2 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/road"),
-        //            3 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/dirt_oval"),
-        //            4 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/dirt_road"),
-        //            5 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/sports_car"),
-        //            6 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/formula_car"),
-        //            _ => throw new ArgumentOutOfRangeException(nameof(categoryId), categoryId, "Invalid Category Id value. Must be between 1 and 6 (inclusive)."),
-        //        };
+        //var attempts = 0;
+        var statsUrl = categoryId switch
+        {
+            1 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/oval"),
+            2 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/road"),
+            3 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/dirt_oval"),
+            4 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/dirt_road"),
+            5 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/sports_car"),
+            6 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/formula_car"),
+            _ => throw new ArgumentOutOfRangeException(nameof(categoryId), categoryId, "Invalid Category Id value. Must be between 1 and 6 (inclusive)."),
+        };
 
-        //    RetryCsvDriverStatistics:
-        //        try
-        //        {
-        //            await EnsureLoggedInAsync(cancellationToken).ConfigureAwait(false);
+        var infoLinkResult = await apiClient.GetDataResponseAsync(statsUrl, LinkResultContext.Default.LinkResult, cancellationToken)
+                                            .ConfigureAwait(false)
+                             ?? throw new iRacingDataClientException("Invalid or missing link result getting driver statistics.");
 
-        //            var (infoLink, _) = await BuildLinkResultAsync(statsUrl, cancellationToken).ConfigureAwait(false);
+        var infoLinkUrl = new Uri(infoLinkResult.Data.Link);
+        var csvDataResponse = await apiClient.GetUnauthenticatedRawResponseAsync(infoLinkUrl, cancellationToken)
+                                         .ConfigureAwait(false);
 
-        //            var infoLinkUrl = new Uri(infoLink.Link);
+        if (!csvDataResponse.IsSuccessStatusCode)
+        {
+            throw new iRacingDataClientException($"Failed to retrieve CSV data. HTTP response was \"{csvDataResponse.StatusCode} {csvDataResponse.ReasonPhrase}\"");
+        }
 
-        //            var csvDataResponse = await httpClient.GetAsync(infoLinkUrl, cancellationToken).ConfigureAwait(false);
+        var fileName = csvDataResponse.Content.Headers.ContentDisposition?.FileName
+                       ?? infoLinkUrl.AbsolutePath.Split('/').LastOrDefault()
+                       ?? $"DriverStatistics_CategoryId_{categoryId}.csv";
 
-        //            if (!csvDataResponse.IsSuccessStatusCode)
-        //            {
-        //                throw new iRacingDataClientException($"Failed to retrieve CSV data. HTTP response was \"{csvDataResponse.StatusCode} {csvDataResponse.ReasonPhrase}\"");
-        //            }
-
-        //            var fileName = csvDataResponse.Content.Headers.ContentDisposition?.FileName
-        //                           ?? infoLinkUrl.AbsolutePath.Split('/').LastOrDefault()
-        //                           ?? $"DriverStatistics_CategoryId_{categoryId}.csv";
-        //            var result = new DriverStatisticsCsvFile
-        //            {
-        //                CategoryId = categoryId,
-        //                FileName = fileName,
-        //#if NET6_0_OR_GREATER
-        //                ContentBytes = await csvDataResponse.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false)
-        //#else
-        //                ContentBytes = await csvDataResponse.Content.ReadAsByteArrayAsync().ConfigureAwait(false)
-        //#endif
-        //            };
-        //            return result;
-        //        }
-        //        catch (iRacingUnauthorizedResponseException unAuthEx)
-        //        {
-        //            attempts++;
-        //            if (attempts < 2)
-        //            {
-        //                _ = activity?.AddEvent(new("Retrying unauthorized response", tags: new([new("AttemptCount", attempts)])));
-        //                logger.RetryingUnauthorizedResponse(unAuthEx, statsUrl, attempts, 2);
-        //                goto RetryCsvDriverStatistics;
-        //            }
-        //            throw;
-        //        }
+        var result = new DriverStatisticsCsvFile
+        {
+            CategoryId = categoryId,
+            FileName = fileName,
+#if NET6_0_OR_GREATER
+            ContentBytes = await csvDataResponse.Content.ReadAsByteArrayAsync(cancellationToken).ConfigureAwait(false)
+#else
+            ContentBytes = await csvDataResponse.Content.ReadAsByteArrayAsync().ConfigureAwait(false)
+#endif
+        };
+        return result;
     }
 
     /// <inheritdoc />

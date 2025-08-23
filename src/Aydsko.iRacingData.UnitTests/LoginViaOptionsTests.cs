@@ -50,7 +50,7 @@ internal sealed class PasswordEncodingTests
         }
     }
 
-    [TestCaseSource(nameof(GetTestCases)), Ignore("Need to work this out.")]
+    [TestCaseSource(nameof(GetTestCases))]
     [Obsolete]
     public async Task ValidateLoginRequestViaMethodWithPasswordIsEncodedParamAsync(string username, string password, bool passwordIsEncoded, string expectedEncodedPassword)
     {
@@ -85,7 +85,7 @@ internal sealed class PasswordEncodingTests
         }
     }
 
-    [TestCaseSource(nameof(GetTestCasesWithUnencodedPasswords)), Ignore("Need to work this out.")]
+    [TestCaseSource(nameof(GetTestCasesWithUnencodedPasswords))]
     [Obsolete]
     public async Task ValidateLoginRequestViaMethodAsync(string username, string password, string expectedEncodedPassword)
     {
@@ -120,7 +120,7 @@ internal sealed class PasswordEncodingTests
         }
     }
 
-    [TestCaseSource(nameof(GetTestCasesWithUnencodedPasswords)), Ignore("Need to work this out.")]
+    [TestCaseSource(nameof(GetTestCasesWithUnencodedPasswords))]
     [Obsolete]
     public async Task LoginIsNotCalledIfCookiesAreSuccessfullyRestoredAsync(string username, string password, string expectedEncodedPassword)
     {
@@ -166,7 +166,7 @@ internal sealed class PasswordEncodingTests
         }
     }
 
-    [TestCaseSource(nameof(GetTestCasesWithUnencodedPasswords)), Ignore("Need to work this out.")]
+    [TestCaseSource(nameof(GetTestCasesWithUnencodedPasswords))]
     [Obsolete]
     public async Task LoginIsCalledIfCookiesAreExpiredAsync(string username, string password, string expectedEncodedPassword)
     {

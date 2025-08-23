@@ -249,20 +249,6 @@ public class ApiClientBase(IAuthenticatingHttpClient httpClient,
         }
     }
 
-    // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-    // ~LegacyUsernamePasswordApiClient()
-    // {
-    //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-    //     Dispose(disposing: false);
-    // }
-
-    public void Dispose()
-    {
-        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-        Dispose(disposing: true);
-        GC.SuppressFinalize(this);
-    }
-
     public async Task<DataResponse<TData>> GetDataResponseAsync<TData>(Uri uri,
                                                                        JsonTypeInfo<TData> jsonTypeInfo,
                                                                        CancellationToken cancellationToken)
@@ -281,6 +267,14 @@ public class ApiClientBase(IAuthenticatingHttpClient httpClient,
         var (data, _) = await GetResponseWithHeadersFromJsonAsync(uri, jsonTypeInfo, cancellationToken, true)
                                 .ConfigureAwait(false);
         return data;
+    }
+
+    public async Task<HttpResponseMessage> GetUnauthenticatedRawResponseAsync(Uri uri, CancellationToken cancellationToken = default)
+    {
+        using var request = new HttpRequestMessage(HttpMethod.Get, uri);
+        var response = await HttpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
+                                       .ConfigureAwait(false);
+        return response;
     }
 
     protected virtual async Task<(TResult?, HttpResponseHeaders)> BuildIntermediateResultAsync<TResult>(Uri intermediateUri,
@@ -461,5 +455,30 @@ public class ApiClientBase(IAuthenticatingHttpClient httpClient,
 
         var encodedHash = Convert.ToBase64String(hashedPasswordAndEmailBytes);
         return encodedHash;
+    }
+
+    [Obsolete("Do not use. Configure via the \"AddIRacingDataApi\" extension method on the IServiceCollection which allows you to configure the \"iRacingDataClientOptions\".")]
+    internal void UseUsernameAndPassword(string username, string password, bool passwordIsEncoded)
+    {
+        if (HttpClient is not LegacyUsernamePasswordApiClient legacyUsernamePasswordApiClient)
+        {
+            throw new InvalidOperationException($"Must be using the \"{nameof(LegacyUsernamePasswordApiClient)}\" to use this method.");
+        }
+
+        legacyUsernamePasswordApiClient.UseUsernameAndPassword(username, password, passwordIsEncoded);
+    }
+
+    // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+    // ~LegacyUsernamePasswordApiClient()
+    // {
+    //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+    //     Dispose(disposing: false);
+    // }
+
+    public void Dispose()
+    {
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }
