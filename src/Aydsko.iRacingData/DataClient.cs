@@ -24,7 +24,7 @@ namespace Aydsko.iRacingData;
 /// collection using <see cref="ServicesExtensions.AddIRacingDataApi(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>
 /// and resolve <see cref="IDataClient"/> service from there.
 /// </remarks>
-public class DataClient(ApiClientBase apiClient,
+public class DataClient(ApiClient apiClient,
                         iRacingDataClientOptions options,
                         ILogger<DataClient> logger)
     : IDataClient

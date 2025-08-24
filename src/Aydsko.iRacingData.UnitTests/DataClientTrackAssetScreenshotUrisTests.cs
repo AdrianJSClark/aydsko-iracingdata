@@ -20,7 +20,7 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests
                                                              options,
                                                              CookieContainer,
                                                              new TestLogger<LegacyUsernamePasswordApiClient>());
-        var apiClientInstance = new ApiClientBase(client, options, new TestLogger<ApiClientBase>());
+        var apiClientInstance = new ApiClient(client, options, new TestLogger<ApiClient>());
         var sut = new DataClient(apiClientInstance, options, new TestLogger<DataClient>());
 
         // Make use of our captured responses.

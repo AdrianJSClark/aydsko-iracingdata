@@ -19,7 +19,7 @@ internal sealed class CookiePersistenceTests : MockedHttpTestBase
         };
 
         using var client = new TestLegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
-        using var apiClient = new ApiClientBase(client, options, new TestLogger<ApiClientBase>());
+        using var apiClient = new ApiClient(client, options, new TestLogger<ApiClient>());
         var sut = new DataClient(apiClient, options, new TestLogger<DataClient>());
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
@@ -41,7 +41,7 @@ internal sealed class CookiePersistenceTests : MockedHttpTestBase
         };
 
         using var client = new TestLegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
-        using var apiClient = new ApiClientBase(client, options, new TestLogger<ApiClientBase>());
+        using var apiClient = new ApiClient(client, options, new TestLogger<ApiClient>());
         var sut = new DataClient(apiClient, options, new TestLogger<DataClient>());
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
@@ -72,7 +72,7 @@ internal sealed class CookiePersistenceTests : MockedHttpTestBase
         };
 
         using var client = new TestLegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
-        using var apiClient = new ApiClientBase(client, options, new TestLogger<ApiClientBase>());
+        using var apiClient = new ApiClient(client, options, new TestLogger<ApiClient>());
         var sut = new DataClient(apiClient, options, new TestLogger<DataClient>());
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);

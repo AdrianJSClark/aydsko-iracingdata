@@ -18,7 +18,7 @@ internal abstract class MockedHttpTestBase
 
     // NUnit will ensure that "SetUp" runs before each test so these can all be forced to "null".
     protected TestLegacyUsernamePasswordApiClient apiClient = null!;
-    protected ApiClientBase apiClientBase = null!;
+    protected ApiClient apiClientBase = null!;
     protected DataClient testDataClient = null!;
 
     [SetUp]
@@ -38,7 +38,7 @@ internal abstract class MockedHttpTestBase
                                                             options,
                                                             CookieContainer,
                                                             new TestLogger<LegacyUsernamePasswordApiClient>());
-        apiClientBase = new ApiClientBase(apiClient, options, new TestLogger<ApiClientBase>());
+        apiClientBase = new ApiClient(apiClient, options, new TestLogger<ApiClient>());
         testDataClient = new DataClient(apiClientBase, options, new TestLogger<DataClient>());
     }
 

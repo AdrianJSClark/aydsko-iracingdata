@@ -90,8 +90,8 @@ public class OAuthPasswordLimitedAuthenticatingHttpClient(HttpClient httpClient,
                 throw new InvalidOperationException("The \"AuthServiceBaseUrl\" must be a valid absolute URL in the iRacing Data Client options.");
             }
 
-            var encodedPassword = options.PasswordIsEncoded ? options.Password : ApiClientBase.EncodePassword(options.Username!, options.Password!);
-            var encodedClientSecret = options.ClientSecretIsEncoded ? options.ClientSecret : ApiClientBase.EncodePassword(options.ClientId!, options.ClientSecret!);
+            var encodedPassword = options.PasswordIsEncoded ? options.Password : ApiClient.EncodePassword(options.Username!, options.Password!);
+            var encodedClientSecret = options.ClientSecretIsEncoded ? options.ClientSecret : ApiClient.EncodePassword(options.ClientId!, options.ClientSecret!);
 
             using var newTokenRequest = new HttpRequestMessage(HttpMethod.Post, new Uri(authServiceBaseUrl, "/oauth2/token"))
             {

@@ -12,9 +12,9 @@ using Aydsko.iRacingData.Exceptions;
 
 namespace Aydsko.iRacingData;
 
-public class ApiClientBase(IAuthenticatingHttpClient httpClient,
-                                    iRacingDataClientOptions options,
-                                    ILogger<ApiClientBase> logger)
+public class ApiClient(IAuthenticatingHttpClient httpClient,
+                       iRacingDataClientOptions options,
+                       ILogger<ApiClient> logger)
     : IDisposable
 {
     private const string RateLimitExceededContent = "Rate limit exceeded";
@@ -23,7 +23,7 @@ public class ApiClientBase(IAuthenticatingHttpClient httpClient,
 
     protected IAuthenticatingHttpClient HttpClient { get; } = httpClient;
     protected iRacingDataClientOptions Options { get; } = options;
-    protected ILogger<ApiClientBase> Logger { get; } = logger;
+    protected ILogger<ApiClient> Logger { get; } = logger;
 
     protected DataResponse<TData> BuildDataResponse<TData>(HttpResponseHeaders headers, TData data, DateTimeOffset? expires = null)
     {

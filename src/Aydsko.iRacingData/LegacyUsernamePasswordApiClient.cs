@@ -94,7 +94,7 @@ public class LegacyUsernamePasswordApiClient(HttpClient httpClient,
                 return;
             }
 
-            var encodedHash = options.PasswordIsEncoded ? options.Password : ApiClientBase.EncodePassword(options.Username!, options.Password!);
+            var encodedHash = options.PasswordIsEncoded ? options.Password : ApiClient.EncodePassword(options.Username!, options.Password!);
             var loginResponse = await httpClient.PostAsJsonAsync("https://members-ng.iracing.com/auth",
                                                                  new
                                                                  {
