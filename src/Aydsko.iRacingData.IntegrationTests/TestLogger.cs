@@ -1,11 +1,11 @@
-﻿// © 2023 Adrian Clark
+﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
 using Microsoft.Extensions.Logging;
 
 namespace Aydsko.iRacingData.IntegrationTests;
 
-internal class TestLogger<TCategoryName>()
+internal sealed class TestLogger<TCategoryName>()
     : TestLogger(nameof(TCategoryName)), ILogger<TCategoryName>
 {
 }

@@ -1,8 +1,11 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿// © Adrian Clark - Aydsko.iRacingData
+// This file is licensed to you under the MIT license.
+
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Aydsko.iRacingData.IntegrationTests.Seasons;
 
-internal class GetSeasonsUsingPasswordLimited
+internal sealed class GetSeasonsUsingPasswordLimited
     : ServiceProviderIntegrationFixture
 {
     public const int GrandPrixSeriesId = 260;

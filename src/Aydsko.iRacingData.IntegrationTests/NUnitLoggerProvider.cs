@@ -1,8 +1,11 @@
-﻿using Microsoft.Extensions.Logging;
+﻿// © Adrian Clark - Aydsko.iRacingData
+// This file is licensed to you under the MIT license.
+
+using Microsoft.Extensions.Logging;
 
 namespace Aydsko.iRacingData.IntegrationTests;
 
-public class NUnitLoggerProvider
+internal sealed class NUnitLoggerProvider
     : ILoggerProvider
 {
     private bool disposedValue;
@@ -12,7 +15,7 @@ public class NUnitLoggerProvider
         return new TestLogger(categoryName);
     }
 
-    protected virtual void Dispose(bool disposing)
+    private void Dispose(bool disposing)
     {
         if (!disposedValue)
         {

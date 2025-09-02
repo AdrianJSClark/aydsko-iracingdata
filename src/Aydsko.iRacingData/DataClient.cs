@@ -24,6 +24,7 @@ namespace Aydsko.iRacingData;
 /// collection using <see cref="ServicesExtensions.AddIRacingDataApi(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>
 /// and resolve <see cref="IDataClient"/> service from there.
 /// </remarks>
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1848:Use the LoggerMessage delegates", Justification = "Too many separate messages once parameters are involved.")]
 internal sealed class DataClient(IApiClient apiClient,
                                  iRacingDataClientOptions options,
                                  ILogger<DataClient> logger)
