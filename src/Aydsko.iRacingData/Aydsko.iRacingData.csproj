@@ -6,8 +6,8 @@
 
     <!-- Package Validation (https://docs.microsoft.com/en-us/dotnet/fundamentals/package-validation/overview) -->
     <EnablePackageValidation>true</EnablePackageValidation>
-    <PackageValidationBaselineVersion>2404.5.0</PackageValidationBaselineVersion>
     <GenerateCompatibilitySuppressionFile>true</GenerateCompatibilitySuppressionFile>
+    <PackageValidationBaselineVersion>2502.0.0</PackageValidationBaselineVersion>
     <EnableStrictModeForCompatibleFrameworksInPackage>true</EnableStrictModeForCompatibleFrameworksInPackage>
     <EnableStrictModeForCompatibleTfms>true</EnableStrictModeForCompatibleTfms>
     <ImplicitUsings>enable</ImplicitUsings>
