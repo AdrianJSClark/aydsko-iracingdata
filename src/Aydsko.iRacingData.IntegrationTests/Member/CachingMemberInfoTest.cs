@@ -1,24 +1,28 @@
-﻿// © 2023-2024 Adrian Clark
+﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
 namespace Aydsko.iRacingData.IntegrationTests.Member;
-/*
-internal sealed class CachingMemberInfoTest : CachingIntegrationFixture
+
+internal sealed class CachingMemberInfoTest
+    : CachingIntegrationFixture
 {
     [Test]
     public async Task TestMemberInfoAsync()
     {
-        if (Configuration["iRacingData:CustomerId"] is not string customerIdValue || !int.TryParse(customerIdValue, out var iRacingCustomerId))
+        if (Configuration["iRacingData:CustomerId"] is not string customerIdValue
+            || !int.TryParse(customerIdValue, out var iRacingCustomerId))
         {
             throw new InvalidOperationException("iRacing Customer Id value not found in configuration.");
         }
 
-        var memberInfo = await Client.GetMyInfoAsync().ConfigureAwait(false);
-        var memberInfo2 = await Client.GetMyInfoAsync().ConfigureAwait(false);
+        var memberInfo = await Client.GetMyInfoAsync()
+                                     .ConfigureAwait(false);
+        var memberInfo2 = await Client.GetMyInfoAsync()
+                                      .ConfigureAwait(false);
 
         var stats = MemoryCache.GetCurrentStatistics();
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(memberInfo, Is.Not.Null);
             Assert.That(memberInfo.Data, Is.Not.Null);
@@ -32,7 +36,6 @@ internal sealed class CachingMemberInfoTest : CachingIntegrationFixture
 
             Assert.That(stats?.TotalHits, Is.Not.Null.And.EqualTo(1), "TotalHits didn't match.");
             Assert.That(stats?.TotalMisses, Is.Not.Null.And.EqualTo(1), "TotalMisses didn't match.");
-        });
+        }
     }
 }
-*/

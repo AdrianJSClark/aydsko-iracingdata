@@ -1,8 +1,8 @@
-﻿// © 2023 Adrian Clark
+﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
-using Microsoft.Extensions.DependencyInjection;
 using System.Net;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Aydsko.iRacingData.UnitTests;
 
@@ -21,7 +21,8 @@ internal sealed class ServicesTests
         {
             options.Username = "test.user@example.com";
             options.Password = "SuperSecretPassword";
-        }, false).ConfigurePrimaryHttpMessageHandler(services => messageHandler);
+        }, false)
+                    .ConfigurePrimaryHttpMessageHandler(services => messageHandler);
 
         using var provider = services.BuildServiceProvider();
         using var scope = provider.CreateScope();
@@ -56,7 +57,8 @@ internal sealed class ServicesTests
             options.Password = "SuperSecretPassword";
             options.UserAgentProductName = "UserAgentTest";
             options.UserAgentProductVersion = new(1, 0);
-        }, false).ConfigurePrimaryHttpMessageHandler(services => messageHandler);
+        }, false)
+                    .ConfigurePrimaryHttpMessageHandler(services => messageHandler);
 
         using var provider = services.BuildServiceProvider();
         using var scope = provider.CreateScope();

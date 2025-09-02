@@ -1,8 +1,8 @@
-﻿// © 2023 Adrian Clark
+﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
 namespace Aydsko.iRacingData.IntegrationTests.Results;
-/*
+
 internal sealed class CachingResultsSearchSeriesTest : CachingIntegrationFixture
 {
     [Test(TestOf = typeof(DataClient))]
@@ -18,31 +18,29 @@ internal sealed class CachingResultsSearchSeriesTest : CachingIntegrationFixture
         };
 
         var searchResults = await Client.SearchOfficialResultsAsync(searchParameters).ConfigureAwait(false);
-
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(searchResults, Is.Not.Null);
             Assert.That(searchResults.Data.Header, Is.Not.Null);
             Assert.That(searchResults.Data.Items, Is.Not.Null.Or.Empty);
             Assert.That(searchResults.Data.Items, Has.Length.EqualTo(10));
-        });
+        }
 
         var searchResults2 = await Client.SearchOfficialResultsAsync(searchParameters).ConfigureAwait(false);
-
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(searchResults2, Is.Not.Null);
             Assert.That(searchResults2.Data.Header, Is.Not.Null);
             Assert.That(searchResults2.Data.Items, Is.Not.Null.Or.Empty);
             Assert.That(searchResults2.Data.Items, Has.Length.EqualTo(10));
-        });
+        }
 
         var stats = MemoryCache.GetCurrentStatistics();
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(stats?.TotalHits, Is.Not.Null.And.EqualTo(1));
             Assert.That(stats?.TotalMisses, Is.Not.Null.And.EqualTo(1));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -59,8 +57,7 @@ internal sealed class CachingResultsSearchSeriesTest : CachingIntegrationFixture
         };
 
         var searchResults = await Client.SearchOfficialResultsAsync(searchParameters).ConfigureAwait(false);
-
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(searchResults, Is.Not.Null);
             Assert.That(searchResults.Data.Header, Is.Not.Null);
@@ -68,11 +65,10 @@ internal sealed class CachingResultsSearchSeriesTest : CachingIntegrationFixture
 
             Assert.That(searchResults.Data.Items, Is.Not.Null);
             Assert.That(searchResults.Data.Items, Has.Length.EqualTo(0));
-        });
+        }
 
         var searchResults2 = await Client.SearchOfficialResultsAsync(searchParameters).ConfigureAwait(false);
-
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(searchResults2, Is.Not.Null);
             Assert.That(searchResults2.Data.Header, Is.Not.Null);
@@ -80,14 +76,13 @@ internal sealed class CachingResultsSearchSeriesTest : CachingIntegrationFixture
 
             Assert.That(searchResults2.Data.Items, Is.Not.Null);
             Assert.That(searchResults2.Data.Items, Has.Length.EqualTo(0));
-        });
+        }
 
         var stats = MemoryCache.GetCurrentStatistics();
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(stats?.TotalHits, Is.Not.Null.And.EqualTo(1));
             Assert.That(stats?.TotalMisses, Is.Not.Null.And.EqualTo(1));
-        });
+        }
     }
 }
-*/

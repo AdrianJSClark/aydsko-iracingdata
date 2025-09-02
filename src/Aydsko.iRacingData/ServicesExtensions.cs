@@ -123,7 +123,15 @@ public static class ServicesExtensions
 
         //var httpClientBuilder = (includeCaching ? services.AddHttpClient<IDataClient, CachingDataClient>() : services.AddHttpClient<IDataClient, DataClient>())
 
-        services.AddTransient<ApiClient>();
+        if (includeCaching)
+        {
+            services.AddTransient<IApiClient, CachingApiClient>();
+        }
+        else
+        {
+            services.AddTransient<IApiClient, ApiClient>();
+        }
+
         services.AddTransient<IDataClient, DataClient>();
 
         IHttpClientBuilder httpClientBuilder;

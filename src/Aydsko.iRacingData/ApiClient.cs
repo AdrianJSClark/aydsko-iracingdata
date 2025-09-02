@@ -12,10 +12,22 @@ using Aydsko.iRacingData.Exceptions;
 
 namespace Aydsko.iRacingData;
 
+public interface IApiClient
+{
+    Task<DataResponse<(THeader, TChunkData[])>> CreateResponseFromChunksAsync<THeader, TChunkData>(Uri uri, bool isViaInfoLink, JsonTypeInfo<THeader> jsonTypeInfo, Func<THeader, IChunkInfo> getChunkDownloadDetail, JsonTypeInfo<TChunkData[]> chunkArrayTypeInfo, CancellationToken cancellationToken = default);
+    Task<DataResponse<TData>> CreateResponseViaIntermediateResultAsync<TIntermediate, TData>(Uri intermediateUri, JsonTypeInfo<TIntermediate> intermediateJsonTypeInfo, Func<TIntermediate, (Uri DataLink, DateTimeOffset? Expires)> getDataLinkAndExpiry, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken);
+    Task<DataResponse<TData>> GetDataResponseAsync<TData>(Uri uri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken) where TData : class;
+    Task<HttpResponseMessage> GetUnauthenticatedRawResponseAsync(Uri uri, CancellationToken cancellationToken = default);
+    Task<TData> GetUnauthenticatedResponseAsync<TData>(Uri uri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken) where TData : class;
+
+    [Obsolete("Do not use. Configure via the \"AddIRacingDataApi\" extension method on the IServiceCollection which allows you to configure the \"iRacingDataClientOptions\".")]
+    internal void UseUsernameAndPassword(string username, string password, bool passwordIsEncoded);
+}
+
 public class ApiClient(IAuthenticatingHttpClient httpClient,
                        iRacingDataClientOptions options,
                        ILogger<ApiClient> logger)
-    : IDisposable
+    : IDisposable, IApiClient
 {
     private const string RateLimitExceededContent = "Rate limit exceeded";
 
@@ -458,7 +470,7 @@ public class ApiClient(IAuthenticatingHttpClient httpClient,
     }
 
     [Obsolete("Do not use. Configure via the \"AddIRacingDataApi\" extension method on the IServiceCollection which allows you to configure the \"iRacingDataClientOptions\".")]
-    internal void UseUsernameAndPassword(string username, string password, bool passwordIsEncoded)
+    public void UseUsernameAndPassword(string username, string password, bool passwordIsEncoded)
     {
         if (HttpClient is not LegacyUsernamePasswordApiClient legacyUsernamePasswordApiClient)
         {
