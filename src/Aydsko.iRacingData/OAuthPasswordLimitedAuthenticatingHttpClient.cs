@@ -57,6 +57,7 @@ public class OAuthPasswordLimitedAuthenticatingHttpClient(HttpClient httpClient,
                 if (tokenResponse is null)
                 {
                     tokenResponse = await RequestTokenAsync(cancellationToken).ConfigureAwait(false);
+                    return tokenResponse.AccessToken;
                 }
 #pragma warning restore IDE0074 // Use compound assignment
 #pragma warning restore CA1508 // Avoid dead conditional code

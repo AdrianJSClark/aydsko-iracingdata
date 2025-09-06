@@ -5,7 +5,8 @@ namespace Aydsko.iRacingData;
 
 internal sealed class CachingApiClient(ApiClient apiClient,
                                        IMemoryCache memoryCache,
-                                       ILogger<CachingApiClient> logger)
+                                       ILogger<CachingApiClient> logger,
+                                       TimeProvider timeProvider)
     : IApiClient
 {
     public async Task<DataResponse<(THeader, TChunkData[])>> CreateResponseFromChunksAsync<THeader, TChunkData>(Uri uri,
@@ -28,7 +29,8 @@ internal sealed class CachingApiClient(ApiClient apiClient,
                                                                          cancellationToken)
                                           .ConfigureAwait(false);
 
-            var expiry = response.DataExpires ?? DateTime.UtcNow.AddMinutes(30);
+            var expiry = response.DataExpires ?? timeProvider.GetUtcNow()
+                                                             .AddMinutes(30);
             _ = ce.SetAbsoluteExpiration(expiry);
 
             return response;
@@ -60,7 +62,8 @@ internal sealed class CachingApiClient(ApiClient apiClient,
                                                                                     cancellationToken)
                                           .ConfigureAwait(false);
 
-            var expiry = response.DataExpires ?? DateTime.UtcNow.AddMinutes(30);
+            var expiry = response.DataExpires ?? timeProvider.GetUtcNow()
+                                                             .AddMinutes(30);
             _ = ce.SetAbsoluteExpiration(expiry);
 
             return response;
@@ -87,7 +90,8 @@ internal sealed class CachingApiClient(ApiClient apiClient,
                                                                 cancellationToken)
                                           .ConfigureAwait(false);
 
-            var expiry = response.DataExpires ?? DateTime.UtcNow.AddMinutes(30);
+            var expiry = response.DataExpires ?? timeProvider.GetUtcNow()
+                                                             .AddMinutes(30);
             _ = ce.SetAbsoluteExpiration(expiry);
 
             return response;
@@ -111,7 +115,8 @@ internal sealed class CachingApiClient(ApiClient apiClient,
                                                                 cancellationToken)
                                           .ConfigureAwait(false);
 
-            var expiry = DateTime.UtcNow.AddMinutes(30);
+            var expiry = timeProvider.GetUtcNow()
+                                     .AddMinutes(30);
             _ = ce.SetAbsoluteExpiration(expiry);
 
             return response;
@@ -138,7 +143,8 @@ internal sealed class CachingApiClient(ApiClient apiClient,
                                                                            cancellationToken)
                                           .ConfigureAwait(false);
 
-            var expiry = DateTime.UtcNow.AddMinutes(30);
+            var expiry = timeProvider.GetUtcNow()
+                                     .AddMinutes(30);
             _ = ce.SetAbsoluteExpiration(expiry);
 
             return response;

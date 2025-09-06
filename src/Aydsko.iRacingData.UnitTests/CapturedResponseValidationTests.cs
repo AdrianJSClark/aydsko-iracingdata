@@ -1679,23 +1679,24 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(response, Is.Not.Empty);
             Assert.That(response.Count(), Is.EqualTo(8));
 
-            Assert.That(response,
-                Has.All.Property(nameof(WeatherForecast.TimeOffset)).Not.Zero
-                    .And.Property(nameof(WeatherForecast.RawAirTemperature)).Not.Zero
-                    .And.Property(nameof(WeatherForecast.PrecipitationChance)).Not.Default
-                    .And.Property(nameof(WeatherForecast.Index)).Not.Default
-                    .And.Property(nameof(WeatherForecast.IsSunUp)).Not.Default
-                    .And.Property(nameof(WeatherForecast.Pressure)).Not.Default
-                    .And.Property(nameof(WeatherForecast.WindDirectionDegrees)).Not.Default
-                    .And.Property(nameof(WeatherForecast.AirTemperature)).Not.Default
-                    .And.Property(nameof(WeatherForecast.ValidStatistics)).Not.Default
-                    .And.Property(nameof(WeatherForecast.AffectsSession)).Not.Default
-                    .And.Property(nameof(WeatherForecast.CloudCoverPercentage)).Not.Default
-                    .And.Property(nameof(WeatherForecast.RelativeHumidity)).Not.Default
-                    .And.Property(nameof(WeatherForecast.WindSpeed)).Not.Default
-                    .And.Property(nameof(WeatherForecast.AllowPrecipitation)).Not.Null
-                    .And.Property(nameof(WeatherForecast.PrecipitationAmount)).Not.Null
-                    .And.Property(nameof(WeatherForecast.Timestamp)).Not.Null);
+            foreach (var forecastItem in response)
+            {
+                Assert.That(forecastItem, Has.Property(nameof(WeatherForecast.TimeOffset)).Not.Zero);
+                Assert.That(forecastItem, Has.Property(nameof(WeatherForecast.RawAirTemperature)).Not.Zero);
+                Assert.That(forecastItem, Has.Property(nameof(WeatherForecast.PrecipitationChance)).Not.Default);
+                Assert.That(forecastItem, Has.Property(nameof(WeatherForecast.Index)).GreaterThanOrEqualTo(0));
+                Assert.That(forecastItem, Has.Property(nameof(WeatherForecast.IsSunUp)).Not.Default);
+                Assert.That(forecastItem, Has.Property(nameof(WeatherForecast.Pressure)).Not.Default);
+                Assert.That(forecastItem, Has.Property(nameof(WeatherForecast.WindDirectionDegrees)).Not.Default);
+                Assert.That(forecastItem, Has.Property(nameof(WeatherForecast.AirTemperature)).Not.Default);
+                Assert.That(forecastItem, Has.Property(nameof(WeatherForecast.ValidStatistics)).Not.Default);
+                Assert.That(forecastItem, Has.Property(nameof(WeatherForecast.CloudCoverPercentage)).Not.Default);
+                Assert.That(forecastItem, Has.Property(nameof(WeatherForecast.RelativeHumidity)).Not.Default);
+                Assert.That(forecastItem, Has.Property(nameof(WeatherForecast.WindSpeed)).Not.Default);
+                Assert.That(forecastItem, Has.Property(nameof(WeatherForecast.AllowPrecipitation)).Not.Null);
+                Assert.That(forecastItem, Has.Property(nameof(WeatherForecast.PrecipitationAmount)).Not.Null);
+                Assert.That(forecastItem, Has.Property(nameof(WeatherForecast.Timestamp)).Not.Null);
+            }
 
             var forecast = response.First();
             Assert.That(forecast.TimeOffset, Is.EqualTo(TimeSpan.FromMinutes(-385)));

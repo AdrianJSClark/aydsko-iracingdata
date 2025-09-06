@@ -3,6 +3,7 @@
 
 using System.Net;
 using System.Net.Http;
+using Microsoft.Extensions.Time.Testing;
 
 namespace Aydsko.iRacingData.UnitTests;
 
@@ -14,6 +15,8 @@ internal abstract class MockedHttpTestBase
     protected CookieContainer CookieContainer { get; set; } = null!;
     protected MockedHttpMessageHandler MessageHandler { get; set; } = null!;
     protected HttpClient HttpClient { get; set; } = null!;
+    protected FakeTimeProvider FakeTimeProvider { get; private set; } = new FakeTimeProvider(new DateTimeOffset(2022, 04, 05, 0, 0, 0, TimeSpan.Zero));
+
     private bool disposedValue;
 
     // NUnit will ensure that "SetUp" runs before each test so these can all be forced to "null".
@@ -32,14 +35,13 @@ internal abstract class MockedHttpTestBase
         {
             Username = "test.user@example.com",
             Password = "SuperSecretPassword",
-            CurrentDateTimeSource = () => new DateTimeOffset(2022, 04, 05, 0, 0, 0, TimeSpan.Zero)
         };
         apiClient = new TestLegacyUsernamePasswordApiClient(HttpClient,
                                                             options,
                                                             CookieContainer,
                                                             new TestLogger<LegacyUsernamePasswordApiClient>());
         apiClientBase = new ApiClient(apiClient, options, new TestLogger<ApiClient>());
-        testDataClient = new DataClient(apiClientBase, options, new TestLogger<DataClient>());
+        testDataClient = new DataClient(apiClientBase, options, new TestLogger<DataClient>(), FakeTimeProvider);
     }
 
     protected virtual void Dispose(bool disposing)

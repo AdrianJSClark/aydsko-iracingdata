@@ -13,7 +13,6 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests
         {
             Username = "test.user@example.com",
             Password = "SuperSecretPassword",
-            CurrentDateTimeSource = () => new DateTimeOffset(2022, 04, 05, 0, 0, 0, TimeSpan.Zero)
         };
 
         var client = new TestLegacyUsernamePasswordApiClient(HttpClient,
@@ -21,7 +20,7 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests
                                                              CookieContainer,
                                                              new TestLogger<LegacyUsernamePasswordApiClient>());
         var apiClientInstance = new ApiClient(client, options, new TestLogger<ApiClient>());
-        var sut = new DataClient(apiClientInstance, options, new TestLogger<DataClient>());
+        var sut = new DataClient(apiClientInstance, options, new TestLogger<DataClient>(), FakeTimeProvider);
 
         // Make use of our captured responses.
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTracksSuccessfulAsync))

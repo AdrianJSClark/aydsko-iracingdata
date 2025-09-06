@@ -27,7 +27,8 @@ namespace Aydsko.iRacingData;
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1848:Use the LoggerMessage delegates", Justification = "Too many separate messages once parameters are involved.")]
 internal sealed class DataClient(IApiClient apiClient,
                                  iRacingDataClientOptions options,
-                                 ILogger<DataClient> logger)
+                                 ILogger<DataClient> logger,
+                                 TimeProvider timeProvider)
     : IDataClient
 {
     /// <inheritdoc/>
@@ -1568,9 +1569,10 @@ internal sealed class DataClient(IApiClient apiClient,
         return null;
     }
 
+    [Obsolete("Add your own TimeProvider to the service collection (see https://learn.microsoft.com/en-us/dotnet/api/system.timeprovider).")]
     private DateTime GetDateTimeUtcNow()
     {
-        return options.CurrentDateTimeSource is null ? DateTime.UtcNow : options.CurrentDateTimeSource().UtcDateTime;
+        return options.CurrentDateTimeSource is null ? timeProvider.GetUtcNow().UtcDateTime : options.CurrentDateTimeSource().UtcDateTime;
     }
 
     /// <inheritdoc />

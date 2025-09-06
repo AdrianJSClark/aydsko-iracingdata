@@ -24,7 +24,7 @@ internal sealed class PasswordEncodingTests
 
         using var client = new TestLegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
         using var apiClient = new ApiClient(client, options, new TestLogger<ApiClient>());
-        var sut = new DataClient(apiClient, options, new TestLogger<DataClient>());
+        var sut = new DataClient(apiClient, options, new TestLogger<DataClient>(), FakeTimeProvider);
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
         var lookups = await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
@@ -60,7 +60,7 @@ internal sealed class PasswordEncodingTests
 
         using var client = new TestLegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
         using var apiClient = new ApiClient(client, options, new TestLogger<ApiClient>());
-        var sut = new DataClient(apiClient, options, new TestLogger<DataClient>());
+        var sut = new DataClient(apiClient, options, new TestLogger<DataClient>(), FakeTimeProvider);
 
         sut.UseUsernameAndPassword(username, password, passwordIsEncoded);
 
@@ -95,7 +95,7 @@ internal sealed class PasswordEncodingTests
 
         using var client = new TestLegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
         using var apiClient = new ApiClient(client, options, new TestLogger<ApiClient>());
-        var sut = new DataClient(apiClient, options, new TestLogger<DataClient>());
+        var sut = new DataClient(apiClient, options, new TestLogger<DataClient>(), FakeTimeProvider);
 
         sut.UseUsernameAndPassword(username, password);
 
@@ -152,7 +152,7 @@ internal sealed class PasswordEncodingTests
 
         using var client = new TestLegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
         using var apiClient = new ApiClient(client, options, new TestLogger<ApiClient>());
-        var sut = new DataClient(apiClient, options, new TestLogger<DataClient>());
+        var sut = new DataClient(apiClient, options, new TestLogger<DataClient>(), FakeTimeProvider);
 
         sut.UseUsernameAndPassword(username, password);
 
@@ -207,7 +207,7 @@ internal sealed class PasswordEncodingTests
 
         using var client = new TestLegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
         using var apiClient = new ApiClient(client, options, new TestLogger<ApiClient>());
-        var sut = new DataClient(apiClient, options, new TestLogger<DataClient>());
+        var sut = new DataClient(apiClient, options, new TestLogger<DataClient>(), FakeTimeProvider);
 
         sut.UseUsernameAndPassword(username, password);
 

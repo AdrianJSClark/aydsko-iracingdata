@@ -123,6 +123,8 @@ public static class ServicesExtensions
 
         //var httpClientBuilder = (includeCaching ? services.AddHttpClient<IDataClient, CachingDataClient>() : services.AddHttpClient<IDataClient, DataClient>())
 
+        services.TryAddSingleton(TimeProvider.System);
+
         if (includeCaching)
         {
             services.AddTransient<IApiClient, CachingApiClient>();

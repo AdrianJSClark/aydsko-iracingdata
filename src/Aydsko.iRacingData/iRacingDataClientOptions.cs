@@ -34,7 +34,8 @@ public class iRacingDataClientOptions
     public Action<CookieCollection>? SaveCookies { get; set; }
 
     /// <summary>The source of the current date and time in UTC for the library.</summary>
-    /// <remarks>Defaults to <see cref="DateTimeOffset.UtcNow"/>.</remarks>
+    /// <remarks>Defaults to <see cref="TimeProvider.GetUtcNow"/>.</remarks>
+    [Obsolete("Add your own TimeProvider to the service collection (see https://learn.microsoft.com/en-us/dotnet/api/system.timeprovider).")]
     public Func<DateTimeOffset>? CurrentDateTimeSource { get; set; }
 
     /// <summary>The <c>client_id</c> value for <c>password_limited</c> OAuth flow.</summary>
