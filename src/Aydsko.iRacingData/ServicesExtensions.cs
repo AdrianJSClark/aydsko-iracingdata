@@ -187,4 +187,64 @@ public static class ServicesExtensions
         var userAgentValue = $"{userAgentProductName}/{userAgentProductVersion} Aydsko.iRacingDataClient/{dataClientVersion}";
         return userAgentValue;
     }
+
+    /// <summary>Configure the options to use "Password Limited" iRacing authentication.</summary>
+    /// <param name="options">The options object to configure.</param>
+    /// <param name="userName">iRacing username</param>
+    /// <param name="password">iRacing password</param>
+    /// <param name="clientId">The iRacing-supplied Client ID value.</param>
+    /// <param name="clientSecret">The iRacing-supplied Client Secret value.</param>
+    /// <param name="passwordIsEncoded">Indicates that the <paramref name="password"/> value is already encoded for supply to the iRacing Authentication API.</param>
+    /// <param name="clientSecretIsEncoded">Indicates that the <paramref name="clientSecret"/> value is already encoded for supply to the iRacing Authentication API.</param>
+    /// <returns>The options object to allow call chaining.</returns>
+    public static iRacingDataClientOptions UsePasswordLimitedAuthentication(this iRacingDataClientOptions options,
+                                                                            string userName,
+                                                                            string password,
+                                                                            string clientId,
+                                                                            string clientSecret,
+                                                                            bool passwordIsEncoded = false,
+                                                                            bool clientSecretIsEncoded = false)
+    {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(options);
+        ArgumentException.ThrowIfNullOrWhiteSpace(userName);
+        ArgumentException.ThrowIfNullOrWhiteSpace(password);
+        ArgumentException.ThrowIfNullOrWhiteSpace(clientId);
+        ArgumentException.ThrowIfNullOrWhiteSpace(clientSecret);
+#else
+        if (options is null)
+        {
+            throw new ArgumentNullException(nameof(options));
+        }
+
+        if (string.IsNullOrWhiteSpace(userName))
+        {
+            throw new ArgumentNullException(nameof(userName));
+        }
+
+        if (string.IsNullOrWhiteSpace(password))
+        {
+            throw new ArgumentNullException(nameof(password));
+        }
+
+        if (string.IsNullOrWhiteSpace(clientId))
+        {
+            throw new ArgumentNullException(nameof(clientId));
+        }
+
+        if (string.IsNullOrWhiteSpace(clientSecret))
+        {
+            throw new ArgumentNullException(nameof(clientSecret));
+        }
+#endif
+
+        options.Username = userName;
+        options.Password = password;
+        options.PasswordIsEncoded = passwordIsEncoded;
+        options.ClientId = clientId;
+        options.ClientSecret = clientSecret;
+        options.ClientSecretIsEncoded = clientSecretIsEncoded;
+
+        return options;
+    }
 }

@@ -4,6 +4,7 @@
     <TargetFrameworks>net48;net8.0</TargetFrameworks>
     <Nullable>enable</Nullable>
     <IsPackable>false</IsPackable>
+    <SuppressTfmSupportBuildWarnings>true</SuppressTfmSupportBuildWarnings>
   </PropertyGroup>
 
   <ItemGroup>
@@ -38,6 +39,10 @@
     <None Remove="Responses\GetServiceStatusSuccessfulAsync\0.json" />
     <None Remove="Responses\GetSpectatorSubsessionIdentifiersAsync\1.json" />
     <None Remove="Responses\GetSpectatorSubsessionIdentifiersAsync\2.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Web" />
   </ItemGroup>
 
 </Project>

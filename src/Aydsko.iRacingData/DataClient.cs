@@ -1534,13 +1534,13 @@ internal sealed class DataClient(IApiClient apiClient,
     {
         if (rangeBegin is not null)
         {
-            if (rangeBegin.Value > GetDateTimeUtcNow())
+            if (rangeBegin.Value > timeProvider.GetUtcNow())
             {
                 return new ArgumentOutOfRangeException(parameterName, $"Value for \"{rangeBeginFieldName}\" cannot be in the future.");
             }
 
             if (rangeEnd is null
-                && (Math.Abs(GetDateTimeUtcNow().Subtract(rangeBegin.Value).TotalDays) > 90))
+                && (Math.Abs(timeProvider.GetUtcNow().Subtract(rangeBegin.Value).TotalDays) > 90))
             {
                 return new ArgumentOutOfRangeException(parameterName, $"Must supply value for \"{rangeEndFieldName}\" if \"{rangeBeginFieldName}\" is more than 90 days in the past.");
             }
