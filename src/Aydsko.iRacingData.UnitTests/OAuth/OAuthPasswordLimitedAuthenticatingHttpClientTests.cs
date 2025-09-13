@@ -1,8 +1,7 @@
 ﻿using System.Net;
 using System.Text;
 using System.Web;
-using System.Net.Http.Headers;
-
+using Microsoft.Extensions.Time.Testing;
 
 #if NETFRAMEWORK
 using System.Net.Http;
@@ -12,29 +11,31 @@ namespace Aydsko.iRacingData.UnitTests.OAuth;
 
 internal class OAuthPasswordLimitedAuthenticatingHttpClientTests
 {
+    private const string ValidTokenResponseJson = """
+                                                  {
+                                                    "access_token": "fake_access_token",
+                                                    "token_type": "Bearer",
+                                                    "expires_in": 600,
+                                                    "refresh_token": "fake_refresh_token",
+                                                    "refresh_token_expires_in": 3600,
+                                                    "scope": "iracing.auth"
+                                                  }
+                                                  """;
+
     [Test]
-    public async Task GivenAnUnauthenticatedClientWhenARequestIsMadeThenTheTokenIsRequestedAsync()
+    public async Task GivenAnUnauthenticatedClient_WhenARequestIsMade_ThenTheTokenIsRequestedAsync()
     {
-        var validResponse = """
-                            {
-                              "access_token": "fake_access_token",
-                              "token_type": "Bearer",
-                              "expires_in": 600,
-                              "refresh_token": "fake_refresh_token",
-                              "refresh_token_expires_in": 3600,
-                              "scope": "iracing.auth"
-                            }
-                            """;
         using var fakeHandler = new FakeHttpHandler();
-        fakeHandler.AddJsonResponse(HttpStatusCode.OK, validResponse);
-        fakeHandler.AddJsonResponse(HttpStatusCode.OK, "{\"value\":true}");
+        fakeHandler.AddJsonResponse(new("https://oauth.iracing.com/oauth2/token"), HttpStatusCode.OK, ValidTokenResponseJson);
+        fakeHandler.AddJsonResponse(new("https://example.com/test-request"), HttpStatusCode.OK, "{\"value\":true}");
 
         var options = new iRacingDataClientOptions().UsePasswordLimitedAuthentication("test.user@example.com",
                                                                                       "SuperSecretPassword",
                                                                                       "UnitTestApp",
                                                                                       "Secret-Client-Password");
 
-        using var passwordLimitedClient = new OAuthPasswordLimitedAuthenticatingHttpClient(fakeHandler.GetClient(), options);
+        var fakeTimeProvider = new FakeTimeProvider(new(2025, 09, 13, 1, 0, 0, TimeSpan.Zero));
+        using var passwordLimitedClient = new OAuthPasswordLimitedAuthenticatingHttpClient(fakeHandler.GetClient(), options, fakeTimeProvider);
 
         using var testRequest = new HttpRequestMessage(HttpMethod.Get, new Uri("https://example.com/test-request"));
         var result = await passwordLimitedClient.SendAuthenticatedRequestAsync(testRequest).ConfigureAwait(false);
@@ -42,9 +43,9 @@ internal class OAuthPasswordLimitedAuthenticatingHttpClientTests
         using (Assert.EnterMultipleScope())
         {
             // Make sure we got a request.
-            Assert.That(fakeHandler.Requests, Is.Not.Null);
+            Assert.That(fakeHandler.RequestContentBytes, Is.Not.Null);
 
-            var requestContent = Encoding.UTF8.GetString(fakeHandler.Requests[0]);
+            var requestContent = Encoding.UTF8.GetString(fakeHandler.RequestContentBytes[0]);
 
             var requestContentValues = new Dictionary<string, string>();
             var formValues = HttpUtility.ParseQueryString(requestContent);
@@ -76,7 +77,59 @@ internal class OAuthPasswordLimitedAuthenticatingHttpClientTests
 
             // Validate that it had the content we expected.
             var resultContent = await result.Content.ReadAsStringAsync().ConfigureAwait(false);
-            Assert.That(resultContent, Is.EqualTo(validResponse));
+            Assert.That(resultContent, Is.EqualTo("{\"value\":true}"));
         }
+    }
+
+    [Test]
+    public async Task GivenAnAuthenticatedClient_WhenTimePasses_ThenTheRefreshTokenIsUsedAsync()
+    {
+        // GivenAnAuthenticatedClient
+        using var fakeHandler = new FakeHttpHandler();
+        fakeHandler.AddJsonResponse(new("https://oauth.iracing.com/oauth2/token"), HttpStatusCode.OK, ValidTokenResponseJson);
+        fakeHandler.AddJsonResponse(new("https://example.com/test-request"), HttpStatusCode.OK, "{\"value\":true}");
+        fakeHandler.AddJsonResponse(new("https://oauth.iracing.com/oauth2/token"),
+                                    HttpStatusCode.OK,
+                                    ValidTokenResponseJson,
+                                    async req =>
+                                    {
+                                        var requestContent = await req.Content!.ReadAsStringAsync().ConfigureAwait(false);
+                                        return requestContent.Contains("grant_type=refresh_token", StringComparison.OrdinalIgnoreCase);
+                                    });
+        fakeHandler.AddJsonResponse(new("https://example.com/test-request"), HttpStatusCode.OK, "{\"value\":true}");
+
+        var options = new iRacingDataClientOptions().UsePasswordLimitedAuthentication("test.user@example.com",
+                                                                                      "SuperSecretPassword",
+                                                                                      "UnitTestApp",
+                                                                                      "Secret-Client-Password");
+
+        var fakeTimeProvider = new FakeTimeProvider(new(2025, 09, 13, 1, 0, 0, TimeSpan.Zero));
+        using var passwordLimitedClient = new OAuthPasswordLimitedAuthenticatingHttpClient(fakeHandler.GetClient(), options, fakeTimeProvider);
+
+        using var testRequest1 = new HttpRequestMessage(HttpMethod.Get, new Uri("https://example.com/test-request"));
+        var result1 = await passwordLimitedClient.SendAuthenticatedRequestAsync(testRequest1).ConfigureAwait(false);
+
+        // Check that there a response that indicated success.
+        Assert.That(result1, Is.Not.Null);
+        Assert.That(result1, Has.Property(nameof(result1.StatusCode)).EqualTo(HttpStatusCode.OK));
+
+        // Validate that it had the content we expected.
+        var resultContent1 = await result1.Content.ReadAsStringAsync().ConfigureAwait(false);
+        Assert.That(resultContent1, Is.EqualTo("{\"value\":true}"));
+
+        // WhenTimePasses
+        fakeTimeProvider.Advance(TimeSpan.FromMinutes(15));
+
+        // ThenTheRefreshTokenIsUsed
+        using var testRequest2 = new HttpRequestMessage(HttpMethod.Get, new Uri("https://example.com/test-request"));
+        var result2 = await passwordLimitedClient.SendAuthenticatedRequestAsync(testRequest2).ConfigureAwait(false);
+
+        // Check that there a response that indicated success.
+        Assert.That(result2, Is.Not.Null);
+        Assert.That(result2, Has.Property(nameof(result2.StatusCode)).EqualTo(HttpStatusCode.OK));
+
+        // Validate that it had the content we expected.
+        var resultContent2 = await result2.Content.ReadAsStringAsync().ConfigureAwait(false);
+        Assert.That(resultContent2, Is.EqualTo("{\"value\":true}"));
     }
 }

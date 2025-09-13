@@ -5,11 +5,14 @@ using Aydsko.iRacingData.Exceptions;
 namespace Aydsko.iRacingData;
 
 public class OAuthPasswordLimitedAuthenticatingHttpClient(HttpClient httpClient,
-                                                          iRacingDataClientOptions options)
+                                                          iRacingDataClientOptions options,
+                                                          TimeProvider timeProvider)
     : IDisposable, IAuthenticatingHttpClient
 {
     private readonly SemaphoreSlim loginSemaphore = new(1, 1);
     private OAuthTokenResponse? tokenResponse;
+    private DateTimeOffset? accessTokenExpiryInstantUtc;
+    private DateTimeOffset? refreshTokenExpiryInstantUtc;
     private bool disposedValue;
 
     public async Task<HttpResponseMessage> SendAuthenticatedRequestAsync(HttpRequestMessage request,
@@ -56,7 +59,7 @@ public class OAuthPasswordLimitedAuthenticatingHttpClient(HttpClient httpClient,
 #pragma warning disable IDE0074 // Use compound assignment
                 if (tokenResponse is null)
                 {
-                    tokenResponse = await RequestTokenAsync(cancellationToken).ConfigureAwait(false);
+                    (tokenResponse, accessTokenExpiryInstantUtc, refreshTokenExpiryInstantUtc) = await RequestTokenAsync(cancellationToken).ConfigureAwait(false);
                     return tokenResponse.AccessToken;
                 }
 #pragma warning restore IDE0074 // Use compound assignment
@@ -67,11 +70,40 @@ public class OAuthPasswordLimitedAuthenticatingHttpClient(HttpClient httpClient,
                 _ = loginSemaphore.Release();
             }
         }
+        else if (accessTokenExpiryInstantUtc <= timeProvider.GetUtcNow())
+        {
+            await loginSemaphore.WaitAsync(cancellationToken)
+                                .ConfigureAwait(false);
+            try
+            {
+#pragma warning disable CA1508 // Avoid dead conditional code - This is the double-check locking pattern to ensure thread safety.
+#pragma warning disable IDE0074 // Use compound assignment
 
-        return tokenResponse.AccessToken;
+                // If the refresh token doesn't exist or is expired it is no good so we'll need to request a whole new token.
+                if ((refreshTokenExpiryInstantUtc ?? DateTimeOffset.MinValue) <= timeProvider.GetUtcNow())
+                {
+                    (tokenResponse, accessTokenExpiryInstantUtc, refreshTokenExpiryInstantUtc) = await RequestTokenAsync(cancellationToken).ConfigureAwait(false);
+                    return tokenResponse.AccessToken;
+                }
+                else if (accessTokenExpiryInstantUtc <= timeProvider.GetUtcNow())
+                {
+                    (tokenResponse, accessTokenExpiryInstantUtc, refreshTokenExpiryInstantUtc) = await RefreshTokenAsync(cancellationToken).ConfigureAwait(false);
+                    return tokenResponse.AccessToken;
+                }
+
+#pragma warning restore IDE0074 // Use compound assignment
+#pragma warning restore CA1508 // Avoid dead conditional code
+            }
+            finally
+            {
+                _ = loginSemaphore.Release();
+            }
+        }
+
+            return tokenResponse.AccessToken;
     }
 
-    private async Task<OAuthTokenResponse> RequestTokenAsync(CancellationToken cancellationToken = default)
+    private async Task<(OAuthTokenResponse Token, DateTimeOffset ExpiresAt, DateTimeOffset? RefreshTokenExpiresAt)> RequestTokenAsync(CancellationToken cancellationToken = default)
     {
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Retrieve \"password_limited\" token", System.Diagnostics.ActivityKind.Client);
 
@@ -85,7 +117,7 @@ public class OAuthPasswordLimitedAuthenticatingHttpClient(HttpClient httpClient,
                 throw new InvalidOperationException("All of \"Username\", \"Password\", \"ClientId\", and \"ClientSecret\" must be set in the options.");
             }
 
-            if (string.IsNullOrWhiteSpace(options.ApiBaseUrl)
+            if (string.IsNullOrWhiteSpace(options.AuthServiceBaseUrl)
                 || !Uri.TryCreate(options.AuthServiceBaseUrl, UriKind.Absolute, out var authServiceBaseUrl))
             {
                 throw new InvalidOperationException("The \"AuthServiceBaseUrl\" must be a valid absolute URL in the iRacing Data Client options.");
@@ -94,7 +126,8 @@ public class OAuthPasswordLimitedAuthenticatingHttpClient(HttpClient httpClient,
             var encodedPassword = options.PasswordIsEncoded ? options.Password : ApiClient.EncodePassword(options.Username!, options.Password!);
             var encodedClientSecret = options.ClientSecretIsEncoded ? options.ClientSecret : ApiClient.EncodePassword(options.ClientId!, options.ClientSecret!);
 
-            using var newTokenRequest = new HttpRequestMessage(HttpMethod.Post, new Uri(authServiceBaseUrl, "/oauth2/token"))
+            using var newTokenRequest = new HttpRequestMessage(HttpMethod.Post,
+                                                               new Uri(authServiceBaseUrl, "/oauth2/token"))
             {
                 Content = new FormUrlEncodedContent(
                 [
@@ -109,6 +142,7 @@ public class OAuthPasswordLimitedAuthenticatingHttpClient(HttpClient httpClient,
 
             var newTokenResponse = await httpClient.SendAsync(newTokenRequest, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
                                                    .ConfigureAwait(false);
+            var utcNow = timeProvider.GetUtcNow();
 
             if (!newTokenResponse.IsSuccessStatusCode)
             {
@@ -126,14 +160,90 @@ public class OAuthPasswordLimitedAuthenticatingHttpClient(HttpClient httpClient,
                                                       .ConfigureAwait(false)
                         ?? throw new iRacingLoginFailedException("Failed to deserialize OAuth token response from iRacing API.");
 
+            var expiresAt = utcNow.AddSeconds(token.ExpiresInSeconds);
+            var refreshExpiresAt = token.RefreshTokenExpiresInSeconds != null ? utcNow.AddSeconds(token.RefreshTokenExpiresInSeconds.Value) : (DateTimeOffset?)null;
+
             activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Ok, "Token retrieved successfully");
 
-            return token;
+            return (token, expiresAt, refreshExpiresAt);
         }
         catch (Exception ex)
         {
             activity?.AddException(ex);
             activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, "Exception thrown retrieving token");
+            throw;
+        }
+    }
+
+    private async Task<(OAuthTokenResponse Token, DateTimeOffset ExpiresAt, DateTimeOffset? RefreshTokenExpiresAt)> RefreshTokenAsync(CancellationToken cancellationToken = default)
+    {
+        using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Refresh \"password_limited\" token", System.Diagnostics.ActivityKind.Client);
+
+        try
+        {
+            if (string.IsNullOrWhiteSpace(options.ClientId)
+                || string.IsNullOrWhiteSpace(options.ClientSecret))
+            {
+                throw new InvalidOperationException("All of \"ClientId\" and \"ClientSecret\" must be set in the options.");
+            }
+
+            if (string.IsNullOrWhiteSpace(options.AuthServiceBaseUrl)
+                || !Uri.TryCreate(options.AuthServiceBaseUrl, UriKind.Absolute, out var authServiceBaseUrl))
+            {
+                throw new InvalidOperationException("The \"AuthServiceBaseUrl\" must be a valid absolute URL in the iRacing Data Client options.");
+            }
+
+            if (tokenResponse?.RefreshToken is not string refreshToken
+                || string.IsNullOrWhiteSpace(refreshToken))
+            {
+                throw new InvalidOperationException("Previous response must have contained a refresh token value.");
+            }
+
+            var encodedClientSecret = options.ClientSecretIsEncoded ? options.ClientSecret : ApiClient.EncodePassword(options.ClientId!, options.ClientSecret!);
+
+            using var newTokenRequest = new HttpRequestMessage(HttpMethod.Post,
+                                                               new Uri(authServiceBaseUrl, "/oauth2/token"))
+            {
+                Content = new FormUrlEncodedContent(
+                [
+                    new("grant_type", "refresh_token"),
+                    new("client_id", options.ClientId),
+                    new("client_secret", encodedClientSecret),
+                    new("refresh_token", refreshToken),
+                ]),
+            };
+
+            var newTokenResponse = await httpClient.SendAsync(newTokenRequest, HttpCompletionOption.ResponseHeadersRead, cancellationToken)
+                                                   .ConfigureAwait(false);
+            var utcNow = timeProvider.GetUtcNow();
+
+            if (!newTokenResponse.IsSuccessStatusCode)
+            {
+#if NET6_0_OR_GREATER
+                var errorContent = await newTokenResponse.Content.ReadAsStringAsync(cancellationToken)
+                                                                 .ConfigureAwait(false);
+#else
+                var errorContent = await newTokenResponse.Content.ReadAsStringAsync()
+                                                                 .ConfigureAwait(false);
+#endif
+                throw new iRacingLoginFailedException($"Attempt to refresh OAuth token failed with status code {newTokenResponse.StatusCode} and content: {errorContent}");
+            }
+
+            var token = await newTokenResponse.Content.ReadFromJsonAsync<OAuthTokenResponse>(cancellationToken)
+                                                      .ConfigureAwait(false)
+                        ?? throw new iRacingLoginFailedException("Failed to deserialize OAuth token response from iRacing API.");
+
+            var expiresAt = utcNow.AddSeconds(token.ExpiresInSeconds);
+            var refreshExpiresAt = token.RefreshTokenExpiresInSeconds != null ? utcNow.AddSeconds(token.RefreshTokenExpiresInSeconds.Value) : (DateTimeOffset?)null;
+
+            activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Ok, "Token refreshed successfully");
+
+            return (token, expiresAt, refreshExpiresAt);
+        }
+        catch (Exception ex)
+        {
+            activity?.AddException(ex);
+            activity?.SetStatus(System.Diagnostics.ActivityStatusCode.Error, "Exception thrown refreshing token");
             throw;
         }
     }
