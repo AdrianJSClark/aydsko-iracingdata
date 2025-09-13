@@ -1,14 +1,35 @@
-﻿// © 2023 Adrian Clark
+﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
+
+using Microsoft.Extensions.Time.Testing;
 
 namespace Aydsko.iRacingData.IntegrationTests;
 
-internal abstract class DataClientIntegrationFixture : BaseIntegrationFixture<DataClient>
+internal abstract class DataClientIntegrationFixture
+    : BaseIntegrationFixture<DataClient>
 {
+    protected FakeTimeProvider FakeTimeProvider { get; private set; } = new FakeTimeProvider(DateTimeOffset.UtcNow);
+
+    private LegacyUsernamePasswordApiClient? _legacyApiClient;
+    private ApiClient? _apiClientBase;
+
     [OneTimeSetUp]
     public void OneTimeSetUp()
     {
         var options = BaseSetUp();
-        Client = new DataClient(HttpClient, new TestLogger<DataClient>(), options, CookieContainer);
+
+        _legacyApiClient = new(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
+        _apiClientBase = new(_legacyApiClient, options, new TestLogger<ApiClient>());
+        Client = new DataClient(_apiClientBase, options, new TestLogger<DataClient>(), FakeTimeProvider);
+    }
+
+    protected override void Dispose(bool disposing)
+    {
+        if (disposing)
+        {
+            _legacyApiClient?.Dispose();
+            _apiClientBase?.Dispose();
+        }
+        base.Dispose(disposing);
     }
 }

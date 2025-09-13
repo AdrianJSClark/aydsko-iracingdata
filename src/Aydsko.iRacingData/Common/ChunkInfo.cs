@@ -3,7 +3,14 @@
 
 namespace Aydsko.iRacingData.Common;
 
-public class ChunkInfo
+public interface IChunkInfo
+{
+    string BaseDownloadUrl { get; set; }
+    string[] ChunkFileNames { get; set; }
+    int NumberOfChunks { get; set; }
+}
+
+public class ChunkInfo : IChunkInfo
 {
     [JsonPropertyName("chunk_size")]
     public int ChunkSize { get; set; }

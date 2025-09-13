@@ -9,10 +9,10 @@ public class DriverInfoResponse
     public bool Success { get; set; }
 
     [JsonPropertyName("cust_ids")]
-    public int[] CustomerIds { get; set; } = Array.Empty<int>();
+    public int[] CustomerIds { get; set; } = [];
 
     [JsonPropertyName("members")]
-    public DriverInfo[] Drivers { get; set; } = Array.Empty<DriverInfo>();
+    public DriverInfo[] Drivers { get; set; } = [];
 }
 
 [JsonSerializable(typeof(DriverInfoResponse)), JsonSourceGenerationOptions(WriteIndented = true)]

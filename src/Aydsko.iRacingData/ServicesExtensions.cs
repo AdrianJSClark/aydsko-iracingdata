@@ -1,4 +1,4 @@
-﻿// © 2023-2024 Adrian Clark
+﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
 using System.Net;
@@ -110,28 +110,54 @@ public static class ServicesExtensions
         }
 #endif
 
-        services.TryAddSingleton(new CookieContainer());
-#pragma warning disable CS0618 // Type or member is obsolete
-        services.TryAddTransient<TrackScreenshotService>();
-#pragma warning restore CS0618 // Type or member is obsolete
-
         var options = new iRacingDataClientOptions();
         configureOptions.Invoke(options);
         services.AddSingleton(options);
 
         var userAgentValue = CreateUserAgentValue(options);
 
-        var httpClientBuilder = (includeCaching ? services.AddHttpClient<IDataClient, CachingDataClient>() : services.AddHttpClient<IDataClient, DataClient>())
-                                .ConfigureHttpClient(httpClient => httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(userAgentValue))
-                                .ConfigurePrimaryHttpMessageHandler(() =>
-                                {
-                                    var handler = new HttpClientHandler
-                                    {
-                                        UseCookies = true,
-                                        CookieContainer = services.BuildServiceProvider().GetRequiredService<CookieContainer>()
-                                    };
-                                    return handler;
-                                });
+        if (includeCaching)
+        {
+            throw new NotImplementedException("Caching is not yet re-implemented.");
+        }
+
+        //var httpClientBuilder = (includeCaching ? services.AddHttpClient<IDataClient, CachingDataClient>() : services.AddHttpClient<IDataClient, DataClient>())
+
+        services.TryAddSingleton(TimeProvider.System);
+
+        if (includeCaching)
+        {
+            services.AddTransient<IApiClient, CachingApiClient>();
+        }
+        else
+        {
+            services.AddTransient<IApiClient, ApiClient>();
+        }
+
+        services.AddTransient<IDataClient, DataClient>();
+
+        IHttpClientBuilder httpClientBuilder;
+
+        if (!string.IsNullOrWhiteSpace(options.ClientId) && !string.IsNullOrWhiteSpace(options.ClientSecret))
+        {
+            httpClientBuilder = services.AddHttpClient<IAuthenticatingHttpClient, OAuthPasswordLimitedAuthenticatingHttpClient>();
+        }
+        else
+        {
+            services.TryAddSingleton<CookieContainer>();
+            httpClientBuilder = services.AddHttpClient<IAuthenticatingHttpClient, LegacyUsernamePasswordApiClient>()
+                                        .ConfigurePrimaryHttpMessageHandler(sp =>
+                                        {
+                                            var handler = new HttpClientHandler
+                                            {
+                                                UseCookies = true,
+                                                CookieContainer = sp.GetRequiredService<CookieContainer>()
+                                            };
+                                            return handler;
+                                        });
+        }
+
+        httpClientBuilder.ConfigureHttpClient(httpClient => httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(userAgentValue));
 
         return httpClientBuilder;
     }
@@ -160,5 +186,65 @@ public static class ServicesExtensions
         var dataClientVersion = typeof(DataClient).Assembly.GetName()?.Version?.ToString(3) ?? "0.0";
         var userAgentValue = $"{userAgentProductName}/{userAgentProductVersion} Aydsko.iRacingDataClient/{dataClientVersion}";
         return userAgentValue;
+    }
+
+    /// <summary>Configure the options to use "Password Limited" iRacing authentication.</summary>
+    /// <param name="options">The options object to configure.</param>
+    /// <param name="userName">iRacing username</param>
+    /// <param name="password">iRacing password</param>
+    /// <param name="clientId">The iRacing-supplied Client ID value.</param>
+    /// <param name="clientSecret">The iRacing-supplied Client Secret value.</param>
+    /// <param name="passwordIsEncoded">Indicates that the <paramref name="password"/> value is already encoded for supply to the iRacing Authentication API.</param>
+    /// <param name="clientSecretIsEncoded">Indicates that the <paramref name="clientSecret"/> value is already encoded for supply to the iRacing Authentication API.</param>
+    /// <returns>The options object to allow call chaining.</returns>
+    public static iRacingDataClientOptions UsePasswordLimitedAuthentication(this iRacingDataClientOptions options,
+                                                                            string userName,
+                                                                            string password,
+                                                                            string clientId,
+                                                                            string clientSecret,
+                                                                            bool passwordIsEncoded = false,
+                                                                            bool clientSecretIsEncoded = false)
+    {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(options);
+        ArgumentException.ThrowIfNullOrWhiteSpace(userName);
+        ArgumentException.ThrowIfNullOrWhiteSpace(password);
+        ArgumentException.ThrowIfNullOrWhiteSpace(clientId);
+        ArgumentException.ThrowIfNullOrWhiteSpace(clientSecret);
+#else
+        if (options is null)
+        {
+            throw new ArgumentNullException(nameof(options));
+        }
+
+        if (string.IsNullOrWhiteSpace(userName))
+        {
+            throw new ArgumentNullException(nameof(userName));
+        }
+
+        if (string.IsNullOrWhiteSpace(password))
+        {
+            throw new ArgumentNullException(nameof(password));
+        }
+
+        if (string.IsNullOrWhiteSpace(clientId))
+        {
+            throw new ArgumentNullException(nameof(clientId));
+        }
+
+        if (string.IsNullOrWhiteSpace(clientSecret))
+        {
+            throw new ArgumentNullException(nameof(clientSecret));
+        }
+#endif
+
+        options.Username = userName;
+        options.Password = password;
+        options.PasswordIsEncoded = passwordIsEncoded;
+        options.ClientId = clientId;
+        options.ClientSecret = clientSecret;
+        options.ClientSecretIsEncoded = clientSecretIsEncoded;
+
+        return options;
     }
 }

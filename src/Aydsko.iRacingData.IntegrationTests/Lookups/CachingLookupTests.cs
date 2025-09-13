@@ -1,4 +1,4 @@
-﻿// © 2023 Adrian Clark
+﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
 namespace Aydsko.iRacingData.IntegrationTests.Lookups;
@@ -23,10 +23,11 @@ internal sealed class CachingLookupTests : CachingIntegrationFixture
         Assert.That(license2.Data, Has.Length.EqualTo(7));
 
         var stats = MemoryCache.GetCurrentStatistics();
-        Assert.Multiple(() =>
+
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(stats?.TotalHits, Is.Not.Null.And.EqualTo(1), "TotalHits didn't match.");
             Assert.That(stats?.TotalMisses, Is.Not.Null.And.EqualTo(1), "TotalMisses didn't match.");
-        });
+        }
     }
 }

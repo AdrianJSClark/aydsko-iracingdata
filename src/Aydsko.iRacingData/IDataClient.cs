@@ -24,6 +24,7 @@ public interface IDataClient
     /// <param name="username">iRacing user name to use for authentication.</param>
     /// <param name="password">Password associated with the iRacing user name used to authenticate.</param>
     /// <exception cref="iRacingClientOptionsValueMissingException">Either <paramref name="username"/> or <paramref name="password"/> were <see langword="null"/> or white space.</exception>
+    [Obsolete("Configure via the \"AddIRacingDataApi\" extension method on the IServiceCollection which allows you to configure the \"iRacingDataClientOptions\".")]
     void UseUsernameAndPassword(string username, string password);
 
     /// <summary>Supply the username and password if they weren't supplied through the <see cref="iRacingDataClientOptions"/> object.</summary>
@@ -31,6 +32,7 @@ public interface IDataClient
     /// <param name="password">Password associated with the iRacing user name used to authenticate.</param>
     /// <param name="passwordIsEncoded">If <see langword="true" /> indicates the <paramref name="password"/> value is already encoded ready for submission to the iRacing API.</param>
     /// <exception cref="iRacingClientOptionsValueMissingException">Either <paramref name="username"/> or <paramref name="password"/> were <see langword="null"/> or white space.</exception>
+    [Obsolete("Configure via the \"AddIRacingDataApi\" extension method on the IServiceCollection which allows you to configure the \"iRacingDataClientOptions\".")]
     void UseUsernameAndPassword(string username, string password, bool passwordIsEncoded);
 
     /// <summary>Retrieves details about the car assets, including image paths and descriptions.</summary>

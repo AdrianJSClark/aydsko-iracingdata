@@ -1,7 +1,10 @@
 BREAKING CHANGES:
 - All references to iRacing Clubs have been removed. iRacing no longer supports Clubs (see: https://forums.iracing.com/discussion/77912/disbanding-of-clubs-and-raising-of-flags)
+- "IDataClient.GetMemberChartData" method was removed. Use "IDataClient.GetMemberChartDataAsync" instead.
+- The "TrackScreenshotService" class has been removed. Use "IDataClient.GetTrackAssetScreenshotUris\" or "IDataClient.GetTrackAssetScreenshotUrisAsync" instead.
 
 FIXES:
 - Update League, League Season, and League Session calls. Including weather for League Sessions. (Issue #237)
+- Improve League tag handling.
 - Implement the "/data/lookup/flairs" endpoint to retrieve available flair, or driver flags. (Issue #238)
 - Implement Track Package Id based paths for logo files. (Issue #240)

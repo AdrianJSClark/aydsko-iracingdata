@@ -1,4 +1,4 @@
-﻿// © 2023-2025 Adrian Clark
+﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
 using System.Net;
@@ -7,7 +7,8 @@ using System.Text.Json.Serialization;
 
 namespace Aydsko.iRacingData.UnitTests;
 
-internal sealed class PasswordEncodingTests : MockedHttpTestBase
+internal sealed class PasswordEncodingTests
+    : MockedHttpTestBase
 {
     [TestCaseSource(nameof(GetTestCases))]
     public async Task ValidateLoginRequestViaOptionsAsync(string username, string password, bool passwordIsEncoded, string expectedEncodedPassword)
@@ -21,15 +22,14 @@ internal sealed class PasswordEncodingTests : MockedHttpTestBase
             SaveCookies = null,
         };
 
-        using var sut = new DataClient(HttpClient,
-                                       new TestLogger<DataClient>(),
-                                       options,
-                                       CookieContainer);
+        using var client = new TestLegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
+        using var apiClient = new ApiClient(client, options, new TestLogger<ApiClient>());
+        var sut = new DataClient(apiClient, options, new TestLogger<DataClient>(), FakeTimeProvider);
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
         var lookups = await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
-        await Assert.MultipleAsync(async () =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(MessageHandler.RequestContent, Has.Count.GreaterThanOrEqualTo(1));
 
@@ -44,23 +44,23 @@ internal sealed class PasswordEncodingTests : MockedHttpTestBase
             Assert.That(loginDto!.Email, Is.EqualTo(username));
             Assert.That(loginDto!.Password, Is.EqualTo(expectedEncodedPassword));
 
-            Assert.That(sut.IsLoggedIn, Is.True);
+            Assert.That(client.IsLoggedIn, Is.True);
             Assert.That(lookups, Is.Not.Null);
             Assert.That(lookups.Data, Is.Not.Null.Or.Empty);
-        }).ConfigureAwait(false);
+        }
     }
 
     [TestCaseSource(nameof(GetTestCases))]
+    [Obsolete]
     public async Task ValidateLoginRequestViaMethodWithPasswordIsEncodedParamAsync(string username, string password, bool passwordIsEncoded, string expectedEncodedPassword)
     {
         var options = new iRacingDataClientOptions { RestoreCookies = null, SaveCookies = null, };
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
 
-        using var sut = new DataClient(HttpClient,
-                                       new TestLogger<DataClient>(),
-                                       options,
-                                       CookieContainer);
+        using var client = new TestLegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
+        using var apiClient = new ApiClient(client, options, new TestLogger<ApiClient>());
+        var sut = new DataClient(apiClient, options, new TestLogger<DataClient>(), FakeTimeProvider);
 
         sut.UseUsernameAndPassword(username, password, passwordIsEncoded);
 
@@ -68,7 +68,7 @@ internal sealed class PasswordEncodingTests : MockedHttpTestBase
 
         var request = MessageHandler.RequestContent.Peek();
 
-        await Assert.MultipleAsync(async () =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(request, Is.Not.Null);
             Assert.That(request.ContentStream, Is.Not.Null.Or.Empty);
@@ -79,23 +79,23 @@ internal sealed class PasswordEncodingTests : MockedHttpTestBase
             Assert.That(loginDto!.Email, Is.EqualTo(username));
             Assert.That(loginDto!.Password, Is.EqualTo(expectedEncodedPassword));
 
-            Assert.That(sut.IsLoggedIn, Is.True);
+            Assert.That(client.IsLoggedIn, Is.True);
             Assert.That(lookups, Is.Not.Null);
             Assert.That(lookups.Data, Is.Not.Null.Or.Empty);
-        }).ConfigureAwait(false);
+        }
     }
 
     [TestCaseSource(nameof(GetTestCasesWithUnencodedPasswords))]
+    [Obsolete]
     public async Task ValidateLoginRequestViaMethodAsync(string username, string password, string expectedEncodedPassword)
     {
         var options = new iRacingDataClientOptions { RestoreCookies = null, SaveCookies = null, };
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
 
-        using var sut = new DataClient(HttpClient,
-                                       new TestLogger<DataClient>(),
-                                       options,
-                                       CookieContainer);
+        using var client = new TestLegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
+        using var apiClient = new ApiClient(client, options, new TestLogger<ApiClient>());
+        var sut = new DataClient(apiClient, options, new TestLogger<DataClient>(), FakeTimeProvider);
 
         sut.UseUsernameAndPassword(username, password);
 
@@ -103,7 +103,7 @@ internal sealed class PasswordEncodingTests : MockedHttpTestBase
 
         var request = MessageHandler.RequestContent.Dequeue();
 
-        await Assert.MultipleAsync(async () =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(request, Is.Not.Null);
             Assert.That(request.ContentStream, Is.Not.Null.Or.Empty);
@@ -114,13 +114,14 @@ internal sealed class PasswordEncodingTests : MockedHttpTestBase
             Assert.That(loginDto!.Email, Is.EqualTo(username));
             Assert.That(loginDto!.Password, Is.EqualTo(expectedEncodedPassword));
 
-            Assert.That(sut.IsLoggedIn, Is.True);
+            Assert.That(client.IsLoggedIn, Is.True);
             Assert.That(lookups, Is.Not.Null);
             Assert.That(lookups.Data, Is.Not.Null.Or.Empty);
-        }).ConfigureAwait(false);
+        }
     }
 
     [TestCaseSource(nameof(GetTestCasesWithUnencodedPasswords))]
+    [Obsolete]
     public async Task LoginIsNotCalledIfCookiesAreSuccessfullyRestoredAsync(string username, string password, string expectedEncodedPassword)
     {
         var restoreCookiesWasCalled = false;
@@ -149,24 +150,24 @@ internal sealed class PasswordEncodingTests : MockedHttpTestBase
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync), false).ConfigureAwait(false);
 
-        using var sut = new DataClient(HttpClient,
-                                       new TestLogger<DataClient>(),
-                                       options,
-                                       CookieContainer);
+        using var client = new TestLegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
+        using var apiClient = new ApiClient(client, options, new TestLogger<ApiClient>());
+        var sut = new DataClient(apiClient, options, new TestLogger<DataClient>(), FakeTimeProvider);
 
         sut.UseUsernameAndPassword(username, password);
 
         var lookups = await sut.GetLookupsAsync(CancellationToken.None).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(restoreCookiesWasCalled, Is.True);
             Assert.That(saveCookiesWasCalled, Is.False);
             Assert.That(MessageHandler.RequestContent, Has.Count.EqualTo(2));
-        });
+        }
     }
 
     [TestCaseSource(nameof(GetTestCasesWithUnencodedPasswords))]
+    [Obsolete]
     public async Task LoginIsCalledIfCookiesAreExpiredAsync(string username, string password, string expectedEncodedPassword)
     {
         var restoreCookiesWasCalled = false;
@@ -204,10 +205,9 @@ internal sealed class PasswordEncodingTests : MockedHttpTestBase
 
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetLookupsSuccessfulAsync)).ConfigureAwait(false);
 
-        using var sut = new DataClient(HttpClient,
-                                       new TestLogger<DataClient>(),
-                                       options,
-                                       CookieContainer);
+        using var client = new TestLegacyUsernamePasswordApiClient(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
+        using var apiClient = new ApiClient(client, options, new TestLogger<ApiClient>());
+        var sut = new DataClient(apiClient, options, new TestLogger<DataClient>(), FakeTimeProvider);
 
         sut.UseUsernameAndPassword(username, password);
 
@@ -215,7 +215,7 @@ internal sealed class PasswordEncodingTests : MockedHttpTestBase
 
         var request = MessageHandler.RequestContent.Dequeue();
 
-        await Assert.MultipleAsync(async () =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(request, Is.Not.Null);
             Assert.That(request.ContentStream, Is.Not.Null.Or.Empty);
@@ -226,14 +226,14 @@ internal sealed class PasswordEncodingTests : MockedHttpTestBase
             Assert.That(loginDto!.Email, Is.EqualTo(username));
             Assert.That(loginDto!.Password, Is.EqualTo(expectedEncodedPassword));
 
-            Assert.That(sut.IsLoggedIn, Is.True);
+            Assert.That(client.IsLoggedIn, Is.True);
             Assert.That(lookups, Is.Not.Null);
             Assert.That(lookups.Data, Is.Not.Null.Or.Empty);
 
             Assert.That(restoreCookiesWasCalled, Is.True);
             Assert.That(saveCookiesWasCalled, Is.True);
             Assert.That(MessageHandler.RequestContent, Has.Count.EqualTo(2));
-        }).ConfigureAwait(false);
+        }
     }
 
     private static IEnumerable<TestCaseData> GetTestCases()
