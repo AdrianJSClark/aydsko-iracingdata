@@ -4,6 +4,7 @@ BREAKING CHANGES:
 
 FIXES:
 - Various properties updated to match results (DriverInfo, LicenseInfo, MemberInfo)
+- Resolved issue with caching API configuration.
 
 NEW FEATURE: iRacing OAuth "Password Limited Grant" Authentication
 - Allows authentication using "Client ID" and "Client Secret" issued by iRacing.
