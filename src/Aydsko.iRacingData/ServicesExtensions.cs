@@ -116,13 +116,6 @@ public static class ServicesExtensions
 
         var userAgentValue = CreateUserAgentValue(options);
 
-        if (includeCaching)
-        {
-            throw new NotImplementedException("Caching is not yet re-implemented.");
-        }
-
-        //var httpClientBuilder = (includeCaching ? services.AddHttpClient<IDataClient, CachingDataClient>() : services.AddHttpClient<IDataClient, DataClient>())
-
         services.TryAddSingleton(TimeProvider.System);
 
         if (includeCaching)
