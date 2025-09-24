@@ -222,7 +222,11 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
             Assert.That(carAssets.Data, Has.Length.EqualTo(1));
             Assert.That(carAssets.Data[0].Licenses, Is.Not.Null);
-            Assert.That(carAssets.Data[0].Licenses, Has.Length.EqualTo(4));
+            Assert.That(carAssets.Data[0].Licenses, Has.Length.EqualTo(5));
+
+            Assert.That(carAssets.Data[0].FlairId, Is.EqualTo(16));
+            Assert.That(carAssets.Data[0].FlairName, Is.EqualTo("Australia"));
+            Assert.That(carAssets.Data[0].FlairShortName, Is.EqualTo("AUS"));
 
             Assert.That(carAssets.RateLimitRemaining, Is.EqualTo(99));
             Assert.That(carAssets.TotalRateLimit, Is.EqualTo(100));
@@ -245,6 +249,11 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
             Assert.That(carAssets.Data, Has.Length.EqualTo(1));
             Assert.That(carAssets.Data[0].Licenses, Is.Null);
+
+            Assert.That(carAssets.Data[0].FlairId, Is.EqualTo(16));
+            Assert.That(carAssets.Data[0].FlairName, Is.EqualTo("Australia"));
+            Assert.That(carAssets.Data[0].FlairShortName, Is.EqualTo("AUS"));
+
             Assert.That(carAssets.RateLimitRemaining, Is.EqualTo(99));
             Assert.That(carAssets.TotalRateLimit, Is.EqualTo(100));
             Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));

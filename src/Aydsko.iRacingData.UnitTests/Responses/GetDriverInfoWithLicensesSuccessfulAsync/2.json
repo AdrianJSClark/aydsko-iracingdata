@@ -1,84 +1,114 @@
 {
-    "headers": {},
-    "content": {
-        "success": true,
-        "cust_ids": [
-            123456
-        ],
-        "members": [
-            {
-                "cust_id": 123456,
-                "display_name": "Firstname Lastname",
-                "helmet": {
-                    "pattern": 50,
-                    "color1": "981F24",
-                    "color2": "000000",
-                    "color3": "ED2129",
-                    "face_type": 0,
-                    "helmet_type": 0
-                },
-                "last_login": "2022-01-01T00:00:00.000000Z",
-                "member_since": "2012-01-01",
-                "club_id": 34,
-                "club_name": "Australia/NZ",
-                "ai": false,
-                "licenses": [
-                    {
-                        "category_id": 1,
-                        "category": "oval",
-                        "license_level": 2,
-                        "safety_rating": 2.5,
-                        "cpi": 10.10941,
-                        "tt_rating": 1350,
-                        "mpr_num_races": 0,
-                        "color": "fc0706",
-                        "group_name": "Rookie",
-                        "group_id": 1,
-                        "mpr_num_tts": 0
-                    },
-                    {
-                        "category_id": 2,
-                        "category": "road",
-                        "license_level": 19,
-                        "safety_rating": 3.49,
-                        "cpi": 66.7852,
-                        "irating": 2135,
-                        "tt_rating": 1263,
-                        "mpr_num_races": 43,
-                        "color": "0153db",
-                        "group_name": "Class A",
-                        "group_id": 5,
-                        "mpr_num_tts": 1
-                    },
-                    {
-                        "category_id": 3,
-                        "category": "dirt_oval",
-                        "license_level": 2,
-                        "safety_rating": 2.5,
-                        "cpi": 10.10941,
-                        "tt_rating": 1350,
-                        "mpr_num_races": 0,
-                        "color": "fc0706",
-                        "group_name": "Rookie",
-                        "group_id": 1,
-                        "mpr_num_tts": 0
-                    },
-                    {
-                        "category_id": 4,
-                        "category": "dirt_road",
-                        "license_level": 6,
-                        "safety_rating": 2.66,
-                        "cpi": 16.349142,
-                        "irating": 1376,
-                        "tt_rating": 1350,
-                        "mpr_num_races": 2,
-                        "color": "fc8a27",
-                        "group_name": "Class D",
-                        "group_id": 2,
-                        "mpr_num_tts": 0
-                    }
-                ]
-            }
+  "headers": {},
+  "content": {
+    "success": true,
+    "cust_ids": [
+      341554
+    ],
+    "members": [
+      {
+        "cust_id": 341554,
+        "display_name": "Adrian Clark",
+        "helmet": {
+          "pattern": 50,
+          "color1": "981f24",
+          "color2": "000000",
+          "color3": "ed2129",
+          "face_type": 4,
+          "helmet_type": 0
+        },
+        "last_login": "2025-09-23T20:25:41.669788164Z",
+        "member_since": "2018-09-30",
+        "flair_id": 16,
+        "flair_name": "Australia",
+        "flair_shortname": "AUS",
+        "ai": false,
+        "licenses": [
+          {
+            "category_id": 1,
+            "category": "oval",
+            "category_name": "Oval",
+            "license_level": 2,
+            "safety_rating": 2.76,
+            "cpi": 12.038528,
+            "tt_rating": 1350,
+            "mpr_num_races": 1,
+            "color": "fc0706",
+            "group_name": "Rookie",
+            "group_id": 1,
+            "pro_promotable": false,
+            "seq": 1,
+            "mpr_num_tts": 0
+          },
+          {
+            "category_id": 5,
+            "category": "sports_car",
+            "category_name": "Sports Car",
+            "license_level": 19,
+            "safety_rating": 3.45,
+            "cpi": 64.65463,
+            "irating": 1759,
+            "tt_rating": 1350,
+            "mpr_num_races": 169,
+            "color": "0153db",
+            "group_name": "Class A",
+            "group_id": 5,
+            "pro_promotable": false,
+            "seq": 2,
+            "mpr_num_tts": 4
+          },
+          {
+            "category_id": 6,
+            "category": "formula_car",
+            "category_name": "Formula Car",
+            "license_level": 20,
+            "safety_rating": 4.97,
+            "cpi": 133.6519,
+            "irating": 3270,
+            "tt_rating": 1350,
+            "mpr_num_races": 174,
+            "color": "0153db",
+            "group_name": "Class A",
+            "group_id": 5,
+            "pro_promotable": false,
+            "seq": 3,
+            "mpr_num_tts": 4
+          },
+          {
+            "category_id": 3,
+            "category": "dirt_oval",
+            "category_name": "Dirt Oval",
+            "license_level": 2,
+            "safety_rating": 2.5,
+            "cpi": 10.10941,
+            "tt_rating": 1350,
+            "mpr_num_races": 0,
+            "color": "fc0706",
+            "group_name": "Rookie",
+            "group_id": 1,
+            "pro_promotable": false,
+            "seq": 4,
+            "mpr_num_tts": 0
+          },
+          {
+            "category_id": 4,
+            "category": "dirt_road",
+            "category_name": "Dirt Road",
+            "license_level": 6,
+            "safety_rating": 2.66,
+            "cpi": 16.349142,
+            "irating": 1376,
+            "tt_rating": 1350,
+            "mpr_num_races": 2,
+            "color": "fc8a27",
+            "group_name": "Class D",
+            "group_id": 2,
+            "pro_promotable": false,
+            "seq": 5,
+            "mpr_num_tts": 0
+          }
         ]
-    }
+      }
+    ]
+  }
 }

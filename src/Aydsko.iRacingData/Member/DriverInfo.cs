@@ -14,6 +14,15 @@ public class DriverInfo
     [JsonPropertyName("helmet")]
     public Helmet Helmet { get; set; } = default!;
 
+    [JsonPropertyName("flair_id")]
+    public int FlairId { get; set; }
+
+    [JsonPropertyName("flair_name")]
+    public string FlairName { get; set; } = default!;
+
+    [JsonPropertyName("flair_shortname")]
+    public string? FlairShortName { get; set; }
+
     [JsonPropertyName("last_login")]
     public DateTimeOffset LastLogin { get; set; }
 

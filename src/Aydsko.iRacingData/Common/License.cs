@@ -1,4 +1,4 @@
-﻿// © 2023 Adrian Clark
+﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
 namespace Aydsko.iRacingData.Common;
@@ -10,6 +10,9 @@ public class License
 
     [JsonPropertyName("category")]
     public string Category { get; set; } = default!;
+
+    [JsonPropertyName("category_name")]
+    public string CategoryName { get; set; } = default!;
 
     [JsonPropertyName("license_level")]
     public int LicenseLevel { get; set; }

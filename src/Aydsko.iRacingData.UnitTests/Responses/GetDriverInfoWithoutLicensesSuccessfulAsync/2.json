@@ -1,28 +1,29 @@
 {
-    "headers": {},
-    "content": {
-        "success": true,
-        "cust_ids": [
-            123456
-        ],
-        "members": [
-            {
-                "cust_id": 123456,
-                "display_name": "Firstname Lastname",
-                "helmet": {
-                    "pattern": 50,
-                    "color1": "981F24",
-                    "color2": "000000",
-                    "color3": "ED2129",
-                    "face_type": 0,
-                    "helmet_type": 0
-                },
-                "last_login": "2022-01-01T00:00:00.000000Z",
-                "member_since": "2012-01-01",
-                "club_id": 34,
-                "club_name": "Australia/NZ",
-                "ai": false
-            }
-        ]
-    }
+  "headers": {},
+  "content": {
+    "success": true,
+    "cust_ids": [
+      341554
+    ],
+    "members": [
+      {
+        "cust_id": 341554,
+        "display_name": "Adrian Clark",
+        "helmet": {
+          "pattern": 50,
+          "color1": "981f24",
+          "color2": "000000",
+          "color3": "ed2129",
+          "face_type": 4,
+          "helmet_type": 0
+        },
+        "last_login": "2025-09-23T20:25:41.669788164Z",
+        "member_since": "2018-09-30",
+        "flair_id": 16,
+        "flair_name": "Australia",
+        "flair_shortname": "AUS",
+        "ai": false
+      }
+    ]
+  }
 }
