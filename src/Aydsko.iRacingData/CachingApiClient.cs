@@ -3,12 +3,17 @@ using Microsoft.Extensions.Caching.Memory;
 
 namespace Aydsko.iRacingData;
 
-internal sealed class CachingApiClient(ApiClient apiClient,
+internal sealed class CachingApiClient(IAuthenticatingHttpClient httpClient,
+                                       iRacingDataClientOptions options,
                                        IMemoryCache memoryCache,
                                        ILogger<CachingApiClient> logger,
+                                       ILogger<ApiClient> apiClientLogger,
                                        TimeProvider timeProvider)
-    : IApiClient
+    : IApiClient, IDisposable
 {
+    private readonly ApiClient apiClient = new(httpClient, options, apiClientLogger);
+    private bool disposedValue;
+
     public async Task<DataResponse<(THeader, TChunkData[])>> CreateResponseFromChunksAsync<THeader, TChunkData>(Uri uri,
                                                                                                                 bool isViaInfoLink,
                                                                                                                 JsonTypeInfo<THeader> jsonTypeInfo,
@@ -160,5 +165,35 @@ internal sealed class CachingApiClient(ApiClient apiClient,
     public void UseUsernameAndPassword(string username, string password, bool passwordIsEncoded)
     {
         apiClient.UseUsernameAndPassword(username, password, passwordIsEncoded);
+    }
+
+    private void Dispose(bool disposing)
+    {
+        if (!disposedValue)
+        {
+            if (disposing)
+            {
+                // TODO: dispose managed state (managed objects)
+                apiClient?.Dispose();
+            }
+
+            // TODO: free unmanaged resources (unmanaged objects) and override finalizer
+            // TODO: set large fields to null
+            disposedValue = true;
+        }
+    }
+
+    // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
+    // ~CachingApiClient()
+    // {
+    //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+    //     Dispose(disposing: false);
+    // }
+
+    public void Dispose()
+    {
+        // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
+        Dispose(disposing: true);
+        GC.SuppressFinalize(this);
     }
 }

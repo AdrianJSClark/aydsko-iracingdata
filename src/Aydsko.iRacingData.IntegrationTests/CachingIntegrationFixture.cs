@@ -13,7 +13,6 @@ internal abstract class CachingIntegrationFixture
     protected FakeTimeProvider FakeTimeProvider { get; private set; } = new FakeTimeProvider(DateTimeOffset.UtcNow);
 
     private LegacyUsernamePasswordApiClient? _legacyApiClient;
-    private ApiClient? _apiClientBase;
     private CachingApiClient? _cachingApiClientBase;
 
     [SetUp]
@@ -24,8 +23,12 @@ internal abstract class CachingIntegrationFixture
         MemoryCache = new MemoryCache(new MemoryCacheOptions() { TrackStatistics = true });
 
         _legacyApiClient = new(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
-        _apiClientBase = new(_legacyApiClient, options, new TestLogger<ApiClient>());
-        _cachingApiClientBase = new(_apiClientBase, MemoryCache, new TestLogger<CachingApiClient>(), FakeTimeProvider);
+        _cachingApiClientBase = new(_legacyApiClient,
+                                    options,
+                                    MemoryCache,
+                                    new TestLogger<CachingApiClient>(),
+                                    new TestLogger<ApiClient>(),
+                                    FakeTimeProvider);
 
         Client = new DataClient(_cachingApiClientBase, options, new TestLogger<DataClient>(), FakeTimeProvider);
     }
@@ -35,7 +38,7 @@ internal abstract class CachingIntegrationFixture
         if (disposing)
         {
             _legacyApiClient?.Dispose();
-            _apiClientBase?.Dispose();
+            _cachingApiClientBase?.Dispose();
         }
 
         base.Dispose(disposing);
