@@ -29,7 +29,7 @@ internal class OAuthPasswordLimitedAuthenticatingHttpClientTests
         fakeHandler.AddJsonResponse(new("https://oauth.iracing.com/oauth2/token"), HttpStatusCode.OK, ValidTokenResponseJson);
         fakeHandler.AddJsonResponse(new("https://example.com/test-request"), HttpStatusCode.OK, "{\"value\":true}");
 
-        var options = new iRacingDataClientOptions().UsePasswordLimitedAuthentication("test.user@example.com",
+        var options = new iRacingDataClientOptions().UsePasswordLimitedOAuth("test.user@example.com",
                                                                                       "SuperSecretPassword",
                                                                                       "UnitTestApp",
                                                                                       "Secret-Client-Password");
@@ -98,7 +98,7 @@ internal class OAuthPasswordLimitedAuthenticatingHttpClientTests
                                     });
         fakeHandler.AddJsonResponse(new("https://example.com/test-request"), HttpStatusCode.OK, "{\"value\":true}");
 
-        var options = new iRacingDataClientOptions().UsePasswordLimitedAuthentication("test.user@example.com",
+        var options = new iRacingDataClientOptions().UsePasswordLimitedOAuth("test.user@example.com",
                                                                                       "SuperSecretPassword",
                                                                                       "UnitTestApp",
                                                                                       "Secret-Client-Password");

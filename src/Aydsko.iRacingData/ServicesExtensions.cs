@@ -181,6 +181,45 @@ public static class ServicesExtensions
         return userAgentValue;
     }
 
+    /// <summary>Configure the options to use legacy iRacing username/password authentication.</summary>
+    /// <param name="options">The options object to configure.</param>
+    /// <param name="userName">iRacing username</param>
+    /// <param name="password">iRacing password</param>
+    /// <param name="passwordIsEncoded">Indicates that the <paramref name="password"/> value is already encoded for supply to the iRacing Authentication API.</param>
+    /// <returns>The options object to allow call chaining.</returns>
+    public static iRacingDataClientOptions UseUsernamePasswordAuthentication(this iRacingDataClientOptions options,
+                                                                             string userName,
+                                                                             string password,
+                                                                             bool passwordIsEncoded = false)
+    {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(options);
+        ArgumentException.ThrowIfNullOrWhiteSpace(userName);
+        ArgumentException.ThrowIfNullOrWhiteSpace(password);
+#else
+        if (options is null)
+        {
+            throw new ArgumentNullException(nameof(options));
+        }
+
+        if (string.IsNullOrWhiteSpace(userName))
+        {
+            throw new ArgumentNullException(nameof(userName));
+        }
+
+        if (string.IsNullOrWhiteSpace(password))
+        {
+            throw new ArgumentNullException(nameof(password));
+        }
+#endif
+
+        options.Username = userName;
+        options.Password = password;
+        options.PasswordIsEncoded = passwordIsEncoded;
+
+        return options;
+    }
+
     /// <summary>Configure the options to use "Password Limited" iRacing authentication.</summary>
     /// <param name="options">The options object to configure.</param>
     /// <param name="userName">iRacing username</param>
@@ -190,7 +229,7 @@ public static class ServicesExtensions
     /// <param name="passwordIsEncoded">Indicates that the <paramref name="password"/> value is already encoded for supply to the iRacing Authentication API.</param>
     /// <param name="clientSecretIsEncoded">Indicates that the <paramref name="clientSecret"/> value is already encoded for supply to the iRacing Authentication API.</param>
     /// <returns>The options object to allow call chaining.</returns>
-    public static iRacingDataClientOptions UsePasswordLimitedAuthentication(this iRacingDataClientOptions options,
+    public static iRacingDataClientOptions UsePasswordLimitedOAuth(this iRacingDataClientOptions options,
                                                                             string userName,
                                                                             string password,
                                                                             string clientId,
@@ -240,4 +279,41 @@ public static class ServicesExtensions
 
         return options;
     }
+
+    /// <summary>Configure the user agent details to use in requests.</summary>
+    /// <param name="options">The options object to configure.</param>
+    /// <param name="productName">Name of the client.</param>
+    /// <param name="productVersion">Version of the client.</param>
+    /// <returns>The options object to allow call chaining.</returns>
+    public static iRacingDataClientOptions UseProductUserAgent(this iRacingDataClientOptions options,
+                                                               string productName,
+                                                               Version productVersion)
+    {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(options);
+        ArgumentException.ThrowIfNullOrWhiteSpace(productName);
+        ArgumentNullException.ThrowIfNull(productVersion);
+#else
+        if (options is null)
+        {
+            throw new ArgumentNullException(nameof(options));
+        }
+
+        if (string.IsNullOrWhiteSpace(productName))
+        {
+            throw new ArgumentNullException(nameof(productName));
+        }
+
+        if (productVersion is null)
+        {
+            throw new ArgumentNullException(nameof(productVersion));
+        }
+#endif
+
+        options.UserAgentProductName = productName;
+        options.UserAgentProductVersion = productVersion;
+
+        return options;
+    }
+
 }
