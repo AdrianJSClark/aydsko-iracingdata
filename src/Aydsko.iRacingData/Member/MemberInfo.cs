@@ -12,13 +12,13 @@ public class MemberInfo
 
     /// <summary>Member's email address.</summary>
     /// <remarks>This value is masked for security reasons.</remarks>
-    [JsonPropertyName("email")]
-    public string Email { get; set; } = default!;
+    [JsonPropertyName("email"), Obsolete("Property has been removed.")]
+    public string? Email { get; set; }
 
     /// <summary>Unique user name the member uses to log in.</summary>
     /// <remarks>This value is masked for security reasons.</remarks>
-    [JsonPropertyName("username")]
-    public string Username { get; set; } = default!;
+    [JsonPropertyName("username"), Obsolete("Property has been removed.")]
+    public string? Username { get; set; }
 
     /// <summary>The display value used to represent the member on the service.</summary>
     [JsonPropertyName("display_name")]
@@ -32,6 +32,18 @@ public class MemberInfo
 
     [JsonPropertyName("on_car_name")]
     public string OnCarName { get; set; } = default!;
+
+    [JsonPropertyName("flair_id")]
+    public int FlairId { get; set; }
+
+    [JsonPropertyName("flair_name")]
+    public string FlairName { get; set; } = default!;
+
+    [JsonPropertyName("flair_shortname")]
+    public string? FlairShortName { get; set; }
+
+    [JsonPropertyName("flair_country_code")]
+    public string? CountryCode { get; set; }
 
     [JsonPropertyName("member_since")]
     public string MemberSince { get; set; } = default!;
@@ -119,6 +131,12 @@ public class MemberInfo
 
     [JsonPropertyName("has_read_pp")]
     public bool HasReadPp { get; set; }
+
+    [JsonPropertyName("has_read_nda")]
+    public bool HasReadNda { get; set; }
+
+    [JsonPropertyName("has_additional_content")]
+    public bool HasAdditionalContent { get; set; }
 }
 
 [JsonSerializable(typeof(MemberInfo)), JsonSourceGenerationOptions(WriteIndented = true)]

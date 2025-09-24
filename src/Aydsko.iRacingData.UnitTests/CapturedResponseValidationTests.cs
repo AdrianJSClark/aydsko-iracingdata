@@ -262,9 +262,9 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
     }
 
     [Test(TestOf = typeof(DataClient))]
-    public async Task GetMemberInfoSucceedsAsync()
+    public async Task GetMyInfoSucceedsAsync()
     {
-        await MessageHandler.QueueResponsesAsync(nameof(GetMemberInfoSucceedsAsync)).ConfigureAwait(false);
+        await MessageHandler.QueueResponsesAsync(nameof(GetMyInfoSucceedsAsync)).ConfigureAwait(false);
 
         var myInfo = await testDataClient.GetMyInfoAsync().ConfigureAwait(false);
 

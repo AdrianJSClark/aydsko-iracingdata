@@ -1,0 +1,1644 @@
+{
+  "headers": {},
+  "content": {
+    "cust_id": 341554,
+    "display_name": "Adrian Clark",
+    "first_name": "Adrian",
+    "last_name": "Clark",
+    "on_car_name": "Clark",
+    "member_since": "2018-09-30",
+    "flair_id": 16,
+    "flair_name": "Australia",
+    "flair_shortname": "AUS",
+    "flair_country_code": "AU",
+    "last_login": "2025-09-23T20:25:41.669788164Z",
+    "read_tc": "2024-09-26T10:43:52Z",
+    "read_pp": "2024-10-27T08:10:45Z",
+    "read_comp_rules": "2019-08-06T12:10:27Z",
+    "flags": 0,
+    "connection_type": "BROADBAND-3",
+    "download_server": "Default",
+    "account": {
+      "ir_dollars": 0,
+      "ir_credits": -6.5,
+      "status": "active",
+      "country_rules": null
+    },
+    "helmet": {
+      "pattern": 50,
+      "color1": "981f24",
+      "color2": "000000",
+      "color3": "ed2129",
+      "face_type": 4,
+      "helmet_type": 0
+    },
+    "suit": {
+      "pattern": 1,
+      "color1": "73182c",
+      "color2": "ffffff",
+      "color3": "fff000",
+      "body_type": 0
+    },
+    "licenses": {
+      "oval": {
+        "category_id": 1,
+        "category": "oval",
+        "category_name": "Oval",
+        "license_level": 2,
+        "safety_rating": 2.76,
+        "cpi": 12.038528,
+        "irating": 1395,
+        "tt_rating": 1350,
+        "mpr_num_races": 1,
+        "color": "fc0706",
+        "group_name": "Rookie",
+        "group_id": 1,
+        "pro_promotable": false,
+        "seq": 1,
+        "mpr_num_tts": 0
+      },
+      "sports_car": {
+        "category_id": 5,
+        "category": "sports_car",
+        "category_name": "Sports Car",
+        "license_level": 19,
+        "safety_rating": 3.45,
+        "cpi": 64.65463,
+        "irating": 1759,
+        "tt_rating": 1350,
+        "mpr_num_races": 169,
+        "color": "0153db",
+        "group_name": "Class A",
+        "group_id": 5,
+        "pro_promotable": false,
+        "seq": 2,
+        "mpr_num_tts": 4
+      },
+      "formula_car": {
+        "category_id": 6,
+        "category": "formula_car",
+        "category_name": "Formula Car",
+        "license_level": 20,
+        "safety_rating": 4.97,
+        "cpi": 133.6519,
+        "irating": 3270,
+        "tt_rating": 1350,
+        "mpr_num_races": 174,
+        "color": "0153db",
+        "group_name": "Class A",
+        "group_id": 5,
+        "pro_promotable": false,
+        "seq": 3,
+        "mpr_num_tts": 4
+      },
+      "dirt_oval": {
+        "category_id": 3,
+        "category": "dirt_oval",
+        "category_name": "Dirt Oval",
+        "license_level": 2,
+        "safety_rating": 2.5,
+        "cpi": 10.10941,
+        "irating": 1350,
+        "tt_rating": 1350,
+        "mpr_num_races": 0,
+        "color": "fc0706",
+        "group_name": "Rookie",
+        "group_id": 1,
+        "pro_promotable": false,
+        "seq": 4,
+        "mpr_num_tts": 0
+      },
+      "dirt_road": {
+        "category_id": 4,
+        "category": "dirt_road",
+        "category_name": "Dirt Road",
+        "license_level": 6,
+        "safety_rating": 2.66,
+        "cpi": 16.349142,
+        "irating": 1376,
+        "tt_rating": 1350,
+        "mpr_num_races": 2,
+        "color": "fc8a27",
+        "group_name": "Class D",
+        "group_id": 2,
+        "pro_promotable": false,
+        "seq": 5,
+        "mpr_num_tts": 0
+      }
+    },
+    "car_packages": [
+      {
+        "package_id": 15,
+        "content_ids": [
+          1
+        ]
+      },
+      {
+        "package_id": 20,
+        "content_ids": [
+          3,
+          10
+        ]
+      },
+      {
+        "package_id": 21,
+        "content_ids": [
+          4
+        ]
+      },
+      {
+        "package_id": 22,
+        "content_ids": [
+          82,
+          5,
+          11
+        ]
+      },
+      {
+        "package_id": 29,
+        "content_ids": [
+          32,
+          53,
+          197,
+          136,
+          9,
+          90,
+          108
+        ]
+      },
+      {
+        "package_id": 37,
+        "content_ids": [
+          13
+        ]
+      },
+      {
+        "package_id": 42,
+        "content_ids": [
+          20
+        ]
+      },
+      {
+        "package_id": 57,
+        "content_ids": [
+          21
+        ]
+      },
+      {
+        "package_id": 62,
+        "content_ids": [
+          22
+        ]
+      },
+      {
+        "package_id": 69,
+        "content_ids": [
+          23
+        ]
+      },
+      {
+        "package_id": 83,
+        "content_ids": [
+          27
+        ]
+      },
+      {
+        "package_id": 85,
+        "content_ids": [
+          28
+        ]
+      },
+      {
+        "package_id": 89,
+        "content_ids": [
+          29
+        ]
+      },
+      {
+        "package_id": 99,
+        "content_ids": [
+          33
+        ]
+      },
+      {
+        "package_id": 102,
+        "content_ids": [
+          34,
+          35
+        ]
+      },
+      {
+        "package_id": 105,
+        "content_ids": [
+          36
+        ]
+      },
+      {
+        "package_id": 111,
+        "content_ids": [
+          39
+        ]
+      },
+      {
+        "package_id": 122,
+        "content_ids": [
+          41
+        ]
+      },
+      {
+        "package_id": 128,
+        "content_ids": [
+          38
+        ]
+      },
+      {
+        "package_id": 133,
+        "content_ids": [
+          43
+        ]
+      },
+      {
+        "package_id": 136,
+        "content_ids": [
+          44
+        ]
+      },
+      {
+        "package_id": 139,
+        "content_ids": [
+          45
+        ]
+      },
+      {
+        "package_id": 141,
+        "content_ids": [
+          46
+        ]
+      },
+      {
+        "package_id": 149,
+        "content_ids": [
+          51
+        ]
+      },
+      {
+        "package_id": 161,
+        "content_ids": [
+          57
+        ]
+      },
+      {
+        "package_id": 165,
+        "content_ids": [
+          58
+        ]
+      },
+      {
+        "package_id": 168,
+        "content_ids": [
+          60
+        ]
+      },
+      {
+        "package_id": 171,
+        "content_ids": [
+          61
+        ]
+      },
+      {
+        "package_id": 182,
+        "content_ids": [
+          67
+        ]
+      },
+      {
+        "package_id": 190,
+        "content_ids": [
+          69
+        ]
+      },
+      {
+        "package_id": 196,
+        "content_ids": [
+          71
+        ]
+      },
+      {
+        "package_id": 203,
+        "content_ids": [
+          74
+        ]
+      },
+      {
+        "package_id": 216,
+        "content_ids": [
+          79
+        ]
+      },
+      {
+        "package_id": 221,
+        "content_ids": [
+          81
+        ]
+      },
+      {
+        "package_id": 229,
+        "content_ids": [
+          88
+        ]
+      },
+      {
+        "package_id": 235,
+        "content_ids": [
+          138,
+          91
+        ]
+      },
+      {
+        "package_id": 244,
+        "content_ids": [
+          94
+        ]
+      },
+      {
+        "package_id": 245,
+        "content_ids": [
+          95
+        ]
+      },
+      {
+        "package_id": 255,
+        "content_ids": [
+          99
+        ]
+      },
+      {
+        "package_id": 261,
+        "content_ids": [
+          101
+        ]
+      },
+      {
+        "package_id": 263,
+        "content_ids": [
+          102
+        ]
+      },
+      {
+        "package_id": 272,
+        "content_ids": [
+          105
+        ]
+      },
+      {
+        "package_id": 274,
+        "content_ids": [
+          106
+        ]
+      },
+      {
+        "package_id": 281,
+        "content_ids": [
+          109
+        ]
+      },
+      {
+        "package_id": 294,
+        "content_ids": [
+          113
+        ]
+      },
+      {
+        "package_id": 307,
+        "content_ids": [
+          118
+        ]
+      },
+      {
+        "package_id": 314,
+        "content_ids": [
+          120
+        ]
+      },
+      {
+        "package_id": 316,
+        "content_ids": [
+          121
+        ]
+      },
+      {
+        "package_id": 318,
+        "content_ids": [
+          122
+        ]
+      },
+      {
+        "package_id": 333,
+        "content_ids": [
+          128
+        ]
+      },
+      {
+        "package_id": 335,
+        "content_ids": [
+          129
+        ]
+      },
+      {
+        "package_id": 343,
+        "content_ids": [
+          132
+        ]
+      },
+      {
+        "package_id": 345,
+        "content_ids": [
+          133
+        ]
+      },
+      {
+        "package_id": 355,
+        "content_ids": [
+          137
+        ]
+      },
+      {
+        "package_id": 364,
+        "content_ids": [
+          142
+        ]
+      },
+      {
+        "package_id": 373,
+        "content_ids": [
+          145
+        ]
+      },
+      {
+        "package_id": 379,
+        "content_ids": [
+          148
+        ]
+      },
+      {
+        "package_id": 384,
+        "content_ids": [
+          149
+        ]
+      },
+      {
+        "package_id": 409,
+        "content_ids": [
+          158
+        ]
+      },
+      {
+        "package_id": 414,
+        "content_ids": [
+          159
+        ]
+      },
+      {
+        "package_id": 416,
+        "content_ids": [
+          160
+        ]
+      },
+      {
+        "package_id": 418,
+        "content_ids": [
+          161
+        ]
+      },
+      {
+        "package_id": 422,
+        "content_ids": [
+          162
+        ]
+      },
+      {
+        "package_id": 424,
+        "content_ids": [
+          163
+        ]
+      },
+      {
+        "package_id": 430,
+        "content_ids": [
+          165
+        ]
+      },
+      {
+        "package_id": 436,
+        "content_ids": [
+          168
+        ]
+      },
+      {
+        "package_id": 438,
+        "content_ids": [
+          169
+        ]
+      },
+      {
+        "package_id": 442,
+        "content_ids": [
+          170
+        ]
+      },
+      {
+        "package_id": 444,
+        "content_ids": [
+          171,
+          172
+        ]
+      },
+      {
+        "package_id": 449,
+        "content_ids": [
+          173
+        ]
+      },
+      {
+        "package_id": 451,
+        "content_ids": [
+          174
+        ]
+      },
+      {
+        "package_id": 456,
+        "content_ids": [
+          176
+        ]
+      },
+      {
+        "package_id": 463,
+        "content_ids": [
+          178
+        ]
+      },
+      {
+        "package_id": 467,
+        "content_ids": [
+          180,
+          181,
+          182,
+          183
+        ]
+      },
+      {
+        "package_id": 471,
+        "content_ids": [
+          184
+        ]
+      },
+      {
+        "package_id": 476,
+        "content_ids": [
+          185
+        ]
+      },
+      {
+        "package_id": 484,
+        "content_ids": [
+          188
+        ]
+      },
+      {
+        "package_id": 488,
+        "content_ids": [
+          190
+        ]
+      },
+      {
+        "package_id": 490,
+        "content_ids": [
+          191
+        ]
+      },
+      {
+        "package_id": 496,
+        "content_ids": [
+          193
+        ]
+      },
+      {
+        "package_id": 498,
+        "content_ids": [
+          194
+        ]
+      },
+      {
+        "package_id": 500,
+        "content_ids": [
+          195
+        ]
+      },
+      {
+        "package_id": 502,
+        "content_ids": [
+          196
+        ]
+      },
+      {
+        "package_id": 518,
+        "content_ids": [
+          203
+        ]
+      },
+      {
+        "package_id": 530,
+        "content_ids": [
+          205
+        ]
+      }
+    ],
+    "track_packages": [
+      {
+        "package_id": 3,
+        "content_ids": [
+          15
+        ]
+      },
+      {
+        "package_id": 4,
+        "content_ids": [
+          293,
+          470,
+          471,
+          296
+        ]
+      },
+      {
+        "package_id": 5,
+        "content_ids": [
+          20,
+          21,
+          22,
+          362
+        ]
+      },
+      {
+        "package_id": 7,
+        "content_ids": [
+          16,
+          275
+        ]
+      },
+      {
+        "package_id": 8,
+        "content_ids": [
+          288,
+          17
+        ]
+      },
+      {
+        "package_id": 10,
+        "content_ids": [
+          12,
+          13
+        ]
+      },
+      {
+        "package_id": 11,
+        "content_ids": [
+          50,
+          18
+        ]
+      },
+      {
+        "package_id": 13,
+        "content_ids": [
+          8,
+          24,
+          9,
+          25,
+          10,
+          142,
+          159
+        ]
+      },
+      {
+        "package_id": 14,
+        "content_ids": [
+          465,
+          2,
+          466,
+          3,
+          467,
+          4,
+          468,
+          5,
+          469,
+          6,
+          7,
+          141
+        ]
+      },
+      {
+        "package_id": 19,
+        "content_ids": [
+          14
+        ]
+      },
+      {
+        "package_id": 31,
+        "content_ids": [
+          37,
+          38,
+          550,
+          39,
+          551,
+          40,
+          552,
+          553,
+          554,
+          555,
+          556,
+          557,
+          558
+        ]
+      },
+      {
+        "package_id": 32,
+        "content_ids": [
+          41,
+          42,
+          43,
+          44,
+          45
+        ]
+      },
+      {
+        "package_id": 33,
+        "content_ids": [
+          99,
+          100,
+          46
+        ]
+      },
+      {
+        "package_id": 34,
+        "content_ids": [
+          158,
+          47
+        ]
+      },
+      {
+        "package_id": 35,
+        "content_ids": [
+          98,
+          102,
+          397,
+          48,
+          49,
+          563,
+          564,
+          565,
+          566,
+          567,
+          312,
+          568,
+          569,
+          570,
+          571
+        ]
+      },
+      {
+        "package_id": 36,
+        "content_ids": [
+          322,
+          51,
+          323,
+          52,
+          53,
+          447
+        ]
+      },
+      {
+        "package_id": 40,
+        "content_ids": [
+          96,
+          97,
+          95
+        ]
+      },
+      {
+        "package_id": 41,
+        "content_ids": [
+          94
+        ]
+      },
+      {
+        "package_id": 55,
+        "content_ids": [
+          306,
+          104,
+          472,
+          105
+        ]
+      },
+      {
+        "package_id": 56,
+        "content_ids": [
+          432,
+          433,
+          434,
+          435,
+          106,
+          107,
+          108,
+          109
+        ]
+      },
+      {
+        "package_id": 61,
+        "content_ids": [
+          117,
+          118,
+          119,
+          120,
+          121,
+          122
+        ]
+      },
+      {
+        "package_id": 66,
+        "content_ids": [
+          124
+        ]
+      },
+      {
+        "package_id": 67,
+        "content_ids": [
+          128,
+          126,
+          127
+        ]
+      },
+      {
+        "package_id": 73,
+        "content_ids": [
+          448,
+          178,
+          133,
+          453,
+          134,
+          135,
+          522
+        ]
+      },
+      {
+        "package_id": 74,
+        "content_ids": [
+          136,
+          137,
+          138,
+          139,
+          140
+        ]
+      },
+      {
+        "package_id": 79,
+        "content_ids": [
+          143
+        ]
+      },
+      {
+        "package_id": 90,
+        "content_ids": [
+          144
+        ]
+      },
+      {
+        "package_id": 91,
+        "content_ids": [
+          145,
+          146,
+          290
+        ]
+      },
+      {
+        "package_id": 92,
+        "content_ids": [
+          147,
+          148,
+          149,
+          485,
+          150,
+          486,
+          151,
+          487,
+          488
+        ]
+      },
+      {
+        "package_id": 93,
+        "content_ids": [
+          152
+        ]
+      },
+      {
+        "package_id": 96,
+        "content_ids": [
+          153,
+          154,
+          155,
+          156,
+          157
+        ]
+      },
+      {
+        "package_id": 97,
+        "content_ids": [
+          161
+        ]
+      },
+      {
+        "package_id": 103,
+        "content_ids": [
+          163,
+          164,
+          165,
+          523,
+          524,
+          525,
+          526
+        ]
+      },
+      {
+        "package_id": 109,
+        "content_ids": [
+          166,
+          167
+        ]
+      },
+      {
+        "package_id": 114,
+        "content_ids": [
+          176,
+          168,
+          173,
+          174,
+          175
+        ]
+      },
+      {
+        "package_id": 115,
+        "content_ids": [
+          177,
+          295,
+          169,
+          170,
+          171,
+          172,
+          559
+        ]
+      },
+      {
+        "package_id": 116,
+        "content_ids": [
+          179
+        ]
+      },
+      {
+        "package_id": 117,
+        "content_ids": [
+          180,
+          181,
+          182,
+          183,
+          184,
+          185,
+          186,
+          187
+        ]
+      },
+      {
+        "package_id": 120,
+        "content_ids": [
+          192,
+          193,
+          194,
+          26,
+          27,
+          28,
+          29,
+          381,
+          191
+        ]
+      },
+      {
+        "package_id": 123,
+        "content_ids": [
+          195,
+          196,
+          197,
+          198
+        ]
+      },
+      {
+        "package_id": 124,
+        "content_ids": [
+          199,
+          200
+        ]
+      },
+      {
+        "package_id": 125,
+        "content_ids": [
+          201
+        ]
+      },
+      {
+        "package_id": 126,
+        "content_ids": [
+          208,
+          209,
+          210,
+          211,
+          202,
+          207
+        ]
+      },
+      {
+        "package_id": 134,
+        "content_ids": [
+          212,
+          213
+        ]
+      },
+      {
+        "package_id": 145,
+        "content_ids": [
+          218
+        ]
+      },
+      {
+        "package_id": 146,
+        "content_ids": [
+          219
+        ]
+      },
+      {
+        "package_id": 154,
+        "content_ids": [
+          579,
+          229,
+          230,
+          231
+        ]
+      },
+      {
+        "package_id": 159,
+        "content_ids": [
+          304,
+          232
+        ]
+      },
+      {
+        "package_id": 162,
+        "content_ids": [
+          233,
+          234
+        ]
+      },
+      {
+        "package_id": 172,
+        "content_ids": [
+          240,
+          241,
+          242,
+          243,
+          244,
+          245,
+          246,
+          247,
+          239
+        ]
+      },
+      {
+        "package_id": 184,
+        "content_ids": [
+          249,
+          253
+        ]
+      },
+      {
+        "package_id": 185,
+        "content_ids": [
+          257,
+          259,
+          260,
+          261,
+          250,
+          255
+        ]
+      },
+      {
+        "package_id": 186,
+        "content_ids": [
+          262,
+          263,
+          264,
+          252
+        ]
+      },
+      {
+        "package_id": 194,
+        "content_ids": [
+          256
+        ]
+      },
+      {
+        "package_id": 197,
+        "content_ids": [
+          266,
+          267
+        ]
+      },
+      {
+        "package_id": 204,
+        "content_ids": [
+          268,
+          269
+        ]
+      },
+      {
+        "package_id": 247,
+        "content_ids": [
+          297,
+          298,
+          299
+        ]
+      },
+      {
+        "package_id": 248,
+        "content_ids": [
+          303
+        ]
+      },
+      {
+        "package_id": 259,
+        "content_ids": [
+          319
+        ]
+      },
+      {
+        "package_id": 267,
+        "content_ids": [
+          324,
+          325,
+          326,
+          327,
+          328,
+          329,
+          333
+        ]
+      },
+      {
+        "package_id": 276,
+        "content_ids": [
+          332
+        ]
+      },
+      {
+        "package_id": 282,
+        "content_ids": [
+          341,
+          342,
+          343
+        ]
+      },
+      {
+        "package_id": 292,
+        "content_ids": [
+          386,
+          345,
+          346,
+          347,
+          348,
+          349
+        ]
+      },
+      {
+        "package_id": 304,
+        "content_ids": [
+          352,
+          353,
+          354,
+          355,
+          508
+        ]
+      },
+      {
+        "package_id": 311,
+        "content_ids": [
+          358,
+          359,
+          360,
+          361,
+          363
+        ]
+      },
+      {
+        "package_id": 350,
+        "content_ids": [
+          390,
+          391,
+          392,
+          393,
+          394,
+          395,
+          428,
+          429,
+          430,
+          431
+        ]
+      },
+      {
+        "package_id": 352,
+        "content_ids": [
+          398,
+          399
+        ]
+      },
+      {
+        "package_id": 362,
+        "content_ids": [
+          403,
+          404,
+          407
+        ]
+      },
+      {
+        "package_id": 365,
+        "content_ids": [
+          483,
+          405
+        ]
+      },
+      {
+        "package_id": 370,
+        "content_ids": [
+          413
+        ]
+      },
+      {
+        "package_id": 381,
+        "content_ids": [
+          436,
+          423,
+          424,
+          425,
+          426,
+          427
+        ]
+      },
+      {
+        "package_id": 397,
+        "content_ids": [
+          439,
+          440
+        ]
+      },
+      {
+        "package_id": 405,
+        "content_ids": [
+          443
+        ]
+      },
+      {
+        "package_id": 406,
+        "content_ids": [
+          444,
+          445
+        ]
+      },
+      {
+        "package_id": 410,
+        "content_ids": [
+          449,
+          454,
+          455,
+          456
+        ]
+      },
+      {
+        "package_id": 411,
+        "content_ids": [
+          451
+        ]
+      },
+      {
+        "package_id": 420,
+        "content_ids": [
+          463
+        ]
+      },
+      {
+        "package_id": 428,
+        "content_ids": [
+          473,
+          474
+        ]
+      },
+      {
+        "package_id": 439,
+        "content_ids": [
+          480,
+          482,
+          475,
+          476,
+          477,
+          478,
+          479
+        ]
+      },
+      {
+        "package_id": 440,
+        "content_ids": [
+          481
+        ]
+      },
+      {
+        "package_id": 446,
+        "content_ids": [
+          489
+        ]
+      },
+      {
+        "package_id": 457,
+        "content_ids": [
+          498,
+          499
+        ]
+      },
+      {
+        "package_id": 459,
+        "content_ids": [
+          501,
+          502,
+          503,
+          504,
+          505
+        ]
+      },
+      {
+        "package_id": 468,
+        "content_ids": [
+          512,
+          509,
+          510,
+          511
+        ]
+      },
+      {
+        "package_id": 472,
+        "content_ids": [
+          515,
+          516,
+          517
+        ]
+      },
+      {
+        "package_id": 474,
+        "content_ids": [
+          521
+        ]
+      },
+      {
+        "package_id": 494,
+        "content_ids": [
+          528,
+          529,
+          530,
+          527
+        ]
+      },
+      {
+        "package_id": 504,
+        "content_ids": [
+          532
+        ]
+      },
+      {
+        "package_id": 506,
+        "content_ids": [
+          536,
+          537
+        ]
+      },
+      {
+        "package_id": 519,
+        "content_ids": [
+          544,
+          545,
+          546,
+          540,
+          541,
+          542,
+          543
+        ]
+      },
+      {
+        "package_id": 533,
+        "content_ids": [
+          576,
+          577,
+          578,
+          572,
+          573,
+          574,
+          575
+        ]
+      }
+    ],
+    "other_owned_packages": [
+      513,
+      1,
+      257,
+      2,
+      515,
+      260,
+      517,
+      262,
+      265,
+      271,
+      527,
+      529,
+      273,
+      531,
+      280,
+      24,
+      25,
+      283,
+      285,
+      287,
+      290,
+      293,
+      295,
+      297,
+      299,
+      44,
+      45,
+      301,
+      46,
+      47,
+      48,
+      49,
+      50,
+      306,
+      51,
+      52,
+      308,
+      53,
+      313,
+      58,
+      315,
+      317,
+      64,
+      320,
+      322,
+      68,
+      324,
+      70,
+      328,
+      332,
+      78,
+      334,
+      80,
+      82,
+      339,
+      84,
+      342,
+      88,
+      344,
+      348,
+      94,
+      98,
+      354,
+      356,
+      101,
+      358,
+      360,
+      104,
+      106,
+      363,
+      110,
+      366,
+      368,
+      112,
+      372,
+      374,
+      376,
+      121,
+      378,
+      127,
+      383,
+      385,
+      130,
+      387,
+      132,
+      389,
+      135,
+      391,
+      137,
+      394,
+      138,
+      140,
+      398,
+      143,
+      400,
+      402,
+      148,
+      150,
+      408,
+      152,
+      155,
+      157,
+      413,
+      415,
+      160,
+      417,
+      164,
+      421,
+      166,
+      423,
+      167,
+      425,
+      170,
+      173,
+      429,
+      176,
+      178,
+      435,
+      437,
+      181,
+      183,
+      441,
+      443,
+      189,
+      448,
+      192,
+      450,
+      195,
+      453,
+      198,
+      455,
+      200,
+      202,
+      461,
+      205,
+      462,
+      207,
+      464,
+      209,
+      466,
+      470,
+      215,
+      218,
+      219,
+      475,
+      220,
+      481,
+      483,
+      228,
+      485,
+      487,
+      232,
+      489,
+      234,
+      491,
+      236,
+      493,
+      495,
+      497,
+      241,
+      243,
+      499,
+      501,
+      246,
+      249,
+      507,
+      252,
+      509,
+      254,
+      511
+    ],
+    "dev": false,
+    "alpha_tester": false,
+    "rain_tester": false,
+    "broadcaster": false,
+    "restrictions": {},
+    "has_read_comp_rules": true,
+    "has_read_nda": false,
+    "flags_hex": "0",
+    "hundred_pct_club": false,
+    "twenty_pct_discount": false,
+    "last_season": 5796,
+    "has_additional_content": true,
+    "has_read_tc": true,
+    "has_read_pp": true
+  }
+}
