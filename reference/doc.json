@@ -958,6 +958,11 @@
         }
       },
       "expirationSeconds": 900
+    },
+    "membership": {
+      "link": "https://members-ng.iracing.com/data/team/membership",
+      "note": "Results for the authenticated member, if any.",
+      "expirationSeconds": 900
     }
   },
   "time_attack": {
