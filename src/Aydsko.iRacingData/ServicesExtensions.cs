@@ -133,7 +133,7 @@ public static class ServicesExtensions
 
         if (!string.IsNullOrWhiteSpace(options.ClientId) && !string.IsNullOrWhiteSpace(options.ClientSecret))
         {
-            httpClientBuilder = services.AddHttpClient<IAuthenticatingHttpClient, OAuthPasswordLimitedAuthenticatingHttpClient>();
+            httpClientBuilder = services.AddHttpClient<IAuthenticatingHttpClient, PasswordLimitedOAuthAuthenticatingHttpClient>();
         }
         else
         {
