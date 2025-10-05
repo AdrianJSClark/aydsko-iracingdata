@@ -35,7 +35,7 @@ internal class OAuthPasswordLimitedAuthenticatingHttpClientTests
                                                                                       "Secret-Client-Password");
 
         var fakeTimeProvider = new FakeTimeProvider(new(2025, 09, 13, 1, 0, 0, TimeSpan.Zero));
-        using var passwordLimitedClient = new OAuthPasswordLimitedAuthenticatingHttpClient(fakeHandler.GetClient(), options, fakeTimeProvider);
+        using var passwordLimitedClient = new PasswordLimitedOAuthAuthenticatingHttpClient(fakeHandler.GetClient(), options, fakeTimeProvider);
 
         using var testRequest = new HttpRequestMessage(HttpMethod.Get, new Uri("https://example.com/test-request"));
         var result = await passwordLimitedClient.SendAuthenticatedRequestAsync(testRequest).ConfigureAwait(false);
@@ -104,7 +104,7 @@ internal class OAuthPasswordLimitedAuthenticatingHttpClientTests
                                                                                       "Secret-Client-Password");
 
         var fakeTimeProvider = new FakeTimeProvider(new(2025, 09, 13, 1, 0, 0, TimeSpan.Zero));
-        using var passwordLimitedClient = new OAuthPasswordLimitedAuthenticatingHttpClient(fakeHandler.GetClient(), options, fakeTimeProvider);
+        using var passwordLimitedClient = new PasswordLimitedOAuthAuthenticatingHttpClient(fakeHandler.GetClient(), options, fakeTimeProvider);
 
         using var testRequest1 = new HttpRequestMessage(HttpMethod.Get, new Uri("https://example.com/test-request"));
         var result1 = await passwordLimitedClient.SendAuthenticatedRequestAsync(testRequest1).ConfigureAwait(false);

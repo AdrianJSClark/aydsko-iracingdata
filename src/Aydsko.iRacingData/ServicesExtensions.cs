@@ -3,7 +3,6 @@
 
 using System.Net;
 using System.Reflection;
-using Aydsko.iRacingData.Tracks;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 
@@ -131,9 +130,13 @@ public static class ServicesExtensions
 
         IHttpClientBuilder httpClientBuilder;
 
-        if (!string.IsNullOrWhiteSpace(options.ClientId) && !string.IsNullOrWhiteSpace(options.ClientSecret))
+        if (options.OAuthTokenResponseCallback is not null)
         {
-            httpClientBuilder = services.AddHttpClient<IAuthenticatingHttpClient, OAuthPasswordLimitedAuthenticatingHttpClient>();
+            httpClientBuilder = services.AddHttpClient<IAuthenticatingHttpClient, OAuthCallbackAuthenticatingApiClient>();
+        }
+        else if (!string.IsNullOrWhiteSpace(options.ClientId) && !string.IsNullOrWhiteSpace(options.ClientSecret))
+        {
+            httpClientBuilder = services.AddHttpClient<IAuthenticatingHttpClient, PasswordLimitedOAuthAuthenticatingHttpClient>();
         }
         else
         {
@@ -276,6 +279,37 @@ public static class ServicesExtensions
         options.ClientId = clientId;
         options.ClientSecret = clientSecret;
         options.ClientSecretIsEncoded = clientSecretIsEncoded;
+
+        return options;
+    }
+
+    /// <summary>Configure the options to use a callback to retrieve an iRacing authentication token.</summary>
+    /// <param name="options">The options object to configure.</param>
+    /// <param name="getOAuthTokenResponse">The callback to retrieve an OAuth token response.</param>
+    /// <returns>The options object to allow call chaining.</returns>
+    /// <seealso href="https://oauth.iracing.com/oauth2/book/auth_overview.html"/>
+    /// <remarks>
+    /// <para>The <paramref name="getOAuthTokenResponse"/> callback should invoke the <c>/authorize</c> endpoint to retrieve a code and then exchange for a token which is then returned.</para>
+    /// <para>If the returned token data includes a refresh token it will be processed automatically. Otherwise the callback will be asked again for an <see cref="OAuthTokenResponse"/> object.</para>
+    /// </remarks>
+    public static iRacingDataClientOptions UseOAuthTokenCallback(this iRacingDataClientOptions options, GetOAuthTokenResponse getOAuthTokenResponse)
+    {
+#if NET6_0_OR_GREATER
+        ArgumentNullException.ThrowIfNull(options);
+        ArgumentNullException.ThrowIfNull(getOAuthTokenResponse);
+#else
+        if (options is null)
+        {
+            throw new ArgumentNullException(nameof(options));
+        }
+
+        if (getOAuthTokenResponse is null)
+        {
+            throw new ArgumentNullException(nameof(getOAuthTokenResponse));
+        }
+#endif
+
+        options.OAuthTokenResponseCallback = getOAuthTokenResponse;
 
         return options;
     }

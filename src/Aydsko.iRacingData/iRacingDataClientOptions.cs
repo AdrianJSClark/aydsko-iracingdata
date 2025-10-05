@@ -63,4 +63,9 @@ public class iRacingDataClientOptions
     /// <para>This will default to <c>https://oauth.iracing.com</c>.</para>
     /// </remarks>
     public string AuthServiceBaseUrl { get; set; } = "https://oauth.iracing.com";
+
+    /// <summary>Callback to allow the library to request an iRacing OAuth token.</summary>
+    /// <remarks>Intended to be used with the &quot;Authorization Code Grant&quot; process.</remarks>
+    /// <seealso href="https://oauth.iracing.com/oauth2/book/auth_overview.html"/>
+    public GetOAuthTokenResponse? OAuthTokenResponseCallback { get; set; }
 }
