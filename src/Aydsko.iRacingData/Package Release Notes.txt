@@ -1,3 +1,14 @@
+NEW FEATURE: iRacing OAuth "Authorization Code Grant" Authentication
+- Allows authentication using the "/authorize" endpoint via a callback.
+- This authentication, or "Password Limited Grant", will be required after 9 Dec 2025 (see https://forums.iracing.com/discussion/84226/legacy-authentication-removal-dec-9-2025).
+- See https://oauth.iracing.com/oauth2/book/token_endpoint.html#authorization-code-grant for more information.
+
+
+
+============================
+ Release Notes for 2504.0.1
+============================
+
 BREAKING CHANGES:
 - "IDataClient.GetMemberChartData" method was removed. Use "IDataClient.GetMemberChartDataAsync" instead.
 - The "TrackScreenshotService" class has been removed. Use "IDataClient.GetTrackAssetScreenshotUris\" or "IDataClient.GetTrackAssetScreenshotUrisAsync" instead.
