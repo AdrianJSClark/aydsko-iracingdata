@@ -8,7 +8,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 
 namespace Aydsko.iRacingData;
 
-public static class ServicesExtensions
+public static class ServicesExtensionsOld
 {
     /// <summary>Add required types for iRacing Data API to the service collection.</summary>
     /// <param name="services">The service collection to configure.</param>
