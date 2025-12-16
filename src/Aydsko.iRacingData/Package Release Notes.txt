@@ -1,23 +1,22 @@
-NEW FEATURE: iRacing OAuth "Authorization Code Grant" Authentication
-- Allows authentication using the "/authorize" endpoint via a callback.
-- This authentication, or "Password Limited Grant", will be required after 9 Dec 2025 (see https://forums.iracing.com/discussion/84226/legacy-authentication-removal-dec-9-2025).
-- See https://oauth.iracing.com/oauth2/book/token_endpoint.html#authorization-code-grant for more information.
-
-
-
 ============================
- Release Notes for 2504.0.1
+ Release Notes for 2601.0.0
 ============================
 
 BREAKING CHANGES:
 - "IDataClient.GetMemberChartData" method was removed. Use "IDataClient.GetMemberChartDataAsync" instead.
 - The "TrackScreenshotService" class has been removed. Use "IDataClient.GetTrackAssetScreenshotUris\" or "IDataClient.GetTrackAssetScreenshotUrisAsync" instead.
+- The "AddIRacingDataApi(IServiceCollection)" extension method has been removed. Use "AddIRacingDataApi(IServiceCollection, Action<iRacingDataClientOptions>)" and use the callback to configure the client options.
+- The "AddIRacingDataApiWithCaching(IServiceCollection)" extension method has been removed. Use "AddIRacingDataApiWithCaching(IServiceCollection, Action<iRacingDataClientOptions>)" and use the callback to configure the client options.
+
+
+
+NEW FEATURE: iRacing OAuth "Authorization Code Grant" Authentication
+- Allows authentication using the "/authorize" endpoint via a callback.
+- This authentication, or "Password Limited Grant", is now required (see https://forums.iracing.com/discussion/84226/legacy-authentication-removal-dec-9-2025).
+- See https://oauth.iracing.com/oauth2/book/token_endpoint.html#authorization-code-grant for more information.
+
+
 
 FIXES:
-- Various properties updated to match results (DriverInfo, LicenseInfo, MemberInfo)
-- Resolved issue with caching API configuration.
+- 
 
-NEW FEATURE: iRacing OAuth "Password Limited Grant" Authentication
-- Allows authentication using "Client ID" and "Client Secret" issued by iRacing.
-- This authentication will be required after 9 Dec 2025 (see https://forums.iracing.com/discussion/84226/legacy-authentication-removal-dec-9-2025).
-- See https://oauth.iracing.com/oauth2/book/token_endpoint.html#password-limited-grant for more information.
