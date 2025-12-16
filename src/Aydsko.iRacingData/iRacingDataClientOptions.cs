@@ -68,4 +68,6 @@ public class iRacingDataClientOptions
     /// <remarks>Intended to be used with the &quot;Authorization Code Grant&quot; process.</remarks>
     /// <seealso href="https://oauth.iracing.com/oauth2/book/auth_overview.html"/>
     public GetOAuthTokenResponse? OAuthTokenResponseCallback { get; set; }
+
+    internal Func<IServiceProvider, IOAuthTokenSource>? TokenSourceFactory { get; set; }
 }
