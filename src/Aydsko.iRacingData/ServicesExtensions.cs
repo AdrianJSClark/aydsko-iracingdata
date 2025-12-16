@@ -13,24 +13,6 @@ public static class ServicesExtensions
 {
     /// <summary>Add required types for iRacing Data API to the service collection.</summary>
     /// <param name="services">The service collection to configure.</param>
-    /// <returns>The http client builder for further configuration.</returns>
-    /// <exception cref="ArgumentNullException">One of the arguments is <see langword="null"/>.</exception>
-    public static IHttpClientBuilder AddIRacingDataApi(this IServiceCollection services)
-    {
-#if NET6_0_OR_GREATER
-        ArgumentNullException.ThrowIfNull(services);
-#else
-        if (services is null)
-        {
-            throw new ArgumentNullException(nameof(services));
-        }
-#endif
-
-        return services.AddIRacingDataApiInternal((_) => { }, false);
-    }
-
-    /// <summary>Add required types for iRacing Data API to the service collection.</summary>
-    /// <param name="services">The service collection to configure.</param>
     /// <param name="configureOptions">Action to configure the options for the API client.</param>
     /// <returns>The http client builder for further configuration.</returns>
     /// <exception cref="ArgumentNullException">One of the arguments is <see langword="null"/>.</exception>
@@ -52,24 +34,6 @@ public static class ServicesExtensions
 #endif
 
         return services.AddIRacingDataApiInternal(configureOptions, false);
-    }
-
-    /// <summary>Add required types for iRacing Data API with caching enabled to the service collection.</summary>
-    /// <param name="services">The service collection to configure.</param>
-    /// <returns>The http client builder for further configuration.</returns>
-    /// <exception cref="ArgumentNullException">One of the arguments is <see langword="null"/>.</exception>
-    public static IHttpClientBuilder AddIRacingDataApiWithCaching(this IServiceCollection services)
-    {
-#if NET6_0_OR_GREATER
-        ArgumentNullException.ThrowIfNull(services);
-#else
-        if (services is null)
-        {
-            throw new ArgumentNullException(nameof(services));
-        }
-#endif
-
-        return services.AddIRacingDataApiInternal((_) => { }, true);
     }
 
     /// <summary>Add required types for iRacing Data API with caching enabled to the service collection.</summary>
@@ -146,7 +110,7 @@ public static class ServicesExtensions
         }
         else
         {
-            throw new iRacingDataClientException("Invalid configuration for iRacing authentication. You must configure OAuth authentication using the \"UseOAuthTokenSource\" method.");
+            throw new iRacingDataClientException("Invalid configuration for iRacing authentication. You must configure OAuth authentication using the \"UseOAuthTokenSource\" method on the options object.");
         }
 
         httpClientBuilder.ConfigureHttpClient(httpClient => httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(userAgentValue));
