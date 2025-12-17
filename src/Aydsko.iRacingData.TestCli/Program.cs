@@ -1,4 +1,5 @@
 ﻿using Aydsko.iRacingData;
+using Aydsko.iRacingData.TestCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -10,9 +11,14 @@ var configuration = new ConfigurationBuilder()
 
 var services = new ServiceCollection();
 services.AddSingleton<IConfiguration>(configuration);
+services.AddHttpClient<OAuthService>(client =>
+{
+    client.BaseAddress = new Uri("https://oauth.iracing.com/oauth2");
+});
 
 //services.AddIRacingDataApi()
 
 using var serviceProvider = services.BuildServiceProvider();
 
-
+var oaService = serviceProvider.GetService<OAuthService>();
+var result = await oaService.GetTokenAsync();
