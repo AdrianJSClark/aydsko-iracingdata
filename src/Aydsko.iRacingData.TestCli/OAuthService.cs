@@ -1,6 +1,4 @@
-﻿using System;
-using System.Buffers.Text;
-using System.Collections.Generic;
+﻿using System.Buffers.Text;
 using System.Diagnostics;
 using System.Net;
 using System.Net.Http.Json;
@@ -21,6 +19,13 @@ internal class OAuthService(HttpClient httpClient, IConfiguration configuration,
         if (configuration["iRacing:ClientId"] is not string clientId) throw new Exception("Missing configuration value \"iRacing:ClientId\".");
         if (configuration["iRacing:ClientSecret"] is not string clientSecret) throw new Exception("Missing configuration value \"iRacing:ClientSecret\".");
         if (configuration["iRacing:RedirectUrl"] is not string redirectUrl) throw new Exception("Missing configuration value \"iRacing:RedirectUrl\".");
+
+        var savedToken = await TokenStorageService.ReadTokenSaveDataAsync(cancellationToken);
+
+        if (savedToken != null && timeProvider.GetUtcNow() < savedToken.TokenExpiryInstant)
+        {
+            return new(savedToken.TokenResponse.AccessToken, savedToken.TokenExpiryInstant);
+        }
 
         var pkceCodeVerifier = Base64Url.EncodeToString(RandomNumberGenerator.GetBytes(32));
         var pkceCodeChallenge = Base64Url.EncodeToString(SHA256.HashData(Encoding.ASCII.GetBytes(pkceCodeVerifier)));
@@ -56,12 +61,12 @@ internal class OAuthService(HttpClient httpClient, IConfiguration configuration,
 
         var authCodeRequestQuery = HttpUtility.ParseQueryString(context.Request.Url?.Query ?? "");
 
-        if (authCodeRequestQuery["code"] is not string { Length: >0 } code)
+        if (authCodeRequestQuery["code"] is not string { Length: > 0 } code)
         {
             throw new Exception("Missing \"code\" in response from iRacing Authentication.");
         }
 
-        var tokenParameters = new Dictionary<string,string>
+        var tokenParameters = new Dictionary<string, string>
         {
             ["grant_type"] = "authorization_code",
             ["client_id"] = clientId,
@@ -70,6 +75,9 @@ internal class OAuthService(HttpClient httpClient, IConfiguration configuration,
             ["redirect_uri"] = redirectUrl,
             ["code_verifier"] = pkceCodeVerifier,
         };
+
+        // Doesn't matter if this is a bit early. That just gives us some buffer when we calculate the token lifetimes.
+        var utcNow = timeProvider.GetUtcNow();
 
         var tokenUrl = new Uri(baseAddress, new Uri("/oauth2/token", UriKind.Relative));
         var tokenResponse = await httpClient.PostAsync(tokenUrl, new FormUrlEncodedContent(tokenParameters), cancellationToken);
@@ -86,7 +94,15 @@ internal class OAuthService(HttpClient httpClient, IConfiguration configuration,
         var tokenDetail = await tokenResponse.Content.ReadFromJsonAsync<OAuthTokenResponse>(cancellationToken)
                           ?? throw new Exception("Failure to parse the token response content.");
 
-        // TODO - save token securely.
+        var tokenExpiryInstant = utcNow.AddSeconds(tokenDetail.ExpiresInSeconds);
+        DateTimeOffset? refreshExpiryInstant = null;
+        if (tokenDetail.RefreshTokenExpiresInSeconds is int refreshExpiryInSeconds)
+        {
+            refreshExpiryInstant = utcNow.AddSeconds(refreshExpiryInSeconds);
+        }
+
+        await TokenStorageService.WriteTokenSaveDataAsync(new(tokenDetail, tokenExpiryInstant, refreshExpiryInstant), cancellationToken);
+
         Console.WriteLine("-------------------- TOKEN START --------------------");
         Console.WriteLine(JsonSerializer.Serialize(tokenDetail, JsonSerializerOptions.Web));
         Console.WriteLine("--------------------  TOKEN END  --------------------");
@@ -116,3 +132,5 @@ internal class OAuthService(HttpClient httpClient, IConfiguration configuration,
     }
 #pragma warning restore CA2201 // Do not raise reserved exception types
 }
+
+internal record TokenSaveData(OAuthTokenResponse TokenResponse, DateTimeOffset TokenExpiryInstant, DateTimeOffset? RefreshExpiryInstant);
