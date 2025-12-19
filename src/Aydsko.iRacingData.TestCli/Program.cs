@@ -15,10 +15,20 @@ services.AddHttpClient<OAuthService>(client =>
 {
     client.BaseAddress = new Uri("https://oauth.iracing.com/oauth2");
 });
+services.AddSingleton(TimeProvider.System);
 
 //services.AddIRacingDataApi()
 
 using var serviceProvider = services.BuildServiceProvider();
 
-var oaService = serviceProvider.GetService<OAuthService>();
-var result = await oaService.GetTokenAsync();
+try
+{
+    var oaService = serviceProvider.GetService<OAuthService>();
+    var result = await oaService.GetTokenAsync();
+    return 0;
+}
+catch (Exception ex)
+{
+    Console.Error.WriteLine(ex.ToString());
+    return -1;
+}
