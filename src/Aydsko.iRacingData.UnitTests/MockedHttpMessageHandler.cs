@@ -11,7 +11,7 @@ using System.Text.Json;
 
 namespace Aydsko.iRacingData.UnitTests;
 
-internal sealed class MockedHttpMessageHandler(CookieContainer cookieContainer)
+internal sealed class MockedHttpMessageHandler()
     : HttpMessageHandler
 {
     private readonly Assembly ResourceAssembly = typeof(MockedHttpMessageHandler).Assembly;
@@ -39,20 +39,12 @@ internal sealed class MockedHttpMessageHandler(CookieContainer cookieContainer)
 #if NET6_0_OR_GREATER
         if (Responses.TryDequeue(out var response))
         {
-            if (response.Headers.TryGetValues("Set-Cookie", out var cookieValues))
-            {
-                cookieContainer.SetCookies(request.RequestUri!, string.Join(",", cookieValues));
-            }
             return Task.FromResult(response);
         }
 #else
         try
         {
             var response = Responses.Dequeue();
-            if (response.Headers.TryGetValues("Set-Cookie", out var cookieValues))
-            {
-                cookieContainer.SetCookies(request.RequestUri!, string.Join(",", cookieValues));
-            }
             return Task.FromResult(response);
         }
         catch (InvalidOperationException)
@@ -111,13 +103,13 @@ internal sealed class MockedHttpMessageHandler(CookieContainer cookieContainer)
 #pragma warning restore CA2000 // Dispose objects before losing scope
 
         foreach (var header in responseDictionary["headers"].EnumerateObject()
-                                                                   .ToDictionary(prop => prop.Name,
-                                                                                 prop =>
-                                                                                 {
-                                                                                     return prop.Value.ValueKind == JsonValueKind.Array
-                                                                                         ? prop.Value.EnumerateArray().Select(e => e.ToString()).ToArray()
-                                                                                         : (new[] { prop.Value.GetString() });
-                                                                                 }).ToArray())
+                                                                .ToDictionary(prop => prop.Name,
+                                                                              prop =>
+                                                                              {
+                                                                                  return prop.Value.ValueKind == JsonValueKind.Array
+                                                                                      ? prop.Value.EnumerateArray().Select(e => e.ToString()).ToArray()
+                                                                                      : (new[] { prop.Value.GetString() });
+                                                                              }).ToArray())
         {
             responseMessage.Headers.Add(header.Key, header.Value);
         }

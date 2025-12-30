@@ -1,9 +1,10 @@
 ﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
-namespace Aydsko.iRacingData.IntegrationTests.Lookups;
+namespace Aydsko.iRacingData.IntegrationTests;
 
-internal sealed class CachingLookupTests : CachingIntegrationFixture
+internal sealed class CachingLookupTests
+    : CachingIntegrationFixture
 {
     [Test(TestOf = typeof(DataClient))]
     public async Task TestLicenseLookupsAreCachedAsync()

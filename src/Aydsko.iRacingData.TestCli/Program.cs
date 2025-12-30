@@ -11,9 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
  * Use at your own risk.
  */
 
-Console.WriteLine("WARNING: The \"Aydsko.iRacingData.TestCli\" code is untested and not intended for any use.");
-Console.WriteLine("This app will now exit.");
-return 0;
+//Console.WriteLine("WARNING: The \"Aydsko.iRacingData.TestCli\" code is untested and not intended for any use.");
+//Console.WriteLine("This app will now exit.");
+//return 0;
 
 var configuration = new ConfigurationBuilder()
     .SetBasePath(AppContext.BaseDirectory)

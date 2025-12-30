@@ -2,7 +2,6 @@
 // This file is licensed to you under the MIT license.
 
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Time.Testing;
 
 namespace Aydsko.iRacingData.IntegrationTests;
 
@@ -10,9 +9,8 @@ internal abstract class CachingIntegrationFixture
     : BaseIntegrationFixture<DataClient>
 {
     protected IMemoryCache MemoryCache { get; private set; } = default!;
-    protected FakeTimeProvider FakeTimeProvider { get; private set; } = new FakeTimeProvider(DateTimeOffset.UtcNow);
 
-    private LegacyUsernamePasswordApiClient? _legacyApiClient;
+    private PasswordLimitedOAuthAuthenticatingHttpClient? _passwordLimitedApiClient;
     private CachingApiClient? _cachingApiClientBase;
 
     [SetUp]
@@ -22,22 +20,22 @@ internal abstract class CachingIntegrationFixture
 
         MemoryCache = new MemoryCache(new MemoryCacheOptions() { TrackStatistics = true });
 
-        _legacyApiClient = new(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
-        _cachingApiClientBase = new(_legacyApiClient,
+        _passwordLimitedApiClient = new(HttpClient, options, TimeProvider.System);
+        _cachingApiClientBase = new(_passwordLimitedApiClient,
                                     options,
                                     MemoryCache,
                                     new TestLogger<CachingApiClient>(),
                                     new TestLogger<ApiClient>(),
-                                    FakeTimeProvider);
+                                    TimeProvider.System);
 
-        Client = new DataClient(_cachingApiClientBase, options, new TestLogger<DataClient>(), FakeTimeProvider);
+        Client = new DataClient(_cachingApiClientBase, options, new TestLogger<DataClient>(), TimeProvider.System);
     }
 
     protected override void Dispose(bool disposing)
     {
         if (disposing)
         {
-            _legacyApiClient?.Dispose();
+            _passwordLimitedApiClient?.Dispose();
             _cachingApiClientBase?.Dispose();
         }
 

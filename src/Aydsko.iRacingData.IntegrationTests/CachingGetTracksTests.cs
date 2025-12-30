@@ -1,9 +1,10 @@
 ﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
-namespace Aydsko.iRacingData.IntegrationTests.Tracks;
+namespace Aydsko.iRacingData.IntegrationTests;
 
-internal sealed class CachingGetTracksTests : CachingIntegrationFixture
+internal sealed class CachingGetTracksTests
+    : CachingIntegrationFixture
 {
     [Test]
     public async Task GetTracksTestAsync()

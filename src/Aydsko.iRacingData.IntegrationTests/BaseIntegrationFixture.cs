@@ -1,18 +1,15 @@
 ﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
-using System.Net;
-using Aydsko.iRacingData.IntegrationTests.Member;
 using Microsoft.Extensions.Configuration;
 
 namespace Aydsko.iRacingData.IntegrationTests;
 
-[Category("Integration")]
+[Category("Integration"), NonParallelizable]
 internal abstract class BaseIntegrationFixture<TClient> : IDisposable
     where TClient : IDataClient
 {
     protected IConfigurationRoot Configuration { get; set; } = default!;
-    protected CookieContainer CookieContainer { get; set; } = default!;
     protected HttpClientHandler Handler { get; set; } = default!;
     protected HttpClient HttpClient { get; set; } = default!;
 
@@ -27,22 +24,20 @@ internal abstract class BaseIntegrationFixture<TClient> : IDisposable
                                 .AddEnvironmentVariables("IRACINGDATA_")
                                 .Build();
 
-        CookieContainer = new CookieContainer();
         Handler = new HttpClientHandler()
         {
-            CookieContainer = CookieContainer,
             UseCookies = true,
             CheckCertificateRevocationList = true
         };
         HttpClient = new HttpClient(Handler);
 
-        return new iRacingDataClientOptions
-        {
-            UserAgentProductName = "Aydsko.iRacingData.IntegrationTests",
-            UserAgentProductVersion = typeof(MemberInfoTest).Assembly.GetName().Version,
-            Username = Configuration["iRacingData:Username"],
-            Password = Configuration["iRacingData:Password"]
-        };
+        var dataClientOptions = new iRacingDataClientOptions();
+        dataClientOptions.UseProductUserAgent("Aydsko.iRacingData.IntegrationTests", typeof(MemberInfoTest).Assembly.GetName().Version!);
+        dataClientOptions.UsePasswordLimitedOAuth(Configuration["iRacingData:Username"],
+                                                  Configuration["iRacingData:Password"],
+                                                  Configuration["iRacingData:ClientId"],
+                                                  Configuration["iRacingData:ClientSecret"]);
+        return dataClientOptions;
     }
 
     public void Dispose()

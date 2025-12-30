@@ -42,7 +42,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Reference Include="System.Web" />
+    <Reference Include="System.Web" Condition="'$(TargetFramework)'=='net48'" />
   </ItemGroup>
 
 </Project>

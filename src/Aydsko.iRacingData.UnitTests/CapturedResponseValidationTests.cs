@@ -14,7 +14,8 @@ using Aydsko.iRacingData.TimeAttack;
 
 namespace Aydsko.iRacingData.UnitTests;
 
-internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
+internal sealed class CapturedResponseValidationTests
+    : MockedHttpTestBase
 {
     [Test(TestOf = typeof(DataClient))]
     public async Task GetCarAssetDetailsSuccessfulAsync()
@@ -23,7 +24,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var carAssets = await testDataClient.GetCarAssetDetailsAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(carAssets, Is.Not.Null);
             Assert.That(carAssets!.Data, Is.Not.Null);
@@ -41,7 +42,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(carAssets.TotalRateLimit, Is.EqualTo(100));
             Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(carAssets.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -52,7 +53,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
         var cars = await testDataClient.GetCarsAsync().ConfigureAwait(false);
 
         Assert.That(cars, Is.Not.Null);
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(cars!.Data, Is.Not.Null);
 
@@ -61,7 +62,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(cars.TotalRateLimit, Is.EqualTo(100));
             Assert.That(cars.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(cars.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -72,7 +73,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
         var carClasses = await testDataClient.GetCarClassesAsync().ConfigureAwait(false);
 
         Assert.That(carClasses, Is.Not.Null);
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(carClasses!.Data, Is.Not.Null);
 
@@ -81,7 +82,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(carClasses.TotalRateLimit, Is.EqualTo(100));
             Assert.That(carClasses.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(carClasses.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -92,13 +93,13 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
         var divisionsResponse = await testDataClient.GetDivisionsAsync().ConfigureAwait(false);
 
         Assert.That(divisionsResponse, Is.Not.Null);
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(divisionsResponse!.Data, Is.Not.Null);
 
             Assert.That(divisionsResponse.Data, Has.Length.EqualTo(12));
-        });
-        Assert.Multiple(() =>
+        }
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("ALL")
                                                            .And.Property(nameof(Division.Value)).EqualTo(-1));
@@ -106,7 +107,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(divisionsResponse.RateLimitRemaining, Is.EqualTo(99));
             Assert.That(divisionsResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(divisionsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -117,19 +118,19 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
         var divisionsResponse = await testDataClient.GetCategoriesAsync().ConfigureAwait(false);
 
         Assert.That(divisionsResponse, Is.Not.Null);
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(divisionsResponse!.Data, Is.Not.Null);
 
             Assert.That(divisionsResponse.Data, Has.Length.EqualTo(4));
-        });
+        }
         Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Oval")
                                                    .And.Property(nameof(Division.Value)).EqualTo(1));
         Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Road")
                                                    .And.Property(nameof(Division.Value)).EqualTo(2));
         Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Dirt oval")
                                                    .And.Property(nameof(Division.Value)).EqualTo(3));
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(divisionsResponse.Data, Has.One.Property(nameof(Division.Label)).EqualTo("Dirt road")
                                                            .And.Property(nameof(Division.Value)).EqualTo(4));
@@ -137,7 +138,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(divisionsResponse.RateLimitRemaining, Is.EqualTo(99));
             Assert.That(divisionsResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(divisionsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -147,7 +148,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var divisionsResponse = await testDataClient.GetEventTypesAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(divisionsResponse, Is.Not.Null);
             Assert.That(divisionsResponse!.Data, Is.Not.Null);
@@ -165,7 +166,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(divisionsResponse.RateLimitRemaining, Is.EqualTo(99));
             Assert.That(divisionsResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(divisionsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -175,7 +176,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var lookupGroups = await testDataClient.GetLookupsAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(lookupGroups, Is.Not.Null);
             Assert.That(lookupGroups!.Data, Is.Not.Null);
@@ -185,7 +186,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(lookupGroups.TotalRateLimit, Is.EqualTo(100));
             Assert.That(lookupGroups.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(lookupGroups.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -195,7 +196,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var carAssets = await testDataClient.GetLicenseLookupsAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(carAssets, Is.Not.Null);
             Assert.That(carAssets!.Data, Is.Not.Null);
@@ -205,7 +206,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(carAssets.TotalRateLimit, Is.EqualTo(100));
             Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(carAssets.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -215,7 +216,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var carAssets = await testDataClient.GetDriverInfoAsync(TestCustomerIds, true).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(carAssets, Is.Not.Null);
             Assert.That(carAssets!.Data, Is.Not.Null);
@@ -232,7 +233,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(carAssets.TotalRateLimit, Is.EqualTo(100));
             Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(carAssets.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -242,7 +243,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var carAssets = await testDataClient.GetDriverInfoAsync(TestCustomerIds, false).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(carAssets, Is.Not.Null);
             Assert.That(carAssets!.Data, Is.Not.Null);
@@ -258,7 +259,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(carAssets.TotalRateLimit, Is.EqualTo(100));
             Assert.That(carAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(carAssets.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -268,7 +269,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var myInfo = await testDataClient.GetMyInfoAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(myInfo, Is.Not.Null);
             Assert.That(myInfo!.Data, Is.Not.Null);
@@ -277,7 +278,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(myInfo.TotalRateLimit, Is.EqualTo(100));
             Assert.That(myInfo.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(myInfo.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -287,7 +288,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var memberProfileResponse = await testDataClient.GetMemberProfileAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(memberProfileResponse, Is.Not.Null);
             Assert.That(memberProfileResponse!.Data, Is.Not.Null);
@@ -305,7 +306,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(memberProfileResponse.TotalRateLimit, Is.EqualTo(240));
             Assert.That(memberProfileResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2024, 3, 17, 11, 15, 55, TimeSpan.Zero)));
             Assert.That(memberProfileResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2024, 3, 17, 11, 29, 55, 769, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -316,7 +317,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
         var memberProfileResponse = await testDataClient.SearchDriversAsync("123456").ConfigureAwait(false);
 
         Assert.That(memberProfileResponse, Is.Not.Null);
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(memberProfileResponse!.Data, Is.Not.Null);
             Assert.That(memberProfileResponse.Data, Has.Length.EqualTo(1));
@@ -325,7 +326,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(memberProfileResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(memberProfileResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(memberProfileResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -346,7 +347,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var tracks = await testDataClient.GetTracksAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(tracks, Is.Not.Null);
             Assert.That(tracks!.Data, Is.Not.Null);
@@ -357,7 +358,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(tracks.TotalRateLimit, Is.EqualTo(100));
             Assert.That(tracks.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(tracks.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -367,7 +368,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var seasons = await testDataClient.GetSeasonsAsync(false).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(seasons, Is.Not.Null);
             Assert.That(seasons!.Data, Is.Not.Null);
@@ -383,7 +384,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 #else
             Assert.That(seasons.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateTime(2022, 02, 15)));
 #endif
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -393,7 +394,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var seasonsAndSeries = await testDataClient.GetSeasonsAsync(true).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(seasonsAndSeries, Is.Not.Null);
             Assert.That(seasonsAndSeries!.Data, Is.Not.Null);
@@ -403,7 +404,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(seasonsAndSeries.TotalRateLimit, Is.EqualTo(100));
             Assert.That(seasonsAndSeries.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(seasonsAndSeries.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
 
 #if NET6_0_OR_GREATER
         Assert.That(seasonsAndSeries.Data[0].Schedules[0].StartDate, Is.EqualTo(new DateOnly(2024, 04, 09)));
@@ -419,7 +420,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var statsSeriesResponse = await testDataClient.GetStatisticsSeriesAsync(CancellationToken.None).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(statsSeriesResponse, Is.Not.Null);
             Assert.That(statsSeriesResponse!.Data, Is.Not.Null);
@@ -427,7 +428,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(statsSeriesResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(statsSeriesResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(statsSeriesResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -437,7 +438,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var seriesResponse = await testDataClient.GetSeriesAsync(CancellationToken.None).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(seriesResponse, Is.Not.Null);
             Assert.That(seriesResponse!.Data, Is.Not.Null);
@@ -446,7 +447,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(seriesResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(seriesResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(seriesResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -456,7 +457,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var seriesResponse = await testDataClient.GetSeriesAssetsAsync(CancellationToken.None).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(seriesResponse, Is.Not.Null);
             Assert.That(seriesResponse!.Data, Is.Not.Null);
@@ -465,7 +466,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(seriesResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(seriesResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(seriesResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -475,18 +476,18 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var trackAssets = await testDataClient.GetTrackAssetsAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(trackAssets, Is.Not.Null);
             Assert.That(trackAssets!.Data, Is.Not.Null);
 
             Assert.That(trackAssets.Data, Has.Count.EqualTo(340));
             Assert.That(trackAssets.Data.ContainsKey("1"), Is.True);
-        });
+        }
 
         var limeRockPark = trackAssets.Data["1"];
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(limeRockPark, Is.Not.Null);
             Assert.That(limeRockPark.Coordinates, Is.EqualTo("41.9282105,-73.3839642"));
@@ -504,7 +505,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(trackAssets.TotalRateLimit, Is.EqualTo(100));
             Assert.That(trackAssets.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(trackAssets.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -525,7 +526,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var memberStats = await testDataClient.GetMemberYearlyStatisticsAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(memberStats, Is.Not.Null);
             Assert.That(memberStats!.Data, Is.Not.Null);
@@ -536,7 +537,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
             Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(memberStats.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -546,7 +547,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var memberStats = await testDataClient.GetMemberRecentRacesAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(memberStats, Is.Not.Null);
             Assert.That(memberStats!.Data, Is.Not.Null);
@@ -557,7 +558,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
             Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(memberStats.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -567,7 +568,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var memberSummaryResponse = await testDataClient.GetMemberSummaryAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(memberSummaryResponse, Is.Not.Null);
             Assert.That(memberSummaryResponse!.Data, Is.Not.Null);
@@ -578,7 +579,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(memberSummaryResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(memberSummaryResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(memberSummaryResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -588,7 +589,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var memberDivisionResponse = await testDataClient.GetMemberDivisionAsync(1234, Common.EventType.Race, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(memberDivisionResponse, Is.Not.Null);
             Assert.That(memberDivisionResponse.Data, Is.Not.Null);
@@ -597,7 +598,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(memberDivisionResponse.Data.SeasonId, Is.EqualTo(1234));
             Assert.That(memberDivisionResponse.Data.EventType, Is.EqualTo(Common.EventType.Race));
             Assert.That(memberDivisionResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -607,7 +608,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var memberStats = await testDataClient.GetLeagueAsync(123, true).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(memberStats, Is.Not.Null);
             Assert.That(memberStats!.Data, Is.Not.Null);
@@ -619,7 +620,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
             Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(memberStats.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -629,7 +630,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var memberStats = await testDataClient.GetLeagueAsync(123, false).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(memberStats, Is.Not.Null);
             Assert.That(memberStats!.Data, Is.Not.Null);
@@ -638,7 +639,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(memberStats.TotalRateLimit, Is.EqualTo(100));
             Assert.That(memberStats.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(memberStats.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -648,7 +649,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var lapChartResponse = await testDataClient.GetSubSessionLapChartAsync(12345, 0).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(lapChartResponse, Is.Not.Null);
 
@@ -666,7 +667,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(lapChartResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -676,7 +677,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var seasonDriverStandingsResponse = await testDataClient.GetSeasonDriverStandingsAsync(1234, 9, 0, cancellationToken: CancellationToken.None).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(seasonDriverStandingsResponse, Is.Not.Null);
 
@@ -687,7 +688,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(seasonDriverStandingsResponse.TotalRateLimit, Is.EqualTo(240));
             Assert.That(seasonDriverStandingsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2024, 9, 29, 2, 20, 40, TimeSpan.Zero)));
             Assert.That(seasonDriverStandingsResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2024, 9, 29, 2, 32, 29, 935, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -697,7 +698,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var lapChartResponse = await testDataClient.GetSingleDriverSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(lapChartResponse, Is.Not.Null);
 
@@ -715,7 +716,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(lapChartResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -736,7 +737,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var lapChartResponse = await testDataClient.GetTeamSubsessionLapsAsync(12345, 0, 123456).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(lapChartResponse, Is.Not.Null);
 
@@ -753,7 +754,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(lapChartResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -774,7 +775,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var subSessionResultResponse = await testDataClient.GetSubSessionResultAsync(12345, false, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(subSessionResultResponse, Is.Not.Null);
             Assert.That(subSessionResultResponse!.Data, Is.Not.Null);
@@ -814,7 +815,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(240));
             Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2024, 10, 10, 13, 50, 14, TimeSpan.Zero)));
             Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2024, 10, 10, 14, 4, 15, 56, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -824,7 +825,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var subSessionResultResponse = await testDataClient.GetSubSessionResultAsync(12345, false, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(subSessionResultResponse, Is.Not.Null);
             Assert.That(subSessionResultResponse!.Data, Is.Not.Null);
@@ -838,7 +839,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(240));
             Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2024, 5, 1, 11, 54, 8, TimeSpan.Zero)));
             Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2024, 5, 1, 12, 8, 8, 231, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -848,7 +849,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var subSessionResultResponse = await testDataClient.GetSubSessionResultAsync(12345, false, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(subSessionResultResponse, Is.Not.Null);
             Assert.That(subSessionResultResponse!.Data, Is.Not.Null);
@@ -881,7 +882,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(240));
             Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2024, 10, 10, 12, 26, 11, TimeSpan.Zero)));
             Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2024, 10, 10, 12, 40, 12, 320, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -891,7 +892,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var subSessionResultResponse = await testDataClient.GetSubSessionResultAsync(12345, false, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(subSessionResultResponse, Is.Not.Null);
             Assert.That(subSessionResultResponse!.Data, Is.Not.Null);
@@ -910,7 +911,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -932,36 +933,13 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
         await MessageHandler.QueueResponsesAsync("ResponseUnauthorized", false).ConfigureAwait(false);
         await MessageHandler.QueueResponsesAsync("ResponseUnauthorized", false).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             _ = Assert.ThrowsAsync<iRacingUnauthorizedResponseException>(async () =>
             {
                 var lapChartResponse = await testDataClient.GetSubSessionResultAsync(12345, false).ConfigureAwait(false);
             });
-
-            Assert.That(apiClient.IsLoggedIn, Is.False);
-        });
-    }
-
-    [Test(TestOf = typeof(DataClient))]
-    public async Task GetSubSessionResultUnauthorizedDueToLegacyAuthenticationSettingThrowsErrorsAsync()
-    {
-        await MessageHandler.QueueResponsesAsync("ResponseUnauthorizedLegacyRequired", false).ConfigureAwait(false);
-
-        Assert.Multiple(() =>
-        {
-            var loginFailedException = Assert.ThrowsAsync<iRacingLoginFailedException>(async () =>
-            {
-                var lapChartResponse = await testDataClient.GetSubSessionResultAsync(12345, false).ConfigureAwait(false);
-            });
-
-            if (loginFailedException != null)
-            {
-                Assert.That(loginFailedException.LegacyAuthenticationRequired, Is.True);
-            }
-
-            Assert.That(apiClient.IsLoggedIn, Is.False);
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -971,7 +949,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var subSessionResultResponse = await testDataClient.GetSubsessionEventLogAsync(12345, 0, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(subSessionResultResponse, Is.Not.Null);
             Assert.That(subSessionResultResponse.Data.Header, Is.Not.Null);
@@ -981,7 +959,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(subSessionResultResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(subSessionResultResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(subSessionResultResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1002,7 +980,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var lapChartResponse = await testDataClient.GetSeasonQualifyResultsAsync(3587, 71, 0).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(lapChartResponse, Is.Not.Null);
 
@@ -1015,7 +993,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(lapChartResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(lapChartResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(lapChartResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1025,7 +1003,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var timeTrialResponse = await testDataClient.GetSeasonTimeTrialResultsAsync(3587, 71, 0).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(timeTrialResponse, Is.Not.Null);
 
@@ -1038,7 +1016,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(timeTrialResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(timeTrialResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(timeTrialResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1048,7 +1026,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var timeTrialResponse = await testDataClient.GetSeasonTimeTrialStandingsAsync(3587, 71, 0, cancellationToken: CancellationToken.None).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(timeTrialResponse, Is.Not.Null);
 
@@ -1061,7 +1039,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(timeTrialResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(timeTrialResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(timeTrialResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1071,7 +1049,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var timeTrialResponse = await testDataClient.GetSeasonTeamStandingsAsync(3587, 71, 0, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(timeTrialResponse, Is.Not.Null);
 
@@ -1084,7 +1062,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(timeTrialResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(timeTrialResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(timeTrialResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1099,7 +1077,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
         };
         var searchHostedResponse = await testDataClient.SearchHostedResultsAsync(searchParams, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(searchHostedResponse, Is.Not.Null);
 
@@ -1112,7 +1090,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(searchHostedResponse.RateLimitRemaining, Is.EqualTo(99));
             Assert.That(searchHostedResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(searchHostedResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1128,7 +1106,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
         };
         var searchHostedResponse = await testDataClient.SearchOfficialResultsAsync(searchParams, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(searchHostedResponse, Is.Not.Null);
 
@@ -1141,7 +1119,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(searchHostedResponse.RateLimitRemaining, Is.EqualTo(99));
             Assert.That(searchHostedResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(searchHostedResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1151,7 +1129,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var memberChartResponse = await testDataClient.GetMemberChartDataAsync(341554, 2, Member.MemberChartType.IRating, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(memberChartResponse, Is.Not.Null);
             Assert.That(memberChartResponse.Data, Is.Not.Null);
@@ -1160,7 +1138,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(memberChartResponse.Data.Points, Has.Length.EqualTo(104));
             Assert.That(memberChartResponse.Data.ChartType, Is.EqualTo(Member.MemberChartType.IRating));
             Assert.That(memberChartResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1171,7 +1149,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
         var searchParams = new SearchLeagueDirectoryParameters();
         var leagueDirectoryResponse = await testDataClient.SearchLeagueDirectoryAsync(searchParams, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(leagueDirectoryResponse, Is.Not.Null);
             Assert.That(leagueDirectoryResponse.Data, Is.Not.Null);
@@ -1182,7 +1160,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(leagueDirectoryResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(leagueDirectoryResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(leagueDirectoryResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1192,7 +1170,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var listSeasonsResponse = await testDataClient.ListSeasonsAsync(2022, 1, CancellationToken.None).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(listSeasonsResponse, Is.Not.Null);
             Assert.That(listSeasonsResponse.Data, Is.Not.Null);
@@ -1206,7 +1184,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(listSeasonsResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(listSeasonsResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(listSeasonsResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1216,7 +1194,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var raceGuideResponse = await testDataClient.GetRaceGuideAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(raceGuideResponse, Is.Not.Null);
             Assert.That(raceGuideResponse!.Data, Is.Not.Null);
@@ -1225,7 +1203,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(raceGuideResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(raceGuideResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(raceGuideResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1235,7 +1213,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var leagueSeasons = await testDataClient.GetLeagueSeasonsAsync(123456).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(leagueSeasons, Is.Not.Null);
             Assert.That(leagueSeasons!.Data, Is.Not.Null);
@@ -1247,7 +1225,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(leagueSeasons.TotalRateLimit, Is.EqualTo(100));
             Assert.That(leagueSeasons.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(leagueSeasons.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1257,7 +1235,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var countryResponse = await testDataClient.GetCustomerLeagueSessionsAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(countryResponse, Is.Not.Null);
             Assert.That(countryResponse!.Data, Is.Not.Null);
@@ -1266,7 +1244,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(countryResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(countryResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(countryResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2023, 4, 8, 20, 28, 49, 471, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1276,7 +1254,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var countryResponse = await testDataClient.GetCountriesAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(countryResponse, Is.Not.Null);
             Assert.That(countryResponse!.Data, Is.Not.Null);
@@ -1285,7 +1263,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(countryResponse.TotalRateLimit, Is.EqualTo(100));
             Assert.That(countryResponse.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(countryResponse.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1295,7 +1273,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await testDataClient.GetDriverAwardsAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(response, Is.Not.Null);
             Assert.That(response!.Data, Is.Not.Null);
@@ -1305,7 +1283,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(response.TotalRateLimit, Is.EqualTo(240));
             Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2025, 3, 12, 14, 32, 0, TimeSpan.Zero)));
             Assert.That(response.DataExpires, Is.Null);
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1315,7 +1293,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await testDataClient.GetDriverAwardInstanceAsync(0).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(response, Is.Not.Null);
             Assert.That(response!.Data, Is.Not.Null);
@@ -1326,7 +1304,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(response.TotalRateLimit, Is.EqualTo(240));
             Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2025, 3, 12, 14, 32, 0, TimeSpan.Zero)));
             Assert.That(response.DataExpires, Is.Null);
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1336,7 +1314,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await testDataClient.GetBestLapStatisticsAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(response, Is.Not.Null);
             Assert.That(response!.Data, Is.Not.Null);
@@ -1345,7 +1323,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(response.TotalRateLimit, Is.EqualTo(100));
             Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1355,7 +1333,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await testDataClient.ListHostedSessionsCombinedAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(response, Is.Not.Null);
             Assert.That(response!.Data, Is.Not.Null);
@@ -1364,7 +1342,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(response.TotalRateLimit, Is.EqualTo(100));
             Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1374,7 +1352,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await testDataClient.ListHostedSessionsAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(response, Is.Not.Null);
             Assert.That(response!.Data, Is.Not.Null);
@@ -1383,7 +1361,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(response.TotalRateLimit, Is.EqualTo(100));
             Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1393,7 +1371,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await testDataClient.GetWorldRecordsAsync(145, 341).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(response, Is.Not.Null);
             Assert.That(response.Data.Header, Is.Not.Null);
@@ -1403,7 +1381,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(response.TotalRateLimit, Is.EqualTo(100));
             Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1413,7 +1391,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await testDataClient.GetTeamAsync(259167).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(response, Is.Not.Null);
             Assert.That(response!.Data, Is.Not.Null);
@@ -1422,7 +1400,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(response.TotalRateLimit, Is.EqualTo(100));
             Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1432,7 +1410,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await testDataClient.GetLeaguePointsSystemsAsync(259167).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(response, Is.Not.Null);
             Assert.That(response!.Data, Is.Not.Null);
@@ -1441,7 +1419,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(response.TotalRateLimit, Is.EqualTo(100));
             Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1451,7 +1429,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await testDataClient.GetMemberParticipationCreditsAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(response, Is.Not.Null);
             Assert.That(response!.Data, Is.Not.Null);
@@ -1461,7 +1439,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(response.TotalRateLimit, Is.EqualTo(100));
             Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1471,7 +1449,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await testDataClient.GetPastSeasonsForSeriesAsync(260).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(response, Is.Not.Null);
             Assert.That(response!.Data, Is.Not.Null);
@@ -1488,7 +1466,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(response.TotalRateLimit, Is.EqualTo(100));
             Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1583,7 +1561,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var competition1001 = response.SingleOrDefault(c => c.CompetitionId == 1001);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(competition1001, Is.Not.Null);
 
@@ -1594,7 +1572,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(competition1001.StartDate, Is.EqualTo(new DateTime(2022, 12, 13)));
             Assert.That(competition1001.EndDate, Is.EqualTo(new DateTime(2023, 3, 5)));
 #endif
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1682,7 +1660,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await testDataClient.GetWeatherForecastFromUrlAsync(new Uri("http://example.com")).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(response, Is.Not.Null);
             Assert.That(response, Is.Not.Empty);
@@ -1725,7 +1703,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(forecast.AllowPrecipitation, Is.EqualTo(true));
             Assert.That(forecast.PrecipitationAmount, Is.EqualTo(4.2m));
             Assert.That(forecast.Timestamp, Is.EqualTo(new DateTime(2024, 04, 13, 12, 0, 0, DateTimeKind.Utc)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1791,7 +1769,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await testDataClient.ListHostedSessionsAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(response, Is.Not.Null);
             Assert.That(response!.Data, Is.Not.Null);
@@ -1800,7 +1778,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(response.TotalRateLimit, Is.EqualTo(100));
             Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1810,7 +1788,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await testDataClient.ListHostedSessionsCombinedAsync().ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(response, Is.Not.Null);
             Assert.That(response!.Data, Is.Not.Null);
@@ -1819,7 +1797,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(response.TotalRateLimit, Is.EqualTo(100));
             Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));
             Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2022, 8, 27, 11, 23, 19, 507, TimeSpan.Zero)));
-        });
+        }
     }
 
     [Test(TestOf = typeof(DataClient))]
@@ -1829,7 +1807,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
 
         var response = await testDataClient.GetSeasonSuperSessionStandingsAsync(1, 1).ConfigureAwait(false);
 
-        Assert.Multiple(() =>
+        using (Assert.EnterMultipleScope())
         {
             Assert.That(response, Is.Not.Null);
             Assert.That(response!.Data.Header, Is.Not.Null);
@@ -1854,7 +1832,7 @@ internal sealed class CapturedResponseValidationTests : MockedHttpTestBase
             Assert.That(response.TotalRateLimit, Is.EqualTo(240));
             Assert.That(response.RateLimitReset, Is.EqualTo(new DateTimeOffset(2024, 10, 19, 04, 13, 41, TimeSpan.Zero)));
             Assert.That(response.DataExpires, Is.EqualTo(new DateTimeOffset(2024, 10, 19, 04, 27, 41, 913, TimeSpan.Zero)));
-        });
+        }
     }
 
     protected override void Dispose(bool disposing)

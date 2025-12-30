@@ -1,7 +1,6 @@
 ﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
-using System.Net;
 using System.Net.Http;
 using Microsoft.Extensions.Time.Testing;
 
@@ -12,34 +11,27 @@ internal abstract class MockedHttpTestBase
 {
     protected static readonly int[] TestCustomerIds = [123456];
 
-    protected CookieContainer CookieContainer { get; set; } = null!;
     protected MockedHttpMessageHandler MessageHandler { get; set; } = null!;
     protected HttpClient HttpClient { get; set; } = null!;
-    protected FakeTimeProvider FakeTimeProvider { get; private set; } = new FakeTimeProvider(new DateTimeOffset(2022, 04, 05, 0, 0, 0, TimeSpan.Zero));
+    protected FakeTimeProvider FakeTimeProvider { get; private set; } = new(new DateTimeOffset(2022, 04, 05, 0, 0, 0, TimeSpan.Zero));
 
     private bool disposedValue;
 
     // NUnit will ensure that "SetUp" runs before each test so these can all be forced to "null".
-    protected TestLegacyUsernamePasswordApiClient apiClient = null!;
+    protected PasswordLimitedOAuthAuthenticatingHttpClient apiClient = null!;
     protected ApiClient apiClientBase = null!;
     protected DataClient testDataClient = null!;
 
     [SetUp]
     public void SetUp()
     {
-        CookieContainer = new CookieContainer();
-        MessageHandler = new MockedHttpMessageHandler(CookieContainer);
+        MessageHandler = new MockedHttpMessageHandler();
         HttpClient = new HttpClient(MessageHandler);
 
-        var options = new iRacingDataClientOptions()
-        {
-            Username = "test.user@example.com",
-            Password = "SuperSecretPassword",
-        };
-        apiClient = new TestLegacyUsernamePasswordApiClient(HttpClient,
-                                                            options,
-                                                            CookieContainer,
-                                                            new TestLogger<LegacyUsernamePasswordApiClient>());
+        var options = new iRacingDataClientOptions();
+        options.UsePasswordLimitedOAuth("UserNameValue", "PasswordValue", "ClientIdValue", "ClientSecretValue");
+
+        apiClient = new PasswordLimitedOAuthAuthenticatingHttpClient(HttpClient, options, FakeTimeProvider);
         apiClientBase = new ApiClient(apiClient, options, new TestLogger<ApiClient>());
         testDataClient = new DataClient(apiClientBase, options, new TestLogger<DataClient>(), FakeTimeProvider);
     }

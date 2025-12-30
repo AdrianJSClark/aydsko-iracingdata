@@ -3,7 +3,7 @@
 
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Aydsko.iRacingData.IntegrationTests.Seasons;
+namespace Aydsko.iRacingData.IntegrationTests;
 
 internal sealed class GetSeasonsUsingPasswordLimited
     : ServiceProviderIntegrationFixture
