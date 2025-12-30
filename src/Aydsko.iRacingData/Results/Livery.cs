@@ -42,11 +42,11 @@ public class Livery
     public int Sponsor2 { get; set; }
 
     [JsonPropertyName("car_number")]
-    public string CarNumber { get; set; } = default!;
+    public string? CarNumber { get; set; }
 
     [JsonPropertyName("wheel_color")]
-    public string WheelColor { get; set; } = default!;
+    public string? WheelColor { get; set; }
 
     [JsonPropertyName("rim_type")]
-    public int RimType { get; set; }
+    public int? RimType { get; set; }
 }
