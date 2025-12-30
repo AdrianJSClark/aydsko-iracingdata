@@ -1,24 +1,27 @@
 ﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
-using System.Net;
-using Aydsko.iRacingData.IntegrationTests.Member;
 using Microsoft.Extensions.Configuration;
+
+[assembly: Category("Integration")]
+[assembly: NonParallelizable]
 
 namespace Aydsko.iRacingData.IntegrationTests;
 
-[Category("Integration")]
-internal abstract class BaseIntegrationFixture<TClient> : IDisposable
-    where TClient : IDataClient
+#pragma warning disable CA2201 // Do not raise reserved exception types
+
+[SetUpFixture]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Maintainability", "CA1515:Consider making public types internal", Justification = "NUnit needs to find this.")]
+public class BaseIntegrationFixture
 {
-    protected IConfigurationRoot Configuration { get; set; } = default!;
-    protected CookieContainer CookieContainer { get; set; } = default!;
-    protected HttpClientHandler Handler { get; set; } = default!;
-    protected HttpClient HttpClient { get; set; } = default!;
+    internal static IConfigurationRoot Configuration { get; set; } = default!;
+    internal static HttpClientHandler Handler { get; set; } = default!;
+    internal static HttpClient HttpClient { get; set; } = default!;
+    internal static TestOAuthTokenSource TokenSource { get; set; } = default!;
+    internal static iRacingDataClientOptions DataClientOptions { get; set; } = default!;
 
-    internal TClient Client { get; set; } = default!;
-
-    protected virtual iRacingDataClientOptions BaseSetUp()
+    [OneTimeSetUp]
+    public void SetUp()
     {
         Configuration = new ConfigurationBuilder()
                                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
@@ -27,39 +30,46 @@ internal abstract class BaseIntegrationFixture<TClient> : IDisposable
                                 .AddEnvironmentVariables("IRACINGDATA_")
                                 .Build();
 
-        CookieContainer = new CookieContainer();
         Handler = new HttpClientHandler()
         {
-            CookieContainer = CookieContainer,
             UseCookies = true,
             CheckCertificateRevocationList = true
         };
         HttpClient = new HttpClient(Handler);
 
-        return new iRacingDataClientOptions
+        var userName = Configuration["iRacingData:Username"] ?? throw new Exception("Configuration missing \"Username\" value.");
+        var password = Configuration["iRacingData:Password"] ?? throw new Exception("Configuration missing \"Password\" value.");
+        var clientId = Configuration["iRacingData:ClientId"] ?? throw new Exception("Configuration missing \"ClientId\" value.");
+        var clientSecret = Configuration["iRacingData:ClientSecret"] ?? throw new Exception("Configuration missing \"ClientSecret\" value.");
+
+        var dataClientOptions = new iRacingDataClientOptions
         {
-            UserAgentProductName = "Aydsko.iRacingData.IntegrationTests",
-            UserAgentProductVersion = typeof(MemberInfoTest).Assembly.GetName().Version,
-            Username = Configuration["iRacingData:Username"],
-            Password = Configuration["iRacingData:Password"]
+            Username = userName,
+            Password = password,
+            ClientId = clientId,
+            ClientSecret = clientSecret
         };
+
+        dataClientOptions.UseProductUserAgent("Aydsko.iRacingData.IntegrationTests", typeof(MemberInfoTest).Assembly.GetName().Version!);
+
+        TokenSource = new TestOAuthTokenSource(HttpClient, dataClientOptions, TimeProvider.System);
+
+        dataClientOptions.UseOAuthTokenSource(_ => TokenSource);
+
+        DataClientOptions = dataClientOptions;
     }
 
-    public void Dispose()
+    [OneTimeTearDown]
+    public void TearDown()
     {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
+        (TokenSource as IDisposable).Dispose();
+        TokenSource = null!;
 
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
-        {
-            (HttpClient as IDisposable)?.Dispose();
-            HttpClient = null!;
+        (HttpClient as IDisposable)?.Dispose();
+        HttpClient = null!;
 
-            (Handler as IDisposable)?.Dispose();
-            Handler = null!;
-        }
+        (Handler as IDisposable)?.Dispose();
+        Handler = null!;
     }
 }
+#pragma warning restore CA2201 // Do not raise reserved exception types

@@ -19,9 +19,6 @@ public interface IApiClient
     Task<DataResponse<TData>> GetDataResponseAsync<TData>(Uri uri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken) where TData : class;
     Task<HttpResponseMessage> GetUnauthenticatedRawResponseAsync(Uri uri, CancellationToken cancellationToken = default);
     Task<TData> GetUnauthenticatedResponseAsync<TData>(Uri uri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken) where TData : class;
-
-    [Obsolete("Do not use. Configure via the \"AddIRacingDataApi\" extension method on the IServiceCollection which allows you to configure the \"iRacingDataClientOptions\".")]
-    internal void UseUsernameAndPassword(string username, string password, bool passwordIsEncoded);
 }
 
 public class ApiClient(IAuthenticatingHttpClient httpClient,
@@ -468,24 +465,6 @@ public class ApiClient(IAuthenticatingHttpClient httpClient,
         var encodedHash = Convert.ToBase64String(hashedPasswordAndEmailBytes);
         return encodedHash;
     }
-
-    [Obsolete("Do not use. Configure via the \"AddIRacingDataApi\" extension method on the IServiceCollection which allows you to configure the \"iRacingDataClientOptions\".")]
-    public void UseUsernameAndPassword(string username, string password, bool passwordIsEncoded)
-    {
-        if (HttpClient is not LegacyUsernamePasswordApiClient legacyUsernamePasswordApiClient)
-        {
-            throw new InvalidOperationException($"Must be using the \"{nameof(LegacyUsernamePasswordApiClient)}\" to use this method.");
-        }
-
-        legacyUsernamePasswordApiClient.UseUsernameAndPassword(username, password, passwordIsEncoded);
-    }
-
-    // // TODO: override finalizer only if 'Dispose(bool disposing)' has code to free unmanaged resources
-    // ~LegacyUsernamePasswordApiClient()
-    // {
-    //     // Do not change this code. Put cleanup code in 'Dispose(bool disposing)' method
-    //     Dispose(disposing: false);
-    // }
 
     public void Dispose()
     {

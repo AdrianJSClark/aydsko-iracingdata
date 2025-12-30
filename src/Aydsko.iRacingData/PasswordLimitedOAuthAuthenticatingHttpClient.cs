@@ -1,5 +1,4 @@
-﻿using System.Net.Http.Headers;
-using System.Net.Http.Json;
+﻿using System.Net.Http.Json;
 using Aydsko.iRacingData.Exceptions;
 
 namespace Aydsko.iRacingData;
@@ -9,7 +8,7 @@ public class PasswordLimitedOAuthAuthenticatingHttpClient(HttpClient httpClient,
                                                           TimeProvider timeProvider)
     : OAuthAuthenticatingHttpClientBase(httpClient, options, timeProvider), IAuthenticatingHttpClient
 {
-    protected override async Task<(OAuthTokenResponse Token, DateTimeOffset ExpiresAt, DateTimeOffset? RefreshTokenExpiresAt)> RequestTokenAsync(CancellationToken cancellationToken = default)
+    protected override async Task<RequestTokenResult> RequestTokenAsync(CancellationToken cancellationToken = default)
     {
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Retrieve \"password_limited\" token", System.Diagnostics.ActivityKind.Client);
 

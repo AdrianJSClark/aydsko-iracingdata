@@ -9,18 +9,12 @@ internal sealed class DataClientTrackAssetScreenshotUrisTests
     [SetUp]
     public async Task SetUpAsync()
     {
-        var options = new iRacingDataClientOptions()
-        {
-            Username = "test.user@example.com",
-            Password = "SuperSecretPassword",
-        };
+        var options = new iRacingDataClientOptions();
+        options.UsePasswordLimitedOAuth("UsernameValue", "SuperSecretPasswordValue", "ClientIdValue", "ClientSecretValue");
 
-        var client = new TestLegacyUsernamePasswordApiClient(HttpClient,
-                                                             options,
-                                                             CookieContainer,
-                                                             new TestLogger<LegacyUsernamePasswordApiClient>());
+        var client = new PasswordLimitedOAuthAuthenticatingHttpClient(HttpClient, options, TimeProvider.System);
         var apiClientInstance = new ApiClient(client, options, new TestLogger<ApiClient>());
-        var sut = new DataClient(apiClientInstance, options, new TestLogger<DataClient>(), FakeTimeProvider);
+        var sut = new DataClient(apiClientInstance, options, new TestLogger<DataClient>(), TimeProvider.System);
 
         // Make use of our captured responses.
         await MessageHandler.QueueResponsesAsync(nameof(CapturedResponseValidationTests.GetTracksSuccessfulAsync))

@@ -1,11 +1,12 @@
-﻿// © 2023 Adrian Clark
+﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
 using Aydsko.iRacingData.Tracks;
 
-namespace Aydsko.iRacingData.IntegrationTests.Tracks;
+namespace Aydsko.iRacingData.IntegrationTests;
 
-internal sealed class GetTracksTests : DataClientIntegrationFixture
+internal sealed class GetTracksTests
+    : DataClientIntegrationFixture
 {
     private Track[] tracksData = default!;
 

@@ -1,12 +1,12 @@
-﻿// © Adrian Clark - Aydsko.iRacingData
+﻿// © 2023 Adrian Clark
 // This file is licensed to you under the MIT license.
 
-namespace Aydsko.iRacingData.IntegrationTests.Results;
+namespace Aydsko.iRacingData.IntegrationTests;
 
-internal sealed class CachingResultsSearchSeriesTest
-    : CachingIntegrationFixture
+internal sealed class ResultsSearchSeriesTest
+    : DataClientIntegrationFixture
 {
-    [Test(TestOf = typeof(DataClient))]
+    [Test]
     public async Task GivenValidSearchParametersTheCorrectResultIsReturnedAsync()
     {
         var searchParameters = new Searches.OfficialSearchParameters
@@ -19,6 +19,7 @@ internal sealed class CachingResultsSearchSeriesTest
         };
 
         var searchResults = await Client.SearchOfficialResultsAsync(searchParameters).ConfigureAwait(false);
+
         using (Assert.EnterMultipleScope())
         {
             Assert.That(searchResults, Is.Not.Null);
@@ -26,25 +27,9 @@ internal sealed class CachingResultsSearchSeriesTest
             Assert.That(searchResults.Data.Items, Is.Not.Null.Or.Empty);
             Assert.That(searchResults.Data.Items, Has.Length.EqualTo(10));
         }
-
-        var searchResults2 = await Client.SearchOfficialResultsAsync(searchParameters).ConfigureAwait(false);
-        using (Assert.EnterMultipleScope())
-        {
-            Assert.That(searchResults2, Is.Not.Null);
-            Assert.That(searchResults2.Data.Header, Is.Not.Null);
-            Assert.That(searchResults2.Data.Items, Is.Not.Null.Or.Empty);
-            Assert.That(searchResults2.Data.Items, Has.Length.EqualTo(10));
-        }
-
-        var stats = MemoryCache.GetCurrentStatistics();
-        using (Assert.EnterMultipleScope())
-        {
-            Assert.That(stats?.TotalHits, Is.Not.Null.And.EqualTo(1));
-            Assert.That(stats?.TotalMisses, Is.Not.Null.And.EqualTo(1));
-        }
     }
 
-    [Test(TestOf = typeof(DataClient))]
+    [Test]
     public async Task GivenSearchParametersThatResultInZeroResultsTheCorrectResultIsReturnedAsync()
     {
         var searchParameters = new Searches.OfficialSearchParameters
@@ -58,6 +43,7 @@ internal sealed class CachingResultsSearchSeriesTest
         };
 
         var searchResults = await Client.SearchOfficialResultsAsync(searchParameters).ConfigureAwait(false);
+
         using (Assert.EnterMultipleScope())
         {
             Assert.That(searchResults, Is.Not.Null);
@@ -66,24 +52,6 @@ internal sealed class CachingResultsSearchSeriesTest
 
             Assert.That(searchResults.Data.Items, Is.Not.Null);
             Assert.That(searchResults.Data.Items, Has.Length.EqualTo(0));
-        }
-
-        var searchResults2 = await Client.SearchOfficialResultsAsync(searchParameters).ConfigureAwait(false);
-        using (Assert.EnterMultipleScope())
-        {
-            Assert.That(searchResults2, Is.Not.Null);
-            Assert.That(searchResults2.Data.Header, Is.Not.Null);
-            Assert.That(searchResults2.Data.Header.Data.Success, Is.True);
-
-            Assert.That(searchResults2.Data.Items, Is.Not.Null);
-            Assert.That(searchResults2.Data.Items, Has.Length.EqualTo(0));
-        }
-
-        var stats = MemoryCache.GetCurrentStatistics();
-        using (Assert.EnterMultipleScope())
-        {
-            Assert.That(stats?.TotalHits, Is.Not.Null.And.EqualTo(1));
-            Assert.That(stats?.TotalMisses, Is.Not.Null.And.EqualTo(1));
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.1.31911.260
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11310.294 d18.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aydsko.iRacingData", "Aydsko.iRacingData\Aydsko.iRacingData.csproj", "{D1C8D3AE-FF92-49B8-BC8B-C690E34ED9CE}"
 EndProject
@@ -30,6 +30,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Aydsko.iRacingData.IntegrationTests", "Aydsko.iRacingData.IntegrationTests\Aydsko.iRacingData.IntegrationTests.csproj", "{5883CAAD-C11B-417A-B5DC-729867B66916}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aydsko.iRacingData.TestCli", "Aydsko.iRacingData.TestCli\Aydsko.iRacingData.TestCli.csproj", "{A7DD1D88-3F74-4560-8E9C-7F6198AE4312}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{5883CAAD-C11B-417A-B5DC-729867B66916}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5883CAAD-C11B-417A-B5DC-729867B66916}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5883CAAD-C11B-417A-B5DC-729867B66916}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A7DD1D88-3F74-4560-8E9C-7F6198AE4312}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A7DD1D88-3F74-4560-8E9C-7F6198AE4312}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A7DD1D88-3F74-4560-8E9C-7F6198AE4312}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A7DD1D88-3F74-4560-8E9C-7F6198AE4312}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

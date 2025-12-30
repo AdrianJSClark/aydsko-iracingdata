@@ -1,4 +1,7 @@
-﻿namespace Aydsko.iRacingData.IntegrationTests.Stats;
+﻿// © Adrian Clark - Aydsko.iRacingData
+// This file is licensed to you under the MIT license.
+
+namespace Aydsko.iRacingData.IntegrationTests;
 
 internal sealed class DriverStatisticsByCategoryCsvTests
     : DataClientIntegrationFixture

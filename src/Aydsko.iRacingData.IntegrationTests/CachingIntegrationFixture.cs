@@ -2,45 +2,38 @@
 // This file is licensed to you under the MIT license.
 
 using Microsoft.Extensions.Caching.Memory;
-using Microsoft.Extensions.Time.Testing;
 
 namespace Aydsko.iRacingData.IntegrationTests;
 
 internal abstract class CachingIntegrationFixture
-    : BaseIntegrationFixture<DataClient>
 {
     protected IMemoryCache MemoryCache { get; private set; } = default!;
-    protected FakeTimeProvider FakeTimeProvider { get; private set; } = new FakeTimeProvider(DateTimeOffset.UtcNow);
+    protected IDataClient Client { get; private set; }
 
-    private LegacyUsernamePasswordApiClient? _legacyApiClient;
     private CachingApiClient? _cachingApiClientBase;
 
     [SetUp]
     public void SetUp()
     {
-        var options = BaseSetUp();
-
         MemoryCache = new MemoryCache(new MemoryCacheOptions() { TrackStatistics = true });
 
-        _legacyApiClient = new(HttpClient, options, CookieContainer, new TestLogger<LegacyUsernamePasswordApiClient>());
-        _cachingApiClientBase = new(_legacyApiClient,
-                                    options,
+        _cachingApiClientBase = new(BaseIntegrationFixture.TokenSource,
+                                    BaseIntegrationFixture.DataClientOptions,
                                     MemoryCache,
                                     new TestLogger<CachingApiClient>(),
                                     new TestLogger<ApiClient>(),
-                                    FakeTimeProvider);
+                                    TimeProvider.System);
 
-        Client = new DataClient(_cachingApiClientBase, options, new TestLogger<DataClient>(), FakeTimeProvider);
+        Client = new DataClient(_cachingApiClientBase, BaseIntegrationFixture.DataClientOptions, new TestLogger<DataClient>(), TimeProvider.System);
     }
 
-    protected override void Dispose(bool disposing)
+    [TearDown]
+    public void TearDown()
     {
-        if (disposing)
-        {
-            _legacyApiClient?.Dispose();
-            _cachingApiClientBase?.Dispose();
-        }
+        (_cachingApiClientBase as IDisposable)?.Dispose();
+        _cachingApiClientBase = null;
 
-        base.Dispose(disposing);
+        (MemoryCache as IDisposable)?.Dispose();
+        MemoryCache = null!;
     }
 }

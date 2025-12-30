@@ -1,9 +1,10 @@
 ﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
-namespace Aydsko.iRacingData.IntegrationTests.Results;
+namespace Aydsko.iRacingData.IntegrationTests;
 
-internal sealed class CachingResultsGetTest : CachingIntegrationFixture
+internal sealed class CachingResultsGetTest
+    : CachingIntegrationFixture
 {
     [Test]
     public async Task GivenAValidSubsessionIdThenAResultIsReturnedAsync()

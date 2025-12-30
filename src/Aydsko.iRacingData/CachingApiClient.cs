@@ -160,13 +160,6 @@ internal sealed class CachingApiClient(IAuthenticatingHttpClient httpClient,
         return result!;
     }
 
-
-    [Obsolete("Do not use. Configure via the \"AddIRacingDataApi\" extension method on the IServiceCollection which allows you to configure the \"iRacingDataClientOptions\".")]
-    public void UseUsernameAndPassword(string username, string password, bool passwordIsEncoded)
-    {
-        apiClient.UseUsernameAndPassword(username, password, passwordIsEncoded);
-    }
-
     private void Dispose(bool disposing)
     {
         if (!disposedValue)

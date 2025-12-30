@@ -25,12 +25,14 @@ public class iRacingDataClientOptions
     public bool PasswordIsEncoded { get; set; }
 
     /// <summary>Called to retrieve cookie values stored from a previous authentication.</summary>
+    [Obsolete("Legacy username/password authentication is deprecated by iRacing. You must use OAuth authentication instead. See https://oauth.iracing.com/oauth2/book/auth_overview.html for more information.", true)]
     public Func<CookieCollection>? RestoreCookies { get; set; }
 
     /// <summary>After a successful authentication called with the cookies to allow them to be saved.</summary>
     /// <remarks>
     /// <para>One of the cookies returned in this collection <c>irsso_membersv2</c> may be used to authenticate with the <c>/membersite</c> and <c>/memberstats</c> endpoints on the classic site's API.</para>
     /// </remarks>
+    [Obsolete("Legacy username/password authentication is deprecated by iRacing. You must use OAuth authentication instead. See https://oauth.iracing.com/oauth2/book/auth_overview.html for more information.", true)]
     public Action<CookieCollection>? SaveCookies { get; set; }
 
     /// <summary>The source of the current date and time in UTC for the library.</summary>
@@ -68,4 +70,6 @@ public class iRacingDataClientOptions
     /// <remarks>Intended to be used with the &quot;Authorization Code Grant&quot; process.</remarks>
     /// <seealso href="https://oauth.iracing.com/oauth2/book/auth_overview.html"/>
     public GetOAuthTokenResponse? OAuthTokenResponseCallback { get; set; }
+
+    internal Func<IServiceProvider, IOAuthTokenSource>? TokenSourceFactory { get; set; }
 }

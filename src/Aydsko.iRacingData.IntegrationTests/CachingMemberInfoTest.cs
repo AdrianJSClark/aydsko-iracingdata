@@ -1,7 +1,7 @@
 ﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
-namespace Aydsko.iRacingData.IntegrationTests.Member;
+namespace Aydsko.iRacingData.IntegrationTests;
 
 internal sealed class CachingMemberInfoTest
     : CachingIntegrationFixture
@@ -9,7 +9,7 @@ internal sealed class CachingMemberInfoTest
     [Test]
     public async Task TestMemberInfoAsync()
     {
-        if (Configuration["iRacingData:CustomerId"] is not string customerIdValue
+        if (BaseIntegrationFixture.Configuration["iRacingData:CustomerId"] is not string customerIdValue
             || !int.TryParse(customerIdValue, out var iRacingCustomerId))
         {
             throw new InvalidOperationException("iRacing Customer Id value not found in configuration.");

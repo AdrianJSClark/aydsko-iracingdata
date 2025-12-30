@@ -43,6 +43,7 @@ jobs:
         if: ${{ format('{0}', env.IRACINGDATA_IRACINGDATA__PASSWORD) != '' }}
         env:
           IRACINGDATA_IRACINGDATA__PASSWORD: ${{ secrets.IRACING_PASSWORD }}
+          IRACINGDATA_IRACINGDATA__CLIENTSECRET: ${{ secrets.IRACING_CLIENTSECRET }}
 
       - uses: dorny/test-reporter@v1
         if: success() || failure()
