@@ -702,6 +702,18 @@
       "expirationSeconds": 900
     }
   },
+  "session": {
+    "reg_drivers_list": {
+      "link": "https://members-ng.iracing.com/data/session/reg_drivers_list",
+      "parameters": {
+        "subsession_id": {
+          "type": "number",
+          "required": true
+        }
+      },
+      "expirationSeconds": 60
+    }
+  },
   "stats": {
     "member_bests": {
       "link": "https://members-ng.iracing.com/data/stats/member_bests",
