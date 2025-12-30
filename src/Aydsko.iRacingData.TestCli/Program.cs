@@ -49,6 +49,19 @@ try
     Console.WriteLine($"Index 0 Award: {myProfile.RecentAwards[0].Name} ({myProfile.RecentAwards[0].GroupName})");
     Console.WriteLine("================================================================================");
 
+    //var oauthService = serviceProvider.GetRequiredService<OAuthService>();
+    //var httpClient = serviceProvider.GetRequiredService<HttpClient>();
+    //var token = await oauthService.GetTokenAsync();
+
+    //using var docRequest = new HttpRequestMessage(HttpMethod.Get, "https://members-ng.iracing.com/data/doc");
+    //docRequest.Headers.Authorization = new("Bearer", token.AccessToken);
+    //var docResult = await httpClient.SendAsync(docRequest);
+
+    //docResult.EnsureSuccessStatusCode();
+
+    //using var fileStream = File.OpenWrite(@"C:\Temp\doc.json");
+    //await docResult.Content.CopyToAsync(fileStream);
+
     return 0;
 }
 catch (Exception ex)
