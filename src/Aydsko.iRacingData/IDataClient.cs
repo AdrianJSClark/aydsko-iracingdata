@@ -729,5 +729,6 @@ public interface IDataClient
     /// <param name="subSessionId">The identifier of the running subsession for which a list of drivers should be returned.</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A <see cref="DataResponse{TData}"/> containing the list of drivers as a <see cref="RegisteredDriversList"/> object.</returns>
+    /// <remarks>If the subsession has finished the <see cref="RegisteredDriversList.Entries"/> array will be empty.</remarks>
     Task<DataResponse<RegisteredDriversList>> GetRegisteredDriversListAsync(int subSessionId, CancellationToken cancellationToken = default);
 }
