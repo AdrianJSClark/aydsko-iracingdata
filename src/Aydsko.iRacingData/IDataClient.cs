@@ -724,4 +724,11 @@ public interface IDataClient
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
     /// <returns>A <see cref="DataResponse{TData}"/> containing the season's super session results as a <see cref="SeasonSuperSessionResultsHeader"/> object.</returns>
     Task<DataResponse<(SeasonSuperSessionResultsHeader Header, SeasonSuperSessionResultItem[] Results)>> GetSeasonSuperSessionStandingsAsync(int seasonId, int carClassId, int? division = null, int? raceWeekIndex = null, CancellationToken cancellationToken = default);
+
+    /// <summary>Retrieve the list of drivers involved in the currently-running subsession.</summary>
+    /// <param name="subSessionId">The identifier of the running subsession for which a list of drivers should be returned.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the list of drivers as a <see cref="RegisteredDriversList"/> object.</returns>
+    /// <remarks>If the subsession has finished the <see cref="RegisteredDriversList.Entries"/> array will be empty.</remarks>
+    Task<DataResponse<RegisteredDriversList>> GetRegisteredDriversListAsync(int subSessionId, CancellationToken cancellationToken = default);
 }

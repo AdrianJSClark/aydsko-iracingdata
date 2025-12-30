@@ -1128,6 +1128,30 @@ internal sealed class DataClient(IApiClient apiClient,
     }
 
     /// <inheritdoc />
+    public async Task<DataResponse<RegisteredDriversList>> GetRegisteredDriversListAsync(int subSessionId, CancellationToken cancellationToken = default)
+    {
+        logger.LogDebug("Get Registered Drivers List for subesssion {SubSessionId}", subSessionId);
+        using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Registered Drivers List for Subsession")
+                               ?.AddTag("SubSessionId", subSessionId);
+
+        var queryParameters = new Dictionary<string, object?>
+        {
+            ["subsession_id"] = subSessionId
+        };
+
+        var careerStatisticsUrl = "https://members-ng.iracing.com/data/session/reg_drivers_list".ToUrlWithQuery(queryParameters);
+
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(careerStatisticsUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                RegisteredDriversListContext.Default.RegisteredDriversList,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
+    }
+
+    /// <inheritdoc />
     public async Task<DataResponse<MemberBests>> GetBestLapStatisticsAsync(int? customerId = null,
                                                                            int? carId = null,
                                                                            CancellationToken cancellationToken = default)

@@ -19,6 +19,5 @@ NEW FEATURE: iRacing OAuth "Authorization Code Grant" Authentication
 
 
 
-FIXES:
-- 
-
+FIXES / NEW IMPLEMENTATIONS:
+- Implement "/data/session/reg_drivers_list" to retrieve drivers registered for an active session (Issue #248)
