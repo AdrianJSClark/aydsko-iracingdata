@@ -21,7 +21,7 @@ namespace Aydsko.iRacingData;
 /// <summary>Default implementation of the client to access the iRacing "/data" API endpoints.</summary>
 /// <remarks>
 /// Instead of creating an instance of this class directly, it is recommended that you register the library components in the services
-/// collection using <see cref="ServicesExtensions.AddIRacingDataApi(Microsoft.Extensions.DependencyInjection.IServiceCollection)"/>
+/// collection using <see cref="ServicesExtensions.AddIRacingDataApi(Microsoft.Extensions.DependencyInjection.IServiceCollection, Action{iRacingDataClientOptions})"/>
 /// and resolve <see cref="IDataClient"/> service from there.
 /// </remarks>
 [System.Diagnostics.CodeAnalysis.SuppressMessage("Performance", "CA1848:Use the LoggerMessage delegates", Justification = "Too many separate messages once parameters are involved.")]
@@ -31,20 +31,6 @@ internal sealed class DataClient(IApiClient apiClient,
                                  TimeProvider timeProvider)
     : IDataClient
 {
-    /// <inheritdoc/>
-    [Obsolete("Configure via the \"AddIRacingDataApi\" extension method on the IServiceCollection which allows you to configure the \"iRacingDataClientOptions\".")]
-    public void UseUsernameAndPassword(string username, string password, bool passwordIsEncoded)
-    {
-        apiClient.UseUsernameAndPassword(username, password, passwordIsEncoded);
-    }
-
-    /// <inheritdoc/>
-    [Obsolete("Configure via the \"AddIRacingDataApi\" extension method on the IServiceCollection which allows you to configure the \"iRacingDataClientOptions\".")]
-    public void UseUsernameAndPassword(string username, string password)
-    {
-        UseUsernameAndPassword(username, password, false);
-    }
-
     /// <inheritdoc />
     public async Task<DataResponse<IReadOnlyDictionary<string, CarAssetDetail>>> GetCarAssetDetailsAsync(CancellationToken cancellationToken = default)
     {
