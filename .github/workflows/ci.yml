@@ -39,11 +39,11 @@ jobs:
             PACKAGE_KEY: ${{ secrets.PACKAGE_UPLOAD }}
 
       - name: Delete Old Packages
-        uses: smartsquaregmbh/delete-old-packages@v0.8.0
+        uses: smartsquaregmbh/delete-old-packages@v0.8.1
         with:
           user: AdrianJSClark
           type: nuget
           keep: 5
-          dry-run: true
+          dry-run: false
           names: |
             Aydsko.iRacingData
