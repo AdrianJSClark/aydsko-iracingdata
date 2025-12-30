@@ -6,39 +6,34 @@ using Microsoft.Extensions.Caching.Memory;
 namespace Aydsko.iRacingData.IntegrationTests;
 
 internal abstract class CachingIntegrationFixture
-    : BaseIntegrationFixture<DataClient>
 {
     protected IMemoryCache MemoryCache { get; private set; } = default!;
+    protected IDataClient Client { get; private set; }
 
-    private PasswordLimitedOAuthAuthenticatingHttpClient? _passwordLimitedApiClient;
     private CachingApiClient? _cachingApiClientBase;
 
     [SetUp]
     public void SetUp()
     {
-        var options = BaseSetUp();
-
         MemoryCache = new MemoryCache(new MemoryCacheOptions() { TrackStatistics = true });
 
-        _passwordLimitedApiClient = new(HttpClient, options, TimeProvider.System);
-        _cachingApiClientBase = new(_passwordLimitedApiClient,
-                                    options,
+        _cachingApiClientBase = new(BaseIntegrationFixture.TokenSource,
+                                    BaseIntegrationFixture.DataClientOptions,
                                     MemoryCache,
                                     new TestLogger<CachingApiClient>(),
                                     new TestLogger<ApiClient>(),
                                     TimeProvider.System);
 
-        Client = new DataClient(_cachingApiClientBase, options, new TestLogger<DataClient>(), TimeProvider.System);
+        Client = new DataClient(_cachingApiClientBase, BaseIntegrationFixture.DataClientOptions, new TestLogger<DataClient>(), TimeProvider.System);
     }
 
-    protected override void Dispose(bool disposing)
+    [TearDown]
+    public void TearDown()
     {
-        if (disposing)
-        {
-            _passwordLimitedApiClient?.Dispose();
-            _cachingApiClientBase?.Dispose();
-        }
+        (_cachingApiClientBase as IDisposable)?.Dispose();
+        _cachingApiClientBase = null;
 
-        base.Dispose(disposing);
+        (MemoryCache as IDisposable)?.Dispose();
+        MemoryCache = null!;
     }
 }

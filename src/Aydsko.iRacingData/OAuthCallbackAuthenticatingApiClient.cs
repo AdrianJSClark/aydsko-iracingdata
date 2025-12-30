@@ -9,7 +9,7 @@ public class OAuthCallbackAuthenticatingApiClient(HttpClient httpClient,
                                                   TimeProvider timeProvider)
     : OAuthAuthenticatingHttpClientBase(httpClient, options, timeProvider), IAuthenticatingHttpClient
 {
-    protected override async Task<(OAuthTokenResponse Token, DateTimeOffset ExpiresAt, DateTimeOffset? RefreshTokenExpiresAt)> RequestTokenAsync(CancellationToken cancellationToken = default)
+    protected override async Task<RequestTokenResult> RequestTokenAsync(CancellationToken cancellationToken = default)
     {
         if (Options.OAuthTokenResponseCallback is null)
         {

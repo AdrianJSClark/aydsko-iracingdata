@@ -4,28 +4,21 @@
 namespace Aydsko.iRacingData.IntegrationTests;
 
 internal abstract class DataClientIntegrationFixture
-    : BaseIntegrationFixture<DataClient>
 {
-    private PasswordLimitedOAuthAuthenticatingHttpClient? _passwordLimitedApiClient;
+    protected IDataClient Client { get; private set; }
     private ApiClient? _apiClientBase;
 
     [OneTimeSetUp]
     public void OneTimeSetUp()
     {
-        var options = BaseSetUp();
-
-        _passwordLimitedApiClient = new(HttpClient, options, TimeProvider.System);
-        _apiClientBase = new(_passwordLimitedApiClient, options, new TestLogger<ApiClient>());
-        Client = new DataClient(_apiClientBase, options, new TestLogger<DataClient>(), TimeProvider.System);
+        _apiClientBase = new(BaseIntegrationFixture.TokenSource, BaseIntegrationFixture.DataClientOptions, new TestLogger<ApiClient>());
+        Client = new DataClient(_apiClientBase, BaseIntegrationFixture.DataClientOptions, new TestLogger<DataClient>(), TimeProvider.System);
     }
 
-    protected override void Dispose(bool disposing)
+    [OneTimeTearDown]
+    public void OneTimeTearDown()
     {
-        if (disposing)
-        {
-            _passwordLimitedApiClient?.Dispose();
-            _apiClientBase?.Dispose();
-        }
-        base.Dispose(disposing);
+        (_apiClientBase as IDisposable)?.Dispose();
+        _apiClientBase = null;
     }
 }

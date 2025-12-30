@@ -8,7 +8,7 @@ public class OAuthTokenSourceApiClient(HttpClient httpClient,
                                           IOAuthTokenSource tokenSource)
     : OAuthAuthenticatingHttpClientBase(httpClient, options, timeProvider), IAuthenticatingHttpClient
 {
-    protected override async Task<(OAuthTokenResponse Token, DateTimeOffset ExpiresAt, DateTimeOffset? RefreshTokenExpiresAt)> RequestTokenAsync(CancellationToken cancellationToken = default)
+    protected override async Task<RequestTokenResult> RequestTokenAsync(CancellationToken cancellationToken = default)
     {
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Retrieve token via IOAuthTokenSource", System.Diagnostics.ActivityKind.Client);
         try

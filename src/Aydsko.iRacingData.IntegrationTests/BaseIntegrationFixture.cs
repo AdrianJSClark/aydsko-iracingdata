@@ -3,19 +3,25 @@
 
 using Microsoft.Extensions.Configuration;
 
+[assembly: Category("Integration")]
+[assembly: NonParallelizable]
+
 namespace Aydsko.iRacingData.IntegrationTests;
 
-[Category("Integration"), NonParallelizable]
-internal abstract class BaseIntegrationFixture<TClient> : IDisposable
-    where TClient : IDataClient
+#pragma warning disable CA2201 // Do not raise reserved exception types
+
+[SetUpFixture]
+[System.Diagnostics.CodeAnalysis.SuppressMessage("Maintainability", "CA1515:Consider making public types internal", Justification = "NUnit needs to find this.")]
+public class BaseIntegrationFixture
 {
-    protected IConfigurationRoot Configuration { get; set; } = default!;
-    protected HttpClientHandler Handler { get; set; } = default!;
-    protected HttpClient HttpClient { get; set; } = default!;
+    internal static IConfigurationRoot Configuration { get; set; } = default!;
+    internal static HttpClientHandler Handler { get; set; } = default!;
+    internal static HttpClient HttpClient { get; set; } = default!;
+    internal static TestOAuthTokenSource TokenSource { get; set; } = default!;
+    internal static iRacingDataClientOptions DataClientOptions { get; set; } = default!;
 
-    internal TClient Client { get; set; } = default!;
-
-    protected virtual iRacingDataClientOptions BaseSetUp()
+    [OneTimeSetUp]
+    public void SetUp()
     {
         Configuration = new ConfigurationBuilder()
                                 .SetBasePath(TestContext.CurrentContext.TestDirectory)
@@ -31,30 +37,39 @@ internal abstract class BaseIntegrationFixture<TClient> : IDisposable
         };
         HttpClient = new HttpClient(Handler);
 
-        var dataClientOptions = new iRacingDataClientOptions();
-        dataClientOptions.UseProductUserAgent("Aydsko.iRacingData.IntegrationTests", typeof(MemberInfoTest).Assembly.GetName().Version!);
-        dataClientOptions.UsePasswordLimitedOAuth(Configuration["iRacingData:Username"],
-                                                  Configuration["iRacingData:Password"],
-                                                  Configuration["iRacingData:ClientId"],
-                                                  Configuration["iRacingData:ClientSecret"]);
-        return dataClientOptions;
-    }
+        var userName = Configuration["iRacingData:Username"] ?? throw new Exception("Configuration missing \"Username\" value.");
+        var password = Configuration["iRacingData:Password"] ?? throw new Exception("Configuration missing \"Password\" value.");
+        var clientId = Configuration["iRacingData:ClientId"] ?? throw new Exception("Configuration missing \"ClientId\" value.");
+        var clientSecret = Configuration["iRacingData:ClientSecret"] ?? throw new Exception("Configuration missing \"ClientSecret\" value.");
 
-    public void Dispose()
-    {
-        Dispose(true);
-        GC.SuppressFinalize(this);
-    }
-
-    protected virtual void Dispose(bool disposing)
-    {
-        if (disposing)
+        var dataClientOptions = new iRacingDataClientOptions
         {
-            (HttpClient as IDisposable)?.Dispose();
-            HttpClient = null!;
+            Username = userName,
+            Password = password,
+            ClientId = clientId,
+            ClientSecret = clientSecret
+        };
 
-            (Handler as IDisposable)?.Dispose();
-            Handler = null!;
-        }
+        dataClientOptions.UseProductUserAgent("Aydsko.iRacingData.IntegrationTests", typeof(MemberInfoTest).Assembly.GetName().Version!);
+
+        TokenSource = new TestOAuthTokenSource(HttpClient, dataClientOptions, TimeProvider.System);
+
+        dataClientOptions.UseOAuthTokenSource(_ => TokenSource);
+
+        DataClientOptions = dataClientOptions;
+    }
+
+    [OneTimeTearDown]
+    public void TearDown()
+    {
+        (TokenSource as IDisposable).Dispose();
+        TokenSource = null!;
+
+        (HttpClient as IDisposable)?.Dispose();
+        HttpClient = null!;
+
+        (Handler as IDisposable)?.Dispose();
+        Handler = null!;
     }
 }
+#pragma warning restore CA2201 // Do not raise reserved exception types

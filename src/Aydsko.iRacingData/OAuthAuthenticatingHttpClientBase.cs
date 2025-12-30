@@ -138,7 +138,7 @@ public abstract class OAuthAuthenticatingHttpClientBase(HttpClient httpClient,
         return tokenResponse.AccessToken;
     }
 
-    private async Task<(OAuthTokenResponse Token, DateTimeOffset ExpiresAt, DateTimeOffset? RefreshTokenExpiresAt)> RefreshTokenAsync(CancellationToken cancellationToken = default)
+    private async Task<RequestTokenResult> RefreshTokenAsync(CancellationToken cancellationToken = default)
     {
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Refresh \"password_limited\" token", System.Diagnostics.ActivityKind.Client);
 
@@ -211,5 +211,5 @@ public abstract class OAuthAuthenticatingHttpClientBase(HttpClient httpClient,
         }
     }
 
-    protected abstract Task<(OAuthTokenResponse Token, DateTimeOffset ExpiresAt, DateTimeOffset? RefreshTokenExpiresAt)> RequestTokenAsync(CancellationToken cancellationToken = default);
+    protected abstract Task<RequestTokenResult> RequestTokenAsync(CancellationToken cancellationToken = default);
 }

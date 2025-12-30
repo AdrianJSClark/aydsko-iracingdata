@@ -9,7 +9,7 @@ internal sealed class CachingMemberInfoTest
     [Test]
     public async Task TestMemberInfoAsync()
     {
-        if (Configuration["iRacingData:CustomerId"] is not string customerIdValue
+        if (BaseIntegrationFixture.Configuration["iRacingData:CustomerId"] is not string customerIdValue
             || !int.TryParse(customerIdValue, out var iRacingCustomerId))
         {
             throw new InvalidOperationException("iRacing Customer Id value not found in configuration.");
