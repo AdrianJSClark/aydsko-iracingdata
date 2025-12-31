@@ -50,6 +50,7 @@ jobs:
 
       - name: Delete Old Packages
         uses: smartsquaregmbh/delete-old-packages@v0.8.1
+        continue-on-error: true
         with:
           user: AdrianJSClark
           type: nuget
