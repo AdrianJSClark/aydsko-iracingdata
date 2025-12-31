@@ -411,6 +411,17 @@ public interface IDataClient
     /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
     Task<DataResponse<SeasonSeries[]>> GetSeasonsAsync(bool includeSeries, CancellationToken cancellationToken = default);
 
+    /// <summary>Retrieve information about the season and series.</summary>
+    /// <param name="seasonYear">The year to list seasons for.</param>
+    /// <param name="seasonQuarter">The quarter to list seasons for.</param>
+    /// <param name="includeSeries">Indicate if the series details should be included.</param>
+    /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
+    /// <returns>A <see cref="DataResponse{TData}"/> containing the season and optionally series detail in a <see cref="SeasonSeries"/> array.</returns>
+    /// <exception cref="InvalidOperationException">If the client is not currently authenticated.</exception>
+    /// <exception cref="iRacingDataClientException">If there's a problem processing the result.</exception>
+    /// <exception cref="iRacingUnauthorizedResponseException">If the iRacing API returns a <c>401 Unauthorized</c> response.</exception>
+    Task<DataResponse<SeasonSeries[]>> GetSeasonsAsync(int seasonYear, int seasonQuarter, bool includeSeries, CancellationToken cancellationToken = default);
+
     /// <summary>A list of current seasons.</summary>
     /// <param name="includeSeries">Indicate if the series details should be included.</param>
     /// <param name="cancellationToken">A token to allow the operation to be cancelled.</param>
