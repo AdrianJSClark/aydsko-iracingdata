@@ -49,11 +49,33 @@ internal sealed class CachingApiClient(IAuthenticatingHttpClient httpClient,
     private record CreateResponseFromChunksKey(Uri Uri, bool IsViaInfoLink);
 
     public async Task<DataResponse<TData>> CreateResponseViaIntermediateResultAsync<TIntermediate, TData>(Uri intermediateUri,
-                                                                                                    JsonTypeInfo<TIntermediate> intermediateJsonTypeInfo,
-                                                                                                    Func<TIntermediate, (Uri DataLink, DateTimeOffset? Expires)> getDataLinkAndExpiry,
-                                                                                                    JsonTypeInfo<TData> jsonTypeInfo,
-                                                                                                    CancellationToken cancellationToken)
+                                                                                                          JsonTypeInfo<TIntermediate> intermediateJsonTypeInfo,
+                                                                                                          Func<TIntermediate, (Uri DataLink, DateTimeOffset? Expires)> getDataLinkAndExpiry,
+                                                                                                          JsonTypeInfo<TData> jsonTypeInfo,
+                                                                                                          CancellationToken cancellationToken)
     {
+        return await CreateResponseViaIntermediateResultAsync(intermediateUri, intermediateJsonTypeInfo, getDataLinkAndExpiry, jsonTypeInfo, data => data, cancellationToken).ConfigureAwait(false);
+    }
+
+    public async Task<DataResponse<TData>> CreateResponseViaIntermediateResultAsync<TIntermediate, TDataWrapper, TData>(Uri intermediateUri,
+                                                                                                                        JsonTypeInfo<TIntermediate> intermediateJsonTypeInfo,
+                                                                                                                        Func<TIntermediate, (Uri DataLink, DateTimeOffset? Expires)> getDataLinkAndExpiry,
+                                                                                                                        JsonTypeInfo<TDataWrapper> jsonTypeInfo,
+                                                                                                                        Func<TDataWrapper, TData> unwrapData,
+                                                                                                                        CancellationToken cancellationToken)
+    {
+#pragma warning disable CA1510 // The alternative here is not available in .NET Standard 2.0
+        if (getDataLinkAndExpiry is null)
+        {
+            throw new ArgumentNullException(nameof(getDataLinkAndExpiry));
+        }
+
+        if (unwrapData is null)
+        {
+            throw new ArgumentNullException(nameof(unwrapData));
+        }
+#pragma warning restore CA1510
+
         var isHit = true;
 
         var result = await memoryCache.GetOrCreateAsync(intermediateUri, async ce =>
@@ -64,6 +86,7 @@ internal sealed class CachingApiClient(IAuthenticatingHttpClient httpClient,
                                                                                     intermediateJsonTypeInfo,
                                                                                     getDataLinkAndExpiry,
                                                                                     jsonTypeInfo,
+                                                                                    unwrapData,
                                                                                     cancellationToken)
                                           .ConfigureAwait(false);
 

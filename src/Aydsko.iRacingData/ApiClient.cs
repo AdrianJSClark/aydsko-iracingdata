@@ -16,6 +16,9 @@ public interface IApiClient
 {
     Task<DataResponse<(THeader, TChunkData[])>> CreateResponseFromChunksAsync<THeader, TChunkData>(Uri uri, bool isViaInfoLink, JsonTypeInfo<THeader> jsonTypeInfo, Func<THeader, IChunkInfo> getChunkDownloadDetail, JsonTypeInfo<TChunkData[]> chunkArrayTypeInfo, CancellationToken cancellationToken = default);
     Task<DataResponse<TData>> CreateResponseViaIntermediateResultAsync<TIntermediate, TData>(Uri intermediateUri, JsonTypeInfo<TIntermediate> intermediateJsonTypeInfo, Func<TIntermediate, (Uri DataLink, DateTimeOffset? Expires)> getDataLinkAndExpiry, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken);
+    Task<DataResponse<TData>> CreateResponseViaIntermediateResultAsync<TIntermediate, TDataWrapper, TData>(Uri intermediateUri, JsonTypeInfo<TIntermediate> intermediateJsonTypeInfo, Func<TIntermediate, (Uri DataLink, DateTimeOffset? Expires)> getDataLinkAndExpiry, JsonTypeInfo<TDataWrapper> jsonTypeInfo, Func<TDataWrapper, TData> unwrapData, CancellationToken cancellationToken);
+
+    //Task<DataResponse<TData>> CreateResponseViaIntermediateResultAsync<TIntermediate, TData>(Uri intermediateUri, JsonTypeInfo<TIntermediate> intermediateJsonTypeInfo, Func<TIntermediate, (Uri DataLink, DateTimeOffset? Expires)> getDataLinkAndExpiry, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken);
     Task<DataResponse<TData>> GetDataResponseAsync<TData>(Uri uri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken) where TData : class;
     Task<HttpResponseMessage> GetUnauthenticatedRawResponseAsync(Uri uri, CancellationToken cancellationToken = default);
     Task<TData> GetUnauthenticatedResponseAsync<TData>(Uri uri, JsonTypeInfo<TData> jsonTypeInfo, CancellationToken cancellationToken) where TData : class;
@@ -206,10 +209,25 @@ public class ApiClient(IAuthenticatingHttpClient httpClient,
                                                                                                           JsonTypeInfo<TData> jsonTypeInfo,
                                                                                                           CancellationToken cancellationToken)
     {
+        return await CreateResponseViaIntermediateResultAsync(intermediateUri, intermediateJsonTypeInfo, getDataLinkAndExpiry, jsonTypeInfo, data => data, cancellationToken).ConfigureAwait(false);
+    }
+
+    public async Task<DataResponse<TData>> CreateResponseViaIntermediateResultAsync<TIntermediate, TDataWrapper, TData>(Uri intermediateUri,
+                                                                                                                        JsonTypeInfo<TIntermediate> intermediateJsonTypeInfo,
+                                                                                                                        Func<TIntermediate, (Uri DataLink, DateTimeOffset? Expires)> getDataLinkAndExpiry,
+                                                                                                                        JsonTypeInfo<TDataWrapper> jsonTypeInfo,
+                                                                                                                        Func<TDataWrapper, TData> unwrapData,
+                                                                                                                        CancellationToken cancellationToken)
+    {
 #pragma warning disable CA1510 // The alternative here is not available in .NET Standard 2.0
         if (getDataLinkAndExpiry is null)
         {
             throw new ArgumentNullException(nameof(getDataLinkAndExpiry));
+        }
+
+        if (unwrapData is null)
+        {
+            throw new ArgumentNullException(nameof(unwrapData));
         }
 #pragma warning restore CA1510
 
@@ -237,9 +255,10 @@ public class ApiClient(IAuthenticatingHttpClient httpClient,
 
             _ = response.EnsureSuccessStatusCode();
 
-            var data = await response.Content.ReadFromJsonAsync(jsonTypeInfo, cancellationToken)
-                                             .ConfigureAwait(false)
-                       ?? throw new iRacingDataClientException("Data not found.");
+            var wrappedData = await response.Content.ReadFromJsonAsync(jsonTypeInfo, cancellationToken)
+                                                    .ConfigureAwait(false)
+                              ?? throw new iRacingDataClientException("Data not found.");
+            var data = unwrapData(wrappedData);
 
             _ = Activity.Current?.AddEvent(new ActivityEvent("Data Retrieved"));
 
