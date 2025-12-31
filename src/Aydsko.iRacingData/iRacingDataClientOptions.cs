@@ -35,11 +35,6 @@ public class iRacingDataClientOptions
     [Obsolete("Legacy username/password authentication is deprecated by iRacing. You must use OAuth authentication instead. See https://oauth.iracing.com/oauth2/book/auth_overview.html for more information.", true)]
     public Action<CookieCollection>? SaveCookies { get; set; }
 
-    /// <summary>The source of the current date and time in UTC for the library.</summary>
-    /// <remarks>Defaults to <see cref="TimeProvider.GetUtcNow"/>.</remarks>
-    [Obsolete("Add your own TimeProvider to the service collection (see https://learn.microsoft.com/en-us/dotnet/api/system.timeprovider).")]
-    public Func<DateTimeOffset>? CurrentDateTimeSource { get; set; }
-
     /// <summary>The <c>client_id</c> value for <c>password_limited</c> OAuth flow.</summary>
     /// <seealso href="https://oauth.iracing.com/oauth2/book/token_endpoint.html#password-limited-grant" />
     public string? ClientId { get; set; }

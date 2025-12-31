@@ -31,13 +31,15 @@ internal sealed class DataClient(IApiClient apiClient,
                                  TimeProvider timeProvider)
     : IDataClient
 {
+    private readonly Uri apiBaseUrl = new(options.ApiBaseUrl);
+
     /// <inheritdoc />
     public async Task<DataResponse<IReadOnlyDictionary<string, CarAssetDetail>>> GetCarAssetDetailsAsync(CancellationToken cancellationToken = default)
     {
         logger.LogDebug("Get Car Asset Details");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Car Asset Details");
 
-        var carAssetDetailsUrl = new Uri("https://members-ng.iracing.com/data/car/assets");
+        var carAssetDetailsUrl = new Uri(apiBaseUrl, "/data/car/assets");
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(carAssetDetailsUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -54,7 +56,7 @@ internal sealed class DataClient(IApiClient apiClient,
         logger.LogDebug("Get Cars");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Cars");
 
-        var infoLinkUri = new Uri("https://members-ng.iracing.com/data/car/get");
+        var infoLinkUri = new Uri(apiBaseUrl, "/data/car/get");
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(infoLinkUri,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -72,7 +74,7 @@ internal sealed class DataClient(IApiClient apiClient,
         logger.LogDebug("Get Car Classes");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Car Classes");
 
-        var carClassUrl = new Uri("https://members-ng.iracing.com/data/carclass/get");
+        var carClassUrl = new Uri(apiBaseUrl, "/data/carclass/get");
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(carClassUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -90,7 +92,7 @@ internal sealed class DataClient(IApiClient apiClient,
         logger.LogDebug("Get Divisions");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Divisions");
 
-        var constantsDivisionsUrl = new Uri("https://members-ng.iracing.com/data/constants/divisions");
+        var constantsDivisionsUrl = new Uri(apiBaseUrl, "/data/constants/divisions");
         return await apiClient.GetDataResponseAsync(constantsDivisionsUrl,
                                                    DivisionArrayContext.Default.DivisionArray,
                                                    cancellationToken)
@@ -103,7 +105,7 @@ internal sealed class DataClient(IApiClient apiClient,
         logger.LogDebug("Get Categories");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Categories");
 
-        var constantsCategoriesUrl = new Uri("https://members-ng.iracing.com/data/constants/categories");
+        var constantsCategoriesUrl = new Uri(apiBaseUrl, "/data/constants/categories");
         return await apiClient.GetDataResponseAsync(constantsCategoriesUrl,
                                                    CategoryArrayContext.Default.CategoryArray,
                                                    cancellationToken)
@@ -116,7 +118,7 @@ internal sealed class DataClient(IApiClient apiClient,
         logger.LogDebug("Get Event Types");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Event Types");
 
-        var constantsEventTypesUrl = new Uri("https://members-ng.iracing.com/data/constants/event_types");
+        var constantsEventTypesUrl = new Uri(apiBaseUrl, "/data/constants/event_types");
 
         return await apiClient.GetDataResponseAsync(constantsEventTypesUrl,
                                                    EventTypeArrayContext.Default.EventTypeArray,
@@ -137,7 +139,7 @@ internal sealed class DataClient(IApiClient apiClient,
             queryParameters.Add("package_id", packageId.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        var queryUrl = "https://members-ng.iracing.com/data/hosted/combined_sessions".ToUrlWithQuery(queryParameters);
+        var queryUrl = new Uri(apiBaseUrl, "/data/hosted/combined_sessions").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -155,7 +157,7 @@ internal sealed class DataClient(IApiClient apiClient,
         logger.LogDebug("List Hosted Sessions");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("List Hosted Sessions");
 
-        var infoLinkUri = new Uri("https://members-ng.iracing.com/data/hosted/sessions");
+        var infoLinkUri = new Uri(apiBaseUrl, "/data/hosted/sessions");
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(infoLinkUri,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -179,7 +181,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["include_licenses"] = includeLicenses.ToString(),
         };
 
-        var getLeagueUrl = "https://members-ng.iracing.com/data/league/get".ToUrlWithQuery(queryParameters);
+        var getLeagueUrl = new Uri(apiBaseUrl, "/data/league/get").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(getLeagueUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -207,7 +209,7 @@ internal sealed class DataClient(IApiClient apiClient,
             queryParameters.Add("season_id", seasonId.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        var queryUrl = "https://members-ng.iracing.com/data/league/get_points_systems".ToUrlWithQuery(queryParameters);
+        var queryUrl = new Uri(apiBaseUrl, "/data/league/get_points_systems").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -231,7 +233,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["package_id"] = packageId,
         };
 
-        var queryUrl = "https://members-ng.iracing.com/data/league/cust_league_sessions".ToUrlWithQuery(queryParameters);
+        var queryUrl = new Uri(apiBaseUrl, "/data/league/cust_league_sessions").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -249,7 +251,7 @@ internal sealed class DataClient(IApiClient apiClient,
         logger.LogDebug("Get Lookups");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Lookups");
 
-        var lookupsUrl = new Uri("https://members-ng.iracing.com/data/lookup/get?weather=weather_wind_speed_units&weather=weather_wind_speed_max&weather=weather_wind_speed_min&licenselevels=licenselevels");
+        var lookupsUrl = new Uri(apiBaseUrl, "/data/lookup/get?weather=weather_wind_speed_units&weather=weather_wind_speed_max&weather=weather_wind_speed_min&licenselevels=licenselevels");
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(lookupsUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -279,7 +281,7 @@ internal sealed class DataClient(IApiClient apiClient,
             queryParameters.Add("league_id", leagueId.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        var queryUrl = "https://members-ng.iracing.com/data/lookup/drivers".ToUrlWithQuery(queryParameters);
+        var queryUrl = new Uri(apiBaseUrl, "/data/lookup/drivers").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -297,7 +299,7 @@ internal sealed class DataClient(IApiClient apiClient,
         logger.LogDebug("Get License Lookups");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get License Lookups");
 
-        var infoLinkUri = new Uri("https://members-ng.iracing.com/data/lookup/licenses");
+        var infoLinkUri = new Uri(apiBaseUrl, "/data/lookup/licenses");
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(infoLinkUri,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -314,7 +316,7 @@ internal sealed class DataClient(IApiClient apiClient,
         logger.LogDebug("Get Flairs");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Flairs");
 
-        var infoLinkUri = new Uri("https://members-ng.iracing.com/data/lookup/flairs");
+        var infoLinkUri = new Uri(apiBaseUrl, "/data/lookup/flairs");
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(infoLinkUri,
                                                               LinkResultContext.Default.LinkResult,
@@ -344,7 +346,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["include_licenses"] = includeLicenses,
         };
 
-        var driverInfoRequestUrl = "https://members-ng.iracing.com/data/member/get".ToUrlWithQuery(queryParameters);
+        var driverInfoRequestUrl = new Uri(apiBaseUrl, "/data/member/get").WithQuery(queryParameters);
 
         var driverInfoResponse = await apiClient.CreateResponseViaIntermediateResultAsync(driverInfoRequestUrl,
                                                                                           LinkResultContext.Default.LinkResult,
@@ -377,7 +379,7 @@ internal sealed class DataClient(IApiClient apiClient,
             queryParameters.Add("cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        var queryUrl = "https://members-ng.iracing.com/data/member/awards".ToUrlWithQuery(queryParameters);
+        var queryUrl = new Uri(apiBaseUrl, "/data/member/awards").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
                                                                                 MemberAwardResultContext.Default.MemberAwardResult,
@@ -400,7 +402,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["award_id"] = awardId,
         };
 
-        var queryUrl = "https://members-ng.iracing.com/data/member/award_instances".ToUrlWithQuery(queryParameters);
+        var queryUrl = new Uri(apiBaseUrl, "/data/member/award_instances").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
                                                                                 DataUrlResultContext.Default.DataUrlResult,
@@ -418,7 +420,7 @@ internal sealed class DataClient(IApiClient apiClient,
         logger.LogDebug("Get My Info");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get My Info");
 
-        var memberInfoUrl = new Uri("https://members-ng.iracing.com/data/member/info");
+        var memberInfoUrl = new Uri(apiBaseUrl, "/data/member/info");
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(memberInfoUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -444,7 +446,7 @@ internal sealed class DataClient(IApiClient apiClient,
             queryParameters.Add("cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        var memberProfileUrl = "https://members-ng.iracing.com/data/member/profile".ToUrlWithQuery(queryParameters);
+        var memberProfileUrl = new Uri(apiBaseUrl, "/data/member/profile").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(memberProfileUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -470,7 +472,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["include_licenses"] = includeLicenses,
         };
 
-        var subSessionResultUrl = "https://members-ng.iracing.com/data/results/get".ToUrlWithQuery(queryParameters);
+        var subSessionResultUrl = new Uri(apiBaseUrl, "/data/results/get").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(subSessionResultUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -498,7 +500,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["simsession_number"] = simSessionNumber.ToString(CultureInfo.InvariantCulture),
         };
 
-        var subSessionLapChartUrl = "https://members-ng.iracing.com/data/results/lap_chart_data".ToUrlWithQuery(queryParameters);
+        var subSessionLapChartUrl = new Uri(apiBaseUrl, "/data/results/lap_chart_data").WithQuery(queryParameters);
 
         var results = await apiClient.CreateResponseFromChunksAsync(subSessionLapChartUrl,
                                                                                 true,
@@ -526,7 +528,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["simsession_number"] = simSessionNumber,
         };
 
-        var subSessionLapChartUrl = "https://members-ng.iracing.com/data/results/event_log".ToUrlWithQuery(queryParameters);
+        var subSessionLapChartUrl = new Uri(apiBaseUrl, "/data/results/event_log").WithQuery(queryParameters);
 
         var results = await apiClient.CreateResponseFromChunksAsync(subSessionLapChartUrl,
                                                                                 true,
@@ -544,7 +546,7 @@ internal sealed class DataClient(IApiClient apiClient,
         logger.LogDebug("Get Series");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Series");
 
-        var seriesDetailUrl = new Uri("https://members-ng.iracing.com/data/series/get");
+        var seriesDetailUrl = new Uri(apiBaseUrl, "/data/series/get");
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(seriesDetailUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -562,7 +564,7 @@ internal sealed class DataClient(IApiClient apiClient,
         logger.LogDebug("Get Series Assets");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Series Assets");
 
-        var infoLinkUri = new Uri("https://members-ng.iracing.com/data/series/assets");
+        var infoLinkUri = new Uri(apiBaseUrl, "/data/series/assets");
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(infoLinkUri,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -590,7 +592,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["cust_id"] = customerId,
         };
 
-        var subSessionLapChartUrl = "https://members-ng.iracing.com/data/results/lap_data".ToUrlWithQuery(queryParameters);
+        var subSessionLapChartUrl = new Uri(apiBaseUrl, "/data/results/lap_data").WithQuery(queryParameters);
 
         var results = await apiClient.CreateResponseFromChunksAsync(subSessionLapChartUrl,
                                                                                 true,
@@ -618,7 +620,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["team_id"] = teamId,
         };
 
-        var subSessionLapChartUrl = "https://members-ng.iracing.com/data/results/lap_data".ToUrlWithQuery(queryParameters);
+        var subSessionLapChartUrl = new Uri(apiBaseUrl, "/data/results/lap_data").WithQuery(queryParameters);
 
         var results = await apiClient.CreateResponseFromChunksAsync(subSessionLapChartUrl,
                                                                                 true,
@@ -644,7 +646,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["event_type"] = eventType.ToString("D"),
         };
 
-        var memberDivisionUrl = "https://members-ng.iracing.com/data/stats/member_division".ToUrlWithQuery(queryParameters);
+        var memberDivisionUrl = new Uri(apiBaseUrl, "/data/stats/member_division").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(memberDivisionUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -662,7 +664,7 @@ internal sealed class DataClient(IApiClient apiClient,
         logger.LogDebug("Get Member Yearly Statistics");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Member Yearly Statistics");
 
-        var infoLinkUri = new Uri("https://members-ng.iracing.com/data/stats/member_yearly");
+        var infoLinkUri = new Uri(apiBaseUrl, "/data/stats/member_yearly");
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(infoLinkUri,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -690,7 +692,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["cust_id"] = customerId
         };
 
-        var memberChartUrl = "https://members-ng.iracing.com/data/member/chart_data".ToUrlWithQuery(parameters);
+        var memberChartUrl = new Uri(apiBaseUrl, "/data/member/chart_data").WithQuery(parameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(memberChartUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -736,7 +738,7 @@ internal sealed class DataClient(IApiClient apiClient,
             queryParameters.Add("season_quarter", seasonQuarter.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        var queryUrl = "https://members-ng.iracing.com/data/stats/world_records".ToUrlWithQuery(queryParameters);
+        var queryUrl = new Uri(apiBaseUrl, "/data/stats/world_records").WithQuery(queryParameters);
 
         var result = await apiClient.CreateResponseFromChunksAsync(queryUrl,
                                                                                true,
@@ -760,7 +762,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["team_id"] = teamId.ToString(CultureInfo.InvariantCulture),
         };
 
-        var queryUrl = "https://members-ng.iracing.com/data/team/get".ToUrlWithQuery(queryParameters);
+        var queryUrl = new Uri(apiBaseUrl, "/data/team/get").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -819,7 +821,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["division"] = (division ?? -1).ToString(CultureInfo.InvariantCulture),
         };
 
-        var seasonDriverStandingsUrl = "https://members-ng.iracing.com/data/stats/season_driver_standings".ToUrlWithQuery(queryParameters);
+        var seasonDriverStandingsUrl = new Uri(apiBaseUrl, "/data/stats/season_driver_standings").WithQuery(queryParameters);
 
         var results = await apiClient.CreateResponseFromChunksAsync(seasonDriverStandingsUrl,
                                                                                 true,
@@ -878,7 +880,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["division"] = (division ?? -1).ToString(CultureInfo.InvariantCulture),
         };
 
-        var qualifyResultsUrl = "https://members-ng.iracing.com/data/stats/season_qualify_results".ToUrlWithQuery(queryParameters);
+        var qualifyResultsUrl = new Uri(apiBaseUrl, "/data/stats/season_qualify_results").WithQuery(queryParameters);
 
         var results = await apiClient.CreateResponseFromChunksAsync(qualifyResultsUrl,
                                                                                 true,
@@ -937,7 +939,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["division"] = (division ?? -1).ToString(CultureInfo.InvariantCulture),
         };
 
-        var subSessionLapChartUrl = "https://members-ng.iracing.com/data/stats/season_tt_results".ToUrlWithQuery(queryParameters);
+        var subSessionLapChartUrl = new Uri(apiBaseUrl, "/data/stats/season_tt_results").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseFromChunksAsync(subSessionLapChartUrl,
                                                                                  true,
@@ -996,7 +998,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["division"] = (division ?? -1).ToString(CultureInfo.InvariantCulture),
         };
 
-        var subSessionLapChartUrl = "https://members-ng.iracing.com/data/stats/season_tt_standings".ToUrlWithQuery(queryParameters);
+        var subSessionLapChartUrl = new Uri(apiBaseUrl, "/data/stats/season_tt_standings").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseFromChunksAsync(subSessionLapChartUrl,
                                                                      true,
@@ -1047,7 +1049,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["race_week_num"] = (raceWeekIndex ?? -1).ToString(CultureInfo.InvariantCulture),
         };
 
-        var subSessionLapChartUrl = "https://members-ng.iracing.com/data/stats/season_team_standings".ToUrlWithQuery(queryParameters);
+        var subSessionLapChartUrl = new Uri(apiBaseUrl, "/data/stats/season_team_standings").WithQuery(queryParameters);
 
         var results = await apiClient.CreateResponseFromChunksAsync(subSessionLapChartUrl,
                                                                                 true,
@@ -1075,7 +1077,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["race_week_num"] = raceWeekNumber,
         };
 
-        var seasonResultsUrl = "https://members-ng.iracing.com/data/results/season_results".ToUrlWithQuery(queryParameters);
+        var seasonResultsUrl = new Uri(apiBaseUrl, "/data/results/season_results").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(seasonResultsUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1098,7 +1100,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["include_series"] = includeSeries ? "true" : "false",
         };
 
-        var seasonSeriesUrl = "https://members-ng.iracing.com/data/series/seasons".ToUrlWithQuery(queryParameters);
+        var seasonSeriesUrl = new Uri(apiBaseUrl, "/data/series/seasons").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(seasonSeriesUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1116,7 +1118,7 @@ internal sealed class DataClient(IApiClient apiClient,
         logger.LogDebug("Get Statistics Series");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Statistics Series");
 
-        var statsSeriesUrl = new Uri("https://members-ng.iracing.com/data/series/stats_series");
+        var statsSeriesUrl = new Uri(apiBaseUrl, "/data/series/stats_series");
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(statsSeriesUrl,
                                                               LinkResultContext.Default.LinkResult,
@@ -1139,7 +1141,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["subsession_id"] = subSessionId
         };
 
-        var careerStatisticsUrl = "https://members-ng.iracing.com/data/session/reg_drivers_list".ToUrlWithQuery(queryParameters);
+        var careerStatisticsUrl = new Uri(apiBaseUrl, "/data/session/reg_drivers_list").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(careerStatisticsUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1173,7 +1175,7 @@ internal sealed class DataClient(IApiClient apiClient,
             queryParameters.Add("car_id", carId.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        var careerStatisticsUrl = "https://members-ng.iracing.com/data/stats/member_bests".ToUrlWithQuery(queryParameters);
+        var careerStatisticsUrl = new Uri(apiBaseUrl, "/data/stats/member_bests").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(careerStatisticsUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1199,7 +1201,7 @@ internal sealed class DataClient(IApiClient apiClient,
             queryParameters.Add("cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        var careerStatisticsUrl = "https://members-ng.iracing.com/data/stats/member_career".ToUrlWithQuery(queryParameters);
+        var careerStatisticsUrl = new Uri(apiBaseUrl, "/data/stats/member_career").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(careerStatisticsUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1225,7 +1227,7 @@ internal sealed class DataClient(IApiClient apiClient,
             queryParameters.Add("cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        var memberRecentRacesUrl = "https://members-ng.iracing.com/data/stats/member_recent_races".ToUrlWithQuery(queryParameters);
+        var memberRecentRacesUrl = new Uri(apiBaseUrl, "/data/stats/member_recent_races").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(memberRecentRacesUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1251,7 +1253,7 @@ internal sealed class DataClient(IApiClient apiClient,
             queryParameters.Add("cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        var memberSummaryUrl = "https://members-ng.iracing.com/data/stats/member_summary".ToUrlWithQuery(queryParameters);
+        var memberSummaryUrl = new Uri(apiBaseUrl, "/data/stats/member_summary").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(memberSummaryUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1269,7 +1271,7 @@ internal sealed class DataClient(IApiClient apiClient,
         logger.LogDebug("Get Track Assets");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Track Assets");
 
-        var trackAssetsUrl = new Uri("https://members-ng.iracing.com/data/track/assets");
+        var trackAssetsUrl = new Uri(apiBaseUrl, "/data/track/assets");
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(trackAssetsUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1287,7 +1289,7 @@ internal sealed class DataClient(IApiClient apiClient,
         logger.LogDebug("Get Tracks");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Tracks");
 
-        var infoLinkUri = new Uri("https://members-ng.iracing.com/data/track/get");
+        var infoLinkUri = new Uri(apiBaseUrl, "/data/track/get");
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(infoLinkUri,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1357,7 +1359,7 @@ internal sealed class DataClient(IApiClient apiClient,
         queryParameters.AddParameterIfNotNull(() => searchParameters.TrackId);
         queryParameters.AddParameterIfNotNull(() => searchParameters.CategoryIds);
 
-        var searchHostedUrl = "https://members-ng.iracing.com/data/results/search_hosted".ToUrlWithQuery(queryParameters);
+        var searchHostedUrl = new Uri(apiBaseUrl, "/data/results/search_hosted").WithQuery(queryParameters);
 
         return await apiClient.CreateResponseFromChunksAsync(searchHostedUrl,
                                                              false,
@@ -1424,7 +1426,7 @@ internal sealed class DataClient(IApiClient apiClient,
         queryParameters.AddParameterIfNotNull(() => searchParameters.OfficialOnly);
         queryParameters.AddParameterIfNotNull(() => searchParameters.EventTypes);
 
-        var searchHostedUrl = "https://members-ng.iracing.com/data/results/search_series".ToUrlWithQuery(queryParameters);
+        var searchHostedUrl = new Uri(apiBaseUrl, "/data/results/search_series").WithQuery(queryParameters);
 
         return await apiClient.CreateResponseFromChunksAsync(searchHostedUrl,
                                                                   false,
@@ -1498,7 +1500,7 @@ internal sealed class DataClient(IApiClient apiClient,
             }
         }
 
-        var searchLeagueDirectoryUrl = "https://members-ng.iracing.com/data/league/directory".ToUrlWithQuery(queryParameters);
+        var searchLeagueDirectoryUrl = new Uri(apiBaseUrl, "/data/league/directory").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(searchLeagueDirectoryUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1524,7 +1526,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["season_quarter"] = seasonQuarter.ToString(CultureInfo.InvariantCulture),
         };
 
-        var memberSummaryUrl = "https://members-ng.iracing.com/data/season/list".ToUrlWithQuery(queryParameters);
+        var memberSummaryUrl = new Uri(apiBaseUrl, "/data/season/list").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(memberSummaryUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1579,12 +1581,6 @@ internal sealed class DataClient(IApiClient apiClient,
         return null;
     }
 
-    [Obsolete("Add your own TimeProvider to the service collection (see https://learn.microsoft.com/en-us/dotnet/api/system.timeprovider).")]
-    private DateTime GetDateTimeUtcNow()
-    {
-        return options.CurrentDateTimeSource is null ? timeProvider.GetUtcNow().UtcDateTime : options.CurrentDateTimeSource().UtcDateTime;
-    }
-
     /// <inheritdoc />
     public async Task<DataResponse<LeagueMembership[]>> GetLeagueMembershipAsync(bool includeLeague = false, CancellationToken cancellationToken = default)
     {
@@ -1616,7 +1612,7 @@ internal sealed class DataClient(IApiClient apiClient,
             queryParameters.Add("cust_id", customerId.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        var getMembershipUrl = "https://members-ng.iracing.com/data/league/membership".ToUrlWithQuery(queryParameters);
+        var getMembershipUrl = new Uri(apiBaseUrl, "/data/league/membership").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(getMembershipUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1641,7 +1637,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["retired"] = includeRetired ? "1" : "0"
         };
 
-        var getLeagueSeasons = "https://members-ng.iracing.com/data/league/seasons".ToUrlWithQuery(queryParameters);
+        var getLeagueSeasons = new Uri(apiBaseUrl, "/data/league/seasons").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(getLeagueSeasons,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1674,7 +1670,7 @@ internal sealed class DataClient(IApiClient apiClient,
 #pragma warning restore CA1308 // Normalize strings to uppercase
         }
 
-        var raceGuideUrl = "https://members-ng.iracing.com/data/season/race_guide".ToUrlWithQuery(queryParameters);
+        var raceGuideUrl = new Uri(apiBaseUrl, "/data/season/race_guide").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(raceGuideUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1692,7 +1688,7 @@ internal sealed class DataClient(IApiClient apiClient,
         logger.LogDebug("Get Countries");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Countries");
 
-        var infoLinkUri = new Uri("https://members-ng.iracing.com/data/lookup/countries");
+        var infoLinkUri = new Uri(apiBaseUrl, "/data/lookup/countries");
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(infoLinkUri,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1710,7 +1706,7 @@ internal sealed class DataClient(IApiClient apiClient,
         logger.LogDebug("Get Member Participation Credits");
         using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Member Participation Credits");
 
-        var infoLinkUri = new Uri("https://members-ng.iracing.com/data/member/participation_credits");
+        var infoLinkUri = new Uri(apiBaseUrl, "/data/member/participation_credits");
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(infoLinkUri,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1740,7 +1736,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["results_only"] = resultsOnly ? "1" : "0"
         };
 
-        var getLeagueSeasonSessions = "https://members-ng.iracing.com/data/league/season_sessions".ToUrlWithQuery(queryParameters);
+        var getLeagueSeasonSessions = new Uri(apiBaseUrl, "/data/league/season_sessions").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(getLeagueSeasonSessions,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1764,7 +1760,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["series_id"] = seriesId.ToString(CultureInfo.InvariantCulture),
         };
 
-        var getPastSeasonsForSeriesUrl = "https://members-ng.iracing.com/data/series/past_seasons".ToUrlWithQuery(queryParameters);
+        var getPastSeasonsForSeriesUrl = new Uri(apiBaseUrl, "/data/series/past_seasons").WithQuery(queryParameters);
 
         var intermediateResponse = await apiClient.CreateResponseViaIntermediateResultAsync(getPastSeasonsForSeriesUrl,
                                                                                             LinkResultContext.Default.LinkResult,
@@ -1811,7 +1807,7 @@ internal sealed class DataClient(IApiClient apiClient,
             queryParameters.Add("car_id", carId.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        var queryUrl = "https://members-ng.iracing.com/data/league/season_standings".ToUrlWithQuery(queryParameters);
+        var queryUrl = new Uri(apiBaseUrl, "/data/league/season_standings").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1851,7 +1847,7 @@ internal sealed class DataClient(IApiClient apiClient,
             queryParameters.Add("race_week_num", raceWeekIndex.Value.ToString(CultureInfo.InvariantCulture));
         }
 
-        var queryUrl = "https://members-ng.iracing.com/data/stats/season_supersession_standings".ToUrlWithQuery(queryParameters);
+        var queryUrl = new Uri(apiBaseUrl, "/data/stats/season_supersession_standings").WithQuery(queryParameters);
 
         return await apiClient.CreateResponseFromChunksAsync(queryUrl,
                                                                          true,
@@ -1912,7 +1908,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["ta_comp_season_id"] = competitionSeasonId,
         };
 
-        var queryUrl = "https://members-ng.iracing.com/data/time_attack/member_season_results".ToUrlWithQuery(queryParameters);
+        var queryUrl = new Uri(apiBaseUrl, "/data/time_attack/member_season_results").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1943,7 +1939,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["season"] = seasonQuarter,
         };
 
-        var queryUrl = "https://members-ng.iracing.com/data/stats/member_recap".ToUrlWithQuery(queryParameters);
+        var queryUrl = new Uri(apiBaseUrl, "/data/stats/member_recap").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1966,7 +1962,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["event_types"] = eventTypes,
         };
 
-        var queryUrl = "https://members-ng.iracing.com/data/season/spectator_subsessionids".ToUrlWithQuery(queryParameters);
+        var queryUrl = new Uri(apiBaseUrl, "/data/season/spectator_subsessionids").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -1992,7 +1988,7 @@ internal sealed class DataClient(IApiClient apiClient,
             ["season_ids"] = seasonIds,
         };
 
-        var queryUrl = "https://members-ng.iracing.com/data/season/spectator_subsessionids_detail".ToUrlWithQuery(queryParameters);
+        var queryUrl = new Uri(apiBaseUrl, "/data/season/spectator_subsessionids_detail").WithQuery(queryParameters);
 
         var response = await apiClient.CreateResponseViaIntermediateResultAsync(queryUrl,
                                                                                 LinkResultContext.Default.LinkResult,
@@ -2014,12 +2010,12 @@ internal sealed class DataClient(IApiClient apiClient,
         //var attempts = 0;
         var statsUrl = categoryId switch
         {
-            1 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/oval"),
-            2 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/road"),
-            3 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/dirt_oval"),
-            4 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/dirt_road"),
-            5 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/sports_car"),
-            6 => new Uri("https://members-ng.iracing.com/data/driver_stats_by_category/formula_car"),
+            1 => new Uri(apiBaseUrl, "/data/driver_stats_by_category/oval"),
+            2 => new Uri(apiBaseUrl, "/data/driver_stats_by_category/road"),
+            3 => new Uri(apiBaseUrl, "/data/driver_stats_by_category/dirt_oval"),
+            4 => new Uri(apiBaseUrl, "/data/driver_stats_by_category/dirt_road"),
+            5 => new Uri(apiBaseUrl, "/data/driver_stats_by_category/sports_car"),
+            6 => new Uri(apiBaseUrl, "/data/driver_stats_by_category/formula_car"),
             _ => throw new ArgumentOutOfRangeException(nameof(categoryId), categoryId, "Invalid Category Id value. Must be between 1 and 6 (inclusive)."),
         };
 
