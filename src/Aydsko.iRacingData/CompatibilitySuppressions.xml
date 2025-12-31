@@ -107,6 +107,20 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.iRacingDataClientOptions.get_CurrentDateTimeSource</Target>
+    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.iRacingDataClientOptions.set_CurrentDateTimeSource(System.Func{System.DateTimeOffset})</Target>
+    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Leagues.Session.get_Weather</Target>
     <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
@@ -646,6 +660,20 @@
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.IDataClient.UseUsernameAndPassword(System.String,System.String,System.Boolean)</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.iRacingDataClientOptions.get_CurrentDateTimeSource</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.iRacingDataClientOptions.set_CurrentDateTimeSource(System.Func{System.DateTimeOffset})</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>

@@ -53,12 +53,18 @@ internal static class Extensions
         parameters.Add(new(parameterName, parameterValue));
     }
 
-    internal static Uri ToUrlWithQuery(this string url, IEnumerable<KeyValuePair<string, object?>> parameters)
+    /// <summary>Replaces the query with a string built from the given parameters.</summary>
+    /// <param name="url">The URI to use as a base, must be an absolute URI.</param>
+    /// <param name="parameters">The parameters to encode and use to create the query string.</param>
+    /// <returns>A new URI with the query string appended.</returns>
+    internal static Uri WithQuery(this Uri url, IEnumerable<KeyValuePair<string, object?>> parameters)
     {
-        var builder = new UriBuilder(url);
+        if (url is null || url.IsAbsoluteUri == false)
+        {
+            throw new ArgumentOutOfRangeException(nameof(url));
+        }
 
         var queryBuilder = new StringBuilder();
-        _ = queryBuilder.Append(builder.Query.TrimStart('?'));
 
         foreach (var parameter in parameters)
         {
@@ -93,7 +99,10 @@ internal static class Extensions
             }
         }
 
-        builder.Query = queryBuilder.ToString();
+        var builder = new UriBuilder(url)
+        {
+            Query = queryBuilder.ToString()
+        };
 
         return builder.Uri;
     }
