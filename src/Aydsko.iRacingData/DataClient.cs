@@ -1191,6 +1191,30 @@ internal sealed class DataClient(IApiClient apiClient,
     }
 
     /// <inheritdoc />
+    public async Task<DataResponse<SeasonSchedule>> GetSeasonScheduleAsync(int seasonId, CancellationToken cancellationToken = default)
+    {
+        logger.LogDebug("Get Season Schedule");
+        using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Season Schedule")
+                                ?.AddTag("SeasonId", seasonId);
+
+        var queryParameters = new Dictionary<string, object?>
+        {
+            ["season_id"] = seasonId,
+        };
+
+        var seasonSeriesUrl = new Uri(apiBaseUrl, "/data/series/season_schedule").WithQuery(queryParameters);
+
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(seasonSeriesUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                SeasonScheduleContext.Default.SeasonSchedule,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
+    }
+
+    /// <inheritdoc />
     public async Task<DataResponse<StatisticsSeries[]>> GetStatisticsSeriesAsync(CancellationToken cancellationToken = default)
     {
         logger.LogDebug("Get Statistics Series");

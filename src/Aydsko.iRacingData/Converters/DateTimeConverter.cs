@@ -1,4 +1,4 @@
-﻿// © 2023-2025 Adrian Clark
+﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
 using System.Globalization;
