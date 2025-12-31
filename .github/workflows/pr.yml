@@ -13,5 +13,6 @@ jobs:
     uses: ./.github/workflows/_build.yml
     permissions:
       actions: write
-      contents: read
       artifact-metadata: write
+      checks: write
+      contents: read
