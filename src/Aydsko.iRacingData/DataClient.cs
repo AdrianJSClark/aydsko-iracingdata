@@ -1092,13 +1092,40 @@ internal sealed class DataClient(IApiClient apiClient,
     /// <inheritdoc />
     public async Task<DataResponse<SeasonSeries[]>> GetSeasonsAsync(bool includeSeries, CancellationToken cancellationToken = default)
     {
+        return await GetSeasonsInternalAsync(includeSeries, null, null, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<SeasonSeries[]>> GetSeasonsAsync(int seasonYear, int seasonQuarter, bool includeSeries, CancellationToken cancellationToken = default)
+    {
+        return await GetSeasonsInternalAsync(includeSeries, seasonYear, seasonQuarter, cancellationToken).ConfigureAwait(false);
+    }
+
+    private async Task<DataResponse<SeasonSeries[]>> GetSeasonsInternalAsync(bool includeSeries,
+                                                                     int? seasonYear = null,
+                                                                     int? seasonQuarter = null,
+                                                                     CancellationToken cancellationToken = default)
+    {
         logger.LogDebug("Get Seasons");
-        using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Seasons");
+        using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Seasons")
+                                ?.AddTag("IncludeSeries", includeSeries);
 
         var queryParameters = new Dictionary<string, object?>
         {
             ["include_series"] = includeSeries ? "true" : "false",
         };
+
+        if (seasonYear != null)
+        {
+            queryParameters.Add("season_year", seasonYear);
+            activity?.AddTag("SeasonYear", seasonYear);
+        }
+
+        if (seasonQuarter != null)
+        {
+            queryParameters.Add("season_quarter", seasonQuarter);
+            activity?.AddTag("SeasonQuarter", seasonQuarter);
+        }
 
         var seasonSeriesUrl = new Uri(apiBaseUrl, "/data/series/seasons").WithQuery(queryParameters);
 
@@ -1106,6 +1133,81 @@ internal sealed class DataClient(IApiClient apiClient,
                                                                                 LinkResultContext.Default.LinkResult,
                                                                                 infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
                                                                                 SeasonSeriesArrayContext.Default.SeasonSeriesArray,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<SeasonDetail[]>> GetSeasonListAsync(bool includeSeries, CancellationToken cancellationToken = default)
+    {
+        return await GetSeasonListInternalAsync(includeSeries, null, null, cancellationToken).ConfigureAwait(false);
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<SeasonDetail[]>> GetSeasonListAsync(int seasonYear, int seasonQuarter, bool includeSeries, CancellationToken cancellationToken = default)
+    {
+        return await GetSeasonListInternalAsync(includeSeries, seasonYear, seasonQuarter, cancellationToken).ConfigureAwait(false);
+    }
+
+    private async Task<DataResponse<SeasonDetail[]>> GetSeasonListInternalAsync(bool includeSeries,
+                                                                                int? seasonYear = null,
+                                                                                int? seasonQuarter = null,
+                                                                                CancellationToken cancellationToken = default)
+    {
+        logger.LogDebug("Get Season List");
+        using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Season List")
+                                ?.AddTag("IncludeSeries", includeSeries);
+
+        var queryParameters = new Dictionary<string, object?>
+        {
+            ["include_series"] = includeSeries ? "true" : "false",
+        };
+
+        if (seasonYear != null)
+        {
+            queryParameters.Add("season_year", seasonYear);
+            activity?.AddTag("SeasonYear", seasonYear);
+        }
+
+        if (seasonQuarter != null)
+        {
+            queryParameters.Add("season_quarter", seasonQuarter);
+            activity?.AddTag("SeasonQuarter", seasonQuarter);
+        }
+
+        var seasonSeriesUrl = new Uri(apiBaseUrl, "/data/series/season_list").WithQuery(queryParameters);
+
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(seasonSeriesUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                SeasonDetailArrayWrapperContext.Default.SeasonDetailArrayWrapper,
+                                                                                detailWrapper => detailWrapper.SeasonDetails,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
+    }
+
+    /// <inheritdoc />
+    public async Task<DataResponse<SeasonSchedule>> GetSeasonScheduleAsync(int seasonId, CancellationToken cancellationToken = default)
+    {
+        logger.LogDebug("Get Season Schedule");
+        using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Season Schedule")
+                                ?.AddTag("SeasonId", seasonId);
+
+        var queryParameters = new Dictionary<string, object?>
+        {
+            ["season_id"] = seasonId,
+        };
+
+        var seasonSeriesUrl = new Uri(apiBaseUrl, "/data/series/season_schedule").WithQuery(queryParameters);
+
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(seasonSeriesUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                SeasonScheduleContext.Default.SeasonSchedule,
                                                                                 cancellationToken)
                                       .ConfigureAwait(false);
 

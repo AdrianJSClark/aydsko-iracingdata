@@ -1,18 +1,30 @@
-﻿// © 2023 Adrian Clark
+﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
 namespace Aydsko.iRacingData.Series;
 
-public class SeasonSeries
+public class SeasonDetail
 {
+    [JsonPropertyName("season_id")]
+    public int SeasonId { get; set; }
+
+    [JsonPropertyName("season_name")]
+    public string SeasonName { get; set; } = default!;
+
     [JsonPropertyName("active")]
     public bool Active { get; set; }
 
     [JsonPropertyName("allowed_season_members")]
     public object? AllowedSeasonMembers { get; set; }
 
+    [JsonPropertyName("capture_anon_telem")]
+    public bool IsCapturingAnonymousTelemetry { get; set; }
+
     [JsonPropertyName("car_class_ids")]
     public int[] CarClassIds { get; set; } = [];
+
+    [JsonPropertyName("car_switching")]
+    public bool CarSwitching { get; set; }
 
     [JsonPropertyName("car_types")]
     public CarTypes[] CarTypes { get; set; } = [];
@@ -23,8 +35,20 @@ public class SeasonSeries
     [JsonPropertyName("complete")]
     public bool Complete { get; set; }
 
-    [JsonPropertyName("cross_license")]
-    public bool IsCrossLicense { get; set; }
+    [JsonPropertyName("connection_black_flag")]
+    public bool ConnectionBlackFlagEnabled { get; set; }
+
+    [JsonPropertyName("consec_caution_within_nlaps")]
+    public int ConsecutiveCautionWithinNlaps { get; set; }
+
+    [JsonPropertyName("consec_cautions_single_file")]
+    public bool ConsecutiveCautionsSingleFile { get; set; }
+
+    [JsonPropertyName("current_week_sched")]
+    public WeekScheduleDetail CurrentWeekSchedule { get; set; } = default!;
+
+    [JsonPropertyName("distributed_matchmaking")]
+    public bool DistributedMatchmakingEnabled { get; set; }
 
     [JsonPropertyName("driver_change_rule")]
     public int DriverChangeRule { get; set; }
@@ -35,6 +59,12 @@ public class SeasonSeries
     [JsonPropertyName("drops")]
     public int Drops { get; set; }
 
+    [JsonPropertyName("elig")]
+    public SeasonDetailEligibility Eligibility { get; set; } = default!;
+
+    [JsonPropertyName("enable_pitlane_collisions")]
+    public bool EnablePitlaneCollisions { get; set; }
+
     [JsonPropertyName("fixed_setup")]
     public bool FixedSetup { get; set; }
 
@@ -43,6 +73,15 @@ public class SeasonSeries
 
     [JsonPropertyName("grid_by_class")]
     public bool GridByClass { get; set; }
+
+    [JsonPropertyName("hardcore_level")]
+    public int HardcoreLevel { get; set; }
+
+    [JsonPropertyName("has_mpr")]
+    public bool HasMpr { get; set; }
+
+    [JsonPropertyName("has_supersessions")]
+    public bool HasSupersessions { get; set; }
 
     [JsonPropertyName("ignore_license_for_practice")]
     public bool IgnoreLicenseForPractice { get; set; }
@@ -66,10 +105,10 @@ public class SeasonSeries
     public int LicenseGroup { get; set; }
 
     [JsonPropertyName("license_group_types")]
-    public LicenseGroupType[] LicenseGroupTypes { get; set; } = Array.Empty<LicenseGroupType>();
+    public LicenseGroupType[] LicenseGroupTypes { get; set; } = [];
 
     [JsonPropertyName("lucky_dog")]
-    public bool LuckyDog { get; set; }
+    public bool LuckyDogRuleEnabled { get; set; }
 
     [JsonPropertyName("max_team_drivers")]
     public int MaxTeamDrivers { get; set; }
@@ -81,22 +120,19 @@ public class SeasonSeries
     public int MinTeamDrivers { get; set; }
 
     [JsonPropertyName("multiclass")]
-    public bool Multiclass { get; set; }
+    public bool IsMulticlass { get; set; }
 
     [JsonPropertyName("must_use_diff_tire_types_in_race")]
-    public bool MustUseDiffTireTypesInRace { get; set; }
+    public bool MustUseDifferentTireTypesInRace { get; set; }
 
-    [JsonPropertyName("next_race_session")]
-    public object? NextRaceSession { get; set; }
+    [JsonPropertyName("num_fast_tows")]
+    public int NumberOfFastTows { get; set; }
 
     [JsonPropertyName("num_opt_laps")]
     public int NumberOfOptLaps { get; set; }
 
     [JsonPropertyName("official")]
-    public bool Official { get; set; }
-
-    [JsonIgnore, Obsolete($"Use \"{nameof(OpenPracticeDurationMinutes)}\" instead.")]
-    public int OpDuration { get => OpenPracticeDurationMinutes; set => OpenPracticeDurationMinutes = value; }
+    public bool IsOfficial { get; set; }
 
     [JsonPropertyName("op_duration")]
     public int OpenPracticeDurationMinutes { get; set; }
@@ -116,8 +152,11 @@ public class SeasonSeries
     [JsonPropertyName("race_week_to_make_divisions")]
     public int RaceWeekToMakeDivisions { get; set; }
 
-    [JsonPropertyName("reg_user_count")]
-    public int RegUserCount { get; set; }
+    [JsonPropertyName("reg_open_minutes")]
+    public int RegistrationOpenMinutes { get; set; }
+
+    [JsonIgnore]
+    public TimeSpan RegistrationOpen => TimeSpan.FromMinutes(RegistrationOpenMinutes);
 
     [JsonPropertyName("region_competition")]
     public bool RegionCompetition { get; set; }
@@ -131,17 +170,11 @@ public class SeasonSeries
     [JsonPropertyName("restrict_viewing")]
     public bool RestrictViewing { get; set; }
 
+    [JsonPropertyName("rookie_season")]
+    public string RookieSeason { get; set; } = default!;
+
     [JsonPropertyName("schedule_description")]
     public string ScheduleDescription { get; set; } = default!;
-
-    [JsonPropertyName("schedules")]
-    public Schedule[] Schedules { get; set; } = [];
-
-    [JsonPropertyName("season_id")]
-    public int SeasonId { get; set; }
-
-    [JsonPropertyName("season_name")]
-    public string SeasonName { get; set; } = default!;
 
     [JsonPropertyName("season_quarter")]
     public int SeasonQuarter { get; set; }
@@ -158,31 +191,67 @@ public class SeasonSeries
     [JsonPropertyName("series_id")]
     public int SeriesId { get; set; }
 
+    [JsonPropertyName("short_parade_lap")]
+    public bool ShortParadeLap { get; set; }
+
     [JsonPropertyName("start_date")]
-    public DateTimeOffset StartDate { get; set; }
+    public DateTime StartDate { get; set; }
 
     [JsonPropertyName("start_on_qual_tire")]
-    public bool StartOnQualTire { get; set; }
+    public bool StartOnQualifyingTire { get; set; }
+
+    [JsonPropertyName("start_zone")]
+    public bool StartZone { get; set; }
 
     [JsonPropertyName("track_types")]
     public TrackTypes[] TrackTypes { get; set; } = [];
 
     [JsonPropertyName("unsport_conduct_rule_mode")]
-    public int UnsportConductRuleMode { get; set; }
-
-    [JsonPropertyName("rookie_season")]
-    public string RookieSeason { get; set; } = default!;
-
-    [JsonPropertyName("heat_ses_info")]
-    public HeatSessionInfo HeatSesInfo { get; set; } = default!;
-
-    [JsonPropertyName("hardcore_level")]
-    public int HardcoreLevel { get; set; }
-
-    [JsonPropertyName("has_supersessions")]
-    public bool HasSuperSessions { get; set; }
+    public int UnsportsmanshipConductRuleMode { get; set; }
 }
 
-[JsonSerializable(typeof(SeasonSeries[])), JsonSourceGenerationOptions(WriteIndented = true)]
-internal partial class SeasonSeriesArrayContext : JsonSerializerContext
+public class WeekScheduleDetail
+{
+    [JsonPropertyName("race_week_num")]
+    public int RaceWeekNum { get; set; }
+
+    [JsonPropertyName("track")]
+    public Track Track { get; set; } = default!;
+
+    [JsonPropertyName("car_restrictions")]
+    public CarRestrictions[] CarRestrictions { get; set; } = [];
+
+    [JsonPropertyName("race_lap_limit")]
+    public int? RaceLapLimit { get; set; }
+
+    [JsonPropertyName("race_time_limit")]
+    public int? RaceTimeLimit { get; set; }
+
+    [JsonPropertyName("precip_chance")]
+    public decimal PrecipitationChance { get; set; }
+
+    [JsonPropertyName("start_type")]
+    public string StartType { get; set; } = default!;
+
+    [JsonPropertyName("category_id")]
+    public int CategoryId { get; set; }
+}
+
+public class SeasonDetailEligibility
+{
+    [JsonPropertyName("own_car")]
+    public bool OwnCar { get; set; }
+
+    [JsonPropertyName("own_track")]
+    public bool OwnTrack { get; set; }
+}
+
+internal sealed class SeasonDetailArrayWrapper
+{
+    [JsonPropertyName("seasons")]
+    public SeasonDetail[] SeasonDetails { get; set; } = [];
+}
+
+[JsonSerializable(typeof(SeasonDetailArrayWrapper)), JsonSourceGenerationOptions(WriteIndented = true)]
+internal partial class SeasonDetailArrayWrapperContext : JsonSerializerContext
 { }

@@ -366,6 +366,20 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.SeasonSeries.get_CrossLicense</Target>
+    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.SeasonSeries.set_CrossLicense(System.Boolean)</Target>
+    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.ServicesExtensions.AddIRacingDataApi(Microsoft.Extensions.DependencyInjection.IServiceCollection)</Target>
     <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
@@ -557,6 +571,12 @@
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.Series.Schedule.get_StartDate</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.SeasonScheduleItem.get_StartDate</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
   </Suppression>
@@ -925,6 +945,20 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.SeasonSeries.get_CrossLicense</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.Series.SeasonSeries.set_CrossLicense(System.Boolean)</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0002</DiagnosticId>
     <Target>M:Aydsko.iRacingData.ServicesExtensions.AddIRacingDataApi(Microsoft.Extensions.DependencyInjection.IServiceCollection)</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
@@ -1100,7 +1134,35 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0006</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.IDataClient.GetSeasonListAsync(System.Boolean,System.Threading.CancellationToken)</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0006</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.IDataClient.GetSeasonListAsync(System.Int32,System.Int32,System.Boolean,System.Threading.CancellationToken)</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0006</DiagnosticId>
     <Target>M:Aydsko.iRacingData.IDataClient.GetSeasonQualifyResultsAsync(System.Int32,System.Int32,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Threading.CancellationToken)</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0006</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.IDataClient.GetSeasonsAsync(System.Int32,System.Int32,System.Boolean,System.Threading.CancellationToken)</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
+    <DiagnosticId>CP0006</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.IDataClient.GetSeasonScheduleAsync(System.Int32,System.Threading.CancellationToken)</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>

@@ -22,3 +22,4 @@ NEW FEATURE: iRacing OAuth "Authorization Code Grant" Authentication
 FIXES / NEW IMPLEMENTATIONS:
 - Implement "/data/session/reg_drivers_list" to retrieve drivers registered for an active session. (Issue #248)
 - Add ability to change iRacing "Data API" base URL (e.g. if you have access to one of iRacing's test environments) via the "ApiBaseUrl" property. (Issue #243)
+- Implement the "/data/series/season_list" and "/data/series/season_schedule" endpoints. (Issue #239)
