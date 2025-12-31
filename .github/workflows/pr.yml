@@ -12,5 +12,6 @@ jobs:
     name: Build & Test
     uses: ./.github/workflows/_build.yml
     permissions:
+      actions: write
       contents: read
       artifact-metadata: write
