@@ -75,6 +75,17 @@ public static class ServicesExtensions
 
         var options = new iRacingDataClientOptions();
         configureOptions.Invoke(options);
+
+        if (!Uri.TryCreate(options.ApiBaseUrl, UriKind.Absolute, out var _))
+        {
+            throw new iRacingDataClientException($"Invalid or missing \"{nameof(iRacingDataClientOptions.ApiBaseUrl)}\" value. Must be populated with an absolute URL.");
+        }
+
+        if (!Uri.TryCreate(options.AuthServiceBaseUrl, UriKind.Absolute, out var _))
+        {
+            throw new iRacingDataClientException($"Invalid or missing \"{nameof(iRacingDataClientOptions.AuthServiceBaseUrl)}\" value. Must be populated with an absolute URL.");
+        }
+
         services.AddSingleton(options);
 
         var userAgentValue = CreateUserAgentValue(options);
