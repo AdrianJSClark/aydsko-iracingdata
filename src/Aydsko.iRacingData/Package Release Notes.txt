@@ -1,4 +1,11 @@
 ============================
+ Release Notes for 2601.1.0
+============================
+
+FIXES / NEW IMPLEMENTATIONS:
+- Changed detection order so the internal "Password Limited Grant" implementation doesn't override a "UseOAuthTokenSource(...)" call when both "ClientId" and "ClientSecret" are defined on the options.
+
+============================
  Release Notes for 2601.0.0
 ============================
 

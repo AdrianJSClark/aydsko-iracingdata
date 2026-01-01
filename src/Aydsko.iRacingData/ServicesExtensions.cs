@@ -109,14 +109,14 @@ public static class ServicesExtensions
         {
             httpClientBuilder = services.AddHttpClient<IAuthenticatingHttpClient, OAuthCallbackAuthenticatingApiClient>();
         }
-        else if (!string.IsNullOrWhiteSpace(options.ClientId) && !string.IsNullOrWhiteSpace(options.ClientSecret))
-        {
-            httpClientBuilder = services.AddHttpClient<IAuthenticatingHttpClient, PasswordLimitedOAuthAuthenticatingHttpClient>();
-        }
         else if (options.TokenSourceFactory is not null)
         {
             services.AddTransient(options.TokenSourceFactory);
             httpClientBuilder = services.AddHttpClient<IAuthenticatingHttpClient, OAuthTokenSourceApiClient>();
+        }
+        else if (!string.IsNullOrWhiteSpace(options.ClientId) && !string.IsNullOrWhiteSpace(options.ClientSecret))
+        {
+            httpClientBuilder = services.AddHttpClient<IAuthenticatingHttpClient, PasswordLimitedOAuthAuthenticatingHttpClient>();
         }
         else
         {
