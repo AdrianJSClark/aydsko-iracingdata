@@ -1,4 +1,5 @@
-﻿<img src="Aydsko iRacing Data API ReadMe Logo.png" alt="Aydsko iRacing Data API Logo, which contains the characters &quot;{&quot;, &quot;0&quot;, &quot;1&quot;, and &quot;}&quot; on a red & blue field with &quot;Data API&quot; written below." width="100" />
+﻿<img src="Aydsko iRacing Data API ReadMe Logo.png" alt="Aydsko iRacing Data API Logo, which contains the characters &quot;{&quot;, &quot;0&quot;, &quot;1&quot;, and &quot;}&quot; on a red & blue field with &quot;Data API&quot; written below." width="100" />&nbsp;[![NuGet Version](https://img.shields.io/nuget/v/Aydsko.iRacingData?style=for-the-badge)&nbsp;![NuGet Downloads](https://img.shields.io/nuget/dt/Aydsko.iRacingData?style=for-the-badge)](https://www.nuget.org/packages/Aydsko.iRacingData)
+
 
 # Aydsko iRacing Data API
 
