@@ -209,6 +209,12 @@ public class Result
     [JsonPropertyName("country_code")]
     public string? CountryCode { get; set; } = default!;
 
+    [JsonPropertyName("flair_id")]
+    public int FlairId { get; set; } = default!;
+
+    [JsonPropertyName("flair_name")]
+    public string? FlairName { get; set; } = default!;
+
     [JsonPropertyName("driver_results")]
     public DriverResult[]? DriverResults { get; set; }
 

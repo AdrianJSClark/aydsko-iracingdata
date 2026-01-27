@@ -799,6 +799,8 @@ internal sealed class CapturedResponseValidationTests
             Assert.That(sampleDriver.CarName, Is.EqualTo("Cadillac CTS-V Racecar"));
             Assert.That(sampleDriver.DivisionName, Is.EqualTo("Division 1"));
             Assert.That(sampleDriver.CountryCode, Is.EqualTo("AU"));
+            Assert.That(sampleDriver.FlairId, Is.EqualTo(1));
+            Assert.That(sampleDriver.FlairName, Is.EqualTo("Unaffiliated"));
 
             Assert.That(subSessionResult.Weather, Is.Not.Null);
 

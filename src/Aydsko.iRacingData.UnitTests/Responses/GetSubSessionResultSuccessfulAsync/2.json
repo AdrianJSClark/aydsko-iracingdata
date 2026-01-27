@@ -188,6 +188,8 @@
             "drop_race": false,
             "finish_position": 0,
             "finish_position_in_class": 0,
+            "flair_id": 16,
+						"flair_name": "Australia",
             "friend": false,
             "helmet": {
               "pattern": 9,
@@ -1945,6 +1947,8 @@
             "drop_race": true,
             "finish_position": 0,
             "finish_position_in_class": 0,
+            "flair_id": 1,
+            "flair_name": "Unaffiliated",
             "friend": false,
             "helmet": {
               "pattern": 9,
