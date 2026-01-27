@@ -222,6 +222,24 @@ internal sealed class DataClient(IApiClient apiClient,
     }
 
     /// <inheritdoc />
+    public async Task<DataResponse<LookupGroup[]>> GetCurrentSeasonLookupAsync(CancellationToken cancellationToken = default)
+    {
+        logger.LogDebug("Get Current Season Lookup");
+        using var activity = AydskoDataClientDiagnostics.ActivitySource.StartActivity("Get Current Season Lookup");
+
+        var currentSeasonLookupUrl = new Uri(apiBaseUrl, "/data/lookup/current_season");
+
+        var response = await apiClient.CreateResponseViaIntermediateResultAsync(currentSeasonLookupUrl,
+                                                                                LinkResultContext.Default.LinkResult,
+                                                                                infoLinkResult => (new Uri(infoLinkResult.Link), infoLinkResult.Expires),
+                                                                                LookupGroupArrayContext.Default.LookupGroupArray,
+                                                                                cancellationToken)
+                                      .ConfigureAwait(false);
+
+        return response;
+    }
+
+    /// <inheritdoc />
     public async Task<DataResponse<CustomerLeagueSessions>> GetCustomerLeagueSessionsAsync(bool mine = false, int? packageId = null, CancellationToken cancellationToken = default)
     {
         logger.LogDebug("Get Customer League Sessions");

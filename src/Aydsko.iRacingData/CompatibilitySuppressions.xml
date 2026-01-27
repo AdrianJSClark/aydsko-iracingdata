@@ -104,6 +104,13 @@
     <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
   </Suppression>
   <Suppression>
+    <DiagnosticId>CP0006</DiagnosticId>
+    <Target>M:Aydsko.iRacingData.IDataClient.GetCurrentSeasonLookupAsync(System.Threading.CancellationToken)</Target>
+    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
+    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
+    <IsBaselineSuppression>true</IsBaselineSuppression>
+  </Suppression>
+  <Suppression>
     <DiagnosticId>CP0008</DiagnosticId>
     <Target>T:Aydsko.iRacingData.Common.EventType</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
