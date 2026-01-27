@@ -40,9 +40,15 @@ jobs:
         name: 'Documentation Site'
         path: '_site'
 
+    - name: 'NuGet Login'
+      uses: NuGet/login@v1
+      id: nugetlogin
+      with:
+        user: AdrianJSClark
+
     - name: 'Upload to NuGet'
       shell: pwsh
-      run: dotnet nuget push *.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key ${{ secrets.NUGET_API_KEY }}
+      run: dotnet nuget push *.nupkg --source https://api.nuget.org/v3/index.json --skip-duplicate --api-key "${{ steps.nugetlogin.outputs.NUGET_API_KEY }}"
 
   deploy:
     name: Deploy Documentation
