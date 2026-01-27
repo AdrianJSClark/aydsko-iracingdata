@@ -1,4 +1,11 @@
 ============================
+ Release Notes for 2601.2.0
+============================
+
+FIXES / NEW IMPLEMENTATIONS:
+- Implement Current Season Lookup (Issue #255)
+
+============================
  Release Notes for 2601.1.0
 ============================
 
