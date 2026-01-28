@@ -1012,7 +1012,7 @@ internal sealed class CapturedResponseValidationTests
             Assert.That(timeTrialResponse.Data.Header, Is.Not.Null);
             Assert.That(timeTrialResponse.Data.Header.Success, Is.True);
             Assert.That(timeTrialResponse.Data.Header.ChunkInfo, Is.Not.Null);
-            Assert.That(timeTrialResponse.Data.Results, Has.Length.EqualTo(60));
+            Assert.That(timeTrialResponse.Data.Results, Has.Length.EqualTo(48));
 
             Assert.That(timeTrialResponse.RateLimitRemaining, Is.EqualTo(99));
             Assert.That(timeTrialResponse.TotalRateLimit, Is.EqualTo(100));
@@ -1035,7 +1035,7 @@ internal sealed class CapturedResponseValidationTests
             Assert.That(timeTrialResponse.Data.Header, Is.Not.Null);
             Assert.That(timeTrialResponse.Data.Header.Success, Is.True);
             Assert.That(timeTrialResponse.Data.Header.ChunkInfo, Is.Not.Null);
-            Assert.That(timeTrialResponse.Data.Standings, Has.Length.EqualTo(60));
+            Assert.That(timeTrialResponse.Data.Standings, Has.Length.EqualTo(48));
 
             Assert.That(timeTrialResponse.RateLimitRemaining, Is.EqualTo(99));
             Assert.That(timeTrialResponse.TotalRateLimit, Is.EqualTo(100));

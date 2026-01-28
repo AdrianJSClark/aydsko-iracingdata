@@ -3,18 +3,11 @@
 
 namespace Aydsko.iRacingData.Member;
 
-public class LicenseInfo : License
+public class LicenseInfo
+    : License
 {
     [JsonPropertyName("cpi")]
     public decimal CornersPerIncident { get; set; }
-
-    /// <summary>Current iRating for this license.</summary>
-    /// <remarks>Will be <see langword="null"/> for &quot;Rookie&quot; licenses.</remarks>
-    [JsonPropertyName("irating")]
-    public int? IRating { get; set; }
-
-    [JsonPropertyName("tt_rating")]
-    public int TimeTrialRating { get; set; }
 
     [JsonPropertyName("mpr_num_races")]
     public int MinimumParticipationRequirementNumberOfRaces { get; set; }
@@ -29,7 +22,7 @@ public class LicenseInfo : License
     public int Sequence { get; set; }
 
     [JsonIgnore, Obsolete("Use \"TimeTrialRating\" instead.")]
-    public int TTRating { get => TimeTrialRating; set => TimeTrialRating = value; }
+    public int TTRating { get => TimeTrialRating ?? 0; set => TimeTrialRating = value; }
 
     [JsonIgnore, Obsolete("Use \"MinimumParticipationRequirementNumberOfRaces\" instead.")]
     public int MprNumberOfRaces { get => MinimumParticipationRequirementNumberOfRaces; set => MinimumParticipationRequirementNumberOfRaces = value; }

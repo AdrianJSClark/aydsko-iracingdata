@@ -20,11 +20,13 @@ public class License
     [JsonPropertyName("safety_rating")]
     public decimal SafetyRating { get; set; }
 
+    /// <summary>Current iRating for this license.</summary>
+    /// <remarks>Will be <see langword="null"/> for &quot;Rookie&quot; licenses.</remarks>
     [JsonPropertyName("irating")]
-    public int iRating { get; set; }
+    public int? iRating { get; set; }
 
     [JsonPropertyName("tt_rating")]
-    public int TimeTrialRating { get; set; }
+    public int? TimeTrialRating { get; set; }
 
     [JsonPropertyName("color")]
     public string Color { get; set; } = default!;
