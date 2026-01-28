@@ -1,4 +1,11 @@
 ============================
+ Release Notes for 2601.3.0
+============================
+
+FIXES / NEW IMPLEMENTATIONS:
+- "/data/results/get" handler is missing flair properties (Issue #257)
+
+============================
  Release Notes for 2601.2.1
 ============================
 
