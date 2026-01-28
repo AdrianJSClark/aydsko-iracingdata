@@ -1,4 +1,4 @@
-﻿// © 2023 Adrian Clark
+﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
 namespace Aydsko.iRacingData.Member;
@@ -25,4 +25,13 @@ public class MemberProfileInfo
 
     [JsonPropertyName("licenses")]
     public MemberLicense[] Licenses { get; set; } = default!;
+
+    [JsonPropertyName("flair_id")]
+    public int FlairId { get; set; }
+
+    [JsonPropertyName("flair_name")]
+    public string FlairName { get; set; } = default!;
+
+    [JsonPropertyName("flair_shortname")]
+    public string? FlairShortName { get; set; }
 }

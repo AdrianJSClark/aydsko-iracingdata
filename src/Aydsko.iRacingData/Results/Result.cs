@@ -213,7 +213,7 @@ public class Result
     public int FlairId { get; set; } = default!;
 
     [JsonPropertyName("flair_name")]
-    public string? FlairName { get; set; } = default!;
+    public string FlairName { get; set; } = default!;
 
     [JsonPropertyName("driver_results")]
     public DriverResult[]? DriverResults { get; set; }

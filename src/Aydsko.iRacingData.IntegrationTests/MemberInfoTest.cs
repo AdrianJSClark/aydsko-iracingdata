@@ -23,6 +23,8 @@ internal sealed class MemberInfoTest
             Assert.That(memberInfo.Data, Is.Not.Null);
 
             Assert.That(memberInfo.Data.CustomerId, Is.EqualTo(iRacingCustomerId));
+            Assert.That(memberInfo.Data.FlairId, Is.GreaterThan(0));
+            Assert.That(memberInfo.Data.FlairName, Is.Not.Null.Or.Empty);
         }
     }
 }

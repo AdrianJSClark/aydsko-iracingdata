@@ -4,6 +4,7 @@
 
 FIXES / NEW IMPLEMENTATIONS:
 - "/data/results/get" handler is missing flair properties (Issue #257)
+- Implement "Flair" fields in various places (SeasonTimeTrialResult, MemberProfileInfo, Result)
 
 ============================
  Release Notes for 2601.2.1
