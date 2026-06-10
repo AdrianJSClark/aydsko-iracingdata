@@ -87,13 +87,13 @@ public class CarInfo
     public bool IsPsPurchasable { get; set; }
 
     [JsonPropertyName("max_power_adjust_pct")]
-    public int MaxPowerAdjustPct { get; set; }
+    public decimal MaxPowerAdjustPct { get; set; }
 
     [JsonPropertyName("max_weight_penalty_kg")]
     public int MaxWeightPenaltyKg { get; set; }
 
     [JsonPropertyName("min_power_adjust_pct")]
-    public int MinPowerAdjustPct { get; set; }
+    public decimal MinPowerAdjustPct { get; set; }
 
     [JsonPropertyName("package_id")]
     public int PackageId { get; set; }
