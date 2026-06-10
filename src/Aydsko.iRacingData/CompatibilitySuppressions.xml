@@ -9,49 +9,14 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Common.License.get_SafetyRating</Target>
+    <Target>M:Aydsko.iRacingData.Cars.CarInfo.get_MaxPowerAdjustPct</Target>
     <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Member.LicenseInfo.get_IRating</Target>
-    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Member.LicenseInfo.get_TimeTrialRating</Target>
-    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Member.LicenseInfo.set_IRating(System.Nullable{System.Int32})</Target>
-    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Stats.SeasonTimeTrialStanding.get_AverageFieldSize</Target>
-    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Stats.SeasonTimeTrialStanding.get_AverageFinishPosition</Target>
-    <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Stats.SeasonTimeTrialStanding.get_AverageStartPosition</Target>
+    <Target>M:Aydsko.iRacingData.Cars.CarInfo.get_MinPowerAdjustPct</Target>
     <Left>lib/net8.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/net8.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
@@ -154,56 +119,14 @@
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Common.License.get_SafetyRating</Target>
+    <Target>M:Aydsko.iRacingData.Cars.CarInfo.get_MaxPowerAdjustPct</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
   </Suppression>
   <Suppression>
     <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Member.LicenseInfo.get_IRating</Target>
-    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Member.LicenseInfo.get_TimeTrialRating</Target>
-    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Member.LicenseInfo.set_IRating(System.Nullable{System.Int32})</Target>
-    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Stats.SeasonTimeTrialStanding.get_AverageFieldSize</Target>
-    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Stats.SeasonTimeTrialStanding.get_AverageFinishPosition</Target>
-    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0002</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.Stats.SeasonTimeTrialStanding.get_AverageStartPosition</Target>
-    <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
-    <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
-    <IsBaselineSuppression>true</IsBaselineSuppression>
-  </Suppression>
-  <Suppression>
-    <DiagnosticId>CP0006</DiagnosticId>
-    <Target>M:Aydsko.iRacingData.IDataClient.GetCurrentSeasonLookupAsync(System.Threading.CancellationToken)</Target>
+    <Target>M:Aydsko.iRacingData.Cars.CarInfo.get_MinPowerAdjustPct</Target>
     <Left>lib/netstandard2.0/Aydsko.iRacingData.dll</Left>
     <Right>lib/netstandard2.0/Aydsko.iRacingData.dll</Right>
     <IsBaselineSuppression>true</IsBaselineSuppression>
