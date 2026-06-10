@@ -1,48 +1,6 @@
 ============================
- Release Notes for 2601.3.0
+ Release Notes for 2603.0.0
 ============================
 
 FIXES / NEW IMPLEMENTATIONS:
-- "/data/results/get" handler is missing flair properties (Issue #257)
-    Thanks to Kevin Verbruggen (https://github.com/KVerbruggen) for contributing this item.
-- Implement "Flair" fields in various places (SeasonTimeTrialResult, SeasonTimeTrialStandings, MemberProfileInfo, Result)
-
-============================
- Release Notes for 2601.2.1
-============================
-
-FIXES / NEW IMPLEMENTATIONS:
-- Implement Current Season Lookup (Issue #255)
-
-============================
- Release Notes for 2601.1.0
-============================
-
-FIXES / NEW IMPLEMENTATIONS:
-- Changed detection order so the internal "Password Limited Grant" implementation doesn't override a "UseOAuthTokenSource(...)" call when both "ClientId" and "ClientSecret" are defined on the options.
-
-============================
- Release Notes for 2601.0.0
-============================
-
-BREAKING CHANGES:
-- Username & password authentication has been removed. OAuth authentication using "Authorization Code Grant" or "Password Limited Grant" now required (see https://forums.iracing.com/discussion/84226/legacy-authentication-removal-dec-9-2025).
-- "IDataClient.GetMemberChartData" method was removed. Use "IDataClient.GetMemberChartDataAsync" instead.
-- The "TrackScreenshotService" class has been removed. Use "IDataClient.GetTrackAssetScreenshotUris\" or "IDataClient.GetTrackAssetScreenshotUrisAsync" instead.
-- The "AddIRacingDataApi(IServiceCollection)" extension method has been removed. Use "AddIRacingDataApi(IServiceCollection, Action<iRacingDataClientOptions>)" and use the callback to configure the client options.
-- The "AddIRacingDataApiWithCaching(IServiceCollection)" extension method has been removed. Use "AddIRacingDataApiWithCaching(IServiceCollection, Action<iRacingDataClientOptions>)" and use the callback to configure the client options.
-
-
-
-NEW FEATURE: iRacing OAuth "Authorization Code Grant" Authentication
-- Allows authentication using the "/authorize" endpoint via a callback.
-- Implement the "IOAuthTokenSource" interface then configure via "iRacingDataClientOptions.UseOAuthTokenSource(...)" method.
-- This authentication, or "Password Limited Grant", is now required (see https://forums.iracing.com/discussion/84226/legacy-authentication-removal-dec-9-2025).
-- See https://oauth.iracing.com/oauth2/book/token_endpoint.html#authorization-code-grant for more information.
-
-
-
-FIXES / NEW IMPLEMENTATIONS:
-- Implement "/data/session/reg_drivers_list" to retrieve drivers registered for an active session. (Issue #248)
-- Add ability to change iRacing "Data API" base URL (e.g. if you have access to one of iRacing's test environments) via the "ApiBaseUrl" property. (Issue #243)
-- Implement the "/data/series/season_list" and "/data/series/season_schedule" endpoints. (Issue #239)
+- Field "min_power_adjust_pct" Should Be Parsed as a "decimal" (Issue #259)

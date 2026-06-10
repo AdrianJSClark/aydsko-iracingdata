@@ -57,7 +57,7 @@ internal sealed class CapturedResponseValidationTests
         {
             Assert.That(cars!.Data, Is.Not.Null);
 
-            Assert.That(cars.Data, Has.Length.EqualTo(159));
+            Assert.That(cars.Data, Has.Length.EqualTo(189));
             Assert.That(cars.RateLimitRemaining, Is.EqualTo(99));
             Assert.That(cars.TotalRateLimit, Is.EqualTo(100));
             Assert.That(cars.RateLimitReset, Is.EqualTo(new DateTimeOffset(2022, 2, 10, 0, 0, 0, TimeSpan.Zero)));

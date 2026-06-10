@@ -7,7 +7,7 @@
     <!-- Package Validation (https://docs.microsoft.com/en-us/dotnet/fundamentals/package-validation/overview) -->
     <EnablePackageValidation>true</EnablePackageValidation>
     <GenerateCompatibilitySuppressionFile>true</GenerateCompatibilitySuppressionFile>
-    <PackageValidationBaselineVersion>2601.0.0</PackageValidationBaselineVersion>
+    <PackageValidationBaselineVersion>2601.3.0</PackageValidationBaselineVersion>
     <EnableStrictModeForCompatibleFrameworksInPackage>true</EnableStrictModeForCompatibleFrameworksInPackage>
     <EnableStrictModeForCompatibleTfms>true</EnableStrictModeForCompatibleTfms>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -32,7 +32,7 @@
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(CI)' == 'true' And '$(GITHUB_HEAD_REF)' != ''">
-    <MinVerDefaultPreReleaseIdentifiers>$([System.Text.RegularExpressions.Regex]::Replace("$(GITHUB_HEAD_REF)", "[^A-Za-z0-9\\-.]", "-", RegexOptions.IgnoreCase))</MinVerDefaultPreReleaseIdentifiers>
+    <MinVerDefaultPreReleaseIdentifiers>$([System.Text.RegularExpressions.Regex]::Replace("$(GITHUB_HEAD_REF)", "[^-A-Za-z0-9\\.]", "-", RegexOptions.IgnoreCase))</MinVerDefaultPreReleaseIdentifiers>
   </PropertyGroup>
 
   <ItemGroup>
