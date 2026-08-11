@@ -92,7 +92,7 @@
           "note": "If set, return only sessions using this car or track package ID."
         }
       },
-      "expirationSeconds": 900
+      "expirationSeconds": 60
     },
     "directory": {
       "link": "https://members-ng.iracing.com/data/league/directory",
@@ -254,12 +254,17 @@
           "note": "If true include only sessions for which results are available."
         }
       },
-      "expirationSeconds": 900
+      "expirationSeconds": 60
     }
   },
   "lookup": {
     "countries": {
       "link": "https://members-ng.iracing.com/data/lookup/countries",
+      "expirationSeconds": 900
+    },
+    "current_season": {
+      "link": "https://members-ng.iracing.com/data/lookup/current_season",
+      "note": "Changes at midnight UTC on a Tuesday in March, June, September, and December.",
       "expirationSeconds": 900
     },
     "drivers": {

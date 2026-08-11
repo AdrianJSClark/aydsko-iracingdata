@@ -1,4 +1,4 @@
-﻿// © 2023 Adrian Clark
+﻿// © Adrian Clark - Aydsko.iRacingData
 // This file is licensed to you under the MIT license.
 
 namespace Aydsko.iRacingData.Lookups;
@@ -9,7 +9,7 @@ public class LookupValue
     public string Value { get; set; } = default!;
 
     [JsonPropertyName("name")]
-    public string Name { get; set; } = default!;
+    public string? Name { get; set; }
 
     [JsonPropertyName("description")]
     public string Description { get; set; } = default!;
